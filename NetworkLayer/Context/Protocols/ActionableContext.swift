@@ -1,12 +1,12 @@
 //
-//  Contextable.swift
+//  ActionableContext.swift
 //  NetworkLayer
 //
 //  Created by Александр Кравченков on 14.10.2017.
 //  Copyright © 2017 Кравченков Александр. All rights reserved.
 //
 
-public protocol Contextable {
+public protocol ActionableContext {
 
     associatedtype ResultType
 

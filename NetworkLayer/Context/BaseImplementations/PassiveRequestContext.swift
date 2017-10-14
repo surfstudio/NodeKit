@@ -6,20 +6,20 @@
 //  Copyright © 2017 Кравченков Александр. All rights reserved.
 //
 
-public class RequestContext<Model>: Contextable {
+public class PassiveRequestContext<Model>: PassiveContext {
 
-    // MARK: - Typealias
+    // MARK: - Typealiases
 
     public typealias ResultType = Model
     public typealias CompletedClosure = (ResultType) -> Void
     public typealias ErrorClosure = (Error) -> Void
 
-    // MARK: - Private fileds
+    // MARK: - Private fields
 
     private var completedClosure: CompletedClosure?
     private var errorClosure: ErrorClosure?
 
-    // MARK: - Contextable methods
+    // MARK: - Context methods
 
     public func onCompleted(_ closure: @escaping CompletedClosure) {
         self.completedClosure = closure

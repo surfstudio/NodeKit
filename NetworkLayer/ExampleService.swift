@@ -9,9 +9,9 @@
 import Foundation
 
 public class ExampleService {
-    public static func send() -> RequestContext<Void> {
+    public static func send() -> PassiveRequestContext<Void> {
         let req = ExampleRequest()
-        let context = RequestContext<Void>()
+        let context = PassiveRequestContext<Void>()
         req.performAsync { result in
             switch result {
             case .failure(let error):
@@ -20,6 +20,12 @@ public class ExampleService {
                 context.performComplete(result: value)
             }
         }
+        return context
+    }
+
+    public static func activeSend() -> ActiveRequestContext<Void> {
+        let req = ExampleRequest()
+        let context = ActiveRequestContext(request: req)
         return context
     }
 }
