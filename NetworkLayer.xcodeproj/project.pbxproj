@@ -16,9 +16,9 @@
 		B94310491F91F51600E8A9BA /* ExampleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310481F91F51600E8A9BA /* ExampleService.swift */; };
 		B943104B1F91F54B00E8A9BA /* ExampleRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B943104A1F91F54B00E8A9BA /* ExampleRequest.swift */; };
 		B943104D1F92160C00E8A9BA /* RequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B943104C1F92160C00E8A9BA /* RequestContext.swift */; };
+		B94310501F921C9500E8A9BA /* ErrorMapperAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B943104F1F921C8F00E8A9BA /* ErrorMapperAdapter.swift */; };
 		B97BCFAD1F8D371C005D7B27 /* BaseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCFA01F8BF120005D7B27 /* BaseResult.swift */; };
 		B97BCFAE1F8D371C005D7B27 /* BaseServerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCFA91F8BF120005D7B27 /* BaseServerRequest.swift */; };
-		B97BCFAF1F8D371C005D7B27 /* GoLamaGoURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCFA81F8BF120005D7B27 /* GoLamaGoURLs.swift */; };
 		B97BCFB01F8D371C005D7B27 /* NetworkLayerBaseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCFAA1F8BF120005D7B27 /* NetworkLayerBaseErrors.swift */; };
 		B97BCFB11F8D3720005D7B27 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCFA21F8BF120005D7B27 /* ServerResponse.swift */; };
 		B97BCFB21F8D3720005D7B27 /* MultipartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97BCFA31F8BF120005D7B27 /* MultipartData.swift */; };
@@ -42,13 +42,13 @@
 		B94310481F91F51600E8A9BA /* ExampleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleService.swift; sourceTree = "<group>"; };
 		B943104A1F91F54B00E8A9BA /* ExampleRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleRequest.swift; sourceTree = "<group>"; };
 		B943104C1F92160C00E8A9BA /* RequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestContext.swift; sourceTree = "<group>"; };
+		B943104F1F921C8F00E8A9BA /* ErrorMapperAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapperAdapter.swift; sourceTree = "<group>"; };
 		B97BCFA01F8BF120005D7B27 /* BaseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResult.swift; sourceTree = "<group>"; };
 		B97BCFA21F8BF120005D7B27 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		B97BCFA31F8BF120005D7B27 /* MultipartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartData.swift; sourceTree = "<group>"; };
 		B97BCFA51F8BF120005D7B27 /* ServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerRequest.swift; sourceTree = "<group>"; };
 		B97BCFA61F8BF120005D7B27 /* ServerRequest+SupportedClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServerRequest+SupportedClasses.swift"; sourceTree = "<group>"; };
 		B97BCFA71F8BF120005D7B27 /* SyncServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncServerRequest.swift; sourceTree = "<group>"; };
-		B97BCFA81F8BF120005D7B27 /* GoLamaGoURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoLamaGoURLs.swift; sourceTree = "<group>"; };
 		B97BCFA91F8BF120005D7B27 /* BaseServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseServerRequest.swift; sourceTree = "<group>"; };
 		B97BCFAA1F8BF120005D7B27 /* NetworkLayerBaseErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayerBaseErrors.swift; sourceTree = "<group>"; };
 		FA202EE475DBE3B2F2450AD6 /* Pods_NetworkLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetworkLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,8 +95,9 @@
 		B905E43C1F7C129E00D2D4EF /* NetworkLayer */ = {
 			isa = PBXGroup;
 			children = (
+				B943104E1F921C8F00E8A9BA /* ErrorAdapter */,
 				B94310451F91F38F00E8A9BA /* Context */,
-				B905E44F1F7C12BA00D2D4EF /* Network */,
+				B905E44F1F7C12BA00D2D4EF /* Core */,
 				B905E43D1F7C129E00D2D4EF /* AppDelegate.swift */,
 				B905E43F1F7C129E00D2D4EF /* ViewController.swift */,
 				B905E4411F7C129E00D2D4EF /* Main.storyboard */,
@@ -109,16 +110,15 @@
 			path = NetworkLayer;
 			sourceTree = "<group>";
 		};
-		B905E44F1F7C12BA00D2D4EF /* Network */ = {
+		B905E44F1F7C12BA00D2D4EF /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				B97BCFA01F8BF120005D7B27 /* BaseResult.swift */,
 				B97BCFA91F8BF120005D7B27 /* BaseServerRequest.swift */,
-				B97BCFA81F8BF120005D7B27 /* GoLamaGoURLs.swift */,
 				B97BCFAA1F8BF120005D7B27 /* NetworkLayerBaseErrors.swift */,
 				B97BCFA11F8BF120005D7B27 /* ServerPart */,
 			);
-			path = Network;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		B94310451F91F38F00E8A9BA /* Context */ = {
@@ -128,6 +128,14 @@
 				B943104C1F92160C00E8A9BA /* RequestContext.swift */,
 			);
 			path = Context;
+			sourceTree = "<group>";
+		};
+		B943104E1F921C8F00E8A9BA /* ErrorAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				B943104F1F921C8F00E8A9BA /* ErrorMapperAdapter.swift */,
+			);
+			path = ErrorAdapter;
 			sourceTree = "<group>";
 		};
 		B97BCFA11F8BF120005D7B27 /* ServerPart */ = {
@@ -293,6 +301,7 @@
 				B97BCFB21F8D3720005D7B27 /* MultipartData.swift in Sources */,
 				B97BCFB41F8D3727005D7B27 /* ServerRequest+SupportedClasses.swift in Sources */,
 				B97BCFB31F8D3727005D7B27 /* ServerRequest.swift in Sources */,
+				B94310501F921C9500E8A9BA /* ErrorMapperAdapter.swift in Sources */,
 				B97BCFAD1F8D371C005D7B27 /* BaseResult.swift in Sources */,
 				B943104B1F91F54B00E8A9BA /* ExampleRequest.swift in Sources */,
 				B97BCFB01F8D371C005D7B27 /* NetworkLayerBaseErrors.swift in Sources */,
@@ -300,7 +309,6 @@
 				B97BCFAE1F8D371C005D7B27 /* BaseServerRequest.swift in Sources */,
 				B94310491F91F51600E8A9BA /* ExampleService.swift in Sources */,
 				B97BCFB11F8D3720005D7B27 /* ServerResponse.swift in Sources */,
-				B97BCFAF1F8D371C005D7B27 /* GoLamaGoURLs.swift in Sources */,
 				B905E43E1F7C129E00D2D4EF /* AppDelegate.swift in Sources */,
 				B97BCFB51F8D3727005D7B27 /* SyncServerRequest.swift in Sources */,
 			);

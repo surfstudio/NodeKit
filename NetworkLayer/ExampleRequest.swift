@@ -14,8 +14,8 @@ class ExampleRequest: BaseServerRequest<Void> {
         completion(.success((), false))
     }
 
-    override func createAsyncServerRequest() -> ServerRequest {
-        return ServerRequest(method: .get, relativeUrl: "", baseUrl: "https://github.com", parameters: .simpleParams(nil))
+    override func createAsyncServerRequest() -> CoreServerRequest {
+        return CoreServerRequest(method: .get, relativeUrl: "", baseUrl: "https://github.com", parameters: .simpleParams(nil))
     }
 
     deinit {

@@ -15,15 +15,15 @@ open class BaseServerRequest<ResultValueType> {
 
     // MARK: - Properties
 
-    lazy var asyncServerRequest: ServerRequest = { [unowned self] in
+    lazy var asyncServerRequest: CoreServerRequest = { [unowned self] in
         return self.createAsyncServerRequest()
     }()
 
-    lazy var syncServerRequst: SyncServerRequest = { [unowned self] in
+    lazy var syncServerRequst: SyncCoreServerRequest = { [unowned self] in
         return self.createSyncServerRequest()
     }()
 
-    private var currentRequest: ServerRequest?
+    private var currentRequest: CoreServerRequest?
 
     // MARK: - Internal methods
 
@@ -62,14 +62,14 @@ open class BaseServerRequest<ResultValueType> {
     /// Создает асинхронный запрос. необходимо переопределение в потомке
     ///
     /// - Return: Сконфигурированный запрос к серверу
-    func createAsyncServerRequest() -> ServerRequest {
+    func createAsyncServerRequest() -> CoreServerRequest {
         preconditionFailure("This method must be overriden by the subclass")
     }
 
     /// Создает синхронный запрос. необходимо переопределение в потомке
     ///
     /// - Return: Сконфигурированный запрос к серверу
-    func createSyncServerRequest() -> SyncServerRequest {
+    func createSyncServerRequest() -> SyncCoreServerRequest {
         preconditionFailure("This method must be overriden by the subclass")
     }
 

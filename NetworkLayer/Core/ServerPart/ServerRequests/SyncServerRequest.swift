@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class SyncServerRequest: ServerRequest {
+class SyncCoreServerRequest: CoreServerRequest {
 
     override func perform(with completion: @escaping (ServerResponse) -> Void) {
         let headers = super.createHeaders()

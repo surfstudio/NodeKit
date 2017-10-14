@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 @objc
-class ServerRequest: NSObject {
+class CoreServerRequest: NSObject {
 
     typealias PerformedRequest = (DataRequest) -> Void
     typealias Completion = (ServerResponse) -> Void
@@ -136,7 +136,7 @@ class ServerRequest: NSObject {
 
 // MARK: - Work witch URLCache
 
-extension ServerRequest {
+extension CoreServerRequest {
 
     /// Извлекает из кэш из URLCache для конкретного запроса
     func extractCachedUrlResponse() -> CachedURLResponse? {
@@ -171,7 +171,7 @@ extension ServerRequest {
     }
 }
 
-extension ServerRequest {
+extension CoreServerRequest {
 
     enum MultipartRequestCompletion {
         case succes(DataRequest)
@@ -220,15 +220,11 @@ extension ServerRequest {
             }
         })
     }
-
-    func createDataRequest() {
-
-    }
 }
 
 // MARK: - Requests
 
-extension ServerRequest {
+extension CoreServerRequest {
 
     func sendRequest(completion: @escaping Completion) -> PerformedRequest {
         let performRequest = { (request: DataRequest) -> Void in
@@ -281,7 +277,7 @@ extension ServerRequest {
 
 // MARK: - Supported methods
 
-extension ServerRequest {
+extension CoreServerRequest {
     func log(_ afResponse: DefaultDataResponse) {
         #if DEBUG
             let url: String = afResponse.request?.url?.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""

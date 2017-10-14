@@ -118,7 +118,7 @@ private extension ServerResponse {
         guard let error = self.trySerializeToJson(data: data) else {
             return BaseServerError.badJsonFormat
         }
-        guard let customError = self.errorMapper?.map(json: error) else {
+        guard let customError = self.errorMapper?.map(json: error, httpCode: self.statusCode) else {
             return BaseServerError.undefind
         }
 

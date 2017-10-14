@@ -19,7 +19,7 @@ public enum BaseResult<Value> {
 
     /// Создает объект из ResponseResult
     ///
-    /// - Parameter afResult: результат выполнения запроса
+    /// - Parameter baseResult: результат выполнения запроса
     init(with baseResult: ResponseResult<Value>) {
         switch baseResult {
         case .success(let value, let isCached):
@@ -31,6 +31,7 @@ public enum BaseResult<Value> {
 }
 
 public extension BaseResult {
+    
     var value: (value: Value, fromCahce: Bool)? {
         guard case .value(let val, let fromCache) = self else {
             return nil
