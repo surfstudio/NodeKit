@@ -13,7 +13,7 @@ import Alamofire
 class CoreServerRequest: NSObject {
 
     typealias PerformedRequest = (DataRequest) -> Void
-    typealias Completion = (ServerResponse) -> Void
+    typealias Completion = (CoreServerResponse) -> Void
 
     enum Method {
         case get
@@ -68,8 +68,11 @@ class CoreServerRequest: NSObject {
     let errorMapper: ErrorMapperAdapter?
 
     fileprivate var currentRequest: DataRequest? = nil
+    fileprivate let cacheAdapter: CacheAdapter
 
-    init(method: Method, relativeUrl: String, baseUrl: String, token: String? = nil, headers: HTTPHeaders? = nil, parameters: ServerRequestParameter, customEncoding: Encoding? = nil, errorMapper: ErrorMapperAdapter? = nil) {
+    init(method: Method, relativeUrl: String, baseUrl: String, token: String? = nil,
+         headers: HTTPHeaders? = nil, parameters: ServerRequestParameter,
+         customEncoding: Encoding? = nil, errorMapper: ErrorMapperAdapter? = nil, cacheAdapter: CacheAdapter) {
         self.method = method
         self.token = token
         self.headers = headers
@@ -79,10 +82,11 @@ class CoreServerRequest: NSObject {
         self.cachePolicy = .serverIfFailReadFromCahce
         self.customEncoding = customEncoding
         self.errorMapper = errorMapper
+        self.cacheAdapter = cacheAdapter
         super.init()
     }
 
-    func perform(with completion: @escaping (ServerResponse) -> Void) {
+    func perform(with completion: @escaping (CoreServerResponse) -> Void) {
 
         let requests = self.createRequestWithPolicy(with: completion)
 
@@ -134,48 +138,11 @@ class CoreServerRequest: NSObject {
     }
 }
 
-// MARK: - Work witch URLCache
-
-extension CoreServerRequest {
-
-    /// Извлекает из кэш из URLCache для конкретного запроса
-    func extractCachedUrlResponse() -> CachedURLResponse? {
-        guard let urlRequest = self.currentRequest?.request else {
-            return nil
-        }
-
-        if let response = URLCache.shared.cachedResponse(for: urlRequest) {
-            return response
-        }
-        return nil
-    }
-
-    func extractCachedUrlResponse(request: URLRequest?) -> CachedURLResponse? {
-        guard let urlRequest = request else {
-            return nil
-        }
-
-        if let response = URLCache.shared.cachedResponse(for: urlRequest) {
-            return response
-        }
-        return nil
-    }
-
-    /// Сохраняет запрос в кэш
-    func store(cachedUrlResponse: CachedURLResponse, for request: URLRequest?) {
-        guard let urlRequest = request else {
-            return
-        }
-
-        URLCache.shared.storeCachedResponse(cachedUrlResponse, for: urlRequest)
-    }
-}
-
 extension CoreServerRequest {
 
     enum MultipartRequestCompletion {
         case succes(DataRequest)
-        case failure(ServerResponse)
+        case failure(CoreServerResponse)
     }
 
     func createSingleParamRequest(_ params: [String: Any]?) -> DataRequest {
@@ -215,7 +182,7 @@ extension CoreServerRequest {
             case let .success(request: uploadRequest, streamingFromDisk: _, streamFileURL: _):
                 completion(.succes(uploadRequest))
             case let .failure(error):
-                let response = ServerResponse(dataResponse: nil, dataResult: .failure(error), errorMapper: self.errorMapper)
+                let response = CoreServerResponse(dataResponse: nil, dataResult: .failure(error), errorMapper: self.errorMapper)
                 completion(.failure(response))
             }
         })
@@ -231,14 +198,14 @@ extension CoreServerRequest {
             self.currentRequest = request
             request.response { afResponse in
                 self.log(afResponse)
-                var response = ServerResponse(dataResponse: afResponse, dataResult: .success(afResponse.data, false), errorMapper: self.errorMapper)
+                var response = CoreServerResponse(dataResponse: afResponse, dataResult: .success(afResponse.data, false), errorMapper: self.errorMapper)
 
-                if (response.notModified || response.connectionFailed) && self.cachePolicy == .serverIfFailReadFromCahce {
-                    response = self.readCache(with: request.request, response: response)
+                if (response.notModified || response.connectionFailed) && self.cachePolicy == .serverIfFailReadFromCahce, let guardRequest = request.request {
+                    response = self.cacheAdapter.load(urlRequest: guardRequest, response: response)
                 }
 
-                if response.result.value != nil, let urlResponse = afResponse.response, let data = afResponse.data, self.cachePolicy != .serverOnly {
-                    self.store(cachedUrlResponse: CachedURLResponse(response: urlResponse, data: data, storagePolicy: .allowed), for: request.request)
+                if response.result.value != nil, let urlResponse = afResponse.response, let data = afResponse.data, self.cachePolicy != .serverOnly, let urlRequest = request.request {
+                    self.cacheAdapter.save(urlResponse: urlResponse, urlRequest: urlRequest, data: data)
                 }
 
                 completion(response)
@@ -250,28 +217,12 @@ extension CoreServerRequest {
 
     func readFromCache(completion: @escaping Completion) -> PerformedRequest {
         let performRequest = { (request: DataRequest) -> Void in
-            completion(self.readCache(with: request.request))
+            guard let guardRequest = request.request else {
+                return
+            }
+            completion(self.cacheAdapter.load(urlRequest: guardRequest, response: nil))
         }
         return performRequest
-    }
-
-    func readCache(with request: URLRequest?, response: ServerResponse? = nil) -> ServerResponse {
-
-        let result = response ?? ServerResponse()
-
-        if let cachedResponse = self.extractCachedUrlResponse(request: request),
-            let resultResponse = cachedResponse.response as? HTTPURLResponse {
-            result.httpResponse = resultResponse
-            result.result = { () -> ResponseResult<Any> in
-                do {
-                    let object = try JSONSerialization.jsonObject(with: cachedResponse.data, options: .allowFragments)
-                    return .success(object, true)
-                } catch {
-                    return .failure(BaseCacheError.cantLoadFromCache)
-                }
-            }()
-        }
-        return result
     }
 }
 

@@ -9,35 +9,7 @@
 import Foundation
 import Alamofire
 
-public class ServerError: LocalizedError {
-
-    private struct Keys {
-        public static let id = "id"
-        public static let message = "message"
-    }
-
-    private(set) var id: String
-    private(set) var message: String?
-
-    public init(id: String, message: String?) {
-        self.id = id
-        self.message = message
-    }
-
-    public convenience init?(with json: [String: Any]) {
-
-        guard let guardedId = json[Keys.id] as? String else {
-            return nil
-        }
-        self.init(id: guardedId, message: json[Keys.message] as? String)
-    }
-
-    public var errorDescription: String? {
-        return self.message
-    }
-}
-
-class ServerResponse: NSObject {
+public class CoreServerResponse: NSObject {
 
     // MARK: - Consts
     private struct Const {
@@ -108,7 +80,7 @@ class ServerResponse: NSObject {
 
 // MARK: - Error parsing extensions
 
-private extension ServerResponse {
+private extension CoreServerResponse {
 
     func trySerializeToJson(data: Data?) -> Any? {
         return try? JSONSerialization.jsonObject(with: data ?? Data(), options: .allowFragments)

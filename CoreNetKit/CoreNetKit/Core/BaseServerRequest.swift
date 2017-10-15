@@ -19,9 +19,9 @@ open class BaseServerRequest<ResultValueType> {
         return self.createAsyncServerRequest()
     }()
 
-    lazy var syncServerRequst: SyncCoreServerRequest = { [unowned self] in
-        return self.createSyncServerRequest()
-    }()
+//    lazy var syncServerRequst: SyncCoreServerRequest = { [unowned self] in
+//        return self.createSyncServerRequest()
+//    }()
 
     private var currentRequest: CoreServerRequest?
 
@@ -41,17 +41,17 @@ open class BaseServerRequest<ResultValueType> {
     /// Выполняет синхронный запрос. Является оберткой над performAsync
     ///
     /// - Return: результат выполнения запроса
-    func performSync() -> ResponseResult<ResultValueType> {
-        var result: ResponseResult<ResultValueType>!
-        currentRequest = syncServerRequst
-        currentRequest?.perform(with: { serverResponse in
-            self.handle(serverResponse: serverResponse, completion: { handleResult in
-                result = handleResult
-            })
-            self.currentRequest = nil
-        })
-        return result
-    }
+//    func performSync() -> ResponseResult<ResultValueType> {
+//        var result: ResponseResult<ResultValueType>!
+//        currentRequest = syncServerRequst
+//        currentRequest?.perform(with: { serverResponse in
+//            self.handle(serverResponse: serverResponse, completion: { handleResult in
+//                result = handleResult
+//            })
+//            self.currentRequest = nil
+//        })
+//        return result
+//    }
 
     func cancel() {
         currentRequest?.cancel()
@@ -69,12 +69,12 @@ open class BaseServerRequest<ResultValueType> {
     /// Создает синхронный запрос. необходимо переопределение в потомке
     ///
     /// - Return: Сконфигурированный запрос к серверу
-    func createSyncServerRequest() -> SyncCoreServerRequest {
-        preconditionFailure("This method must be overriden by the subclass")
-    }
+//    func createSyncServerRequest() -> SyncCoreServerRequest {
+//        preconditionFailure("This method must be overriden by the subclass")
+//    }
 
     /// Обработка ответа сервера. При необходимости можно перегрузить метод.
-    func handle(serverResponse: ServerResponse, completion: RequestCompletion) {
+    func handle(serverResponse: CoreServerResponse, completion: RequestCompletion) {
         preconditionFailure("This method must be overriden by the subclass")
     }
 }
