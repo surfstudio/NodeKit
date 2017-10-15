@@ -205,7 +205,7 @@ extension CoreServerRequest {
                 }
 
                 if response.result.value != nil, let urlResponse = afResponse.response, let data = afResponse.data, self.cachePolicy != .serverOnly, let urlRequest = request.request {
-                    self.cacheAdapter.save(urlResponse: urlResponse, urlRequest: urlRequest, data: data)
+                    self.cacheAdapter.save(urlResponse: urlResponse, urlRequest: urlRequest, data: data) 
                 }
 
                 completion(response)
