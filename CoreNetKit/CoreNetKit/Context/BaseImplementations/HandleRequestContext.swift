@@ -8,10 +8,12 @@
 
 import Foundation
 
+/// Context that incapsulate request handle
+/// It may used for automatic convertion response type to awaiting type
 public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestContext {
 
     // MARK: - Typealiases
-
+					
     public typealias ResultType = ResultModel
     public typealias RequestType = RequestModel
     public typealias CompletedClosure = (ResultModel) -> Void

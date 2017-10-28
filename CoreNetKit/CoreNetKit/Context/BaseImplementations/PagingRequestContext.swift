@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Context for paginable service
 public class PagingRequestContext<ResultModel>: PaginableRequestContext {
 
 

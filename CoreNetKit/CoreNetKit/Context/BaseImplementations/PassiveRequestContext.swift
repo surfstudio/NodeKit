@@ -6,6 +6,7 @@
 //  Copyright © 2017 Кравченков Александр. All rights reserved.
 //
 
+/// 
 public class PassiveRequestContext<Model>: PassiveContext {
 
     // MARK: - Typealiases

@@ -8,15 +8,16 @@
 
 import Foundation
 
+open class UrlCacheAdapter: CacheAdapter {
 
-public class UrlCacheAdapter: CacheAdapter {
+    public init() { }
 
-    public func save(urlResponse: URLResponse, urlRequest: URLRequest, data: Data) {
+    open func save(urlResponse: URLResponse, urlRequest: URLRequest, data: Data) {
         let cahced = CachedURLResponse(response: urlResponse, data: data, storagePolicy: .allowed)
         URLCache.shared.storeCachedResponse(cahced, for: urlRequest)
     }
 
-    public func load(urlRequest: URLRequest, response: CoreServerResponse?) -> CoreServerResponse {
+    open func load(urlRequest: URLRequest, response: CoreServerResponse?) -> CoreServerResponse {
         let result = response ?? CoreServerResponse()
 
         if let cachedResponse = self.extractCachedUrlResponse(request: urlRequest),

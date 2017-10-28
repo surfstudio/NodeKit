@@ -9,19 +9,18 @@
 import Foundation
 import Alamofire
 
-@objc
-class CoreServerRequest: NSObject {
+public class CoreServerRequest: NSObject {
 
     typealias PerformedRequest = (DataRequest) -> Void
     typealias Completion = (CoreServerResponse) -> Void
 
-    enum Method {
+    public enum Method {
         case get
         case post
         case put
         case delete
 
-        var alamofire: Alamofire.HTTPMethod {
+        public var alamofire: Alamofire.HTTPMethod {
             switch self {
             case .get: return .get
             case .post: return .post
@@ -31,12 +30,12 @@ class CoreServerRequest: NSObject {
         }
     }
 
-    enum Encoding {
+    public enum Encoding {
         case defaultJson
         case defaultUrl
         case queryStringUrl
 
-        var alamofire: Alamofire.ParameterEncoding {
+        public var alamofire: Alamofire.ParameterEncoding {
             switch self {
             case .defaultJson:
                 return JSONEncoding.default
@@ -49,28 +48,28 @@ class CoreServerRequest: NSObject {
     }
 
     /// Метод API
-    let path: String
+    public let path: String
     /// Результирующий URL запроса - включает baseUrl и path
-    let url: URL
+    public let url: URL
     /// Метод (get, post, delete...)
-    let method: Method
+    public let method: Method
     /// Токен для хедера
-    let token: String?
+    public let token: String?
     /// Хидеры запроса
-    let headers: HTTPHeaders?
+    public let headers: HTTPHeaders?
     /// Параметры запроса
-    var parameters: ServerRequestParameter
+    public var parameters: ServerRequestParameter
     /// serverOnly by default
-    var cachePolicy: CachePolicy
+    public var cachePolicy: CachePolicy
 
-    let customEncoding: Encoding?
+    public let customEncoding: Encoding?
 
-    let errorMapper: ErrorMapperAdapter?
+    public let errorMapper: ErrorMapperAdapter?
 
     fileprivate var currentRequest: DataRequest? = nil
     fileprivate let cacheAdapter: CacheAdapter
 
-    init(method: Method, relativeUrl: String, baseUrl: String, token: String? = nil,
+    public init(method: Method, relativeUrl: String, baseUrl: String, token: String? = nil,
          headers: HTTPHeaders? = nil, parameters: ServerRequestParameter,
          customEncoding: Encoding? = nil, errorMapper: ErrorMapperAdapter? = nil, cacheAdapter: CacheAdapter) {
         self.method = method
@@ -133,7 +132,6 @@ class CoreServerRequest: NSObject {
         if let tokenString = token {
             headers["Authorization"] = tokenString
         }
-        headers ["Content-Type"] = "Application/json"
         return headers
     }
 }

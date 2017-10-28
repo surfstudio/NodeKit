@@ -11,7 +11,9 @@ import Alamofire
 
 open class BaseServerRequest<ResultValueType> {
 
-    typealias RequestCompletion = (ResponseResult<ResultValueType>) -> Void
+    public init() { }
+
+    public typealias RequestCompletion = (ResponseResult<ResultValueType>) -> Void
 
     // MARK: - Properties
 
@@ -30,7 +32,7 @@ open class BaseServerRequest<ResultValueType> {
     /// Выполняет асинхронный запрос
     ///
     /// - Parameter completion: Комплишн блок. Вызывается после выполнения запроса
-    func performAsync(with completion: @escaping RequestCompletion) {
+    public func performAsync(with completion: @escaping RequestCompletion) {
         currentRequest = asyncServerRequest
         currentRequest?.perform(with: { serverResponse in
             self.handle(serverResponse: serverResponse, completion: completion)
@@ -53,7 +55,7 @@ open class BaseServerRequest<ResultValueType> {
 //        return result
 //    }
 
-    func cancel() {
+    open func cancel() {
         currentRequest?.cancel()
     }
 
@@ -62,7 +64,7 @@ open class BaseServerRequest<ResultValueType> {
     /// Создает асинхронный запрос. необходимо переопределение в потомке
     ///
     /// - Return: Сконфигурированный запрос к серверу
-    func createAsyncServerRequest() -> CoreServerRequest {
+    open func createAsyncServerRequest() -> CoreServerRequest {
         preconditionFailure("This method must be overriden by the subclass")
     }
 
@@ -74,7 +76,7 @@ open class BaseServerRequest<ResultValueType> {
 //    }
 
     /// Обработка ответа сервера. При необходимости можно перегрузить метод.
-    func handle(serverResponse: CoreServerResponse, completion: RequestCompletion) {
+    open func handle(serverResponse: CoreServerResponse, completion: RequestCompletion) {
         preconditionFailure("This method must be overriden by the subclass")
     }
 }
