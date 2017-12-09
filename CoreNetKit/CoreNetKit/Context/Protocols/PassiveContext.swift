@@ -6,7 +6,8 @@
 //  Copyright © 2017 Кравченков Александр. All rights reserved.
 //
 
-/// Provide interface for object, that must implement logic for call `onCompleted(_ cosure: )` and `onError(_ closure: )`
+/// Provide interface for object, that must implement logic for call `onCompleted(_ cosure: )` and `onError(_ closure: )`.
+/// Its something like backside of ActionableContext.
 public protocol PassiveContext: ActionableContext {
 
     /// Call completed closure.

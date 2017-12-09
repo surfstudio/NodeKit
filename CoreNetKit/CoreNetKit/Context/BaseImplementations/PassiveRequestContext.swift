@@ -6,7 +6,8 @@
 //  Copyright © 2017 Кравченков Александр. All rights reserved.
 //
 
-/// 
+/// Base implementation of PassiveContext
+/// - see: PassiveContext
 public class PassiveRequestContext<Model>: PassiveContext {
 
     // MARK: - Typealiases
@@ -41,7 +42,7 @@ public class PassiveRequestContext<Model>: PassiveContext {
     #if DEBUG
 
     deinit {
-        print("RequestContext DEINIT ")
+        print("RequestContext DEINIT")
     }
 
     #endif

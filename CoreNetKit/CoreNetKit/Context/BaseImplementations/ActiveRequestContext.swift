@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// Base implementation ActionableContext
+/// - see: ActionableContext
 public class ActiveRequestContext<Model>: ActionableContext {
 
     // MARK: - Typealiases

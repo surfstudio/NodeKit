@@ -31,7 +31,7 @@ public class CoreServerResponse: NSObject {
 
     // MARK: - Initializers
 
-    /// For creatin Cached responses
+    /// For creating Cached responses
     internal override init() {
         self.statusCode = Const.succesCode
         self.notModified = true

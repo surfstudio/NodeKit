@@ -6,6 +6,8 @@
 //  Copyright © 2017 Кравченков Александр. All rights reserved.
 //
 
+/// Base context for any more complex contexts.
+/// Provides Rx-like interface for handling success and errors of response.
 public protocol ActionableContext {
 
     associatedtype ResultType

@@ -14,6 +14,7 @@ enum BaseServerError: LocalizedError {
     case networkError
     case undefind
     case cantMapping
+    case unauthorized
 }
 
 enum BaseCacheError: LocalizedError {
