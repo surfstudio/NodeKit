@@ -8,6 +8,12 @@
 
 import Foundation
 
+public protocol AccessSafeRequestManagerDelegate {
+
+    /// If access refreshed successfully then pass true, otherwise false
+    func refreshAccess(_ completion: @escaping (Bool) -> Void)
+}
+
 public enum AuthError: LocalizedError {
     /// Need relogin
     case badTokens
@@ -56,18 +62,19 @@ public class ServiceSafeRequest<RequestModel>: NSObject, SafableRequest {
 /// Incapsulate safe performation token refresh requests.
 public class AccessSafeRequestManager {
 
-    public static var shared = AccessSafeRequestManager()
-
     fileprivate var requests: [SafableRequest]
 
     fileprivate let dispatchGroup: DispatchGroup
 
     fileprivate var isRefreshTokenRequestWasSended: Bool
 
-    public init() {
+    fileprivate let delegate: AccessSafeRequestManagerDelegate
+
+    public init(delegate: AccessSafeRequestManagerDelegate) {
         self.requests = [SafableRequest]()
         self.dispatchGroup = DispatchGroup()
         self.isRefreshTokenRequestWasSended = false
+        self.delegate = delegate
     }
 
     public func addRequest(request: SafableRequest) {
@@ -139,20 +146,20 @@ private extension AccessSafeRequestManager {
     }
 
     private func safePerform(request: SafableRequest) {
+        self.delegate.refreshAccess { (isSuccess) in
+            guard isSuccess else {
+                self.failedSafePerformation(request: request)
+                return
+            }
 
-//        AuthService.refreshToken { (result) in
-//            guard case .value = result else {
-//                self.failedSafePerformation(request: request)
-//                return
-//            }
-//            request.perform(completion: { result in
-//                guard !result else {
-//                    self.successSafePerformation()
-//                    return
-//                }
-//                self.failedSafePerformation(request: request)
-//            })
-//        }
+            request.perform(completion: { result in
+                guard !result else {
+                    self.successSafePerformation()
+                    return
+                }
+                self.failedSafePerformation(request: request)
+            })
+        }
     }
 
     private func successPerformation(request: SafableRequest) {

@@ -1,0 +1,24 @@
+PODS:
+  - Alamofire (4.6.0)
+  - CoreNetKit (0.0.7):
+    - Alamofire
+
+DEPENDENCIES:
+  - CoreNetKit (from `https://github.com/LastSprint/CoreNetKit.git`)
+
+EXTERNAL SOURCES:
+  CoreNetKit:
+    :git: https://github.com/LastSprint/CoreNetKit.git
+
+CHECKOUT OPTIONS:
+  CoreNetKit:
+    :commit: 8670df97237f1893f3417fad00b6091afd11ad00
+    :git: https://github.com/LastSprint/CoreNetKit.git
+
+SPEC CHECKSUMS:
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  CoreNetKit: 4e7f7ecaf6b3bc8e15d0d54f1e3f73cc0458acf5
+
+PODFILE CHECKSUM: 5b8627137baa39579102cde12d974bb92dc439fc
+
+COCOAPODS: 1.3.1
