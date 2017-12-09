@@ -32,6 +32,7 @@
 		B96CD4161FDC4E2200F5A107 /* CacheableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CD4151FDC4E2200F5A107 /* CacheableContext.swift */; };
 		B97D3CD51F93440800DB6ED6 /* UrlCacheAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D3CD41F93440800DB6ED6 /* UrlCacheAdapter.swift */; };
 		B97D3CD71F93468000DB6ED6 /* CacheAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D3CD61F93468000DB6ED6 /* CacheAdapter.swift */; };
+		B9B4F7861FDC731B00A0B1D1 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4F7851FDC731B00A0B1D1 /* Cancellable.swift */; };
 		BCFAC6802138941D95442C6D /* Pods_CoreNetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE7165D5DEA5570C05AF1BED /* Pods_CoreNetKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		B96CD4151FDC4E2200F5A107 /* CacheableContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableContext.swift; sourceTree = "<group>"; };
 		B97D3CD41F93440800DB6ED6 /* UrlCacheAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlCacheAdapter.swift; sourceTree = "<group>"; };
 		B97D3CD61F93468000DB6ED6 /* CacheAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAdapter.swift; sourceTree = "<group>"; };
+		B9B4F7851FDC731B00A0B1D1 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				B94310CF1F9322AC00E8A9BA /* HandableContext.swift */,
 				B94310F81F932B2700E8A9BA /* PaginableRequestContext.swift */,
 				B96CD4151FDC4E2200F5A107 /* CacheableContext.swift */,
+				B9B4F7851FDC731B00A0B1D1 /* Cancellable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B94311011F933D0F00E8A9BA /* Countable.swift in Sources */,
+				B9B4F7861FDC731B00A0B1D1 /* Cancellable.swift in Sources */,
 				B94310E71F9324F300E8A9BA /* ServicePaginator + AsyncIterator.swift in Sources */,
 				B94310EE1F93250700E8A9BA /* MultipartData.swift in Sources */,
 				B97D3CD71F93468000DB6ED6 /* CacheAdapter.swift in Sources */,

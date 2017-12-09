@@ -9,9 +9,7 @@
 import Foundation
 
 /// Devide success completion on cache completion and server completion
-public protocol CacheableContext {
-
-    associatedtype ResultType
+public protocol CacheableContext: ActionableContext{
 
     /// Called if coupled object completed operation succesfully
     ///

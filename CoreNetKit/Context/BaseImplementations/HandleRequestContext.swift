@@ -10,7 +10,7 @@ import Foundation
 
 /// Context that incapsulate request handle
 /// It may used for automatic convertion response type to awaiting type
-public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestContext {
+public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestContext, CancellableContext {
 
     // MARK: - Typealiases
 					
@@ -63,5 +63,9 @@ public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestCon
                 self.completedClosure?(value)
             }
         }
+    }
+
+    public func cancel() {
+        self.request.cancel()
     }
 }

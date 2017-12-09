@@ -10,7 +10,7 @@ import Foundation
 
 /// Base implementation ActionableContext
 /// - see: ActionableContext
-public class ActiveRequestContext<Model>: ActionableContext {
+public class ActiveRequestContext<Model>: ActionableContext, CancellableContext {
 
     // MARK: - Typealiases
 
@@ -57,6 +57,10 @@ public class ActiveRequestContext<Model>: ActionableContext {
                 self.completedClosure?(value)
             }
         }
+    }
+
+    public func cancel() {
+        self.request.cancel()
     }
 }
 
