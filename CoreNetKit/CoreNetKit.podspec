@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CoreNetKit"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "A short description of CoreNetKit."
 
   # This description is used to generate tags and improve search results.
