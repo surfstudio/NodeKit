@@ -20,9 +20,9 @@ public class ActiveRequestContext<Model>: ActionableContext {
 
     // MARK: - Private fields
 
-    private var completedClosure: CompletedClosure?
-    private var errorClosure: ErrorClosure?
-    private let request: BaseServerRequest<Model>
+    fileprivate var completedClosure: CompletedClosure?
+    fileprivate var errorClosure: ErrorClosure?
+    fileprivate let request: BaseServerRequest<Model>
 
     // MARK: - Initializers / Deinitializers
 
@@ -55,6 +55,32 @@ public class ActiveRequestContext<Model>: ActionableContext {
                 self.errorClosure?(error)
             case .success(let value, _):
                 self.completedClosure?(value)
+            }
+        }
+    }
+}
+
+public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, CacheableContext {
+
+    public typealias ResultType = Model
+
+    fileprivate var completedCacheClosure: CompletedClosure?
+
+    public func onCacheCompleted(_ closure: @escaping (ResultType) -> Void) {
+        self.completedCacheClosure = closure
+    }
+
+    override public func perform() {
+        self.request.performAsync { result in
+            switch result {
+            case .failure(let error):
+                self.errorClosure?(error)
+            case .success(let value, let cacheFlag):
+                if cacheFlag {
+                    self.completedCacheClosure?(value)
+                } else {
+                    self.completedClosure?(value)
+                }
             }
         }
     }
