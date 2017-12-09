@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios
   s.ios.deployment_target = "10.0"
 
-  s.source       = { :git => "https://github.com/LastSprint/CoreNetKit.git", :tag => "s.version" }
+  s.source       = { :git => "https://github.com/LastSprint/CoreNetKit.git", :tag => s.version }
 
   s.source_files  = "CoreNetKit/**/**/*.swift"
   s.dependency 'Alamofire'
