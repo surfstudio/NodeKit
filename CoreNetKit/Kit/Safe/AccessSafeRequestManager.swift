@@ -8,6 +8,10 @@
 
 import Foundation
 
+public protocol AccessSafeManager {
+    func addRequest(request: SafableRequest)
+}
+
 public protocol AccessSafeRequestManagerDelegate {
 
     /// If access refreshed successfully then pass true, otherwise false
@@ -60,7 +64,7 @@ public class ServiceSafeRequest<RequestModel>: NSObject, SafableRequest {
 }
 
 /// Incapsulate safe performation token refresh requests.
-public class AccessSafeRequestManager {
+public class AccessSafeRequestManager: AccessSafeManager {
 
     fileprivate var requests: [SafableRequest]
 

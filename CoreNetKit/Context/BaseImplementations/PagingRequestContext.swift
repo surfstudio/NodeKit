@@ -22,12 +22,12 @@ public class PagingRequestContext<ResultModel>: PaginableRequestContext {
 
     private var completedClosure: CompletedClosure?
     private var errorClosure: ErrorClosure?
-    private let reques: BaseServerRequest<ResultType> & ReusablePagingRequest
+    private let request: BaseServerRequest<ResultType> & ReusablePagingRequest
 
     // MARK: - Initialization
 
     public required init(request: BaseServerRequest<ResultType> & ReusablePagingRequest) {
-        self.reques = request
+        self.request = request
     }
 
     // MARK: - Context methods
@@ -43,18 +43,25 @@ public class PagingRequestContext<ResultModel>: PaginableRequestContext {
     // MARK: - Paginable context
 
     public func pagin(startIndex: Int, itemsOnPage: Int) {
-        self.reques.reuse(startIndex: startIndex, itemsOnPage: itemsOnPage)
+        self.request.reuse(startIndex: startIndex, itemsOnPage: itemsOnPage)
         self.perfromRequest()
     }
 
     private func perfromRequest() {
-        self.reques.performAsync { result in
-            switch result {
-            case .failure(let error):
-                self.errorClosure?(error)
-            case .success(let value, _):
-                self.completedClosure?(value)
-            }
+        self.request.performAsync { self.performHandler(result: $0) }
+    }
+
+    public func safePerform(manager: AccessSafeManager) {
+        let request = ServiceSafeRequest(request: self.request) { self.performHandler(result: $0) }
+        manager.addRequest(request: request)
+    }
+
+    private func performHandler(result: ResponseResult<ResultModel>) {
+        switch result {
+        case .failure(let error):
+            self.errorClosure?(error)
+        case .success(let value, _):
+            self.completedClosure?(value)
         }
     }
 }

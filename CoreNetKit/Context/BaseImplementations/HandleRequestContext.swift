@@ -54,18 +54,25 @@ public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestCon
     }
 
     public func perform() {
-        self.request.performAsync { result in
-            let converted = self.handler(result)
-            switch converted {
-            case .failure(let error):
-                self.errorClosure?(error)
-            case .success(let value, _):
-                self.completedClosure?(value)
-            }
-        }
+        self.request.performAsync { self.performHandler(result: $0) }
     }
 
     public func cancel() {
         self.request.cancel()
+    }
+
+    public func safePerform(manager: AccessSafeManager) {
+        let request = ServiceSafeRequest(request: self.request) { self.performHandler(result: $0) }
+        manager.addRequest(request: request)
+    }
+
+    private func performHandler(result: ResponseResult<RequestModel>) {
+        let converted = self.handler(result)
+        switch converted {
+        case .failure(let error):
+            self.errorClosure?(error)
+        case .success(let value, _):
+            self.completedClosure?(value)
+        }
     }
 }
