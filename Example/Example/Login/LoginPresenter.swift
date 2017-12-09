@@ -22,6 +22,16 @@ public class LoginPresenter {
     }
 
     public func login() {
+        guard let guardModel = self.model else {
+            return
+        }
 
+        LoginService().login(email: guardModel.email, password: guardModel.password)
+            .onCompleted {
+                // completed
+            }
+            .onError {
+            }
+        }
     }
 }

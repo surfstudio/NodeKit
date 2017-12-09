@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.6.0)
-  - CoreNetKit (0.0.7):
+  - CoreNetKit (1.0.0):
     - Alamofire
 
 DEPENDENCIES:
@@ -12,12 +12,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CoreNetKit:
-    :commit: 8670df97237f1893f3417fad00b6091afd11ad00
+    :commit: bf272e1df82249e048ff08282ead6a3d6377df00
     :git: https://github.com/LastSprint/CoreNetKit.git
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  CoreNetKit: 4e7f7ecaf6b3bc8e15d0d54f1e3f73cc0458acf5
+  CoreNetKit: 28222e79a759796666f2d6e1899dcff830e5ccb9
 
 PODFILE CHECKSUM: 5b8627137baa39579102cde12d974bb92dc439fc
 

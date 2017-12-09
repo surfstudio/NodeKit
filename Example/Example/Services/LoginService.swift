@@ -12,7 +12,7 @@ import CoreNetKit
 public class LoginService {
 
     public func login(email: String, password: String) -> ActiveRequestContext<Void> {
-
+        
     }
 
 }
