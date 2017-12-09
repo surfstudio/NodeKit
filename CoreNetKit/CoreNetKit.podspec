@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "CoreNetKit"
-  s.version      = "0.0.5"
+  s.version      = "0.0.6"
   s.summary      = "Framework for network interaction"
 
   s.description  = <<-DESC
