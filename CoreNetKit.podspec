@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/LastSprint/CoreNetKit.git", :tag => s.version }
 
-  s.source_files  = 'CoreNetKit/*.swift'
+  s.source_files  = 'CoreNetKit/Context/**/*.swift', 'CoreNetKit/Core/*.swift', 'CoreNetKit/Core/Adapters/**/*.swift', 'CoreNetKit/Core/Adapters/**/*.swift', 'CoreNetKit/Core/ServerPart/*.swift', 'CoreNetKit/Core/ServerPart/ServerRequests/*.swift', 'CoreNetKit/Kit/**/*.swift',
   s.dependency 'Alamofire'
 
 end
