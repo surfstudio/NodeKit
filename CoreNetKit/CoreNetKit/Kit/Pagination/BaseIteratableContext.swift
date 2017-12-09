@@ -20,12 +20,12 @@ public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator
 
     // MARK: - Private fileds
 
-    private let startIndex: Int
-    private var currentIndex: Int
-    private let itemsOnPage: Int
-    private let paginableContext: PagingRequestContext<ResultModel>
-    private var completedClosure: CompletedClosure?
-    private var errorClosure: ErrorClosure?
+    fileprivate let startIndex: Int
+    fileprivate var currentIndex: Int
+    fileprivate let itemsOnPage: Int
+    fileprivate let paginableContext: PagingRequestContext<ResultModel>
+    fileprivate var completedClosure: CompletedClosure?
+    fileprivate var errorClosure: ErrorClosure?
 
     // MARK: - Public properties
 

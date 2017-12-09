@@ -21,7 +21,7 @@ public class ActiveRequestContext<Model>: ActionableContext {
     // MARK: - Private fields
 
     fileprivate var completedClosure: CompletedClosure?
-    private var errorClosure: ErrorClosure?
+    fileprivate var errorClosure: ErrorClosure?
     fileprivate let request: BaseServerRequest<Model>
 
     // MARK: - Initializers / Deinitializers
