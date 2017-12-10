@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CoreNetKit:
-    :commit: 6b2274905683dabcc266a89c3e5470900c576013
+    :commit: 065bf04bfc50d6d9828797f357db73aa1ba83c93
     :git: https://github.com/LastSprint/CoreNetKit.git
   SwiftLoader:
     :commit: 4a4116aef5b7b14731163c80ad5cc9bcc577df21

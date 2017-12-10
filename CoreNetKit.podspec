@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "CoreNetKit"
-  s.version      = "1.0.1"
+  s.version      = "1.0.0"
   s.summary      = "Framework for network interaction"
 
   s.homepage     = "https://github.com/LastSprint/CoreNetKit"
