@@ -26,6 +26,7 @@ public class LoginPresenter {
             return
         }
 
+        LoginService().login(email: guardModel.email, password: guardModel.password).
 //        LoginService().login(email: guardModel.email, password: guardModel.password)
 //            .onCompleted {
 //                // completed

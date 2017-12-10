@@ -45,12 +45,16 @@ public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestCon
 
     // MARK: - Context methods
 
-    public func onCompleted(_ closure: @escaping CompletedClosure) {
+    @discardableResult
+    public func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
         self.completedClosure = closure
+        return self
     }
 
-    public func onError(_ closure: @escaping ErrorClosure) {
+    @discardableResult
+    public func onError(_ closure: @escaping ErrorClosure) -> Self {
         self.errorClosure = closure
+        return self
     }
 
     public func perform() {

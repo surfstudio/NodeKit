@@ -15,10 +15,12 @@ public protocol ActionableContext {
     /// Called if coupled object completed operation succesfully
     ///
     /// - Parameter closure: callback
-    func onCompleted(_ closure: @escaping (ResultType) -> Void)
+    @discardableResult
+    func onCompleted(_ closure: @escaping (ResultType) -> Void) -> Self
 
     /// Called if coupled object's operation completed with error
     ///
     /// - Parameter closure: callback
-    func onError(_ closure: @escaping (Error) -> Void)
+    @discardableResult
+    func onError(_ closure: @escaping (Error) -> Void) -> Self
 }

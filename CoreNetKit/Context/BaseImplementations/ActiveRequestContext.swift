@@ -40,12 +40,16 @@ public class ActiveRequestContext<Model>: ActionableContext, CancellableContext 
 
     // MARK: - Context methods
 
-    public func onCompleted(_ closure: @escaping CompletedClosure) {
+    @discardableResult
+    public func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
         self.completedClosure = closure
+        return self
     }
 
-    public func onError(_ closure: @escaping ErrorClosure) {
+    @discardableResult
+    public func onError(_ closure: @escaping ErrorClosure) -> Self {
         self.errorClosure = closure
+        return self
     }
 
     public func perform() {
@@ -77,8 +81,10 @@ public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, Cacheable
 
     fileprivate var completedCacheClosure: CompletedClosure?
 
-    public func onCacheCompleted(_ closure: @escaping (ResultType) -> Void) {
+    @discardableResult
+    public func onCacheCompleted(_ closure: @escaping (ResultType) -> Void) -> Self {
         self.completedCacheClosure = closure
+        return self
     }
 
     override public func perform() {

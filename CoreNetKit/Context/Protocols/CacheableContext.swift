@@ -14,5 +14,6 @@ public protocol CacheableContext: ActionableContext{
     /// Called if coupled object completed operation succesfully
     ///
     /// - Parameter closure: callback
-    func onCacheCompleted(_ closure: @escaping (ResultType) -> Void)
+    @discardableResult
+    func onCacheCompleted(_ closure: @escaping (ResultType) -> Void) -> Self
 }

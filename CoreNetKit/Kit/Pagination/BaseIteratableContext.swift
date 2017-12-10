@@ -58,12 +58,16 @@ public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator
 
     // MARK: - Actionable context
 
-    public func onCompleted(_ closure: @escaping CompletedClosure) {
+    @discardableResult
+    public func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
         self.completedClosure = closure
+        return self
     }
 
-    public func onError(_ closure: @escaping ErrorClosure) {
+    @discardableResult
+    public func onError(_ closure: @escaping ErrorClosure) -> Self {
         self.errorClosure = closure
+        return self
     }
 }
 
@@ -75,8 +79,7 @@ private extension BaseIteratableContext {
             self.currentIndex += result.itemsCount
             self.completedClosure?(result)
         }
-
-        self.paginableContext.onError { result in
+        .onError { result in
             self.canMoveNext = false
             self.errorClosure?(result)
         }

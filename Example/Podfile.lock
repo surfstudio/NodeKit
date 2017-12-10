@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.6.0)
-  - CoreNetKit (1.0.0):
+  - CoreNetKit (1.0.1):
     - Alamofire
   - SwiftLoader (0.2.5)
 
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CoreNetKit:
-    :commit: fe2d3d1845ce0233b904b93f86e98ad54f9aa832
+    :commit: 6b2274905683dabcc266a89c3e5470900c576013
     :git: https://github.com/LastSprint/CoreNetKit.git
   SwiftLoader:
     :commit: 4a4116aef5b7b14731163c80ad5cc9bcc577df21
@@ -24,7 +24,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  CoreNetKit: 28222e79a759796666f2d6e1899dcff830e5ccb9
+  CoreNetKit: e4fa6e7eeb4dbd242486ec6f07525b0fddb1ebc2
   SwiftLoader: 12d7a6f661f5e9a2c9a72003e7dd6162f4ff0cc4
 
 PODFILE CHECKSUM: 1dab31670bb4a01ddeefbaf77d32e8a5c5449f23
