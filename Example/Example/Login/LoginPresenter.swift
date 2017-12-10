@@ -26,12 +26,11 @@ public class LoginPresenter {
             return
         }
 
-        LoginService().login(email: guardModel.email, password: guardModel.password)
-            .onCompleted {
-                // completed
-            }
-            .onError {
-            }
-        }
+//        LoginService().login(email: guardModel.email, password: guardModel.password)
+//            .onCompleted {
+//                // completed
+//            }
+//            .onError {
+//            }
     }
 }
