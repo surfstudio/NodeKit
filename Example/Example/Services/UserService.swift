@@ -9,10 +9,10 @@
 import Foundation
 import CoreNetKit
 
-public class LoginService {
+public class UserService {
 
-    public func login(email: String, password: String) -> ActiveRequestContext<Void> {
-        
-    }
+//    public func login(email: String, password: String) -> ActiveRequestContext<Void> {
+//        
+//    }
 
 }

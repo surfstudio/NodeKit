@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftLoader
 
 class LoginViewController: UIViewController {
 
@@ -41,7 +42,6 @@ class LoginViewController: UIViewController {
         super.viewDidDisappear(animated)
         self.removeSubscriptions()
     }
-
 }
 
 // MARK: - IBActions

@@ -25,13 +25,5 @@ public class LoginPresenter {
         guard let guardModel = self.model else {
             return
         }
-
-        LoginService().login(email: guardModel.email, password: guardModel.password).
-//        LoginService().login(email: guardModel.email, password: guardModel.password)
-//            .onCompleted {
-//                // completed
-//            }
-//            .onError {
-//            }
     }
 }

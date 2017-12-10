@@ -22,12 +22,12 @@ public class CoreServerResponse: NSObject {
 
     // MARK: - Fileds
 
-    var httpResponse: HTTPURLResponse?
-    let statusCode: Int
-    var notModified: Bool
-    var connectionFailed: Bool
-    var result: ResponseResult<Any>
-    private(set) var errorMapper: ErrorMapperAdapter?
+    public internal(set) var httpResponse: HTTPURLResponse?
+    public let statusCode: Int
+    public internal(set) var notModified: Bool
+    public internal(set) var connectionFailed: Bool
+    public internal(set) var result: ResponseResult<Any>
+    public internal(set) var errorMapper: ErrorMapperAdapter?
 
     // MARK: - Initializers
 
