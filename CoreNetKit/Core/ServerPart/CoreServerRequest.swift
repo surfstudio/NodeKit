@@ -241,16 +241,14 @@ extension CoreServerRequest {
             if let data = afResponse.data {
                 responseBody = "\(String(data: data, encoding: .utf8) ?? "nil")"
             }
-            debugPrint("URL: \(url)")
-            debugPrint("REQUEST: \(type)")
-            debugPrint("HEADERS: \(headers)")
+            NSLog("URL: \(url)")
+            NSLog("REQUEST: \(type)")
+            NSLog("HEADERS: \(headers)")
             NSLog("BODY: %@", body)
-            debugPrint("RESPONSE: \(statusCode)")
-            debugPrint("HEADERS: \(reponseHeaders)")
+            NSLog("RESPONSE: \(statusCode)")
+            NSLog("HEADERS: \(reponseHeaders)")
             NSLog("BODY: %@", responseBody)
-            debugPrint("TIMELINE: \(afResponse.timeline)")
-            debugPrint("DiskCache: \(URLCache.shared.currentDiskUsage) of \(URLCache.shared.diskCapacity)")
-            debugPrint("MemoryCache: \(URLCache.shared.currentMemoryUsage) of \(URLCache.shared.memoryCapacity)")
+            NSLog("TIMELINE: \(afResponse.timeline)")
         #else
         #endif
     }

@@ -188,19 +188,11 @@
 			isa = PBXGroup;
 			children = (
 				B94310DD1F9322AC00E8A9BA /* CoreServerResponse.swift */,
+				B94310E11F9322AC00E8A9BA /* ServerRequest+SupportedClasses.swift */,
+				B94310E01F9322AC00E8A9BA /* CoreServerRequest.swift */,
 				B94310DE1F9322AC00E8A9BA /* MultipartData.swift */,
-				B94310DF1F9322AC00E8A9BA /* ServerRequests */,
 			);
 			path = ServerPart;
-			sourceTree = "<group>";
-		};
-		B94310DF1F9322AC00E8A9BA /* ServerRequests */ = {
-			isa = PBXGroup;
-			children = (
-				B94310E01F9322AC00E8A9BA /* CoreServerRequest.swift */,
-				B94310E11F9322AC00E8A9BA /* ServerRequest+SupportedClasses.swift */,
-			);
-			path = ServerRequests;
 			sourceTree = "<group>";
 		};
 		B94310E31F9322DB00E8A9BA /* Pagination */ = {
