@@ -17,6 +17,10 @@ open class BaseServerRequest<ResultValueType> {
 
     private var currentRequest: CoreServerRequest?
 
+    // MARK: - Initializers
+
+    public init() { }
+
     // MARK: - Internal methods
 
     /// Выполняет асинхронный запрос
