@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public class CoreServerRequest: NSObject {
+public class BaseCoreServerRequest: NSObject, CoreServerRequest {
 
     typealias PerformedRequest = (DataRequest) -> Void
     typealias Completion = (CoreServerResponse) -> Void
@@ -85,7 +85,7 @@ public class CoreServerRequest: NSObject {
         super.init()
     }
 
-    func perform(with completion: @escaping (CoreServerResponse) -> Void) {
+    public func perform(with completion: @escaping (CoreServerResponse) -> Void) {
 
         let requests = self.createRequestWithPolicy(with: completion)
 
@@ -120,7 +120,7 @@ public class CoreServerRequest: NSObject {
     }
 
     /// Этот метод используется для отмены текущего запроса
-    func cancel() {
+    public func cancel() {
         currentRequest?.cancel()
     }
 
@@ -136,7 +136,7 @@ public class CoreServerRequest: NSObject {
     }
 }
 
-extension CoreServerRequest {
+extension BaseCoreServerRequest {
 
     enum MultipartRequestCompletion {
         case succes(DataRequest)
@@ -180,7 +180,7 @@ extension CoreServerRequest {
             case let .success(request: uploadRequest, streamingFromDisk: _, streamFileURL: _):
                 completion(.succes(uploadRequest))
             case let .failure(error):
-                let response = CoreServerResponse(dataResponse: nil, dataResult: .failure(error), errorMapper: self.errorMapper)
+                let response = BaseCoreServerResponse(dataResponse: nil, dataResult: .failure(error), errorMapper: self.errorMapper)
                 completion(.failure(response))
             }
         })
@@ -189,16 +189,16 @@ extension CoreServerRequest {
 
 // MARK: - Requests
 
-extension CoreServerRequest {
+extension BaseCoreServerRequest {
 
     func sendRequest(completion: @escaping Completion) -> PerformedRequest {
         let performRequest = { (request: DataRequest) -> Void in
             self.currentRequest = request
             request.response { afResponse in
                 self.log(afResponse)
-                var response = CoreServerResponse(dataResponse: afResponse, dataResult: .success(afResponse.data, false), errorMapper: self.errorMapper)
+                var response: CoreServerResponse = BaseCoreServerResponse(dataResponse: afResponse, dataResult: .success(afResponse.data, false), errorMapper: self.errorMapper)
 
-                if (response.notModified || response.connectionFailed) && self.cachePolicy == .serverIfFailReadFromCahce, let guardRequest = request.request {
+                if (response.isNotModified || response.isConnectionFailed) && self.cachePolicy == .serverIfFailReadFromCahce, let guardRequest = request.request {
                     response = self.cacheAdapter.load(urlRequest: guardRequest, response: response)
                 }
 
@@ -226,7 +226,7 @@ extension CoreServerRequest {
 
 // MARK: - Supported methods
 
-extension CoreServerRequest {
+extension BaseCoreServerRequest {
     func log(_ afResponse: DefaultDataResponse) {
         #if DEBUG
             let url: String = afResponse.request?.url?.absoluteString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""

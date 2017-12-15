@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F290E2A1FE4046E00FFCCF2 /* CoreServerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E291FE4046E00FFCCF2 /* CoreServerRequest.swift */; };
+		4F290E2C1FE4047D00FFCCF2 /* CoreServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E2B1FE4047D00FFCCF2 /* CoreServerResponse.swift */; };
+		4F290E2E1FE4064D00FFCCF2 /* ResponseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */; };
 		B94310AF1F931CC000E8A9BA /* CoreNetKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* CoreNetKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B94310E71F9324F300E8A9BA /* ServicePaginator + AsyncIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310D71F9322AC00E8A9BA /* ServicePaginator + AsyncIterator.swift */; };
 		B94310E81F9324F500E8A9BA /* BaseIteratableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310E41F93234900E8A9BA /* BaseIteratableContext.swift */; };
@@ -14,9 +17,9 @@
 		B94310EA1F9324FE00E8A9BA /* BaseServerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310D91F9322AC00E8A9BA /* BaseServerRequest.swift */; };
 		B94310EB1F93250000E8A9BA /* NetworkLayerBaseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310DA1F9322AC00E8A9BA /* NetworkLayerBaseErrors.swift */; };
 		B94310EC1F93250200E8A9BA /* BaseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310DB1F9322AC00E8A9BA /* BaseResult.swift */; };
-		B94310ED1F93250500E8A9BA /* CoreServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310DD1F9322AC00E8A9BA /* CoreServerResponse.swift */; };
+		B94310ED1F93250500E8A9BA /* BaseCoreServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310DD1F9322AC00E8A9BA /* BaseCoreServerResponse.swift */; };
 		B94310EE1F93250700E8A9BA /* MultipartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310DE1F9322AC00E8A9BA /* MultipartData.swift */; };
-		B94310EF1F93250B00E8A9BA /* CoreServerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310E01F9322AC00E8A9BA /* CoreServerRequest.swift */; };
+		B94310EF1F93250B00E8A9BA /* BaseCoreServerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310E01F9322AC00E8A9BA /* BaseCoreServerRequest.swift */; };
 		B94310F01F93250C00E8A9BA /* ServerRequest+SupportedClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310E11F9322AC00E8A9BA /* ServerRequest+SupportedClasses.swift */; };
 		B94310F21F93251500E8A9BA /* PassiveContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310CD1F9322AC00E8A9BA /* PassiveContext.swift */; };
 		B94310F31F93251500E8A9BA /* ActionableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310CE1F9322AC00E8A9BA /* ActionableContext.swift */; };
@@ -37,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F290E291FE4046E00FFCCF2 /* CoreServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerRequest.swift; sourceTree = "<group>"; };
+		4F290E2B1FE4047D00FFCCF2 /* CoreServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerResponse.swift; sourceTree = "<group>"; };
+		4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseResult.swift; sourceTree = "<group>"; };
 		5DAD6F60B4CDE6F34E0A989E /* Pods-CoreNetKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreNetKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoreNetKit/Pods-CoreNetKit.release.xcconfig"; sourceTree = "<group>"; };
 		9CFB82B00304E5A9AF2B8632 /* Pods-CoreNetKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreNetKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoreNetKit/Pods-CoreNetKit.debug.xcconfig"; sourceTree = "<group>"; };
 		AE7165D5DEA5570C05AF1BED /* Pods_CoreNetKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreNetKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,9 +60,9 @@
 		B94310D91F9322AC00E8A9BA /* BaseServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseServerRequest.swift; sourceTree = "<group>"; };
 		B94310DA1F9322AC00E8A9BA /* NetworkLayerBaseErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayerBaseErrors.swift; sourceTree = "<group>"; };
 		B94310DB1F9322AC00E8A9BA /* BaseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResult.swift; sourceTree = "<group>"; };
-		B94310DD1F9322AC00E8A9BA /* CoreServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerResponse.swift; sourceTree = "<group>"; };
+		B94310DD1F9322AC00E8A9BA /* BaseCoreServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoreServerResponse.swift; sourceTree = "<group>"; };
 		B94310DE1F9322AC00E8A9BA /* MultipartData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartData.swift; sourceTree = "<group>"; };
-		B94310E01F9322AC00E8A9BA /* CoreServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerRequest.swift; sourceTree = "<group>"; };
+		B94310E01F9322AC00E8A9BA /* BaseCoreServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoreServerRequest.swift; sourceTree = "<group>"; };
 		B94310E11F9322AC00E8A9BA /* ServerRequest+SupportedClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServerRequest+SupportedClasses.swift"; sourceTree = "<group>"; };
 		B94310E41F93234900E8A9BA /* BaseIteratableContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseIteratableContext.swift; sourceTree = "<group>"; };
 		B94310F81F932B2700E8A9BA /* PaginableRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginableRequestContext.swift; sourceTree = "<group>"; };
@@ -82,6 +88,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F290E281FE4045C00FFCCF2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				4F290E291FE4046E00FFCCF2 /* CoreServerRequest.swift */,
+				4F290E2B1FE4047D00FFCCF2 /* CoreServerResponse.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		82F23CED1DAFB3EBD5AF8198 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,10 +202,12 @@
 		B94310DC1F9322AC00E8A9BA /* ServerPart */ = {
 			isa = PBXGroup;
 			children = (
-				B94310DD1F9322AC00E8A9BA /* CoreServerResponse.swift */,
+				4F290E281FE4045C00FFCCF2 /* Protocols */,
+				B94310DD1F9322AC00E8A9BA /* BaseCoreServerResponse.swift */,
 				B94310E11F9322AC00E8A9BA /* ServerRequest+SupportedClasses.swift */,
-				B94310E01F9322AC00E8A9BA /* CoreServerRequest.swift */,
+				B94310E01F9322AC00E8A9BA /* BaseCoreServerRequest.swift */,
 				B94310DE1F9322AC00E8A9BA /* MultipartData.swift */,
+				4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */,
 			);
 			path = ServerPart;
 			sourceTree = "<group>";
@@ -362,26 +379,29 @@
 				B94310E71F9324F300E8A9BA /* ServicePaginator + AsyncIterator.swift in Sources */,
 				B94310EE1F93250700E8A9BA /* MultipartData.swift in Sources */,
 				B97D3CD71F93468000DB6ED6 /* CacheAdapter.swift in Sources */,
+				4F290E2E1FE4064D00FFCCF2 /* ResponseResult.swift in Sources */,
 				B94310FF1F932D3200E8A9BA /* ReusablePagingRequest.swift in Sources */,
 				B94310F21F93251500E8A9BA /* PassiveContext.swift in Sources */,
 				B94310F41F93251500E8A9BA /* HandableContext.swift in Sources */,
 				B94310F01F93250C00E8A9BA /* ServerRequest+SupportedClasses.swift in Sources */,
 				B94310FB1F932BD900E8A9BA /* PagingRequestContext.swift in Sources */,
-				B94310EF1F93250B00E8A9BA /* CoreServerRequest.swift in Sources */,
+				B94310EF1F93250B00E8A9BA /* BaseCoreServerRequest.swift in Sources */,
 				B94310E81F9324F500E8A9BA /* BaseIteratableContext.swift in Sources */,
 				B96CD4141FDC450800F5A107 /* AccessSafeRequestManager.swift in Sources */,
 				B94310EC1F93250200E8A9BA /* BaseResult.swift in Sources */,
 				B94310EA1F9324FE00E8A9BA /* BaseServerRequest.swift in Sources */,
 				B96CD4161FDC4E2200F5A107 /* CacheableContext.swift in Sources */,
-				B94310ED1F93250500E8A9BA /* CoreServerResponse.swift in Sources */,
+				B94310ED1F93250500E8A9BA /* BaseCoreServerResponse.swift in Sources */,
 				B94310EB1F93250000E8A9BA /* NetworkLayerBaseErrors.swift in Sources */,
 				B97D3CD51F93440800DB6ED6 /* UrlCacheAdapter.swift in Sources */,
 				B94310F31F93251500E8A9BA /* ActionableContext.swift in Sources */,
 				B94310F91F932B2700E8A9BA /* PaginableRequestContext.swift in Sources */,
+				4F290E2C1FE4047D00FFCCF2 /* CoreServerResponse.swift in Sources */,
 				B94310F71F93251C00E8A9BA /* HandleRequestContext.swift in Sources */,
 				B94310E91F9324FB00E8A9BA /* ErrorMapperAdapter.swift in Sources */,
 				B94310F51F93251C00E8A9BA /* ActiveRequestContext.swift in Sources */,
 				B94310F61F93251C00E8A9BA /* PassiveRequestContext.swift in Sources */,
+				4F290E2A1FE4046E00FFCCF2 /* CoreServerRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

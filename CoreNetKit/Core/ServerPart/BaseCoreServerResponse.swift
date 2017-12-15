@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public class CoreServerResponse: NSObject {
+public class BaseCoreServerResponse: NSObject, CoreServerResponse {
 
     // MARK: - Consts
     private struct Const {
@@ -22,11 +22,11 @@ public class CoreServerResponse: NSObject {
 
     // MARK: - Fileds
 
-    public internal(set) var httpResponse: HTTPURLResponse?
+    public var httpResponse: HTTPURLResponse?
     public let statusCode: Int
-    public internal(set) var notModified: Bool
-    public internal(set) var connectionFailed: Bool
-    public internal(set) var result: ResponseResult<Any>
+    public internal(set) var isNotModified: Bool
+    public internal(set) var isConnectionFailed: Bool
+    public var result: ResponseResult<Any>
     public internal(set) var errorMapper: ErrorMapperAdapter?
 
     // MARK: - Initializers
@@ -34,8 +34,8 @@ public class CoreServerResponse: NSObject {
     /// For creating Cached responses
     internal override init() {
         self.statusCode = Const.succesCode
-        self.notModified = true
-        self.connectionFailed = false
+        self.isNotModified = true
+        self.isConnectionFailed = false
         self.result = .failure(BaseCacheError.cantFindInCache)
         super.init()
     }
@@ -44,14 +44,14 @@ public class CoreServerResponse: NSObject {
         self.httpResponse = dataResponse?.response
         let statusCode = self.httpResponse?.statusCode ?? 0
         self.statusCode = statusCode
-        self.notModified = self.statusCode == Const.notModifiedCode
-        self.connectionFailed = false
+        self.isNotModified = self.statusCode == Const.notModifiedCode
+        self.isConnectionFailed = false
         self.errorMapper = errorMapper
         self.result = .failure(BaseServerError.undefind)
         super.init()
         if (dataResponse?.error as NSError?)?.code == Const.networkErrorCode {
             self.result = .failure(BaseServerError.networkError)
-            self.connectionFailed = true
+            self.isConnectionFailed = true
             return
         }
 
@@ -80,7 +80,7 @@ public class CoreServerResponse: NSObject {
 
 // MARK: - Error parsing extensions
 
-private extension CoreServerResponse {
+private extension BaseCoreServerResponse {
 
     func trySerializeToJson(data: Data?) -> Any? {
         return try? JSONSerialization.jsonObject(with: data ?? Data(), options: .allowFragments)

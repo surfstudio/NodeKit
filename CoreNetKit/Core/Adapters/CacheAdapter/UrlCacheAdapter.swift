@@ -18,7 +18,7 @@ open class UrlCacheAdapter: CacheAdapter {
     }
 
     open func load(urlRequest: URLRequest, response: CoreServerResponse?) -> CoreServerResponse {
-        let result = response ?? CoreServerResponse()
+        var result = response ?? BaseCoreServerResponse()
 
         if let cachedResponse = self.extractCachedUrlResponse(request: urlRequest),
             let resultResponse = cachedResponse.response as? HTTPURLResponse {
