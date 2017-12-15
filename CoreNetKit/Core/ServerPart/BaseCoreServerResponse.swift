@@ -12,7 +12,7 @@ import Alamofire
 public class BaseCoreServerResponse: NSObject, CoreServerResponse {
 
     // MARK: - Consts
-    private struct Const {
+    public struct Const {
         public static let succesCode = 200
         public static let notModifiedCode = 304
         public static let firstErrorCode = 300
