@@ -22,6 +22,8 @@ public class PassiveRequestContext<Model>: PassiveContext {
     private var errorClosure: ErrorClosure?
 
     // MARK: - Context methods
+    
+    public init() { }
 
     @discardableResult
     public func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
