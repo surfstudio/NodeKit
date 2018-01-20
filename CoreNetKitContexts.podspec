@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/LastSprint/CoreNetKit.git", :tag => s.version }
 
-  s.source_files  = 'CoreNetKit/Context/Protocols/*.swift', 'CoreNetKit/Context/BaseImplementations/PassiveRequestContext.swift', 'CoreNetKit/Core/Adapters/**/*.swift', 'CoreNetKit/Core/Adapters/**/*.swift', 'CoreNetKit/Core/ServerPart/*.swift', 'CoreNetKit/Core/ServerPart/Protocols/*.swift', 'CoreNetKit/Kit/**/*.swift'
+  s.source_files  = 'CoreNetKit/Context/Protocols/ActionableContext.swift', 'CoreNetKit/Context/Protocols/CacheableContext.swift', 'CoreNetKit/Context/Protocols/CancellableContext.swift', 'CoreNetKit/Context/Protocols/PaginableRequestContext.swift', 'CoreNetKit/Context/Protocols/PassiveContext.swift', 'CoreNetKit/Context/BaseImplementations/PassiveRequestContext.swift'
   s.dependency 'Alamofire'
 
 end
