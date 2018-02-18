@@ -22,19 +22,19 @@ public protocol PassiveContext: ActionableContext {
 }
 
 /// Just a type erasure for `PassiveContext`
-open class PassiveContextInterface<ModelType>: PassiveContext {
+open class PassiveContextInterface<ModelType>: ActionableContextInterface<ModelType>, PassiveContext {
 
     public typealias ResultType = ModelType
 
-    public init() { }
+    public override init() { }
 
     @discardableResult
-    public func onCompleted(_ closure: @escaping (ModelType) -> Void) -> Self {
+    open override func onCompleted(_ closure: @escaping (ModelType) -> Void) -> Self {
         preconditionFailure("CoreNetKit.PassiveContextInterface \(#function) must be overrided in child")
     }
 
     @discardableResult
-    public func onError(_ closure: @escaping (Error) -> Void) -> Self {
+    open override func onError(_ closure: @escaping (Error) -> Void) -> Self {
         preconditionFailure("CoreNetKit.PassiveContextInterface \(#function) must be overrided in child")
     }
 
