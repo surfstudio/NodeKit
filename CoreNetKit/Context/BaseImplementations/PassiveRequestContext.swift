@@ -26,22 +26,22 @@ public class PassiveRequestContext<Model>: PassiveContextInterface<Model> {
     public override init() { }
 
     @discardableResult
-    public override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
+    open override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
         self.completedClosure = closure
         return self
     }
 
     @discardableResult
-    public override func onError(_ closure: @escaping ErrorClosure) -> Self {
+    open override func onError(_ closure: @escaping ErrorClosure) -> Self {
         self.errorClosure = closure
         return self
     }
 
-    public override func performComplete(result: ResultType) {
+    open override func performComplete(result: ResultType) {
         self.completedClosure?(result)
     }
 
-    public override func performError(error: Error) {
+    open override func performError(error: Error) {
         self.errorClosure?(error)
     }
 

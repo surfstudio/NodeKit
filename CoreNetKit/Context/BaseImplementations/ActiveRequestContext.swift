@@ -41,26 +41,26 @@ public class ActiveRequestContext<Model>: ActionableContextInterface<Model>, Can
     // MARK: - Context methods
 
     @discardableResult
-    public override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
+    open override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
         self.completedClosure = closure
         return self
     }
 
     @discardableResult
-    public override func onError(_ closure: @escaping ErrorClosure) -> Self {
+    open override func onError(_ closure: @escaping ErrorClosure) -> Self {
         self.errorClosure = closure
         return self
     }
 
-    public func perform() {
+    open func perform() {
         self.request.performAsync { self.performHandler(result: $0) }
     }
 
-    public func cancel() {
+    open func cancel() {
         self.request.cancel()
     }
 
-    public func safePerform(manager: AccessSafeManager) {
+    open func safePerform(manager: AccessSafeManager) {
         let request = ServiceSafeRequest(request: self.request) { self.performHandler(result: $0) }
         manager.addRequest(request: request)
     }
@@ -82,12 +82,12 @@ public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, Cacheable
     fileprivate var completedCacheClosure: CompletedClosure?
 
     @discardableResult
-    public func onCacheCompleted(_ closure: @escaping (ResultType) -> Void) -> Self {
+    open func onCacheCompleted(_ closure: @escaping (ResultType) -> Void) -> Self {
         self.completedCacheClosure = closure
         return self
     }
 
-    override public func perform() {
+    override open func perform() {
         self.request.performAsync { result in
             switch result {
             case .failure(let error):
