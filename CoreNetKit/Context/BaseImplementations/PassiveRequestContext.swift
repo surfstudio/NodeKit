@@ -8,7 +8,7 @@
 
 /// Base implementation of PassiveContext
 /// - see: PassiveContext
-public class PassiveRequestContext<Model>: PassiveContext {
+public class PassiveRequestContext<Model>: PassiveContextInterface<Model> {
 
     // MARK: - Typealiases
 
@@ -23,25 +23,25 @@ public class PassiveRequestContext<Model>: PassiveContext {
 
     // MARK: - Context methods
     
-    public init() { }
+    public override init() { }
 
     @discardableResult
-    public func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
+    public override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
         self.completedClosure = closure
         return self
     }
 
     @discardableResult
-    public func onError(_ closure: @escaping ErrorClosure) -> Self {
+    public override func onError(_ closure: @escaping ErrorClosure) -> Self {
         self.errorClosure = closure
         return self
     }
 
-    public func performComplete(result: ResultType) {
+    public override func performComplete(result: ResultType) {
         self.completedClosure?(result)
     }
 
-    public func performError(error: Error) {
+    public override func performError(error: Error) {
         self.errorClosure?(error)
     }
 

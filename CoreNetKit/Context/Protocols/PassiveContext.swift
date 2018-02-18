@@ -16,7 +16,34 @@ public protocol PassiveContext: ActionableContext {
     func performComplete(result: ResultType)
 
     /// Call error closure.
-    ///
+    ///
     /// - Parameter error: error for error closure
     func performError(error: Error)
+}
+
+/// Just a type erasure for `PassiveContext`
+open class PassiveContextInterface<ModelType>: PassiveContext {
+
+    public typealias ResultType = ModelType
+
+    public init() { }
+
+    @discardableResult
+    public func onCompleted(_ closure: @escaping (ModelType) -> Void) -> Self {
+        preconditionFailure("CoreNetKit.PassiveContextInterface \(#function) must be overrided in child")
+    }
+
+    @discardableResult
+    public func onError(_ closure: @escaping (Error) -> Void) -> Self {
+        preconditionFailure("CoreNetKit.PassiveContextInterface \(#function) must be overrided in child")
+    }
+
+
+    open func performComplete(result: ResultType) {
+        preconditionFailure("CoreNetKit.PassiveContextInterface \(#function) must be overrided in child")
+    }
+
+    open func performError(error: Error) {
+        preconditionFailure("CoreNetKit.PassiveContextInterface \(#function) must be overrided in child")
+    }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 /// Base implementation ActionableContext
 /// - see: ActionableContext
-public class ActiveRequestContext<Model>: ActionableContext, CancellableContext {
+public class ActiveRequestContext<Model>: ActionableContextInterface<Model>, CancellableContext {
 
     // MARK: - Typealiases
 
@@ -41,13 +41,13 @@ public class ActiveRequestContext<Model>: ActionableContext, CancellableContext 
     // MARK: - Context methods
 
     @discardableResult
-    public func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
+    public override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
         self.completedClosure = closure
         return self
     }
 
     @discardableResult
-    public func onError(_ closure: @escaping ErrorClosure) -> Self {
+    public override func onError(_ closure: @escaping ErrorClosure) -> Self {
         self.errorClosure = closure
         return self
     }

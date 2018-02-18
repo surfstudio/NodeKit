@@ -24,3 +24,21 @@ public protocol ActionableContext {
     @discardableResult
     func onError(_ closure: @escaping (Error) -> Void) -> Self
 }
+
+/// Just a type erasure for `ActionableContext`
+open class ActionableContextInterface<ModelType>: ActionableContext {
+
+    public typealias ResultType = ModelType
+
+    public init() { }
+
+    @discardableResult
+    public func onCompleted(_ closure: @escaping (ModelType) -> Void) -> Self {
+        preconditionFailure("CoreNetKit.PassiveContextInterface \(#function) must be overrided in child")
+    }
+
+    @discardableResult
+    public func onError(_ closure: @escaping (Error) -> Void) -> Self {
+        preconditionFailure("CoreNetKit.PassiveContextInterface \(#function) must be overrided in child")
+    }
+}
