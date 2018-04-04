@@ -8,6 +8,8 @@
 
 /// Base context for any more complex contexts.
 /// Provides Rx-like interface for handling success and errors of response.
+///
+/// **May contains many listners.**
 public protocol ActionableContextProtocol {
 
     associatedtype ResultType

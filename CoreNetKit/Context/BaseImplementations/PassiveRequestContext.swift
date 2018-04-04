@@ -6,8 +6,7 @@
 //  Copyright © 2017 Кравченков Александр. All rights reserved.
 //
 
-/// Base implementation of PassiveContext
-/// - see: PassiveContext
+/// Base implementation of `PassiveContext`
 public class PassiveRequestContext<Model>: PassiveContext<Model> {
 
     // MARK: - Typealiases
@@ -18,31 +17,34 @@ public class PassiveRequestContext<Model>: PassiveContext<Model> {
 
     // MARK: - Private fields
 
-    private var completedClosure: CompletedClosure?
-    private var errorClosure: ErrorClosure?
+    private var completedEvents: Event<ResultType>
+    private var errorEvents: Event<Error>
 
     // MARK: - Context methods
     
-    public override init() { }
+    public override init() {
+        self.completedEvents = Event<ResultType>()
+        self.errorEvents = Event<Error>()
+    }
 
     @discardableResult
     open override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
-        self.completedClosure = closure
+        self.completedEvents += closure
         return self
     }
 
     @discardableResult
     open override func onError(_ closure: @escaping ErrorClosure) -> Self {
-        self.errorClosure = closure
+        self.errorEvents += closure
         return self
     }
 
     open override func performComplete(result: ResultType) {
-        self.completedClosure?(result)
+        self.completedEvents.invoke(with: result)
     }
 
     open override func performError(error: Error) {
-        self.errorClosure?(error)
+        self.errorEvents.invoke(with: error)
     }
 
     #if DEBUG

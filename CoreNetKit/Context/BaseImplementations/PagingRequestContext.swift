@@ -11,7 +11,6 @@ import Foundation
 /// Context for paginable service
 public class PagingRequestContext<ResultModel>: PaginableRequestContextProtocol {
 
-
     // MARK: - Typealiases
 
     public typealias ResultType = ResultModel
@@ -20,27 +19,29 @@ public class PagingRequestContext<ResultModel>: PaginableRequestContextProtocol 
 
     // MARK: - Private fileds
 
-    private var completedClosure: CompletedClosure?
-    private var errorClosure: ErrorClosure?
+    private var completedEvents: Event<ResultType>
+    private var errorEvents: Event<Error>
     private let request: BaseServerRequest<ResultType> & ReusablePagingRequest
 
     // MARK: - Initialization
 
     public required init(request: BaseServerRequest<ResultType> & ReusablePagingRequest) {
         self.request = request
+        self.completedEvents = Event<ResultType>()
+        self.errorEvents = Event<Error>()
     }
 
     // MARK: - Context methods
 
     @discardableResult
     public func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
-        self.completedClosure = closure
+        self.completedEvents += closure
         return self
     }
 
     @discardableResult
     public func onError(_ closure: @escaping ErrorClosure) -> Self {
-        self.errorClosure = closure
+        self.errorEvents += closure
         return self
     }
 
@@ -63,9 +64,9 @@ public class PagingRequestContext<ResultModel>: PaginableRequestContextProtocol 
     private func performHandler(result: ResponseResult<ResultModel>) {
         switch result {
         case .failure(let error):
-            self.errorClosure?(error)
+            self.errorEvents.invoke(with: error)
         case .success(let value, _):
-            self.completedClosure?(value)
+            self.completedEvents.invoke(with: value)
         }
     }
 }

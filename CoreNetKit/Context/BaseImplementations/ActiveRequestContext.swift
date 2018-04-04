@@ -19,14 +19,16 @@ public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableC
 
     // MARK: - Private fields
 
-    fileprivate var completedClosure: CompletedClosure?
-    fileprivate var errorClosure: ErrorClosure?
+    fileprivate var completedEvents: Event<ResultType>
+    fileprivate var errorEvents: Event<Error>
     fileprivate let request: BaseServerRequest<Model>
 
     // MARK: - Initializers / Deinitializers
 
     public required init(request: BaseServerRequest<Model>) {
         self.request = request
+        self.completedEvents = Event<ResultType>()
+        self.errorEvents = Event<Error>()
     }
 
     #if DEBUG
@@ -41,13 +43,13 @@ public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableC
 
     @discardableResult
     open override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
-        self.completedClosure = closure
+        self.completedEvents += closure
         return self
     }
 
     @discardableResult
     open override func onError(_ closure: @escaping ErrorClosure) -> Self {
-        self.errorClosure = closure
+        self.errorEvents += closure
         return self
     }
 
@@ -67,9 +69,9 @@ public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableC
     private func performHandler(result: ResponseResult<Model>) {
         switch result {
         case .failure(let error):
-            self.errorClosure?(error)
+            self.errorEvents.invoke(with: error)
         case .success(let value, _):
-            self.completedClosure?(value)
+            self.completedEvents.invoke(with: value)
         }
     }
 }
@@ -78,11 +80,16 @@ public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, Cacheable
 
     public typealias ResultType = Model
 
-    fileprivate var completedCacheClosure: CompletedClosure?
+    fileprivate var completedCacheEvent: Event<ResultType>
+
+    public required init(request: BaseServerRequest<Model>) {
+        self.completedCacheEvent = Event<ResultType>()
+        super.init(request: request)
+    }
 
     @discardableResult
     open func onCacheCompleted(_ closure: @escaping (ResultType) -> Void) -> Self {
-        self.completedCacheClosure = closure
+        self.completedCacheEvent += closure
         return self
     }
 
@@ -90,12 +97,12 @@ public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, Cacheable
         self.request.performAsync { result in
             switch result {
             case .failure(let error):
-                self.errorClosure?(error)
+                self.errorEvents.invoke(with: error)
             case .success(let value, let cacheFlag):
                 if cacheFlag {
-                    self.completedCacheClosure?(value)
+                    self.completedCacheEvent.invoke(with: value)
                 } else {
-                    self.completedClosure?(value)
+                    self.completedEvents.invoke(with: value)
                 }
             }
         }
