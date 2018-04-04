@@ -10,7 +10,7 @@ import Foundation
 
 /// Context that incapsulate request handle
 /// It may used for automatic convertion response type to awaiting type
-public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestContext, CancellableContext {
+public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestContextProtocol, CancellableContext {
 
     // MARK: - Typealiases
 					

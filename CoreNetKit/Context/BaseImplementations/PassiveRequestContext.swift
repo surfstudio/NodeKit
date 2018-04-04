@@ -8,7 +8,7 @@
 
 /// Base implementation of PassiveContext
 /// - see: PassiveContext
-public class PassiveRequestContext<Model>: PassiveContextInterface<Model> {
+public class PassiveRequestContext<Model>: PassiveContext<Model> {
 
     // MARK: - Typealiases
 

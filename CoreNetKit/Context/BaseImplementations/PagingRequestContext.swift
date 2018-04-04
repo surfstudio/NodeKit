@@ -9,7 +9,7 @@
 import Foundation
 
 /// Context for paginable service
-public class PagingRequestContext<ResultModel>: PaginableRequestContext {
+public class PagingRequestContext<ResultModel>: PaginableRequestContextProtocol {
 
 
     // MARK: - Typealiases

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Base context that implement iteratable logic for any iteratable request
-public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator, ActionableContext {
+public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator, ActionableContextProtocol {
 
     // MARK: - Typealiases
 

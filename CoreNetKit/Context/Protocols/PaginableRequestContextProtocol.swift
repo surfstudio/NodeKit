@@ -8,7 +8,9 @@
 
 import Foundation
 
-public protocol PaginableRequestContext: ActionableContext {
+/// This context provide interface for pagination.
+/// It means that specific implementation of this context should incapsulate all pagination logic
+public protocol PaginableRequestContextProtocol: ActionableContextProtocol {
 
     func pagin(startIndex: Int, itemsOnPage: Int)
 }

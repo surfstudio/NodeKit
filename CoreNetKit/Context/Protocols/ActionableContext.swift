@@ -8,7 +8,7 @@
 
 /// Base context for any more complex contexts.
 /// Provides Rx-like interface for handling success and errors of response.
-public protocol ActionableContext {
+public protocol ActionableContextProtocol {
 
     associatedtype ResultType
 
@@ -26,7 +26,7 @@ public protocol ActionableContext {
 }
 
 /// Just a type erasure for `ActionableContext`
-open class ActionableContextInterface<ModelType>: ActionableContext {
+open class ActionableContext<ModelType>: ActionableContextProtocol {
 
     public typealias ResultType = ModelType
 

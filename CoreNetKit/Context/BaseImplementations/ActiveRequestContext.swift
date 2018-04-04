@@ -8,9 +8,8 @@
 
 import Foundation
 
-/// Base implementation ActionableContext
-/// - see: ActionableContext
-public class ActiveRequestContext<Model>: ActionableContextInterface<Model>, CancellableContext {
+/// Base implementation `ActionableContext`
+public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableContext {
 
     // MARK: - Typealiases
 
@@ -75,7 +74,7 @@ public class ActiveRequestContext<Model>: ActionableContextInterface<Model>, Can
     }
 }
 
-public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, CacheableContext {
+public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, CacheableContextProtocol {
 
     public typealias ResultType = Model
 
