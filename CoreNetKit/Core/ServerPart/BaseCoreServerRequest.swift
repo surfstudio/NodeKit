@@ -54,12 +54,12 @@ public class BaseCoreServerRequest: NSObject, CoreServerRequest {
     /// Метод (get, post, delete...)
     public let method: Method
     /// Токен для хедера
-    public let token: String?
+    public let tokenProvider: TokenProvider?
     /// Хидеры запроса
     public let headers: HTTPHeaders?
     /// Параметры запроса
     public var parameters: ServerRequestParameter
-    /// serverOnly by default
+    /// serverIfFailReadFromCahce by default
     public var cachePolicy: CachePolicy
 
     public let customEncoding: Encoding?
@@ -67,18 +67,32 @@ public class BaseCoreServerRequest: NSObject, CoreServerRequest {
     public let errorMapper: ErrorMapperAdapter?
 
     fileprivate var currentRequest: DataRequest? = nil
-    fileprivate let cacheAdapter: CacheAdapter
+    fileprivate let cacheAdapter: CacheAdapter?
 
-    public init(method: Method, relativeUrl: String, baseUrl: String, token: String? = nil,
+    /// Initlize reqest object.
+    ///
+    /// - Parameters:
+    ///   - method: HTTP method (POST, PUT e.t.c)
+    ///   - baseUrl: url path to root server resource
+    ///   - relativeUrl: url path from root to services (to methods)
+    ///   - tokenProvider: Object, that should provide access token to request
+    ///   - headers: Its custom headers. **Doesn't needs to add default headers like MIME: Application/Json or Authorization:TOKEN. Only custom key-value pairs.**
+    ///   - parameters: Request parametrs. They may be included in request body or in query string (form-url-encoding). It depends form `customEncoding`.
+    ///   - customEncoding: Provide custom url encoding.
+    ///   - errorMapper: Object that should implement mapping custom server errors.
+    ///   - cacheAdapter: Object that should implement read/write to cache
+    ///   - cachePolicy: Cache Policy **(soon moved out to Cache Adapter)**
+    public init(method: Method, baseUrl: String, relativeUrl: String, tokenProvider: TokenProvider? = nil,
          headers: HTTPHeaders? = nil, parameters: ServerRequestParameter,
-         customEncoding: Encoding? = nil, errorMapper: ErrorMapperAdapter? = nil, cacheAdapter: CacheAdapter) {
+         customEncoding: Encoding? = nil, errorMapper: ErrorMapperAdapter? = nil,
+         cacheAdapter: CacheAdapter? = nil, cachePolicy: CachePolicy = .serverOnly) {
         self.method = method
-        self.token = token
+        self.tokenProvider = tokenProvider
         self.headers = headers
         self.path = relativeUrl
         self.url = (URL(string: baseUrl)?.appendingPathComponent(self.path))!
         self.parameters = parameters
-        self.cachePolicy = .serverIfFailReadFromCahce
+        self.cachePolicy = cachePolicy
         self.customEncoding = customEncoding
         self.errorMapper = errorMapper
         self.cacheAdapter = cacheAdapter
@@ -129,7 +143,7 @@ public class BaseCoreServerRequest: NSObject, CoreServerRequest {
     /// Возвращает хедеры, которые необходимы для данного запроса.
     func createHeaders() -> HTTPHeaders {
         var headers: HTTPHeaders = self.headers ?? [:]
-        if let tokenString = token {
+        if let tokenString = self.tokenProvider?.getToken() {
             headers["Authorization"] = tokenString
         }
         return headers
@@ -198,12 +212,18 @@ extension BaseCoreServerRequest {
                 self.log(afResponse)
                 var response: CoreServerResponse = BaseCoreServerResponse(dataResponse: afResponse, dataResult: .success(afResponse.data, false), errorMapper: self.errorMapper)
 
-                if (response.isNotModified || response.isConnectionFailed) && self.cachePolicy == .serverIfFailReadFromCahce, let guardRequest = request.request {
-                    response = self.cacheAdapter.load(urlRequest: guardRequest, response: response)
+                // If response has flag NotModified or InternetConnection was failed it is necessary condition to read frowm cache in case of serverIfFailReadFromCahce
+                let isNeedsToReadCache = response.isNotModified || response.isConnectionFailed
+
+                if isNeedsToReadCache && self.cachePolicy == .serverIfFailReadFromCahce,
+                    let guardRequest = request.request, let guardedAdapter = self.cacheAdapter {
+                    response = guardedAdapter.load(urlRequest: guardRequest, response: response)
                 }
 
-                if response.result.value != nil, let urlResponse = afResponse.response, let data = afResponse.data, self.cachePolicy != .serverOnly, let urlRequest = request.request {
-                    self.cacheAdapter.save(urlResponse: urlResponse, urlRequest: urlRequest, data: data) 
+                if response.result.value != nil, let urlResponse = afResponse.response,
+                    let data = afResponse.data, self.cachePolicy != .serverOnly,
+                    let urlRequest = request.request, let guardedAdapter = self.cacheAdapter {
+                    guardedAdapter.save(urlResponse: urlResponse, urlRequest: urlRequest, data: data)
                 }
 
                 completion(response)
@@ -215,10 +235,10 @@ extension BaseCoreServerRequest {
 
     func readFromCache(completion: @escaping Completion) -> PerformedRequest {
         let performRequest = { (request: DataRequest) -> Void in
-            guard let guardRequest = request.request else {
+            guard let guardRequest = request.request, let guardedAdapter = self.cacheAdapter  else {
                 return
             }
-            completion(self.cacheAdapter.load(urlRequest: guardRequest, response: nil))
+            completion(guardedAdapter.load(urlRequest: guardRequest, response: nil))
         }
         return performRequest
     }

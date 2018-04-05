@@ -10,6 +10,8 @@
 		4F290E2A1FE4046E00FFCCF2 /* CoreServerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E291FE4046E00FFCCF2 /* CoreServerRequest.swift */; };
 		4F290E2C1FE4047D00FFCCF2 /* CoreServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E2B1FE4047D00FFCCF2 /* CoreServerResponse.swift */; };
 		4F290E2E1FE4064D00FFCCF2 /* ResponseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */; };
+		4FA424292075D4AC004AEDF6 /* TokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA424282075D4AC004AEDF6 /* TokenProvider.swift */; };
+		4FA4242C2075D851004AEDF6 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA4242B2075D850004AEDF6 /* Event.swift */; };
 		B94310AF1F931CC000E8A9BA /* CoreNetKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* CoreNetKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B94310E71F9324F300E8A9BA /* ServicePaginator + AsyncIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310D71F9322AC00E8A9BA /* ServicePaginator + AsyncIterator.swift */; };
 		B94310E81F9324F500E8A9BA /* BaseIteratableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310E41F93234900E8A9BA /* BaseIteratableContext.swift */; };
@@ -43,6 +45,8 @@
 		4F290E291FE4046E00FFCCF2 /* CoreServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerRequest.swift; sourceTree = "<group>"; };
 		4F290E2B1FE4047D00FFCCF2 /* CoreServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerResponse.swift; sourceTree = "<group>"; };
 		4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseResult.swift; sourceTree = "<group>"; };
+		4FA424282075D4AC004AEDF6 /* TokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenProvider.swift; sourceTree = "<group>"; };
+		4FA4242B2075D850004AEDF6 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		5DAD6F60B4CDE6F34E0A989E /* Pods-CoreNetKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreNetKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoreNetKit/Pods-CoreNetKit.release.xcconfig"; sourceTree = "<group>"; };
 		9CFB82B00304E5A9AF2B8632 /* Pods-CoreNetKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreNetKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoreNetKit/Pods-CoreNetKit.debug.xcconfig"; sourceTree = "<group>"; };
 		AE7165D5DEA5570C05AF1BED /* Pods_CoreNetKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreNetKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +99,14 @@
 				4F290E2B1FE4047D00FFCCF2 /* CoreServerResponse.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		4FA4242A2075D850004AEDF6 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				4FA4242B2075D850004AEDF6 /* Event.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		82F23CED1DAFB3EBD5AF8198 /* Pods */ = {
@@ -180,6 +192,7 @@
 		B94310D61F9322AC00E8A9BA /* Kit */ = {
 			isa = PBXGroup;
 			children = (
+				4FA4242A2075D850004AEDF6 /* Support */,
 				B9C9DB131FC01E79009E95F5 /* Safe */,
 				B94310E31F9322DB00E8A9BA /* Pagination */,
 			);
@@ -208,6 +221,7 @@
 				B94310E01F9322AC00E8A9BA /* BaseCoreServerRequest.swift */,
 				B94310DE1F9322AC00E8A9BA /* MultipartData.swift */,
 				4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */,
+				4FA424282075D4AC004AEDF6 /* TokenProvider.swift */,
 			);
 			path = ServerPart;
 			sourceTree = "<group>";
@@ -378,6 +392,7 @@
 				B9B4F7861FDC731B00A0B1D1 /* CancellableContext.swift in Sources */,
 				B94310E71F9324F300E8A9BA /* ServicePaginator + AsyncIterator.swift in Sources */,
 				B94310EE1F93250700E8A9BA /* MultipartData.swift in Sources */,
+				4FA4242C2075D851004AEDF6 /* Event.swift in Sources */,
 				B97D3CD71F93468000DB6ED6 /* CacheAdapter.swift in Sources */,
 				4F290E2E1FE4064D00FFCCF2 /* ResponseResult.swift in Sources */,
 				B94310FF1F932D3200E8A9BA /* ReusablePagingRequest.swift in Sources */,
@@ -394,6 +409,7 @@
 				B94310ED1F93250500E8A9BA /* BaseCoreServerResponse.swift in Sources */,
 				B94310EB1F93250000E8A9BA /* NetworkLayerBaseErrors.swift in Sources */,
 				B97D3CD51F93440800DB6ED6 /* UrlCacheAdapter.swift in Sources */,
+				4FA424292075D4AC004AEDF6 /* TokenProvider.swift in Sources */,
 				B94310F31F93251500E8A9BA /* ActionableContext.swift in Sources */,
 				B94310F91F932B2700E8A9BA /* PaginableRequestContextProtocol.swift in Sources */,
 				4F290E2C1FE4047D00FFCCF2 /* CoreServerResponse.swift in Sources */,

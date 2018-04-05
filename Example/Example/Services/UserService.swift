@@ -9,10 +9,26 @@
 import Foundation
 import CoreNetKit
 
-public class UserService {
+class AuthService {
 
-//    public func login(email: String, password: String) -> ActiveRequestContext<Void> {
-//        
-//    }
+    func auth(by email: String, and passwod: String) -> ActionableContext<Void> {
+        let result = PassiveRequestContext<Void>()
+        self.getAuthToken(by: email, and: passwod)
+            .onCompleted { (entity) in
+                // TODO: write to store
+                result.performComplete(result: ())
+            }.onError { (error) in
+                result.performError(error: error)
+            }
+        return result
+    }
 
+    func getAuthToken(by email: String, and passwod: String) -> ActionableContext<AuthTokenEntity> {
+        let request = AuthRequest(email: email, password: passwod)
+        return ActiveRequestContext(request: request)
+    }
+
+    func updateToken() -> ActionableContext<AuthTokenEntity> {
+        
+    }
 }

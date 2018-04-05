@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftLoader
 
 class LoginViewController: UIViewController {
 

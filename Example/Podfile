@@ -7,7 +7,6 @@ target 'Example' do
 
   # Pods for Example
 
-	pod 'CoreNetKit', :git => 'https://github.com/LastSprint/CoreNetKit.git'
-	pod 'SwiftLoader', :git => 'https://github.com/leoru/SwiftLoader.git'
+	pod 'CoreNetKit', :path => '../'
 
 end

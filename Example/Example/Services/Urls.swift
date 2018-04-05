@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+enum Urls {
+    static let base = "base"
+
+    enum Auth {
+        static let url = ""
+    }
+}
