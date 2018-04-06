@@ -9,7 +9,7 @@
 import Foundation
 
 /// Base context that implement iteratable logic for any iteratable request
-public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator, ActionableContextProtocol {
+public class IteratableContext<ResultModel: Countable>: ActionableContext<ResultModel>, ServiceAsyncIterator {
 
     // MARK: - Typealiases
 
@@ -39,6 +39,7 @@ public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator
         self.itemsOnPage = itemsOnPage
         self.canMoveNext = true
         self.paginableContext = context
+        super.init()
         self.subscribe()
     }
 
@@ -59,19 +60,19 @@ public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator
     // MARK: - Actionable context
 
     @discardableResult
-    public func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
+    public override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
         self.completedClosure = closure
         return self
     }
 
     @discardableResult
-    public func onError(_ closure: @escaping ErrorClosure) -> Self {
+    public override func onError(_ closure: @escaping ErrorClosure) -> Self {
         self.errorClosure = closure
         return self
     }
 }
 
-private extension BaseIteratableContext {
+private extension IteratableContext {
 
     func subscribe() {
         self.paginableContext.onCompleted { result in

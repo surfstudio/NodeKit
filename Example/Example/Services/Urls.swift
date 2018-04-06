@@ -14,4 +14,8 @@ enum Urls {
     enum Auth {
         static let url = ""
     }
+
+    enum Animals {
+        static let list = ""
+    }
 }

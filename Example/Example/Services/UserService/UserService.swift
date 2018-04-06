@@ -27,8 +27,4 @@ class AuthService {
         let request = AuthRequest(email: email, password: passwod)
         return ActiveRequestContext(request: request)
     }
-
-    func updateToken() -> ActionableContext<AuthTokenEntity> {
-        
-    }
 }

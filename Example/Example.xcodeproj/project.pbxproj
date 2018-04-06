@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1BFDF59DD46728BDB2EC91BC /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A3E91FBEBEFBA80535BCF2 /* Pods_Example.framework */; };
+		4F17500F20776B0F0063C67D /* ListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17500E20776B0F0063C67D /* ListService.swift */; };
+		4F17501120776C500063C67D /* AnimalEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17501020776C500063C67D /* AnimalEntity.swift */; };
+		4F17501320776C9E0063C67D /* GetAnimalPagiongRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17501220776C9E0063C67D /* GetAnimalPagiongRequest.swift */; };
 		4FA424222075D346004AEDF6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA424202075D346004AEDF6 /* Message.swift */; };
 		4FA424232075D346004AEDF6 /* Message.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FA424212075D346004AEDF6 /* Message.xib */; };
 		4FA424262075D369004AEDF6 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA424242075D369004AEDF6 /* AuthRequest.swift */; };
@@ -25,6 +28,9 @@
 
 /* Begin PBXFileReference section */
 		3FCB3014DE0C159D06E83F1A /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
+		4F17500E20776B0F0063C67D /* ListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListService.swift; sourceTree = "<group>"; };
+		4F17501020776C500063C67D /* AnimalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalEntity.swift; sourceTree = "<group>"; };
+		4F17501220776C9E0063C67D /* GetAnimalPagiongRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAnimalPagiongRequest.swift; sourceTree = "<group>"; };
 		4FA424202075D346004AEDF6 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4FA424212075D346004AEDF6 /* Message.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Message.xib; sourceTree = "<group>"; };
 		4FA424242075D369004AEDF6 /* AuthRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
@@ -62,6 +68,24 @@
 				B5A3E91FBEBEFBA80535BCF2 /* Pods_Example.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4F17500C20776AE20063C67D /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				4FA424242075D369004AEDF6 /* AuthRequest.swift */,
+				B97D3E5E1FDC85440039DB92 /* UserService.swift */,
+			);
+			path = UserService;
+			sourceTree = "<group>";
+		};
+		4F17500D20776AF80063C67D /* ListService */ = {
+			isa = PBXGroup;
+			children = (
+				4F17500E20776B0F0063C67D /* ListService.swift */,
+				4F17501220776C9E0063C67D /* GetAnimalPagiongRequest.swift */,
+			);
+			path = ListService;
 			sourceTree = "<group>";
 		};
 		8D9A3BAD7E31358D3BB50951 /* Pods */ = {
@@ -119,9 +143,9 @@
 		B97D3E5D1FDC85360039DB92 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				4FA424242075D369004AEDF6 /* AuthRequest.swift */,
+				4F17500D20776AF80063C67D /* ListService */,
+				4F17500C20776AE20063C67D /* UserService */,
 				4FA424252075D369004AEDF6 /* Urls.swift */,
-				B97D3E5E1FDC85440039DB92 /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -140,6 +164,7 @@
 			children = (
 				B99A70481FDD264200AB47DD /* UserEntity.swift */,
 				4FA4242F2075DBC4004AEDF6 /* AuthTokenEntity.swift */,
+				4F17501020776C500063C67D /* AnimalEntity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -276,13 +301,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F17501320776C9E0063C67D /* GetAnimalPagiongRequest.swift in Sources */,
 				B97D3E5C1FDC83950039DB92 /* LoginPresenter.swift in Sources */,
 				B96CD44F1FDC5B1600F5A107 /* LoginViewController.swift in Sources */,
 				B99A70491FDD264200AB47DD /* UserEntity.swift in Sources */,
 				4FA424272075D369004AEDF6 /* Urls.swift in Sources */,
 				4FA424222075D346004AEDF6 /* Message.swift in Sources */,
+				4F17501120776C500063C67D /* AnimalEntity.swift in Sources */,
 				4FA424302075DBC4004AEDF6 /* AuthTokenEntity.swift in Sources */,
 				B96CD44D1FDC5B1600F5A107 /* AppDelegate.swift in Sources */,
+				4F17500F20776B0F0063C67D /* ListService.swift in Sources */,
 				4FA424262075D369004AEDF6 /* AuthRequest.swift in Sources */,
 				B97D3E5F1FDC85440039DB92 /* UserService.swift in Sources */,
 			);
