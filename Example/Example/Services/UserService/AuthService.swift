@@ -23,8 +23,8 @@ class AuthService {
         return result
     }
 
-    func getAuthToken(by email: String, and passwod: String) -> ActionableContext<AuthTokenEntity> {
+    private func getAuthToken(by email: String, and passwod: String) -> ActionableContext<AuthTokenEntity> {
         let request = AuthRequest(email: email, password: passwod)
-        return ActiveRequestContext(request: request)
+        return ActiveRequestContext(request: request).perform()
     }
 }

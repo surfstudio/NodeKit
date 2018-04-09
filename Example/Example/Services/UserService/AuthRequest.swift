@@ -9,6 +9,28 @@
 import Foundation
 import CoreNetKit
 
+enum AuthErrors: LocalizedError {
+    case badCredentials(String)
+
+    public var errorDescription: String? {
+        switch self {
+        case .badCredentials(let mesasge):
+            return mesasge
+        }
+    }
+
+}
+
+class AuthErrorMapper: ErrorMapperAdapter {
+    func map(json: [String : Any], httpCode: Int?) -> LocalizedError? {
+        guard httpCode == 403, let message = json["Message"] as? String else {
+            return nil
+        }
+
+        return AuthErrors.badCredentials(message)
+    }
+}
+
 class AuthRequest: BaseServerRequest<AuthTokenEntity> {
 
     // MARK: - Nested
@@ -35,8 +57,8 @@ class AuthRequest: BaseServerRequest<AuthTokenEntity> {
 
     override func createAsyncServerRequest() -> CoreServerRequest {
         let params = [Keys.email: self.email, Keys.password: self.password]
-        return BaseCoreServerRequest(method: .post, baseUrl: Urls.Auth.url, relativeUrl: Urls.base,
-                                     parameters: .simpleParams(params), cacheAdapter: nil)
+        return BaseCoreServerRequest(method: .post, baseUrl: Urls.base, relativeUrl: Urls.Auth.url,
+                                     parameters: .simpleParams(params), errorMapper: AuthErrorMapper(), cacheAdapter: nil)
     }
 
     override func handle(serverResponse: CoreServerResponse, completion: (ResponseResult<AuthTokenEntity>) -> Void) {

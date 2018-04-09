@@ -26,7 +26,7 @@ public class GetAnimalPagingRequest: BaseServerRequest<[AnimalEntity]>, Reusable
 
     public override func createAsyncServerRequest() -> CoreServerRequest {
         let params = [Keys.index: self.startIndex, Keys.offset: self.itemsOnPage]
-        return BaseCoreServerRequest(method: .get, baseUrl: Urls.base, relativeUrl: Urls.Animals.list, parameters: .simpleParams(params))
+        return BaseCoreServerRequest(method: .get, baseUrl: Urls.base, relativeUrl: Urls.Animals.list, headers: ["Content-Type": "application/json"], parameters: .simpleParams(params))
     }
 
     public func reuse(startIndex: Int, itemsOnPage: Int) {

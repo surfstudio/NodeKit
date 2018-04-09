@@ -11,6 +11,11 @@
 		4F17500F20776B0F0063C67D /* ListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17500E20776B0F0063C67D /* ListService.swift */; };
 		4F17501120776C500063C67D /* AnimalEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17501020776C500063C67D /* AnimalEntity.swift */; };
 		4F17501320776C9E0063C67D /* GetAnimalPagiongRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17501220776C9E0063C67D /* GetAnimalPagiongRequest.swift */; };
+		4F175017207B25A00063C67D /* AnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F175016207B25A00063C67D /* AnimalViewController.swift */; };
+		4F175019207B26B20063C67D /* AnimalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F175018207B26B20063C67D /* AnimalCell.xib */; };
+		4F17501B207B276E0063C67D /* AnimalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17501A207B276E0063C67D /* AnimalCell.swift */; };
+		4F17501D207B27B90063C67D /* AnimalCellGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17501C207B27B90063C67D /* AnimalCellGenerator.swift */; };
+		4F1DDBD3207B2D2500E0CEB4 /* AnimalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1DDBD2207B2D2500E0CEB4 /* AnimalPresenter.swift */; };
 		4FA424222075D346004AEDF6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA424202075D346004AEDF6 /* Message.swift */; };
 		4FA424232075D346004AEDF6 /* Message.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FA424212075D346004AEDF6 /* Message.xib */; };
 		4FA424262075D369004AEDF6 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA424242075D369004AEDF6 /* AuthRequest.swift */; };
@@ -22,7 +27,7 @@
 		B96CD4541FDC5B1600F5A107 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B96CD4531FDC5B1600F5A107 /* Assets.xcassets */; };
 		B96CD4571FDC5B1600F5A107 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B96CD4551FDC5B1600F5A107 /* LaunchScreen.storyboard */; };
 		B97D3E5C1FDC83950039DB92 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D3E5B1FDC83950039DB92 /* LoginPresenter.swift */; };
-		B97D3E5F1FDC85440039DB92 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D3E5E1FDC85440039DB92 /* UserService.swift */; };
+		B97D3E5F1FDC85440039DB92 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D3E5E1FDC85440039DB92 /* AuthService.swift */; };
 		B99A70491FDD264200AB47DD /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99A70481FDD264200AB47DD /* UserEntity.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +36,11 @@
 		4F17500E20776B0F0063C67D /* ListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListService.swift; sourceTree = "<group>"; };
 		4F17501020776C500063C67D /* AnimalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalEntity.swift; sourceTree = "<group>"; };
 		4F17501220776C9E0063C67D /* GetAnimalPagiongRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAnimalPagiongRequest.swift; sourceTree = "<group>"; };
+		4F175016207B25A00063C67D /* AnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalViewController.swift; sourceTree = "<group>"; };
+		4F175018207B26B20063C67D /* AnimalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimalCell.xib; sourceTree = "<group>"; };
+		4F17501A207B276E0063C67D /* AnimalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalCell.swift; sourceTree = "<group>"; };
+		4F17501C207B27B90063C67D /* AnimalCellGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalCellGenerator.swift; sourceTree = "<group>"; };
+		4F1DDBD2207B2D2500E0CEB4 /* AnimalPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalPresenter.swift; sourceTree = "<group>"; };
 		4FA424202075D346004AEDF6 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4FA424212075D346004AEDF6 /* Message.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Message.xib; sourceTree = "<group>"; };
 		4FA424242075D369004AEDF6 /* AuthRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
@@ -46,7 +56,7 @@
 		B96CD4561FDC5B1600F5A107 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B96CD4581FDC5B1600F5A107 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B97D3E5B1FDC83950039DB92 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
-		B97D3E5E1FDC85440039DB92 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		B97D3E5E1FDC85440039DB92 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		B99A70481FDD264200AB47DD /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,7 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				4FA424242075D369004AEDF6 /* AuthRequest.swift */,
-				B97D3E5E1FDC85440039DB92 /* UserService.swift */,
+				B97D3E5E1FDC85440039DB92 /* AuthService.swift */,
 			);
 			path = UserService;
 			sourceTree = "<group>";
@@ -86,6 +96,18 @@
 				4F17501220776C9E0063C67D /* GetAnimalPagiongRequest.swift */,
 			);
 			path = ListService;
+			sourceTree = "<group>";
+		};
+		4F175015207B18310063C67D /* Animals */ = {
+			isa = PBXGroup;
+			children = (
+				4F175016207B25A00063C67D /* AnimalViewController.swift */,
+				4F175018207B26B20063C67D /* AnimalCell.xib */,
+				4F17501A207B276E0063C67D /* AnimalCell.swift */,
+				4F17501C207B27B90063C67D /* AnimalCellGenerator.swift */,
+				4F1DDBD2207B2D2500E0CEB4 /* AnimalPresenter.swift */,
+			);
+			path = Animals;
 			sourceTree = "<group>";
 		};
 		8D9A3BAD7E31358D3BB50951 /* Pods */ = {
@@ -122,6 +144,7 @@
 				B99A70401FDD18C900AB47DD /* Utils */,
 				B97D3E5D1FDC85360039DB92 /* Services */,
 				B97D3E5A1FDC837F0039DB92 /* Login */,
+				4F175015207B18310063C67D /* Animals */,
 				B96CD44C1FDC5B1600F5A107 /* AppDelegate.swift */,
 				B96CD4501FDC5B1600F5A107 /* Main.storyboard */,
 				B96CD4531FDC5B1600F5A107 /* Assets.xcassets */,
@@ -199,7 +222,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Кравченков Александр";
 				TargetAttributes = {
 					B96CD4481FDC5B1600F5A107 = {
@@ -235,6 +258,7 @@
 				4FA424232075D346004AEDF6 /* Message.xib in Resources */,
 				B96CD4541FDC5B1600F5A107 /* Assets.xcassets in Resources */,
 				B96CD4521FDC5B1600F5A107 /* Main.storyboard in Resources */,
+				4F175019207B26B20063C67D /* AnimalCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,12 +291,18 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreNetKit/CoreNetKit.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveDataDisplayManager/ReactiveDataDisplayManager.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreNetKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveDataDisplayManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -303,6 +333,7 @@
 			files = (
 				4F17501320776C9E0063C67D /* GetAnimalPagiongRequest.swift in Sources */,
 				B97D3E5C1FDC83950039DB92 /* LoginPresenter.swift in Sources */,
+				4F175017207B25A00063C67D /* AnimalViewController.swift in Sources */,
 				B96CD44F1FDC5B1600F5A107 /* LoginViewController.swift in Sources */,
 				B99A70491FDD264200AB47DD /* UserEntity.swift in Sources */,
 				4FA424272075D369004AEDF6 /* Urls.swift in Sources */,
@@ -310,9 +341,12 @@
 				4F17501120776C500063C67D /* AnimalEntity.swift in Sources */,
 				4FA424302075DBC4004AEDF6 /* AuthTokenEntity.swift in Sources */,
 				B96CD44D1FDC5B1600F5A107 /* AppDelegate.swift in Sources */,
+				4F1DDBD3207B2D2500E0CEB4 /* AnimalPresenter.swift in Sources */,
 				4F17500F20776B0F0063C67D /* ListService.swift in Sources */,
 				4FA424262075D369004AEDF6 /* AuthRequest.swift in Sources */,
-				B97D3E5F1FDC85440039DB92 /* UserService.swift in Sources */,
+				B97D3E5F1FDC85440039DB92 /* AuthService.swift in Sources */,
+				4F17501B207B276E0063C67D /* AnimalCell.swift in Sources */,
+				4F17501D207B27B90063C67D /* AnimalCellGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +386,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -359,6 +394,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -409,6 +445,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -416,6 +453,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftMessages
 
 class LoginViewController: UIViewController {
 
@@ -30,16 +31,36 @@ class LoginViewController: UIViewController {
     @IBOutlet
     fileprivate weak var loginCartPasswordTextField: UITextField!
 
+    // MARK: - Properties
+
+    var presenter: LoginPresenter?
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure()
+        self.presenter = LoginPresenter()
+        self.presenter?.view = self
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.removeSubscriptions()
+    }
+
+    func authComplete() {
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "AnimalViewController") as! AnimalViewController
+        self.show(vc, sender: self)
+    }
+
+    func showError(_ error: Error) {
+        let view = MessageView.viewFromNib(layout: .cardView)
+        view.configureTheme(.error)
+        view.configureDropShadow()
+        view.configureContent(title: "Error", body: error.localizedDescription, iconText: "😳")
+        SwiftMessages.show(view: view)
     }
 }
 
@@ -49,7 +70,7 @@ extension LoginViewController {
     
     @IBAction
     func actionLoginButtonTouchUpInside(_ sender: Any) {
-
+        self.presenter?.login(email: self.loginCartEmailTextField.text, password: self.loginCartPasswordTextField.text)
     }
 }
 
@@ -123,4 +144,3 @@ private extension LoginViewController {
         self.loginCartPasswordTextField.placeholder = "Your password"
     }
 }
-

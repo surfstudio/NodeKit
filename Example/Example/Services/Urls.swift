@@ -9,13 +9,13 @@
 import Foundation
 
 enum Urls {
-    static let base = "base"
+    static let base = "http://192.168.0.201:11117"
 
     enum Auth {
-        static let url = ""
+        static let url = "/auth"
     }
 
     enum Animals {
-        static let list = ""
+        static let list = "/animals"
     }
 }

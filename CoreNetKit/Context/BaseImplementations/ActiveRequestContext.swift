@@ -53,17 +53,23 @@ public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableC
         return self
     }
 
-    open func perform() {
+    @discardableResult
+    open func perform() -> Self {
         self.request.performAsync { self.performHandler(result: $0) }
+        return self
     }
 
-    open func cancel() {
+    @discardableResult
+    open func cancel() -> Self {
         self.request.cancel()
+        return self
     }
 
-    open func safePerform(manager: AccessSafeManager) {
+    @discardableResult
+    open func safePerform(manager: AccessSafeManager) -> Self {
         let request = ServiceSafeRequest(request: self.request) { self.performHandler(result: $0) }
         manager.addRequest(request: request)
+        return self
     }
 
     private func performHandler(result: ResponseResult<Model>) {
@@ -93,7 +99,8 @@ public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, Cacheable
         return self
     }
 
-    override open func perform() {
+    @discardableResult
+    override open func perform() -> Self {
         self.request.performAsync { result in
             switch result {
             case .failure(let error):
@@ -106,5 +113,6 @@ public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, Cacheable
                 }
             }
         }
+        return self
     }
 }

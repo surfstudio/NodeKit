@@ -24,8 +24,8 @@ public class IteratableContext<ResultModel: Countable>: ActionableContext<Result
     fileprivate var currentIndex: Int
     fileprivate let itemsOnPage: Int
     fileprivate let paginableContext: PagingRequestContext<ResultModel>
-    fileprivate var completedClosure: CompletedClosure?
-    fileprivate var errorClosure: ErrorClosure?
+    private var completedEvents: Event<ResultType>
+    private var errorEvents: Event<Error>
 
     // MARK: - Public properties
 
@@ -39,6 +39,8 @@ public class IteratableContext<ResultModel: Countable>: ActionableContext<Result
         self.itemsOnPage = itemsOnPage
         self.canMoveNext = true
         self.paginableContext = context
+        self.completedEvents = Event<ResultType>()
+        self.errorEvents = Event<Error>()
         super.init()
         self.subscribe()
     }
@@ -61,13 +63,13 @@ public class IteratableContext<ResultModel: Countable>: ActionableContext<Result
 
     @discardableResult
     public override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
-        self.completedClosure = closure
+        self.completedEvents += closure
         return self
     }
 
     @discardableResult
     public override func onError(_ closure: @escaping ErrorClosure) -> Self {
-        self.errorClosure = closure
+        self.errorEvents += closure
         return self
     }
 }
@@ -76,13 +78,13 @@ private extension IteratableContext {
 
     func subscribe() {
         self.paginableContext.onCompleted { result in
-            self.canMoveNext = result.itemsIsEmpty
+            self.canMoveNext = !result.itemsIsEmpty
             self.currentIndex += result.itemsCount
-            self.completedClosure?(result)
+            self.completedEvents.invoke(with: result)
         }
         .onError { result in
             self.canMoveNext = false
-            self.errorClosure?(result)
+            self.errorEvents.invoke(with: result)
         }
     }
 }

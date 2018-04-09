@@ -59,17 +59,23 @@ public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestCon
         return self
     }
 
-//    public func perform() {
-//        self.request.performAsync { self.performHandler(result: $0) }
-//    }
-
-    public func cancel() {
-        self.request.cancel()
+    @discardableResult
+    public func perform() -> Self {
+        self.request.performAsync { self.performHandler(result: $0) }
+        return self
     }
 
-    public func safePerform(manager: AccessSafeManager) {
+    @discardableResult
+    public func cancel() -> Self {
+        self.request.cancel()
+        return self
+    }
+
+     @discardableResult
+    public func safePerform(manager: AccessSafeManager) -> Self {
         let request = ServiceSafeRequest(request: self.request) { self.performHandler(result: $0) }
         manager.addRequest(request: request)
+        return self
     }
 
     private func performHandler(result: ResponseResult<RequestModel>) {
