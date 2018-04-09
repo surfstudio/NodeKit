@@ -6,9 +6,10 @@
 //  Copyright © 2017 Кравченков Александр. All rights reserved.
 //
 
+/// `Passive` means that this context doesn't has any action.
+/// So it may called "Proxy".
 /// Provide interface for object, that must implement logic for call `onCompleted(_ cosure: )` and `onError(_ closure: )`.
-/// Its something like backside of ActionableContext.
-public protocol PassiveContext: ActionableContext {
+public protocol PassiveContextProtocol: ActionableContextProtocol {
 
     /// Call completed closure.
     ///
@@ -22,7 +23,7 @@ public protocol PassiveContext: ActionableContext {
 }
 
 /// Just a type erasure for `PassiveContext`
-open class PassiveContextInterface<ModelType>: ActionableContextInterface<ModelType>, PassiveContext {
+open class PassiveContext<ModelType>: ActionableContext<ModelType>, PassiveContextProtocol {
 
     public typealias ResultType = ModelType
 

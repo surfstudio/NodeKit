@@ -10,7 +10,7 @@ import Foundation
 
 /// Context that incapsulate request handle
 /// It may used for automatic convertion response type to awaiting type
-public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestContext, CancellableContext {
+public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestContextProtocol, CancellableContext {
 
     // MARK: - Typealiases
 					
@@ -22,8 +22,8 @@ public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestCon
 
     // MARK: - Private fields
 
-    private var completedClosure: CompletedClosure?
-    private var errorClosure: ErrorClosure?
+    private var completedEvents: Event<ResultType>
+    private var errorEvents: Event<Error>
     
     private let request: BaseServerRequest<RequestModel>
     private let handler: HandlerClosure
@@ -33,6 +33,8 @@ public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestCon
     public required init(request: BaseServerRequest<RequestModel>, handler: @escaping HandlerClosure) {
         self.request = request
         self.handler = handler
+        self.completedEvents = Event<ResultType>()
+        self.errorEvents = Event<Error>()
     }
 
     #if DEBUG
@@ -47,36 +49,42 @@ public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestCon
 
     @discardableResult
     public func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
-        self.completedClosure = closure
+        self.completedEvents += closure
         return self
     }
 
     @discardableResult
     public func onError(_ closure: @escaping ErrorClosure) -> Self {
-        self.errorClosure = closure
+        self.errorEvents += closure
         return self
     }
 
-    public func perform() {
+    @discardableResult
+    public func perform() -> Self {
         self.request.performAsync { self.performHandler(result: $0) }
+        return self
     }
 
-    public func cancel() {
+    @discardableResult
+    public func cancel() -> Self {
         self.request.cancel()
+        return self
     }
 
-    public func safePerform(manager: AccessSafeManager) {
+     @discardableResult
+    public func safePerform(manager: AccessSafeManager) -> Self {
         let request = ServiceSafeRequest(request: self.request) { self.performHandler(result: $0) }
         manager.addRequest(request: request)
+        return self
     }
 
     private func performHandler(result: ResponseResult<RequestModel>) {
         let converted = self.handler(result)
         switch converted {
         case .failure(let error):
-            self.errorClosure?(error)
+            self.errorEvents.invoke(with:error)
         case .success(let value, _):
-            self.completedClosure?(value)
+            self.completedEvents.invoke(with:value)
         }
     }
 }

@@ -5,6 +5,6 @@ target 'CoreNetKit' do
 
   use_frameworks!
 
-  pod 'Alamofire', '~> 4.5'
+  pod 'Alamofire', '~> 4.7.1'
 
 end

@@ -7,7 +7,9 @@ target 'Example' do
 
   # Pods for Example
 
-	pod 'CoreNetKit', :git => 'https://github.com/LastSprint/CoreNetKit.git'
-	pod 'SwiftLoader', :git => 'https://github.com/leoru/SwiftLoader.git'
+	pod 'CoreNetKit', :path => '../'
+	pod 'AlamofireImage', '~> 3.3'
+	pod 'SwiftMessages'
+	pod 'ReactiveDataDisplayManager', :git=>"https://github.com/LastSprint/ReactiveDataDisplayManager", :commit=>"8c8c9d07f38c3dbe8f5cb56a300521e1f941f5e8"
 
 end

@@ -7,5 +7,6 @@
 //
 
 public protocol CancellableContext {
-    func cancel()
+    @discardableResult
+    func cancel() -> Self
 }

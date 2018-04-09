@@ -8,8 +8,8 @@
 
 import Foundation
 
-/// Devide success completion on cache completion and server completion
-public protocol CacheableContext: ActionableContext{
+/// Divide success completion on cache completion and server completion
+public protocol CacheableContextProtocol: ActionableContextProtocol{
 
     /// Called if coupled object completed operation succesfully
     ///

@@ -15,15 +15,19 @@ public struct LoginViewModel {
 
 public class LoginPresenter {
 
-    private var model: LoginViewModel?
+    var view: LoginViewController?
 
-    public func updateModel(model: LoginViewModel) {
-        self.model = model
-    }
-
-    public func login() {
-        guard let guardModel = self.model else {
+    public func login(email: String?, password: String?) {
+        guard let guardedEmail = email, let guardedPassword = password else {
             return
         }
+
+        AuthService().auth(by: guardedEmail, and: guardedPassword)
+            .onCompleted { [weak self] in
+                self?.view?.authComplete()
+            }
+            .onError { [weak self] (error) in
+                self?.view?.showError(error)
+            }
     }
 }

@@ -8,8 +8,11 @@
 
 import Foundation
 
-/// 'ActionableContext', provided custom handling that may convert request result type to needed type.
-public protocol HandableRequestContext: ActionableContext {
+/// 'ActionableContext' that conrains handler for server response.
+/// It means that after server response this context apply closure `(ResponseResult<RequestResultType>) -> ResponseResult<ResultType>` to response model
+///
+/// _This context couple of Core network layer implementation_
+public protocol HandableRequestContextProtocol: ActionableContextProtocol {
 
     associatedtype RequestResultType
 

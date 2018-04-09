@@ -8,9 +8,8 @@
 
 import Foundation
 
-/// Base implementation ActionableContext
-/// - see: ActionableContext
-public class ActiveRequestContext<Model>: ActionableContextInterface<Model>, CancellableContext {
+/// Base implementation `ActionableContext`
+public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableContext {
 
     // MARK: - Typealiases
 
@@ -20,14 +19,16 @@ public class ActiveRequestContext<Model>: ActionableContextInterface<Model>, Can
 
     // MARK: - Private fields
 
-    fileprivate var completedClosure: CompletedClosure?
-    fileprivate var errorClosure: ErrorClosure?
+    fileprivate var completedEvents: Event<ResultType>
+    fileprivate var errorEvents: Event<Error>
     fileprivate let request: BaseServerRequest<Model>
 
     // MARK: - Initializers / Deinitializers
 
     public required init(request: BaseServerRequest<Model>) {
         self.request = request
+        self.completedEvents = Event<ResultType>()
+        self.errorEvents = Event<Error>()
     }
 
     #if DEBUG
@@ -42,63 +43,76 @@ public class ActiveRequestContext<Model>: ActionableContextInterface<Model>, Can
 
     @discardableResult
     open override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
-        self.completedClosure = closure
+        self.completedEvents += closure
         return self
     }
 
     @discardableResult
     open override func onError(_ closure: @escaping ErrorClosure) -> Self {
-        self.errorClosure = closure
+        self.errorEvents += closure
         return self
     }
 
-    open func perform() {
+    @discardableResult
+    open func perform() -> Self {
         self.request.performAsync { self.performHandler(result: $0) }
+        return self
     }
 
-    open func cancel() {
+    @discardableResult
+    open func cancel() -> Self {
         self.request.cancel()
+        return self
     }
 
-    open func safePerform(manager: AccessSafeManager) {
+    @discardableResult
+    open func safePerform(manager: AccessSafeManager) -> Self {
         let request = ServiceSafeRequest(request: self.request) { self.performHandler(result: $0) }
         manager.addRequest(request: request)
+        return self
     }
 
     private func performHandler(result: ResponseResult<Model>) {
         switch result {
         case .failure(let error):
-            self.errorClosure?(error)
+            self.errorEvents.invoke(with: error)
         case .success(let value, _):
-            self.completedClosure?(value)
+            self.completedEvents.invoke(with: value)
         }
     }
 }
 
-public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, CacheableContext {
+public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, CacheableContextProtocol {
 
     public typealias ResultType = Model
 
-    fileprivate var completedCacheClosure: CompletedClosure?
+    fileprivate var completedCacheEvent: Event<ResultType>
+
+    public required init(request: BaseServerRequest<Model>) {
+        self.completedCacheEvent = Event<ResultType>()
+        super.init(request: request)
+    }
 
     @discardableResult
     open func onCacheCompleted(_ closure: @escaping (ResultType) -> Void) -> Self {
-        self.completedCacheClosure = closure
+        self.completedCacheEvent += closure
         return self
     }
 
-    override open func perform() {
+    @discardableResult
+    override open func perform() -> Self {
         self.request.performAsync { result in
             switch result {
             case .failure(let error):
-                self.errorClosure?(error)
+                self.errorEvents.invoke(with: error)
             case .success(let value, let cacheFlag):
                 if cacheFlag {
-                    self.completedCacheClosure?(value)
+                    self.completedCacheEvent.invoke(with: value)
                 } else {
-                    self.completedClosure?(value)
+                    self.completedEvents.invoke(with: value)
                 }
             }
         }
+        return self
     }
 }

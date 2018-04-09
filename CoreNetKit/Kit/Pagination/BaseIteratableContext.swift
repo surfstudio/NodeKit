@@ -9,7 +9,7 @@
 import Foundation
 
 /// Base context that implement iteratable logic for any iteratable request
-public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator, ActionableContext {
+public class IteratableContext<ResultModel: Countable>: ActionableContext<ResultModel>, ServiceAsyncIterator {
 
     // MARK: - Typealiases
 
@@ -24,8 +24,8 @@ public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator
     fileprivate var currentIndex: Int
     fileprivate let itemsOnPage: Int
     fileprivate let paginableContext: PagingRequestContext<ResultModel>
-    fileprivate var completedClosure: CompletedClosure?
-    fileprivate var errorClosure: ErrorClosure?
+    private var completedEvents: Event<ResultType>
+    private var errorEvents: Event<Error>
 
     // MARK: - Public properties
 
@@ -39,6 +39,9 @@ public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator
         self.itemsOnPage = itemsOnPage
         self.canMoveNext = true
         self.paginableContext = context
+        self.completedEvents = Event<ResultType>()
+        self.errorEvents = Event<Error>()
+        super.init()
         self.subscribe()
     }
 
@@ -59,29 +62,29 @@ public class BaseIteratableContext<ResultModel: Countable>: ServiceAsyncIterator
     // MARK: - Actionable context
 
     @discardableResult
-    public func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
-        self.completedClosure = closure
+    public override func onCompleted(_ closure: @escaping CompletedClosure) -> Self {
+        self.completedEvents += closure
         return self
     }
 
     @discardableResult
-    public func onError(_ closure: @escaping ErrorClosure) -> Self {
-        self.errorClosure = closure
+    public override func onError(_ closure: @escaping ErrorClosure) -> Self {
+        self.errorEvents += closure
         return self
     }
 }
 
-private extension BaseIteratableContext {
+private extension IteratableContext {
 
     func subscribe() {
         self.paginableContext.onCompleted { result in
-            self.canMoveNext = result.itemsIsEmpty
+            self.canMoveNext = !result.itemsIsEmpty
             self.currentIndex += result.itemsCount
-            self.completedClosure?(result)
+            self.completedEvents.invoke(with: result)
         }
         .onError { result in
             self.canMoveNext = false
-            self.errorClosure?(result)
+            self.errorEvents.invoke(with: result)
         }
     }
 }
