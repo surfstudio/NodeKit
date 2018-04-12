@@ -18,6 +18,7 @@ public class BaseCoreServerResponse: NSObject, CoreServerResponse {
         public static let firstErrorCode = 300
         public static let networkErrorCode = -1009
         public static let emptyRessponseBodyCode = 204
+        public static let unauthorizedError = 401
     }
 
     // MARK: - Fileds
@@ -91,6 +92,11 @@ private extension BaseCoreServerResponse {
             return BaseServerError.badJsonFormat
         }
         guard let customError = self.errorMapper?.map(json: error, httpCode: self.statusCode) else {
+
+            if self.statusCode == Const.unauthorizedError {
+                return BaseServerError.unauthorized
+            }
+
             return BaseServerError.undefind
         }
 
