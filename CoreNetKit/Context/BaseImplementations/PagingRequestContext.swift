@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreEvents
 
 /// Context for paginable service
 public class PagingRequestContext<ResultModel>: PaginableRequestContextProtocol {
