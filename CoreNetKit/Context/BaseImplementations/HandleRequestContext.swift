@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreEvents
 
 /// Context that incapsulate request handle
 /// It may used for automatic convertion response type to awaiting type

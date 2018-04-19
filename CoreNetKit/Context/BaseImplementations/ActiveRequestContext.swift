@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreEvents
 
 /// Base implementation `ActionableContext`
 public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableContext {

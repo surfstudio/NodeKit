@@ -6,6 +6,8 @@
 //  Copyright © 2017 Кравченков Александр. All rights reserved.
 //
 
+import CoreEvents
+
 /// Base implementation of `PassiveContext`
 public class PassiveRequestContext<Model>: PassiveContext<Model> {
 
