@@ -10,7 +10,17 @@ import Foundation
 
 public protocol TokenProvider {
 
+    /// Authorization token header field name
+    var headerFieldName: String { get }
+
     func getToken() -> String?
+
+}
+
+extension TokenProvider {
+    public var headerFieldName: String {
+        return "Authorization"
+    }
 }
 
 public struct DefaultTokenProvider: TokenProvider {

@@ -143,8 +143,8 @@ public class BaseCoreServerRequest: NSObject, CoreServerRequest {
     /// Возвращает хедеры, которые необходимы для данного запроса.
     func createHeaders() -> HTTPHeaders {
         var headers: HTTPHeaders = self.headers ?? [:]
-        if let tokenString = self.tokenProvider?.getToken() {
-            headers["Authorization"] = tokenString
+        if let tokenProvider = self.tokenProvider, let tokenString = tokenProvider.getToken() {
+            headers[tokenProvider.headerFieldName] = tokenString
         }
         return headers
     }
