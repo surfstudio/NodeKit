@@ -24,7 +24,6 @@
 		B94310F01F93250C00E8A9BA /* ServerRequest+SupportedClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310E11F9322AC00E8A9BA /* ServerRequest+SupportedClasses.swift */; };
 		B94310F21F93251500E8A9BA /* PassiveContextProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310CD1F9322AC00E8A9BA /* PassiveContextProtocol.swift */; };
 		B94310F31F93251500E8A9BA /* ActionableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310CE1F9322AC00E8A9BA /* ActionableContext.swift */; };
-		B94310F41F93251500E8A9BA /* HandableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310CF1F9322AC00E8A9BA /* HandableContext.swift */; };
 		B94310F51F93251C00E8A9BA /* ActiveRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310D11F9322AC00E8A9BA /* ActiveRequestContext.swift */; };
 		B94310F61F93251C00E8A9BA /* PassiveRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310D21F9322AC00E8A9BA /* PassiveRequestContext.swift */; };
 		B94310F71F93251C00E8A9BA /* HandleRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310D31F9322AC00E8A9BA /* HandleRequestContext.swift */; };
@@ -52,7 +51,6 @@
 		B94310AE1F931CC000E8A9BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B94310CD1F9322AC00E8A9BA /* PassiveContextProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveContextProtocol.swift; sourceTree = "<group>"; };
 		B94310CE1F9322AC00E8A9BA /* ActionableContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionableContext.swift; sourceTree = "<group>"; };
-		B94310CF1F9322AC00E8A9BA /* HandableContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandableContext.swift; sourceTree = "<group>"; };
 		B94310D11F9322AC00E8A9BA /* ActiveRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveRequestContext.swift; sourceTree = "<group>"; };
 		B94310D21F9322AC00E8A9BA /* PassiveRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveRequestContext.swift; sourceTree = "<group>"; };
 		B94310D31F9322AC00E8A9BA /* HandleRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleRequestContext.swift; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 			children = (
 				B94310CD1F9322AC00E8A9BA /* PassiveContextProtocol.swift */,
 				B94310CE1F9322AC00E8A9BA /* ActionableContext.swift */,
-				B94310CF1F9322AC00E8A9BA /* HandableContext.swift */,
 				B94310F81F932B2700E8A9BA /* PaginableRequestContextProtocol.swift */,
 				B96CD4151FDC4E2200F5A107 /* CacheableContextProtocol.swift */,
 				B9B4F7851FDC731B00A0B1D1 /* CancellableContext.swift */,
@@ -385,7 +382,6 @@
 				4F290E2E1FE4064D00FFCCF2 /* ResponseResult.swift in Sources */,
 				B94310FF1F932D3200E8A9BA /* ReusablePagingRequest.swift in Sources */,
 				B94310F21F93251500E8A9BA /* PassiveContextProtocol.swift in Sources */,
-				B94310F41F93251500E8A9BA /* HandableContext.swift in Sources */,
 				B94310F01F93250C00E8A9BA /* ServerRequest+SupportedClasses.swift in Sources */,
 				B94310FB1F932BD900E8A9BA /* PagingRequestContext.swift in Sources */,
 				B94310EF1F93250B00E8A9BA /* BaseCoreServerRequest.swift in Sources */,

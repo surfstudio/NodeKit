@@ -26,10 +26,19 @@ public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableC
 
     // MARK: - Initializers / Deinitializers
 
-    public required init(request: BaseServerRequest<Model>) {
+    /// Initialize context.
+    ///
+    /// Allows you to specialize type of completed and error events.
+    /// Use this initializer to customize events emitting behaviour.
+    ///
+    /// - Parameters:
+    ///   - request: Server request
+    ///   - completedEvents: Your custom-type event that contains `onCompleted` listners. **By default** `PresentEvent`
+    ///   - errorEvents: Your custom-type event that contains `onError` listners. **By default** `PresentEvent`
+    public required init(request: BaseServerRequest<Model>, completedEvents: Event<ResultType> = PresentEvent<ResultType>(), errorEvents: Event<Error> = PresentEvent<Error>()) {
         self.request = request
-        self.completedEvents = Event<ResultType>()
-        self.errorEvents = Event<Error>()
+        self.completedEvents = completedEvents
+        self.errorEvents = errorEvents
     }
 
     #if DEBUG
@@ -87,11 +96,21 @@ public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, Cacheable
 
     public typealias ResultType = Model
 
-    fileprivate var completedCacheEvent: Event<ResultType>
+    fileprivate var completedCacheEvent: PresentEvent<ResultType>
 
-    public required init(request: BaseServerRequest<Model>) {
-        self.completedCacheEvent = Event<ResultType>()
-        super.init(request: request)
+    /// Initialize context.
+    ///
+    /// Allows you to specialize type of completed and error events.
+    /// Use this initializer to customize events emitting behaviour.
+    /// **You can't specialize** `onCacheCompleted`. **It has** `PresentEvent` **emiter type.**
+    ///
+    /// - Parameters:
+    ///   - request: Server request
+    ///   - completedEvents: Your custom-type event that contains `onCompleted` listners. **By default** `PresentEvent`
+    ///   - errorEvents: Your custom-type event that contains `onError` listners. **By default** `PresentEvent`
+    public required init(request: BaseServerRequest<Model>, completedEvents: Event<ResultType> = PresentEvent<ResultType>(), errorEvents: Event<Error> = PresentEvent<Error>()) {
+        self.completedCacheEvent = PresentEvent<ResultType>()
+        super.init(request: request, completedEvents: completedEvents, errorEvents: errorEvents)
     }
 
     @discardableResult
@@ -110,6 +129,7 @@ public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, Cacheable
                 if cacheFlag {
                     self.completedCacheEvent.invoke(with: value)
                 } else {
+                    self.completedCacheEvent.eraseLastEmited()
                     self.completedEvents.invoke(with: value)
                 }
             }

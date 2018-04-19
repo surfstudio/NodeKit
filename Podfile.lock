@@ -1,15 +1,15 @@
 PODS:
   - Alamofire (4.7.2)
-  - CoreEvents (1.1.1)
+  - CoreEvents (1.1.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7.2)
-  - CoreEvents (~> 1.1.1)
+  - CoreEvents (~> 1.1.2)
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
-  CoreEvents: a964dae0380ca4e5ed0d84c7a6db71e4ffc19ad8
+  CoreEvents: 2bb54efb2c79ce590b7aa0c1399438760791130a
 
-PODFILE CHECKSUM: 3c42ac797f5503d3c2749784a4f7ccac6da8bc70
+PODFILE CHECKSUM: 7d7e60cae3c7fa15f68304223edbfb8935d41b2e
 
 COCOAPODS: 1.3.1

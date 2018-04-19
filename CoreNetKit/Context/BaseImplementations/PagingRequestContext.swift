@@ -26,10 +26,11 @@ public class PagingRequestContext<ResultModel>: PaginableRequestContextProtocol 
 
     // MARK: - Initialization
 
-    public required init(request: BaseServerRequest<ResultType> & ReusablePagingRequest) {
+    public required init(request: BaseServerRequest<ResultType> & ReusablePagingRequest,
+                         completedEvents: Event<ResultType> = PresentEvent<ResultType>(), errorEvents: Event<Error> = PresentEvent<Error>()) {
         self.request = request
-        self.completedEvents = Event<ResultType>()
-        self.errorEvents = Event<Error>()
+        self.completedEvents = completedEvents
+        self.errorEvents = errorEvents
     }
 
     // MARK: - Context methods
