@@ -3,6 +3,7 @@ osx_image: xcode9.1
 xcode_project: CoreNetKit.xcodeproj # path to your xcodeproj folder
 xcode_scheme: CoreNetKit
 before_install:
+  - pod install --repo-update
   - gem install xcpretty -N
   - brew update
   - brew install swiftlint || true
