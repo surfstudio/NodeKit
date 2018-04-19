@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreEvents
 
 /// Base context that implement iteratable logic for any iteratable request
 public class IteratableContext<ResultModel: Countable>: ActionableContext<ResultModel>, ServiceAsyncIterator {

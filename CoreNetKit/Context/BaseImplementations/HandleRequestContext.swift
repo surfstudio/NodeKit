@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import CoreEvents
 
 /// Context that incapsulate request handle
 /// It may used for automatic convertion response type to awaiting type
-public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestContextProtocol, CancellableContext {
+public class HandleRequestContext<RequestModel, ResultModel>: ActionableContextProtocol, CancellableContext {
 
     // MARK: - Typealiases
 					
@@ -30,11 +31,12 @@ public class HandleRequestContext<RequestModel, ResultModel>: HandableRequestCon
 
     // MARK: - Initializers / Deinitializers
 
-    public required init(request: BaseServerRequest<RequestModel>, handler: @escaping HandlerClosure) {
+    public required init(request: BaseServerRequest<RequestModel>, handler: @escaping HandlerClosure,
+                         completedEvents: Event<ResultType> = PresentEvent<ResultType>(), errorEvents: Event<Error> = PresentEvent<Error>()) {
         self.request = request
         self.handler = handler
-        self.completedEvents = Event<ResultType>()
-        self.errorEvents = Event<Error>()
+        self.completedEvents = completedEvents
+        self.errorEvents = errorEvents
     }
 
     #if DEBUG
