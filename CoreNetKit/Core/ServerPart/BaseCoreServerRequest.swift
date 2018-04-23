@@ -104,6 +104,9 @@ public class BaseCoreServerRequest: NSObject, CoreServerRequest {
         let requests = self.createRequestWithPolicy(with: completion)
 
         switch self.parameters {
+        case .none:
+            let request = self.createNoneParamRequest()
+            requests.forEach({ $0(request) })
         case .simpleParams(let params):
             let request = self.createSingleParamRequest(params)
             requests.forEach({ $0(request) })
@@ -155,6 +158,10 @@ extension BaseCoreServerRequest {
     enum MultipartRequestCompletion {
         case succes(DataRequest)
         case failure(CoreServerResponse)
+    }
+
+    func createNoneParamRequest() -> DataRequest {
+        return createSingleParamRequest(nil)
     }
 
     func createSingleParamRequest(_ params: [String: Any]?) -> DataRequest {
