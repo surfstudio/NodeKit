@@ -48,7 +48,7 @@ open class ETagCacheAdapter: CacheAdapter {
     }
 
     open func configure(_ request: URLRequest) -> URLRequest {
-        guard let urlString = request.url?.absoluteString, let eTag = getETagFor(urlString: urlString) else {
+        guard let urlString = request.url?.absoluteString, let eTag = getETag(for: urlString) else {
             return request
         }
         var eTagReadyRequest = request
@@ -68,18 +68,15 @@ private extension ETagCacheAdapter {
     }
 
     func updateETag(for urlResponse: URLResponse) {
-        if let httpResponse = urlResponse as? HTTPURLResponse {
-            if let urlString = httpResponse.url?.absoluteString {
-                if let etag = httpResponse.allHeaderFields[Constants.eTagApiHeaderField] as? String {
-                    // save the etag header value with the url as a key.
-                    UserDefaults.standard.set(etag, forKey: urlString)
-                    UserDefaults.standard.synchronize()
-                }
-            }
+        if let httpResponse = urlResponse as? HTTPURLResponse,
+            let urlString = httpResponse.url?.absoluteString,
+            let etag = httpResponse.allHeaderFields[Constants.eTagApiHeaderField] as? String {
+            // save the etag header value with the url as a key.
+            UserDefaults.standard.set(etag, forKey: urlString)
         }
     }
 
-    func getETagFor(urlString: String) -> String? {
+    func getETag(for urlString: String) -> String? {
         // return the saved ETag value for the given URL
         return UserDefaults.standard.object(forKey: urlString) as? String
     }

@@ -107,8 +107,8 @@ public class BaseCoreServerRequest: NSObject, CoreServerRequest {
             switch result {
             case .succes(let request):
                 requests.forEach({ $0(request) })
-            case .failure(let resp):
-                completion(resp)
+            case .failure(let error):
+                completion(error)
             }
         }
 
@@ -214,10 +214,9 @@ extension BaseCoreServerRequest {
         let originalRequest = try URLRequest(url: url, method: method.alamofire, headers: headers)
         var encodedURLRequest = try paramEncoding.encode(originalRequest, with: params)
 
-        if let cacheAdapter = cacheAdapter {
-            if let configuredRequest = cacheAdapter.configure(encodedURLRequest) as? URLRequest {
-                encodedURLRequest = configuredRequest
-            }
+        if let cacheAdapter = cacheAdapter,
+            let configuredRequest = cacheAdapter.configure(encodedURLRequest) as? URLRequest {
+            encodedURLRequest = configuredRequest
         }
 
         return encodedURLRequest
