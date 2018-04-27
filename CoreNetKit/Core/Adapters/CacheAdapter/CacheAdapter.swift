@@ -13,4 +13,17 @@ public protocol CacheAdapter {
     func save(urlResponse: URLResponse, urlRequest: URLRequest, data: Data)
 
     func load(urlRequest: URLRequest, response: CoreServerResponse?) -> CoreServerResponse
+
+    /// Method to adapt Requests for cache needs
+    ///
+    /// - Parameter request: request to adapt
+    /// - Returns: adapted request
+    func configure(_ request: CacheConfigurableRequest) -> CacheConfigurableRequest
+
+}
+
+extension CacheAdapter {
+    public func configure(_ request: CacheConfigurableRequest) -> CacheConfigurableRequest {
+        return request
+    }
 }
