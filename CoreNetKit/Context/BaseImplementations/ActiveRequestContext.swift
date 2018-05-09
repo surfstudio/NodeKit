@@ -10,7 +10,7 @@ import Foundation
 import CoreEvents
 
 /// Base implementation `ActionableContext`
-public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableContext {
+public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableContext, PerformableContext {
 
     // MARK: - Typealiases
 

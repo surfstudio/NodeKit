@@ -54,6 +54,7 @@ public class PagingRequestContext<ResultModel>: PaginableRequestContextProtocol 
         self.perfromRequest()
     }
 
+
     private func perfromRequest() {
         self.request.performAsync { self.performHandler(result: $0) }
     }
