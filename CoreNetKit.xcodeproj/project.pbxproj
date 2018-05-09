@@ -31,9 +31,6 @@
 		B94310FB1F932BD900E8A9BA /* PagingRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310FA1F932BD900E8A9BA /* PagingRequestContext.swift */; };
 		B94310FF1F932D3200E8A9BA /* ReusablePagingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310FE1F932D3200E8A9BA /* ReusablePagingRequest.swift */; };
 		B94311011F933D0F00E8A9BA /* Countable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94311001F933D0F00E8A9BA /* Countable.swift */; };
-		B964F35C20A3710900110EA4 /* AccessSafeContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B964F35B20A3710900110EA4 /* AccessSafeContextManager.swift */; };
-		B964F36420A382E400110EA4 /* CoreNetKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B964F36320A382E400110EA4 /* CoreNetKitTests.swift */; };
-		B964F36620A382E400110EA4 /* CoreNetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B94310AA1F931CC000E8A9BA /* CoreNetKit.framework */; };
 		B96CD4141FDC450800F5A107 /* AccessSafeRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CD4131FDC450800F5A107 /* AccessSafeRequestManager.swift */; };
 		B96CD4161FDC4E2200F5A107 /* CacheableContextProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CD4151FDC4E2200F5A107 /* CacheableContextProtocol.swift */; };
 		B97D3CD51F93440800DB6ED6 /* UrlCacheAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D3CD41F93440800DB6ED6 /* UrlCacheAdapter.swift */; };
@@ -41,16 +38,6 @@
 		B9B4F7861FDC731B00A0B1D1 /* CancellableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4F7851FDC731B00A0B1D1 /* CancellableContext.swift */; };
 		F850843585A22770DB437F08 /* Pods_CoreNetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1E45F76645C0817BCA1818E /* Pods_CoreNetKit.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		B964F36720A382E400110EA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B94310A11F931CC000E8A9BA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B94310A91F931CC000E8A9BA;
-			remoteInfo = CoreNetKit;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4F290E291FE4046E00FFCCF2 /* CoreServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerRequest.swift; sourceTree = "<group>"; };
@@ -81,10 +68,6 @@
 		B94310FA1F932BD900E8A9BA /* PagingRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingRequestContext.swift; sourceTree = "<group>"; };
 		B94310FE1F932D3200E8A9BA /* ReusablePagingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusablePagingRequest.swift; sourceTree = "<group>"; };
 		B94311001F933D0F00E8A9BA /* Countable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countable.swift; sourceTree = "<group>"; };
-		B964F35B20A3710900110EA4 /* AccessSafeContextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessSafeContextManager.swift; sourceTree = "<group>"; };
-		B964F36120A382E400110EA4 /* CoreNetKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreNetKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B964F36320A382E400110EA4 /* CoreNetKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreNetKitTests.swift; sourceTree = "<group>"; };
-		B964F36520A382E400110EA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B96CD4131FDC450800F5A107 /* AccessSafeRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessSafeRequestManager.swift; sourceTree = "<group>"; };
 		B96CD4151FDC4E2200F5A107 /* CacheableContextProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableContextProtocol.swift; sourceTree = "<group>"; };
 		B97D3CD41F93440800DB6ED6 /* UrlCacheAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlCacheAdapter.swift; sourceTree = "<group>"; };
@@ -99,14 +82,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F850843585A22770DB437F08 /* Pods_CoreNetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B964F35E20A382E400110EA4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B964F36620A382E400110EA4 /* CoreNetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,7 +118,6 @@
 			isa = PBXGroup;
 			children = (
 				B94310AC1F931CC000E8A9BA /* CoreNetKit */,
-				B964F36220A382E400110EA4 /* CoreNetKitTests */,
 				B94310AB1F931CC000E8A9BA /* Products */,
 				6597E5C3DF90E0C2B4142DD0 /* Pods */,
 				5E63305A48BF32F13044AAC9 /* Frameworks */,
@@ -154,7 +128,6 @@
 			isa = PBXGroup;
 			children = (
 				B94310AA1F931CC000E8A9BA /* CoreNetKit.framework */,
-				B964F36120A382E400110EA4 /* CoreNetKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -257,15 +230,6 @@
 			path = Pagination;
 			sourceTree = "<group>";
 		};
-		B964F36220A382E400110EA4 /* CoreNetKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				B964F36320A382E400110EA4 /* CoreNetKitTests.swift */,
-				B964F36520A382E400110EA4 /* Info.plist */,
-			);
-			path = CoreNetKitTests;
-			sourceTree = "<group>";
-		};
 		B97D3CD21F9343AD00DB6ED6 /* Adapters */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				B96CD4131FDC450800F5A107 /* AccessSafeRequestManager.swift */,
-				B964F35B20A3710900110EA4 /* AccessSafeContextManager.swift */,
 			);
 			path = Safe;
 			sourceTree = "<group>";
@@ -316,6 +279,7 @@
 				B94310A61F931CC000E8A9BA /* Frameworks */,
 				B94310A71F931CC000E8A9BA /* Headers */,
 				B94310A81F931CC000E8A9BA /* Resources */,
+				658FA4BB4076ADF5CAD1D872 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -326,41 +290,18 @@
 			productReference = B94310AA1F931CC000E8A9BA /* CoreNetKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		B964F36020A382E400110EA4 /* CoreNetKitTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B964F36920A382E400110EA4 /* Build configuration list for PBXNativeTarget "CoreNetKitTests" */;
-			buildPhases = (
-				B964F35D20A382E400110EA4 /* Sources */,
-				B964F35E20A382E400110EA4 /* Frameworks */,
-				B964F35F20A382E400110EA4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B964F36820A382E400110EA4 /* PBXTargetDependency */,
-			);
-			name = CoreNetKitTests;
-			productName = CoreNetKitTests;
-			productReference = B964F36120A382E400110EA4 /* CoreNetKitTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B94310A11F931CC000E8A9BA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Кравченков Александр";
 				TargetAttributes = {
 					B94310A91F931CC000E8A9BA = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
-					};
-					B964F36020A382E400110EA4 = {
-						CreatedOnToolsVersion = 9.3;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -378,7 +319,6 @@
 			projectRoot = "";
 			targets = (
 				B94310A91F931CC000E8A9BA /* CoreNetKit */,
-				B964F36020A382E400110EA4 /* CoreNetKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -391,16 +331,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B964F35F20A382E400110EA4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		658FA4BB4076ADF5CAD1D872 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CoreNetKit/Pods-CoreNetKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7F99649A3E58C8ACCBE972D8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -429,7 +377,6 @@
 				B94311011F933D0F00E8A9BA /* Countable.swift in Sources */,
 				B9B4F7861FDC731B00A0B1D1 /* CancellableContext.swift in Sources */,
 				B94310E71F9324F300E8A9BA /* ServicePaginator + AsyncIterator.swift in Sources */,
-				B964F35C20A3710900110EA4 /* AccessSafeContextManager.swift in Sources */,
 				B94310EE1F93250700E8A9BA /* MultipartData.swift in Sources */,
 				B97D3CD71F93468000DB6ED6 /* CacheAdapter.swift in Sources */,
 				4F290E2E1FE4064D00FFCCF2 /* ResponseResult.swift in Sources */,
@@ -458,23 +405,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B964F35D20A382E400110EA4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B964F36420A382E400110EA4 /* CoreNetKitTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B964F36820A382E400110EA4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B94310A91F931CC000E8A9BA /* CoreNetKit */;
-			targetProxy = B964F36720A382E400110EA4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B94310B01F931CC000E8A9BA /* Debug */ = {
@@ -643,38 +574,6 @@
 			};
 			name = Release;
 		};
-		B964F36A20A382E400110EA4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZJ45BEVK69;
-				INFOPLIST_FILE = CoreNetKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = AK.CoreNetKitTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		B964F36B20A382E400110EA4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZJ45BEVK69;
-				INFOPLIST_FILE = CoreNetKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = AK.CoreNetKitTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -692,15 +591,6 @@
 			buildConfigurations = (
 				B94310B31F931CC000E8A9BA /* Debug */,
 				B94310B41F931CC000E8A9BA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B964F36920A382E400110EA4 /* Build configuration list for PBXNativeTarget "CoreNetKitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B964F36A20A382E400110EA4 /* Debug */,
-				B964F36B20A382E400110EA4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
