@@ -34,14 +34,25 @@ public class IteratableContext<ResultModel: Countable>: ActionableContext<Result
 
     // MARK: - Initializers
 
-    public required init(startIndex: Int, itemsOnPage: Int, context: PagingRequestContext<ResultModel>) {
+    /// Initialize context.
+    ///
+    /// Allows you to specialize type of completed and error events.
+    /// Use this initializer to customize events emitting behaviour.
+    ///
+    /// - Parameters:
+    ///   - startIndex: Start index for iterator
+    ///   - itemsOnPage: Number of items on single page for iterator
+    ///   - context: PagingRequestContext for iterator
+    ///   - completedEvents: Your custom-type event that contains `onCompleted` listners. **By default** `PresentEvent`
+    ///   - errorEvents: Your custom-type event that contains `onError` listners. **By default** `PresentEvent`
+    public required init(startIndex: Int, itemsOnPage: Int, context: PagingRequestContext<ResultModel>, completedEvents: Event<ResultType> = PresentEvent<ResultType>(), errorEvents: Event<Error> = PresentEvent<Error>()) {
         self.startIndex = startIndex
         self.currentIndex = startIndex
         self.itemsOnPage = itemsOnPage
         self.canMoveNext = true
         self.paginableContext = context
-        self.completedEvents = Event<ResultType>()
-        self.errorEvents = Event<Error>()
+        self.completedEvents = completedEvents
+        self.errorEvents = errorEvents
         super.init()
         self.subscribe()
     }
