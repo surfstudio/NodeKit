@@ -34,7 +34,7 @@
 		B94310FF1F932D3200E8A9BA /* ReusablePagingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310FE1F932D3200E8A9BA /* ReusablePagingRequest.swift */; };
 		B94311011F933D0F00E8A9BA /* Countable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94311001F933D0F00E8A9BA /* Countable.swift */; };
 		B96CD4141FDC450800F5A107 /* AccessSafeRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CD4131FDC450800F5A107 /* AccessSafeRequestManager.swift */; };
-		B96CD4161FDC4E2200F5A107 /* CacheableContextProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CD4151FDC4E2200F5A107 /* CacheableContextProtocol.swift */; };
+		B96CD4161FDC4E2200F5A107 /* CacheableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CD4151FDC4E2200F5A107 /* CacheableContext.swift */; };
 		B97D3CD51F93440800DB6ED6 /* UrlCacheAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D3CD41F93440800DB6ED6 /* UrlCacheAdapter.swift */; };
 		B97D3CD71F93468000DB6ED6 /* CacheAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D3CD61F93468000DB6ED6 /* CacheAdapter.swift */; };
 		B9B4F7861FDC731B00A0B1D1 /* CancellableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B4F7851FDC731B00A0B1D1 /* CancellableContext.swift */; };
@@ -73,7 +73,7 @@
 		B94310FE1F932D3200E8A9BA /* ReusablePagingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusablePagingRequest.swift; sourceTree = "<group>"; };
 		B94311001F933D0F00E8A9BA /* Countable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countable.swift; sourceTree = "<group>"; };
 		B96CD4131FDC450800F5A107 /* AccessSafeRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessSafeRequestManager.swift; sourceTree = "<group>"; };
-		B96CD4151FDC4E2200F5A107 /* CacheableContextProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableContextProtocol.swift; sourceTree = "<group>"; };
+		B96CD4151FDC4E2200F5A107 /* CacheableContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheableContext.swift; sourceTree = "<group>"; };
 		B97D3CD41F93440800DB6ED6 /* UrlCacheAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlCacheAdapter.swift; sourceTree = "<group>"; };
 		B97D3CD61F93468000DB6ED6 /* CacheAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAdapter.swift; sourceTree = "<group>"; };
 		B9B4F7851FDC731B00A0B1D1 /* CancellableContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellableContext.swift; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 				B94310CD1F9322AC00E8A9BA /* PassiveContextProtocol.swift */,
 				B94310CE1F9322AC00E8A9BA /* ActionableContext.swift */,
 				B94310F81F932B2700E8A9BA /* PaginableRequestContextProtocol.swift */,
-				B96CD4151FDC4E2200F5A107 /* CacheableContextProtocol.swift */,
+				B96CD4151FDC4E2200F5A107 /* CacheableContext.swift */,
 				B9B4F7851FDC731B00A0B1D1 /* CancellableContext.swift */,
 			);
 			path = Protocols;
@@ -396,7 +396,7 @@
 				B94310EC1F93250200E8A9BA /* BaseResult.swift in Sources */,
 				B94310EA1F9324FE00E8A9BA /* BaseServerRequest.swift in Sources */,
 				3359EE9B20932165002F512C /* CacheConfigurableRequest.swift in Sources */,
-				B96CD4161FDC4E2200F5A107 /* CacheableContextProtocol.swift in Sources */,
+				B96CD4161FDC4E2200F5A107 /* CacheableContext.swift in Sources */,
 				B94310ED1F93250500E8A9BA /* BaseCoreServerResponse.swift in Sources */,
 				B94310EB1F93250000E8A9BA /* NetworkLayerBaseErrors.swift in Sources */,
 				B97D3CD51F93440800DB6ED6 /* UrlCacheAdapter.swift in Sources */,
