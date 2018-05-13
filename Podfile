@@ -8,10 +8,4 @@ target 'CoreNetKit' do
   pod 'Alamofire', '~> 4.7.2'
   pod 'CoreEvents', '~> 1.1.2'
 
-  target 'CoreNetKitTests' do
-
-    pod 'CoreEvents', '~> 1.1.2'
-
-  end
-
 end
