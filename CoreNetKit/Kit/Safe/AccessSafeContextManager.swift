@@ -19,7 +19,7 @@ public protocol PerformableContext: class {
 public protocol SafeErrorContext: class {
 
     @discardableResult
-    func onAccessError(_ completion: () -> Void) -> Self
+    func onAccessError(_ completion: @escaping () -> Void) -> Self
     func performAccessError()
 }
 
@@ -117,6 +117,8 @@ private extension AccessSafeContextManager {
 
             self.safePerform(context: context)
         }
+
+        context.perform()
     }
 
     private func safePerform(context: AccessSafeContext) {
