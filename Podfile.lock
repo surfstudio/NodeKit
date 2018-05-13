@@ -6,10 +6,15 @@ DEPENDENCIES:
   - Alamofire (~> 4.7.2)
   - CoreEvents (~> 1.1.2)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - CoreEvents
+
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   CoreEvents: 2bb54efb2c79ce590b7aa0c1399438760791130a
 
-PODFILE CHECKSUM: 7d7e60cae3c7fa15f68304223edbfb8935d41b2e
+PODFILE CHECKSUM: d8118267a32c263072fd9a36fe4a0301bab7ad3b
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.0
