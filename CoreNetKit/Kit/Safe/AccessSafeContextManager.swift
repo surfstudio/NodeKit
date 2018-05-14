@@ -25,7 +25,7 @@ public protocol SafeErrorContext: class {
 
 public typealias AccessSafeContext = PerformableContext & SafeErrorContext
 
-/// This object should provide contexts that can
+/// This object should provide contexts that can update access.
 public protocol RefreshAccessContextProvider {
     func getContext() -> ActionableContext<Void>
 }
@@ -34,17 +34,15 @@ public protocol RefreshAccessContextProvider {
 
 open class AccessSafeContextManager {
 
-    // MARK: - fileds
+    // MARK: - Fileds
 
     fileprivate var activeContext: [AccessSafeContext]
-
+    fileprivate var isRefreshTokenRequestWasSended: Bool
     fileprivate let semaphore: DispatchSemaphore
 
-    fileprivate var isRefreshTokenRequestWasSended: Bool
+    // MARK: - Properties
 
-    // MARK: - properties
-
-    open var refreshAccessContextProvider: RefreshAccessContextProvider
+    public var refreshAccessContextProvider: RefreshAccessContextProvider
 
     public init(refreshAccessContextProvider: RefreshAccessContextProvider) {
         self.refreshAccessContextProvider = refreshAccessContextProvider
