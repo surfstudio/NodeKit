@@ -21,13 +21,16 @@ public class BaseCoreServerResponse: NSObject, CoreServerResponse {
         public static let unauthorizedError = 401
     }
 
-    // MARK: - Fileds
+    // MARK: - Public properties
 
     public var httpResponse: HTTPURLResponse?
     public let statusCode: Int
+    public var result: ResponseResult<Any>
+
+    // MARK: - Internal properties
+
     public internal(set) var isNotModified: Bool
     public internal(set) var isConnectionFailed: Bool
-    public var result: ResponseResult<Any>
     public internal(set) var errorMapper: ErrorMapperAdapter?
 
     // MARK: - Initializers
@@ -88,9 +91,7 @@ private extension BaseCoreServerResponse {
     }
 
     func parseError(data: Data?) -> LocalizedError {
-        guard let error = self.trySerializeToJson(data: data) else {
-            return BaseServerError.badJsonFormat
-        }
+        let error = self.trySerializeToJson(data: data) ?? [String: Any]()
         guard let customError = self.errorMapper?.map(json: error, httpCode: self.statusCode) else {
 
             if self.statusCode == Const.unauthorizedError {
