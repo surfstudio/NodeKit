@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum BaseServerError: LocalizedError {
+public enum BaseServerError: Error {
     case internalServerError
     case badJsonFormat
     case networkError
@@ -17,7 +17,7 @@ public enum BaseServerError: LocalizedError {
     case unauthorized
 }
 
-public enum BaseCacheError: LocalizedError {
+public enum BaseCacheError: Error {
     case cantFindInCache
     case cantLoadFromCache
 }

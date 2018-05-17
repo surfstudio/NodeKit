@@ -18,7 +18,7 @@ public protocol AccessSafeRequestManagerDelegate {
     func refreshAccess(_ completion: @escaping (Bool) -> Void)
 }
 
-public enum AuthError: LocalizedError {
+public enum AuthError: Error {
     /// Need relogin
     case badTokens
 }

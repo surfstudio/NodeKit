@@ -87,7 +87,7 @@ private extension BaseCoreServerResponse {
         return try? JSONSerialization.jsonObject(with: data ?? Data(), options: .allowFragments)
     }
 
-    func parseError(data: Data?) -> LocalizedError {
+    func parseError(data: Data?) -> Error {
         guard let error = self.trySerializeToJson(data: data) else {
             return BaseServerError.badJsonFormat
         }
