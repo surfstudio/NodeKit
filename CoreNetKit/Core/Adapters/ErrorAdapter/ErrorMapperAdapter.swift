@@ -17,7 +17,7 @@ public protocol ErrorMapperAdapter {
     ///   - json: JSON object
     ///   - httpCode: code of http response
     /// - Returns: mapped error
-    func map(json: [String: Any], httpCode: Int?) -> LocalizedError?
+    func map(json: [String: Any], httpCode: Int?) -> Error?
 
     /// Provide mapping json to custom errro
     ///
@@ -25,11 +25,11 @@ public protocol ErrorMapperAdapter {
     ///   - json: JSON object
     ///   - httpCode: code of http response
     /// - Returns: mapped error
-    func map(json: Any?, httpCode: Int?) -> LocalizedError?
+    func map(json: Any?, httpCode: Int?) -> Error?
 }
 
 extension ErrorMapperAdapter {
-    public func map(json: Any?, httpCode: Int?) -> LocalizedError? {
+    public func map(json: Any?, httpCode: Int?) -> Error? {
         guard let dict = json as? [String: Any] else {
             return nil
         }
