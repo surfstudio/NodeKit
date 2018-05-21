@@ -9,8 +9,8 @@
 import Foundation
 
 public struct MultipartData {
-    let data: Data
-    let name: String
-    let fileName: String
-    let mimeType: String
+    public let data: Data
+    public let name: String
+    public let fileName: String
+    public let mimeType: String
 }
