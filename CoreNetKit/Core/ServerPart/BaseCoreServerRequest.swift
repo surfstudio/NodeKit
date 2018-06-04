@@ -185,7 +185,7 @@ extension BaseCoreServerRequest {
             let request: URLRequest =  try self.createOriginalRequest(params: nil)
             manager.upload(multipartFormData: { (multipartFormData) in
                 for data in params {
-                    multipartFormData.append(data.data, withName: data.name, fileName: data.fileName, mimeType: data.fileName)
+                    multipartFormData.append(data.data, withName: data.name, fileName: data.fileName, mimeType: data.mimeType)
                 }
             }, with: request) { (encodingResult) in
                 switch encodingResult {
