@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios
   s.ios.deployment_target = "10.0"
 
-  s.source       = { :git => "https://github.com/LastSprint/CoreNetKit.git"}
+  s.source       = { :git => "https://github.com/surfstudio/CoreNetKit.git"}
 
   s.source_files  = 'CoreNetKit/Context/**/*.swift', 'CoreNetKit/Core/*.swift', 'CoreNetKit/Core/Adapters/**/*.swift', 'CoreNetKit/Core/Adapters/**/*.swift', 'CoreNetKit/Core/ServerPart/*.swift', 'CoreNetKit/Core/ServerPart/Protocols/*.swift', 'CoreNetKit/Kit/**/*.swift'
   s.dependency 'Alamofire', '~> 4.7.2'
