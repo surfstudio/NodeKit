@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/surfstudio/CoreNetKit.svg?branch=master)](https://travis-ci.org/surfstudio/CoreNetKit)
-[![codebeat badge](https://codebeat.co/badges/2ec39e4c-9620-463f-8495-cf188c6e271e)](https://codebeat.co/projects/github-com-lastsprint-corenetkit-master)
+[![codebeat badge](https://codebeat.co/badges/60829a3a-5452-4d7c-ad6c-c702ba7ab1e1)](https://codebeat.co/projects/github-com-surfstudio-corenetkit-master)
 ---
 # Core Net Kit
 
