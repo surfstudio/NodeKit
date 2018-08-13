@@ -48,7 +48,7 @@ open class BaseServerRequest<ResultValueType> {
     }
 
     /// Обработка ответа сервера. При необходимости можно перегрузить метод.
-    open func handle(serverResponse: CoreServerResponse, completion: RequestCompletion) {
+    open func handle(serverResponse: CoreServerResponse, completion: @escaping RequestCompletion) {
         preconditionFailure("This method must be overriden by the subclass")
     }
 }
