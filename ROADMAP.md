@@ -235,14 +235,14 @@ public protocol CoreServerResponse {
 # Checklist
 - [ ] Исправить проблему утечки памяти в пагнириуемых контекстах [#33](https://github.com/surfstudio/CoreNetKit/issues/33)
 - [ ] Адаптировать AccessSafe для запросов с пагинацией [#13](https://github.com/surfstudio/CoreNetKit/issues/13)
-- [ ] Вынести политики кэширования в отдельный объект
-- [ ] Доработать/переработать модуль для имплементации логики кэширования (чтение/запись)
-- [ ] Доработать `CoreServerResponse
-- [ ] Добавить модуль маппинга
-- [ ] Добавить модуль логгирования [21](https://github.com/surfstudio/CoreNetKit/issues/21) [#27](https://github.com/surfstudio/CoreNetKit/issues/27)
+- [ ] Вынести политики кэширования в отдельный объект [#34](https://github.com/surfstudio/CoreNetKit/issues/34)
+- [ ] Доработать/переработать модуль для имплементации логики кэширования (чтение/запись) [#35](https://github.com/surfstudio/CoreNetKit/issues/35)
+- [ ] Доработать `CoreServerResponse` [#36](https://github.com/surfstudio/CoreNetKit/issues/36)
+- [ ] Добавить модуль маппинга [#37](https://github.com/surfstudio/CoreNetKit/issues/37)
+- [ ] Добавить модуль логгирования [#21](https://github.com/surfstudio/CoreNetKit/issues/21) [#27](https://github.com/surfstudio/CoreNetKit/issues/27)
 - [ ] Добавить модуль, отвечающий за формирование запроса [#3](https://github.com/surfstudio/CoreNetKit/issues/3)
-- [ ] Переработка контекстов. Добавление операций.
-- [ ] Переработка контекстов для пагинации
+- [ ] Переработка контекстов. Добавление операций. [#38](https://github.com/surfstudio/CoreNetKit/issues/38)
+- [ ] Переработка контекстов для пагинации [#38](https://github.com/surfstudio/CoreNetKit/issues/38)
 - [ ] Рефакторинг всего
 - [ ] Добавление возможности работать с WebSocket
 - [ ] Добавление маппинга в Bson
