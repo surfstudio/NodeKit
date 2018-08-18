@@ -244,7 +244,7 @@ public protocol CoreServerResponse {
 - [ ] Переработка контекстов. Добавление операций. [#38](https://github.com/surfstudio/CoreNetKit/issues/38)
 - [ ] Переработка контекстов для пагинации [#38](https://github.com/surfstudio/CoreNetKit/issues/38)
 - [ ] Рефакторинг всего
-- [ ] Добавление возможности работать с WebSocket
-- [ ] Добавление маппинга в Bson
-- [ ] Добавлние маппинга в Json
+- [ ] Добавление возможности работать с WebSocket [#40](https://github.com/surfstudio/CoreNetKit/issues/40)
+- [ ] Добавление маппинга в Bson [#42](https://github.com/surfstudio/CoreNetKit/issues/42)
+- [ ] Добавлние маппинга в Json [#41](https://github.com/surfstudio/CoreNetKit/issues/41)
 
