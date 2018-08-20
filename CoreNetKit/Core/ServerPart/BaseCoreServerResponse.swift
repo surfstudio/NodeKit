@@ -21,13 +21,16 @@ public class BaseCoreServerResponse: NSObject, CoreServerResponse {
         public static let unauthorizedError = 401
     }
 
-    // MARK: - Fileds
+    // MARK: - Public properties
 
     public var httpResponse: HTTPURLResponse?
     public let statusCode: Int
+    public var result: ResponseResult<Any>
+
+    // MARK: - Internal properties
+
     public internal(set) var isNotModified: Bool
     public internal(set) var isConnectionFailed: Bool
-    public var result: ResponseResult<Any>
     public internal(set) var errorMapper: ErrorMapperAdapter?
 
     // MARK: - Initializers
