@@ -185,7 +185,7 @@ extension BaseCoreServerRequest {
             let request: URLRequest =  try self.createOriginalRequest(params: nil)
             manager.upload(multipartFormData: { (multipartFormData) in
                 for data in params {
-                    multipartFormData.append(data.data, withName: data.name, fileName: data.fileName, mimeType: data.fileName)
+                    multipartFormData.append(data.data, withName: data.name, fileName: data.fileName, mimeType: data.mimeType)
                 }
             }, with: request) { (encodingResult) in
                 switch encodingResult {
@@ -234,8 +234,16 @@ extension BaseCoreServerRequest {
                 self.log(afResponse)
                 var response: CoreServerResponse = BaseCoreServerResponse(dataResponse: afResponse, dataResult: .success(afResponse.data, false), errorMapper: self.errorMapper)
 
-                // If response has flag NotModified in all cases or InternetConnection was failed in case of serverIfFailReadFromCahce it is necessary condition to read frowm cache
-                let isNeedsToReadCache = response.isNotModified || response.isConnectionFailed && self.cachePolicy == .serverIfFailReadFromCahce
+                // If response has flag NotModified in all cases we need to load cache
+                var isNeedsToReadCache = response.isNotModified
+
+                // If cache policy is serverIfFailReadFromCahce and request fails we need to:
+                // 1. send failure completion
+                // 2. try to load response from cache
+                if self.cachePolicy == .serverIfFailReadFromCahce, case ResponseResult.failure = response.result {
+                    isNeedsToReadCache = true
+                    completion(response)
+                }
 
                 if isNeedsToReadCache,
                     let guardRequest = request.request, let guardedAdapter = self.cacheAdapter {

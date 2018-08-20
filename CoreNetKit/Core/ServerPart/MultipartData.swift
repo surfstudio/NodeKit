@@ -9,8 +9,22 @@
 import Foundation
 
 public struct MultipartData {
-    let data: Data
-    let name: String
-    let fileName: String
-    let mimeType: String
+    public let data: Data
+    public let name: String
+    public let fileName: String
+    public let mimeType: String
+
+    ///Instantiates multipart data struct
+    ///
+    /// - Parameters:
+    /// - data: data representation of an object
+    /// - name: name of object
+    /// - fileName: name of file to be created
+    /// - mimeType: type of content
+    public init(data: Data, name: String, fileName: String, mimeType: String) {
+        self.data = data
+        self.name = name
+        self.fileName = fileName
+        self.mimeType = mimeType
+    }
 }
