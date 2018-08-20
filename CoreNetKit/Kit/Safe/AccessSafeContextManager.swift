@@ -38,8 +38,7 @@ open class AccessSafeContextManager {
 
     fileprivate var activeContext: [AccessSafeContext]
     fileprivate var isRefreshTokenRequestWasSended: Atomic<Bool>
-    fileprivate let semaphore: DispatchSemaphore
-
+    fileprivate var semaphore: DispatchSemaphore
     // MARK: - Properties
 
     public var refreshAccessContextProvider: RefreshAccessContextProvider
@@ -75,16 +74,11 @@ private extension AccessSafeContextManager {
 
     func backgoundAdd(context: AccessSafeContext) {
 
-        self.semaphore.wait()
-
         // true if no need perform
         // false if perform needed
         guard !isRefreshTokenRequestWasSended.read() else {
-            self.semaphore.signal()
             return
         }
-
-        self.semaphore.signal()
 
         self.requestPerformationWrapper(context: context)
     }
@@ -92,21 +86,13 @@ private extension AccessSafeContextManager {
     func requestPerformationWrapper(context: AccessSafeContext) {
 
         context.onAccessError {
-
             self.activeContext.append(context)
-
-            self.semaphore.wait()
-
             // true if no need perform
             // false if perform needed
             if self.isRefreshTokenRequestWasSended.read() {
-                self.semaphore.signal()
                 return
             }
-
             self.isRefreshTokenRequestWasSended.write(value: true)
-            self.semaphore.signal()
-
             self.safePerform(context: context)
         }
 
@@ -123,15 +109,12 @@ private extension AccessSafeContextManager {
     }
 
     private func successPerformation(context: AccessSafeContext) {
-        self.semaphore.wait()
 
         if !self.isRefreshTokenRequestWasSended.read(),
             let index = self.activeContext.index(where: { $0 === context }) {
 
             self.activeContext.remove(at: index)
         }
-
-        self.semaphore.signal()
     }
 
     private func failedSafePerformation(context: AccessSafeContext?) {
@@ -146,11 +129,8 @@ private extension AccessSafeContextManager {
     }
 
     func successSafePerformation() {
-        self.semaphore.wait()
 
         self.isRefreshTokenRequestWasSended.write(value: false)
-
-        self.semaphore.signal()
 
         for context in self.activeContext {
             self.requestPerformationWrapper(context: context)
