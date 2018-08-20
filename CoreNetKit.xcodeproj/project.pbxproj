@@ -13,6 +13,7 @@
 		4F290E2A1FE4046E00FFCCF2 /* CoreServerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E291FE4046E00FFCCF2 /* CoreServerRequest.swift */; };
 		4F290E2C1FE4047D00FFCCF2 /* CoreServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E2B1FE4047D00FFCCF2 /* CoreServerResponse.swift */; };
 		4F290E2E1FE4064D00FFCCF2 /* ResponseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */; };
+		4F7263B1212AD1D6006F9C29 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7263B0212AD1D6006F9C29 /* Atomic.swift */; };
 		4FA424292075D4AC004AEDF6 /* TokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA424282075D4AC004AEDF6 /* TokenProvider.swift */; };
 		B94310AF1F931CC000E8A9BA /* CoreNetKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* CoreNetKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B94310E71F9324F300E8A9BA /* ServicePaginator + AsyncIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310D71F9322AC00E8A9BA /* ServicePaginator + AsyncIterator.swift */; };
@@ -62,6 +63,7 @@
 		4F290E291FE4046E00FFCCF2 /* CoreServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerRequest.swift; sourceTree = "<group>"; };
 		4F290E2B1FE4047D00FFCCF2 /* CoreServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerResponse.swift; sourceTree = "<group>"; };
 		4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseResult.swift; sourceTree = "<group>"; };
+		4F7263B0212AD1D6006F9C29 /* Atomic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		4FA424282075D4AC004AEDF6 /* TokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenProvider.swift; sourceTree = "<group>"; };
 		87354FCE24639CD6A5B7DE48 /* Pods-CoreNetKit-CoreNetKitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreNetKit-CoreNetKitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoreNetKit-CoreNetKitTests/Pods-CoreNetKit-CoreNetKitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9AF2A9A1A9CD5898CBBC5776 /* Pods-CoreNetKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreNetKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoreNetKit/Pods-CoreNetKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 			children = (
 				B98B6BDE20A9FFC2004B9AEC /* AccessSafeContextManager.swift */,
 				B96CD4131FDC450800F5A107 /* AccessSafeRequestManager.swift */,
+				4F7263B0212AD1D6006F9C29 /* Atomic.swift */,
 			);
 			path = Safe;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				B9B4F7861FDC731B00A0B1D1 /* CancellableContext.swift in Sources */,
 				B94310E71F9324F300E8A9BA /* ServicePaginator + AsyncIterator.swift in Sources */,
 				B94310EE1F93250700E8A9BA /* MultipartData.swift in Sources */,
+				4F7263B1212AD1D6006F9C29 /* Atomic.swift in Sources */,
 				B97D3CD71F93468000DB6ED6 /* CacheAdapter.swift in Sources */,
 				B98B6BDF20A9FFC2004B9AEC /* AccessSafeContextManager.swift in Sources */,
 				4F290E2E1FE4064D00FFCCF2 /* ResponseResult.swift in Sources */,

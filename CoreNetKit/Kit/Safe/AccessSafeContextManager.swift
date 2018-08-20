@@ -37,7 +37,7 @@ open class AccessSafeContextManager {
     // MARK: - Fileds
 
     fileprivate var activeContext: [AccessSafeContext]
-    fileprivate var isRefreshTokenRequestWasSended: Bool
+    fileprivate var isRefreshTokenRequestWasSended: Atomic<Bool>
     fileprivate let semaphore: DispatchSemaphore
 
     // MARK: - Properties
@@ -48,7 +48,7 @@ open class AccessSafeContextManager {
         self.refreshAccessContextProvider = refreshAccessContextProvider
         self.activeContext = [AccessSafeContext]()
         self.semaphore = DispatchSemaphore(value: 1)
-        self.isRefreshTokenRequestWasSended = false
+        self.isRefreshTokenRequestWasSended = Atomic(value: false)
     }
 
     public func add(context: AccessSafeContext) {
@@ -59,14 +59,8 @@ open class AccessSafeContextManager {
 
     /// Removed all sleeped requests and allows perform new requests
     public func clear() {
-
         self.activeContext.removeAll()
-
-        self.semaphore.wait()
-
-        self.isRefreshTokenRequestWasSended = false
-
-        self.semaphore.signal()
+        self.isRefreshTokenRequestWasSended.write(value: false)
     }
 
     /// Tried reperform all waiting requests
@@ -85,7 +79,7 @@ private extension AccessSafeContextManager {
 
         // true if no need perform
         // false if perform needed
-        guard !isRefreshTokenRequestWasSended else {
+        guard !isRefreshTokenRequestWasSended.read() else {
             self.semaphore.signal()
             return
         }
@@ -105,12 +99,12 @@ private extension AccessSafeContextManager {
 
             // true if no need perform
             // false if perform needed
-            if self.isRefreshTokenRequestWasSended {
+            if self.isRefreshTokenRequestWasSended.read() {
                 self.semaphore.signal()
                 return
             }
 
-            self.isRefreshTokenRequestWasSended = true
+            self.isRefreshTokenRequestWasSended.write(value: true)
             self.semaphore.signal()
 
             self.safePerform(context: context)
@@ -131,7 +125,7 @@ private extension AccessSafeContextManager {
     private func successPerformation(context: AccessSafeContext) {
         self.semaphore.wait()
 
-        if !self.isRefreshTokenRequestWasSended,
+        if !self.isRefreshTokenRequestWasSended.read(),
             let index = self.activeContext.index(where: { $0 === context }) {
 
             self.activeContext.remove(at: index)
@@ -143,7 +137,7 @@ private extension AccessSafeContextManager {
     private func failedSafePerformation(context: AccessSafeContext?) {
         context?.performAccessError()
         self.activeContext.removeAll()
-        self.isRefreshTokenRequestWasSended = false
+        self.isRefreshTokenRequestWasSended.write(value: false)
     }
 
     func successSafePerformation(context: AccessSafeContext) {
@@ -154,7 +148,7 @@ private extension AccessSafeContextManager {
     func successSafePerformation() {
         self.semaphore.wait()
 
-        self.isRefreshTokenRequestWasSended = false
+        self.isRefreshTokenRequestWasSended.write(value: false)
 
         self.semaphore.signal()
 
