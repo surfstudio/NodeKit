@@ -89,12 +89,13 @@ public class IteratableContext<ResultModel: Countable>: ActionableContext<Result
 private extension IteratableContext {
 
     func subscribe() {
-        self.paginableContext.onCompleted { result in
+        self.paginableContext.onCompleted { [weak self] result in
+            guard let `self` = self else { return }
             self.canMoveNext = !result.itemsIsEmpty
             self.currentIndex += result.itemsCount
             self.completedEvents.invoke(with: result)
-        }
-        .onError { result in
+        }.onError { [weak self] result in
+            guard let `self` = self else { return }
             self.canMoveNext = false
             self.errorEvents.invoke(with: result)
         }
