@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		335785992091EE03007AB8E1 /* ETagCacheAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335785982091EE03007AB8E1 /* ETagCacheAdapter.swift */; };
+		3359EE9B20932165002F512C /* CacheConfigurableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3359EE9A20932165002F512C /* CacheConfigurableRequest.swift */; };
 		4F290E2A1FE4046E00FFCCF2 /* CoreServerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E291FE4046E00FFCCF2 /* CoreServerRequest.swift */; };
 		4F290E2C1FE4047D00FFCCF2 /* CoreServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E2B1FE4047D00FFCCF2 /* CoreServerResponse.swift */; };
 		4F290E2E1FE4064D00FFCCF2 /* ResponseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		335785982091EE03007AB8E1 /* ETagCacheAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETagCacheAdapter.swift; sourceTree = "<group>"; };
+		3359EE9A20932165002F512C /* CacheConfigurableRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheConfigurableRequest.swift; sourceTree = "<group>"; };
 		4F290E291FE4046E00FFCCF2 /* CoreServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerRequest.swift; sourceTree = "<group>"; };
 		4F290E2B1FE4047D00FFCCF2 /* CoreServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreServerResponse.swift; sourceTree = "<group>"; };
 		4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseResult.swift; sourceTree = "<group>"; };
@@ -242,8 +246,10 @@
 		B97D3CD31F9343F300DB6ED6 /* CacheAdapter */ = {
 			isa = PBXGroup;
 			children = (
+				3359EE9A20932165002F512C /* CacheConfigurableRequest.swift */,
 				B97D3CD41F93440800DB6ED6 /* UrlCacheAdapter.swift */,
 				B97D3CD61F93468000DB6ED6 /* CacheAdapter.swift */,
+				335785982091EE03007AB8E1 /* ETagCacheAdapter.swift */,
 			);
 			path = CacheAdapter;
 			sourceTree = "<group>";
@@ -373,6 +379,7 @@
 				B96CD4141FDC450800F5A107 /* AccessSafeRequestManager.swift in Sources */,
 				B94310EC1F93250200E8A9BA /* BaseResult.swift in Sources */,
 				B94310EA1F9324FE00E8A9BA /* BaseServerRequest.swift in Sources */,
+				3359EE9B20932165002F512C /* CacheConfigurableRequest.swift in Sources */,
 				B96CD4161FDC4E2200F5A107 /* CacheableContextProtocol.swift in Sources */,
 				B94310ED1F93250500E8A9BA /* BaseCoreServerResponse.swift in Sources */,
 				B94310EB1F93250000E8A9BA /* NetworkLayerBaseErrors.swift in Sources */,
@@ -381,6 +388,7 @@
 				B94310F31F93251500E8A9BA /* ActionableContext.swift in Sources */,
 				B94310F91F932B2700E8A9BA /* PaginableRequestContextProtocol.swift in Sources */,
 				4F290E2C1FE4047D00FFCCF2 /* CoreServerResponse.swift in Sources */,
+				335785992091EE03007AB8E1 /* ETagCacheAdapter.swift in Sources */,
 				B94310F71F93251C00E8A9BA /* HandleRequestContext.swift in Sources */,
 				B94310E91F9324FB00E8A9BA /* ErrorMapperAdapter.swift in Sources */,
 				B94310F51F93251C00E8A9BA /* ActiveRequestContext.swift in Sources */,

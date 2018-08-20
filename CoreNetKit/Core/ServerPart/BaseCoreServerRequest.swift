@@ -103,19 +103,22 @@ public class BaseCoreServerRequest: NSObject, CoreServerRequest {
 
         let requests = self.createRequestWithPolicy(with: completion)
 
+        let performCreated: (RequestCompletion) -> Void = { result in
+            switch result {
+            case .succes(let request):
+                requests.forEach({ $0(request) })
+            case .failure(let error):
+                completion(error)
+            }
+        }
+
         switch self.parameters {
+        case .none:
+            self.createNoneParamRequest(with: performCreated)
         case .simpleParams(let params):
-            let request = self.createSingleParamRequest(params)
-            requests.forEach({ $0(request) })
+            self.createSingleParamRequest(params, with: performCreated)
         case .multipartParams(let params):
-            self.createMultipartParamRequest(params, with: { result in
-                switch result {
-                case .succes(let request):
-                    requests.forEach({ $0(request) })
-                case .failure(let resp):
-                    completion(resp)
-                }
-            })
+            self.createMultipartParamRequest(params, with: performCreated)
         }
     }
 
@@ -152,16 +155,54 @@ public class BaseCoreServerRequest: NSObject, CoreServerRequest {
 
 extension BaseCoreServerRequest {
 
-    enum MultipartRequestCompletion {
+    enum RequestCompletion {
         case succes(DataRequest)
         case failure(CoreServerResponse)
     }
 
-    func createSingleParamRequest(_ params: [String: Any]?) -> DataRequest {
+    func createNoneParamRequest(with completion: @escaping (RequestCompletion) -> Void) {
+        createSingleParamRequest(nil, with: completion)
+    }
 
-        let headers = self.createHeaders()
+    func createSingleParamRequest(_ params: [String: Any]?, with completion: @escaping (RequestCompletion) -> Void) {
+
         let manager = ServerRequestsManager.shared.manager
 
+        do {
+            let request: URLRequest =  try self.createOriginalRequest(params: params)
+            completion(.succes(manager.request(request)))
+        } catch {
+            let response = BaseCoreServerResponse(dataResponse: nil, dataResult: .failure(error), errorMapper: self.errorMapper)
+            completion(.failure(response))
+        }
+    }
+
+    func createMultipartParamRequest(_ params: [MultipartData], with completion: @escaping (RequestCompletion) -> Void) {
+
+        let manager = ServerRequestsManager.shared.manager
+
+        do {
+            let request: URLRequest =  try self.createOriginalRequest(params: nil)
+            manager.upload(multipartFormData: { (multipartFormData) in
+                for data in params {
+                    multipartFormData.append(data.data, withName: data.name, fileName: data.fileName, mimeType: data.mimeType)
+                }
+            }, with: request) { (encodingResult) in
+                switch encodingResult {
+                case let .success(request: uploadRequest, streamingFromDisk: _, streamFileURL: _):
+                    completion(.succes(uploadRequest))
+                case let .failure(error):
+                    let response = BaseCoreServerResponse(dataResponse: nil, dataResult: .failure(error), errorMapper: self.errorMapper)
+                    completion(.failure(response))
+                }
+            }
+        } catch {
+            let response = BaseCoreServerResponse(dataResponse: nil, dataResult: .failure(error), errorMapper: self.errorMapper)
+            completion(.failure(response))
+        }
+    }
+
+    func createOriginalRequest(params: [String: Any]?) throws -> URLRequest {
         let paramEncoding = {() -> ParameterEncoding in
             if let custom = self.customEncoding {
                 return custom.alamofire
@@ -169,35 +210,16 @@ extension BaseCoreServerRequest {
             return self.method.alamofire == .get ? URLEncoding.default : JSONEncoding.default
         }()
 
-        let request = manager.request(
-            url,
-            method: method.alamofire,
-            parameters: params,
-            encoding: paramEncoding,
-            headers: headers
-        )
-
-        return request
-    }
-
-    func createMultipartParamRequest(_ params: [MultipartData], with completion: @escaping (MultipartRequestCompletion) -> Void) {
-
         let headers = self.createHeaders()
-        let manager = ServerRequestsManager.shared.manager
+        let originalRequest = try URLRequest(url: url, method: method.alamofire, headers: headers)
+        var encodedURLRequest = try paramEncoding.encode(originalRequest, with: params)
 
-        manager.upload(multipartFormData: { (multipartFormData) in
-            for data in params {
-                multipartFormData.append(data.data, withName: data.name, fileName: data.fileName, mimeType: data.fileName)
-            }
-        }, to: self.url, method: self.method.alamofire, headers: headers, encodingCompletion: { (encodingResult) in
-            switch encodingResult {
-            case let .success(request: uploadRequest, streamingFromDisk: _, streamFileURL: _):
-                completion(.succes(uploadRequest))
-            case let .failure(error):
-                let response = BaseCoreServerResponse(dataResponse: nil, dataResult: .failure(error), errorMapper: self.errorMapper)
-                completion(.failure(response))
-            }
-        })
+        if let cacheAdapter = cacheAdapter,
+            let configuredRequest = cacheAdapter.configure(encodedURLRequest) as? URLRequest {
+            encodedURLRequest = configuredRequest
+        }
+
+        return encodedURLRequest
     }
 }
 
@@ -212,10 +234,18 @@ extension BaseCoreServerRequest {
                 self.log(afResponse)
                 var response: CoreServerResponse = BaseCoreServerResponse(dataResponse: afResponse, dataResult: .success(afResponse.data, false), errorMapper: self.errorMapper)
 
-                // If response has flag NotModified or InternetConnection was failed it is necessary condition to read frowm cache in case of serverIfFailReadFromCahce
-                let isNeedsToReadCache = response.isNotModified || response.isConnectionFailed
+                // If response has flag NotModified in all cases we need to load cache
+                var isNeedsToReadCache = response.isNotModified
 
-                if isNeedsToReadCache && self.cachePolicy == .serverIfFailReadFromCahce,
+                // If cache policy is serverIfFailReadFromCahce and request fails we need to:
+                // 1. send failure completion
+                // 2. try to load response from cache
+                if self.cachePolicy == .serverIfFailReadFromCahce, case ResponseResult.failure = response.result {
+                    isNeedsToReadCache = true
+                    completion(response)
+                }
+
+                if isNeedsToReadCache,
                     let guardRequest = request.request, let guardedAdapter = self.cacheAdapter {
                     response = guardedAdapter.load(urlRequest: guardRequest, response: response)
                 }

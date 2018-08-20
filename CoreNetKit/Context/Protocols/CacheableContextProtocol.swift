@@ -9,7 +9,7 @@
 import Foundation
 
 /// Divide success completion on cache completion and server completion
-public protocol CacheableContextProtocol: ActionableContextProtocol{
+public protocol CacheableContextProtocol: ActionableContextProtocol {
 
     /// Called if coupled object completed operation succesfully
     ///

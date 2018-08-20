@@ -36,11 +36,11 @@ open class ActionableContext<ModelType>: ActionableContextProtocol {
 
     @discardableResult
     open func onCompleted(_ closure: @escaping (ModelType) -> Void) -> Self {
-        preconditionFailure("CoreNetKit.PassiveContextInterface \(#function) must be overrided in child")
+        preconditionFailure("CoreNetKit.ActionableContextProtocol \(#function) must be overrided in child")
     }
 
     @discardableResult
     open func onError(_ closure: @escaping (Error) -> Void) -> Self {
-        preconditionFailure("CoreNetKit.PassiveContextInterface \(#function) must be overrided in child")
+        preconditionFailure("CoreNetKit.ActionableContextProtocol \(#function) must be overrided in child")
     }
 }

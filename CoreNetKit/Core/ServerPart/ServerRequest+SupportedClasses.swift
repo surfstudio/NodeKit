@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 public enum ServerRequestParameter {
+    case none
     case simpleParams([String: Any]?)
     case multipartParams([MultipartData])
 }
