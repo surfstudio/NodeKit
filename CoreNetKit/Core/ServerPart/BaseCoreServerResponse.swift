@@ -90,8 +90,9 @@ private extension BaseCoreServerResponse {
         return try? JSONSerialization.jsonObject(with: data ?? Data(), options: .allowFragments)
     }
 
-    func parseError(data: Data?) -> LocalizedError {
+    func parseError(data: Data?) -> Error {
         let error = self.trySerializeToJson(data: data) ?? [String: Any]()
+
         guard let customError = self.errorMapper?.map(json: error, httpCode: self.statusCode) else {
 
             if self.statusCode == Const.unauthorizedError {
