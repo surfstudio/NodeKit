@@ -5,7 +5,9 @@ target 'CoreNetKit' do
 
   use_frameworks!
 
-  pod 'Alamofire', '~> 4.7.2'
-  pod 'CoreEvents', '~> 1.1.2'
+  pod 'Alamofire', '~> 4.8.0'
+  pod 'CoreEvents'
+  pod 'ObjectMapper'
+  
 
 end
