@@ -8,12 +8,22 @@
 
 import Foundation
 
-extension Context {
-    func map<T>(_ mapper: @escaping (Model) -> T) -> Context<T> {
+public extension Context {
+
+    /// Преобразует тип данных контекста из одного в другой.
+    /// Аналог `Sequence.map{}`
+    /// Для преобразоания необходмо передать замыкание, реализующее преобразования из типа A в тип B
+    public func map<T>(_ mapper: @escaping (Model) throws -> T) -> Context<T> {
         let result = Context<T>()
 
         self.onCompleted { (model) in
-            result.emit(data: mapper(model))
+
+            do {
+                let data = try mapper(model)
+                result.emit(data: data)
+            } catch {
+                result.emit(error: error)
+            }
         }
 
         self.onError { (error) in
@@ -23,7 +33,8 @@ extension Context {
         return result
     }
 
-    func flatMap<T>(_ mapper: @escaping (Model) -> Context<T>) -> Context<T> {
+    /// Принцип работы аналогичен `map`, но для работы необходимо передать замыкание, которое возвращает контекст
+    public func flatMap<T>(_ mapper: @escaping (Model) -> Context<T>) -> Context<T> {
         let result = Context<T>()
 
         self.onCompleted { (model) in
@@ -39,7 +50,9 @@ extension Context {
         return result
     }
 
-    func combine<T>(_ context: Context<T>) -> Context<(Model, T)> {
+    /// Позволяет комбинировать несколько контекстов в один.
+    /// Тогда подписчик будет оповещен только после того,как выполнятся оба контекста.
+    public func combine<T>(_ context: Context<T>) -> Context<(Model, T)> {
         let result = Context<(Model, T)>()
 
         self.onCompleted { (model) in
@@ -54,7 +67,8 @@ extension Context {
         return result
     }
 
-    func combine<T>(_ contextProvider: @escaping (Model) -> Context<T>) -> Context<(Model, T)> {
+    /// Аналогично `combine<T>(_ context: Context<T>)`, только принимает не контекст, а функцию, которая возвращает контекст
+    public func combine<T>(_ contextProvider: @escaping (Model) -> Context<T>) -> Context<(Model, T)> {
         let result = Context<(Model, T)>()
 
         self.onCompleted { (model) in
@@ -70,7 +84,8 @@ extension Context {
         return result
     }
 
-    func async() -> Context<Model> {
+    /// Выполняет контекст асинхронно
+    public func async() -> Context<Model> {
         let result = AsyncContext<Model>()
 
         self.onCompleted {

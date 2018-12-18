@@ -9,16 +9,16 @@
 import Foundation
 import Alamofire
 
-enum BaseUrlCacheReaderError: Error {
+public enum BaseUrlCacheReaderError: Error {
     case cantLoadDataFromCache
 }
 
-struct UrlNetworkRequest {
+public struct UrlNetworkRequest {
     let urlRequest: URLRequest
 }
 
-class UrlCacheReaderNode: Node<UrlNetworkRequest, CoreNetKitJson> {
-    override func input(_ data: UrlNetworkRequest) -> Context<CoreNetKitJson> {
+open class UrlCacheReaderNode: Node<UrlNetworkRequest, CoreNetKitJson> {
+    open override func process(_ data: UrlNetworkRequest) -> Context<CoreNetKitJson> {
         let result = Context<CoreNetKitJson>()
 
         if let cachedResponse = self.extractCachedUrlResponse(request: data.urlRequest),
@@ -32,7 +32,7 @@ class UrlCacheReaderNode: Node<UrlNetworkRequest, CoreNetKitJson> {
     }
 
 
-    func extractCachedUrlResponse(request: URLRequest) -> CachedURLResponse? {
+   private func extractCachedUrlResponse(request: URLRequest) -> CachedURLResponse? {
         if let response = URLCache.shared.cachedResponse(for: request) {
             return response
         }

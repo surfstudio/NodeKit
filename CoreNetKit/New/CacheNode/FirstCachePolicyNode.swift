@@ -9,48 +9,35 @@
 import Foundation
 import Alamofire
 
-struct RawUrlRequest {
-    let dataRequest: DataRequest
-
-    func toUrlRequest() -> UrlNetworkRequest? {
-
-        guard let urlRequest = self.dataRequest.request else {
-            return nil
-        }
-
-        return UrlNetworkRequest(urlRequest: urlRequest)
-    }
-}
-
-enum BaseFirstCachePolicyNodeError: Error {
+public enum BaseFirstCachePolicyNodeError: Error {
     case cantGetUrlRequest
 }
 
-class FirstCachePolicyNode: Node<RawUrlRequest, CoreNetKitJson> {
+open class FirstCachePolicyNode: Node<RawUrlRequest, CoreNetKitJson> {
 
-    typealias CacheReaderNode = Node<UrlNetworkRequest, CoreNetKitJson>
-    typealias NextProcessorNode = Node<RawUrlRequest, CoreNetKitJson>
+    public typealias CacheReaderNode = Node<UrlNetworkRequest, CoreNetKitJson>
+    public typealias NextProcessorNode = Node<RawUrlRequest, CoreNetKitJson>
 
-    let cacheReaderNode: CacheReaderNode
-    let next: Node<RawUrlRequest, CoreNetKitJson>
+    private let cacheReaderNode: CacheReaderNode
+    private let next: Node<RawUrlRequest, CoreNetKitJson>
 
-    init(cacheReaderNode: CacheReaderNode, next: NextProcessorNode) {
+    public init(cacheReaderNode: CacheReaderNode, next: NextProcessorNode) {
         self.cacheReaderNode = cacheReaderNode
         self.next = next
     }
 
-    override func input(_ data: RawUrlRequest) -> Context<CoreNetKitJson> {
+    open override func process(_ data: RawUrlRequest) -> Context<CoreNetKitJson> {
         let result = Context<CoreNetKitJson>()
 
         if let urlRequest = data.toUrlRequest() {
-            self.cacheReaderNode.input(urlRequest)
+            self.cacheReaderNode.process(urlRequest)
                 .onCompleted { result.emit(data: $0) }
                 .onError { result.emit(error: $0) }
         } else  {
             result.emit(error: BaseFirstCachePolicyNodeError.cantGetUrlRequest)
         }
 
-        next.input(data)
+        next.process(data)
             .onCompleted { result.emit(data: $0)}
             .onError { result.emit(error: $0) }
 

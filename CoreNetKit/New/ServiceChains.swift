@@ -15,11 +15,11 @@ class ServiceChains {
         let rawResponseProcessor = RawJsonResponseProcessor()
         let requestSenderNode = JsonNetworkReqestSenderNode(rawResponseProcessor: rawResponseProcessor)
         let networkNode = JsonNetworkNode(next: requestSenderNode)
-        let preprocessingNode = HeaderAttacher(next: networkNode)
+        let preprocessingNode = HeaderAttacher(next: networkNode, headers: [:])
         let toJson = ToJsonMapNode<Input>()
         let fromJson = FromJsonMapNode<Output>()
 
-        let transport = TrasportNode<Input, Output>(toJsonMapNode: toJson, fromJsonMapNode: fromJson, nextNode: preprocessingNode)
+        let transport = RootTransportNode<Input, Output>(toJsonMapNode: toJson, fromJsonMapNode: fromJson, nextNode: preprocessingNode)
 
         return JsonRequest<Input, Output>(with: model, root: transport)
     }
@@ -30,11 +30,11 @@ class ServiceChains {
         let requestSenderNode = JsonNetworkReqestSenderNode(rawResponseProcessor: rawResponseProcessor)
         let cacheNode = FirstCachePolicyNode(cacheReaderNode: UrlCacheReaderNode(), next: requestSenderNode)
         let networkNode = JsonNetworkNode(next: cacheNode)
-        let preprocessingNode = HeaderAttacher(next: networkNode)
+        let preprocessingNode = HeaderAttacher(next: networkNode, headers: [:])
         let toJson = ToJsonMapNode<Input>()
         let fromJson = FromJsonMapNode<Output>()
 
-        let transport = TrasportNode<Input, Output>(toJsonMapNode: toJson, fromJsonMapNode: fromJson, nextNode: preprocessingNode)
+        let transport = RootTransportNode<Input, Output>(toJsonMapNode: toJson, fromJsonMapNode: fromJson, nextNode: preprocessingNode)
 
         return JsonRequest<Input, Output>(with: model, root: transport)
     }

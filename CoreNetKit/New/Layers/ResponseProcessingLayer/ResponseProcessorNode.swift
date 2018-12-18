@@ -9,21 +9,30 @@
 import Foundation
 import Alamofire
 
-enum BaseRawJsonResponseProcessorError: Error {
+public enum BaseRawJsonResponseProcessorError: Error {
     case rawResponseNotHaveMetaData
+    case cantMapToJson
 }
 
-class RawJsonResponseProcessor: Node<DataResponse<Data>, CoreNetKitJson> {
+public struct UrlNetworkResponse {
+    public let urlResponse: URLResponse
+    public let urlRequest: URLRequest
+    public let data: Data
+    public let code: Int
+    public let json: Json
+}
 
-    typealias NextProcessorNode = Node<UrlNetworkResponse, Void>
+open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
+
+    public typealias NextProcessorNode = Node<UrlNetworkResponse, Void>
 
     private let next: NextProcessorNode?
 
-    init(next: NextProcessorNode? = nil) {
+    public init(next: NextProcessorNode? = nil) {
         self.next = next
     }
 
-    override func input(_ data: DataResponse<Data>) -> Context<CoreNetKitJson> {
+    open override func process(_ data: DataResponse<Data>) -> Context<Json> {
 
         let context = Context<UrlNetworkResponse>()
 
@@ -33,12 +42,12 @@ class RawJsonResponseProcessor: Node<DataResponse<Data>, CoreNetKitJson> {
         case .success(let val):
 
             guard let urlResponse = data.response, let urlRequest = data.request else {
-                return Context<CoreNetKitJson>()
+                return Context<Json>()
                     .emit(error: BaseRawJsonResponseProcessorError.rawResponseNotHaveMetaData)
             }
 
             if let jsonObject = try? JSONSerialization.jsonObject(with: val, options: .allowFragments),
-                let json = jsonObject as? CoreNetKitJson {
+                let json = jsonObject as? Json {
                 let result = UrlNetworkResponse(
                     urlResponse: urlResponse,
                     urlRequest: urlRequest,
@@ -48,7 +57,7 @@ class RawJsonResponseProcessor: Node<DataResponse<Data>, CoreNetKitJson> {
                 )
                 context.emit(data: result)
             } else {
-                context.emit(error: BaseJsonNetworkNodeError.cantMapToJson)
+                context.emit(error: BaseRawJsonResponseProcessorError.cantMapToJson)
             }
         }
 
@@ -57,7 +66,7 @@ class RawJsonResponseProcessor: Node<DataResponse<Data>, CoreNetKitJson> {
         }
 
         return context
-            .combine { nextNode.input($0) }
+            .combine { nextNode.process($0) }
             .map { $0.0.json }
     }
 }

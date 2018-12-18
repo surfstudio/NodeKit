@@ -8,11 +8,15 @@
 
 import Foundation
 
-class AsyncContext<Model>: Context<Model> {
+/// Асинхронная имплементация `Context`
+/// Позволяет устанваливать `DispatchQueue` на которой необходимо вызывать callback подписки.
+/// По-умолчанию все диспатчится на DispatchQueue.main
+open class AsyncContext<Model>: Context<Model> {
+
     private var dispatchQueue: DispatchQueue = DispatchQueue.main
 
     @discardableResult
-    override func onCompleted(_ closure: @escaping (Model) -> Void) -> Self {
+    override open func onCompleted(_ closure: @escaping (Model) -> Void) -> Self {
         self.dispatchQueue.async {
             super.onCompleted(closure)
         }
@@ -20,7 +24,7 @@ class AsyncContext<Model>: Context<Model> {
     }
 
     @discardableResult
-    override func onError(_ closure: @escaping (Error) -> Void) -> Self {
+    override open func onError(_ closure: @escaping (Error) -> Void) -> Self {
         self.dispatchQueue.async {
             super.onError(closure)
         }
@@ -28,7 +32,7 @@ class AsyncContext<Model>: Context<Model> {
     }
 
     @discardableResult
-    override func `defer`(_ closure: @escaping () -> Void) -> Self {
+    override open func `defer`(_ closure: @escaping () -> Void) -> Self {
         self.dispatchQueue.async {
             super.defer(closure)
         }
@@ -36,7 +40,7 @@ class AsyncContext<Model>: Context<Model> {
     }
 
     @discardableResult
-    override func emit(data: Model) -> Self {
+    override open func emit(data: Model) -> Self {
         self.dispatchQueue.async {
             super.emit(data: data)
         }
@@ -44,7 +48,7 @@ class AsyncContext<Model>: Context<Model> {
     }
 
     @discardableResult
-    override func emit(error: Error) -> Self {
+    override open func emit(error: Error) -> Self {
         self.dispatchQueue.async {
             super.emit(error: error)
         }
@@ -53,9 +57,12 @@ class AsyncContext<Model>: Context<Model> {
 }
 
 extension AsyncContext {
-    
+
+    /// Устанавливает `DispatchQueue`
+    ///
+    /// - Parameter queue: Очередь для диспатчеризации
     @discardableResult
-    func on(_ queue: DispatchQueue) -> Self {
+    open func on(_ queue: DispatchQueue) -> Self {
         self.dispatchQueue = queue
         return self
     }

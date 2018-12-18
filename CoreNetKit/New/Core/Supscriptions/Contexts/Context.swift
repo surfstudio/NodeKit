@@ -1,0 +1,83 @@
+//
+//  Context.swift
+//  CoreNetKitWithExample
+//
+//  Created by Александр Кравченков on 27/11/2018.
+//  Copyright © 2018 Александр Кравченков. All rights reserved.
+//
+
+import Foundation
+
+/// По сути является Type erasure для `Observable`
+open class Context<Model>: Observable, DefaultInitable {
+
+    // MARK: - Private fileds
+
+    private var completedClosure: ((Model) -> Void)?
+    private var errorClosure: ((Error) -> Void)?
+    private var deferClosure: (() -> Void)?
+
+    private var lastEmitedData: Model?
+    private var lastEmitedError: Error?
+
+    private var dispatchQueue: DispatchQueue = DispatchQueue.main
+
+    required public init() { }
+
+    /// Используется для подписки на событие об успешного выполнения.
+    @discardableResult
+    open func onCompleted(_ closure: @escaping (Model) -> Void) -> Self {
+        
+        self.completedClosure = closure
+        if let lastEmitedData = self.lastEmitedData {
+            self.completedClosure?(lastEmitedData)
+            self.lastEmitedData = nil
+        }
+
+        return self
+    }
+
+    /// Исользуется для подписки на событие о какой-либо ошибки
+    @discardableResult
+    open func onError(_ closure: @escaping (Error) -> Void) -> Self {
+
+        self.errorClosure = closure
+
+        if let lastEmitedError = self.lastEmitedError {
+            self.errorClosure?(lastEmitedError)
+            self.lastEmitedError = nil
+        }
+
+        return self
+    }
+
+    /// Используется для подписки на любой исход события. То есть, вне зависимости от того, была ошибка или успех - эта подписка оповестит подписчика о том, что событие произошло.
+    /// Аналог finally в try-catch
+    @discardableResult
+    open func `defer`(_ closure: @escaping () -> Void) -> Self {
+        self.deferClosure = closure
+        return self
+    }
+
+    /// Вызывает оповещение подписчиков о том, что событие выполнилось.
+    ///
+    /// - Parameter data: Результат события
+    @discardableResult
+    open func emit(data: Model) -> Self {
+        self.lastEmitedData = data
+        self.completedClosure?(data)
+        self.deferClosure?()
+        return self
+    }
+
+    /// Вызывает оповещение подписчиков о том, что произошла ошибка.
+    ///
+    /// - Parameter error: Произошедшая ошибка
+    @discardableResult
+    open func emit(error: Error) -> Self {
+        self.lastEmitedError = error
+        self.errorClosure?(error)
+        self.deferClosure?()
+        return self
+    }
+}

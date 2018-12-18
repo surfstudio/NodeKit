@@ -7,21 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B1F0C6FB21B1DDCF00382FA5 /* ServiceChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6E521B1DDCF00382FA5 /* ServiceChains.swift */; };
-		B1F0C6FC21B1DDCF00382FA5 /* TrasportNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6E721B1DDCF00382FA5 /* TrasportNode.swift */; };
-		B1F0C6FD21B1DDCF00382FA5 /* HeaderAttacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6E821B1DDCF00382FA5 /* HeaderAttacher.swift */; };
-		B1F0C6FE21B1DDCF00382FA5 /* RawJsonResponseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6E921B1DDCF00382FA5 /* RawJsonResponseProcessor.swift */; };
-		B1F0C6FF21B1DDCF00382FA5 /* JsonNetworkReqestSenderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6EA21B1DDCF00382FA5 /* JsonNetworkReqestSenderNode.swift */; };
-		B1F0C70021B1DDCF00382FA5 /* JsonNetworkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6EB21B1DDCF00382FA5 /* JsonNetworkNode.swift */; };
+		B1033D6621BD4E80001F5D03 /* ToJsonMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1033D6521BD4E80001F5D03 /* ToJsonMapNode.swift */; };
+		B1033D6821BD4E8B001F5D03 /* FromJsonMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1033D6721BD4E8B001F5D03 /* FromJsonMapNode.swift */; };
+		B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EEA21C8B72D007AD599 /* RawMappable.swift */; };
+		B1118EED21C8B772007AD599 /* DTOConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EEC21C8B772007AD599 /* DTOConvertible.swift */; };
+		B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */; };
+		B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF121C8C1B9007AD599 /* DTOMapperNode.swift */; };
+		B1118EF421C8C4AC007AD599 /* TransportNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF321C8C4AC007AD599 /* TransportNode.swift */; };
+		B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */; };
+		B1118EF721C8CBDC007AD599 /* ResponseProcessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */; };
+		B1118EFA21C8CD8B007AD599 /* SampleChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF921C8CD8B007AD599 /* SampleChains.swift */; };
+		B1F0C6FF21B1DDCF00382FA5 /* ReqestSenderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6EA21B1DDCF00382FA5 /* ReqestSenderNode.swift */; };
 		B1F0C70121B1DDCF00382FA5 /* AsyncContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6EE21B1DDCF00382FA5 /* AsyncContext.swift */; };
 		B1F0C70221B1DDCF00382FA5 /* Context+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6EF21B1DDCF00382FA5 /* Context+Operations.swift */; };
 		B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F021B1DDCF00382FA5 /* Context.swift */; };
 		B1F0C70421B1DDCF00382FA5 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F121B1DDCF00382FA5 /* Observable.swift */; };
 		B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F321B1DDCF00382FA5 /* UrlCacheReaderNode.swift */; };
-		B1F0C70621B1DDCF00382FA5 /* FirstCachePolicyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F421B1DDCF00382FA5 /* FirstCachePolicyNode.swift */; };
 		B1F0C70721B1DDCF00382FA5 /* UrlCacheWriterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F521B1DDCF00382FA5 /* UrlCacheWriterNode.swift */; };
-		B1F0C70821B1DDCF00382FA5 /* JsonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F721B1DDCF00382FA5 /* JsonRequest.swift */; };
-		B1F0C70921B1DDCF00382FA5 /* JsonMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F821B1DDCF00382FA5 /* JsonMapNode.swift */; };
 		B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6FA21B1DDCF00382FA5 /* Node.swift */; };
 		B94310AF1F931CC000E8A9BA /* CoreNetKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* CoreNetKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F850843585A22770DB437F08 /* Pods_CoreNetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1E45F76645C0817BCA1818E /* Pods_CoreNetKit.framework */; };
@@ -33,12 +35,21 @@
 		4F290E2D1FE4064D00FFCCF2 /* ResponseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseResult.swift; sourceTree = "<group>"; };
 		4FA424282075D4AC004AEDF6 /* TokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenProvider.swift; sourceTree = "<group>"; };
 		9AF2A9A1A9CD5898CBBC5776 /* Pods-CoreNetKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreNetKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoreNetKit/Pods-CoreNetKit.release.xcconfig"; sourceTree = "<group>"; };
+		B1033D6521BD4E80001F5D03 /* ToJsonMapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToJsonMapNode.swift; sourceTree = "<group>"; };
+		B1033D6721BD4E8B001F5D03 /* FromJsonMapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromJsonMapNode.swift; sourceTree = "<group>"; };
+		B1118EEA21C8B72D007AD599 /* RawMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawMappable.swift; sourceTree = "<group>"; };
+		B1118EEC21C8B772007AD599 /* DTOConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOConvertible.swift; sourceTree = "<group>"; };
+		B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInputNode.swift; sourceTree = "<group>"; };
+		B1118EF121C8C1B9007AD599 /* DTOMapperNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOMapperNode.swift; sourceTree = "<group>"; };
+		B1118EF321C8C4AC007AD599 /* TransportNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportNode.swift; sourceTree = "<group>"; };
+		B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreatorNode.swift; sourceTree = "<group>"; };
+		B1118EF921C8CD8B007AD599 /* SampleChains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleChains.swift; sourceTree = "<group>"; };
 		B1E45F76645C0817BCA1818E /* Pods_CoreNetKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreNetKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1F0C6E521B1DDCF00382FA5 /* ServiceChains.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceChains.swift; sourceTree = "<group>"; };
 		B1F0C6E721B1DDCF00382FA5 /* TrasportNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrasportNode.swift; sourceTree = "<group>"; };
 		B1F0C6E821B1DDCF00382FA5 /* HeaderAttacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderAttacher.swift; sourceTree = "<group>"; };
-		B1F0C6E921B1DDCF00382FA5 /* RawJsonResponseProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawJsonResponseProcessor.swift; sourceTree = "<group>"; };
-		B1F0C6EA21B1DDCF00382FA5 /* JsonNetworkReqestSenderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonNetworkReqestSenderNode.swift; sourceTree = "<group>"; };
+		B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseProcessorNode.swift; sourceTree = "<group>"; };
+		B1F0C6EA21B1DDCF00382FA5 /* ReqestSenderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReqestSenderNode.swift; sourceTree = "<group>"; };
 		B1F0C6EB21B1DDCF00382FA5 /* JsonNetworkNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonNetworkNode.swift; sourceTree = "<group>"; };
 		B1F0C6EE21B1DDCF00382FA5 /* AsyncContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncContext.swift; sourceTree = "<group>"; };
 		B1F0C6EF21B1DDCF00382FA5 /* Context+Operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Context+Operations.swift"; sourceTree = "<group>"; };
@@ -48,7 +59,6 @@
 		B1F0C6F421B1DDCF00382FA5 /* FirstCachePolicyNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstCachePolicyNode.swift; sourceTree = "<group>"; };
 		B1F0C6F521B1DDCF00382FA5 /* UrlCacheWriterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlCacheWriterNode.swift; sourceTree = "<group>"; };
 		B1F0C6F721B1DDCF00382FA5 /* JsonRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonRequest.swift; sourceTree = "<group>"; };
-		B1F0C6F821B1DDCF00382FA5 /* JsonMapNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonMapNode.swift; sourceTree = "<group>"; };
 		B1F0C6FA21B1DDCF00382FA5 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		B94310AA1F931CC000E8A9BA /* CoreNetKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreNetKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94310AD1F931CC000E8A9BA /* CoreNetKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreNetKit.h; sourceTree = "<group>"; };
@@ -118,6 +128,155 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		B1033D5E21BD019A001F5D03 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				B1118EE921C8B714007AD599 /* Convertion */,
+				B1033D5F21BD0586001F5D03 /* Supscriptions */,
+				B1F0C6F921B1DDCF00382FA5 /* Node */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		B1033D5F21BD0586001F5D03 /* Supscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				B1F0C6ED21B1DDCF00382FA5 /* Contexts */,
+				B1F0C6F121B1DDCF00382FA5 /* Observable.swift */,
+			);
+			path = Supscriptions;
+			sourceTree = "<group>";
+		};
+		B1033D6321BD4DFC001F5D03 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				B13E04EF21C7D08C00956853 /* RawResponseProcessors */,
+				B13E04EE21C7CFCE00956853 /* Network */,
+				B13E04ED21C7CF7C00956853 /* Roots */,
+				B13E04EC21C77E5000956853 /* Preprocessing */,
+				B1033D6421BD4E47001F5D03 /* Parsing */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		B1033D6421BD4E47001F5D03 /* Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				B1033D6921BD4EBC001F5D03 /* JSON */,
+			);
+			path = Parsing;
+			sourceTree = "<group>";
+		};
+		B1033D6921BD4EBC001F5D03 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				B1033D6521BD4E80001F5D03 /* ToJsonMapNode.swift */,
+				B1033D6721BD4E8B001F5D03 /* FromJsonMapNode.swift */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		B1118EE921C8B714007AD599 /* Convertion */ = {
+			isa = PBXGroup;
+			children = (
+				B1118EEA21C8B72D007AD599 /* RawMappable.swift */,
+				B1118EEC21C8B772007AD599 /* DTOConvertible.swift */,
+			);
+			path = Convertion;
+			sourceTree = "<group>";
+		};
+		B1118EEE21C8B7D1007AD599 /* ModelInput */ = {
+			isa = PBXGroup;
+			children = (
+				B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */,
+			);
+			path = ModelInput;
+			sourceTree = "<group>";
+		};
+		B1118EF821C8CD7D007AD599 /* Chains */ = {
+			isa = PBXGroup;
+			children = (
+				B1118EF921C8CD8B007AD599 /* SampleChains.swift */,
+			);
+			path = Chains;
+			sourceTree = "<group>";
+		};
+		B13E04EC21C77E5000956853 /* Preprocessing */ = {
+			isa = PBXGroup;
+			children = (
+				B1F0C6E821B1DDCF00382FA5 /* HeaderAttacher.swift */,
+			);
+			path = Preprocessing;
+			sourceTree = "<group>";
+		};
+		B13E04ED21C7CF7C00956853 /* Roots */ = {
+			isa = PBXGroup;
+			children = (
+				B1F0C6E721B1DDCF00382FA5 /* TrasportNode.swift */,
+			);
+			path = Roots;
+			sourceTree = "<group>";
+		};
+		B13E04EE21C7CFCE00956853 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B1F0C6EB21B1DDCF00382FA5 /* JsonNetworkNode.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		B13E04EF21C7D08C00956853 /* RawResponseProcessors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RawResponseProcessors;
+			sourceTree = "<group>";
+		};
+		B13E04F021C7D12A00956853 /* DTOProcessingLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B1118EF121C8C1B9007AD599 /* DTOMapperNode.swift */,
+			);
+			path = DTOProcessingLayer;
+			sourceTree = "<group>";
+		};
+		B13E04F121C7F40D00956853 /* RawModelProcessingLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B1118EF321C8C4AC007AD599 /* TransportNode.swift */,
+			);
+			path = RawModelProcessingLayer;
+			sourceTree = "<group>";
+		};
+		B13E04F221C7F42300956853 /* RequestProcessingLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */,
+				B1F0C6EA21B1DDCF00382FA5 /* ReqestSenderNode.swift */,
+			);
+			path = RequestProcessingLayer;
+			sourceTree = "<group>";
+		};
+		B13E04F321C7F43200956853 /* ResponseProcessingLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */,
+			);
+			path = ResponseProcessingLayer;
+			sourceTree = "<group>";
+		};
+		B13E04F521C7F49B00956853 /* Layers */ = {
+			isa = PBXGroup;
+			children = (
+				B1118EEE21C8B7D1007AD599 /* ModelInput */,
+				B13E04F021C7D12A00956853 /* DTOProcessingLayer */,
+				B13E04F121C7F40D00956853 /* RawModelProcessingLayer */,
+				B13E04F221C7F42300956853 /* RequestProcessingLayer */,
+				B13E04F321C7F43200956853 /* ResponseProcessingLayer */,
+			);
+			path = Layers;
+			sourceTree = "<group>";
+		};
 		B1F0C6E221B1DD4B00382FA5 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,12 +290,14 @@
 		B1F0C6E421B1DDCF00382FA5 /* New */ = {
 			isa = PBXGroup;
 			children = (
+				B1118EF821C8CD7D007AD599 /* Chains */,
+				B13E04F521C7F49B00956853 /* Layers */,
+				B1033D6321BD4DFC001F5D03 /* Nodes */,
+				B1033D5E21BD019A001F5D03 /* Core */,
 				B1F0C6E521B1DDCF00382FA5 /* ServiceChains.swift */,
 				B1F0C6E621B1DDCF00382FA5 /* TrasportNode */,
-				B1F0C6EC21B1DDCF00382FA5 /* Support */,
 				B1F0C6F221B1DDCF00382FA5 /* CacheNode */,
 				B1F0C6F621B1DDCF00382FA5 /* Graphs */,
-				B1F0C6F921B1DDCF00382FA5 /* Node */,
 			);
 			path = New;
 			sourceTree = "<group>";
@@ -144,22 +305,8 @@
 		B1F0C6E621B1DDCF00382FA5 /* TrasportNode */ = {
 			isa = PBXGroup;
 			children = (
-				B1F0C6E721B1DDCF00382FA5 /* TrasportNode.swift */,
-				B1F0C6E821B1DDCF00382FA5 /* HeaderAttacher.swift */,
-				B1F0C6E921B1DDCF00382FA5 /* RawJsonResponseProcessor.swift */,
-				B1F0C6EA21B1DDCF00382FA5 /* JsonNetworkReqestSenderNode.swift */,
-				B1F0C6EB21B1DDCF00382FA5 /* JsonNetworkNode.swift */,
 			);
 			path = TrasportNode;
-			sourceTree = "<group>";
-		};
-		B1F0C6EC21B1DDCF00382FA5 /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				B1F0C6ED21B1DDCF00382FA5 /* Contexts */,
-				B1F0C6F121B1DDCF00382FA5 /* Observable.swift */,
-			);
-			path = Support;
 			sourceTree = "<group>";
 		};
 		B1F0C6ED21B1DDCF00382FA5 /* Contexts */ = {
@@ -186,7 +333,6 @@
 			isa = PBXGroup;
 			children = (
 				B1F0C6F721B1DDCF00382FA5 /* JsonRequest.swift */,
-				B1F0C6F821B1DDCF00382FA5 /* JsonMapNode.swift */,
 			);
 			path = Graphs;
 			sourceTree = "<group>";
@@ -442,22 +588,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1F0C6FB21B1DDCF00382FA5 /* ServiceChains.swift in Sources */,
-				B1F0C6FD21B1DDCF00382FA5 /* HeaderAttacher.swift in Sources */,
-				B1F0C6FE21B1DDCF00382FA5 /* RawJsonResponseProcessor.swift in Sources */,
-				B1F0C6FC21B1DDCF00382FA5 /* TrasportNode.swift in Sources */,
-				B1F0C70021B1DDCF00382FA5 /* JsonNetworkNode.swift in Sources */,
+				B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */,
+				B1033D6821BD4E8B001F5D03 /* FromJsonMapNode.swift in Sources */,
 				B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */,
-				B1F0C70921B1DDCF00382FA5 /* JsonMapNode.swift in Sources */,
-				B1F0C6FF21B1DDCF00382FA5 /* JsonNetworkReqestSenderNode.swift in Sources */,
+				B1F0C6FF21B1DDCF00382FA5 /* ReqestSenderNode.swift in Sources */,
+				B1118EF721C8CBDC007AD599 /* ResponseProcessorNode.swift in Sources */,
 				B1F0C70421B1DDCF00382FA5 /* Observable.swift in Sources */,
 				B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */,
+				B1118EED21C8B772007AD599 /* DTOConvertible.swift in Sources */,
+				B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */,
 				B1F0C70121B1DDCF00382FA5 /* AsyncContext.swift in Sources */,
 				B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */,
+				B1033D6621BD4E80001F5D03 /* ToJsonMapNode.swift in Sources */,
 				B1F0C70221B1DDCF00382FA5 /* Context+Operations.swift in Sources */,
-				B1F0C70621B1DDCF00382FA5 /* FirstCachePolicyNode.swift in Sources */,
+				B1118EF421C8C4AC007AD599 /* TransportNode.swift in Sources */,
 				B1F0C70721B1DDCF00382FA5 /* UrlCacheWriterNode.swift in Sources */,
-				B1F0C70821B1DDCF00382FA5 /* JsonRequest.swift in Sources */,
+				B1118EFA21C8CD8B007AD599 /* SampleChains.swift in Sources */,
+				B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */,
+				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

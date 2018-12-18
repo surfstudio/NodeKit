@@ -14,36 +14,6 @@ enum BaseJsonNetworkNodeError: Error {
     case responseDataIsNil
 }
 
-extension Method {
-    var http: HTTPMethod {
-        switch self {
-        case .get:
-            return .get
-        case .post:
-            return .post
-        case .put:
-            return .put
-        case .delete:
-            return .delete
-        }
-    }
-}
-
-public class ServerRequestsManager {
-
-    static let shared = ServerRequestsManager()
-
-    let manager: SessionManager
-
-    init() {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForResource = 60 * 3
-        configuration.timeoutIntervalForRequest = 60 * 3
-        configuration.requestCachePolicy = .reloadIgnoringCacheData
-        configuration.urlCache = nil
-        self.manager = Alamofire.SessionManager(configuration: configuration)
-    }
-}
 
 class JsonNetworkNode: Node<RequestModel<CoreNetKitJson>, CoreNetKitJson> {
 
@@ -55,7 +25,7 @@ class JsonNetworkNode: Node<RequestModel<CoreNetKitJson>, CoreNetKitJson> {
         self.next = next
     }
 
-    override func input(_ data: RequestModel<CoreNetKitJson>) -> Context<CoreNetKitJson> {
+    override func process(_ data: RequestModel<CoreNetKitJson>) -> Context<CoreNetKitJson> {
         let manager = ServerRequestsManager.shared.manager
 
         let paramEncoding = {() -> ParameterEncoding in
@@ -70,6 +40,6 @@ class JsonNetworkNode: Node<RequestModel<CoreNetKitJson>, CoreNetKitJson> {
             headers: data.headers
         )
 
-        return self.next.input(RawUrlRequest(dataRequest: request))
+        return self.next.process(RawUrlRequest(dataRequest: request))
     }
 }

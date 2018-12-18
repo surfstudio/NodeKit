@@ -9,18 +9,17 @@
 import Foundation
 import Alamofire
 
+open class ReqestSenderNode: Node<RawUrlRequest, Json> {
 
-class JsonNetworkReqestSenderNode: Node<RawUrlRequest, CoreNetKitJson> {
+    public typealias RawResponseProcessor = Node<DataResponse<Data>, Json>
 
-    typealias RawResponseProcessor = Node<DataResponse<Data>, CoreNetKitJson>
+    public var rawResponseProcessor: RawResponseProcessor
 
-    private let rawResponseProcessor: RawResponseProcessor
-
-    init(rawResponseProcessor: RawResponseProcessor) {
+    public init(rawResponseProcessor: RawResponseProcessor) {
         self.rawResponseProcessor = rawResponseProcessor
     }
 
-    override func input(_ data: RawUrlRequest) -> Context<CoreNetKitJson> {
+    open override func process(_ data: RawUrlRequest) -> Context<Json> {
 
         let context = Context<DataResponse<Data>>()
 
@@ -28,6 +27,6 @@ class JsonNetworkReqestSenderNode: Node<RawUrlRequest, CoreNetKitJson> {
             context.emit(data: response)
         }
 
-        return context.flatMap { self.rawResponseProcessor.input($0)}
+        return context.flatMap { self.rawResponseProcessor.process($0)}
     }
 }
