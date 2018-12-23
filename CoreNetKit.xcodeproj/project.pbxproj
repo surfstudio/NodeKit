@@ -193,7 +193,6 @@
 		B1033D6321BD4DFC001F5D03 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				B13E04EF21C7D08C00956853 /* RawResponseProcessors */,
 				B13E04EE21C7CFCE00956853 /* Network */,
 				B13E04ED21C7CF7C00956853 /* Roots */,
 				B13E04EC21C77E5000956853 /* Preprocessing */,
@@ -266,13 +265,6 @@
 				B1F0C6EB21B1DDCF00382FA5 /* JsonNetworkNode.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		B13E04EF21C7D08C00956853 /* RawResponseProcessors */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RawResponseProcessors;
 			sourceTree = "<group>";
 		};
 		B13E04F021C7D12A00956853 /* DTOProcessingLayer */ = {
