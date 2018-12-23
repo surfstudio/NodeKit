@@ -27,12 +27,13 @@ func addHTTPListners(router *mux.Router) {
 	router.HandleFunc("/users/{id}", GetUser).Methods("GET")
 	router.HandleFunc("/users", GetUsers).Methods("GET")
 	router.HandleFunc("/items", GetItemList).Methods("GET")
+	router.HandleFunc("/users", AddNewUser).Methods("POST")
 }
 
 // GetUser description
 // 500 error with message "Something went wrong" id = 0
 // 403 error id = 1
-// 402 error id = 2
+// 400 error id = 2
 // 200 success id = any other
 // Returns user with recived Id
 func GetUser(w http.ResponseWriter, r *http.Request) {
@@ -43,7 +44,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	case "1":
 		http.Error(w, "", 403)
 	case "2":
-		http.Error(w, "", 402)
+		http.Error(w, "", 400)
 	default:
 		json.NewEncoder(w).Encode(User{ID: params["id"], Firstname: "John", Lastname: "Jackson"})
 	}
@@ -63,14 +64,14 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetItemList return item with offset paging
-// If we cant convert request count field to int - method throws http error 402
+// If we cant convert request count field to int - method throws http error 400
 // If count == 0 or 5 return empty list (it means that paging ends)
 // If count == 3 return 500 error
 func GetItemList(w http.ResponseWriter, r *http.Request) {
 	params, ok := r.URL.Query()["count"]
 
 	if !ok || len(params[0]) < 1 {
-		http.Error(w, "Bad count", 402)
+		http.Error(w, "Bad count", 400)
 		return
 	}
 
@@ -97,7 +98,24 @@ func GetItemList(w http.ResponseWriter, r *http.Request) {
 		stringIndex := strconv.Itoa(index)
 		users = append(users, User{ID: stringIndex, Lastname: stringIndex, Firstname: stringIndex})
 	}
-
 	json.NewEncoder(w).Encode(users)
+}
 
+// AddNewUser awaits user with specific id
+// id == 1 response 409 with message "Already exist"
+// id == Any other response 201
+// body not exist = response 400
+func AddNewUser(w http.ResponseWriter, r *http.Request) {
+	var user User
+	if json.NewDecoder(r.Body).Decode(&user) != nil {
+		w.WriteHeader(400)
+		return
+	}
+
+	switch user.ID {
+	case "409":
+		http.Error(w, "Already exist", 409)
+	default:
+		w.WriteHeader(201)
+	}
 }

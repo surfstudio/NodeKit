@@ -16,7 +16,7 @@ public func getSampleChain<Input, Output>(params: TransportUrlParameters) -> Nod
     let responseProcessorNode = ResponseProcessorNode()
     let requestSenderNode = ReqestSenderNode(rawResponseProcessor: responseProcessorNode)
     let requestCreatorNode = RequestCreatorNode(next: requestSenderNode)
-    let transportNode = TrasnportNode(parameters: param, next: requestCreatorNode)
+    let transportNode = TrasnportNode(parameters: params, next: requestCreatorNode)
     let dtoMapper = DTOMapperNode<Input.DTO, Output.DTO>(next: transportNode)
     let modelInput = ModelInputNode<Input, Output>(next: dtoMapper)
     return modelInput
