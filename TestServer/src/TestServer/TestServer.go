@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"strconv"
+
 	"github.com/gorilla/mux"
 )
 
@@ -23,6 +25,8 @@ func main() {
 
 func addHTTPListners(router *mux.Router) {
 	router.HandleFunc("/users/{id}", GetUser).Methods("GET")
+	router.HandleFunc("/users", GetUsers).Methods("GET")
+	router.HandleFunc("/items", GetItemList).Methods("GET")
 }
 
 // GetUser description
@@ -43,4 +47,57 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	default:
 		json.NewEncoder(w).Encode(User{ID: params["id"], Firstname: "John", Lastname: "Jackson"})
 	}
+	w.Header().Set("Content-Type", "application/json")
+}
+
+// GetUsers return 4 users
+func GetUsers(w http.ResponseWriter, r *http.Request) {
+	var users []User
+	users = append(users, User{ID: "0", Lastname: "0", Firstname: "0"})
+	users = append(users, User{ID: "1", Lastname: "1", Firstname: "1"})
+	users = append(users, User{ID: "2", Lastname: "2", Firstname: "2"})
+	users = append(users, User{ID: "3", Lastname: "3", Firstname: "3"})
+
+	json.NewEncoder(w).Encode(users)
+	w.Header().Set("Content-Type", "application/json")
+}
+
+// GetItemList return item with offset paging
+// If we cant convert request count field to int - method throws http error 402
+// If count == 0 or 5 return empty list (it means that paging ends)
+// If count == 3 return 500 error
+func GetItemList(w http.ResponseWriter, r *http.Request) {
+	params, ok := r.URL.Query()["count"]
+
+	if !ok || len(params[0]) < 1 {
+		http.Error(w, "Bad count", 402)
+		return
+	}
+
+	count, error := strconv.Atoi(params[0])
+
+	if error != nil {
+		http.Error(w, "Bad count", 402)
+		return
+	}
+
+	if count == 3 {
+		http.Error(w, "Something went wrong", 500)
+		return
+	}
+
+	if count == 0 || count == -5 {
+		w.WriteHeader(204)
+		return
+	}
+
+	var users []User
+
+	for index := 0; index < count; index++ {
+		stringIndex := strconv.Itoa(index)
+		users = append(users, User{ID: stringIndex, Lastname: stringIndex, Firstname: stringIndex})
+	}
+
+	json.NewEncoder(w).Encode(users)
+
 }
