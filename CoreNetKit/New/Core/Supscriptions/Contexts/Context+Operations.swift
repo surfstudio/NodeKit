@@ -84,6 +84,21 @@ public extension Context {
         return result
     }
 
+    /// Выполняет операцию, аналогичную операции `filter` для массивов.
+    /// Вызывает для каждого элемента Model predicate
+    /// Если predicate возвращает true, то элемент добавлятеся в результирующую коллекцию
+    public func filter<T>(_ predicate: @escaping (T) -> Bool) -> Context<Model> where Model == [T] {
+        let result = Context<Model>()
+
+        self.onCompleted { model in
+            result.emit(data: model.filter { predicate($0) })
+        }.onError { (error) in
+            result.emit(error: error)
+        }
+
+        return result
+    }
+
     /// Выполняет контекст асинхронно
     public func async() -> Context<Model> {
         let result = AsyncContext<Model>()
