@@ -99,14 +99,16 @@ public extension Context {
         return result
     }
 
-    /// Выполняет контекст асинхронно
-    public func async() -> Context<Model> {
-        let result = AsyncContext<Model>()
+    /// Слушатель получит сообщение на необходмой очереди
+    /// - Parameters
+    ///     - queue: Очередь, на которой необходимо вызывать методы слушателя
+    public func dispatchOn(_ queue: DispatchQueue) -> Context<Model> {
+        let result = AsyncContext<Model>().on(queue)
 
         self.onCompleted {
             result.emit(data: $0)
-
         }
+
         self.onError {
             result.emit(error: $0)
             
