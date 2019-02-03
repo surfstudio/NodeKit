@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias Json = [String: String]
+public typealias Json = [String: Any]
 
 public enum Method {
     case get
@@ -37,7 +37,7 @@ public struct TransportUrlRequest {
     }
 }
 
-open class TrasnportNode: Node<Json, Json> {
+open class TransportNode: Node<Json, Json> {
 
     public var next: Node<TransportUrlRequest, Json>
     public var parameters: TransportUrlParameters

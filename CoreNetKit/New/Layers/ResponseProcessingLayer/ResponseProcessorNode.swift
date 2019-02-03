@@ -46,8 +46,25 @@ open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
                     .emit(error: BaseRawJsonResponseProcessorError.rawResponseNotHaveMetaData)
             }
 
-            if let jsonObject = try? JSONSerialization.jsonObject(with: val, options: .allowFragments),
-                let json = jsonObject as? Json {
+
+            if let jsonObject = try? JSONSerialization.jsonObject(with: val, options: .allowFragments) {
+
+                let anyJson = { () -> Json? in
+                    if let result = jsonObject as? [Json] {
+                        return [MappingUtils.arrayJsonKey: result]
+                    } else if let result = jsonObject as? Json {
+                        return result
+                    } else {
+                        return nil
+                    }
+                }()
+
+                guard let json = anyJson else {
+                    context.emit(error: BaseRawJsonResponseProcessorError.cantMapToJson)
+                    break
+                }
+
+
                 let result = UrlNetworkResponse(
                     urlResponse: urlResponse,
                     urlRequest: urlRequest,

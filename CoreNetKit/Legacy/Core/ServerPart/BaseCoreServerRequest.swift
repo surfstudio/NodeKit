@@ -208,6 +208,7 @@ extension BaseCoreServerRequest {
     func sendRequest(completion: @escaping Completion) -> PerformedRequest {
         let performRequest = { (request: DataRequest) -> Void in
             self.currentRequest = request
+
             request.response { afResponse in
                 self.log(afResponse)
                 var response: CoreServerResponse = BaseCoreServerResponse(dataResponse: afResponse, dataResult: .success(afResponse.data, false), errorMapper: self.errorMapper)

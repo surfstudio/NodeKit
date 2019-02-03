@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -13,14 +14,23 @@ import (
 // User stub model
 type User struct {
 	ID        string `json:"id,omitempty"`
-	Firstname string `json:"firstname,omitempty"`
-	Lastname  string `json:"lastname,omitempty"`
+	Firstname string `json:"firstName,omitempty"`
+	Lastname  string `json:"lastName,omitempty"`
 }
 
 func main() {
 	router := mux.NewRouter()
 	addHTTPListners(router)
-	log.Fatal(http.ListenAndServe(":8811", router))
+
+	var server = http.Server{Addr: ":8811", Handler: router}
+
+	router.HandleFunc("/shutdown", func(w http.ResponseWriter, r *http.Request) {
+		server.Shutdown(context.Background())
+	})
+
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func addHTTPListners(router *mux.Router) {
@@ -54,10 +64,10 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 // GetUsers return 4 users
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	var users []User
-	users = append(users, User{ID: "0", Lastname: "0", Firstname: "0"})
-	users = append(users, User{ID: "1", Lastname: "1", Firstname: "1"})
-	users = append(users, User{ID: "2", Lastname: "2", Firstname: "2"})
-	users = append(users, User{ID: "3", Lastname: "3", Firstname: "3"})
+	users = append(users, User{ID: "olololo", Lastname: "Fry", Firstname: "Philip"})
+	users = append(users, User{ID: "olololo1", Lastname: "Fry1", Firstname: "Philip1"})
+	users = append(users, User{ID: "olololo2", Lastname: "Fry2", Firstname: "Philip2"})
+	users = append(users, User{ID: "olololo3", Lastname: "Fry3", Firstname: "Philip3"})
 
 	json.NewEncoder(w).Encode(users)
 	w.Header().Set("Content-Type", "application/json")

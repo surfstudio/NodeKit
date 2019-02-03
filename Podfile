@@ -8,6 +8,10 @@ target 'CoreNetKit' do
   pod 'Alamofire', '~> 4.8.0'
   pod 'CoreEvents'
   pod 'ObjectMapper'
-  
 
+  target 'CoreNetKitIntegrationTests' do
+    pod 'Alamofire', '~> 4.8.0'
+    pod 'CoreEvents'
+    pod 'ObjectMapper'
+  end
 end
