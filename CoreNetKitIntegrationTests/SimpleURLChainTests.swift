@@ -56,38 +56,6 @@ public class SimpleURLChainTests: XCTestCase {
         }
     }
 
-    public func testDefaultURLChainFailedWithCountOfItems() {
-
-        // Arrange
-
-        let chainRoot: Node<EmptyRequest, [User]> = Chains.defaultChain(params:
-            TransportUrlParameters(method: .get, url: Infrastructure.getUsersURL, headers: [String: String]()))
-
-        // Act
-
-        var result: [User]?
-        var resultError: Error?
-
-        let exp = self.expectation(description: "\(#function)")
-
-        chainRoot.process(EmptyRequest())
-            .onCompleted { (user) in
-                result = user
-                exp.fulfill()
-            }.onError { (error) in
-                resultError = error
-                exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3, handler: nil)
-
-        // Assert
-
-        XCTAssertNotNil(result)
-        XCTAssertNil(resultError, resultError!.localizedDescription)
-        XCTAssertNotEqual(result!.count, 3)
-    }
-
     /// We send request on server and await response with empty array in body
     /// In this test we assert that this resposne body will seccessfully parse in array of entities
     public func testDefaultChainArrSucessParseResponseInCaseOfEmptyArray() {

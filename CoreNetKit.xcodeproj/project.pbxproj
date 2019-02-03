@@ -22,6 +22,8 @@
 		B1118EFA21C8CD8B007AD599 /* ServiceChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF921C8CD8B007AD599 /* ServiceChain.swift */; };
 		B1848A132204822400F54705 /* UserEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1848A122204822400F54705 /* UserEntry.swift */; };
 		B1848A15220483EC00F54705 /* EmptyInputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1848A14220483EC00F54705 /* EmptyInputModel.swift */; };
+		B1B7613C2207A87100AE3303 /* Array+RawMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7613B2207A87100AE3303 /* Array+RawMappable.swift */; };
+		B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7613E2207A8A000AE3303 /* Array+DtoConvertible.swift */; };
 		B1BED9F421FF4D6F000B9018 /* SimpleURLChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */; };
 		B1BED9F721FF4E2A000B9018 /* Chains+HTTP-JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9F621FF4E2A000B9018 /* Chains+HTTP-JSON.swift */; };
 		B1BED9F921FF75A9000B9018 /* Chains.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9F821FF75A9000B9018 /* Chains.swift */; };
@@ -83,6 +85,8 @@
 		B1118EF921C8CD8B007AD599 /* ServiceChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceChain.swift; sourceTree = "<group>"; };
 		B1848A122204822400F54705 /* UserEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntry.swift; sourceTree = "<group>"; };
 		B1848A14220483EC00F54705 /* EmptyInputModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInputModel.swift; sourceTree = "<group>"; };
+		B1B7613B2207A87100AE3303 /* Array+RawMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+RawMappable.swift"; sourceTree = "<group>"; };
+		B1B7613E2207A8A000AE3303 /* Array+DtoConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+DtoConvertible.swift"; sourceTree = "<group>"; };
 		B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleURLChainTests.swift; sourceTree = "<group>"; };
 		B1BED9F621FF4E2A000B9018 /* Chains+HTTP-JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chains+HTTP-JSON.swift"; sourceTree = "<group>"; };
 		B1BED9F821FF75A9000B9018 /* Chains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chains.swift; sourceTree = "<group>"; };
@@ -247,6 +251,7 @@
 		B1118EE921C8B714007AD599 /* Convertion */ = {
 			isa = PBXGroup;
 			children = (
+				B1B7613D2207A88F00AE3303 /* Extensions */,
 				B1118EEA21C8B72D007AD599 /* RawMappable.swift */,
 				B1118EEC21C8B772007AD599 /* DTOConvertible.swift */,
 			);
@@ -357,6 +362,15 @@
 				B1848A122204822400F54705 /* UserEntry.swift */,
 			);
 			path = Entry;
+			sourceTree = "<group>";
+		};
+		B1B7613D2207A88F00AE3303 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B1B7613B2207A87100AE3303 /* Array+RawMappable.swift */,
+				B1B7613E2207A8A000AE3303 /* Array+DtoConvertible.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		B1BED9F521FF4DF2000B9018 /* HTTP-JSON */ = {
@@ -862,6 +876,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */,
+				B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */,
 				B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */,
 				B1033D6821BD4E8B001F5D03 /* FromJsonMapNode.swift in Sources */,
 				B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */,
@@ -877,6 +892,7 @@
 				B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */,
 				B1033D6621BD4E80001F5D03 /* ToJsonMapNode.swift in Sources */,
 				B1BED9F921FF75A9000B9018 /* Chains.swift in Sources */,
+				B1B7613C2207A87100AE3303 /* Array+RawMappable.swift in Sources */,
 				B1118EF421C8C4AC007AD599 /* TransportNode.swift in Sources */,
 				B1848A15220483EC00F54705 /* EmptyInputModel.swift in Sources */,
 				B1F0C70721B1DDCF00382FA5 /* UrlCacheWriterNode.swift in Sources */,
