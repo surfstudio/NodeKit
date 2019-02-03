@@ -35,6 +35,11 @@ extension Array: RawMappable where Element: RawMappable, Element.Raw == Json {
     }
 
     public static func toModel(from json: Json) throws -> Array<Element> {
+
+        guard !json.isEmpty else {
+            return [Element]()
+        }
+
         guard let arrayData = json[MappingUtils.arrayJsonKey] as? [Json] else {
             throw ErrorArrayJsonMappiong.cantFindKeyInRaw(json)
         }

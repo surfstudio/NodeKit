@@ -14,8 +14,7 @@ extension Chains {
         where Input: DTOConvertible, Output: DTOConvertible,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
 
-            let responseProcessor = ResponseProcessorNode()
-            let requestSenderNode = RequestSenderNode(rawResponseProcessor: responseProcessor)
+            let requestSenderNode = RequestSenderNode(rawResponseProcessor: ServiceChain.responseProcessingLayerChain())
             let requestCreatorNode = RequestCreatorNode(next: requestSenderNode)
             let transportNode = TransportNode(parameters: params, next: requestCreatorNode)
             let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: transportNode)

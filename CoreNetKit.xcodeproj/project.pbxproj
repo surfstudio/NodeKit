@@ -10,6 +10,8 @@
 		207B8A86135685E319686BA7 /* Pods_CoreNetKit_CoreNetKitIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFC7FE872C40ECD9CBA523D /* Pods_CoreNetKit_CoreNetKitIntegrationTests.framework */; };
 		B1033D6621BD4E80001F5D03 /* ToJsonMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1033D6521BD4E80001F5D03 /* ToJsonMapNode.swift */; };
 		B1033D6821BD4E8B001F5D03 /* FromJsonMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1033D6721BD4E8B001F5D03 /* FromJsonMapNode.swift */; };
+		B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB23F2207966D004C65E3 /* ResponseDataPreprocessorNode.swift */; };
+		B10FB24222079CA7004C65E3 /* ResponseDataParserNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB24122079CA7004C65E3 /* ResponseDataParserNode.swift */; };
 		B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EEA21C8B72D007AD599 /* RawMappable.swift */; };
 		B1118EED21C8B772007AD599 /* DTOConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EEC21C8B772007AD599 /* DTOConvertible.swift */; };
 		B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */; };
@@ -17,7 +19,7 @@
 		B1118EF421C8C4AC007AD599 /* TransportNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF321C8C4AC007AD599 /* TransportNode.swift */; };
 		B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */; };
 		B1118EF721C8CBDC007AD599 /* ResponseProcessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */; };
-		B1118EFA21C8CD8B007AD599 /* SampleChains.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF921C8CD8B007AD599 /* SampleChains.swift */; };
+		B1118EFA21C8CD8B007AD599 /* ServiceChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF921C8CD8B007AD599 /* ServiceChain.swift */; };
 		B1848A132204822400F54705 /* UserEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1848A122204822400F54705 /* UserEntry.swift */; };
 		B1848A15220483EC00F54705 /* EmptyInputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1848A14220483EC00F54705 /* EmptyInputModel.swift */; };
 		B1BED9F421FF4D6F000B9018 /* SimpleURLChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */; };
@@ -70,13 +72,15 @@
 		9AF2A9A1A9CD5898CBBC5776 /* Pods-CoreNetKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreNetKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoreNetKit/Pods-CoreNetKit.release.xcconfig"; sourceTree = "<group>"; };
 		B1033D6521BD4E80001F5D03 /* ToJsonMapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToJsonMapNode.swift; sourceTree = "<group>"; };
 		B1033D6721BD4E8B001F5D03 /* FromJsonMapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromJsonMapNode.swift; sourceTree = "<group>"; };
+		B10FB23F2207966D004C65E3 /* ResponseDataPreprocessorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDataPreprocessorNode.swift; sourceTree = "<group>"; };
+		B10FB24122079CA7004C65E3 /* ResponseDataParserNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDataParserNode.swift; sourceTree = "<group>"; };
 		B1118EEA21C8B72D007AD599 /* RawMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawMappable.swift; sourceTree = "<group>"; };
 		B1118EEC21C8B772007AD599 /* DTOConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOConvertible.swift; sourceTree = "<group>"; };
 		B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInputNode.swift; sourceTree = "<group>"; };
 		B1118EF121C8C1B9007AD599 /* DTOMapperNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOMapperNode.swift; sourceTree = "<group>"; };
 		B1118EF321C8C4AC007AD599 /* TransportNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportNode.swift; sourceTree = "<group>"; };
 		B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreatorNode.swift; sourceTree = "<group>"; };
-		B1118EF921C8CD8B007AD599 /* SampleChains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleChains.swift; sourceTree = "<group>"; };
+		B1118EF921C8CD8B007AD599 /* ServiceChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceChain.swift; sourceTree = "<group>"; };
 		B1848A122204822400F54705 /* UserEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntry.swift; sourceTree = "<group>"; };
 		B1848A14220483EC00F54705 /* EmptyInputModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInputModel.swift; sourceTree = "<group>"; };
 		B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleURLChainTests.swift; sourceTree = "<group>"; };
@@ -92,7 +96,6 @@
 		B1C3255921CFEC480059EF33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1C3256521D1251B0059EF33 /* CodableRawMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableRawMapper.swift; sourceTree = "<group>"; };
 		B1E45F76645C0817BCA1818E /* Pods_CoreNetKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreNetKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1F0C6E521B1DDCF00382FA5 /* ServiceChains.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceChains.swift; sourceTree = "<group>"; };
 		B1F0C6E721B1DDCF00382FA5 /* TrasportNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrasportNode.swift; sourceTree = "<group>"; };
 		B1F0C6E821B1DDCF00382FA5 /* HeaderAttacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderAttacher.swift; sourceTree = "<group>"; };
 		B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseProcessorNode.swift; sourceTree = "<group>"; };
@@ -263,7 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				B1BED9F521FF4DF2000B9018 /* HTTP-JSON */,
-				B1118EF921C8CD8B007AD599 /* SampleChains.swift */,
+				B1118EF921C8CD8B007AD599 /* ServiceChain.swift */,
 				B1BED9F821FF75A9000B9018 /* Chains.swift */,
 			);
 			path = Chains;
@@ -322,6 +325,8 @@
 			isa = PBXGroup;
 			children = (
 				B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */,
+				B10FB23F2207966D004C65E3 /* ResponseDataPreprocessorNode.swift */,
+				B10FB24122079CA7004C65E3 /* ResponseDataParserNode.swift */,
 			);
 			path = ResponseProcessingLayer;
 			sourceTree = "<group>";
@@ -426,7 +431,6 @@
 				B1118EF821C8CD7D007AD599 /* Chains */,
 				B13E04F521C7F49B00956853 /* Layers */,
 				B1033D5E21BD019A001F5D03 /* Core */,
-				B1F0C6E521B1DDCF00382FA5 /* ServiceChains.swift */,
 				B1F0C6F221B1DDCF00382FA5 /* CacheNode */,
 			);
 			path = New;
@@ -805,7 +809,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\n";
+			shellScript = "
+";
 		};
 		E1464D030E45077C4A8ACB7F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -857,6 +862,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */,
+				B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */,
 				B1033D6821BD4E8B001F5D03 /* FromJsonMapNode.swift in Sources */,
 				B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */,
 				B1F0C70221B1DDCF00382FA5 /* Context+Operations.swift in Sources */,
@@ -874,7 +880,8 @@
 				B1118EF421C8C4AC007AD599 /* TransportNode.swift in Sources */,
 				B1848A15220483EC00F54705 /* EmptyInputModel.swift in Sources */,
 				B1F0C70721B1DDCF00382FA5 /* UrlCacheWriterNode.swift in Sources */,
-				B1118EFA21C8CD8B007AD599 /* SampleChains.swift in Sources */,
+				B10FB24222079CA7004C65E3 /* ResponseDataParserNode.swift in Sources */,
+				B1118EFA21C8CD8B007AD599 /* ServiceChain.swift in Sources */,
 				B1BED9F721FF4E2A000B9018 /* Chains+HTTP-JSON.swift in Sources */,
 				B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */,
 				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,

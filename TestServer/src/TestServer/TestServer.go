@@ -37,6 +37,7 @@ func addHTTPListners(router *mux.Router) {
 	router.HandleFunc("/users/{id}", GetUser).Methods("GET")
 	router.HandleFunc("/users", GetUsers).Methods("GET")
 	router.HandleFunc("/items", GetItemList).Methods("GET")
+	router.HandleFunc("/userAmptyArr", GetEmptyUserArr).Methods("GET")
 	router.HandleFunc("/users", AddNewUser).Methods("POST")
 }
 
@@ -64,13 +65,28 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 // GetUsers return 4 users
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	var users []User
-	users = append(users, User{ID: "olololo", Lastname: "Fry", Firstname: "Philip"})
-	users = append(users, User{ID: "olololo1", Lastname: "Fry1", Firstname: "Philip1"})
-	users = append(users, User{ID: "olololo2", Lastname: "Fry2", Firstname: "Philip2"})
-	users = append(users, User{ID: "olololo3", Lastname: "Fry3", Firstname: "Philip3"})
+	users = append(users, User{ID: "id0", Lastname: "Fry0", Firstname: "Philip0"})
+	users = append(users, User{ID: "id1", Lastname: "Fry1", Firstname: "Philip1"})
+	users = append(users, User{ID: "id2", Lastname: "Fry2", Firstname: "Philip2"})
+	users = append(users, User{ID: "id3", Lastname: "Fry3", Firstname: "Philip3"})
 
 	json.NewEncoder(w).Encode(users)
 	w.Header().Set("Content-Type", "application/json")
+}
+
+// GetEmptyUserArr just return an empty array in response body
+func GetEmptyUserArr(w http.ResponseWriter, r *http.Request) {
+
+	var users []User
+
+	json.NewEncoder(w).Encode(users)
+	w.Header().Set("Content-Type", "application/json")
+}
+
+// Get402UserArr just return 204 response code that means "no response"
+func Get402UserArr(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(204)
+	return
 }
 
 // GetItemList return item with offset paging

@@ -9,9 +9,8 @@
 import Foundation
 import Alamofire
 
-public enum BaseRawJsonResponseProcessorError: Error {
+public enum ResponseProcessorNodeError: Error {
     case rawResponseNotHaveMetaData
-    case cantMapToJson
 }
 
 public struct UrlNetworkResponse {
@@ -22,68 +21,38 @@ public struct UrlNetworkResponse {
     public let json: Json
 }
 
+public struct UrlDataResponse {
+    public let request: URLRequest
+    public let response: HTTPURLResponse
+    public let data: Data
+    public let timeline: Timeline
+}
+
 open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
 
-    public typealias NextProcessorNode = Node<UrlNetworkResponse, Void>
+    public typealias NextProcessorNode = Node<UrlDataResponse, Json>
 
-    private let next: NextProcessorNode?
+    private let next: NextProcessorNode
 
-    public init(next: NextProcessorNode? = nil) {
+    public init(next: NextProcessorNode) {
         self.next = next
     }
 
     open override func process(_ data: DataResponse<Data>) -> Context<Json> {
 
-        let context = Context<UrlNetworkResponse>()
-
         switch data.result {
         case .failure(let error):
-            context.emit(error: error)
+            return Context<Json>().emit(error: error)
         case .success(let val):
 
             guard let urlResponse = data.response, let urlRequest = data.request else {
                 return Context<Json>()
-                    .emit(error: BaseRawJsonResponseProcessorError.rawResponseNotHaveMetaData)
+                    .emit(error: ResponseProcessorNodeError.rawResponseNotHaveMetaData)
             }
 
+            let dataResponse = UrlDataResponse(request: urlRequest, response: urlResponse, data: val, timeline: data.timeline)
 
-            if let jsonObject = try? JSONSerialization.jsonObject(with: val, options: .allowFragments) {
-
-                let anyJson = { () -> Json? in
-                    if let result = jsonObject as? [Json] {
-                        return [MappingUtils.arrayJsonKey: result]
-                    } else if let result = jsonObject as? Json {
-                        return result
-                    } else {
-                        return nil
-                    }
-                }()
-
-                guard let json = anyJson else {
-                    context.emit(error: BaseRawJsonResponseProcessorError.cantMapToJson)
-                    break
-                }
-
-
-                let result = UrlNetworkResponse(
-                    urlResponse: urlResponse,
-                    urlRequest: urlRequest,
-                    data: val,
-                    code: urlResponse.statusCode,
-                    json: json
-                )
-                context.emit(data: result)
-            } else {
-                context.emit(error: BaseRawJsonResponseProcessorError.cantMapToJson)
-            }
+            return self.next.process(dataResponse)
         }
-
-        guard let nextNode = self.next else {
-            return context.map { $0.json }
-        }
-
-        return context
-            .combine { nextNode.process($0) }
-            .map { $0.0.json }
     }
 }
