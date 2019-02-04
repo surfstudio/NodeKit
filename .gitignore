@@ -2,6 +2,9 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+.DS_Store
+xcshareddata/
+
 ## Build generated
 build/
 DerivedData/
@@ -47,6 +50,7 @@ playground.xcworkspace
 #
 
 Pods/
+Podfile.lock
 
 # Carthage
 #

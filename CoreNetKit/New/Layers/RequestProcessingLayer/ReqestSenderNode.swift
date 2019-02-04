@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-open class ReqestSenderNode: Node<RawUrlRequest, Json> {
+open class RequestSenderNode: Node<RawUrlRequest, Json> {
 
     public typealias RawResponseProcessor = Node<DataResponse<Data>, Json>
 

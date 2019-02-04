@@ -13,10 +13,6 @@ public enum BaseUrlCacheReaderError: Error {
     case cantLoadDataFromCache
 }
 
-public struct UrlNetworkRequest {
-    let urlRequest: URLRequest
-}
-
 open class UrlCacheReaderNode: Node<UrlNetworkRequest, CoreNetKitJson> {
     open override func process(_ data: UrlNetworkRequest) -> Context<CoreNetKitJson> {
         let result = Context<CoreNetKitJson>()

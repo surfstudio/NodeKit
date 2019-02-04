@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -13,21 +14,34 @@ import (
 // User stub model
 type User struct {
 	ID        string `json:"id,omitempty"`
-	Firstname string `json:"firstname,omitempty"`
-	Lastname  string `json:"lastname,omitempty"`
+	Firstname string `json:"firstName,omitempty"`
+	Lastname  string `json:"lastName,omitempty"`
 }
 
 func main() {
 	router := mux.NewRouter()
 	addHTTPListners(router)
-	log.Fatal(http.ListenAndServe(":8811", router))
+
+	var server = http.Server{Addr: ":8811", Handler: router}
+
+	router.HandleFunc("/shutdown", func(w http.ResponseWriter, r *http.Request) {
+		server.Shutdown(context.Background())
+	})
+
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func addHTTPListners(router *mux.Router) {
 	router.HandleFunc("/users/{id}", GetUser).Methods("GET")
 	router.HandleFunc("/users", GetUsers).Methods("GET")
 	router.HandleFunc("/items", GetItemList).Methods("GET")
+	router.HandleFunc("/userAmptyArr", GetEmptyUserArr).Methods("GET")
+	router.HandleFunc("/Get402UserArr", Get402UserArr).Methods("GET")
+
 	router.HandleFunc("/users", AddNewUser).Methods("POST")
+	router.HandleFunc("/authWithFormUrl", AuthWithFormURL).Methods("POST")
 }
 
 // GetUser description
@@ -54,13 +68,28 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 // GetUsers return 4 users
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	var users []User
-	users = append(users, User{ID: "0", Lastname: "0", Firstname: "0"})
-	users = append(users, User{ID: "1", Lastname: "1", Firstname: "1"})
-	users = append(users, User{ID: "2", Lastname: "2", Firstname: "2"})
-	users = append(users, User{ID: "3", Lastname: "3", Firstname: "3"})
+	users = append(users, User{ID: "id0", Lastname: "Fry0", Firstname: "Philip0"})
+	users = append(users, User{ID: "id1", Lastname: "Fry1", Firstname: "Philip1"})
+	users = append(users, User{ID: "id2", Lastname: "Fry2", Firstname: "Philip2"})
+	users = append(users, User{ID: "id3", Lastname: "Fry3", Firstname: "Philip3"})
 
 	json.NewEncoder(w).Encode(users)
 	w.Header().Set("Content-Type", "application/json")
+}
+
+// GetEmptyUserArr just return an empty array in response body
+func GetEmptyUserArr(w http.ResponseWriter, r *http.Request) {
+
+	var users []User
+
+	json.NewEncoder(w).Encode(users)
+	w.Header().Set("Content-Type", "application/json")
+}
+
+// Get402UserArr just return 204 response code that means "no response"
+func Get402UserArr(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(204)
+	return
 }
 
 // GetItemList return item with offset paging
@@ -118,4 +147,23 @@ func AddNewUser(w http.ResponseWriter, r *http.Request) {
 	default:
 		w.WriteHeader(201)
 	}
+}
+
+// AuthWithFormURL provides www-form-url-encoded endpoint that await form like:
+// secret = "secret"
+// type = "type"
+// In success case return json:
+// { "accessToken": "token", "refreshToken": "token" }
+// In failure case return 402 code
+func AuthWithFormURL(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+
+	var secret = r.FormValue("secret")
+	var typeVal = r.FormValue("type")
+
+	if secret == "secret" && typeVal == "type" {
+		json.NewEncoder(w).Encode(map[string]string{"accessToken": "token", "refreshToken": "token"})
+	}
+
+	w.WriteHeader(http.StatusBadRequest)
 }

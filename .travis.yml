@@ -1,5 +1,5 @@
 language: Swift
-osx_image: xcode9.3
+osx_image: xcode10.1
 xcode_project: CoreNetKit.xcodeproj
 xcode_scheme: CoreNetKit
 before_install:
@@ -9,3 +9,9 @@ before_install:
   - brew install swiftlint || true
 script:
   - set -o pipefail
+  - TestServer/bin/TestServer
+  - xcodebuild test -scheme CoreNetKitIntegrationTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.4' | xcpretty -c
+
+  after_success:
+  - bash <(curl -s https://codecov.io/bash) -J 'CoreNetKit'
+  - bash <(curl -s http://127.0.0.1:8811/shutdown)>
