@@ -39,6 +39,7 @@ func addHTTPListners(router *mux.Router) {
 	router.HandleFunc("/items", GetItemList).Methods("GET")
 	router.HandleFunc("/userAmptyArr", GetEmptyUserArr).Methods("GET")
 	router.HandleFunc("/users", AddNewUser).Methods("POST")
+	router.HandleFunc("/authWithFormUrl", AuthWithFormURL).Methods("POST")
 }
 
 // GetUser description
@@ -144,4 +145,23 @@ func AddNewUser(w http.ResponseWriter, r *http.Request) {
 	default:
 		w.WriteHeader(201)
 	}
+}
+
+// AuthWithFormURL provides www-form-url-encoded endpoint that await form like:
+// secret = "secret"
+// type = "type"
+// In success case return json:
+// { "accessToken": "token", "refreshToken": "token" }
+// In failure case return 402 code
+func AuthWithFormURL(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+
+	var secret = r.FormValue("secret")
+	var typeVal = r.FormValue("type")
+
+	if secret == "secret" && typeVal == "type" {
+		json.NewEncoder(w).Encode(map[string]string{"accessToken": "token", "refreshToken": "token"})
+	}
+
+	w.WriteHeader(http.StatusBadRequest)
 }

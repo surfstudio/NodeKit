@@ -25,6 +25,19 @@ public class ServerRequestsManager {
     }
 }
 
+extension CoreNetKit.ParametersEncoding {
+    var raw: ParameterEncoding {
+        switch self {
+        case .json:
+            return JSONEncoding.default
+        case .urlQuery:
+            return URLEncoding.default
+        case .formUrl:
+            return URLEncoding.queryString
+        }
+    }
+}
+
 extension CoreNetKit.Method {
     var http: HTTPMethod {
         switch self {
@@ -65,7 +78,13 @@ open class RequestCreatorNode: Node<TransportUrlRequest, Json> {
         let manager = ServerRequestsManager.shared.manager
 
         let paramEncoding = {() -> ParameterEncoding in
-            return data.method == .get ? URLEncoding.default : JSONEncoding.default
+
+            if data.method == .get {
+                return URLEncoding.default
+            }
+
+
+            return data.parametersEncoding.raw
         }()
 
         let request = manager.request(

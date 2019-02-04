@@ -32,6 +32,7 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
             json = try self.json(from: data)
         } catch {
             context.emit(error: error)
+            return context
         }
 
         guard let nextNode = next else {

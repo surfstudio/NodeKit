@@ -63,7 +63,7 @@ public class SimpleURLChainTests: XCTestCase {
         // Arrange
 
         let chainRoot: Node<EmptyRequest, [User]> = Chains.defaultChain(params:
-            TransportUrlParameters(method: .get, url: Infrastructure.gatEmptyUserArray, headers: [String: String]()))
+            TransportUrlParameters(method: .get, url: Infrastructure.getEmptyUserArray, headers: [String: String]()))
 
         // Act
 

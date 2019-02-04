@@ -13,6 +13,7 @@ open class ServiceChain {
     public static func responseProcessingLayerChain() -> Node<DataResponse<Data>, Json> {
         let responseDataParserNode = ResponseDataParserNode()
         let responseDataPreprocessorNode = ResponseDataPreprocessorNode(next: responseDataParserNode)
-        return ResponseProcessorNode(next: responseDataPreprocessorNode)
+        let responseHttpErrorProcessorNode = ResponseHttpErrorProcessorNode(next: responseDataPreprocessorNode)
+        return ResponseProcessorNode(next: responseHttpErrorProcessorNode)
     }
 }
