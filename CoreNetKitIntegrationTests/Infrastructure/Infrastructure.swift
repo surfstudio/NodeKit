@@ -14,6 +14,7 @@ public final class Infrastructure {
     public static let getUsersURL = URL(string: "users", relativeTo: baseURL)!
 
     public static let getEmptyUserArray = URL(string: "userAmptyArr", relativeTo: baseURL)!
+    public static let getEmptyUsersWith402 = URL(string: "Get402UserArr", relativeTo: baseURL)!
 
     public static let authWithFormUrl = URL(string: "authWithFormUrl", relativeTo: baseURL)!
 }

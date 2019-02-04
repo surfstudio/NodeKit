@@ -23,7 +23,7 @@ open class ResponseDataPreprocessorNode: Node<UrlDataResponse, Json> {
 
     open override func process(_ data: UrlDataResponse) -> Context<Json> {
 
-        guard data.response.statusCode != 402 else {
+        guard data.response.statusCode != 204 else {
             return Context<Json>().emit(data: Json())
         }
 

@@ -18,7 +18,7 @@ public class SimpleURLChainTests: XCTestCase {
 
         // Arrange
 
-        let chainRoot: Node<EmptyRequest, [User]> = Chains.defaultChain(params:
+        let chainRoot: Node<EmptyModel, [User]> = Chains.defaultChain(params:
             TransportUrlParameters(method: .get, url: Infrastructure.getUsersURL, headers: [String: String]()))
 
         let id = "id"
@@ -32,7 +32,7 @@ public class SimpleURLChainTests: XCTestCase {
 
         let exp = self.expectation(description: "\(#function)")
 
-        chainRoot.process(EmptyRequest())
+        chainRoot.process(EmptyModel())
             .onCompleted { (user) in
                 result = user
                 exp.fulfill()
@@ -54,39 +54,5 @@ public class SimpleURLChainTests: XCTestCase {
             XCTAssertEqual(result![index].lastName, "\(lastName)\(index)")
             XCTAssertEqual(result![index].firstName, "\(firstName)\(index)")
         }
-    }
-
-    /// We send request on server and await response with empty array in body
-    /// In this test we assert that this resposne body will seccessfully parse in array of entities
-    public func testDefaultChainArrSucessParseResponseInCaseOfEmptyArray() {
-
-        // Arrange
-
-        let chainRoot: Node<EmptyRequest, [User]> = Chains.defaultChain(params:
-            TransportUrlParameters(method: .get, url: Infrastructure.getEmptyUserArray, headers: [String: String]()))
-
-        // Act
-
-        var result: [User]?
-        var resultError: Error?
-
-        let exp = self.expectation(description: "\(#function)")
-
-        chainRoot.process(EmptyRequest())
-            .onCompleted { (user) in
-                result = user
-                exp.fulfill()
-            }.onError { (error) in
-                resultError = error
-                exp.fulfill()
-        }
-
-        waitForExpectations(timeout: 3, handler: nil)
-
-        // Assert
-
-        XCTAssertNotNil(result)
-        XCTAssertNil(resultError, resultError!.localizedDescription)
-        XCTAssertTrue(result!.isEmpty)
     }
 }

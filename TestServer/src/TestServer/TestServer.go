@@ -38,6 +38,8 @@ func addHTTPListners(router *mux.Router) {
 	router.HandleFunc("/users", GetUsers).Methods("GET")
 	router.HandleFunc("/items", GetItemList).Methods("GET")
 	router.HandleFunc("/userAmptyArr", GetEmptyUserArr).Methods("GET")
+	router.HandleFunc("/Get402UserArr", Get402UserArr).Methods("GET")
+
 	router.HandleFunc("/users", AddNewUser).Methods("POST")
 	router.HandleFunc("/authWithFormUrl", AuthWithFormURL).Methods("POST")
 }
