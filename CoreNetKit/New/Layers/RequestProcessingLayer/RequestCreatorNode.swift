@@ -53,6 +53,10 @@ extension CoreNetKit.Method {
     }
 }
 
+public struct UrlNetworkRequest {
+    let urlRequest: URLRequest
+}
+
 public struct RawUrlRequest {
     let dataRequest: DataRequest
 
