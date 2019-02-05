@@ -72,9 +72,9 @@ public struct RawUrlRequest {
 
 open class RequestCreatorNode: Node<TransportUrlRequest, Json> {
 
-    public var next: Node<RawUrlRequest, Json>
+    public var next: RequestProcessingLayerNode
 
-    public init(next: Node<RawUrlRequest, Json>) {
+    public init(next: RequestProcessingLayerNode) {
         self.next = next
     }
 
@@ -82,12 +82,9 @@ open class RequestCreatorNode: Node<TransportUrlRequest, Json> {
         let manager = ServerRequestsManager.shared.manager
 
         let paramEncoding = {() -> ParameterEncoding in
-
             if data.method == .get {
                 return URLEncoding.default
             }
-
-
             return data.parametersEncoding.raw
         }()
 

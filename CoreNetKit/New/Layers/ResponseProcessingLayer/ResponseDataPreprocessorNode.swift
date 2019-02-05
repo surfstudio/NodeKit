@@ -13,11 +13,11 @@ public enum ResponseDataProcessorNodeError: Error {
     case cantDerializeJson
 }
 
-open class ResponseDataPreprocessorNode: Node<UrlDataResponse, Json> {
+open class ResponseDataPreprocessorNode: ResponseProcessingLayerNode {
 
-    public var next: Node<UrlDataResponse, Json>
+    public var next: ResponseProcessingLayerNode
 
-    init(next: Node<UrlDataResponse, Json>) {
+    init(next: ResponseProcessingLayerNode) {
         self.next = next
     }
 

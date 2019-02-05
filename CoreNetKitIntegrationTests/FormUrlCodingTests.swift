@@ -14,7 +14,7 @@ import CoreNetKit
 
 public class FormUrlCodingTests: XCTestCase {
 
-    public func testFormUrlEncodedRequestCompliteSuccess() {
+    public func testFormUrlEncodedRequestCompleteSuccess() {
         // Arrange
 
         let chainRoot: Node<AuthModel, Credentials> = Chains.defaultChain(params:
@@ -51,7 +51,7 @@ public class FormUrlCodingTests: XCTestCase {
         XCTAssertEqual(result!.refreshToken, expectedRefeshToken)
     }
 
-    public func testFormUrlEncodedRequestCompliteFailure() {
+    public func testFormUrlEncodedRequestCompleteFailure() {
         // Arrange
 
         let chainRoot: Node<AuthModel, Credentials> = Chains.defaultChain(params:

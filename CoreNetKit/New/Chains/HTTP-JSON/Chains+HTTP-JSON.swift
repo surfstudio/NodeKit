@@ -21,6 +21,17 @@ extension Chains {
             return ModelInputNode<Input, Output>(next: dtoConverter)
     }
 
+    public static func urlChainWithUrlCache<Input, Output>(params: TransportUrlParameters) -> Node<Input, Output>
+        where Input: DTOConvertible, Output: DTOConvertible,
+        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
+
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: ServiceChain.responseProcessingLayerChain())
+        let requestCreatorNode = RequestCreatorNode(next: requestSenderNode)
+        let transportNode = TransportNode(parameters: params, next: requestCreatorNode)
+        let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: transportNode)
+        return ModelInputNode<Input, Output>(next: dtoConverter)
+    }
+
 //    public static func defaultEmptyRequestChain<Output>(params: TransportUrlParameters) -> Node<Void, Output>
 //        where Output: DTOConvertible, Output.DTO.Raw == RawData  {
 //            let responseProcessor = ResponseProcessorNode()

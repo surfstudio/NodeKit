@@ -15,13 +15,13 @@ public enum ResponseHttpErrorProcessorNodeError: Error {
     case forbidden(Data)
 }
 
-open class ResponseHttpErrorProcessorNode: Node<UrlDataResponse, Json> {
+open class ResponseHttpErrorProcessorNode: ResponseProcessingLayerNode {
 
     public typealias HttpError = ResponseHttpErrorProcessorNodeError
 
-    public var next: Node<UrlDataResponse, Json>
+    public var next: ResponseProcessingLayerNode
 
-    public init(next: Node<UrlDataResponse, Json>) {
+    public init(next: ResponseProcessingLayerNode) {
         self.next = next
     }
 

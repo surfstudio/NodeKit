@@ -55,10 +55,10 @@ public struct TransportUrlRequest {
 
 open class TransportNode: Node<Json, Json> {
 
-    public var next: Node<TransportUrlRequest, Json>
+    public var next: TransportLayerNode
     public var parameters: TransportUrlParameters
 
-    public init(parameters: TransportUrlParameters, next: Node<TransportUrlRequest, Output>) {
+    public init(parameters: TransportUrlParameters, next: TransportLayerNode) {
         self.next = next
         self.parameters = parameters
     }

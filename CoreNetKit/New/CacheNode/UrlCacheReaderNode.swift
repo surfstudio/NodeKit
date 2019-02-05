@@ -13,8 +13,8 @@ public enum BaseUrlCacheReaderError: Error {
     case cantLoadDataFromCache
 }
 
-open class UrlCacheReaderNode: Node<UrlNetworkRequest, CoreNetKitJson> {
-    open override func process(_ data: UrlNetworkRequest) -> Context<CoreNetKitJson> {
+open class UrlCacheReaderNode: Node<UrlNetworkRequest, Json> {
+    open override func process(_ data: UrlNetworkRequest) -> Context<Json> {
         let result = Context<CoreNetKitJson>()
 
         if let cachedResponse = self.extractCachedUrlResponse(request: data.urlRequest),
@@ -26,7 +26,6 @@ open class UrlCacheReaderNode: Node<UrlNetworkRequest, CoreNetKitJson> {
         }
         return result
     }
-
 
    private func extractCachedUrlResponse(request: URLRequest) -> CachedURLResponse? {
         if let response = URLCache.shared.cachedResponse(for: request) {

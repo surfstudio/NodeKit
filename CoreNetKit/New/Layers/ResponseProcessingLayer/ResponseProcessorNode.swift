@@ -13,28 +13,11 @@ public enum ResponseProcessorNodeError: Error {
     case rawResponseNotHaveMetaData
 }
 
-public struct UrlNetworkResponse {
-    public let urlResponse: URLResponse
-    public let urlRequest: URLRequest
-    public let data: Data
-    public let code: Int
-    public let json: Json
-}
-
-public struct UrlDataResponse {
-    public let request: URLRequest
-    public let response: HTTPURLResponse
-    public let data: Data
-    public let timeline: Timeline
-}
-
 open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
 
-    public typealias NextProcessorNode = Node<UrlDataResponse, Json>
+    private let next: ResponseProcessingLayerNode
 
-    private let next: NextProcessorNode
-
-    public init(next: NextProcessorNode) {
+    public init(next: ResponseProcessingLayerNode) {
         self.next = next
     }
 

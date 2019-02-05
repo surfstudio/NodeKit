@@ -31,6 +31,14 @@
 		B1B7614A2207B39A00AE3303 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B761492207B39A00AE3303 /* AuthModel.swift */; };
 		B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7614B2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift */; };
 		B1B7614E2207C16000AE3303 /* TestEmptyResponseMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7614D2207C16000AE3303 /* TestEmptyResponseMapping.swift */; };
+		B1B7615122080C4800AE3303 /* LayerTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7615022080C4800AE3303 /* LayerTypes.swift */; };
+		B1B7615422080E8D00AE3303 /* HeaderInjectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7615322080E8D00AE3303 /* HeaderInjectorNode.swift */; };
+		B1B761572208118300AE3303 /* UrlDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B761562208118300AE3303 /* UrlDataResponse.swift */; };
+		B1B7615B220811F300AE3303 /* UrlProcessedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7615A220811F300AE3303 /* UrlProcessedResponse.swift */; };
+		B1B7616D220862BE00AE3303 /* UrlCacheWriterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F521B1DDCF00382FA5 /* UrlCacheWriterNode.swift */; };
+		B1B7616E2208637500AE3303 /* FirstCachePolicyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F421B1DDCF00382FA5 /* FirstCachePolicyNode.swift */; };
+		B1B761702208647600AE3303 /* IfServerFailsFromCacheNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7616F2208647600AE3303 /* IfServerFailsFromCacheNode.swift */; };
+		B1B7617222086AD200AE3303 /* DefaultCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7617122086AD200AE3303 /* DefaultCachePolicy.swift */; };
 		B1BED9F421FF4D6F000B9018 /* SimpleURLChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */; };
 		B1BED9F721FF4E2A000B9018 /* Chains+HTTP-JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9F621FF4E2A000B9018 /* Chains+HTTP-JSON.swift */; };
 		B1BED9F921FF75A9000B9018 /* Chains.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9F821FF75A9000B9018 /* Chains.swift */; };
@@ -46,7 +54,6 @@
 		B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F021B1DDCF00382FA5 /* Context.swift */; };
 		B1F0C70421B1DDCF00382FA5 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F121B1DDCF00382FA5 /* Observable.swift */; };
 		B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F321B1DDCF00382FA5 /* UrlCacheReaderNode.swift */; };
-		B1F0C70721B1DDCF00382FA5 /* UrlCacheWriterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F521B1DDCF00382FA5 /* UrlCacheWriterNode.swift */; };
 		B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6FA21B1DDCF00382FA5 /* Node.swift */; };
 		B94310AF1F931CC000E8A9BA /* CoreNetKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* CoreNetKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F850843585A22770DB437F08 /* Pods_CoreNetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1E45F76645C0817BCA1818E /* Pods_CoreNetKit.framework */; };
@@ -100,6 +107,12 @@
 		B1B761492207B39A00AE3303 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		B1B7614B2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHttpErrorProcessorNode.swift; sourceTree = "<group>"; };
 		B1B7614D2207C16000AE3303 /* TestEmptyResponseMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEmptyResponseMapping.swift; sourceTree = "<group>"; };
+		B1B7615022080C4800AE3303 /* LayerTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerTypes.swift; sourceTree = "<group>"; };
+		B1B7615322080E8D00AE3303 /* HeaderInjectorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderInjectorNode.swift; sourceTree = "<group>"; };
+		B1B761562208118300AE3303 /* UrlDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlDataResponse.swift; sourceTree = "<group>"; };
+		B1B7615A220811F300AE3303 /* UrlProcessedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlProcessedResponse.swift; sourceTree = "<group>"; };
+		B1B7616F2208647600AE3303 /* IfServerFailsFromCacheNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfServerFailsFromCacheNode.swift; sourceTree = "<group>"; };
+		B1B7617122086AD200AE3303 /* DefaultCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCachePolicy.swift; sourceTree = "<group>"; };
 		B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleURLChainTests.swift; sourceTree = "<group>"; };
 		B1BED9F621FF4E2A000B9018 /* Chains+HTTP-JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chains+HTTP-JSON.swift"; sourceTree = "<group>"; };
 		B1BED9F821FF75A9000B9018 /* Chains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chains.swift; sourceTree = "<group>"; };
@@ -341,6 +354,7 @@
 		B13E04F321C7F43200956853 /* ResponseProcessingLayer */ = {
 			isa = PBXGroup;
 			children = (
+				B1B76155220810DE00AE3303 /* Models */,
 				B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */,
 				B10FB23F2207966D004C65E3 /* ResponseDataPreprocessorNode.swift */,
 				B1B7614B2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift */,
@@ -352,11 +366,14 @@
 		B13E04F521C7F49B00956853 /* Layers */ = {
 			isa = PBXGroup;
 			children = (
+				B1B7615222080E4200AE3303 /* Utils */,
 				B1118EEE21C8B7D1007AD599 /* ModelInput */,
 				B13E04F021C7D12A00956853 /* DTOProcessingLayer */,
 				B13E04F121C7F40D00956853 /* RawModelProcessingLayer */,
 				B13E04F221C7F42300956853 /* RequestProcessingLayer */,
 				B13E04F321C7F43200956853 /* ResponseProcessingLayer */,
+				B1B76158220811C400AE3303 /* ResponsePostprocessingNode */,
+				B1B7615022080C4800AE3303 /* LayerTypes.swift */,
 			);
 			path = Layers;
 			sourceTree = "<group>";
@@ -397,6 +414,38 @@
 				B1BED9FC21FF7BAE000B9018 /* Models */,
 			);
 			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		B1B7615222080E4200AE3303 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B1B7615322080E8D00AE3303 /* HeaderInjectorNode.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		B1B76155220810DE00AE3303 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B1B761562208118300AE3303 /* UrlDataResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B1B76158220811C400AE3303 /* ResponsePostprocessingNode */ = {
+			isa = PBXGroup;
+			children = (
+				B1B76159220811D600AE3303 /* Models */,
+			);
+			path = ResponsePostprocessingNode;
+			sourceTree = "<group>";
+		};
+		B1B76159220811D600AE3303 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B1B7615A220811F300AE3303 /* UrlProcessedResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		B1BED9F521FF4DF2000B9018 /* HTTP-JSON */ = {
@@ -492,6 +541,8 @@
 				B1F0C6F321B1DDCF00382FA5 /* UrlCacheReaderNode.swift */,
 				B1F0C6F421B1DDCF00382FA5 /* FirstCachePolicyNode.swift */,
 				B1F0C6F521B1DDCF00382FA5 /* UrlCacheWriterNode.swift */,
+				B1B7616F2208647600AE3303 /* IfServerFailsFromCacheNode.swift */,
+				B1B7617122086AD200AE3303 /* DefaultCachePolicy.swift */,
 			);
 			path = CacheNode;
 			sourceTree = "<group>";
@@ -906,11 +957,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1B7617222086AD200AE3303 /* DefaultCachePolicy.swift in Sources */,
 				B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */,
 				B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */,
 				B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */,
 				B1033D6821BD4E8B001F5D03 /* FromJsonMapNode.swift in Sources */,
+				B1B7616D220862BE00AE3303 /* UrlCacheWriterNode.swift in Sources */,
+				B1B7615B220811F300AE3303 /* UrlProcessedResponse.swift in Sources */,
 				B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */,
+				B1B7616E2208637500AE3303 /* FirstCachePolicyNode.swift in Sources */,
 				B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */,
 				B1F0C70221B1DDCF00382FA5 /* Context+Operations.swift in Sources */,
 				B1F0C6FF21B1DDCF00382FA5 /* ReqestSenderNode.swift in Sources */,
@@ -919,19 +974,22 @@
 				B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */,
 				B1C3256621D1251B0059EF33 /* CodableRawMapper.swift in Sources */,
 				B1118EED21C8B772007AD599 /* DTOConvertible.swift in Sources */,
+				B1B7615122080C4800AE3303 /* LayerTypes.swift in Sources */,
 				B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */,
 				B1F0C70121B1DDCF00382FA5 /* AsyncContext.swift in Sources */,
+				B1B761702208647600AE3303 /* IfServerFailsFromCacheNode.swift in Sources */,
+				B1B7615422080E8D00AE3303 /* HeaderInjectorNode.swift in Sources */,
 				B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */,
 				B1033D6621BD4E80001F5D03 /* ToJsonMapNode.swift in Sources */,
 				B1BED9F921FF75A9000B9018 /* Chains.swift in Sources */,
 				B1B7613C2207A87100AE3303 /* Array+RawMappable.swift in Sources */,
 				B1118EF421C8C4AC007AD599 /* TransportNode.swift in Sources */,
 				B1848A15220483EC00F54705 /* EmptyModel.swift in Sources */,
-				B1F0C70721B1DDCF00382FA5 /* UrlCacheWriterNode.swift in Sources */,
 				B10FB24222079CA7004C65E3 /* ResponseDataParserNode.swift in Sources */,
 				B1118EFA21C8CD8B007AD599 /* ServiceChain.swift in Sources */,
 				B1BED9F721FF4E2A000B9018 /* Chains+HTTP-JSON.swift in Sources */,
 				B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */,
+				B1B761572208118300AE3303 /* UrlDataResponse.swift in Sources */,
 				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1155,6 +1213,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CoreNetKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = AK.CoreNetKit;
@@ -1180,6 +1239,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CoreNetKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = AK.CoreNetKit;

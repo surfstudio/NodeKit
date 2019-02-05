@@ -13,21 +13,21 @@ public enum BaseFirstCachePolicyNodeError: Error {
     case cantGetUrlRequest
 }
 
-open class FirstCachePolicyNode: Node<RawUrlRequest, CoreNetKitJson> {
+open class FirstCachePolicyNode: Node<RawUrlRequest, Json> {
 
-    public typealias CacheReaderNode = Node<UrlNetworkRequest, CoreNetKitJson>
-    public typealias NextProcessorNode = Node<RawUrlRequest, CoreNetKitJson>
+    public typealias CacheReaderNode = Node<UrlNetworkRequest, Json>
+    public typealias NextProcessorNode = Node<RawUrlRequest, Json>
 
     private let cacheReaderNode: CacheReaderNode
-    private let next: Node<RawUrlRequest, CoreNetKitJson>
+    private let next: Node<RawUrlRequest, Json>
 
     public init(cacheReaderNode: CacheReaderNode, next: NextProcessorNode) {
         self.cacheReaderNode = cacheReaderNode
         self.next = next
     }
 
-    open override func process(_ data: RawUrlRequest) -> Context<CoreNetKitJson> {
-        let result = Context<CoreNetKitJson>()
+    open override func process(_ data: RawUrlRequest) -> Context<Json> {
+        let result = Context<Json>()
 
         if let urlRequest = data.toUrlRequest() {
             self.cacheReaderNode.process(urlRequest)
@@ -44,8 +44,3 @@ open class FirstCachePolicyNode: Node<RawUrlRequest, CoreNetKitJson> {
         return result
     }
 }
-
-// First Cahce then refresh from server
-// JsonNEtworkNode -> RawRequestPostprocessor -> CachePolicy -> NetworkResponseProcessor
-// First server - if - fails - from cache
-// JsonNEtworkNode -> RawRequestPostprocessor -> NetworkResponseProcessor -> CacheProcessor

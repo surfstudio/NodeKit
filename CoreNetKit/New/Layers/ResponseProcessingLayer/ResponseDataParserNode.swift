@@ -15,11 +15,9 @@ public enum ResponseDataParserNodeError: Error {
 
 open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
 
-    public typealias NextProcessorNode = Node<UrlNetworkResponse, Void>
+    public var next: ResponsePostprocessorLayrNode?
 
-    public var next: NextProcessorNode?
-
-    public init(next: NextProcessorNode? = nil) {
+    public init(next: ResponsePostprocessorLayrNode? = nil) {
         self.next = next
     }
 
@@ -39,11 +37,7 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
             return context.emit(data: json)
         }
 
-        let networkResponse = UrlNetworkResponse(urlResponse: data.response,
-                                                urlRequest: data.request,
-                                                data: data.data,
-                                                code: data.response.statusCode,
-                                                json: json)
+        let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
 
         return nextNode.process(networkResponse).map { json }
     }
