@@ -29,7 +29,7 @@ public struct TransportUrlParameters {
     let headers: [String: String]
     let parametersEncoding: ParametersEncoding
 
-    init(method: Method, url: URL, headers: [String: String], parametersEncoding: ParametersEncoding = .json) {
+    public init(method: Method, url: URL, headers: [String: String], parametersEncoding: ParametersEncoding = .json) {
         self.method = method
         self.url = url
         self.headers = headers
