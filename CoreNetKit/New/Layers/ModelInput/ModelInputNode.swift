@@ -33,3 +33,26 @@ public class ModelInputNode<Input, Output>: Node<Input, Output> where Input: DTO
         }
     }
 }
+
+public class SimpleModelInputNode<Input, Output>: Node<Input, Output> where Input: RawMappable, Output: DTOConvertible {
+
+    public var next: Node<Input.Raw, Output.DTO>
+
+    public init(next: Node<Input.Raw, Output.DTO>) {
+        self.next = next
+    }
+
+    open override func process(_ data: Input) -> Context<Output> {
+
+        let context = Context<Output>()
+
+        do {
+            let data = try data.toRaw()
+            return self.next.process(data).map {
+                try Output.toModel(from: $0)
+            }
+        } catch {
+            return context.emit(error: error)
+        }
+    }
+}

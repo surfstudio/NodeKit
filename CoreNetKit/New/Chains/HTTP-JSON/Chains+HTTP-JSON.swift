@@ -21,6 +21,12 @@ extension Chains {
             return ModelInputNode<Input, Output>(next: dtoConverter)
     }
 
+    public static func simpleModelFlowChain<Input, Output>(params: TransportUrlParameters) -> Node<Input, Output>
+        where Input: RawMappable, Output: DTOConvertible,
+        Input.Raw == Json, Output.DTO.Raw == Json {
+
+    }
+
 //    public static func urlChainWithUrlCache<Input, Output>(params: TransportUrlParameters) -> Node<Input, Output>
 //        where Input: DTOConvertible, Output: DTOConvertible,
 //        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
