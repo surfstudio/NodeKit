@@ -44,7 +44,7 @@ public struct TransportUrlRequest {
     let raw: Json
     let parametersEncoding: ParametersEncoding
 
-    init(with params: TransportUrlParameters, raw: Json) {
+    public init(with params: TransportUrlParameters, raw: Json) {
         self.method = params.method
         self.url = params.url
         self.headers = params.headers
