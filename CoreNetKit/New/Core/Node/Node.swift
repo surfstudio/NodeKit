@@ -41,6 +41,9 @@ public protocol NodeProtocol {
 /// При наследовании **необходимо** переопределить метод `process(_ data: Input)`
 /// В противном случае при выхове этого метода приложение будет крашится
 open class Node<Input, Output>: NodeProtocol {
+
+    public init() { }
+
     open func process(_ data: Input) -> Context<Output> {
         fatalError("\(self.self) \(#function) must be overriden in subclass")
     }
