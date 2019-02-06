@@ -17,7 +17,7 @@ open class ResponseDataPreprocessorNode: ResponseProcessingLayerNode {
 
     public var next: ResponseProcessingLayerNode
 
-    init(next: ResponseProcessingLayerNode) {
+    public init(next: ResponseProcessingLayerNode) {
         self.next = next
     }
 
