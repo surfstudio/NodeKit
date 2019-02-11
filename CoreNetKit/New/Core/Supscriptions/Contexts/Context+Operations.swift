@@ -99,6 +99,32 @@ public extension Context {
         return result
     }
 
+    /// Позволяет "сцепить" два цонтекста вместе так, что данные полученные от каждого контекста сохраняются в результирующем.
+    /// Например, если мы делаем Context<A> chain Context<B> то в итоге получается Context(A,B)>
+    /// но при этом есть возможность выполнить Context<B> с результатом Context<A>
+    ///
+    /// - Parameter contextProvider: Что-то что сможет создать контекст, используя результат текущего контекста
+    /// - Returns: Комбинированный результат
+    func chain<T>(with contextProvider: @escaping (Model) -> Context<T>?) -> Context<(Model, T)> {
+
+        let newContext = Context<(Model, T)>()
+
+        self.onCompleted { model in
+
+            let context = contextProvider(model)
+
+            context?.onCompleted { newModel in
+                newContext.emit(data: (model, newModel))
+            }.onError { error in
+                newContext.emit(error: error)
+            }
+
+            }.onError { error in
+                newContext.emit(error: error)
+        }
+        return newContext
+    }
+
     /// Слушатель получит сообщение на необходмой очереди
     /// - Parameters
     ///     - queue: Очередь, на которой необходимо вызывать методы слушателя
