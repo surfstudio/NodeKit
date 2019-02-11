@@ -105,7 +105,7 @@ public extension Context {
     ///
     /// - Parameter contextProvider: Что-то что сможет создать контекст, используя результат текущего контекста
     /// - Returns: Комбинированный результат
-    func chain<T>(with contextProvider: @escaping (Model) -> Context<T>?) -> Context<(Model, T)> {
+    public func chain<T>(with contextProvider: @escaping (Model) -> Context<T>?) -> Context<(Model, T)> {
 
         let newContext = Context<(Model, T)>()
 
