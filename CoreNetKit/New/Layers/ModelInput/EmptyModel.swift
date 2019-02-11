@@ -9,7 +9,9 @@
 import Foundation
 
 /// RawMappable Trick (:
-public struct EmptyModelEntry { }
+public struct EmptyModelEntry {
+    public init() {}
+}
 
 extension EmptyModelEntry: RawMappable {
 
@@ -25,7 +27,9 @@ extension EmptyModelEntry: RawMappable {
 }
 
 /// Trick provides possibility to send/recive empty request/response
-public struct EmptyModel { }
+public struct EmptyModel {
+    public init() {}
+}
 
 extension EmptyModel: DTOConvertible {
 
