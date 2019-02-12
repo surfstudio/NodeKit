@@ -16,7 +16,8 @@ extension Chains {
 
             let requestSenderNode = RequestSenderNode(rawResponseProcessor: ServiceChain.urlResponseProcessingLayerChain())
             let requestCreatorNode = RequestCreatorNode(next: requestSenderNode)
-            let transportNode = TransportNode(parameters: params, next: requestCreatorNode)
+            let serviceErrorMapperNode = TechnicaErrorMapperNode(next: requestCreatorNode)
+            let transportNode = TransportNode(parameters: params, next: serviceErrorMapperNode)
             let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: transportNode)
             return ModelInputNode<Input, Output>(next: dtoConverter)
     }
@@ -27,7 +28,8 @@ extension Chains {
 
             let requestSenderNode = RequestSenderNode(rawResponseProcessor: ServiceChain.urlResponseProcessingLayerChain())
             let requestCreatorNode = RequestCreatorNode(next: requestSenderNode)
-            let transportNode = TransportNode(parameters: params, next: requestCreatorNode)
+            let serviceErrorMapperNode = TechnicaErrorMapperNode(next: requestCreatorNode)
+            let transportNode = TransportNode(parameters: params, next: serviceErrorMapperNode)
             let dtoConverter = DTOMapperNode<Input, Output.DTO>(next: transportNode)
             return SimpleModelInputNode<Input, Output>(next: dtoConverter)
     }
