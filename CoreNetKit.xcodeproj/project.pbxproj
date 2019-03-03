@@ -20,7 +20,10 @@
 		B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */; };
 		B1118EF721C8CBDC007AD599 /* ResponseProcessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */; };
 		B1118EFA21C8CD8B007AD599 /* ServiceChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF921C8CD8B007AD599 /* ServiceChain.swift */; };
+		B156807D222C65D000BC8D91 /* Context+Shugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156807C222C65D000BC8D91 /* Context+Shugar.swift */; };
 		B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */; };
+		B17E86912220413900400931 /* AccessSafeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E86902220413900400931 /* AccessSafeNode.swift */; };
+		B17E86972223A2EC00400931 /* MarkerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E86962223A2EC00400931 /* MarkerNode.swift */; };
 		B1848A132204822400F54705 /* UserEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1848A122204822400F54705 /* UserEntry.swift */; };
 		B1848A15220483EC00F54705 /* EmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1848A14220483EC00F54705 /* EmptyModel.swift */; };
 		B1B7613C2207A87100AE3303 /* Array+RawMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7613B2207A87100AE3303 /* Array+RawMappable.swift */; };
@@ -97,7 +100,10 @@
 		B1118EF321C8C4AC007AD599 /* TransportNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportNode.swift; sourceTree = "<group>"; };
 		B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreatorNode.swift; sourceTree = "<group>"; };
 		B1118EF921C8CD8B007AD599 /* ServiceChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceChain.swift; sourceTree = "<group>"; };
+		B156807C222C65D000BC8D91 /* Context+Shugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Context+Shugar.swift"; sourceTree = "<group>"; };
 		B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechnicaErrorMapperNode.swift; sourceTree = "<group>"; };
+		B17E86902220413900400931 /* AccessSafeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessSafeNode.swift; sourceTree = "<group>"; };
+		B17E86962223A2EC00400931 /* MarkerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerNode.swift; sourceTree = "<group>"; };
 		B1848A122204822400F54705 /* UserEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntry.swift; sourceTree = "<group>"; };
 		B1848A14220483EC00F54705 /* EmptyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyModel.swift; sourceTree = "<group>"; };
 		B1B7613B2207A87100AE3303 /* Array+RawMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+RawMappable.swift"; sourceTree = "<group>"; };
@@ -250,6 +256,7 @@
 		B1033D6321BD4DFC001F5D03 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				B17E868F2220411A00400931 /* Utils */,
 				B13E04EE21C7CFCE00956853 /* Network */,
 				B13E04ED21C7CF7C00956853 /* Roots */,
 				B13E04EC21C77E5000956853 /* Preprocessing */,
@@ -381,6 +388,22 @@
 			path = Layers;
 			sourceTree = "<group>";
 		};
+		B17E868F2220411A00400931 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		B17E86952223A2C600400931 /* AccessSafe */ = {
+			isa = PBXGroup;
+			children = (
+				B17E86902220413900400931 /* AccessSafeNode.swift */,
+				B17E86962223A2EC00400931 /* MarkerNode.swift */,
+			);
+			path = AccessSafe;
+			sourceTree = "<group>";
+		};
 		B1848A0F220481D200F54705 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,6 +445,7 @@
 		B1B7615222080E4200AE3303 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B17E86952223A2C600400931 /* AccessSafe */,
 				B1B7615322080E8D00AE3303 /* HeaderInjectorNode.swift */,
 			);
 			path = Utils;
@@ -534,6 +558,7 @@
 				B1F0C6EE21B1DDCF00382FA5 /* AsyncContext.swift */,
 				B1F0C6EF21B1DDCF00382FA5 /* Context+Operations.swift */,
 				B1F0C6F021B1DDCF00382FA5 /* Context.swift */,
+				B156807C222C65D000BC8D91 /* Context+Shugar.swift */,
 			);
 			path = Contexts;
 			sourceTree = "<group>";
@@ -966,6 +991,7 @@
 				B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */,
 				B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */,
 				B1033D6821BD4E8B001F5D03 /* FromJsonMapNode.swift in Sources */,
+				B17E86912220413900400931 /* AccessSafeNode.swift in Sources */,
 				B1B7616D220862BE00AE3303 /* UrlCacheWriterNode.swift in Sources */,
 				B1B7615B220811F300AE3303 /* UrlProcessedResponse.swift in Sources */,
 				B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */,
@@ -976,6 +1002,7 @@
 				B1118EF721C8CBDC007AD599 /* ResponseProcessorNode.swift in Sources */,
 				B1F0C70421B1DDCF00382FA5 /* Observable.swift in Sources */,
 				B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */,
+				B17E86972223A2EC00400931 /* MarkerNode.swift in Sources */,
 				B1C3256621D1251B0059EF33 /* CodableRawMapper.swift in Sources */,
 				B1118EED21C8B772007AD599 /* DTOConvertible.swift in Sources */,
 				B1B7615122080C4800AE3303 /* LayerTypes.swift in Sources */,
@@ -995,6 +1022,7 @@
 				B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */,
 				B1B761572208118300AE3303 /* UrlDataResponse.swift in Sources */,
 				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,
+				B156807D222C65D000BC8D91 /* Context+Shugar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
