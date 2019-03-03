@@ -8,8 +8,9 @@
 
 import Foundation
 
-/// По сути является Type erasure для `Observable`
-open class Context<Model>: Observable, DefaultInitable {
+/// Самый обычный контекст, который покрывает большинство случаев использования.
+/// Следует всегда использовтаь именно его. 
+open class Context<Model>: Observer<Model>, DefaultInitable {
 
     // MARK: - Private fileds
 
@@ -22,11 +23,11 @@ open class Context<Model>: Observable, DefaultInitable {
 
     private var dispatchQueue: DispatchQueue = DispatchQueue.main
 
-    required public init() { }
+    required public override init() { }
 
     /// Используется для подписки на событие об успешного выполнения.
     @discardableResult
-    open func onCompleted(_ closure: @escaping (Model) -> Void) -> Self {
+    open override func onCompleted(_ closure: @escaping (Model) -> Void) -> Self {
         
         self.completedClosure = closure
         if let lastEmitedData = self.lastEmitedData {
@@ -39,7 +40,7 @@ open class Context<Model>: Observable, DefaultInitable {
 
     /// Исользуется для подписки на событие о какой-либо ошибки
     @discardableResult
-    open func onError(_ closure: @escaping (Error) -> Void) -> Self {
+    open override func onError(_ closure: @escaping (Error) -> Void) -> Self {
 
         self.errorClosure = closure
 
@@ -54,7 +55,7 @@ open class Context<Model>: Observable, DefaultInitable {
     /// Используется для подписки на любой исход события. То есть, вне зависимости от того, была ошибка или успех - эта подписка оповестит подписчика о том, что событие произошло.
     /// Аналог finally в try-catch
     @discardableResult
-    open func `defer`(_ closure: @escaping () -> Void) -> Self {
+    open override func `defer`(_ closure: @escaping () -> Void) -> Self {
         self.deferClosure = closure
         return self
     }

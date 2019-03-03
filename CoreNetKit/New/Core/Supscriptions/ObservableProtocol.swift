@@ -16,7 +16,7 @@ public protocol DefaultInitable {
 /// Протокол для реализации модели подписки.
 /// Описывает объект, который наблюдает за каким-то событием и когда оно происходит - сообщает подписчикам о том, что собтие произошло.
 /// Концептуально схож с Rx Observable
-public protocol Observable {
+public protocol ObservableProtocol {
 
     /// Тип данных, которые возвращает событие
     associatedtype Model
@@ -33,4 +33,24 @@ public protocol Observable {
     /// Аналог finally в try-catch
     @discardableResult
     func `defer`(_ closure: @escaping () -> Void) -> Self
+}
+
+/// По сути является Type erasure для `Observable`
+open class Observer<Input>: ObservableProtocol {
+
+    public typealias Model = Input
+
+    public init() { }
+
+    public func onCompleted(_ closure: @escaping (Input) -> Void) -> Self {
+        fatalError("Needs to override method \(#function) in \(self.self)")
+    }
+
+    public func onError(_ closure: @escaping (Error) -> Void) -> Self {
+        fatalError("Needs to override method \(#function) in \(self.self)")
+    }
+
+    public func `defer`(_ closure: @escaping () -> Void) -> Self {
+        fatalError("Needs to override method \(#function) in \(self.self)")
+    }
 }

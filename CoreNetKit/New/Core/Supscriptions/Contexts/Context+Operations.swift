@@ -137,9 +137,22 @@ public extension Context {
 
         self.onError {
             result.emit(error: $0)
-            
         }
 
         return result
+    }
+
+    /// Инкапсулирует обычный context в MulticastContext,
+    /// что позволяет подписываться однвоременно несколькими объектами на сообщения
+    public func multicast() -> Observer<Model> {
+        let context = MulticastContext<Model>()
+
+        self.onCompleted {
+            context.emit(data: $0)
+        }.onError {
+            context.emit(error: $0)
+        }
+
+        return context
     }
 }
