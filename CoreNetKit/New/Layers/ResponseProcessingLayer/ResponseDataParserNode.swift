@@ -43,7 +43,9 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
     }
 
     open func json(from responseData: UrlDataResponse) throws -> Json {
-
+        guard responseData.data.count != 0 else {
+            return Json()
+        }
         guard let jsonObject = try? JSONSerialization.jsonObject(with: responseData.data, options: .allowFragments) else {
             throw ResponseDataParserNodeError.cantDerializeJson
         }
