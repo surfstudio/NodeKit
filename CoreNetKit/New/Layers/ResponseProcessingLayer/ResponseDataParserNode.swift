@@ -21,7 +21,7 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
         self.next = next
     }
 
-    open override func process(_ data: UrlDataResponse) -> Context<Json> {
+    open override func process(_ data: UrlDataResponse) -> Observer<Json> {
 
         let context = Context<Json>()
         var json = Json()

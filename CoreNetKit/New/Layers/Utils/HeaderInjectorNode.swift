@@ -22,7 +22,7 @@ open class HeaderInjectorNode: TransportLayerNode {
         self.headers = headers
     }
 
-    open override func process(_ data: TransportUrlRequest) -> Context<Json> {
+    open override func process(_ data: TransportUrlRequest) -> Observer<Json> {
         var resultHeaders = self.headers
         data.headers.forEach { resultHeaders[$0.key] = $0.value }
         return next.process(data)

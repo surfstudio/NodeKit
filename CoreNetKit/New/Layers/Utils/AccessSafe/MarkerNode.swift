@@ -21,7 +21,7 @@ class MarkerNode<T>: Node<Mark<T>, Mark<Json>> {
         self.next = next
     }
 
-    override func process(_ data: Mark<T>) -> Context<Mark<Json>> {
+    override func process(_ data: Mark<T>) -> Observer<Mark<Json>> {
         return next.process(data.model).map { Mark(model: $0, mark: data.mark) }
     }
 }

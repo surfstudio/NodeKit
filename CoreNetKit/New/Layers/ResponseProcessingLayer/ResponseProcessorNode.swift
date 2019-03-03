@@ -21,7 +21,7 @@ open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
         self.next = next
     }
 
-    open override func process(_ data: DataResponse<Data>) -> Context<Json> {
+    open override func process(_ data: DataResponse<Data>) -> Observer<Json> {
 
         switch data.result {
         case .failure(let error):

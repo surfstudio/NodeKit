@@ -63,7 +63,7 @@ open class TransportNode: Node<Json, Json> {
         self.parameters = parameters
     }
 
-    open override func process(_ data: Json) -> Context<Json> {
+    open override func process(_ data: Json) -> Observer<Json> {
         return next.process(TransportUrlRequest(with: self.parameters, raw: data))
     }
 }

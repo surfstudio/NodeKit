@@ -16,7 +16,7 @@ open class DTOMapperNode<Input, Output>: Node<Input, Output> where Input: RawMap
         self.next = next
     }
 
-    open override func process(_ data: Input) -> Context<Output> {
+    open override func process(_ data: Input) -> Observer<Output> {
         let context = Context<Output>()
 
         do {

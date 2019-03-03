@@ -42,15 +42,28 @@ open class Observer<Input>: ObservableProtocol {
 
     public init() { }
 
-    public func onCompleted(_ closure: @escaping (Input) -> Void) -> Self {
+    @discardableResult
+    open func onCompleted(_ closure: @escaping (Input) -> Void) -> Self {
         fatalError("Needs to override method \(#function) in \(self.self)")
     }
 
-    public func onError(_ closure: @escaping (Error) -> Void) -> Self {
+    @discardableResult
+    open func onError(_ closure: @escaping (Error) -> Void) -> Self {
         fatalError("Needs to override method \(#function) in \(self.self)")
     }
 
-    public func `defer`(_ closure: @escaping () -> Void) -> Self {
+    @discardableResult
+    open func `defer`(_ closure: @escaping () -> Void) -> Self {
+        fatalError("Needs to override method \(#function) in \(self.self)")
+    }
+
+    @discardableResult
+    open func onCanceled(_ closure: @escaping () -> Void) -> Self {
+        fatalError("Needs to override method \(#function) in \(self.self)")
+    }
+
+    @discardableResult
+    open func cancel() -> Self {
         fatalError("Needs to override method \(#function) in \(self.self)")
     }
 }

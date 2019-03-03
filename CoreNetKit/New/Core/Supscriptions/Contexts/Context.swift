@@ -17,6 +17,7 @@ open class Context<Model>: Observer<Model>, DefaultInitable {
     private var completedClosure: ((Model) -> Void)?
     private var errorClosure: ((Error) -> Void)?
     private var deferClosure: (() -> Void)?
+    private var cancelClosure: (() -> Void)?
 
     private var lastEmitedData: Model?
     private var lastEmitedError: Error?
@@ -52,6 +53,12 @@ open class Context<Model>: Observer<Model>, DefaultInitable {
         return self
     }
 
+    @discardableResult
+    open override func onCanceled(_ closure: @escaping () -> Void) -> Self {
+        self.cancelClosure = closure
+        return self
+    }
+
     /// Используется для подписки на любой исход события. То есть, вне зависимости от того, была ошибка или успех - эта подписка оповестит подписчика о том, что событие произошло.
     /// Аналог finally в try-catch
     @discardableResult
@@ -79,6 +86,12 @@ open class Context<Model>: Observer<Model>, DefaultInitable {
         self.lastEmitedError = error
         self.errorClosure?(error)
         self.deferClosure?()
+        return self
+    }
+
+    @discardableResult
+    open override func cancel() -> Self {
+        self.cancelClosure?()
         return self
     }
 }

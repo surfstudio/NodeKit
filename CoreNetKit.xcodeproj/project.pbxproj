@@ -23,6 +23,8 @@
 		B156807D222C65D000BC8D91 /* Context+Shugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156807C222C65D000BC8D91 /* Context+Shugar.swift */; };
 		B156807F222C6BD300BC8D91 /* MulticastContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156807E222C6BD300BC8D91 /* MulticastContext.swift */; };
 		B1568081222C70D300BC8D91 /* ObservableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1568080222C70D300BC8D91 /* ObservableProtocol.swift */; };
+		B1568083222C769D00BC8D91 /* RequestAborterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1568082222C769D00BC8D91 /* RequestAborterNode.swift */; };
+		B1568086222C78F400BC8D91 /* AbortingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1568085222C78F400BC8D91 /* AbortingTests.swift */; };
 		B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */; };
 		B17E86912220413900400931 /* AccessSafeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E86902220413900400931 /* AccessSafeNode.swift */; };
 		B17E86972223A2EC00400931 /* MarkerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E86962223A2EC00400931 /* MarkerNode.swift */; };
@@ -56,7 +58,7 @@
 		B1C3256621D1251B0059EF33 /* CodableRawMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C3256521D1251B0059EF33 /* CodableRawMapper.swift */; };
 		B1F0C6FF21B1DDCF00382FA5 /* ReqestSenderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6EA21B1DDCF00382FA5 /* ReqestSenderNode.swift */; };
 		B1F0C70121B1DDCF00382FA5 /* AsyncContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6EE21B1DDCF00382FA5 /* AsyncContext.swift */; };
-		B1F0C70221B1DDCF00382FA5 /* Context+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6EF21B1DDCF00382FA5 /* Context+Operations.swift */; };
+		B1F0C70221B1DDCF00382FA5 /* Observer+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6EF21B1DDCF00382FA5 /* Observer+Operations.swift */; };
 		B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F021B1DDCF00382FA5 /* Context.swift */; };
 		B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F321B1DDCF00382FA5 /* UrlCacheReaderNode.swift */; };
 		B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6FA21B1DDCF00382FA5 /* Node.swift */; };
@@ -104,6 +106,8 @@
 		B156807C222C65D000BC8D91 /* Context+Shugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Context+Shugar.swift"; sourceTree = "<group>"; };
 		B156807E222C6BD300BC8D91 /* MulticastContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastContext.swift; sourceTree = "<group>"; };
 		B1568080222C70D300BC8D91 /* ObservableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableProtocol.swift; sourceTree = "<group>"; };
+		B1568082222C769D00BC8D91 /* RequestAborterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAborterNode.swift; sourceTree = "<group>"; };
+		B1568085222C78F400BC8D91 /* AbortingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbortingTests.swift; sourceTree = "<group>"; };
 		B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechnicaErrorMapperNode.swift; sourceTree = "<group>"; };
 		B17E86902220413900400931 /* AccessSafeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessSafeNode.swift; sourceTree = "<group>"; };
 		B17E86962223A2EC00400931 /* MarkerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerNode.swift; sourceTree = "<group>"; };
@@ -142,7 +146,7 @@
 		B1F0C6EA21B1DDCF00382FA5 /* ReqestSenderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReqestSenderNode.swift; sourceTree = "<group>"; };
 		B1F0C6EB21B1DDCF00382FA5 /* JsonNetworkNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonNetworkNode.swift; sourceTree = "<group>"; };
 		B1F0C6EE21B1DDCF00382FA5 /* AsyncContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncContext.swift; sourceTree = "<group>"; };
-		B1F0C6EF21B1DDCF00382FA5 /* Context+Operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Context+Operations.swift"; sourceTree = "<group>"; };
+		B1F0C6EF21B1DDCF00382FA5 /* Observer+Operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observer+Operations.swift"; sourceTree = "<group>"; };
 		B1F0C6F021B1DDCF00382FA5 /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		B1F0C6F321B1DDCF00382FA5 /* UrlCacheReaderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlCacheReaderNode.swift; sourceTree = "<group>"; };
 		B1F0C6F421B1DDCF00382FA5 /* FirstCachePolicyNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstCachePolicyNode.swift; sourceTree = "<group>"; };
@@ -390,9 +394,18 @@
 			path = Layers;
 			sourceTree = "<group>";
 		};
+		B1568084222C78DA00BC8D91 /* RequestAbortingTests */ = {
+			isa = PBXGroup;
+			children = (
+				B1568085222C78F400BC8D91 /* AbortingTests.swift */,
+			);
+			path = RequestAbortingTests;
+			sourceTree = "<group>";
+		};
 		B17E868F2220411A00400931 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B1568082222C769D00BC8D91 /* RequestAborterNode.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -506,6 +519,7 @@
 		B1C3255621CFEC480059EF33 /* CoreNetKitIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				B1568084222C78DA00BC8D91 /* RequestAbortingTests */,
 				B1C3255921CFEC480059EF33 /* Info.plist */,
 				B1B761462207B1EB00AE3303 /* Infrastructure */,
 				B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */,
@@ -558,7 +572,7 @@
 			isa = PBXGroup;
 			children = (
 				B1F0C6EE21B1DDCF00382FA5 /* AsyncContext.swift */,
-				B1F0C6EF21B1DDCF00382FA5 /* Context+Operations.swift */,
+				B1F0C6EF21B1DDCF00382FA5 /* Observer+Operations.swift */,
 				B1F0C6F021B1DDCF00382FA5 /* Context.swift */,
 				B156807C222C65D000BC8D91 /* Context+Shugar.swift */,
 				B156807E222C6BD300BC8D91 /* MulticastContext.swift */,
@@ -974,6 +988,7 @@
 				B1B761432207B0C600AE3303 /* Credentials.swift in Sources */,
 				B1B761452207B13B00AE3303 /* CredentialsEntry.swift in Sources */,
 				B1848A132204822400F54705 /* UserEntry.swift in Sources */,
+				B1568086222C78F400BC8D91 /* AbortingTests.swift in Sources */,
 				B1B761412207B0B700AE3303 /* FormUrlCodingTests.swift in Sources */,
 				B1BED9FE21FF7BC0000B9018 /* User.swift in Sources */,
 				B1BED9FB21FF78EE000B9018 /* Infrastructure.swift in Sources */,
@@ -989,6 +1004,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1B7617222086AD200AE3303 /* DefaultCachePolicy.swift in Sources */,
+				B1568083222C769D00BC8D91 /* RequestAborterNode.swift in Sources */,
 				B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */,
 				B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */,
 				B1568081222C70D300BC8D91 /* ObservableProtocol.swift in Sources */,
@@ -1002,7 +1018,7 @@
 				B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */,
 				B1B7616E2208637500AE3303 /* FirstCachePolicyNode.swift in Sources */,
 				B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */,
-				B1F0C70221B1DDCF00382FA5 /* Context+Operations.swift in Sources */,
+				B1F0C70221B1DDCF00382FA5 /* Observer+Operations.swift in Sources */,
 				B1F0C6FF21B1DDCF00382FA5 /* ReqestSenderNode.swift in Sources */,
 				B1118EF721C8CBDC007AD599 /* ResponseProcessorNode.swift in Sources */,
 				B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */,

@@ -78,7 +78,7 @@ open class RequestCreatorNode: Node<TransportUrlRequest, Json> {
         self.next = next
     }
 
-    open override func process(_ data: TransportUrlRequest) -> Context<Json> {
+    open override func process(_ data: TransportUrlRequest) -> Observer<Json> {
         let manager = ServerRequestsManager.shared.manager
 
         let paramEncoding = {() -> ParameterEncoding in

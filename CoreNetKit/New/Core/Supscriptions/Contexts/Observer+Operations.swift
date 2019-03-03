@@ -8,12 +8,12 @@
 
 import Foundation
 
-public extension Context {
+public extension Observer {
 
     /// Преобразует тип данных контекста из одного в другой.
     /// Аналог `Sequence.map{}`
     /// Для преобразоания необходмо передать замыкание, реализующее преобразования из типа A в тип B
-    public func map<T>(_ mapper: @escaping (Model) throws -> T) -> Context<T> {
+    public func map<T>(_ mapper: @escaping (Model) throws -> T) -> Observer<T> {
         let result = Context<T>()
 
         self.onCompleted { (model) in
@@ -34,7 +34,7 @@ public extension Context {
     }
 
     /// Принцип работы аналогичен `map`, но для работы необходимо передать замыкание, которое возвращает контекст
-    public func flatMap<T>(_ mapper: @escaping (Model) -> Context<T>) -> Context<T> {
+    public func flatMap<T>(_ mapper: @escaping (Model) -> Observer<T>) -> Observer<T> {
         let result = Context<T>()
 
         self.onCompleted { (model) in
@@ -52,7 +52,7 @@ public extension Context {
 
     /// Позволяет комбинировать несколько контекстов в один.
     /// Тогда подписчик будет оповещен только после того,как выполнятся оба контекста.
-    public func combine<T>(_ context: Context<T>) -> Context<(Model, T)> {
+    public func combine<T>(_ context: Observer<T>) -> Observer<(Model, T)> {
         let result = Context<(Model, T)>()
 
         self.onCompleted { (model) in
@@ -68,7 +68,7 @@ public extension Context {
     }
 
     /// Аналогично `combine<T>(_ context: Context<T>)`, только принимает не контекст, а функцию, которая возвращает контекст
-    public func combine<T>(_ contextProvider: @escaping (Model) -> Context<T>) -> Context<(Model, T)> {
+    public func combine<T>(_ contextProvider: @escaping (Model) -> Observer<T>) -> Observer<(Model, T)> {
         let result = Context<(Model, T)>()
 
         self.onCompleted { (model) in
@@ -87,7 +87,7 @@ public extension Context {
     /// Выполняет операцию, аналогичную операции `filter` для массивов.
     /// Вызывает для каждого элемента Model predicate
     /// Если predicate возвращает true, то элемент добавлятеся в результирующую коллекцию
-    public func filter<T>(_ predicate: @escaping (T) -> Bool) -> Context<Model> where Model == [T] {
+    public func filter<T>(_ predicate: @escaping (T) -> Bool) -> Observer<Model> where Model == [T] {
         let result = Context<Model>()
 
         self.onCompleted { model in
@@ -105,7 +105,7 @@ public extension Context {
     ///
     /// - Parameter contextProvider: Что-то что сможет создать контекст, используя результат текущего контекста
     /// - Returns: Комбинированный результат
-    public func chain<T>(with contextProvider: @escaping (Model) -> Context<T>?) -> Context<(Model, T)> {
+    public func chain<T>(with contextProvider: @escaping (Model) -> Observer<T>?) -> Observer<(Model, T)> {
 
         let newContext = Context<(Model, T)>()
 
@@ -128,7 +128,7 @@ public extension Context {
     /// Слушатель получит сообщение на необходмой очереди
     /// - Parameters
     ///     - queue: Очередь, на которой необходимо вызывать методы слушателя
-    public func dispatchOn(_ queue: DispatchQueue) -> Context<Model> {
+    public func dispatchOn(_ queue: DispatchQueue) -> Observer<Model> {
         let result = AsyncContext<Model>().on(queue)
 
         self.onCompleted {

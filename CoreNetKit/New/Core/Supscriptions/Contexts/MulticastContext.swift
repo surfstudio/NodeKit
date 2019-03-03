@@ -18,6 +18,7 @@ open class MulticastContext<Input>: Observer<Input> {
 
     private var eventOnCompleted: PresentEvent<Input>
     private var eventOnError: PresentEvent<Error>
+    private var eventOnCancelled: PresentEvent<Void>
     private var eventDefer: PresentEvent<Void>
 
     // MARK: - Lifecycle
@@ -26,6 +27,7 @@ open class MulticastContext<Input>: Observer<Input> {
         self.eventOnCompleted = PresentEvent()
         self.eventOnError = PresentEvent()
         self.eventDefer = PresentEvent()
+        self.eventOnCancelled = PresentEvent()
     }
 
     deinit {
@@ -63,6 +65,12 @@ open class MulticastContext<Input>: Observer<Input> {
         return self
     }
 
+    @discardableResult
+    open override func onCanceled(_ closure: @escaping () -> Void) -> Self {
+        self.eventOnCancelled += closure
+        return self
+    }
+
     // MARK: - Emiters
 
     /// Вызывает оповещение подписчиков о том, что событие выполнилось.
@@ -82,6 +90,12 @@ open class MulticastContext<Input>: Observer<Input> {
     open func emit(error: Error) -> Self {
         self.eventOnError.invoke(with: error)
         self.eventDefer.invoke(with: ())
+        return self
+    }
+
+    @discardableResult
+    open override func cancel() -> Self {
+        self.eventOnCancelled.invoke(with: ())
         return self
     }
 }

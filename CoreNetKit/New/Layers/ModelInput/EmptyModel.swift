@@ -47,7 +47,7 @@ extension EmptyModel: DTOConvertible {
 // MARK: - NodeProtocol with EmptyModel
 
 extension NodeProtocol where Input == EmptyModel {
-    public func process() -> Context<Output> {
+    public func process() -> Observer<Output> {
         return self.process(EmptyModel())
     }
 }

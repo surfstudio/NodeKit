@@ -27,7 +27,8 @@ class AccessSafeNode: TransportLayerNode {
         self.tokenUpdateChain = tokenUpdateChain
     }
 
-    override func process(_ data: TransportUrlRequest) -> Context<Json> {
+    override func process(_ data: TransportUrlRequest) -> Observer<Json> {
+
         return self.getMark(with: data)
             .map { Mark(model: data, mark: $0) }
             .flatMap { self.markerNode.process($0) }
@@ -42,7 +43,7 @@ class AccessSafeNode: TransportLayerNode {
                     self.tokenUpdateChain.process().onCompleted {_ in
                         self.sendRequests()
                     }.onError { error in
-
+                        // In This case we cant renew token and pplication should do something with it
                     }
                 }
             }.map { $0 }
@@ -61,6 +62,6 @@ class AccessSafeNode: TransportLayerNode {
     }
 
     func sendRequests() {
-
+        
     }
 }

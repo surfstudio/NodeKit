@@ -18,7 +18,7 @@ open class IfServerFailedFromCacheNode: ResponseProcessingLayerNode {
         self.cacheReaderNode = cacheReaderNode
     }
 
-    open override func process(_ data: UrlDataResponse) -> Context<Json> {
+    open override func process(_ data: UrlDataResponse) -> Observer<Json> {
         guard data.response.statusCode != -1009 else {
             return self.cacheReaderNode.process(data)
         }

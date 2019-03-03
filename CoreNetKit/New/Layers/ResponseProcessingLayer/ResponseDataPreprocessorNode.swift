@@ -21,7 +21,7 @@ open class ResponseDataPreprocessorNode: ResponseProcessingLayerNode {
         self.next = next
     }
 
-    open override func process(_ data: UrlDataResponse) -> Context<Json> {
+    open override func process(_ data: UrlDataResponse) -> Observer<Json> {
 
         guard data.response.statusCode != 204 else {
             return Context<Json>().emit(data: Json())

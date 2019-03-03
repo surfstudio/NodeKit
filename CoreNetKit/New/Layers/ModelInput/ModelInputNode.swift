@@ -20,7 +20,7 @@ public class ModelInputNode<Input, Output>: Node<Input, Output> where Input: DTO
         self.next = next
     }
 
-    open override func process(_ data: Input) -> Context<Output> {
+    open override func process(_ data: Input) -> Observer<Output> {
 
         let context = Context<Output>()
 
@@ -42,7 +42,7 @@ public class SimpleModelInputNode<Input, Output>: Node<Input, Output> where Inpu
         self.next = next
     }
 
-    open override func process(_ data: Input) -> Context<Output> {
+    open override func process(_ data: Input) -> Observer<Output> {
 
         return self.next.process(data).map {
             try Output.toModel(from: $0)
