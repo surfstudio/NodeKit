@@ -43,7 +43,7 @@ class AccessSafeNode: TransportLayerNode {
                     self.tokenUpdateChain.process().onCompleted {_ in
                         self.sendRequests()
                     }.onError { error in
-                        // In This case we cant renew token and pplication should do something with it
+                        
                     }
                 }
             }.map { $0 }

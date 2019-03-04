@@ -10,6 +10,28 @@ import Foundation
 
 public extension Observer {
 
+    public func error(_ mapper: @escaping (Error) throws -> Context<Model>) -> Observer<Model> {
+        let result = Context<Model>()
+
+        self.onCompleted { model in
+            result.emit(data: model)
+        }.onError { error in
+            do {
+                let cntx = try mapper(error)
+                cntx.onCompleted { result.emit(data: $0) }
+                cntx.onError { result.emit(error: $0) }
+                cntx.onCanceled { result.cancel() }
+            } catch {
+                result.emit(error: error)
+            }
+            result.emit(error: error)
+        }.onCanceled {
+            result.cancel()
+        }
+
+        return result
+    }
+
     /// Преобразует тип данных контекста из одного в другой.
     /// Аналог `Sequence.map{}`
     /// Для преобразоания необходмо передать замыкание, реализующее преобразования из типа A в тип B

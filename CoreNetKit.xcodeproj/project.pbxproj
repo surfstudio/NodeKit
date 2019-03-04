@@ -405,7 +405,6 @@
 		B17E868F2220411A00400931 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				B1568082222C769D00BC8D91 /* RequestAborterNode.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -460,6 +459,7 @@
 		B1B7615222080E4200AE3303 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B1568082222C769D00BC8D91 /* RequestAborterNode.swift */,
 				B17E86952223A2C600400931 /* AccessSafe */,
 				B1B7615322080E8D00AE3303 /* HeaderInjectorNode.swift */,
 			);
