@@ -10,7 +10,7 @@ import Foundation
 
 extension Chains {
 
-    public static func defaultChain<Input, Output>(params: TransportUrlParameters) -> Node<Input, Output>
+    public static func olddefaultChain<Input, Output>(params: TransportUrlParameters) -> Node<Input, Output>
         where Input: DTOConvertible, Output: DTOConvertible,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
 
@@ -34,23 +34,23 @@ extension Chains {
             return SimpleModelInputNode<Input, Output>(next: dtoConverter)
     }
 
-//    public static func urlChainWithUrlCache<Input, Output>(params: TransportUrlParameters) -> Node<Input, Output>
-//        where Input: DTOConvertible, Output: DTOConvertible,
-//        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-//
-//        let requestSenderNode = RequestSenderNode(rawResponseProcessor: ServiceChain.responseProcessingLayerChain())
-//        let requestCreatorNode = RequestCreatorNode(next: requestSenderNode)
-//        let transportNode = TransportNode(parameters: params, next: requestCreatorNode)
-//        let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: transportNode)
-//        return ModelInputNode<Input, Output>(next: dtoConverter)
-//    }
 
-//    public static func defaultEmptyRequestChain<Output>(params: TransportUrlParameters) -> Node<Void, Output>
-//        where Output: DTOConvertible, Output.DTO.Raw == RawData  {
-//            let responseProcessor = ResponseProcessorNode()
-//            let requestSenderNode = RequestSenderNode(rawResponseProcessor: responseProcessor)
-//            let requestCreatorNode = RequestCreatorNode(next: requestSenderNode)
-//            return TransportNode(parameters: params, next: requestCreatorNode)
-//    }
+    public static func defaultChain<Input, Output>(method: Method,
+                                                   route: UrlRouteProvider,
+                                                   metadata: [String: String] = [:],
+                                                   encoding: ParametersEncoding = .json) -> Node<Input, Output>
+        where Input: DTOConvertible, Output: DTOConvertible,
+        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
+
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: ServiceChain.urlResponseProcessingLayerChain())
+        let requestCreatorNode = RequestCreatorNode(next: requestSenderNode)
+        let serviceErrorMapperNode = TechnicaErrorMapperNode(next: requestCreatorNode)
+        let urlRequestTrasformatorNode = UrlRequestTrasformatorNode(next: serviceErrorMapperNode, method: method)
+        let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: encoding)
+        let requestRouterNode = RequestRouterNode(next: requstEncoderNode, route: route)
+        let metadataConnectorNode = MetadataConnectorNode(next: requestRouterNode, metadata: metadata)
+        let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: metadataConnectorNode)
+        return ModelInputNode<Input, Output>(next: dtoConverter)
+    }
 
 }

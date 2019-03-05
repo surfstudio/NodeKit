@@ -20,8 +20,8 @@ public class TestEmptyResponseMapping: XCTestCase {
 
         // Arrange
 
-        let chainRoot: Node<EmptyModel, [User]> = Chains.defaultChain(params:
-            TransportUrlParameters(method: .get, url: Infrastructure.getEmptyUserArray, headers: [String: String]()))
+        let chainRoot: Node<EmptyModel, [User]> = Chains.defaultChain(method: .get,
+                                                                      route: Routes.emptyUsers)
 
         // Act
 
@@ -52,8 +52,9 @@ public class TestEmptyResponseMapping: XCTestCase {
 
         // Arrange
 
-        let chainRoot: Node<EmptyModel, [User]> = Chains.defaultChain(params:
-            TransportUrlParameters(method: .get, url: Infrastructure.getEmptyUsersWith402, headers: [String: String]()))
+
+        let chainRoot: Node<EmptyModel, [User]> = Chains.defaultChain(method: .get,
+                                                                      route: Routes.emptyUsersWith402)
 
         // Act
 

@@ -12,6 +12,14 @@
 		B1033D6621BD4E80001F5D03 /* ToJsonMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1033D6521BD4E80001F5D03 /* ToJsonMapNode.swift */; };
 		B1033D6821BD4E8B001F5D03 /* FromJsonMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1033D6721BD4E8B001F5D03 /* FromJsonMapNode.swift */; };
 		B10D4BE7222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BE6222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift */; };
+		B10D4BE9222DE450006B9EE9 /* UrlRouteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BE8222DE450006B9EE9 /* UrlRouteProvider.swift */; };
+		B10D4BF0222DF45E006B9EE9 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */; };
+		B10D4BF2222DF472006B9EE9 /* RoutableRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BF1222DF472006B9EE9 /* RoutableRequestModel.swift */; };
+		B10D4BF4222DF48D006B9EE9 /* EncodableRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BF3222DF48D006B9EE9 /* EncodableRequestModel.swift */; };
+		B10D4BF6222DF4A1006B9EE9 /* MetadataConnectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BF5222DF4A1006B9EE9 /* MetadataConnectorNode.swift */; };
+		B10D4BF8222DF4B1006B9EE9 /* RequestRouterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BF7222DF4B1006B9EE9 /* RequestRouterNode.swift */; };
+		B10D4BFA222DF4C6006B9EE9 /* RequstEncoderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BF9222DF4C6006B9EE9 /* RequstEncoderNode.swift */; };
+		B10D4BFC222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BFB222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift */; };
 		B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB23F2207966D004C65E3 /* ResponseDataPreprocessorNode.swift */; };
 		B10FB24222079CA7004C65E3 /* ResponseDataParserNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB24122079CA7004C65E3 /* ResponseDataParserNode.swift */; };
 		B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EEA21C8B72D007AD599 /* RawMappable.swift */; };
@@ -102,6 +110,14 @@
 		B1033D6521BD4E80001F5D03 /* ToJsonMapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToJsonMapNode.swift; sourceTree = "<group>"; };
 		B1033D6721BD4E8B001F5D03 /* FromJsonMapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromJsonMapNode.swift; sourceTree = "<group>"; };
 		B10D4BE6222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagUrlCacheTriggerNodeTests.swift; sourceTree = "<group>"; };
+		B10D4BE8222DE450006B9EE9 /* UrlRouteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRouteProvider.swift; sourceTree = "<group>"; };
+		B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
+		B10D4BF1222DF472006B9EE9 /* RoutableRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutableRequestModel.swift; sourceTree = "<group>"; };
+		B10D4BF3222DF48D006B9EE9 /* EncodableRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableRequestModel.swift; sourceTree = "<group>"; };
+		B10D4BF5222DF4A1006B9EE9 /* MetadataConnectorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataConnectorNode.swift; sourceTree = "<group>"; };
+		B10D4BF7222DF4B1006B9EE9 /* RequestRouterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestRouterNode.swift; sourceTree = "<group>"; };
+		B10D4BF9222DF4C6006B9EE9 /* RequstEncoderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequstEncoderNode.swift; sourceTree = "<group>"; };
+		B10D4BFB222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRequestTrasformatorNode.swift; sourceTree = "<group>"; };
 		B10FB23F2207966D004C65E3 /* ResponseDataPreprocessorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDataPreprocessorNode.swift; sourceTree = "<group>"; };
 		B10FB24122079CA7004C65E3 /* ResponseDataParserNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDataParserNode.swift; sourceTree = "<group>"; };
 		B1118EEA21C8B72D007AD599 /* RawMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawMappable.swift; sourceTree = "<group>"; };
@@ -273,6 +289,37 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		B10D4BED222DF43F006B9EE9 /* RequestBuildingLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B10D4BFD222DF4E9006B9EE9 /* Protocols */,
+				B10D4BEE222DF453006B9EE9 /* Models */,
+				B10D4BF5222DF4A1006B9EE9 /* MetadataConnectorNode.swift */,
+				B10D4BF7222DF4B1006B9EE9 /* RequestRouterNode.swift */,
+				B10D4BF9222DF4C6006B9EE9 /* RequstEncoderNode.swift */,
+				B10D4BFB222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift */,
+			);
+			path = RequestBuildingLayer;
+			sourceTree = "<group>";
+		};
+		B10D4BEE222DF453006B9EE9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */,
+				B10D4BF1222DF472006B9EE9 /* RoutableRequestModel.swift */,
+				B10D4BF3222DF48D006B9EE9 /* EncodableRequestModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B10D4BFD222DF4E9006B9EE9 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B10D4BE8222DE450006B9EE9 /* UrlRouteProvider.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		B1118EE921C8B714007AD599 /* Convertion */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,6 +443,7 @@
 		B13E04F521C7F49B00956853 /* Layers */ = {
 			isa = PBXGroup;
 			children = (
+				B10D4BED222DF43F006B9EE9 /* RequestBuildingLayer */,
 				B1B7615222080E4200AE3303 /* Utils */,
 				B1118EEE21C8B7D1007AD599 /* ModelInput */,
 				B13E04F021C7D12A00956853 /* DTOProcessingLayer */,
@@ -944,22 +992,27 @@
 			files = (
 				B1B7617222086AD200AE3303 /* DefaultCachePolicy.swift in Sources */,
 				B1568083222C769D00BC8D91 /* RequestAborterNode.swift in Sources */,
+				B10D4BFC222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift in Sources */,
 				B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */,
 				B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */,
+				B10D4BF2222DF472006B9EE9 /* RoutableRequestModel.swift in Sources */,
 				B1568081222C70D300BC8D91 /* ObservableProtocol.swift in Sources */,
 				B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */,
 				B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */,
 				B1033D6821BD4E8B001F5D03 /* FromJsonMapNode.swift in Sources */,
 				B17E86912220413900400931 /* AccessSafeNode.swift in Sources */,
+				B10D4BF8222DF4B1006B9EE9 /* RequestRouterNode.swift in Sources */,
 				B156807F222C6BD300BC8D91 /* MulticastContext.swift in Sources */,
 				B1B7616D220862BE00AE3303 /* UrlCacheWriterNode.swift in Sources */,
 				B1B7615B220811F300AE3303 /* UrlProcessedResponse.swift in Sources */,
+				B10D4BF4222DF48D006B9EE9 /* EncodableRequestModel.swift in Sources */,
 				B113F871222DC460001CEEAC /* UrlETagSaverNode.swift in Sources */,
 				B113F873222DC8E9001CEEAC /* UrlETagCacheTriggerNode.swift in Sources */,
 				B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */,
 				B1B7616E2208637500AE3303 /* FirstCachePolicyNode.swift in Sources */,
 				B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */,
 				B1F0C70221B1DDCF00382FA5 /* Observer+Operations.swift in Sources */,
+				B10D4BE9222DE450006B9EE9 /* UrlRouteProvider.swift in Sources */,
 				B1F0C6FF21B1DDCF00382FA5 /* ReqestSenderNode.swift in Sources */,
 				B1118EF721C8CBDC007AD599 /* ResponseProcessorNode.swift in Sources */,
 				B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */,
@@ -971,9 +1024,11 @@
 				B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */,
 				B1F0C70121B1DDCF00382FA5 /* AsyncContext.swift in Sources */,
 				B1B761702208647600AE3303 /* IfServerFailsFromCacheNode.swift in Sources */,
+				B10D4BF6222DF4A1006B9EE9 /* MetadataConnectorNode.swift in Sources */,
 				B1B7615422080E8D00AE3303 /* HeaderInjectorNode.swift in Sources */,
 				B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */,
 				B1033D6621BD4E80001F5D03 /* ToJsonMapNode.swift in Sources */,
+				B10D4BF0222DF45E006B9EE9 /* RequestModel.swift in Sources */,
 				B1BED9F921FF75A9000B9018 /* Chains.swift in Sources */,
 				B1B7613C2207A87100AE3303 /* Array+RawMappable.swift in Sources */,
 				B1118EF421C8C4AC007AD599 /* TransportNode.swift in Sources */,
@@ -984,6 +1039,7 @@
 				B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */,
 				B1B761572208118300AE3303 /* UrlDataResponse.swift in Sources */,
 				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,
+				B10D4BFA222DF4C6006B9EE9 /* RequstEncoderNode.swift in Sources */,
 				B156807D222C65D000BC8D91 /* Observer+Shugar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

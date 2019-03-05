@@ -18,8 +18,8 @@ public class SimpleURLChainTests: XCTestCase {
 
         // Arrange
 
-        let chainRoot: Node<EmptyModel, [User]> = Chains.defaultChain(params:
-            TransportUrlParameters(method: .get, url: Infrastructure.getUsersURL, headers: [String: String]()))
+        let chainRoot: Node<EmptyModel, [User]> = Chains.defaultChain(method: .get,
+                                                                      route: Routes.users)
 
         let id = "id"
         let lastName = "Fry"
