@@ -8,80 +8,35 @@
 
 import Foundation
 
-class AccessSafeNode: TransportLayerNode {
+public enum AccessSafeNodeError: Error {
+    case nodeWasRelease
+}
 
-    struct Holder {
-        static let shared = Holder()
+open class AccessSafeNode: TransportLayerNode {
 
-        private let items = [TransportUrlRequest]()
+    public var next: TransportLayerNode
+    public var updateTokenChain: Node<Void, Void>
 
-        private init() {}
+    public init(next: TransportLayerNode, updateTokenChain: Node<Void, Void>) {
+        self.next = next
+        self.updateTokenChain = updateTokenChain
     }
 
-    var tokenProvider: () -> String
+    override open func process(_ data: TransportUrlRequest) -> Observer<Json> {
+        return self.next.process(data).error { error in
+            switch error {
+            case ResponseHttpErrorProcessorNodeError.forbidden, ResponseHttpErrorProcessorNodeError.unauthorized:
+                return self.updateTokenChain.process(()).flatMap { [weak self] _ in
 
-    var tokenConnectorNode: TransportLayerNode
-    var markerNode: MarkerNode<TransportUrlRequest>
-    var items: [TransportUrlRequest]
-    var tokenUpdateChain: Node<EmptyModel, EmptyModel>
+                    guard let `self` = self else {
+                        return .emit(error: AccessSafeNodeError.nodeWasRelease)
+                    }
 
-    init(tokenProvider: @escaping () -> String,
-         tokenConnectorNode: TransportLayerNode,
-         markerNode: MarkerNode<TransportUrlRequest>,
-         tokenUpdateChain: Node<EmptyModel, EmptyModel>) {
-        self.tokenProvider = tokenProvider
-        self.tokenConnectorNode = tokenConnectorNode
-        self.items = [TransportUrlRequest]()
-        self.markerNode = markerNode
-        self.tokenUpdateChain = tokenUpdateChain
-    }
-
-    override func process(_ data: TransportUrlRequest) -> Observer<Json> {
-        fatalError()
-//        return self.getMark(with: data)
-//            .map { Mark(model: data, mark: $0) }
-//            .flatMap { self.markerNode.process($0) }
-//            .map { item in
-//                let index = item.mark
-//                DispatchQueue.global(qos: .userInitiated).async(flags: .barrier, execute: {
-//                    self.items.remove(at: index)
-//                })
-//                return item.model
-//            }.error { error in
-//
-//                guard case ResponseHttpErrorProcessorNodeError.unauthorized = error else {
-//                    throw error
-//                }
-//
-//                return self.tokenUpdateChain.process().map { _ in Json() }
-//            }.flatMap { item in
-//                self.items.
-//            }
-//
-//            .onError { error in
-//                if case ResponseHttpErrorProcessorNodeError.unauthorized = error {
-//                    self.tokenUpdateChain.process().onCompleted {_ in
-//                        self.sendRequests()
-//                    }.onError { error in
-//
-//                    }
-//                }
-//            }.map { $0 }
-    }
-
-    func getMark(with data: TransportUrlRequest) -> Context<Int> {
-
-        let context = Context<Int>()
-
-        DispatchQueue.global(qos: .userInitiated).async(flags: .barrier, execute: {
-            self.items.append(data)
-            context.emit(data: self.items.count)
-        })
-
-        return context
-    }
-
-    func sendRequests() {
-        
+                    return self.next.process(data)
+                }
+            default:
+                return .emit(error: error)
+            }
+        }
     }
 }

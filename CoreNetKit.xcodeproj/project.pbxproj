@@ -30,12 +30,14 @@
 		B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */; };
 		B1118EF721C8CBDC007AD599 /* ResponseProcessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */; };
 		B1118EFA21C8CD8B007AD599 /* ServiceChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF921C8CD8B007AD599 /* ServiceChain.swift */; };
+		B112ECD222305F1200211E0E /* TokenRefresherNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B112ECD122305F1200211E0E /* TokenRefresherNode.swift */; };
 		B113F871222DC460001CEEAC /* UrlETagSaverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F870222DC460001CEEAC /* UrlETagSaverNode.swift */; };
 		B113F873222DC8E9001CEEAC /* UrlETagCacheTriggerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F872222DC8E9001CEEAC /* UrlETagCacheTriggerNode.swift */; };
 		B113F875222DCCDF001CEEAC /* UrlETagReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F874222DCCDF001CEEAC /* UrlETagReaderNode.swift */; };
 		B113F879222DCEC2001CEEAC /* UrlETagSaverNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F878222DCEC2001CEEAC /* UrlETagSaverNodeTests.swift */; };
 		B113F87B222DD54B001CEEAC /* Utls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F87A222DD54B001CEEAC /* Utls.swift */; };
 		B113F87D222DD77E001CEEAC /* UrlETagReaderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F87C222DD77E001CEEAC /* UrlETagReaderNodeTests.swift */; };
+		B11A448B2231C559004CE4D5 /* TokenRefresherNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11A448A2231C559004CE4D5 /* TokenRefresherNodeTests.swift */; };
 		B156807D222C65D000BC8D91 /* Observer+Shugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156807C222C65D000BC8D91 /* Observer+Shugar.swift */; };
 		B156807F222C6BD300BC8D91 /* MulticastContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156807E222C6BD300BC8D91 /* MulticastContext.swift */; };
 		B1568081222C70D300BC8D91 /* ObservableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1568080222C70D300BC8D91 /* ObservableProtocol.swift */; };
@@ -127,12 +129,14 @@
 		B1118EF321C8C4AC007AD599 /* TransportNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportNode.swift; sourceTree = "<group>"; };
 		B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreatorNode.swift; sourceTree = "<group>"; };
 		B1118EF921C8CD8B007AD599 /* ServiceChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceChain.swift; sourceTree = "<group>"; };
+		B112ECD122305F1200211E0E /* TokenRefresherNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherNode.swift; sourceTree = "<group>"; };
 		B113F870222DC460001CEEAC /* UrlETagSaverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagSaverNode.swift; sourceTree = "<group>"; };
 		B113F872222DC8E9001CEEAC /* UrlETagCacheTriggerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagCacheTriggerNode.swift; sourceTree = "<group>"; };
 		B113F874222DCCDF001CEEAC /* UrlETagReaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagReaderNode.swift; sourceTree = "<group>"; };
 		B113F878222DCEC2001CEEAC /* UrlETagSaverNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagSaverNodeTests.swift; sourceTree = "<group>"; };
 		B113F87A222DD54B001CEEAC /* Utls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utls.swift; sourceTree = "<group>"; };
 		B113F87C222DD77E001CEEAC /* UrlETagReaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagReaderNodeTests.swift; sourceTree = "<group>"; };
+		B11A448A2231C559004CE4D5 /* TokenRefresherNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherNodeTests.swift; sourceTree = "<group>"; };
 		B156807C222C65D000BC8D91 /* Observer+Shugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observer+Shugar.swift"; sourceTree = "<group>"; };
 		B156807E222C6BD300BC8D91 /* MulticastContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastContext.swift; sourceTree = "<group>"; };
 		B1568080222C70D300BC8D91 /* ObservableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableProtocol.swift; sourceTree = "<group>"; };
@@ -378,6 +382,15 @@
 			path = ETag;
 			sourceTree = "<group>";
 		};
+		B11A44892231C537004CE4D5 /* ThreadSafe */ = {
+			isa = PBXGroup;
+			children = (
+				B11A448A2231C559004CE4D5 /* TokenRefresherNodeTests.swift */,
+			);
+			name = ThreadSafe;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		B13E04EC21C77E5000956853 /* Preprocessing */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +489,7 @@
 			children = (
 				B17E86902220413900400931 /* AccessSafeNode.swift */,
 				B17E86962223A2EC00400931 /* MarkerNode.swift */,
+				B112ECD122305F1200211E0E /* TokenRefresherNode.swift */,
 			);
 			path = AccessSafe;
 			sourceTree = "<group>";
@@ -572,6 +586,7 @@
 		B1C3254721CFEC1D0059EF33 /* CoreNetKitUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				B11A44892231C537004CE4D5 /* ThreadSafe */,
 				B113F876222DCE9F001CEEAC /* CacheNode */,
 				B1C3254821CFEC1D0059EF33 /* CoreNetKitUnitTests.swift */,
 				B1C3254A21CFEC1D0059EF33 /* Info.plist */,
@@ -962,6 +977,7 @@
 			files = (
 				B113F87B222DD54B001CEEAC /* Utls.swift in Sources */,
 				B113F879222DCEC2001CEEAC /* UrlETagSaverNodeTests.swift in Sources */,
+				B11A448B2231C559004CE4D5 /* TokenRefresherNodeTests.swift in Sources */,
 				B10D4BE7222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */,
 				B1C3254921CFEC1D0059EF33 /* CoreNetKitUnitTests.swift in Sources */,
 				B113F87D222DD77E001CEEAC /* UrlETagReaderNodeTests.swift in Sources */,
@@ -1026,6 +1042,7 @@
 				B1B761702208647600AE3303 /* IfServerFailsFromCacheNode.swift in Sources */,
 				B10D4BF6222DF4A1006B9EE9 /* MetadataConnectorNode.swift in Sources */,
 				B1B7615422080E8D00AE3303 /* HeaderInjectorNode.swift in Sources */,
+				B112ECD222305F1200211E0E /* TokenRefresherNode.swift in Sources */,
 				B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */,
 				B1033D6621BD4E80001F5D03 /* ToJsonMapNode.swift in Sources */,
 				B10D4BF0222DF45E006B9EE9 /* RequestModel.swift in Sources */,
