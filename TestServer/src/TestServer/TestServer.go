@@ -156,6 +156,7 @@ func AddNewUser(w http.ResponseWriter, r *http.Request) {
 // { "accessToken": "token", "refreshToken": "token" }
 // In failure case return 402 code
 func AuthWithFormURL(w http.ResponseWriter, r *http.Request) {
+	log.Println(r)
 	r.ParseForm()
 
 	var secret = r.FormValue("secret")

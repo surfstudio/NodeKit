@@ -12,8 +12,8 @@ open class TokenRefresherNode: Node<Void, Void> {
 
     var tokenRefreshChain: Node<Void, Void>
 
-    var isRequestSended = false
-    var observers: [Context<Void>]
+    private var isRequestSended = false
+    private var observers: [Context<Void>]
 
     private let arrayQueue = DispatchQueue(label: "TokenRefresherNode.observers")
     private let flagQueue = DispatchQueue(label: "TokenRefresherNode.flag")
@@ -24,7 +24,6 @@ open class TokenRefresherNode: Node<Void, Void> {
     }
 
     open override func process(_ data: Void) -> Observer<Void> {
-
 
         let shouldSaveContext: Bool = self.flagQueue.sync {
             if self.isRequestSended {
@@ -43,8 +42,12 @@ open class TokenRefresherNode: Node<Void, Void> {
             }
         }
 
-        return self.tokenRefreshChain.process(()).map {
+        return self.tokenRefreshChain.process(()).map { [weak self] in
+
+            guard let `self` = self else { return () }
+            
             self.observers.forEach { $0.emit(data: ()) }
+            self.observers.removeAll()
             return ()
         }
     }

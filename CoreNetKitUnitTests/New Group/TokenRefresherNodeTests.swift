@@ -30,10 +30,14 @@ public class TokenRefresherNodeTests: XCTestCase {
 
     func testThatAllResponseEmited() {
 
-        let testedNode = TokenRefresherNode(tokenRefreshChain: NodeStub())
+        // Arrange
 
+        let testedNode = TokenRefresherNode(tokenRefreshChain: NodeStub())
         var counter = 0
         let countOfRequests = 9
+
+        // Act
+
         let exp = self.expectation(description: "\(#function)")
 
         for _ in 0..<countOfRequests {
@@ -48,15 +52,22 @@ public class TokenRefresherNodeTests: XCTestCase {
 
         self.waitForExpectations(timeout: 3, handler: nil)
 
+        // Assert
+
         XCTAssertEqual(countOfRequests, counter)
     }
 
     func testThatTokenUpdateCalledOnce() {
 
+        // Arrange
+
         let tokenUpdater = NodeStub()
         let testedNode = TokenRefresherNode(tokenRefreshChain: tokenUpdater)
 
         let countOfRequests = 9
+
+        // Act
+
         let exp = self.expectation(description: "\(#function)")
 
         for _ in 0..<countOfRequests {
@@ -68,6 +79,8 @@ public class TokenRefresherNodeTests: XCTestCase {
         }
 
         self.waitForExpectations(timeout: 3, handler: nil)
+
+        // Assert
 
         XCTAssertEqual(tokenUpdater.countOfCals, 1)
     }

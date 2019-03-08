@@ -17,7 +17,7 @@ public class FormUrlCodingTests: XCTestCase {
     public func testFormUrlEncodedRequestCompleteSuccess() {
         // Arrange
 
-        let chainRoot: Node<AuthModel, Credentials> = Chains.defaultChain(method: .get,
+        let chainRoot: Node<AuthModel, Credentials> = Chains.defaultChain(method: .post,
                                                                           route: Routes.authWithFormUrl,
                                                                           encoding: .urlQuery)
 
@@ -55,7 +55,7 @@ public class FormUrlCodingTests: XCTestCase {
     public func testFormUrlEncodedRequestCompleteFailure() {
         // Arrange
 
-        let chainRoot: Node<AuthModel, Credentials> = Chains.defaultChain(method: .get,
+        let chainRoot: Node<AuthModel, Credentials> = Chains.defaultChain(method: .post,
                                                                           route: Routes.authWithFormUrl,
                                                                           encoding: .urlQuery)
 

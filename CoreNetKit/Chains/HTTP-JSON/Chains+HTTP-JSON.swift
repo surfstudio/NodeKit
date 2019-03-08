@@ -10,18 +10,6 @@ import Foundation
 
 extension Chains {
 
-    public static func olddefaultChain<Input, Output>(params: TransportUrlParameters) -> Node<Input, Output>
-        where Input: DTOConvertible, Output: DTOConvertible,
-        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-
-            let requestSenderNode = RequestSenderNode(rawResponseProcessor: ServiceChain.urlResponseProcessingLayerChain())
-            let requestCreatorNode = RequestCreatorNode(next: requestSenderNode)
-            let serviceErrorMapperNode = TechnicaErrorMapperNode(next: requestCreatorNode)
-            let transportNode = TransportNode(parameters: params, next: serviceErrorMapperNode)
-            let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: transportNode)
-            return ModelInputNode<Input, Output>(next: dtoConverter)
-    }
-
     public static func simpleModelFlowChain<Input, Output>(params: TransportUrlParameters) -> Node<Input, Output>
         where Input: RawMappable, Output: DTOConvertible,
         Input.Raw == Json, Output.DTO.Raw == Json {
@@ -31,7 +19,8 @@ extension Chains {
             let serviceErrorMapperNode = TechnicaErrorMapperNode(next: requestCreatorNode)
             let transportNode = TransportNode(parameters: params, next: serviceErrorMapperNode)
             let dtoConverter = DTOMapperNode<Input, Output.DTO>(next: transportNode)
-            return SimpleModelInputNode<Input, Output>(next: dtoConverter)
+            let modelInput = SimpleModelInputNode<Input, Output>(next: dtoConverter)
+            return ChainConfiguratorNode(next: modelInput)
     }
 
 
@@ -50,7 +39,8 @@ extension Chains {
         let requestRouterNode = RequestRouterNode(next: requstEncoderNode, route: route)
         let metadataConnectorNode = MetadataConnectorNode(next: requestRouterNode, metadata: metadata)
         let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: metadataConnectorNode)
-        return ModelInputNode<Input, Output>(next: dtoConverter)
+        let modelInput = ModelInputNode<Input, Output>(next: dtoConverter)
+        return ChainConfiguratorNode(next: modelInput)
     }
 
 }

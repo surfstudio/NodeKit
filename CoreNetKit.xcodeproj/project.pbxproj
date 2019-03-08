@@ -11,6 +11,8 @@
 		4D940CB96037EA44B7485A9A /* Pods_CoreNetKit_CoreNetKitUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4BA0C1B872F637E1FD721A /* Pods_CoreNetKit_CoreNetKitUnitTests.framework */; };
 		B1033D6621BD4E80001F5D03 /* ToJsonMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1033D6521BD4E80001F5D03 /* ToJsonMapNode.swift */; };
 		B1033D6821BD4E8B001F5D03 /* FromJsonMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1033D6721BD4E8B001F5D03 /* FromJsonMapNode.swift */; };
+		B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */; };
+		B107BF852232B6D0002E9655 /* ChainConfiguratorNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107BF842232B6D0002E9655 /* ChainConfiguratorNodeTests.swift */; };
 		B10D4BE7222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BE6222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift */; };
 		B10D4BE9222DE450006B9EE9 /* UrlRouteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BE8222DE450006B9EE9 /* UrlRouteProvider.swift */; };
 		B10D4BF0222DF45E006B9EE9 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */; };
@@ -111,6 +113,8 @@
 		9AF2A9A1A9CD5898CBBC5776 /* Pods-CoreNetKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreNetKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoreNetKit/Pods-CoreNetKit.release.xcconfig"; sourceTree = "<group>"; };
 		B1033D6521BD4E80001F5D03 /* ToJsonMapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToJsonMapNode.swift; sourceTree = "<group>"; };
 		B1033D6721BD4E8B001F5D03 /* FromJsonMapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromJsonMapNode.swift; sourceTree = "<group>"; };
+		B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNode.swift; sourceTree = "<group>"; };
+		B107BF842232B6D0002E9655 /* ChainConfiguratorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNodeTests.swift; sourceTree = "<group>"; };
 		B10D4BE6222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagUrlCacheTriggerNodeTests.swift; sourceTree = "<group>"; };
 		B10D4BE8222DE450006B9EE9 /* UrlRouteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRouteProvider.swift; sourceTree = "<group>"; };
 		B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
@@ -293,6 +297,14 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		B107BF832232B6C1002E9655 /* InputLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B107BF842232B6D0002E9655 /* ChainConfiguratorNodeTests.swift */,
+			);
+			path = InputLayer;
+			sourceTree = "<group>";
+		};
 		B10D4BED222DF43F006B9EE9 /* RequestBuildingLayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +351,7 @@
 			children = (
 				B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */,
 				B1848A14220483EC00F54705 /* EmptyModel.swift */,
+				B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */,
 			);
 			path = ModelInput;
 			sourceTree = "<group>";
@@ -586,6 +599,7 @@
 		B1C3254721CFEC1D0059EF33 /* CoreNetKitUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				B107BF832232B6C1002E9655 /* InputLayer */,
 				B11A44892231C537004CE4D5 /* ThreadSafe */,
 				B113F876222DCE9F001CEEAC /* CacheNode */,
 				B1C3254821CFEC1D0059EF33 /* CoreNetKitUnitTests.swift */,
@@ -979,6 +993,7 @@
 				B113F879222DCEC2001CEEAC /* UrlETagSaverNodeTests.swift in Sources */,
 				B11A448B2231C559004CE4D5 /* TokenRefresherNodeTests.swift in Sources */,
 				B10D4BE7222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */,
+				B107BF852232B6D0002E9655 /* ChainConfiguratorNodeTests.swift in Sources */,
 				B1C3254921CFEC1D0059EF33 /* CoreNetKitUnitTests.swift in Sources */,
 				B113F87D222DD77E001CEEAC /* UrlETagReaderNodeTests.swift in Sources */,
 			);
@@ -1054,6 +1069,7 @@
 				B1118EFA21C8CD8B007AD599 /* ServiceChain.swift in Sources */,
 				B1BED9F721FF4E2A000B9018 /* Chains+HTTP-JSON.swift in Sources */,
 				B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */,
+				B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */,
 				B1B761572208118300AE3303 /* UrlDataResponse.swift in Sources */,
 				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,
 				B10D4BFA222DF4C6006B9EE9 /* RequstEncoderNode.swift in Sources */,
