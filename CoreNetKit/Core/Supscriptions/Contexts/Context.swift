@@ -10,7 +10,7 @@ import Foundation
 
 /// Самый обычный контекст, который покрывает большинство случаев использования.
 /// Следует всегда использовтаь именно его. 
-open class Context<Model>: Observer<Model>, DefaultInitable {
+open class Context<Model>: Observer<Model> {
 
     // MARK: - Private fileds
 
@@ -24,7 +24,7 @@ open class Context<Model>: Observer<Model>, DefaultInitable {
 
     private var dispatchQueue: DispatchQueue = DispatchQueue.main
 
-    required public override init() { }
+    public override init() { }
 
     /// Используется для подписки на событие об успешного выполнения.
     @discardableResult

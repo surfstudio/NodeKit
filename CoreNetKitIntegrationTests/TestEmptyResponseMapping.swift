@@ -20,8 +20,8 @@ public class TestEmptyResponseMapping: XCTestCase {
 
         // Arrange
 
-        let chainRoot: Node<EmptyModel, [User]> = Chains.defaultChain(method: .get,
-                                                                      route: Routes.emptyUsers)
+        let chainRoot: Node<EmptyModel, [User]> = Chains().default(with: .init(method: .get,
+                                                                               route: Routes.emptyUsers))
 
         // Act
 
@@ -53,8 +53,8 @@ public class TestEmptyResponseMapping: XCTestCase {
         // Arrange
 
 
-        let chainRoot: Node<EmptyModel, [User]> = Chains.defaultChain(method: .get,
-                                                                      route: Routes.emptyUsersWith402)
+        let chainRoot: Node<EmptyModel, [User]> = Chains().default(with: .init(method: .get,
+                                                                               route: Routes.emptyUsersWith402))
 
         // Act
 
