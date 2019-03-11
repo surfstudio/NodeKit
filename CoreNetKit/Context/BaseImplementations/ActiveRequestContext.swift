@@ -82,7 +82,7 @@ public class ActiveRequestContext<Model>: ActionableContext<Model>, CancellableC
         return self
     }
 
-    private func performHandler(result: ResponseResult<Model>) {
+    func performHandler(result: ResponseResult<Model>) {
         switch result {
         case .failure(let error):
             self.errorEvents.invoke(with: error)
@@ -119,13 +119,12 @@ public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, Cacheable
         return self
     }
 
-    @discardableResult
-    override open func perform() -> Self {
-        self.request.performAsync { result in
-            switch result {
-            case .failure(let error):
-                self.errorEvents.invoke(with: error)
-            case .success(let value, let cacheFlag):
+    override func performHandler(result: ResponseResult<Model>) {
+        switch result {
+        case .failure(let error):
+            self.errorEvents.invoke(with: error)
+        case .success(let value, let cacheFlag):
+            DispatchQueue.main.async {
                 if cacheFlag {
                     self.completedCacheEvent.invoke(with: value)
                 } else {
@@ -133,6 +132,13 @@ public class BaseCacheableContext<Model>: ActiveRequestContext<Model>, Cacheable
                     self.completedEvents.invoke(with: value)
                 }
             }
+        }
+    }
+
+    @discardableResult
+    override open func perform() -> Self {
+        self.request.performAsync { [weak self] result in
+            self?.performHandler(result: result)
         }
         return self
     }
