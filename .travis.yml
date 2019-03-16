@@ -1,4 +1,4 @@
-language: Swift
+language: swift
 osx_image: xcode10.1
 xcode_project: CoreNetKit.xcodeproj
 xcode_scheme: CoreNetKit
@@ -12,7 +12,7 @@ script:
   - TestServer/bin/TestServer
   - xcodebuild test -scheme CoreNetKitIntegrationTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.4' | xcpretty -c
 
-  after_success:
+after_success:
   - bash <(curl -s https://codecov.io/bash) -t b62fa427-b5d3-4318-885d-e7783e1d527c 
   - bash <(curl -s http://127.0.0.1:8811/shutdown)>
 
