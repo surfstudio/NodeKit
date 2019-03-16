@@ -7,7 +7,6 @@ target 'CoreNetKit' do
 
   pod 'Alamofire', '~> 4.8.0'
   pod 'CoreEvents', :git => 'https://github.com/surfstudio/CoreEvents', :tag => '1.3.0'
-  pod 'ObjectMapper'
 
   target 'CoreNetKitIntegrationTests' do
     pod 'Alamofire', '~> 4.8.0'
