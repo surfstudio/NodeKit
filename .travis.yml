@@ -9,7 +9,7 @@ before_install:
   - brew install swiftlint || true
 script:
   - set -o pipefail
-  - TestServer/bin/TestServer
+  - setsid TestServer/bin/TestServer
   - xcodebuild test -scheme CoreNetKitIntegrationTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.4' | xcpretty -c
   - xcodebuild test -scheme CoreNetKitUnitTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.4' | xcpretty -c
 

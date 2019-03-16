@@ -1,0 +1,1 @@
+sh ./dock_gen.sh
