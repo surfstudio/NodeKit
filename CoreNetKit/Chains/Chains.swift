@@ -13,7 +13,7 @@ open class Chains {
 
     public init() { }
 
-    open func `defaultDtoConverter`<Input, Output>(with config: ChainConfigModel) -> Node<Input, Output>
+    open func `defaultDtoConverter`<Input, Output>(with config: UrlChainConfigModel) -> Node<Input, Output>
         where Input: RawMappable, Output: RawMappable,
         Input.Raw == Json, Output.Raw == Json {
             let requestSenderNode = RequestSenderNode(rawResponseProcessor: ServiceChain.urlResponseProcessingLayerChain())
@@ -27,14 +27,14 @@ open class Chains {
     }
 
 
-    open func `defaultInput`<Input, Output>(with config: ChainConfigModel) -> Node<Input, Output>
+    open func `defaultInput`<Input, Output>(with config: UrlChainConfigModel) -> Node<Input, Output>
         where Input: DTOConvertible, Output: DTOConvertible,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let dtoConverterChain: Node<Input.DTO, Output.DTO> = self.defaultDtoConverter(with: config)
             return ModelInputNode<Input, Output>(next: dtoConverterChain)
     }
 
-    open func `default`<Input, Output>(with config: ChainConfigModel) -> Node<Input, Output>
+    open func `default`<Input, Output>(with config: UrlChainConfigModel) -> Node<Input, Output>
         where Input: DTOConvertible, Output: DTOConvertible,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let input: Node<Input, Output> = self.defaultInput(with: config)

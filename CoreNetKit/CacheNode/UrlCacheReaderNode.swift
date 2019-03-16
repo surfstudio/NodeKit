@@ -15,11 +15,11 @@ public enum BaseUrlCacheReaderError: Error {
 
 open class UrlCacheReaderNode: Node<UrlNetworkRequest, Json> {
     open override func process(_ data: UrlNetworkRequest) -> Context<Json> {
-        let result = Context<CoreNetKitJson>()
+        let result = Context<Json>()
 
         if let cachedResponse = self.extractCachedUrlResponse(request: data.urlRequest),
             let object = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: .allowFragments),
-            let json = object as? CoreNetKitJson {
+            let json = object as? Json {
                 result.emit(data: json)
         } else {
             result.emit(error: BaseUrlCacheReaderError.cantLoadDataFromCache)

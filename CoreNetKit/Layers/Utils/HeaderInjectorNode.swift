@@ -8,20 +8,28 @@
 
 import Foundation
 
-/// Node prvodes possibility to inject any header in request
-/// Can used inside transport layer
-/// Headers that you add with this node override any existed headers.
-/// You should use this node only if you want to provide default headers like locale, device, e.t.c.
+
+/// Этот узел позволяет добавить любые хедеры в запрос.
+/// - SeeAlso: TransportLayerNode
 open class HeaderInjectorNode: TransportLayerNode {
 
+    /// Следующий в цепочке узел.
     public var next: TransportLayerNode
+
+    /// Хедеры, которые необходимо добавить.
     public var headers: [String: String]
 
+    /// Инициаллизирует узел.
+    ///
+    /// - Parameters:
+    ///   - next: Следующий в цепочке узел.
+    ///   - headers: Хедеры, которые необходимо добавить.
     public init(next: TransportLayerNode, headers: [String: String]) {
         self.next = next
         self.headers = headers
     }
 
+    /// Добавляет хедеры к запросу и отправляет его слудующему в цепочке узлу.
     open override func process(_ data: TransportUrlRequest) -> Observer<Json> {
         var resultHeaders = self.headers
         data.headers.forEach { resultHeaders[$0.key] = $0.value }

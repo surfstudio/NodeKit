@@ -8,9 +8,13 @@
 
 import Foundation
 
+/// Узел для обновления токена и заморозки запросов.
+/// Внутри себя работает на приватных очередях.
+/// Ответ возращает в той очереди, из которой узел был вызыван.
 open class TokenRefresherNode: Node<Void, Void> {
 
-    var tokenRefreshChain: Node<Void, Void>
+    /// Цепочка для обновления токена.
+    public var tokenRefreshChain: Node<Void, Void>
 
     private var isRequestSended = false
     private var observers: [Context<Void>]
@@ -18,11 +22,18 @@ open class TokenRefresherNode: Node<Void, Void> {
     private let arrayQueue = DispatchQueue(label: "TokenRefresherNode.observers")
     private let flagQueue = DispatchQueue(label: "TokenRefresherNode.flag")
 
+    /// Иницицаллизирует
+    ///
+    /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
     public init(tokenRefreshChain: Node<Void, Void>) {
         self.tokenRefreshChain = tokenRefreshChain
         self.observers = []
     }
 
+    /// Проверяет, был ли отправлен запрос на обновление токена
+    /// Если запрос был отправлен, то создает `Observer`, сохраняет его у себя и возвращает предыдущему узлу.
+    /// Если нет - отплавляет запрос и сохраняет `Observer`
+    /// После того как запрос на обновление токена был выполнен успешно - эмитит данные во все сохраненные Observer'ы и удаляет их из памяти
     open override func process(_ data: Void) -> Observer<Void> {
 
         let shouldSaveContext: Bool = self.flagQueue.sync {
@@ -45,9 +56,12 @@ open class TokenRefresherNode: Node<Void, Void> {
         return self.tokenRefreshChain.process(()).map { [weak self] in
 
             guard let `self` = self else { return () }
-            
-            self.observers.forEach { $0.emit(data: ()) }
-            self.observers.removeAll()
+
+            let observers = self.arrayQueue.sync(execute: { return self.observers })
+            observers.forEach { $0.emit(data: ()) }
+            self.arrayQueue.async { [weak self] in
+                self?.observers.removeAll()
+            }
             return ()
         }
     }

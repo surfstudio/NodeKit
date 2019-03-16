@@ -20,7 +20,6 @@ public class TokenRefresherNodeTests: XCTestCase {
 
         override func process(_ data: Void) -> Observer<Void> {
             return Observer<Void>.emit(data: data).dispatchOn(.global(qos: .userInteractive)).map {
-                print("kek")
                 self.countOfCals += 1
                 sleep(2)
                 return ()

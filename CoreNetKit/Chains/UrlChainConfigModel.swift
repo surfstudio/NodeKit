@@ -8,10 +8,21 @@
 
 import Foundation
 
-public struct ChainConfigModel {
+/// Модель данных для конфигурироания цепочки преобразований для запроса в сеть.
+public struct UrlChainConfigModel {
+    
+    /// HTTP метод, который будет использован цепочкой
     public let method: Method
+
+    /// Маршрут до удаленного метода (в частном случае - URL endpoint'a)
     public let route: UrlRouteProvider
+
+    /// В случае классического HTTP это Header'ы запроса.
+    /// По-умолчанию пустой.
     public let metadata: [String: String]
+
+    /// Кодировка данных для запроса.
+    /// По умолчанию`.json`
     public let encoding: ParametersEncoding
 
     public init(method: Method,

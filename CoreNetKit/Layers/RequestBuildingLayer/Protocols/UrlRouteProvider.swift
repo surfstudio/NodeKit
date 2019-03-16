@@ -8,6 +8,12 @@
 
 import Foundation
 
+/// ИНтерфей для провайдера URL маршрутов
 public protocol UrlRouteProvider {
+
+    /// Возвращает URL
+    ///
+    /// - Returns: URL-маршрут этого объекта
+    /// - Throws: Может вызвать исключение в случае, если состояние объекта не позволяет вернуть маршрут.
     func url() throws -> URL
 }

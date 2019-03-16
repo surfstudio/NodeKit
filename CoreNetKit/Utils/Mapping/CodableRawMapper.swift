@@ -8,7 +8,11 @@
 
 import Foundation
 
+/// Содержит ошибки, которые может возвращать маппер на `Codable`
+/// SeeAlso:
+/// - RawMappable
 public enum RawMappableCodableError: Error {
+    /// Обозначает, что модель не может быть преобразована в JSON с помощью `JSONEncoder`
     case cantMapObjectToRaw
 }
 
