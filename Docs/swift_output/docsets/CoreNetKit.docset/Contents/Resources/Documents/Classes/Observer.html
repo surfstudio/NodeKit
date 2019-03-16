@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Observer Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Observer" class="dashAnchor"></a>
+    <a title="Observer Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">CoreNetKit Docs</a> (40% documented)</p>
+        <p class="header-right"><a href="https://github.com/surfstudio/CoreNetKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">CoreNetKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Observer Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AborterNode.html">AborterNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AccessSafeNode.html">AccessSafeNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AsyncContext.html">AsyncContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AsyncPager.html">AsyncPager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ChainConfiguratorNode.html">ChainConfiguratorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Chains.html">Chains</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Context.html">Context</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DTOMapperNode.html">DTOMapperNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FirstCachePolicyNode.html">FirstCachePolicyNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HeaderInjectorNode.html">HeaderInjectorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IfServerFailedFromCacheNode.html">IfServerFailedFromCacheNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MetadataConnectorNode.html">MetadataConnectorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ModelInputNode.html">ModelInputNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MulticastContext.html">MulticastContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Node.html">Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Observer.html">Observer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RequestCreatorNode.html">RequestCreatorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RequestRouterNode.html">RequestRouterNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RequestSenderNode.html">RequestSenderNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RequstEncoderNode.html">RequstEncoderNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResponseDataParserNode.html">ResponseDataParserNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResponseDataPreprocessorNode.html">ResponseDataPreprocessorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResponseHttpErrorProcessorNode.html">ResponseHttpErrorProcessorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResponseProcessorNode.html">ResponseProcessorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:10CoreNetKit21ServerRequestsManagerC">ServerRequestsManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ServiceChain.html">ServiceChain</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SimpleModelInputNode.html">SimpleModelInputNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TechnicaErrorMapperNode.html">TechnicaErrorMapperNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TokenRefresherNode.html">TokenRefresherNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TransportNode.html">TransportNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UrlCacheReaderNode.html">UrlCacheReaderNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UrlCacheWriterNode.html">UrlCacheWriterNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UrlETagReaderNode.html">UrlETagReaderNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UrlETagSaverNode.html">UrlETagSaverNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UrlETagUrlCacheTriggerNode.html">UrlETagUrlCacheTriggerNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UrlRequestTrasformatorNode.html">UrlRequestTrasformatorNode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AccessSafeNodeError.html">AccessSafeNodeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BaseCommonError.html">BaseCommonError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BaseFirstCachePolicyNodeError.html">BaseFirstCachePolicyNodeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BaseTechnicalError.html">BaseTechnicalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BaseUrlCacheReaderError.html">BaseUrlCacheReaderError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DefaultCachePolicy.html">DefaultCachePolicy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ETagConstants.html">ETagConstants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ErrorArrayJsonMappiong.html">ErrorArrayJsonMappiong</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MappingUtils.html">MappingUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Method.html">Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ParametersEncoding.html">ParametersEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RawMappableCodableError.html">RawMappableCodableError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseDataParserNodeError.html">ResponseDataParserNodeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseDataProcessorNodeError.html">ResponseDataProcessorNodeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseHttpErrorProcessorNodeError.html">ResponseHttpErrorProcessorNodeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseProcessorNodeError.html">ResponseProcessorNodeError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Aborter.html">Aborter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DTOConvertible.html">DTOConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DefaultInitable.html">DefaultInitable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NodeProtocol.html">NodeProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ObservableProtocol.html">ObservableProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Paginable.html">Paginable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RawMappable.html">RawMappable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UrlRouteProvider.html">UrlRouteProvider</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/EmptyModel.html">EmptyModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EmptyModelEntry.html">EmptyModelEntry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EncodableRequestModel.html">EncodableRequestModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:10CoreNetKit13RawUrlRequestV">RawUrlRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RequestModel.html">RequestModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RoutableRequestModel.html">RoutableRequestModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransportUrlParameters.html">TransportUrlParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransportUrlRequest.html">TransportUrlRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UrlChainConfigModel.html">UrlChainConfigModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UrlDataResponse.html">UrlDataResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:10CoreNetKit17UrlNetworkRequestV">UrlNetworkRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UrlProcessedResponse.html">UrlProcessedResponse</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10CoreNetKit4Jsona">Json</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10CoreNetKit26RequestProcessingLayerNodea">RequestProcessingLayerNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10CoreNetKit30ResponsePostprocessorLayerNodea">ResponsePostprocessorLayerNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10CoreNetKit27ResponseProcessingLayerNodea">ResponseProcessingLayerNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10CoreNetKit18TransportLayerNodea">TransportLayerNode</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Observer</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt">Input</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ObservableProtocol.html">ObservableProtocol</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>По сути является Type erasure для <code>Observable</code></p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit18ObservableProtocolP5ModelQa"></a>
+                    <a name="//apple_ref/swift/Alias/Model" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Model</span> <span class="o">=</span> <span class="kt">Input</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverCACyxGycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverCACyxGycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit18ObservableProtocolP11onCompletedyxy5ModelQzcF"></a>
+                    <a name="//apple_ref/swift/Method/onCompleted(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit18ObservableProtocolP11onCompletedyxy5ModelQzcF">onCompleted(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">onCompleted</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Input</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit18ObservableProtocolP7onErroryxys0G0_pcF"></a>
+                    <a name="//apple_ref/swift/Method/onError(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit18ObservableProtocolP7onErroryxys0G0_pcF">onError(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">onError</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit18ObservableProtocolP5deferyxyycF"></a>
+                    <a name="//apple_ref/swift/Method/defer(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit18ObservableProtocolP5deferyxyycF">defer(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="err">`</span><span class="k">defer</span><span class="err">`</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC10onCanceledyACyxGXDyycF"></a>
+                    <a name="//apple_ref/swift/Method/onCanceled(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC10onCanceledyACyxGXDyycF">onCanceled(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">onCanceled</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC6cancelACyxGXDyF"></a>
+                    <a name="//apple_ref/swift/Method/cancel()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC6cancelACyxGXDyF">cancel()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">open</span> <span class="kd">func</span> <span class="nf">cancel</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC5erroryACyxGAEs5Error_pKcF"></a>
+                    <a name="//apple_ref/swift/Method/error(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC5erroryACyxGAEs5Error_pKcF">error(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">error</span><span class="p">(</span><span class="n">_</span> <span class="nv">mapper</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Error</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC3mapyACyqd__Gqd__xKclF"></a>
+                    <a name="//apple_ref/swift/Method/map(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC3mapyACyqd__Gqd__xKclF">map(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Преобразует тип данных контекста из одного в другой.
+Аналог <code>Sequence.map{}</code>
+Для преобразоания необходмо передать замыкание, реализующее преобразования из типа A в тип B</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">mapper</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC7flatMapyACyqd__GAExclF"></a>
+                    <a name="//apple_ref/swift/Method/flatMap(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC7flatMapyACyqd__GAExclF">flatMap(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Принцип работы аналогичен <code>map</code>, но для работы необходимо передать замыкание, которое возвращает контекст</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">flatMap</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">mapper</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC7combineyACyx_qd__tGACyqd__GlF"></a>
+                    <a name="//apple_ref/swift/Method/combine(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC7combineyACyx_qd__tGACyqd__GlF">combine(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Позволяет комбинировать несколько контекстов в один.
+Тогда подписчик будет оповещен только после того,как выполнятся оба контекста.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">combine</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="p">(</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="p">,</span> <span class="kt">T</span><span class="p">)</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC7combineyACyx_qd__tGACyqd__GxclF"></a>
+                    <a name="//apple_ref/swift/Method/combine(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC7combineyACyx_qd__tGACyqd__GxclF">combine(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Аналогично <code>combine&lt;T&gt;(_ context: Context&lt;T&gt;)</code>, только принимает не контекст, а функцию, которая возвращает контекст</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">combine</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">contextProvider</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="p">(</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="p">,</span> <span class="kt">T</span><span class="p">)</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC6filteryACySayqd__GGSbqd__cAERszlF"></a>
+                    <a name="//apple_ref/swift/Method/filter(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC6filteryACySayqd__GGSbqd__cAERszlF">filter(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Выполняет операцию, аналогичную операции <code>filter</code> для массивов.
+Вызывает для каждого элемента Model predicate
+Если predicate возвращает true, то элемент добавлятеся в результирующую коллекцию</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">filter</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">predicate</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span> <span class="o">==</span> <span class="p">[</span><span class="kt">T</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC5chain4withACyx_qd__tGACyqd__GSgxc_tlF"></a>
+                    <a name="//apple_ref/swift/Method/chain(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC5chain4withACyx_qd__tGACyqd__GSgxc_tlF">chain(with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Позволяет <q>сцепить</q> два цонтекста вместе так, что данные полученные от каждого контекста сохраняются в результирующем.
+Например, если мы делаем Context<A> chain Context<B> то в итоге получается Context(A,B)&gt;
+но при этом есть возможность выполнить Context<B> с результатом Context<A></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">chain</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">with</span> <span class="nv">contextProvider</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="p">(</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="p">,</span> <span class="kt">T</span><span class="p">)</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>contextProvider</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Что-то что сможет создать контекст, используя результат текущего контекста</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Комбинированный результат</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC10dispatchOnyACyxGSo03OS_E6_queueCF"></a>
+                    <a name="//apple_ref/swift/Method/dispatchOn(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC10dispatchOnyACyxGSo03OS_E6_queueCF">dispatchOn(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Слушатель получит сообщение на необходмой очереди</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dispatchOn</span><span class="p">(</span><span class="n">_</span> <span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC9multicastACyxGyF"></a>
+                    <a name="//apple_ref/swift/Method/multicast()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC9multicastACyxGyF">multicast()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Инкапсулирует обычный context в MulticastContext,
+что позволяет подписываться однвоременно несколькими объектами на сообщения</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">multicast</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC4emit4dataAA7ContextCyxGx_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/emit(data:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC4emit4dataAA7ContextCyxGx_tFZ">emit(data:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Вызывает оповещение подписчиков о том, что событие выполнилось.
+Создает контекст нужного типа и эмитит объект Model. Является синтаксическим сахаром.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">emit</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Context.html">Context</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Результат события</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit8ObserverC4emit5errorAA7ContextCyxGs5Error_p_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/emit(error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit8ObserverC4emit5errorAA7ContextCyxGs5Error_p_tFZ">emit(error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Вызывает оповещение подписчиков о том, что произошла ошибка.
+Создает контекст нужного типа и эмитит ошибку. Является синтаксическим сахаром.
+Позволяет удобно обрабатывать ситуации, в которых нужно провинуть ошибку. Например:
+<code>
+func serviceMehtod() -&gt; Context&lt;Type&gt; {
+    let url = Enpdoint.path else {
+        return .emit(error: BaseError.urlNotFound)
+    }
+}
+</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">emit</span><span class="p">(</span><span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Context.html">Context</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Observer.html#/s:10CoreNetKit18ObservableProtocolP5ModelQa">Model</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Произошедшая ошибка</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-16)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,0 +1,1370 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/DefaultCachePolicy.swift",
+      "line": 11,
+      "symbol": "DefaultCachePolicy",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/DefaultCachePolicy.swift",
+      "line": 12,
+      "symbol": "DefaultCachePolicy.firstCache",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/DefaultCachePolicy.swift",
+      "line": 13,
+      "symbol": "DefaultCachePolicy.ifServerFailsThenCache",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagCacheTriggerNode.swift",
+      "line": 11,
+      "symbol": "UrlETagUrlCacheTriggerNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagCacheTriggerNode.swift",
+      "line": 13,
+      "symbol": "UrlETagUrlCacheTriggerNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagCacheTriggerNode.swift",
+      "line": 14,
+      "symbol": "UrlETagUrlCacheTriggerNode.cacheReader",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagCacheTriggerNode.swift",
+      "line": 15,
+      "symbol": "UrlETagUrlCacheTriggerNode.eTagHeaderKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagCacheTriggerNode.swift",
+      "line": 17,
+      "symbol": "UrlETagUrlCacheTriggerNode.init(next:cacheReader:eTagHeaderKey:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagCacheTriggerNode.swift",
+      "line": 25,
+      "symbol": "UrlETagUrlCacheTriggerNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagReaderNode.swift",
+      "line": 11,
+      "symbol": "UrlETagReaderNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagReaderNode.swift",
+      "line": 13,
+      "symbol": "UrlETagReaderNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagReaderNode.swift",
+      "line": 14,
+      "symbol": "UrlETagReaderNode.etagHeaderKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagReaderNode.swift",
+      "line": 16,
+      "symbol": "UrlETagReaderNode.init(next:etagHeaderKey:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagReaderNode.swift",
+      "line": 22,
+      "symbol": "UrlETagReaderNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagSaverNode.swift",
+      "line": 11,
+      "symbol": "ETagConstants",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagSaverNode.swift",
+      "line": 15,
+      "symbol": "ETagConstants.eTagResponseHeaderKey",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagSaverNode.swift",
+      "line": 20,
+      "symbol": "ETagConstants.eTagRequestHeaderKey",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagSaverNode.swift",
+      "line": 29,
+      "symbol": "UrlETagSaverNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagSaverNode.swift",
+      "line": 31,
+      "symbol": "UrlETagSaverNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagSaverNode.swift",
+      "line": 32,
+      "symbol": "UrlETagSaverNode.eTagHeaderKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagSaverNode.swift",
+      "line": 34,
+      "symbol": "UrlETagSaverNode.init(next:eTagHeaderKey:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/ETag/UrlETagSaverNode.swift",
+      "line": 39,
+      "symbol": "UrlETagSaverNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/FirstCachePolicyNode.swift",
+      "line": 12,
+      "symbol": "BaseFirstCachePolicyNodeError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/FirstCachePolicyNode.swift",
+      "line": 13,
+      "symbol": "BaseFirstCachePolicyNodeError.cantGetUrlRequest",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/FirstCachePolicyNode.swift",
+      "line": 16,
+      "symbol": "FirstCachePolicyNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/FirstCachePolicyNode.swift",
+      "line": 18,
+      "symbol": "FirstCachePolicyNode.CacheReaderNode",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/FirstCachePolicyNode.swift",
+      "line": 19,
+      "symbol": "FirstCachePolicyNode.NextProcessorNode",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/FirstCachePolicyNode.swift",
+      "line": 24,
+      "symbol": "FirstCachePolicyNode.init(cacheReaderNode:next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/FirstCachePolicyNode.swift",
+      "line": 29,
+      "symbol": "FirstCachePolicyNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/IfServerFailsFromCacheNode.swift",
+      "line": 11,
+      "symbol": "IfServerFailedFromCacheNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/IfServerFailsFromCacheNode.swift",
+      "line": 13,
+      "symbol": "IfServerFailedFromCacheNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/IfServerFailsFromCacheNode.swift",
+      "line": 14,
+      "symbol": "IfServerFailedFromCacheNode.cacheReaderNode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/IfServerFailsFromCacheNode.swift",
+      "line": 16,
+      "symbol": "IfServerFailedFromCacheNode.init(next:cacheReaderNode:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/IfServerFailsFromCacheNode.swift",
+      "line": 21,
+      "symbol": "IfServerFailedFromCacheNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/UrlCacheReaderNode.swift",
+      "line": 12,
+      "symbol": "BaseUrlCacheReaderError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/UrlCacheReaderNode.swift",
+      "line": 13,
+      "symbol": "BaseUrlCacheReaderError.cantLoadDataFromCache",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/UrlCacheReaderNode.swift",
+      "line": 16,
+      "symbol": "UrlCacheReaderNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/UrlCacheReaderNode.swift",
+      "line": 17,
+      "symbol": "UrlCacheReaderNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/UrlCacheWriterNode.swift",
+      "line": 11,
+      "symbol": "UrlCacheWriterNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/CacheNode/UrlCacheWriterNode.swift",
+      "line": 12,
+      "symbol": "UrlCacheWriterNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Chains/Chains.swift",
+      "line": 14,
+      "symbol": "Chains.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Chains/Chains.swift",
+      "line": 16,
+      "symbol": "Chains.defaultDtoConverter(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Chains/Chains.swift",
+      "line": 30,
+      "symbol": "Chains.defaultInput(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Chains/Chains.swift",
+      "line": 37,
+      "symbol": "Chains.default(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Chains/ServiceChain.swift",
+      "line": 12,
+      "symbol": "ServiceChain",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Chains/ServiceChain.swift",
+      "line": 13,
+      "symbol": "ServiceChain.urlResponseProcessingLayerChain()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Chains/UrlChainConfigModel.swift",
+      "line": 28,
+      "symbol": "UrlChainConfigModel.init(method:route:metadata:encoding:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/DTOConvertible.swift",
+      "line": 11,
+      "symbol": "DTOConvertible",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/DTOConvertible.swift",
+      "line": 13,
+      "symbol": "DTOConvertible.DTO",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/DTOConvertible.swift",
+      "line": 15,
+      "symbol": "DTOConvertible.toModel(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/DTOConvertible.swift",
+      "line": 16,
+      "symbol": "DTOConvertible.toDTO()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/Extensions/Array+DtoConvertible.swift",
+      "line": 13,
+      "symbol": "Array.DTO",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/Extensions/Array+DtoConvertible.swift",
+      "line": 15,
+      "symbol": "Array.toModel(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/Extensions/Array+DtoConvertible.swift",
+      "line": 19,
+      "symbol": "Array.toDTO()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/Extensions/Array+RawMappable.swift",
+      "line": 11,
+      "symbol": "ErrorArrayJsonMappiong",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/Extensions/Array+RawMappable.swift",
+      "line": 12,
+      "symbol": "ErrorArrayJsonMappiong.cantFindKeyInRaw(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/Extensions/Array+RawMappable.swift",
+      "line": 15,
+      "symbol": "MappingUtils",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/Extensions/Array+RawMappable.swift",
+      "line": 16,
+      "symbol": "MappingUtils.arrayJsonKey",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/Extensions/Array+RawMappable.swift",
+      "line": 21,
+      "symbol": "Array.Raw",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/Extensions/Array+RawMappable.swift",
+      "line": 23,
+      "symbol": "Array.toRaw()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/Extensions/Array+RawMappable.swift",
+      "line": 29,
+      "symbol": "Array.toModel(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/RawMappable.swift",
+      "line": null,
+      "symbol": "RawMappable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/RawMappable.swift",
+      "line": null,
+      "symbol": "RawMappable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/RawMappable.swift",
+      "line": 11,
+      "symbol": "RawMappable",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/RawMappable.swift",
+      "line": 13,
+      "symbol": "RawMappable.Raw",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/RawMappable.swift",
+      "line": 15,
+      "symbol": "RawMappable.toRaw()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Convertion/RawMappable.swift",
+      "line": 17,
+      "symbol": "RawMappable.toModel(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Node/Node.swift",
+      "line": 45,
+      "symbol": "Node.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/Contexts/Context.swift",
+      "line": 27,
+      "symbol": "Context.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/Contexts/Context.swift",
+      "line": 57,
+      "symbol": "Context.onCanceled(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/Contexts/Context.swift",
+      "line": 93,
+      "symbol": "Context.cancel()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/Contexts/MulticastContext.swift",
+      "line": 26,
+      "symbol": "MulticastContext.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/Contexts/MulticastContext.swift",
+      "line": 51,
+      "symbol": "MulticastContext.onCompleted(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/Contexts/MulticastContext.swift",
+      "line": 57,
+      "symbol": "MulticastContext.onError(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/Contexts/MulticastContext.swift",
+      "line": 63,
+      "symbol": "MulticastContext.defer(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/Contexts/MulticastContext.swift",
+      "line": 69,
+      "symbol": "MulticastContext.onCanceled(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/Contexts/MulticastContext.swift",
+      "line": 97,
+      "symbol": "MulticastContext.cancel()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/Contexts/Observer+Operations.swift",
+      "line": 13,
+      "symbol": "Observer.error(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/ObservableProtocol.swift",
+      "line": 13,
+      "symbol": "DefaultInitable.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/ObservableProtocol.swift",
+      "line": 43,
+      "symbol": "Observer.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/ObservableProtocol.swift",
+      "line": 61,
+      "symbol": "Observer.onCanceled(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Core/Supscriptions/ObservableProtocol.swift",
+      "line": 66,
+      "symbol": "Observer.cancel()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/DTOProcessingLayer/DTOMapperNode.swift",
+      "line": 11,
+      "symbol": "DTOMapperNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/DTOProcessingLayer/DTOMapperNode.swift",
+      "line": 13,
+      "symbol": "DTOMapperNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/DTOProcessingLayer/DTOMapperNode.swift",
+      "line": 15,
+      "symbol": "DTOMapperNode.init(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/DTOProcessingLayer/DTOMapperNode.swift",
+      "line": 19,
+      "symbol": "DTOMapperNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/LayerTypes.swift",
+      "line": 9,
+      "symbol": "TransportLayerNode",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/LayerTypes.swift",
+      "line": 10,
+      "symbol": "RequestProcessingLayerNode",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/LayerTypes.swift",
+      "line": 11,
+      "symbol": "ResponseProcessingLayerNode",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/LayerTypes.swift",
+      "line": 12,
+      "symbol": "ResponsePostprocessorLayerNode",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ChainConfiguratorNode.swift",
+      "line": 11,
+      "symbol": "ChainConfiguratorNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ChainConfiguratorNode.swift",
+      "line": 13,
+      "symbol": "ChainConfiguratorNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ChainConfiguratorNode.swift",
+      "line": 15,
+      "symbol": "ChainConfiguratorNode.init(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ChainConfiguratorNode.swift",
+      "line": 19,
+      "symbol": "ChainConfiguratorNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/EmptyModel.swift",
+      "line": 13,
+      "symbol": "EmptyModelEntry.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/EmptyModel.swift",
+      "line": 18,
+      "symbol": "EmptyModelEntry.Raw",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/EmptyModel.swift",
+      "line": 20,
+      "symbol": "EmptyModelEntry.toRaw()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/EmptyModel.swift",
+      "line": 24,
+      "symbol": "EmptyModelEntry.toModel(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/EmptyModel.swift",
+      "line": 31,
+      "symbol": "EmptyModel.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/EmptyModel.swift",
+      "line": 36,
+      "symbol": "EmptyModel.DTO",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/EmptyModel.swift",
+      "line": 38,
+      "symbol": "EmptyModel.toDTO()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/EmptyModel.swift",
+      "line": 42,
+      "symbol": "EmptyModel.toModel(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/EmptyModel.swift",
+      "line": 50,
+      "symbol": "NodeProtocol.process()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ModelInputNode.swift",
+      "line": 11,
+      "symbol": "BaseCommonError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ModelInputNode.swift",
+      "line": 12,
+      "symbol": "BaseCommonError.nextNodeIsNil",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ModelInputNode.swift",
+      "line": 15,
+      "symbol": "ModelInputNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ModelInputNode.swift",
+      "line": 17,
+      "symbol": "ModelInputNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ModelInputNode.swift",
+      "line": 19,
+      "symbol": "ModelInputNode.init(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ModelInputNode.swift",
+      "line": 23,
+      "symbol": "ModelInputNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ModelInputNode.swift",
+      "line": 37,
+      "symbol": "SimpleModelInputNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ModelInputNode.swift",
+      "line": 39,
+      "symbol": "SimpleModelInputNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ModelInputNode.swift",
+      "line": 41,
+      "symbol": "SimpleModelInputNode.init(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ModelInput/ModelInputNode.swift",
+      "line": 45,
+      "symbol": "SimpleModelInputNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/Method.swift",
+      "line": 11,
+      "symbol": "Method",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/Method.swift",
+      "line": 12,
+      "symbol": "Method.get",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/Method.swift",
+      "line": 13,
+      "symbol": "Method.post",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/Method.swift",
+      "line": 14,
+      "symbol": "Method.put",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/Method.swift",
+      "line": 15,
+      "symbol": "Method.delete",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/ParametersEncoding.swift",
+      "line": 11,
+      "symbol": "ParametersEncoding",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/ParametersEncoding.swift",
+      "line": 12,
+      "symbol": "ParametersEncoding.json",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/ParametersEncoding.swift",
+      "line": 13,
+      "symbol": "ParametersEncoding.formUrl",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/ParametersEncoding.swift",
+      "line": 14,
+      "symbol": "ParametersEncoding.urlQuery",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TechnicaErrorMapperNode.swift",
+      "line": 11,
+      "symbol": "BaseTechnicalError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TechnicaErrorMapperNode.swift",
+      "line": 12,
+      "symbol": "BaseTechnicalError.noInternetConnection",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TechnicaErrorMapperNode.swift",
+      "line": 13,
+      "symbol": "BaseTechnicalError.timeout",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TechnicaErrorMapperNode.swift",
+      "line": 14,
+      "symbol": "BaseTechnicalError.cantConnectToHost",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TechnicaErrorMapperNode.swift",
+      "line": 17,
+      "symbol": "TechnicaErrorMapperNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TechnicaErrorMapperNode.swift",
+      "line": 19,
+      "symbol": "TechnicaErrorMapperNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TechnicaErrorMapperNode.swift",
+      "line": 21,
+      "symbol": "TechnicaErrorMapperNode.init(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TechnicaErrorMapperNode.swift",
+      "line": 25,
+      "symbol": "TechnicaErrorMapperNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TransportNode.swift",
+      "line": 11,
+      "symbol": "Json",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TransportNode.swift",
+      "line": 13,
+      "symbol": "TransportNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TransportNode.swift",
+      "line": 15,
+      "symbol": "TransportNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TransportNode.swift",
+      "line": 16,
+      "symbol": "TransportNode.parameters",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TransportNode.swift",
+      "line": 18,
+      "symbol": "TransportNode.init(parameters:next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TransportNode.swift",
+      "line": 23,
+      "symbol": "TransportNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TransportUrlParameters.swift",
+      "line": 11,
+      "symbol": "TransportUrlParameters",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TransportUrlParameters.swift",
+      "line": 17,
+      "symbol": "TransportUrlParameters.init(method:url:headers:parametersEncoding:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TransportUrlRequest.swift",
+      "line": 11,
+      "symbol": "TransportUrlRequest",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RawModelProcessingLayer/TransportUrlRequest.swift",
+      "line": 18,
+      "symbol": "TransportUrlRequest.init(with:raw:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestBuildingLayer/Models/EncodableRequestModel.swift",
+      "line": 20,
+      "symbol": "EncodableRequestModel.metadata",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestBuildingLayer/Models/EncodableRequestModel.swift",
+      "line": 21,
+      "symbol": "EncodableRequestModel.raw",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestBuildingLayer/Models/EncodableRequestModel.swift",
+      "line": 22,
+      "symbol": "EncodableRequestModel.route",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestBuildingLayer/Models/EncodableRequestModel.swift",
+      "line": 23,
+      "symbol": "EncodableRequestModel.encoding",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestBuildingLayer/UrlRequestTrasformatorNode.swift",
+      "line": 11,
+      "symbol": "UrlRequestTrasformatorNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestBuildingLayer/UrlRequestTrasformatorNode.swift",
+      "line": 13,
+      "symbol": "UrlRequestTrasformatorNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestBuildingLayer/UrlRequestTrasformatorNode.swift",
+      "line": 14,
+      "symbol": "UrlRequestTrasformatorNode.method",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestBuildingLayer/UrlRequestTrasformatorNode.swift",
+      "line": 16,
+      "symbol": "UrlRequestTrasformatorNode.init(next:method:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestBuildingLayer/UrlRequestTrasformatorNode.swift",
+      "line": 21,
+      "symbol": "UrlRequestTrasformatorNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/ReqestSenderNode.swift",
+      "line": 12,
+      "symbol": "RequestSenderNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/ReqestSenderNode.swift",
+      "line": 14,
+      "symbol": "RequestSenderNode.RawResponseProcessor",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/ReqestSenderNode.swift",
+      "line": 16,
+      "symbol": "RequestSenderNode.rawResponseProcessor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/ReqestSenderNode.swift",
+      "line": 21,
+      "symbol": "RequestSenderNode.init(rawResponseProcessor:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/ReqestSenderNode.swift",
+      "line": 25,
+      "symbol": "RequestSenderNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/RequestCreatorNode.swift",
+      "line": 12,
+      "symbol": "ServerRequestsManager",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/RequestCreatorNode.swift",
+      "line": 56,
+      "symbol": "UrlNetworkRequest",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/RequestCreatorNode.swift",
+      "line": 60,
+      "symbol": "RawUrlRequest",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/RequestCreatorNode.swift",
+      "line": 73,
+      "symbol": "RequestCreatorNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/RequestCreatorNode.swift",
+      "line": 75,
+      "symbol": "RequestCreatorNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/RequestCreatorNode.swift",
+      "line": 77,
+      "symbol": "RequestCreatorNode.init(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/RequestProcessingLayer/RequestCreatorNode.swift",
+      "line": 81,
+      "symbol": "RequestCreatorNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponsePostprocessingNode/Models/UrlProcessedResponse.swift",
+      "line": 40,
+      "symbol": "UrlProcessedResponse.init(dataResponse:json:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataParserNode.swift",
+      "line": 11,
+      "symbol": "ResponseDataParserNodeError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataParserNode.swift",
+      "line": 12,
+      "symbol": "ResponseDataParserNodeError.cantDerializeJson",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataParserNode.swift",
+      "line": 13,
+      "symbol": "ResponseDataParserNodeError.cantCastDesirializedDataToJson",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataParserNode.swift",
+      "line": 16,
+      "symbol": "ResponseDataParserNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataParserNode.swift",
+      "line": 18,
+      "symbol": "ResponseDataParserNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataParserNode.swift",
+      "line": 20,
+      "symbol": "ResponseDataParserNode.init(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataParserNode.swift",
+      "line": 24,
+      "symbol": "ResponseDataParserNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataParserNode.swift",
+      "line": 45,
+      "symbol": "ResponseDataParserNode.json(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataPreprocessorNode.swift",
+      "line": 11,
+      "symbol": "ResponseDataProcessorNodeError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataPreprocessorNode.swift",
+      "line": 12,
+      "symbol": "ResponseDataProcessorNodeError.cantExtractHTTPResponse",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataPreprocessorNode.swift",
+      "line": 13,
+      "symbol": "ResponseDataProcessorNodeError.cantDerializeJson",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataPreprocessorNode.swift",
+      "line": 16,
+      "symbol": "ResponseDataPreprocessorNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataPreprocessorNode.swift",
+      "line": 18,
+      "symbol": "ResponseDataPreprocessorNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataPreprocessorNode.swift",
+      "line": 20,
+      "symbol": "ResponseDataPreprocessorNode.init(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseDataPreprocessorNode.swift",
+      "line": 24,
+      "symbol": "ResponseDataPreprocessorNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 11,
+      "symbol": "ResponseHttpErrorProcessorNodeError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 12,
+      "symbol": "ResponseHttpErrorProcessorNodeError.badRequest(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 13,
+      "symbol": "ResponseHttpErrorProcessorNodeError.internalServerError(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 14,
+      "symbol": "ResponseHttpErrorProcessorNodeError.unauthorized(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 15,
+      "symbol": "ResponseHttpErrorProcessorNodeError.forbidden(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 18,
+      "symbol": "ResponseHttpErrorProcessorNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 20,
+      "symbol": "ResponseHttpErrorProcessorNode.HttpError",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 22,
+      "symbol": "ResponseHttpErrorProcessorNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 24,
+      "symbol": "ResponseHttpErrorProcessorNode.init(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 28,
+      "symbol": "ResponseHttpErrorProcessorNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseProcessorNode.swift",
+      "line": 12,
+      "symbol": "ResponseProcessorNodeError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseProcessorNode.swift",
+      "line": 13,
+      "symbol": "ResponseProcessorNodeError.rawResponseNotHaveMetaData",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseProcessorNode.swift",
+      "line": 16,
+      "symbol": "ResponseProcessorNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseProcessorNode.swift",
+      "line": 20,
+      "symbol": "ResponseProcessorNode.init(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/ResponseProcessingLayer/ResponseProcessorNode.swift",
+      "line": 24,
+      "symbol": "ResponseProcessorNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Layers/Utils/AccessSafe/AccessSafeNode.swift",
+      "line": 15,
+      "symbol": "AccessSafeNodeError.nodeWasRelease",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Utils/Mapping/CodableRawMapper.swift",
+      "line": 20,
+      "symbol": "RawMappable.toRaw()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/last_sprint/repo/surf-open-source/CoreNetKit/CoreNetKit/Utils/Mapping/CodableRawMapper.swift",
+      "line": 32,
+      "symbol": "RawMappable.toModel(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/last_sprint/repo/surf-open-source/CoreNetKit"
+}
