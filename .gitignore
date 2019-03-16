@@ -8,6 +8,7 @@ xcshareddata/
 ## Build generated
 build/
 DerivedData/
+Docs/swift_output/
 
 ## Various settings
 *.pbxuser
