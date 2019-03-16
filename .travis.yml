@@ -8,6 +8,9 @@ before_install:
   - brew update
   - gem install jazzy
   - brew install swiftlint || true
+script:
+  #- xcodebuild -workspace CoreNetKit.xcworkspace -scheme CoreNetKit
+  - xcodebuild test -workspace CoreNetKit.xcworkspace -scheme CoreNetKitIntegrationTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty -c
 after_script:
   - set -o pipefail
   #- setsid TestServer/bin/TestServer
