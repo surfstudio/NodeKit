@@ -42,7 +42,7 @@ public class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         let transportMock = TransportMock()
         let cacheSaverMock = CacheSaverMock()
 
-        let testedNode = UrlETagUrlCacheTriggerNode(next: transportMock, cacheReader: cacheSaverMock)
+        let testedNode = UrlNotModifiedTriggerNode(next: transportMock, cacheReader: cacheSaverMock)
 
         let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCalledIfDataIsNotNotModified")!
         let response = Utils.getMockUrlDataResponse(url: url)
@@ -76,7 +76,7 @@ public class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         let transportMock = TransportMock()
         let cacheSaverMock = CacheSaverMock()
 
-        let testedNode = UrlETagUrlCacheTriggerNode(next: transportMock, cacheReader: cacheSaverMock)
+        let testedNode = UrlNotModifiedTriggerNode(next: transportMock, cacheReader: cacheSaverMock)
 
         let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCAlledIfDataIsNotNotModified")!
         let response = Utils.getMockUrlDataResponse(url: url, statusCode: 304)

@@ -9,23 +9,53 @@
 import Foundation
 import Alamofire
 
+/// Ошибки для узла `FirstCachePolicyNode`
+///
+/// - SeeAlso: `FirstCachePolicyNode`
+///
+/// - cantGetUrlRequest: Возникает в случае, если запрос отправленный в сеть не содержит `UrlRequest`
 public enum BaseFirstCachePolicyNodeError: Error {
     case cantGetUrlRequest
 }
 
+/// Этот уpел реализует политику кэширования
+/// "Сначала читаем из кэша, а затем запрашиваем у сервера"
 open class FirstCachePolicyNode: Node<RawUrlRequest, Json> {
 
+    // MARK: - Nested
+
+    /// Тип для читающего из URL кэша узла
     public typealias CacheReaderNode = Node<UrlNetworkRequest, Json>
+
+    /// Тип для следующего узла
     public typealias NextProcessorNode = Node<RawUrlRequest, Json>
 
-    private let cacheReaderNode: CacheReaderNode
-    private let next: Node<RawUrlRequest, Json>
+    // MARK: - Properties
 
+    /// Следующий узел для обработки.
+    public var next: Node<RawUrlRequest, Json>
+
+    /// Узел для чтения из кэша.
+    public var cacheReaderNode: CacheReaderNode
+
+    // MARK: - Init and Deinit
+
+    /// Инициаллизирует узел.
+    ///
+    /// - Parameters:
+    ///   - cacheReaderNode: Следующий узел для обработки.
+    ///   - next: Узел для чтения из кэша.
     public init(cacheReaderNode: CacheReaderNode, next: NextProcessorNode) {
         self.cacheReaderNode = cacheReaderNode
         self.next = next
     }
 
+    // MARK: - Node
+
+    /// Пытается получить `URLRequest` и если удается, то обращается в кэш
+    /// а затем, передает управление следующему узлу.
+    /// В случае, если получить `URLRequest` не удалось,
+    /// то управление просто передается следующему узлу
     open override func process(_ data: RawUrlRequest) -> Context<Json> {
         let result = Context<Json>()
 

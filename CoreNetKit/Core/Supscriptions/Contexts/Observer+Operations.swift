@@ -10,6 +10,10 @@ import Foundation
 
 public extension Observer {
 
+    /// Позволяет изменить процесс обработки в случае ошибки.
+    /// Этот метод позволяет конвертировать возникшую ошибку в другую модель.
+    /// Например если в случае ошибки операции мы хотим выполнить другую операцию
+    /// и все равно получить результат, то этот метод должен подойти.
     public func error(_ mapper: @escaping (Error) throws -> Observer<Model>) -> Observer<Model> {
         let result = Context<Model>()
 

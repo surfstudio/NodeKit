@@ -11,7 +11,7 @@ import CoreEvents
 
 /// Это контекст, который поддерживает рассылку сообщений одновреенно нескольким слушателям.
 /// В качестве event используется CoreEvents
-/// Используйте этот контекст только в случае если вы действительно понимаете что вы делаете.
+/// - Warning: Используйте этот контекст только в случае если вы действительно понимаете что вы делаете.
 open class MulticastContext<Input>: Observer<Input> {
 
     // MARK: - Field
@@ -47,24 +47,28 @@ open class MulticastContext<Input>: Observer<Input> {
 
     // MARK: - Observable
 
+    /// Добавляет подписчка на успешное выполнение операции.
     @discardableResult
     open override func onCompleted(_ closure: @escaping (Input) -> Void) -> Self {
         self.eventOnCompleted += closure
         return self
     }
 
+    /// Дополняет подписчка на завершение операции с ошибкой.
     @discardableResult
     open override func onError(_ closure: @escaping (Error) -> Void) -> Self {
         self.eventOnError += closure
         return self
     }
 
+    /// Добавляет подписчка на выполнение операции с любым исходом.
     @discardableResult
     open override func `defer`(_ closure: @escaping () -> Void) -> Self {
         self.eventDefer += closure
         return self
     }
 
+    /// Добавляте одписчка на отмену операции.
     @discardableResult
     open override func onCanceled(_ closure: @escaping () -> Void) -> Self {
         self.eventOnCancelled += closure

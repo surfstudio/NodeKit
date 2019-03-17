@@ -25,7 +25,7 @@ public protocol ObservableProtocol {
     @discardableResult
     func onCompleted(_ closure: @escaping (Model) -> Void) -> Self
 
-    /// Исользуется для подписки на событие о какой-либо ошибки
+    /// Исользуется для подписки на событие о какой-либо ошибки.
     @discardableResult
     func onError(_ closure: @escaping (Error) -> Void) -> Self
 
@@ -42,26 +42,37 @@ open class Observer<Input>: ObservableProtocol {
 
     public init() { }
 
+    /// Используется для подписки на событие об успешном выполнения операции.
+    /// - Warning: Ожидается реализация в потомке. В противном случае приложение крашнется. 
     @discardableResult
     open func onCompleted(_ closure: @escaping (Input) -> Void) -> Self {
         fatalError("Needs to override method \(#function) in \(self.self)")
     }
 
+    /// Исользуется для подписки на событие о какой-либо ошибки
+    /// - Warning: Ожидается реализация в потомке. В противном случае приложение крашнется.
     @discardableResult
     open func onError(_ closure: @escaping (Error) -> Void) -> Self {
         fatalError("Needs to override method \(#function) in \(self.self)")
     }
 
+    /// Используется для подписки на любой исход события. То есть, вне зависимости от того, была ошибка или успех - эта подписка оповестит подписчика о том, что событие произошло.
+    /// Аналог finally в try-catch
+    /// - Warning: Ожидается реализация в потомке. В противном случае приложение крашнется.
     @discardableResult
     open func `defer`(_ closure: @escaping () -> Void) -> Self {
         fatalError("Needs to override method \(#function) in \(self.self)")
     }
 
+    /// Используется для подписку на отмену операции.
+    /// - Warning: Ожидается реализация в потомке. В противном случае приложение крашнется.
     @discardableResult
     open func onCanceled(_ closure: @escaping () -> Void) -> Self {
         fatalError("Needs to override method \(#function) in \(self.self)")
     }
 
+    /// Отмена действия
+    /// - Warning: Ожидается реализация в потомке. В противном случае приложение крашнется.
     @discardableResult
     open func cancel() -> Self {
         fatalError("Needs to override method \(#function) in \(self.self)")

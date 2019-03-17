@@ -16,6 +16,7 @@ public enum RawMappableCodableError: Error {
     case cantMapObjectToRaw
 }
 
+/// Реализация по-умолчанию для моделей, реализующий протокол Encodable для JSON
 public extension RawMappable where Self: Encodable, Raw == [String: Any] {
     func toRaw() throws -> Raw {
         let encoder = JSONEncoder()
@@ -28,6 +29,7 @@ public extension RawMappable where Self: Encodable, Raw == [String: Any] {
     }
 }
 
+/// Реализация по-умолчанию для моделей, реализующий протокол Encodable для JSON
 public extension RawMappable where Self: Decodable, Raw == [String: Any] {
     static func toModel(from raw: Raw) throws -> Self {
         let decoder = JSONDecoder()

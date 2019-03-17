@@ -53,6 +53,7 @@ open class Context<Model>: Observer<Model> {
         return self
     }
 
+    /// Используется для подписку на отмену операции.
     @discardableResult
     open override func onCanceled(_ closure: @escaping () -> Void) -> Self {
         self.cancelClosure = closure
@@ -89,6 +90,7 @@ open class Context<Model>: Observer<Model> {
         return self
     }
 
+    /// Отмена действия
     @discardableResult
     open override func cancel() -> Self {
         self.cancelClosure?()

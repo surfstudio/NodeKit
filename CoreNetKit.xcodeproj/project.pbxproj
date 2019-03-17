@@ -11,6 +11,7 @@
 		4D940CB96037EA44B7485A9A /* Pods_CoreNetKit_CoreNetKitUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4BA0C1B872F637E1FD721A /* Pods_CoreNetKit_CoreNetKitUnitTests.framework */; };
 		B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */; };
 		B107BF852232B6D0002E9655 /* ChainConfiguratorNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107BF842232B6D0002E9655 /* ChainConfiguratorNodeTests.swift */; };
+		B10AD422223ED5E300B4D7AA /* ETagConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10AD421223ED5E300B4D7AA /* ETagConstants.swift */; };
 		B10D4BE7222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BE6222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift */; };
 		B10D4BE9222DE450006B9EE9 /* UrlRouteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BE8222DE450006B9EE9 /* UrlRouteProvider.swift */; };
 		B10D4BF0222DF45E006B9EE9 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */; };
@@ -31,7 +32,7 @@
 		B1118EFA21C8CD8B007AD599 /* ServiceChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF921C8CD8B007AD599 /* ServiceChain.swift */; };
 		B112ECD222305F1200211E0E /* TokenRefresherNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B112ECD122305F1200211E0E /* TokenRefresherNode.swift */; };
 		B113F871222DC460001CEEAC /* UrlETagSaverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F870222DC460001CEEAC /* UrlETagSaverNode.swift */; };
-		B113F873222DC8E9001CEEAC /* UrlETagCacheTriggerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F872222DC8E9001CEEAC /* UrlETagCacheTriggerNode.swift */; };
+		B113F873222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F872222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift */; };
 		B113F875222DCCDF001CEEAC /* UrlETagReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F874222DCCDF001CEEAC /* UrlETagReaderNode.swift */; };
 		B113F879222DCEC2001CEEAC /* UrlETagSaverNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F878222DCEC2001CEEAC /* UrlETagSaverNodeTests.swift */; };
 		B113F87B222DD54B001CEEAC /* Utls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F87A222DD54B001CEEAC /* Utls.swift */; };
@@ -70,7 +71,6 @@
 		B1B7616D220862BE00AE3303 /* UrlCacheWriterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F521B1DDCF00382FA5 /* UrlCacheWriterNode.swift */; };
 		B1B7616E2208637500AE3303 /* FirstCachePolicyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F421B1DDCF00382FA5 /* FirstCachePolicyNode.swift */; };
 		B1B761702208647600AE3303 /* IfServerFailsFromCacheNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7616F2208647600AE3303 /* IfServerFailsFromCacheNode.swift */; };
-		B1B7617222086AD200AE3303 /* DefaultCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7617122086AD200AE3303 /* DefaultCachePolicy.swift */; };
 		B1BED9F421FF4D6F000B9018 /* SimpleURLChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */; };
 		B1BED9FB21FF78EE000B9018 /* Infrastructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9FA21FF78EE000B9018 /* Infrastructure.swift */; };
 		B1BED9FE21FF7BC0000B9018 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9FD21FF7BC0000B9018 /* User.swift */; };
@@ -114,6 +114,7 @@
 		9AF2A9A1A9CD5898CBBC5776 /* Pods-CoreNetKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreNetKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoreNetKit/Pods-CoreNetKit.release.xcconfig"; sourceTree = "<group>"; };
 		B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNode.swift; sourceTree = "<group>"; };
 		B107BF842232B6D0002E9655 /* ChainConfiguratorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNodeTests.swift; sourceTree = "<group>"; };
+		B10AD421223ED5E300B4D7AA /* ETagConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETagConstants.swift; sourceTree = "<group>"; };
 		B10D4BE6222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagUrlCacheTriggerNodeTests.swift; sourceTree = "<group>"; };
 		B10D4BE8222DE450006B9EE9 /* UrlRouteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRouteProvider.swift; sourceTree = "<group>"; };
 		B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
@@ -134,7 +135,7 @@
 		B1118EF921C8CD8B007AD599 /* ServiceChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceChain.swift; sourceTree = "<group>"; };
 		B112ECD122305F1200211E0E /* TokenRefresherNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherNode.swift; sourceTree = "<group>"; };
 		B113F870222DC460001CEEAC /* UrlETagSaverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagSaverNode.swift; sourceTree = "<group>"; };
-		B113F872222DC8E9001CEEAC /* UrlETagCacheTriggerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagCacheTriggerNode.swift; sourceTree = "<group>"; };
+		B113F872222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlNotModifiedTriggerNode.swift; sourceTree = "<group>"; };
 		B113F874222DCCDF001CEEAC /* UrlETagReaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagReaderNode.swift; sourceTree = "<group>"; };
 		B113F878222DCEC2001CEEAC /* UrlETagSaverNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagSaverNodeTests.swift; sourceTree = "<group>"; };
 		B113F87A222DD54B001CEEAC /* Utls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utls.swift; sourceTree = "<group>"; };
@@ -169,7 +170,6 @@
 		B1B761562208118300AE3303 /* UrlDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlDataResponse.swift; sourceTree = "<group>"; };
 		B1B7615A220811F300AE3303 /* UrlProcessedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlProcessedResponse.swift; sourceTree = "<group>"; };
 		B1B7616F2208647600AE3303 /* IfServerFailsFromCacheNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfServerFailsFromCacheNode.swift; sourceTree = "<group>"; };
-		B1B7617122086AD200AE3303 /* DefaultCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCachePolicy.swift; sourceTree = "<group>"; };
 		B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleURLChainTests.swift; sourceTree = "<group>"; };
 		B1BED9F821FF75A9000B9018 /* Chains.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chains.swift; sourceTree = "<group>"; };
 		B1BED9FA21FF78EE000B9018 /* Infrastructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Infrastructure.swift; sourceTree = "<group>"; };
@@ -340,8 +340,8 @@
 			isa = PBXGroup;
 			children = (
 				B113F870222DC460001CEEAC /* UrlETagSaverNode.swift */,
-				B113F872222DC8E9001CEEAC /* UrlETagCacheTriggerNode.swift */,
 				B113F874222DCCDF001CEEAC /* UrlETagReaderNode.swift */,
+				B10AD421223ED5E300B4D7AA /* ETagConstants.swift */,
 			);
 			path = ETag;
 			sourceTree = "<group>";
@@ -598,8 +598,8 @@
 				B1F0C6F321B1DDCF00382FA5 /* UrlCacheReaderNode.swift */,
 				B1F0C6F421B1DDCF00382FA5 /* FirstCachePolicyNode.swift */,
 				B1F0C6F521B1DDCF00382FA5 /* UrlCacheWriterNode.swift */,
+				B113F872222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift */,
 				B1B7616F2208647600AE3303 /* IfServerFailsFromCacheNode.swift */,
-				B1B7617122086AD200AE3303 /* DefaultCachePolicy.swift */,
 			);
 			path = CacheNode;
 			sourceTree = "<group>";
@@ -894,7 +894,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\n";
+			shellScript = "
+";
 		};
 		E1464D030E45077C4A8ACB7F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -956,11 +957,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1B7617222086AD200AE3303 /* DefaultCachePolicy.swift in Sources */,
 				B1568083222C769D00BC8D91 /* RequestAborterNode.swift in Sources */,
 				B10D4BFC222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift in Sources */,
 				B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */,
 				B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */,
+				B10AD422223ED5E300B4D7AA /* ETagConstants.swift in Sources */,
 				B10D4BF2222DF472006B9EE9 /* RoutableRequestModel.swift in Sources */,
 				B1568081222C70D300BC8D91 /* ObservableProtocol.swift in Sources */,
 				B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */,
@@ -976,7 +977,7 @@
 				B10D4BF4222DF48D006B9EE9 /* EncodableRequestModel.swift in Sources */,
 				B199E762223CF1F80001FE17 /* TransportNode.swift in Sources */,
 				B113F871222DC460001CEEAC /* UrlETagSaverNode.swift in Sources */,
-				B113F873222DC8E9001CEEAC /* UrlETagCacheTriggerNode.swift in Sources */,
+				B113F873222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift in Sources */,
 				B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */,
 				B199E766223CF26A0001FE17 /* TransportUrlParameters.swift in Sources */,
 				B1B7616E2208637500AE3303 /* FirstCachePolicyNode.swift in Sources */,
