@@ -14,7 +14,7 @@
     <a title="BaseUrlCacheReaderError Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">CoreNetKit Docs</a> (40% documented)</p>
+        <p><a href="../index.html">CoreNetKit Docs</a> (61% documented)</p>
         <p class="header-right"><a href="https://github.com/surfstudio/CoreNetKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -62,7 +62,7 @@
                 <a href="../Classes/HeaderInjectorNode.html">HeaderInjectorNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IfServerFailedFromCacheNode.html">IfServerFailedFromCacheNode</a>
+                <a href="../Classes/IfConnectionFailedFromCacheNode.html">IfConnectionFailedFromCacheNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MetadataConnectorNode.html">MetadataConnectorNode</a>
@@ -134,7 +134,7 @@
                 <a href="../Classes/UrlETagSaverNode.html">UrlETagSaverNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/UrlETagUrlCacheTriggerNode.html">UrlETagUrlCacheTriggerNode</a>
+                <a href="../Classes/UrlNotModifiedTriggerNode.html">UrlNotModifiedTriggerNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/UrlRequestTrasformatorNode.html">UrlRequestTrasformatorNode</a>
@@ -158,9 +158,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/BaseUrlCacheReaderError.html">BaseUrlCacheReaderError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/DefaultCachePolicy.html">DefaultCachePolicy</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/ETagConstants.html">ETagConstants</a>
@@ -304,7 +301,13 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Ошибки для узла <code><a href="../Classes/UrlCacheReaderNode.html">UrlCacheReaderNode</a></code></p>
+
+<ul>
+<li>cantLoadDataFromCache: Случается, если запрос в кэш завершился с ошибкой</li>
+<li>cantSerializeJson: Случается, если запрос в кэш завершился успешно, но не удалось сериализовать ответ в JSON</li>
+<li>cantCastToJson: Случается, если сериализовать ответ удалось, но каст к <code><a href="../Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></code> или к <code>[Json]</code> завершился с ошибкой</li>
+</ul>
 
           </section>
           <section class="section task-group-section">
@@ -337,12 +340,66 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit23BaseUrlCacheReaderErrorO17cantSerializeJsonyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/cantSerializeJson" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit23BaseUrlCacheReaderErrorO17cantSerializeJsonyA2CmF">cantSerializeJson</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cantSerializeJson</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit23BaseUrlCacheReaderErrorO14cantCastToJsonyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/cantCastToJson" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit23BaseUrlCacheReaderErrorO14cantCastToJsonyA2CmF">cantCastToJson</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cantCastToJson</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-16)</p>
+          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

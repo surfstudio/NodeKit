@@ -14,7 +14,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">CoreNetKit Docs</a> (40% documented)</p>
+        <p><a href="index.html">CoreNetKit Docs</a> (61% documented)</p>
         <p class="header-right"><a href="https://github.com/surfstudio/CoreNetKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -62,7 +62,7 @@
                 <a href="Classes/HeaderInjectorNode.html">HeaderInjectorNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IfServerFailedFromCacheNode.html">IfServerFailedFromCacheNode</a>
+                <a href="Classes/IfConnectionFailedFromCacheNode.html">IfConnectionFailedFromCacheNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/MetadataConnectorNode.html">MetadataConnectorNode</a>
@@ -134,7 +134,7 @@
                 <a href="Classes/UrlETagSaverNode.html">UrlETagSaverNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/UrlETagUrlCacheTriggerNode.html">UrlETagUrlCacheTriggerNode</a>
+                <a href="Classes/UrlNotModifiedTriggerNode.html">UrlNotModifiedTriggerNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/UrlRequestTrasformatorNode.html">UrlRequestTrasformatorNode</a>
@@ -158,9 +158,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Enums/BaseUrlCacheReaderError.html">BaseUrlCacheReaderError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/DefaultCachePolicy.html">DefaultCachePolicy</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/ETagConstants.html">ETagConstants</a>
@@ -307,38 +304,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10CoreNetKit07UrlETagD16CacheTriggerNodeC"></a>
-                    <a name="//apple_ref/swift/Class/UrlETagUrlCacheTriggerNode" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10CoreNetKit07UrlETagD16CacheTriggerNodeC">UrlETagUrlCacheTriggerNode</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                        <a href="Classes/UrlETagUrlCacheTriggerNode.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">UrlETagUrlCacheTriggerNode</span> <span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit27ResponseProcessingLayerNodea">ResponseProcessingLayerNode</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:10CoreNetKit17UrlETagReaderNodeC"></a>
                     <a name="//apple_ref/swift/Class/UrlETagReaderNode" class="dashAnchor"></a>
                     <a class="token" href="#/s:10CoreNetKit17UrlETagReaderNodeC">UrlETagReaderNode</a>
@@ -349,7 +314,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел читает eTag-токен из хранилища и добавляет его к запросу.</p>
 
                         <a href="Classes/UrlETagReaderNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -367,6 +332,13 @@
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/UserDefaults%20eTag%20storage"></a>
+                <a name="//apple_ref/swift/Section/UserDefaults eTag storage" class="dashAnchor"></a>
+                <a href="#/UserDefaults%20eTag%20storage">
+                  <h3 class="section-name">UserDefaults eTag storage</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -381,7 +353,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел сохраняет пришедшие eTag-токены.
+В качестве ключа используется абсолютный URL до endpoint-a.</p>
 
                         <a href="Classes/UrlETagSaverNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -413,7 +386,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот уpел реализует политику кэширования
+<q>Сначала читаем из кэша, а затем запрашиваем у сервера</q></p>
 
                         <a href="Classes/FirstCachePolicyNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -435,9 +409,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10CoreNetKit27IfServerFailedFromCacheNodeC"></a>
-                    <a name="//apple_ref/swift/Class/IfServerFailedFromCacheNode" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10CoreNetKit27IfServerFailedFromCacheNodeC">IfServerFailedFromCacheNode</a>
+                    <a name="/s:10CoreNetKit31IfConnectionFailedFromCacheNodeC"></a>
+                    <a name="//apple_ref/swift/Class/IfConnectionFailedFromCacheNode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit31IfConnectionFailedFromCacheNodeC">IfConnectionFailedFromCacheNode</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -445,15 +419,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Узел реализует политику кэширования <q>Если интернета нет, то запросить данные из кэша</q>
+Этот узел работает с URL кэшом.</p>
 
-                        <a href="Classes/IfServerFailedFromCacheNode.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/IfConnectionFailedFromCacheNode.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">IfServerFailedFromCacheNode</span> <span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit27ResponseProcessingLayerNodea">ResponseProcessingLayerNode</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">IfConnectionFailedFromCacheNode</span> <span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit27ResponseProcessingLayerNodea">ResponseProcessingLayerNode</a></span></code></pre>
 
                         </div>
                       </div>
@@ -477,7 +452,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел отвечает за чтение данных из URL кэша.
+Сам по себе узел является листом и не можетбыть встроен в сковзную цепочку.</p>
 
                         <a href="Classes/UrlCacheReaderNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -509,7 +485,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел занимается записью данных в URL кэш.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    это <q>глупая</q> реализация,
+в которой не учитываются server-side политики и прочее.
+Подразумечается, что этот узел не входит в цепочку, а является листом одного из узлов.
+
+</div>
 
                         <a href="Classes/UrlCacheWriterNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -518,6 +501,39 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">UrlCacheWriterNode</span> <span class="p">:</span> <span class="kt"><a href="Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt"><a href="Structs/UrlProcessedResponse.html">UrlProcessedResponse</a></span><span class="p">,</span> <span class="kt">Void</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit25UrlNotModifiedTriggerNodeC"></a>
+                    <a name="//apple_ref/swift/Class/UrlNotModifiedTriggerNode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit25UrlNotModifiedTriggerNodeC">UrlNotModifiedTriggerNode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Этот узел проверяет код ответа от сервера и в случае, если код равен 304 (NotModified)
+Узел посылает запрос в URL кэш.</p>
+
+                        <a href="Classes/UrlNotModifiedTriggerNode.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">UrlNotModifiedTriggerNode</span> <span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit27ResponseProcessingLayerNodea">ResponseProcessingLayerNode</a></span></code></pre>
 
                         </div>
                       </div>
@@ -708,8 +724,12 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Это контекст, который поддерживает рассылку сообщений одновреенно нескольким слушателям.
-В качестве event используется CoreEvents
-Используйте этот контекст только в случае если вы действительно понимаете что вы делаете.</p>
+В качестве event используется CoreEvents</p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    Используйте этот контекст только в случае если вы действительно понимаете что вы делаете.
+
+</div>
 
                         <a href="Classes/MulticastContext.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1579,7 +1599,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-16)</p>
+          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

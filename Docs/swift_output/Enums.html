@@ -14,7 +14,7 @@
     <a title="Enumerations  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">CoreNetKit Docs</a> (40% documented)</p>
+        <p><a href="index.html">CoreNetKit Docs</a> (61% documented)</p>
         <p class="header-right"><a href="https://github.com/surfstudio/CoreNetKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -62,7 +62,7 @@
                 <a href="Classes/HeaderInjectorNode.html">HeaderInjectorNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IfServerFailedFromCacheNode.html">IfServerFailedFromCacheNode</a>
+                <a href="Classes/IfConnectionFailedFromCacheNode.html">IfConnectionFailedFromCacheNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/MetadataConnectorNode.html">MetadataConnectorNode</a>
@@ -134,7 +134,7 @@
                 <a href="Classes/UrlETagSaverNode.html">UrlETagSaverNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/UrlETagUrlCacheTriggerNode.html">UrlETagUrlCacheTriggerNode</a>
+                <a href="Classes/UrlNotModifiedTriggerNode.html">UrlNotModifiedTriggerNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/UrlRequestTrasformatorNode.html">UrlRequestTrasformatorNode</a>
@@ -158,9 +158,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Enums/BaseUrlCacheReaderError.html">BaseUrlCacheReaderError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/DefaultCachePolicy.html">DefaultCachePolicy</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/ETagConstants.html">ETagConstants</a>
@@ -307,38 +304,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10CoreNetKit18DefaultCachePolicyO"></a>
-                    <a name="//apple_ref/swift/Enum/DefaultCachePolicy" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10CoreNetKit18DefaultCachePolicyO">DefaultCachePolicy</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                        <a href="Enums/DefaultCachePolicy.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">DefaultCachePolicy</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:10CoreNetKit13ETagConstantsO"></a>
                     <a name="//apple_ref/swift/Enum/ETagConstants" class="dashAnchor"></a>
                     <a class="token" href="#/s:10CoreNetKit13ETagConstantsO">ETagConstants</a>
@@ -349,7 +314,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Содержит константы для работы с eTag
+Эти кнстанты описаны в соответствии с RFC и AppleDeveloper</p>
 
                         <a href="Enums/ETagConstants.html" class="slightly-smaller">See more</a>
                       </div>
@@ -381,7 +347,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Ошибки для узла <code><a href="Classes/FirstCachePolicyNode.html">FirstCachePolicyNode</a></code></p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <p><code><a href="Classes/FirstCachePolicyNode.html">FirstCachePolicyNode</a></code></p>
+
+</div>
+<li><p>cantGetUrlRequest: Возникает в случае, если запрос отправленный в сеть не содержит <code>UrlRequest</code></p></li>
 
                         <a href="Enums/BaseFirstCachePolicyNodeError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -413,7 +385,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Ошибки для узла <code><a href="Classes/UrlCacheReaderNode.html">UrlCacheReaderNode</a></code></p>
+
+<ul>
+<li>cantLoadDataFromCache: Случается, если запрос в кэш завершился с ошибкой</li>
+<li>cantSerializeJson: Случается, если запрос в кэш завершился успешно, но не удалось сериализовать ответ в JSON</li>
+<li>cantCastToJson: Случается, если сериализовать ответ удалось, но каст к <code><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></code> или к <code>[Json]</code> завершился с ошибкой</li>
+</ul>
 
                         <a href="Enums/BaseUrlCacheReaderError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -445,7 +423,11 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Ошибки для маппинга массивов в/из JSON</p>
+
+<ul>
+<li>cantFindKeyInRaw: Возникает в случае если при парсинге JSON-массива не удалось найти ключ <code><a href="Enums/MappingUtils.html#/s:10CoreNetKit12MappingUtilsO12arrayJsonKeySSvpZ">MappingUtils.arrayJsonKey</a></code></li>
+</ul>
 
                         <a href="Enums/ErrorArrayJsonMappiong.html" class="slightly-smaller">See more</a>
                       </div>
@@ -473,7 +455,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>В том случае, когда JSON представлен тлько массивом.
+Например JSON выглядит вот так:</p>
+<pre class="highlight swift"><code><span class="p">[</span>
+    <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+      <span class="o">...</span>
+<span class="p">]</span>
+</code></pre>
+
+<p>Необходимо оборачивать массив в словарь.</p>
 
                         <a href="Enums/MappingUtils.html" class="slightly-smaller">See more</a>
                       </div>
@@ -822,7 +813,7 @@ SeeAlso:</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-16)</p>
+          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

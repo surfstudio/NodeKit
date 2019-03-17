@@ -14,7 +14,7 @@
     <a title="DTOConvertible Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">CoreNetKit Docs</a> (40% documented)</p>
+        <p><a href="../index.html">CoreNetKit Docs</a> (61% documented)</p>
         <p class="header-right"><a href="https://github.com/surfstudio/CoreNetKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -62,7 +62,7 @@
                 <a href="../Classes/HeaderInjectorNode.html">HeaderInjectorNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IfServerFailedFromCacheNode.html">IfServerFailedFromCacheNode</a>
+                <a href="../Classes/IfConnectionFailedFromCacheNode.html">IfConnectionFailedFromCacheNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MetadataConnectorNode.html">MetadataConnectorNode</a>
@@ -134,7 +134,7 @@
                 <a href="../Classes/UrlETagSaverNode.html">UrlETagSaverNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/UrlETagUrlCacheTriggerNode.html">UrlETagUrlCacheTriggerNode</a>
+                <a href="../Classes/UrlNotModifiedTriggerNode.html">UrlNotModifiedTriggerNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/UrlRequestTrasformatorNode.html">UrlRequestTrasformatorNode</a>
@@ -158,9 +158,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/BaseUrlCacheReaderError.html">BaseUrlCacheReaderError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/DefaultCachePolicy.html">DefaultCachePolicy</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/ETagConstants.html">ETagConstants</a>
@@ -304,7 +301,8 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Описывает сущность из верхнего слоя DTO.
+Может конвертировать себя в нижний слой DTO и конвертировать нижнйи слой DTO в себя.</p>
 
           </section>
           <section class="section task-group-section">
@@ -323,7 +321,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Следующий слой DTO</p>
 
                       </div>
                       <div class="declaration">
@@ -350,7 +348,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Кнвертирует модель из DTO нижнего уровня в DTO-модель верхнего уровня.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    Могут возникать любе исключения, определенные пользователем.
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -360,6 +363,29 @@
                           <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">toModel</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="kt"><a href="../Protocols/DTOConvertible.html#/s:10CoreNetKit14DTOConvertibleP3DTOQa">DTO</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Модель нижнего уровня DTO из которой необходимо получить модель верхнего уровня.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Результат конвертирования.</p>
                       </div>
                     </section>
                   </div>
@@ -396,7 +422,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-16)</p>
+          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

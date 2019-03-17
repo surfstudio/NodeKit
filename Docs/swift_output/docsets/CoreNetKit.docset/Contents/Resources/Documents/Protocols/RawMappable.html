@@ -14,7 +14,7 @@
     <a title="RawMappable Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">CoreNetKit Docs</a> (40% documented)</p>
+        <p><a href="../index.html">CoreNetKit Docs</a> (61% documented)</p>
         <p class="header-right"><a href="https://github.com/surfstudio/CoreNetKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -62,7 +62,7 @@
                 <a href="../Classes/HeaderInjectorNode.html">HeaderInjectorNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IfServerFailedFromCacheNode.html">IfServerFailedFromCacheNode</a>
+                <a href="../Classes/IfConnectionFailedFromCacheNode.html">IfConnectionFailedFromCacheNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MetadataConnectorNode.html">MetadataConnectorNode</a>
@@ -134,7 +134,7 @@
                 <a href="../Classes/UrlETagSaverNode.html">UrlETagSaverNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/UrlETagUrlCacheTriggerNode.html">UrlETagUrlCacheTriggerNode</a>
+                <a href="../Classes/UrlNotModifiedTriggerNode.html">UrlNotModifiedTriggerNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/UrlRequestTrasformatorNode.html">UrlRequestTrasformatorNode</a>
@@ -158,9 +158,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/BaseUrlCacheReaderError.html">BaseUrlCacheReaderError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/DefaultCachePolicy.html">DefaultCachePolicy</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/ETagConstants.html">ETagConstants</a>
@@ -304,7 +301,8 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Описывает сущность из нижнего слоя DTO.
+Может конвертировать себя в RAW (например JSON) и конвертировать RAW в себя.</p>
 
           </section>
           <section class="section task-group-section">
@@ -323,7 +321,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Тип данных, в которые мапятся модели. Напрмиер JSON</p>
 
                       </div>
                       <div class="declaration">
@@ -353,13 +351,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Конвертирет модель в RAW</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    Могут возникать любые исключения, определенные пользователем.
+
+</div>
 
                       </div>
                       <h4>Default Implementation</h4>
                       <div class="default_impl abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -368,6 +370,10 @@
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">toRaw</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/RawMappable.html#/s:10CoreNetKit11RawMappableP0D0Qa">Raw</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>RAW-представление модели</p>
                       </div>
                     </section>
                   </div>
@@ -388,13 +394,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Преобразует данные в RAW формате в модель.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    Могут возникать любые исключения, определенные пользователем.
+
+</div>
 
                       </div>
                       <h4>Default Implementation</h4>
                       <div class="default_impl abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -404,6 +414,29 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Данные в RAW формате</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>модель полученная из RAW</p>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -412,7 +445,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-16)</p>
+          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

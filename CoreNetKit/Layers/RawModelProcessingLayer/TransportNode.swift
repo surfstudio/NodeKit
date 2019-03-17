@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Словарь вида `[String: Any]`
 public typealias Json = [String: Any]
 
 open class TransportNode: Node<Json, Json> {

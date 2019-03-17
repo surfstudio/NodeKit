@@ -9,34 +9,39 @@
 import Foundation
 import Alamofire
 
-/// View used for trasfer data inside response postprocessing layer
+/// Используется для передачи данных внутри слоя постпроцессинга запроса.
 public struct UrlProcessedResponse {
 
     private let _dataResponse: UrlDataResponse
 
-    /// The URL request sent to the server.
+    /// URL запрос, отправленный серверу.
     public var request: URLRequest {
         return self._dataResponse.request
     }
 
-    /// The server's response to the URL request.
+    /// Ответ, полученный от сервера.
     public var response: HTTPURLResponse {
         return self._dataResponse.response
     }
 
-    /// The timeline of the complete lifecycle of the request.
+    /// Временные метки выполнения запроса.
     public var timeline: Timeline {
         return self._dataResponse.timeline
     }
 
-    /// The data returned by the server.
+    /// Ответ, возвращенный сервером.
     public var data: Data {
         return self._dataResponse.data
     }
 
-    /// JSON parsed from the server's response
+    /// JSON сериализованный после обработки ответа.
     public let json: Json
 
+    /// Инициаллизирует объект.
+    ///
+    /// - Parameters:
+    ///   - dataResponse: Модель полученная после обрабокти ответа.
+    ///   - json: Сериализованный JSON
     public init(dataResponse: UrlDataResponse, json: Json) {
         self._dataResponse = dataResponse
         self.json = json
