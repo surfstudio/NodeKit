@@ -8,19 +8,23 @@
 
 import Foundation
 
-public enum ResponseDataProcessorNodeError: Error {
-    case cantExtractHTTPResponse
-    case cantDerializeJson
-}
-
+/// Этот узел занимается десериализаций данных ответа в `JSON`.
+/// В случае 204-го ответа далее передает пустой `Json`.
 open class ResponseDataPreprocessorNode: ResponseProcessingLayerNode {
 
+    /// Следующий узел для обработки.
     public var next: ResponseProcessingLayerNode
 
+    /// Инициаллизирует узел.
+    ///
+    /// - Parameter next: Следующий узел для обработки.
     public init(next: ResponseProcessingLayerNode) {
         self.next = next
     }
 
+    /// Сериализует "сырые" данные в `Json`
+    ///
+    /// - Parameter data: Представление ответа.
     open override func process(_ data: UrlDataResponse) -> Observer<Json> {
 
         guard data.response.statusCode != 204 else {

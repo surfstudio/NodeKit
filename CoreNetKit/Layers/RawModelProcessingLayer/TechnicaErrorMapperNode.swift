@@ -8,20 +8,35 @@
 
 import Foundation
 
+/// Ошибки для узла `TechnicaErrorMapperNode`
+///
+/// - noInternetConnection: Возникает в случае, если вернулась системная ошибка об отсутствии соединения.
+/// - timeout: Возникает в случае, если превышен лимит ожидания ответа от сервера.
+/// - cantConnectToHost: Возникает в случае, если не удалось установить соединение по конкретному адресу.
 public enum BaseTechnicalError: Error {
     case noInternetConnection
     case timeout
     case cantConnectToHost
 }
 
+/// Этот узел заниматеся маппингом технических ошибок
+/// (ошибок уровня ОС)
+/// - SeeAlso: `BaseTechnicalError`
 open class TechnicaErrorMapperNode: TransportLayerNode {
 
+    /// Следующий узел для обработки.
     open var next: TransportLayerNode
 
+    /// Инициаллизирует узел.
+    ///
+    /// - Parameter next: Следующий узел для обработки.
     public init(next: TransportLayerNode) {
         self.next = next
     }
 
+    /// Передает управление следующему узлу, и в случае ошибки маппит ее.
+    ///
+    /// - Parameter data: Данные для обработки.
     open override func process(_ data: TransportUrlRequest) -> Context<Json> {
         let context = Context<Json>()
 

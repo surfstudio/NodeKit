@@ -50,10 +50,10 @@ public extension Observer {
             } catch {
                 result.emit(error: error)
             }
-        }
-
-        self.onError { (error) in
+        }.onError { (error) in
             result.emit(error: error)
+        }.onCanceled {
+            result.cancel()
         }
 
         return result
@@ -67,10 +67,10 @@ public extension Observer {
             let context = mapper(model)
             context.onCompleted { result.emit(data: $0) }
             context.onError { result.emit(error: $0) }
-        }
-
-        self.onError { (error) in
+        }.onError { (error) in
             result.emit(error: error)
+        }.onCanceled {
+            result.cancel()
         }
 
         return result
@@ -84,10 +84,10 @@ public extension Observer {
         self.onCompleted { (model) in
             context.onCompleted { result.emit(data: (model, $0))}
             context.onError { result.emit(error: $0) }
-        }
-
-        self.onError { (error) in
+        }.onError { (error) in
             result.emit(error: error)
+        }.onCanceled {
+            result.cancel()
         }
 
         return result
@@ -101,10 +101,10 @@ public extension Observer {
             let context = contextProvider(model)
             context.onCompleted { result.emit(data: (model, $0))}
             context.onError { result.emit(error: $0) }
-        }
-
-        self.onError { (error) in
+        }.onError { (error) in
             result.emit(error: error)
+        }.onCanceled {
+            result.cancel()
         }
 
         return result
@@ -120,6 +120,8 @@ public extension Observer {
             result.emit(data: model.filter { predicate($0) })
         }.onError { (error) in
             result.emit(error: error)
+        }.onCanceled {
+            result.cancel()
         }
 
         return result
@@ -143,11 +145,15 @@ public extension Observer {
                 newContext.emit(data: (model, newModel))
             }.onError { error in
                 newContext.emit(error: error)
+            }.onCanceled {
+                newContext.cancel()
             }
-
-            }.onError { error in
-                newContext.emit(error: error)
+        }.onError { error in
+            newContext.emit(error: error)
+        }.onCanceled {
+            newContext.cancel()
         }
+
         return newContext
     }
 
@@ -159,10 +165,10 @@ public extension Observer {
 
         self.onCompleted {
             result.emit(data: $0)
-        }
-
-        self.onError {
+        }.onError {
             result.emit(error: $0)
+        }.onCanceled {
+            result.cancel()
         }
 
         return result
@@ -177,6 +183,8 @@ public extension Observer {
             context.emit(data: $0)
         }.onError {
             context.emit(error: $0)
+        }.onCanceled {
+            context.cancel()
         }
 
         return context

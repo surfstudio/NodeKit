@@ -9,18 +9,29 @@
 import Foundation
 import Alamofire
 
+/// Ошибки для `ResponseProcessorNode`
+///
+/// - rawResponseNotHaveMetaData: Возникает в случае, если запрос неконсистентен.
 public enum ResponseProcessorNodeError: Error {
     case rawResponseNotHaveMetaData
 }
 
+/// Этот узел занимается первичной обработкой ответа сервера.
 open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
 
-    private let next: ResponseProcessingLayerNode
+    /// Следующий узел для обратки.
+    public let next: ResponseProcessingLayerNode
 
+    /// Инициаллизирует узел.
+    ///
+    /// - Parameter next: Следующий узел для обратки.
     public init(next: ResponseProcessingLayerNode) {
         self.next = next
     }
 
+    /// Проверяет, возникла-ли какая-то ошибка во время работы.
+    ///
+    /// - Parameter data: Низкоуровневый ответ сервера.
     open override func process(_ data: DataResponse<Data>) -> Observer<Json> {
 
         switch data.result {

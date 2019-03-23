@@ -8,24 +8,42 @@
 
 import Foundation
 
+/// HTTP ошибки.
+///
+/// - badRequest: 400-HTTP код ответа.
+/// - unauthorized: 401 HTTP-код ответа.
+/// - forbidden: 403 HTTP-код ответа.
+/// - notFound: 404 HTTP-код ответа.
+/// - internalServerError: 500 HTTP-код ответа.
 public enum ResponseHttpErrorProcessorNodeError: Error {
     case badRequest(Data)
-    case internalServerError(Data)
     case unauthorized(Data)
     case forbidden(Data)
     case notFound
+    case internalServerError(Data)
 }
 
+/// Этот узел обрабатывает ответ сервера и в случае статус кодов,
+/// которые соответствуют ошибкам, перечисленным в `ResponseHttpErrorProcessorNodeError`
+/// В случае, если коды не совпали в необходимыми,то управление переходит следующему узлу.
 open class ResponseHttpErrorProcessorNode: ResponseProcessingLayerNode {
 
     public typealias HttpError = ResponseHttpErrorProcessorNodeError
 
+    /// Следующий узел для обработки.
     public var next: ResponseProcessingLayerNode
 
+    /// Инициаллизирует объект.
+    ///
+    /// - Parameter next: Следующий узел для обработки.
     public init(next: ResponseProcessingLayerNode) {
         self.next = next
     }
 
+    /// Сопосотавляет HTTP-коды с заданными и в случае их несовпадения передает управление дальше.
+    /// В противном случае возвращает `HttpError`
+    ///
+    /// - Parameter data: Модель ответа сервера.
     open override func process(_ data: UrlDataResponse) -> Observer<Json> {
 
         let context = Context<Json>()

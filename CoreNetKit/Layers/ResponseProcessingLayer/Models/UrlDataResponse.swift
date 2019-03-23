@@ -9,15 +9,15 @@
 import Foundation
 import Alamofire
 
-/// Custom view of raw response type.
-/// Used for trasfer data inside response processing layer.
+/// Модель представления ответа сервера.
+/// Используется для передачи информации внутри цепочки обработки ответа.
 public struct UrlDataResponse {
-    /// The URL request sent to the server.
+    /// Запрос, отправленный на сервер.
     public let request: URLRequest
-    /// The server's response to the URL request.
+    /// Ответ, полученный от сервера
     public let response: HTTPURLResponse
-    /// The data returned by the server.
+    /// Данные, возвращенные сервером.
     public let data: Data
-    /// The timeline of the complete lifecycle of the request.
+    /// Временные метки выполнения запроса.
     public let timeline: Timeline
 }

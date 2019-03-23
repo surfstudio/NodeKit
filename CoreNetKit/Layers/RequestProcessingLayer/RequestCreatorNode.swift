@@ -9,75 +9,22 @@
 import Foundation
 import Alamofire
 
-public class ServerRequestsManager {
-
-    static let shared = ServerRequestsManager()
-
-    let manager: SessionManager
-
-    init() {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForResource = 60 * 3
-        configuration.timeoutIntervalForRequest = 60 * 3
-        configuration.requestCachePolicy = .reloadIgnoringCacheData
-        configuration.urlCache = nil
-        self.manager = Alamofire.SessionManager(configuration: configuration)
-    }
-}
-
-extension CoreNetKit.ParametersEncoding {
-    var raw: ParameterEncoding {
-        switch self {
-        case .json:
-            return JSONEncoding.default
-        case .urlQuery:
-            return URLEncoding.default
-        case .formUrl:
-            return URLEncoding.queryString
-        }
-    }
-}
-
-extension CoreNetKit.Method {
-    var http: HTTPMethod {
-        switch self {
-        case .get:
-            return .get
-        case .post:
-            return .post
-        case .put:
-            return .put
-        case .delete:
-            return .delete
-        }
-    }
-}
-
-public struct UrlNetworkRequest {
-    let urlRequest: URLRequest
-}
-
-public struct RawUrlRequest {
-    let dataRequest: DataRequest
-
-    func toUrlRequest() -> UrlNetworkRequest? {
-
-        guard let urlRequest = self.dataRequest.request else {
-            return nil
-        }
-
-        return UrlNetworkRequest(urlRequest: urlRequest)
-    }
-}
-
+/// Этот узел инициаллизирует URL запрос.
 open class RequestCreatorNode: Node<TransportUrlRequest, Json> {
 
+    /// Следующий узел для обработки.
     public var next: RequestProcessingLayerNode
 
+    /// Инициаллизирует узел.
+    ///
+    /// - Parameter next: Следующий узел для обработки.
     public init(next: RequestProcessingLayerNode) {
         self.next = next
     }
 
+    /// Конфигурирует низкоуровненвый запрос.
+    ///
+    /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open override func process(_ data: TransportUrlRequest) -> Observer<Json> {
         let manager = ServerRequestsManager.shared.manager
 

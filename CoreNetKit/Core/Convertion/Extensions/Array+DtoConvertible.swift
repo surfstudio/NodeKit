@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Позволяетп редставлять массив с элементами `DTOConvertible` как `DTOConvertible` в случае, если `Raw == Json`
 extension Array: DTOConvertible where Element: DTOConvertible, Element.DTO.Raw == Json {
 
     public typealias DTO = Array<Element.DTO>
