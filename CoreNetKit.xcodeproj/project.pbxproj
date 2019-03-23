@@ -302,6 +302,8 @@
 		B10D4BEE222DF453006B9EE9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B199E767223CF2920001FE17 /* Method.swift */,
+				B199E769223CF2A10001FE17 /* ParametersEncoding.swift */,
 				B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */,
 				B10D4BF1222DF472006B9EE9 /* RoutableRequestModel.swift */,
 				B10D4BF3222DF48D006B9EE9 /* EncodableRequestModel.swift */,
@@ -327,14 +329,13 @@
 			path = Convertion;
 			sourceTree = "<group>";
 		};
-		B1118EEE21C8B7D1007AD599 /* ModelInput */ = {
+		B1118EEE21C8B7D1007AD599 /* InputProcessingLayer */ = {
 			isa = PBXGroup;
 			children = (
 				B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */,
-				B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */,
 				B19FB53F224664FA0038B12B /* VoidInputNode.swift */,
 			);
-			path = ModelInput;
+			path = InputProcessingLayer;
 			sourceTree = "<group>";
 		};
 		B1118EF821C8CD7D007AD599 /* Chains */ = {
@@ -393,15 +394,13 @@
 			path = DTOProcessingLayer;
 			sourceTree = "<group>";
 		};
-		B13E04F121C7F40D00956853 /* RawModelProcessingLayer */ = {
+		B13E04F121C7F40D00956853 /* TrasportLayer */ = {
 			isa = PBXGroup;
 			children = (
 				B1E61E49224672A700B3AAD9 /* Models */,
 				B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */,
-				B199E767223CF2920001FE17 /* Method.swift */,
-				B199E769223CF2A10001FE17 /* ParametersEncoding.swift */,
 			);
-			path = RawModelProcessingLayer;
+			path = TrasportLayer;
 			sourceTree = "<group>";
 		};
 		B13E04F221C7F42300956853 /* RequestProcessingLayer */ = {
@@ -429,14 +428,15 @@
 		B13E04F521C7F49B00956853 /* Layers */ = {
 			isa = PBXGroup;
 			children = (
-				B1118EEE21C8B7D1007AD599 /* ModelInput */,
-				B10D4BED222DF43F006B9EE9 /* RequestBuildingLayer */,
-				B1B7615222080E4200AE3303 /* Utils */,
+				B1E61E532246A11800B3AAD9 /* ConfigurationLayer */,
+				B1118EEE21C8B7D1007AD599 /* InputProcessingLayer */,
 				B13E04F021C7D12A00956853 /* DTOProcessingLayer */,
-				B13E04F121C7F40D00956853 /* RawModelProcessingLayer */,
+				B10D4BED222DF43F006B9EE9 /* RequestBuildingLayer */,
+				B13E04F121C7F40D00956853 /* TrasportLayer */,
 				B13E04F221C7F42300956853 /* RequestProcessingLayer */,
 				B13E04F321C7F43200956853 /* ResponseProcessingLayer */,
 				B1B76158220811C400AE3303 /* ResponsePostprocessingNode */,
+				B1B7615222080E4200AE3303 /* Utils */,
 				B1B7615022080C4800AE3303 /* LayerTypes.swift */,
 			);
 			path = Layers;
@@ -609,6 +609,14 @@
 				B1E61E512246774E00B3AAD9 /* ParametersEncoding+Alamofire.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		B1E61E532246A11800B3AAD9 /* ConfigurationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */,
+			);
+			path = ConfigurationLayer;
 			sourceTree = "<group>";
 		};
 		B1F0C6ED21B1DDCF00382FA5 /* Contexts */ = {
