@@ -11,17 +11,6 @@ import Foundation
 @testable
 import CoreNetKit
 
-public final class Infrastructure {
-    public static let baseURL = URL(string: "http://127.0.0.1:8844")!
-
-    public static let getUsersURL = URL(string: "users", relativeTo: baseURL)!
-
-    public static let getEmptyUserArray = URL(string: "userAmptyArr", relativeTo: baseURL)!
-    public static let getEmptyUsersWith402 = URL(string: "Get402UserArr", relativeTo: baseURL)!
-
-    public static let authWithFormUrl = URL(string: "authWithFormUrl", relativeTo: baseURL)!
-}
-
 public enum Routes {
 
     public enum Exception: Error {
@@ -37,7 +26,7 @@ public enum Routes {
 extension Routes: UrlRouteProvider {
 
     private static var base: URL? {
-        return URL(string: "http://127.0.0.1:8811")
+        return URL(string: "http://127.0.0.1:8844")
     }
 
     public func url() throws -> URL {
