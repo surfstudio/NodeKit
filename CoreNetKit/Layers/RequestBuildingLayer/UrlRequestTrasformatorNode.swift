@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Этот узел переводит Generic запрос в конкретную реализацию. Данный узел работает с URL-запросами, по HTTP протоколу с JSON
 open class UrlRequestTrasformatorNode: Node<EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>, Json> {
 
     public var next: TransportLayerNode

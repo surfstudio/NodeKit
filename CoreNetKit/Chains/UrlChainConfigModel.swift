@@ -25,6 +25,13 @@ public struct UrlChainConfigModel {
     /// По умолчанию`.json`
     public let encoding: ParametersEncoding
 
+    /// Инициаллизирует объект.
+    ///
+    /// - Parameters:
+    ///   - method: HTTP метод, который будет использован цепочкой
+    ///   - route: Маршрут до удаленного метод
+    ///   - metadata: В случае классического HTTP это Header'ы запроса. По-умолчанию пустой.
+    ///   - encoding: Кодировка данных для запроса. По-умолчанию `.json`
     public init(method: Method,
          route: UrlRouteProvider,
          metadata: [String: String] = [:],

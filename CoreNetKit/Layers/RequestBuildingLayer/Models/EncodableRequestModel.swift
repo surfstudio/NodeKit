@@ -8,17 +8,20 @@
 
 import Foundation
 
-/// Модель за проса в сеть.
-/// Является промежуточным представлением использующимся на 
+/// Модель для запроса в сеть.
+/// Является обобщенным представлениям любого запроса.
 /// Является следующим этапом после `RoutableRequestModel`
-/// В дальнейшем ковнертируется в `EncodableRequestModel`
 ///
 /// - SeeAlso:
 ///     - `RoutableRequestModel`
 ///     - `EncodableRequestModel`
 public struct EncodableRequestModel<Route, Raw, Encoding> {
+    /// Метаданные
     public var metadata: [String: String]
+    /// Данные для запроса в Raw
     public var raw: Raw
+    /// Маршрут до удаленного метода
     public var route: Route
+    /// Кодировка данных запроса
     public var encoding: Encoding
 }

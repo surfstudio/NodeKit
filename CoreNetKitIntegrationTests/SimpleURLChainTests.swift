@@ -18,7 +18,7 @@ public class SimpleURLChainTests: XCTestCase {
 
         // Arrange
 
-        let chainRoot: Node<EmptyModel, [User]> = Chains().default(with: .init(method: .get,
+        let chainRoot: Node<EmptyModel, [User]> = UrlChains().default(with: .init(method: .get,
                                                                                route: Routes.users))
 
         let id = "id"

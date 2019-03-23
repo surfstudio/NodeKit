@@ -14,7 +14,7 @@ public enum BaseTechnicalError: Error {
     case cantConnectToHost
 }
 
-open class TechnicaErrorMapperNode: TransportLayerNode{
+open class TechnicaErrorMapperNode: TransportLayerNode {
 
     open var next: TransportLayerNode
 
