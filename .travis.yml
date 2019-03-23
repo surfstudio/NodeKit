@@ -8,7 +8,7 @@ before_install:
   - brew update
   - gem install jazzy
   - brew install swiftlint || true
-before script:
+before_script:
   - eval "$(ssh-agent -s)"
   - chmod 600 ssh/id_rsa
   - echo -e "Host lastsprint.dev\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
