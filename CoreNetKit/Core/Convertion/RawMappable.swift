@@ -8,6 +8,9 @@
 
 import Foundation
 
+/// Словарь вида `[String: Any]`
+public typealias Json = [String: Any]
+
 /// Описывает сущность из нижнего слоя DTO.
 /// Может конвертировать себя в RAW (например JSON) и конвертировать RAW в себя.
 public protocol RawMappable {

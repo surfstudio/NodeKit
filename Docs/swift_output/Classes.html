@@ -14,7 +14,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">CoreNetKit Docs</a> (63% documented)</p>
+        <p><a href="index.html">CoreNetKit Docs</a> (90% documented)</p>
         <p class="header-right"><a href="https://github.com/surfstudio/CoreNetKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -45,9 +45,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Classes/ChainConfiguratorNode.html">ChainConfiguratorNode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Chains.html">Chains</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/Context.html">Context</a>
@@ -104,13 +101,7 @@
                 <a href="Classes/ResponseProcessorNode.html">ResponseProcessorNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes.html#/s:10CoreNetKit21ServerRequestsManagerC">ServerRequestsManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/ServiceChain.html">ServiceChain</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/SimpleModelInputNode.html">SimpleModelInputNode</a>
+                <a href="Classes/ServerRequestsManager.html">ServerRequestsManager</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/TechnicaErrorMapperNode.html">TechnicaErrorMapperNode</a>
@@ -119,13 +110,13 @@
                 <a href="Classes/TokenRefresherNode.html">TokenRefresherNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/TransportNode.html">TransportNode</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Classes/UrlCacheReaderNode.html">UrlCacheReaderNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/UrlCacheWriterNode.html">UrlCacheWriterNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/UrlChainsBuilder.html">UrlChainsBuilder</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/UrlETagReaderNode.html">UrlETagReaderNode</a>
@@ -139,6 +130,12 @@
               <li class="nav-group-task">
                 <a href="Classes/UrlRequestTrasformatorNode.html">UrlRequestTrasformatorNode</a>
               </li>
+              <li class="nav-group-task">
+                <a href="Classes/UrlServiceChainBuilder.html">UrlServiceChainBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VoidInputNode.html">VoidInputNode</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -146,9 +143,6 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Enums/AccessSafeNodeError.html">AccessSafeNodeError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/BaseCommonError.html">BaseCommonError</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/BaseFirstCachePolicyNodeError.html">BaseFirstCachePolicyNodeError</a>
@@ -181,9 +175,6 @@
                 <a href="Enums/ResponseDataParserNodeError.html">ResponseDataParserNodeError</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/ResponseDataProcessorNodeError.html">ResponseDataProcessorNodeError</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Enums/ResponseHttpErrorProcessorNodeError.html">ResponseHttpErrorProcessorNodeError</a>
               </li>
               <li class="nav-group-task">
@@ -196,6 +187,18 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/CoreNetKit.html">CoreNetKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/CoreNetKit/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/CoreNetKit/ParametersEncoding.html">– ParametersEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Dictionary.html">Dictionary</a>
               </li>
             </ul>
           </li>
@@ -232,16 +235,10 @@
             <a href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Structs/EmptyModel.html">EmptyModel</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/EmptyModelEntry.html">EmptyModelEntry</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Structs/EncodableRequestModel.html">EncodableRequestModel</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs.html#/s:10CoreNetKit13RawUrlRequestV">RawUrlRequest</a>
+                <a href="Structs/RawUrlRequest.html">RawUrlRequest</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/RequestModel.html">RequestModel</a>
@@ -395,7 +392,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">FirstCachePolicyNode</span> <span class="p">:</span> <span class="kt"><a href="Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt"><a href="Structs.html#/s:10CoreNetKit13RawUrlRequestV">RawUrlRequest</a></span><span class="p">,</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">FirstCachePolicyNode</span> <span class="p">:</span> <span class="kt"><a href="Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt"><a href="Structs/RawUrlRequest.html">RawUrlRequest</a></span><span class="p">,</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -547,9 +544,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10CoreNetKit6ChainsC"></a>
-                    <a name="//apple_ref/swift/Class/Chains" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10CoreNetKit6ChainsC">Chains</a>
+                    <a name="/s:10CoreNetKit16UrlChainsBuilderC"></a>
+                    <a name="//apple_ref/swift/Class/UrlChainsBuilder" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit16UrlChainsBuilderC">UrlChainsBuilder</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -557,15 +554,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Пустой класс, имеющий набор extension-ов для каждой default-ой реализации цепочек.</p>
+                        <p>Реулизует набор цепочек для отправки URL запросов.</p>
 
-                        <a href="Classes/Chains.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/UrlChainsBuilder.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Chains</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">UrlChainsBuilder</span></code></pre>
 
                         </div>
                       </div>
@@ -579,9 +576,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10CoreNetKit12ServiceChainC"></a>
-                    <a name="//apple_ref/swift/Class/ServiceChain" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10CoreNetKit12ServiceChainC">ServiceChain</a>
+                    <a name="/s:10CoreNetKit22UrlServiceChainBuilderC"></a>
+                    <a name="//apple_ref/swift/Class/UrlServiceChainBuilder" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit22UrlServiceChainBuilderC">UrlServiceChainBuilder</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -589,15 +586,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Умеет создавать цеопчки</p>
 
-                        <a href="Classes/ServiceChain.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/UrlServiceChainBuilder.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">ServiceChain</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">UrlServiceChainBuilder</span></code></pre>
 
                         </div>
                       </div>
@@ -793,7 +790,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел отвечает за маппинг верхнего уровня DTO (<code><a href="Protocols/DTOConvertible.html">DTOConvertible</a></code>) в нижний уровень (<code><a href="Protocols/RawMappable.html">RawMappable</a></code>) и наорот.</p>
 
                         <a href="Classes/DTOMapperNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -825,7 +822,10 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Конфигурирующий узел.
+Всегда должен быть корневым узлом в графе обработчиков.
+Этот узел позволяет установить очередь на которой будет происходит дальнейшая обработк запроса
+И очередь на которой обработка будет закончена.</p>
 
                         <a href="Classes/ChainConfiguratorNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -857,7 +857,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Узел для инциаллизации обработки данных.
+Иcпользуется для работы с моделями, которые представлены двумя слоями DTO.</p>
 
                         <a href="Classes/ModelInputNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -872,12 +873,16 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10CoreNetKit20SimpleModelInputNodeC"></a>
-                    <a name="//apple_ref/swift/Class/SimpleModelInputNode" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10CoreNetKit20SimpleModelInputNodeC">SimpleModelInputNode</a>
+                    <a name="/s:10CoreNetKit13VoidInputNodeC"></a>
+                    <a name="//apple_ref/swift/Class/VoidInputNode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit13VoidInputNodeC">VoidInputNode</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -885,15 +890,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Узел, который позволяет передать на вход <code>Void</code>.</p>
 
-                        <a href="Classes/SimpleModelInputNode.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/VoidInputNode.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SimpleModelInputNode</span><span class="o">&lt;</span><span class="kt">Input</span><span class="p">,</span> <span class="kt">Output</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt">Input</span><span class="p">,</span> <span class="kt">Output</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">Input</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RawMappable.html">RawMappable</a></span><span class="p">,</span> <span class="kt">Output</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DTOConvertible.html">DTOConvertible</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">VoidInputNode</span><span class="o">&lt;</span><span class="kt">Output</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">Output</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -917,7 +922,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел заниматеся маппингом технических ошибок
+(ошибок уровня ОС)</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="Enums/BaseTechnicalError.html">BaseTechnicalError</a></code>
+
+</div>
 
                         <a href="Classes/TechnicaErrorMapperNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -926,38 +937,6 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">TechnicaErrorMapperNode</span> <span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit18TransportLayerNodea">TransportLayerNode</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:10CoreNetKit13TransportNodeC"></a>
-                    <a name="//apple_ref/swift/Class/TransportNode" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10CoreNetKit13TransportNodeC">TransportNode</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                        <a href="Classes/TransportNode.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">TransportNode</span> <span class="p">:</span> <span class="kt"><a href="Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt"><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></span><span class="p">,</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1111,7 +1090,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел переводит Generic запрос в конкретную реализацию.
+Данный узел работает с URL-запросами, по HTTP протоколу с JSON</p>
 
                         <a href="Classes/UrlRequestTrasformatorNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1143,7 +1123,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел отправляет запрос на сервер и ожидает ответ.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    этот узел имеет состояние (statefull)
+
+</div>
 
                         <a href="Classes/RequestSenderNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1151,7 +1136,39 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">RequestSenderNode</span> <span class="p">:</span> <span class="kt"><a href="Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt"><a href="Structs.html#/s:10CoreNetKit13RawUrlRequestV">RawUrlRequest</a></span><span class="p">,</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="Protocols/Aborter.html">Aborter</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">RequestSenderNode</span> <span class="p">:</span> <span class="kt"><a href="Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt"><a href="Structs/RawUrlRequest.html">RawUrlRequest</a></span><span class="p">,</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="Protocols/Aborter.html">Aborter</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit18RequestCreatorNodeC"></a>
+                    <a name="//apple_ref/swift/Class/RequestCreatorNode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit18RequestCreatorNodeC">RequestCreatorNode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Этот узел инициаллизирует URL запрос.</p>
+
+                        <a href="Classes/RequestCreatorNode.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">RequestCreatorNode</span> <span class="p">:</span> <span class="kt"><a href="Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt"><a href="Structs/TransportUrlRequest.html">TransportUrlRequest</a></span><span class="p">,</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1175,42 +1192,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Менеджер запросов к серверу.
+Работает c <code>SessionManager</code> и является синглтоном.</p>
 
+                        <a href="Classes/ServerRequestsManager.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ServerRequestsManager</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:10CoreNetKit18RequestCreatorNodeC"></a>
-                    <a name="//apple_ref/swift/Class/RequestCreatorNode" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10CoreNetKit18RequestCreatorNodeC">RequestCreatorNode</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                        <a href="Classes/RequestCreatorNode.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">RequestCreatorNode</span> <span class="p">:</span> <span class="kt"><a href="Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt"><a href="Structs/TransportUrlRequest.html">TransportUrlRequest</a></span><span class="p">,</span> <span class="kt"><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1234,7 +1225,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Выполняет преобразование преобразование <q>сырых</q> данных в <code><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></code></p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="Enums/MappingUtils.html">MappingUtils</a></code>
+
+</div>
 
                         <a href="Classes/ResponseDataParserNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1266,7 +1262,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел занимается десериализаций данных ответа в <code>JSON</code>.
+В случае 204-го ответа далее передает пустой <code><a href="Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></code>.</p>
 
                         <a href="Classes/ResponseDataPreprocessorNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1298,7 +1295,9 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел обрабатывает ответ сервера и в случае статус кодов,
+которые соответствуют ошибкам, перечисленным в <code><a href="Enums/ResponseHttpErrorProcessorNodeError.html">ResponseHttpErrorProcessorNodeError</a></code>
+В случае, если коды не совпали в необходимыми,то управление переходит следующему узлу.</p>
 
                         <a href="Classes/ResponseHttpErrorProcessorNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1330,7 +1329,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Этот узел занимается первичной обработкой ответа сервера.</p>
 
                         <a href="Classes/ResponseProcessorNode.html" class="slightly-smaller">See more</a>
                       </div>
@@ -1599,7 +1598,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-17)</p>
+          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

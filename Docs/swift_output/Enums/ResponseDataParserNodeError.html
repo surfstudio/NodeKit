@@ -14,7 +14,7 @@
     <a title="ResponseDataParserNodeError Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">CoreNetKit Docs</a> (63% documented)</p>
+        <p><a href="../index.html">CoreNetKit Docs</a> (90% documented)</p>
         <p class="header-right"><a href="https://github.com/surfstudio/CoreNetKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -45,9 +45,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ChainConfiguratorNode.html">ChainConfiguratorNode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/Chains.html">Chains</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Context.html">Context</a>
@@ -104,13 +101,7 @@
                 <a href="../Classes/ResponseProcessorNode.html">ResponseProcessorNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/s:10CoreNetKit21ServerRequestsManagerC">ServerRequestsManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ServiceChain.html">ServiceChain</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/SimpleModelInputNode.html">SimpleModelInputNode</a>
+                <a href="../Classes/ServerRequestsManager.html">ServerRequestsManager</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/TechnicaErrorMapperNode.html">TechnicaErrorMapperNode</a>
@@ -119,13 +110,13 @@
                 <a href="../Classes/TokenRefresherNode.html">TokenRefresherNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/TransportNode.html">TransportNode</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/UrlCacheReaderNode.html">UrlCacheReaderNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/UrlCacheWriterNode.html">UrlCacheWriterNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UrlChainsBuilder.html">UrlChainsBuilder</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/UrlETagReaderNode.html">UrlETagReaderNode</a>
@@ -139,6 +130,12 @@
               <li class="nav-group-task">
                 <a href="../Classes/UrlRequestTrasformatorNode.html">UrlRequestTrasformatorNode</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UrlServiceChainBuilder.html">UrlServiceChainBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidInputNode.html">VoidInputNode</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -146,9 +143,6 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Enums/AccessSafeNodeError.html">AccessSafeNodeError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/BaseCommonError.html">BaseCommonError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/BaseFirstCachePolicyNodeError.html">BaseFirstCachePolicyNodeError</a>
@@ -181,9 +175,6 @@
                 <a href="../Enums/ResponseDataParserNodeError.html">ResponseDataParserNodeError</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/ResponseDataProcessorNodeError.html">ResponseDataProcessorNodeError</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/ResponseHttpErrorProcessorNodeError.html">ResponseHttpErrorProcessorNodeError</a>
               </li>
               <li class="nav-group-task">
@@ -196,6 +187,18 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CoreNetKit.html">CoreNetKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CoreNetKit/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CoreNetKit/ParametersEncoding.html">– ParametersEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Dictionary.html">Dictionary</a>
               </li>
             </ul>
           </li>
@@ -232,16 +235,10 @@
             <a href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/EmptyModel.html">EmptyModel</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/EmptyModelEntry.html">EmptyModelEntry</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/EncodableRequestModel.html">EncodableRequestModel</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs.html#/s:10CoreNetKit13RawUrlRequestV">RawUrlRequest</a>
+                <a href="../Structs/RawUrlRequest.html">RawUrlRequest</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RequestModel.html">RequestModel</a>
@@ -301,7 +298,12 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Ошибки для узлы <code><a href="../Classes/ResponseDataParserNode.html">ResponseDataParserNode</a></code></p>
+
+<ul>
+<li>cantDeserializeJson: Возникает в случае, если не удалось получить <code><a href="../Typealiases.html#/s:10CoreNetKit4Jsona">Json</a></code> из ответа сервера.</li>
+<li>cantCastDesirializedDataToJson: Возникает в случае, если из <code>Data</code> не удалось сериализовать <code>JSON</code></li>
+</ul>
 
           </section>
           <section class="section task-group-section">
@@ -310,9 +312,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10CoreNetKit27ResponseDataParserNodeErrorO17cantDerializeJsonyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/cantDerializeJson" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10CoreNetKit27ResponseDataParserNodeErrorO17cantDerializeJsonyA2CmF">cantDerializeJson</a>
+                    <a name="/s:10CoreNetKit27ResponseDataParserNodeErrorO19cantDeserializeJsonyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/cantDeserializeJson" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit27ResponseDataParserNodeErrorO19cantDeserializeJsonyA2CmF">cantDeserializeJson</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -327,7 +329,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cantDerializeJson</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cantDeserializeJson</span></code></pre>
 
                         </div>
                       </div>
@@ -366,7 +368,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-17)</p>
+          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

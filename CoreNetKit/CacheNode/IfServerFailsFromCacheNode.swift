@@ -30,7 +30,6 @@ open class IfConnectionFailedFromCacheNode: ResponseProcessingLayerNode {
     /// Проверяет, произошла ли ошибка связи в ответ на запрос.
     /// Если ошибка произошла, то возвращает успешный ответ из кэша.
     /// В противном случае передает управление следующему узлу.
-    ///
     open override func process(_ data: UrlDataResponse) -> Observer<Json> {
         guard data.response.statusCode != -1009 else {
             return self.cacheReaderNode.process(data)

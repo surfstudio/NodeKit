@@ -21,5 +21,10 @@ public protocol DTOConvertible {
     /// - Returns: Результат конвертирования.
     /// - Throws: Могут возникать любе исключения, определенные пользователем.
     static func toModel(from: DTO) throws -> Self
+
+    /// Получает DTO-модель нижнего уровня из себя.
+    ///
+    /// - Returns: Результат конвертирования.
+    /// - Throws: Могут возникать любе исключения, определенные пользователем.
     func toDTO() throws -> DTO
 }

@@ -14,7 +14,7 @@
     <a title="ChainConfiguratorNode Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">CoreNetKit Docs</a> (63% documented)</p>
+        <p><a href="../index.html">CoreNetKit Docs</a> (90% documented)</p>
         <p class="header-right"><a href="https://github.com/surfstudio/CoreNetKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -45,9 +45,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/ChainConfiguratorNode.html">ChainConfiguratorNode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/Chains.html">Chains</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Context.html">Context</a>
@@ -104,13 +101,7 @@
                 <a href="../Classes/ResponseProcessorNode.html">ResponseProcessorNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/s:10CoreNetKit21ServerRequestsManagerC">ServerRequestsManager</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/ServiceChain.html">ServiceChain</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/SimpleModelInputNode.html">SimpleModelInputNode</a>
+                <a href="../Classes/ServerRequestsManager.html">ServerRequestsManager</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/TechnicaErrorMapperNode.html">TechnicaErrorMapperNode</a>
@@ -119,13 +110,13 @@
                 <a href="../Classes/TokenRefresherNode.html">TokenRefresherNode</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/TransportNode.html">TransportNode</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/UrlCacheReaderNode.html">UrlCacheReaderNode</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/UrlCacheWriterNode.html">UrlCacheWriterNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UrlChainsBuilder.html">UrlChainsBuilder</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/UrlETagReaderNode.html">UrlETagReaderNode</a>
@@ -139,6 +130,12 @@
               <li class="nav-group-task">
                 <a href="../Classes/UrlRequestTrasformatorNode.html">UrlRequestTrasformatorNode</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UrlServiceChainBuilder.html">UrlServiceChainBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidInputNode.html">VoidInputNode</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -146,9 +143,6 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Enums/AccessSafeNodeError.html">AccessSafeNodeError</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/BaseCommonError.html">BaseCommonError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/BaseFirstCachePolicyNodeError.html">BaseFirstCachePolicyNodeError</a>
@@ -181,9 +175,6 @@
                 <a href="../Enums/ResponseDataParserNodeError.html">ResponseDataParserNodeError</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/ResponseDataProcessorNodeError.html">ResponseDataProcessorNodeError</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/ResponseHttpErrorProcessorNodeError.html">ResponseHttpErrorProcessorNodeError</a>
               </li>
               <li class="nav-group-task">
@@ -196,6 +187,18 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CoreNetKit.html">CoreNetKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CoreNetKit/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CoreNetKit/ParametersEncoding.html">– ParametersEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Dictionary.html">Dictionary</a>
               </li>
             </ul>
           </li>
@@ -232,16 +235,10 @@
             <a href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/EmptyModel.html">EmptyModel</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/EmptyModelEntry.html">EmptyModelEntry</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/EncodableRequestModel.html">EncodableRequestModel</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs.html#/s:10CoreNetKit13RawUrlRequestV">RawUrlRequest</a>
+                <a href="../Structs/RawUrlRequest.html">RawUrlRequest</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RequestModel.html">RequestModel</a>
@@ -301,7 +298,10 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Конфигурирующий узел.
+Всегда должен быть корневым узлом в графе обработчиков.
+Этот узел позволяет установить очередь на которой будет происходит дальнейшая обработк запроса
+И очередь на которой обработка будет закончена.</p>
 
           </section>
           <section class="section task-group-section">
@@ -320,7 +320,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Следующей узел для обработки.</p>
 
                       </div>
                       <div class="declaration">
@@ -330,6 +330,130 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">next</span><span class="p">:</span> <span class="kt"><a href="../Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt">I</span><span class="p">,</span> <span class="kt">O</span><span class="o">&gt;</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit21ChainConfiguratorNodeC10beginQueueSo17OS_dispatch_queueCvp"></a>
+                    <a name="//apple_ref/swift/Property/beginQueue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit21ChainConfiguratorNodeC10beginQueueSo17OS_dispatch_queueCvp">beginQueue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Очерель на которой необходимо выполнить все дальнейшие преобразования.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">beginQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit21ChainConfiguratorNodeC8endQueueSo17OS_dispatch_queueCvp"></a>
+                    <a name="//apple_ref/swift/Property/endQueue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit21ChainConfiguratorNodeC8endQueueSo17OS_dispatch_queueCvp">endQueue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Очередь на которой необходимо выполнить возврат результата работы цепочки.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">endQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10CoreNetKit21ChainConfiguratorNodeC4next10beginQueue03endI0ACyxq_GAA0F0Cyxq_G_So17OS_dispatch_queueCALtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(next:beginQueue:endQueue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10CoreNetKit21ChainConfiguratorNodeC4next10beginQueue03endI0ACyxq_GAA0F0Cyxq_G_So17OS_dispatch_queueCALtcfc">init(next:beginQueue:endQueue:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Инициаллизирует узел.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">next</span><span class="p">:</span> <span class="kt"><a href="../Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt">I</span><span class="p">,</span> <span class="kt">O</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">beginQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="p">,</span> <span class="nv">endQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>next</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Следующей узел для обработки.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>beginQueue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Очерель на которой необходимо выполнить все дальнейшие преобразования.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>endQueue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Очередь на которой необходимо выполнить возврат результата работы цепочки.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -347,16 +471,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Вспомогательный инциализатор.
+Для очередие используются значения по-умолчанию:</p>
+
+<ul>
+<li><code>beginQueue = .global(qos: .userInitiated)</code></li>
+<li><p><code>endQueue = .main</code></p></li>
+</ul>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">next</span><span class="p">:</span> <span class="kt"><a href="../Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt">I</span><span class="p">,</span> <span class="kt">O</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">next</span><span class="p">:</span> <span class="kt"><a href="../Classes/Node.html">Node</a></span><span class="o">&lt;</span><span class="kt">I</span><span class="p">,</span> <span class="kt">O</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>next</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Следующей узел для обработки.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -374,7 +523,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Созздает асинхронный контект с очередью <code><a href="../Classes/ChainConfiguratorNode.html#/s:10CoreNetKit21ChainConfiguratorNodeC10beginQueueSo17OS_dispatch_queueCvp">beginQueue</a></code>,
+затем выполняет всю цепочку операций и диспатчит ответ на <code><a href="../Classes/ChainConfiguratorNode.html#/s:10CoreNetKit21ChainConfiguratorNodeC8endQueueSo17OS_dispatch_queueCvp">endQueue</a></code></p>
 
                       </div>
                       <div class="declaration">
@@ -385,6 +535,25 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Данные для обработки</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -393,7 +562,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-17)</p>
+          <p>&copy; 2019 <a class="link" href="https://lastsprint.dev" target="_blank" rel="external">Alexander</a>. All rights reserved. (Last updated: 2019-03-23)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

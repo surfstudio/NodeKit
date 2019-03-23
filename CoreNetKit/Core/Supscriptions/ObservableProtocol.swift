@@ -40,6 +40,7 @@ open class Observer<Input>: ObservableProtocol {
 
     public typealias Model = Input
 
+    /// Конструткор по-умолчанию.
     public init() { }
 
     /// Используется для подписки на событие об успешном выполнения операции.

@@ -46,7 +46,6 @@
 		B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */; };
 		B17E86912220413900400931 /* AccessSafeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E86902220413900400931 /* AccessSafeNode.swift */; };
 		B1848A132204822400F54705 /* UserEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1848A122204822400F54705 /* UserEntry.swift */; };
-		B199E762223CF1F80001FE17 /* TransportNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1118EF321C8C4AC007AD599 /* TransportNode.swift */; };
 		B199E764223CF2500001FE17 /* TransportUrlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E763223CF2500001FE17 /* TransportUrlRequest.swift */; };
 		B199E766223CF26A0001FE17 /* TransportUrlParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E765223CF26A0001FE17 /* TransportUrlParameters.swift */; };
 		B199E768223CF2920001FE17 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E767223CF2920001FE17 /* Method.swift */; };
@@ -136,7 +135,6 @@
 		B1118EEC21C8B772007AD599 /* DTOConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOConvertible.swift; sourceTree = "<group>"; };
 		B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelInputNode.swift; sourceTree = "<group>"; };
 		B1118EF121C8C1B9007AD599 /* DTOMapperNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOMapperNode.swift; sourceTree = "<group>"; };
-		B1118EF321C8C4AC007AD599 /* TransportNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportNode.swift; sourceTree = "<group>"; };
 		B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreatorNode.swift; sourceTree = "<group>"; };
 		B1118EF921C8CD8B007AD599 /* UrlServiceChainBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlServiceChainBuilder.swift; sourceTree = "<group>"; };
 		B112ECD122305F1200211E0E /* TokenRefresherNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherNode.swift; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 		B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechnicaErrorMapperNode.swift; sourceTree = "<group>"; };
 		B17E86902220413900400931 /* AccessSafeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessSafeNode.swift; sourceTree = "<group>"; };
 		B1848A122204822400F54705 /* UserEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntry.swift; sourceTree = "<group>"; };
-		B1848A14220483EC00F54705 /* EmptyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyModel.swift; sourceTree = "<group>"; };
 		B199E763223CF2500001FE17 /* TransportUrlRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportUrlRequest.swift; sourceTree = "<group>"; };
 		B199E765223CF26A0001FE17 /* TransportUrlParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportUrlParameters.swift; sourceTree = "<group>"; };
 		B199E767223CF2920001FE17 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
@@ -334,7 +331,6 @@
 			isa = PBXGroup;
 			children = (
 				B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */,
-				B1848A14220483EC00F54705 /* EmptyModel.swift */,
 				B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */,
 				B19FB53F224664FA0038B12B /* VoidInputNode.swift */,
 			);
@@ -401,7 +397,6 @@
 			isa = PBXGroup;
 			children = (
 				B1E61E49224672A700B3AAD9 /* Models */,
-				B1118EF321C8C4AC007AD599 /* TransportNode.swift */,
 				B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */,
 				B199E767223CF2920001FE17 /* Method.swift */,
 				B199E769223CF2A10001FE17 /* ParametersEncoding.swift */,
@@ -1016,7 +1011,6 @@
 				B1DCC1CD22465551006664C1 /* UrlChainsBuilder.swift in Sources */,
 				B1B7615B220811F300AE3303 /* UrlProcessedResponse.swift in Sources */,
 				B10D4BF4222DF48D006B9EE9 /* EncodableRequestModel.swift in Sources */,
-				B199E762223CF1F80001FE17 /* TransportNode.swift in Sources */,
 				B113F871222DC460001CEEAC /* UrlETagSaverNode.swift in Sources */,
 				B113F873222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift in Sources */,
 				B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */,
