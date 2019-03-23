@@ -22,7 +22,7 @@ func main() {
 	router := mux.NewRouter()
 	addHTTPListners(router)
 
-	var server = http.Server{Addr: ":8811", Handler: router}
+	var server = http.Server{Addr: ":8844", Handler: router}
 
 	router.HandleFunc("/shutdown", func(w http.ResponseWriter, r *http.Request) {
 		server.Shutdown(context.Background())

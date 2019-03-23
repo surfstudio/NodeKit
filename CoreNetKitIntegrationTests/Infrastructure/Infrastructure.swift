@@ -12,7 +12,7 @@ import Foundation
 import CoreNetKit
 
 public final class Infrastructure {
-    public static let baseURL = URL(string: "http://127.0.0.1:8811")!
+    public static let baseURL = URL(string: "http://127.0.0.1:8844")!
 
     public static let getUsersURL = URL(string: "users", relativeTo: baseURL)!
 
