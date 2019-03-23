@@ -1,5 +1,5 @@
 #!/bin/bash
-curl 127.0.0.1:8844/shutdown
+set +e
 cd /home/guest/stage/CoreNetKit/TestServer/src/TestServer
 go get github.com/gorilla/mux
 setsid go run TestServer.go
