@@ -9,6 +9,7 @@ before_install:
   - gem install jazzy
   - brew install swiftlint || true
 script:
+  - ssh-add ./deploy_key
   - sh deploy_server.sh
   - sh prepare_tests.sh
   - xcodebuild test -workspace CoreNetKit.xcworkspace -scheme CoreNetKitIntegrationTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty -c
@@ -25,6 +26,5 @@ after_success:
   - bash <(curl -s http://lastsprint.dev:8844/shutdown)>
   - ssh-add ssh/id_rsa
   - ssh-add ssh/id_rsa.pub
-  - ssh
   - ./deploy_docs.sh
 
