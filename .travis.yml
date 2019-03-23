@@ -8,8 +8,12 @@ before_install:
   - brew update
   - gem install jazzy
   - brew install swiftlint || true
-script:
+before script:
+  - eval "$(ssh-agent -s)"
+  - chmod 600 ssh/id_rsa
+  - echo -e "Host lastsprint.dev\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - ssh-add ssh/id_rsa
+script:
   - sh deploy_server.sh
   - sh prepare_tests.sh
   - xcodebuild test -workspace CoreNetKit.xcworkspace -scheme CoreNetKitIntegrationTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty -c
