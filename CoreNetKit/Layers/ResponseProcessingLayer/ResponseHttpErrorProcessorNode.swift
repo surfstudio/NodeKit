@@ -13,6 +13,7 @@ public enum ResponseHttpErrorProcessorNodeError: Error {
     case internalServerError(Data)
     case unauthorized(Data)
     case forbidden(Data)
+    case notFound
 }
 
 open class ResponseHttpErrorProcessorNode: ResponseProcessingLayerNode {
@@ -36,6 +37,8 @@ open class ResponseHttpErrorProcessorNode: ResponseProcessingLayerNode {
             return context.emit(error: HttpError.unauthorized(data.data))
         case 403:
             return context.emit(error: HttpError.forbidden(data.data))
+        case 404:
+            return context.emit(error: HttpError.notFound)
         case 500:
             return context.emit(error: HttpError.internalServerError(data.data))
         default:

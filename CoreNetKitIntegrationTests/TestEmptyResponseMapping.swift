@@ -20,7 +20,7 @@ public class TestEmptyResponseMapping: XCTestCase {
 
         // Arrange
 
-        let chainRoot: Node<EmptyModel, [User]> = UrlChains().default(with: .init(method: .get,
+        let chainRoot: Node<Void, [User]> = UrlChainsBuilder().default(with: .init(method: .get,
                                                                                route: Routes.emptyUsers))
 
         // Act
@@ -30,7 +30,7 @@ public class TestEmptyResponseMapping: XCTestCase {
 
         let exp = self.expectation(description: "\(#function)")
 
-        chainRoot.process(EmptyModel())
+        chainRoot.process()
             .onCompleted { (user) in
                 result = user
                 exp.fulfill()
@@ -53,7 +53,7 @@ public class TestEmptyResponseMapping: XCTestCase {
         // Arrange
 
 
-        let chainRoot: Node<EmptyModel, [User]> = UrlChains().default(with: .init(method: .get,
+        let chainRoot: Node<Void, [User]> = UrlChainsBuilder().default(with: .init(method: .get,
                                                                                route: Routes.emptyUsersWith402))
 
         // Act
@@ -63,7 +63,7 @@ public class TestEmptyResponseMapping: XCTestCase {
 
         let exp = self.expectation(description: "\(#function)")
 
-        chainRoot.process(EmptyModel())
+        chainRoot.process()
             .onCompleted { (user) in
                 result = user
                 exp.fulfill()

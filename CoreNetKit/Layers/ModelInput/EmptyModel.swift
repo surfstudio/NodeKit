@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// RawMappable Trick (:
+/// Пустая модель.
 public struct EmptyModelEntry {
     public init() {}
 }
@@ -45,9 +45,9 @@ extension EmptyModel: DTOConvertible {
 }
 
 // MARK: - NodeProtocol with EmptyModel
-
-extension NodeProtocol where Input == EmptyModel {
-    public func process() -> Observer<Output> {
-        return self.process(EmptyModel())
-    }
-}
+//
+//extension NodeProtocol where Input == EmptyModel {
+//    public func process() -> Observer<Output> {
+//        return self.process(EmptyModel())
+//    }
+//}

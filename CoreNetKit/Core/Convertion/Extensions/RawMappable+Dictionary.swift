@@ -26,4 +26,3 @@ extension Dictionary: RawMappable where Dictionary.Key == String, Dictionary.Val
         return json
     }
 }
-
