@@ -4,6 +4,6 @@
 #guest@lastsprint.dev \
 #. stage/CoreNetKit/TestServer/deploy.sh
 
-TestServer/bin/TestServer &
+TestServer/bin/TestServer 
 
 exit
