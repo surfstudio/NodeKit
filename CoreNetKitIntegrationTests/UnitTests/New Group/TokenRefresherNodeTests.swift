@@ -49,7 +49,7 @@ public class TokenRefresherNodeTests: XCTestCase {
             exp.fulfill()
         }
 
-        self.waitForExpectations(timeout: 3, handler: nil)
+        self.waitForExpectations(timeout: 7, handler: nil)
 
         // Assert
 
