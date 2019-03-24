@@ -1,5 +1,8 @@
 #!/bin/bash
 cd /home/guest/stage/CoreNetKit/TestServer/src/TestServer
+echo 'CD COMPLETE'
 go get github.com/gorilla/mux
-
-nohup go run TestServer.go
+echo 'GO GET COMPLETE'
+nohup go run TestServer.go &
+echo 'RAN'
+echo '\n'
