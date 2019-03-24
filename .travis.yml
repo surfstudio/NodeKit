@@ -15,7 +15,7 @@ before_script:
   - ssh-add ssh/id_rsa
 script:
   - sh deploy_server.sh
-  #- sh prepare_tests.sh
+  - sh prepare_tests.sh
   - xcodebuild test -workspace CoreNetKit.xcworkspace -scheme CoreNetKitIntegrationTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty -c
 after_script:
   - set -o pipefail
