@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 
 	"strconv"
 
@@ -30,6 +31,7 @@ func main() {
 
 	if err := server.ListenAndServe(); err != nil {
 		log.Println(err)
+		os.Exit(0)
 	}
 }
 
