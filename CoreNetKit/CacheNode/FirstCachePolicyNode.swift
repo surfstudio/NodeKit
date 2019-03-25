@@ -18,8 +18,9 @@ public enum BaseFirstCachePolicyNodeError: Error {
     case cantGetUrlRequest
 }
 
-/// Этот уpел реализует политику кэширования
+/// Этот узел реализует политику кэширования
 /// "Сначала читаем из кэша, а затем запрашиваем у сервера"
+/// - Important: В ообщем случае слушатель может быть оповещен дважды. Первый раз, когда ответ прочитан из кэша, а второй раз, когда он был получен с сервера.
 open class FirstCachePolicyNode: Node<RawUrlRequest, Json> {
 
     // MARK: - Nested
@@ -63,8 +64,6 @@ open class FirstCachePolicyNode: Node<RawUrlRequest, Json> {
             self.cacheReaderNode.process(urlRequest)
                 .onCompleted { result.emit(data: $0) }
                 .onError { result.emit(error: $0) }
-        } else  {
-            result.emit(error: BaseFirstCachePolicyNodeError.cantGetUrlRequest)
         }
 
         next.process(data)
