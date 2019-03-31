@@ -1,6 +1,8 @@
 import UIKit
 import CoreNetKit
 
+// MARK: - Инфраструктура
+
 enum CustomError: Error {
     case badUrl
 }
@@ -76,16 +78,23 @@ extension Http2CheckResultEntry: RawMappable {
     typealias Raw = Json
 }
 
+// ------- Сервис
+
 func checkHttp2() -> Observer<Http2CheckResult> {
     return UrlChainsBuilder()
             .default(with: UrlChainConfigModel(method: .get, route: Endpoint.isHttp2))
             .process()
 }
 
+// ---------- Presenter
+
 print("checkHttp2")
 
 checkHttp2().onCompleted { result in
-    print(result)
+    print(result.status)
+    print("Protocol: \(result.protocol)")
+    print("Server-push: \(result.push)")
+    print(result.userAgent)
 }.onError { error in
     print(error)
 }.defer {

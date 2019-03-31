@@ -65,8 +65,6 @@ public class FirstCachePolicyTests: XCTestCase {
         let next = NextStub()
         let reader = ReaderStub()
 
-        print(DispatchQueue.currentLabel)
-
         let node = FirstCachePolicyNode(cacheReaderNode: reader, next: next)
 
         // Act
@@ -117,6 +115,9 @@ public class FirstCachePolicyTests: XCTestCase {
 
         node.process(request).onCompleted { data in
             completedCalls += 1
+            if completedCalls == 2 {
+                expectation.fulfill()
+            }
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {

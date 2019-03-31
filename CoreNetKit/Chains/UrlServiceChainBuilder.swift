@@ -26,7 +26,7 @@ open class UrlServiceChainBuilder {
     /// Создает цепочку узлов, описывающих транспортный слой обработки.
     open func requestTrasportChain() -> TransportLayerNode {
         let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseProcessingLayerChain())
-        let requestCreatorNode = RequestCreatorNode(next: requestSenderNode)
-        return TechnicaErrorMapperNode(next: requestCreatorNode)
+        let technicalErrorMapperNode = TechnicaErrorMapperNode(next: requestSenderNode)
+        return RequestCreatorNode(next: technicalErrorMapperNode)
     }
 }

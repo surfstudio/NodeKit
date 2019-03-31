@@ -22,22 +22,22 @@ public enum BaseTechnicalError: Error {
 /// Этот узел заниматеся маппингом технических ошибок
 /// (ошибок уровня ОС)
 /// - SeeAlso: `BaseTechnicalError`
-open class TechnicaErrorMapperNode: TransportLayerNode {
+open class TechnicaErrorMapperNode: RequestProcessingLayerNode {
 
     /// Следующий узел для обработки.
-    open var next: TransportLayerNode
+    open var next: RequestProcessingLayerNode
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: TransportLayerNode) {
+    public init(next: RequestProcessingLayerNode) {
         self.next = next
     }
 
     /// Передает управление следующему узлу, и в случае ошибки маппит ее.
     ///
     /// - Parameter data: Данные для обработки.
-    open override func process(_ data: TransportUrlRequest) -> Context<Json> {
+    open override func process(_ data: RawUrlRequest) -> Context<Json> {
         let context = Context<Json>()
 
         self.next.process(data)

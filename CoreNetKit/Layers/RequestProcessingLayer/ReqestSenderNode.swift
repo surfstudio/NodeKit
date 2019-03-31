@@ -42,7 +42,7 @@ open class RequestSenderNode: Node<RawUrlRequest, Json>, Aborter {
             context.emit(data: response)
         }
 
-        return context.flatMap { self.rawResponseProcessor.process($0)}
+        return context.flatMap { self.rawResponseProcessor.process($0) }
     }
 
     /// Отменяет запрос.

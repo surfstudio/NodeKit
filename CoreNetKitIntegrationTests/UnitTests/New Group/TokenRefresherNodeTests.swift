@@ -19,11 +19,15 @@ public class TokenRefresherNodeTests: XCTestCase {
         var countOfCals = 0
 
         override func process(_ data: Void) -> Observer<Void> {
-            return Observer<Void>.emit(data: data).dispatchOn(.global(qos: .userInteractive)).map {
+
+            let result = Context<Void>()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
                 self.countOfCals += 1
-                sleep(2)
-                return ()
+                result.emit(data: ())
             }
+
+            return result
         }
     }
 

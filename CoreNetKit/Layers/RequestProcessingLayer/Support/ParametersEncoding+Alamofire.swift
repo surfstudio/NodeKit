@@ -16,9 +16,9 @@ extension CoreNetKit.ParametersEncoding {
         switch self {
         case .json:
             return JSONEncoding.default
-        case .urlQuery:
-            return URLEncoding.default
         case .formUrl:
+            return URLEncoding.default
+        case .urlQuery:
             return URLEncoding.queryString
         }
     }
