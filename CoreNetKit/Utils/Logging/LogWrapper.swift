@@ -13,8 +13,25 @@ protocol Logable {
     var description: String { get }
 }
 
+/// Описывает тип логируемого сообщения в смысле направления работы узла
+///
+/// - input: В случае, когда узел получил управления после вызова `process`
+/// - output: В случае, когда узел получил управление в результате окончания работы последующих узлов (по подписке)
+enum LogType {
+    case input
+    case output
+}
+
 /// Структура, описывающая лог работы.
 struct Log: Logable {
+
+    /// Идентификатор лога.
+    struct Id {
+        /// Идентификатор узла. По-умолчанию содержит имя (`Node.objectName`) узла
+        var id: String
+        /// Тип лога.
+        var type: LogType
+    }
 
     /// Разделитель, который будет вставлен между логами.
     /// По-умолчанию равен `\n`
@@ -26,14 +43,18 @@ struct Log: Logable {
     /// Содержание данного лога.
     var message: String
 
+    /// Идентификатор лог-записи.
+    let id: Id
+
     /// Инициаллизирует объект.
     ///
     /// - Parameters:
     ///   - message: Содержание данного лога.
     ///   - delimeter: Разделитель, который будет вставлен между логами. По-умолчанию равен `\n`
-    init(_ message: String, delimeter: String = "\n") {
+    init(_ message: String, id: Id, delimeter: String = "\n") {
         self.message = message
         self.delimeter = delimeter
+        self.id = id
     }
 
     /// Прибавлеяет `delimeter`к собственному `message`, затем к полученной строке прибавляет `next.description`.
@@ -44,13 +65,6 @@ struct Log: Logable {
     }
 }
 
-extension Log {
-    /// Пустое лог-сообщение (без текста)
-    static var defaultEmpty: Logable {
-        return Log("")
-    }
-}
-
 /// Обертка, которая к обычным данным типа `T` добавляет лог-сообщение `Logable`
 struct LogWrapper<T> {
     /// Целевые данные.
@@ -58,16 +72,6 @@ struct LogWrapper<T> {
     /// Лог-сообщение.
     /// По-умолчанию `Log.defaultEmpty`
     var log: Logable
-
-    /// Инициаллизирует объект.
-    ///
-    /// - Parameters:
-    ///   - data: Целевые данные.
-    ///   - log: Лог-сообщение. По-умолчанию `Log.defaultEmpty`
-    init(data: T, log: Logable = Log.defaultEmpty) {
-        self.data = data
-        self.log = log
-    }
 }
 
 extension Node {
