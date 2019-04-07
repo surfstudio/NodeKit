@@ -45,7 +45,7 @@ extension Http2CheckResult: DTOConvertible {
 
     typealias DTO = Http2CheckResultEntry
 
-    static func toModel(from model: Http2CheckResultEntry) throws -> Http2CheckResult {
+    static func from(dto model: Http2CheckResultEntry) throws -> Http2CheckResult {
         return .init(status: model.http2,
                      protocol: model.protocol,
                      push: model.push,
@@ -90,7 +90,7 @@ func checkHttp2() -> Observer<Http2CheckResult> {
 
 print("checkHttp2")
 
-checkHttp2().onCompleted { result in
+let cnt = checkHttp2().onCompleted { result in
     print(result.status)
     print("Protocol: \(result.protocol)")
     print("Server-push: \(result.push)")
@@ -100,3 +100,5 @@ checkHttp2().onCompleted { result in
 }.defer {
     print("defer")
 }
+
+print(cnt.log?.description)

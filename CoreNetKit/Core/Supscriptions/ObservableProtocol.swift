@@ -40,6 +40,9 @@ open class Observer<Input>: ObservableProtocol {
 
     public typealias Model = Input
 
+    /// Лог-сообщение.
+    public var log: Logable?
+
     /// Конструткор по-умолчанию.
     public init() { }
 
@@ -82,5 +85,27 @@ open class Observer<Input>: ObservableProtocol {
     /// Удаляет сулшуателей у данного экземпляра контекста.
     open func unsubscribe() {
         fatalError("Needs to override method \(#function) in \(self.self)")
+    }
+
+    /// Добавляет лог-сообщение к контексту.
+    ///
+    /// - Parameter log: лог-сообщение.
+    @discardableResult
+    open func log(_ log: Logable?) -> Self {
+        guard var selfLog = self.log else {
+            self.log = log
+            return self
+        }
+
+        if selfLog.next == nil {
+            selfLog.next = log
+        } else {
+            var temp = log
+            temp?.next = selfLog.next
+            selfLog.next = temp
+        }
+
+        self.log = selfLog
+        return self
     }
 }

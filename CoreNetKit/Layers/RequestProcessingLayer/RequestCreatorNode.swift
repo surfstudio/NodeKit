@@ -42,7 +42,18 @@ open class RequestCreatorNode: Node<TransportUrlRequest, Json> {
             encoding: paramEncoding,
             headers: HTTPHeaders(data.headers)
         )
+        return self.next.process(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
+    }
 
-        return self.next.process(RawUrlRequest(dataRequest: request))
+    private func getLogMessage(_ data: TransportUrlRequest) -> Log {
+        var message = "<<<===\(self.objectName)===>>>\n"
+        message += "input: \(type(of: data))\n\t"
+        message += "method: \(data.method.http.rawValue)\n\t"
+        message += "url: \(data.url.absoluteString)\n\t"
+        message += "headers: \(data.headers)\n\t"
+        message += "raw: \(data.raw)\n\t"
+        message += "parametersEncoding: \(data.parametersEncoding)"
+
+        return Log(message, id: self.objectName)
     }
 }

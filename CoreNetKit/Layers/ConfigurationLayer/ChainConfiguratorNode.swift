@@ -50,7 +50,7 @@ open class ChainConfiguratorNode<I, O>: Node<I, O> {
     open override func process(_ data: I) -> Observer<O> {
         return Context<Void>.emit(data: ())
             .dispatchOn(self.beginQueue)
-            .flatMap { return self.next.process(data) }
+            .map { return self.next.process(data) }
             .dispatchOn(self.endQueue)
     }
 }

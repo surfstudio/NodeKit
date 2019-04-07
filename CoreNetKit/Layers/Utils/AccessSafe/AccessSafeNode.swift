@@ -73,7 +73,7 @@ open class AccessSafeNode: TransportLayerNode {
         return self.next.process(data).error { error in
             switch error {
             case ResponseHttpErrorProcessorNodeError.forbidden, ResponseHttpErrorProcessorNodeError.unauthorized:
-                return self.updateTokenChain.process(()).flatMap { [weak self] _ in
+                return self.updateTokenChain.process(()).map { [weak self] _ in
 
                     guard let `self` = self else {
                         return .emit(error: AccessSafeNodeError.nodeWasRelease)

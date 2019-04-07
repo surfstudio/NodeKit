@@ -53,7 +53,7 @@ open class TokenRefresherNode: Node<Void, Void> {
             }
         }
 
-        return self.tokenRefreshChain.process(()).map { [weak self] in
+        return self.tokenRefreshChain.process(()).map { [weak self] (model) -> Void  in
 
             guard let `self` = self else { return () }
 

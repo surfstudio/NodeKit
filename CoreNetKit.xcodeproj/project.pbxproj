@@ -11,6 +11,7 @@
 		B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */; };
 		B10AD422223ED5E300B4D7AA /* ETagConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10AD421223ED5E300B4D7AA /* ETagConstants.swift */; };
 		B10CA5282259D545002885B3 /* LogWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10CA5272259D545002885B3 /* LogWrapper.swift */; };
+		B10CA52B225A0262002885B3 /* LoggingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10CA52A225A0262002885B3 /* LoggingTests.swift */; };
 		B10D4BE9222DE450006B9EE9 /* UrlRouteProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BE8222DE450006B9EE9 /* UrlRouteProvider.swift */; };
 		B10D4BF0222DF45E006B9EE9 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */; };
 		B10D4BF2222DF472006B9EE9 /* RoutableRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10D4BF1222DF472006B9EE9 /* RoutableRequestModel.swift */; };
@@ -118,6 +119,7 @@
 		B107BF842232B6D0002E9655 /* ChainConfiguratorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNodeTests.swift; sourceTree = "<group>"; };
 		B10AD421223ED5E300B4D7AA /* ETagConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETagConstants.swift; sourceTree = "<group>"; };
 		B10CA5272259D545002885B3 /* LogWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWrapper.swift; sourceTree = "<group>"; };
+		B10CA52A225A0262002885B3 /* LoggingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingTests.swift; sourceTree = "<group>"; };
 		B10D4BE6222DDE37006B9EE9 /* UrlETagUrlCacheTriggerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagUrlCacheTriggerNodeTests.swift; sourceTree = "<group>"; };
 		B10D4BE8222DE450006B9EE9 /* UrlRouteProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRouteProvider.swift; sourceTree = "<group>"; };
 		B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
@@ -282,6 +284,14 @@
 			isa = PBXGroup;
 			children = (
 				B10CA5272259D545002885B3 /* LogWrapper.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		B10CA529225A024E002885B3 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				B10CA52A225A0262002885B3 /* LoggingTests.swift */,
 			);
 			path = Logging;
 			sourceTree = "<group>";
@@ -633,6 +643,7 @@
 		B1E61E54224707F300B3AAD9 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				B10CA529225A024E002885B3 /* Logging */,
 				B1A575532250A7FE00DEF33E /* Coding */,
 				B107BF832232B6C1002E9655 /* InputLayer */,
 				B11A44892231C537004CE4D5 /* ThreadSafe */,
@@ -924,6 +935,7 @@
 				B1BED9FE21FF7BC0000B9018 /* User.swift in Sources */,
 				B1BED9FB21FF78EE000B9018 /* Infrastructure.swift in Sources */,
 				B1B761482207B34700AE3303 /* AuthModelEntry.swift in Sources */,
+				B10CA52B225A0262002885B3 /* LoggingTests.swift in Sources */,
 				B1E61E562247082000B3AAD9 /* TokenRefresherNodeTests.swift in Sources */,
 				B1E922562251CD4B00DCDADD /* CacheReaderNodeTests.swift in Sources */,
 				B1BED9F421FF4D6F000B9018 /* SimpleURLChainTests.swift in Sources */,

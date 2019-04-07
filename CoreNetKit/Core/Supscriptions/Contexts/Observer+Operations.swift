@@ -15,22 +15,34 @@ public extension Observer {
     /// Например если в случае ошибки операции мы хотим выполнить другую операцию
     /// и все равно получить результат, то этот метод должен подойти.
     func error(_ mapper: @escaping (Error) throws -> Observer<Model>) -> Observer<Model> {
-        let result = Context<Model>()
-
-        self.onCompleted { model in
-            result.emit(data: model)
-        }.onError { error in
+        let result = Context<Model>().log(self.log)
+        self.onCompleted { [weak self] model in
+            result.log(self?.log).emit(data: model)
+        }.onError { [weak self] error in
             do {
                 let cntx = try mapper(error)
-                cntx.onCompleted { result.emit(data: $0) }
-                cntx.onError { result.emit(error: $0) }
-                cntx.onCanceled { result.cancel() }
+                cntx.onCompleted { result.log(self?.log).emit(data: $0) }
+                cntx.onError { result.log(self?.log).emit(error: $0) }
+                cntx.onCanceled { result.log(self?.log).cancel() }
             } catch {
-                result.emit(error: error)
+                result.log(self?.log).emit(error: error)
             }
-            result.emit(error: error)
-        }.onCanceled {
-            result.cancel()
+        }.onCanceled { [weak self] in
+            result.log(self?.log).cancel()
+        }
+
+        return result
+    }
+
+    func map(_ mapper: @escaping(Error) -> Error) -> Observer<Model> {
+        let result = Context<Model>()
+
+        self.onCompleted { [weak self] data in
+            result.log(self?.log).emit(data: data)
+        }.onError { [weak self] error in
+            result.log(self?.log).emit(error: mapper(error))
+        }.onCanceled { [weak self] in
+            result.log(self?.log).cancel()
         }
 
         return result
@@ -42,35 +54,37 @@ public extension Observer {
     func map<T>(_ mapper: @escaping (Model) throws -> T) -> Observer<T> {
         let result = Context<T>()
 
-        self.onCompleted { (model) in
-
+        self.onCompleted { [weak self] (model) in
+            result.log(self?.log)
             do {
                 let data = try mapper(model)
                 result.emit(data: data)
             } catch {
                 result.emit(error: error)
             }
-        }.onError { (error) in
-            result.emit(error: error)
-        }.onCanceled {
-            result.cancel()
+        }.onError { [weak self] (error) in
+            result.log(self?.log).emit(error: error)
+        }.onCanceled { [weak self] in
+            result.log(self?.log).cancel()
         }
 
         return result
     }
 
     /// Принцип работы аналогичен `map`, но для работы необходимо передать замыкание, которое возвращает контекст
-    func flatMap<T>(_ mapper: @escaping (Model) -> Observer<T>) -> Observer<T> {
+    func map<T>(_ mapper: @escaping (Model) -> Observer<T>) -> Observer<T> {
         let result = Context<T>()
 
-        self.onCompleted { (model) in
+        self.onCompleted { [weak self] (model) in
             let context = mapper(model)
+            context.log(self?.log)
+            result.log(context.log)
             context.onCompleted { result.emit(data: $0) }
             context.onError { result.emit(error: $0) }
-        }.onError { (error) in
-            result.emit(error: error)
-        }.onCanceled {
-            result.cancel()
+        }.onError { [weak self] (error) in
+            result.log(self?.log).emit(error: error)
+        }.onCanceled { [weak self] in
+            result.log(self?.log).cancel()
         }
 
         return result
@@ -81,13 +95,19 @@ public extension Observer {
     func combine<T>(_ context: Observer<T>) -> Observer<(Model, T)> {
         let result = Context<(Model, T)>()
 
-        self.onCompleted { (model) in
-            context.onCompleted { result.emit(data: (model, $0))}
-            context.onError { result.emit(error: $0) }
-        }.onError { (error) in
-            result.emit(error: error)
-        }.onCanceled {
-            result.cancel()
+        self.onCompleted { [weak self] (model) in
+            context.log(self?.log)
+                .onCompleted { [weak context] in
+                    result.log(context?.log).emit(data: (model, $0))
+                }.onError { [weak context] in
+                    result.log(context?.log).emit(error: $0)
+                }.onCanceled { [weak context] in
+                    result.log(context?.log).cancel()
+                }
+        }.onError { [weak self] (error) in
+            result.log(self?.log).emit(error: error)
+        }.onCanceled { [weak self] in
+            result.log(self?.log).cancel()
         }
 
         return result
@@ -97,14 +117,16 @@ public extension Observer {
     func combine<T>(_ contextProvider: @escaping (Model) -> Observer<T>) -> Observer<(Model, T)> {
         let result = Context<(Model, T)>()
 
-        self.onCompleted { (model) in
+        self.onCompleted { [weak self] (model) in
             let context = contextProvider(model)
-            context.onCompleted { result.emit(data: (model, $0))}
-            context.onError { result.emit(error: $0) }
-        }.onError { (error) in
-            result.emit(error: error)
-        }.onCanceled {
-            result.cancel()
+            context.log(self?.log)
+            context.onCompleted { [weak context] in result.log(context?.log).emit(data: (model, $0))}
+            context.onError { [weak context] in result.log(context?.log).emit(error: $0) }
+            context.onCanceled { [weak context] in result.log(context?.log).cancel() }
+        }.onError { [weak self] (error) in
+            result.log(self?.log).emit(error: error)
+        }.onCanceled { [weak self] in
+            result.log(self?.log).cancel()
         }
 
         return result
@@ -116,12 +138,12 @@ public extension Observer {
     func filter<T>(_ predicate: @escaping (T) -> Bool) -> Observer<Model> where Model == [T] {
         let result = Context<Model>()
 
-        self.onCompleted { model in
-            result.emit(data: model.filter { predicate($0) })
-        }.onError { (error) in
-            result.emit(error: error)
-        }.onCanceled {
-            result.cancel()
+        self.onCompleted { [weak self] model in
+            result.log(self?.log).emit(data: model.filter { predicate($0) })
+        }.onError { [weak self]  (error) in
+            result.log(self?.log).emit(error: error)
+        }.onCanceled { [weak self] in
+            result.log(self?.log).cancel()
         }
 
         return result
@@ -137,21 +159,22 @@ public extension Observer {
 
         let newContext = Context<(Model, T)>()
 
-        self.onCompleted { model in
+        self.onCompleted { [weak self] model in
 
             let context = contextProvider(model)
+            context?.log(self?.log)
 
-            context?.onCompleted { newModel in
-                newContext.emit(data: (model, newModel))
-            }.onError { error in
-                newContext.emit(error: error)
-            }.onCanceled {
-                newContext.cancel()
+            context?.onCompleted { [weak context] newModel in
+                newContext.log(context?.log).emit(data: (model, newModel))
+            }.onError { [weak context] error in
+                newContext.log(context?.log).emit(error: error)
+            }.onCanceled { [weak context] in
+                newContext.log(context?.log).cancel()
             }
-        }.onError { error in
-            newContext.emit(error: error)
-        }.onCanceled {
-            newContext.cancel()
+        }.onError { [weak self] error in
+            newContext.log(self?.log).emit(error: error)
+        }.onCanceled { [weak self] in
+            newContext.log(self?.log).cancel()
         }
 
         return newContext
@@ -163,12 +186,15 @@ public extension Observer {
     func dispatchOn(_ queue: DispatchQueue) -> Observer<Model> {
         let result = AsyncContext<Model>().on(queue)
 
-        self.onCompleted {
-            result.emit(data: $0)
-        }.onError {
-            result.emit(error: $0)
-        }.onCanceled {
-            result.cancel()
+        self.onCompleted { [weak self] in
+            result.log(self?.log)
+                .emit(data: $0)
+        }.onError { [weak self] error in
+            result.log(self?.log)
+                .emit(error: error)
+        }.onCanceled { [weak self] in
+            result.log(self?.log)
+                .cancel()
         }
 
         return result
@@ -178,13 +204,12 @@ public extension Observer {
     /// что позволяет подписываться однвоременно несколькими объектами на сообщения
     func multicast() -> Observer<Model> {
         let context = MulticastContext<Model>()
-
-        self.onCompleted {
-            context.emit(data: $0)
-        }.onError {
-            context.emit(error: $0)
-        }.onCanceled {
-            context.cancel()
+        self.onCompleted { [weak self] data in
+            context.log(self?.log).emit(data: data)
+        }.onError { [weak self] error in
+            context.log(self?.log).emit(error: error)
+        }.onCanceled { [weak self] in
+            context.log(self?.log).cancel()
         }
 
         return context

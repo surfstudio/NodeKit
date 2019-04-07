@@ -37,25 +37,20 @@ open class TechnicaErrorMapperNode: RequestProcessingLayerNode {
     /// Передает управление следующему узлу, и в случае ошибки маппит ее.
     ///
     /// - Parameter data: Данные для обработки.
-    open override func process(_ data: RawUrlRequest) -> Context<Json> {
-        let context = Context<Json>()
-
-        self.next.process(data)
-            .onCompleted { context.emit(data: $0) }
-            .onError { error in
+    open override func process(_ data: RawUrlRequest) -> Observer<Json> {
+        return self.next.process(data)
+            .map { error in
                 switch (error as NSError).code {
                 case -1009:
-                    context.emit(error: BaseTechnicalError.noInternetConnection)
+                    return BaseTechnicalError.noInternetConnection
                 case -1001:
-                    context.emit(error: BaseTechnicalError.timeout)
+                    return BaseTechnicalError.timeout
                 case -1004:
-                    context.emit(error: BaseTechnicalError.cantConnectToHost)
+                    return BaseTechnicalError.cantConnectToHost
                 default:
-                    context.emit(error: error)
+                    return error
                 }
             }
-
-        return context
     }
 }
 
