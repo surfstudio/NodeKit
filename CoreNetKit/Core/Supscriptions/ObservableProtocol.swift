@@ -78,4 +78,9 @@ open class Observer<Input>: ObservableProtocol {
     open func cancel() -> Self {
         fatalError("Needs to override method \(#function) in \(self.self)")
     }
+
+    /// Удаляет сулшуателей у данного экземпляра контекста.
+    open func unsubscribe() {
+        fatalError("Needs to override method \(#function) in \(self.self)")
+    }
 }

@@ -103,4 +103,14 @@ open class MulticastContext<Input>: Observer<Input> {
         self.eventOnCancelled.invoke(with: ())
         return self
     }
+
+    /// Удаляет сулушателей у данного экземпляра контекста.
+    /// - Warning: Удаляет всех слушателей!
+    open override func unsubscribe() {
+        self.eventDefer.clear()
+        self.eventOnError.clear()
+        self.eventOnCancelled.clear()
+        self.eventOnCompleted.clear()
+    }
+
 }

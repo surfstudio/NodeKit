@@ -96,4 +96,12 @@ open class Context<Model>: Observer<Model> {
         self.cancelClosure?()
         return self
     }
+
+    /// Удаляет сулушателей у данного экземпляра контекста. 
+    open override func unsubscribe() {
+        self.errorClosure = nil
+        self.cancelClosure = nil
+        self.completedClosure = nil
+        self.deferClosure = nil
+    }
 }
