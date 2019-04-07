@@ -10,7 +10,7 @@ import Foundation
 
 /// Узел для инциаллизации обработки данных.
 /// Иcпользуется для работы с моделями, которые представлены двумя слоями DTO.
-public class ModelInputNode<Input, Output>: Node<Input, Output> where Input: DTOConvertible, Output: DTOConvertible {
+public class ModelInputNode<Input, Output>: Node<Input, Output> where Input: DTOEncodable, Output: DTODecodable {
 
     /// Следующий узел для обработки.
     public var next: Node<Input.DTO, Output.DTO>

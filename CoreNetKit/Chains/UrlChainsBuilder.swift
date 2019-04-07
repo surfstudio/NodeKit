@@ -36,18 +36,18 @@ open class UrlChainsBuilder {
     ///
     /// - Parameter config: Конфигурация для запроса.
     open func defaultInput<Input, Output>(with config: UrlChainConfigModel) -> Node<Input, Output>
-        where Input: DTOConvertible, Output: DTOConvertible,
+        where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let buildingChain = self.requestBuildingChain(with: config)
             let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: buildingChain)
-            return ModelInputNode<Input, Output>(next: dtoConverter)
+            return ModelInputNode(next: dtoConverter)
     }
 
     /// Создает цепочку по-умолчанию. Подразумеается работа с DTO-моделями.
     ///
     /// - Parameter config: Конфигурация для запроса.
     open func `default`<Input, Output>(with config: UrlChainConfigModel) -> Node<Input, Output>
-        where Input: DTOConvertible, Output: DTOConvertible,
+        where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let input: Node<Input, Output> = self.defaultInput(with: config)
             let config =  ChainConfiguratorNode<Input, Output>(next: input)
@@ -58,7 +58,7 @@ open class UrlChainsBuilder {
     ///
     /// - Parameter config: Конфигурация для запроса.
     open func `default`<Output>(with config: UrlChainConfigModel) -> Node<Void, Output>
-        where Output: DTOConvertible, Output.DTO.Raw == Json {
+        where Output: DTODecodable, Output.DTO.Raw == Json {
             let input: Node<Json, Output> = self.defaultInput(with: config)
             let configNode = ChainConfiguratorNode<Json, Output>(next: input)
             let voidNode =  VoidInputNode(next: configNode)

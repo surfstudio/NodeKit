@@ -15,7 +15,7 @@ public typealias DTOConvertible = DTOEncodable & DTODecodable
 /// Может конвертировать себя в слой DTO
 public protocol DTOEncodable {
     /// Тип сущности DTO.
-    associatedtype DTO: RawMappable
+    associatedtype DTO: RawEncodable
 
     /// Получает DTO-модель нижнего уровня из себя.
     ///
@@ -28,7 +28,7 @@ public protocol DTOEncodable {
 /// Может ковертироать слой DTO в себя.
 public protocol DTODecodable {
     /// Тип сущности DTO.
-    associatedtype DTO: RawMappable
+    associatedtype DTO: RawDecodable
 
     /// Кнвертирует модель из DTO нижнего уровня в DTO-модель верхнего уровня.
     ///

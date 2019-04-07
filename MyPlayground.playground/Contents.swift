@@ -41,7 +41,7 @@ struct Http2CheckResult {
     let userAgent: String
 }
 
-extension Http2CheckResult: DTOConvertible {
+extension Http2CheckResult: DTODecodable {
 
     typealias DTO = Http2CheckResultEntry
 
@@ -50,13 +50,6 @@ extension Http2CheckResult: DTOConvertible {
                      protocol: model.protocol,
                      push: model.push,
                      userAgent: model.user_agent)
-    }
-
-    func toDTO() throws -> Http2CheckResultEntry {
-        return .init(http2: self.status,
-                     protocol: self.protocol,
-                     push: self.push,
-                     user_agent: self.userAgent)
     }
 }
 
@@ -74,7 +67,7 @@ struct Http2CheckResultEntry: Codable {
     let user_agent: String
 }
 
-extension Http2CheckResultEntry: RawMappable {
+extension Http2CheckResultEntry: RawDecodable {
     typealias Raw = Json
 }
 
