@@ -26,15 +26,18 @@ open class ResponseDataPreprocessorNode: ResponseProcessingLayerNode {
     ///
     /// - Parameter data: Представление ответа.
     open override func process(_ data: UrlDataResponse) -> Observer<Json> {
+        var log = Log(self.logViewObjectName, id: self.objectName)
 
         guard data.response.statusCode != 204 else {
-            return Context<Json>().emit(data: Json())
+            log += "Status code is 204 -> response data is empty -> terminate process with empty json"
+            return Context<Json>().emit(data: Json()).log(log)
         }
 
         if let jsonObject = try? JSONSerialization.jsonObject(with: data.data, options: .allowFragments), jsonObject is NSNull {
-            return Context<Json>().emit(data: Json())
+            log += "Json serialization sucess but json is NSNull -> terminate process with empty json"
+            return Context<Json>().emit(data: Json()).log(log)
         }
 
-        return self.next.process(data)
+        return self.next.process(data).log(log)
     }
 }

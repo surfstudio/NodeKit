@@ -13,8 +13,8 @@ import Foundation
 /// - cantDeserializeJson: Возникает в случае, если не удалось получить `Json` из ответа сервера.
 /// - cantCastDesirializedDataToJson: Возникает в случае, если из `Data` не удалось сериализовать `JSON`
 public enum ResponseDataParserNodeError: Error {
-    case cantDeserializeJson
-    case cantCastDesirializedDataToJson
+    case cantDeserializeJson(String)
+    case cantCastDesirializedDataToJson(String)
 }
 
 /// Выполняет преобразование преобразование "сырых" данных в `Json`
@@ -38,21 +38,35 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
 
         let context = Context<Json>()
         var json = Json()
+        var log = self.logViewObjectName
 
         do {
-            json = try self.json(from: data)
+            let (raw, logMsg) = try self.json(from: data)
+            json = raw
+            log += logMsg + .lineTabDeilimeter
         } catch {
-            context.emit(error: error)
+            switch error {
+            case ResponseDataParserNodeError.cantCastDesirializedDataToJson(let logMsg), ResponseDataParserNodeError.cantDeserializeJson(let logMsg):
+                log += logMsg
+            default:
+                log += "Catch \(error)"
+            }
+
+            context.log(Log(log, id: self.objectName)).emit(error: error)
             return context
         }
 
         guard let nextNode = next else {
-            return context.emit(data: json)
+
+            log += "Next node is nil -> terminate chain process"
+            return context.log(Log(log, id: self.objectName)).emit(data: json)
         }
+
+        log += "Have next node \(nextNode.objectName) -> call `process`"
 
         let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
 
-        return nextNode.process(networkResponse).map { json }
+        return nextNode.process(networkResponse).log(Log(log, id: self.objectName)).map { json }
     }
 
     /// Получает `json` из модели ответа сервера.
@@ -63,12 +77,18 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
     /// - Throws:
     ///     - `ResponseDataParserNodeError.cantCastDesirializedDataToJson`
     ///     - `ResponseDataParserNodeError.cantDeserializeJson`
-    open func json(from responseData: UrlDataResponse) throws -> Json {
+    open func json(from responseData: UrlDataResponse) throws -> (Json, String) {
+
+        var log = ""
+
         guard responseData.data.count != 0 else {
-            return Json()
+            log += "Response data is empty -> returns empty json"
+            return (Json(), log)
         }
+
         guard let jsonObject = try? JSONSerialization.jsonObject(with: responseData.data, options: .allowFragments) else {
-            throw ResponseDataParserNodeError.cantCastDesirializedDataToJson
+            log += "Cant deserialize \(String(describing: String(data: responseData.data, encoding: .utf8)))"
+            throw ResponseDataParserNodeError.cantCastDesirializedDataToJson(log)
         }
 
         let anyJson = { () -> Json? in
@@ -82,10 +102,13 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
         }()
 
         guard let json = anyJson else {
-            throw ResponseDataParserNodeError.cantDeserializeJson
+            log += "After parsing get nil json"
+            throw ResponseDataParserNodeError.cantDeserializeJson(log)
         }
 
-        return json
+        log += "Parsing result: \(json)"
+
+        return (json, log)
     }
 }
 

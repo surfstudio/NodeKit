@@ -28,10 +28,22 @@ public struct TransportUrlRequest {
     ///   - params: Параметры для формирования запроса.
     ///   - raw: Данные для запроса в формате `JSON`
     public init(with params: TransportUrlParameters, raw: Json) {
-        self.method = params.method
-        self.url = params.url
-        self.headers = params.headers
+        self.init(method: params.method,
+                  url: params.url,
+                  headers: params.headers,
+                  raw: raw,
+                  parametersEncoding: params.parametersEncoding)
+    }
+
+    public init(method: Method,
+                url: URL,
+                headers: [String: String],
+                raw: Json,
+                parametersEncoding: ParametersEncoding) {
+        self.method = method
+        self.url = url
+        self.headers = headers
         self.raw = raw
-        self.parametersEncoding = params.parametersEncoding
+        self.parametersEncoding = parametersEncoding
     }
 }

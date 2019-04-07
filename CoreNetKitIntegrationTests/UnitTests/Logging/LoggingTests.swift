@@ -66,7 +66,7 @@ public class LoggingTests: XCTestCase {
 
         // Assert
 
-        self.waitForExpectations(timeout: 2, handler: nil)
+        self.waitForExpectations(timeout: 10, handler: nil)
 
         XCTAssertNotNil(result.log)
         XCTAssertNotNil(result.log?.next)

@@ -33,7 +33,7 @@ open class AborterNode<Input, Output>: Node<Input, Output> {
     ///
     /// - Parameters:
     ///   - next: Следюущий в цепочке узел
-    ///   - aborter: Сущность, отеняющая преобразование
+    ///   - aborter: Сущность, отменяющая преобразование
     public init(next: Node<Input, Output>, aborter: Aborter) {
         self.next = next
         self.aborter = aborter

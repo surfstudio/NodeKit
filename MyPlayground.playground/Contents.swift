@@ -97,8 +97,9 @@ let cnt = checkHttp2().onCompleted { result in
     print(result.userAgent)
 }.onError { error in
     print(error)
-}.defer {
-    print("defer")
 }
 
-print(cnt.log?.description)
+cnt.defer {
+    print(cnt.log!.description)
+    print("defer")
+}

@@ -38,10 +38,14 @@ open class UrlNotModifiedTriggerNode: ResponseProcessingLayerNode {
     /// Проверяет http status-code. Если код соовуетствует NotModified, то возвращает запрос из кэша.
     /// В протвином случае передает управление дальше.
     open override func process(_ data: UrlDataResponse) -> Observer<Json> {
-        guard data.response.statusCode == 304 else {
-            return next.process(data)
-        }
 
+        var logMessage = self.logViewObjectName
+
+        guard data.response.statusCode == 304 else {
+            logMessage += "Response status code = \(data.response.statusCode) != 304 -> skip cache reading"
+            return next.process(data).log(Log(logMessage, id: self.objectName))
+        }
+        logMessage += "Response status code == 304 -> read cache"
         return cacheReader.process(UrlNetworkRequest(urlRequest: data.request))
     }
 }

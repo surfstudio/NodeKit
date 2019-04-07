@@ -37,16 +37,18 @@ open class RequestSenderNode: Node<RawUrlRequest, Json>, Aborter {
         let context = Context<DataResponse<Data>>()
 
         self.context = context
-
+        var log = Log(self.logViewObjectName, id: self.objectName)
         self.request = data.dataRequest.responseData(queue: DispatchQueue.global(qos: .userInitiated)) { (response) in
+            log += "Get response!)"
             context.emit(data: response)
         }
-
+        log += "Request sended!"
         return context.map { self.rawResponseProcessor.process($0) }
     }
 
     /// Отменяет запрос.
     open func cancel() {
+        self.context?.log?.add(message: "Request was cancelled!")
         self.request?.cancel()
         self.context?.cancel()
     }

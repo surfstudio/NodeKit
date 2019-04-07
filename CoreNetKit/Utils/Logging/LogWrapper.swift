@@ -10,8 +10,15 @@ import Foundation
 
 /// Описывает сущность, которая содержит описание для лога работы.
 public protocol Logable {
+    /// Следующая лог-запись.
     var next: Logable? { get set }
+    /// Выводит всю цепоку логов с заданным форматированием.
     var description: String { get }
+
+    /// Добавляет сообщение к логу.
+    ///
+    /// - Parameter message: Лог-сообщение.
+    mutating func add(message: String)
 }
 
 /// Структура, описывающая лог работы.
@@ -47,6 +54,14 @@ public struct Log: Logable {
 
         return result + (self.next?.description ?? "")
     }
+
+    mutating public func add(message: String) {
+        self.message += message
+    }
+
+    static func += (lhs: inout Log, rhs: String) {
+        lhs.add(message: rhs)
+    }
 }
 
 /// Обертка, которая к обычным данным типа `T` добавляет лог-сообщение `Logable`
@@ -62,5 +77,18 @@ public extension Node {
     /// Возвращает имя типа строкой
     var objectName: String {
         return "\(type(of: self))"
+    }
+
+    /// Имея обхекта в формате:
+    /// <<<===\(self.objectName)===>>>" + `String.lineTabDeilimeter`
+    var logViewObjectName: String {
+        return "<<<===\(self.objectName)===>>>" + .lineTabDeilimeter
+    }
+}
+
+extension String {
+    /// Возвращает последовательность "\n\t"
+    static var lineTabDeilimeter: String {
+        return "\r\n\t"
     }
 }

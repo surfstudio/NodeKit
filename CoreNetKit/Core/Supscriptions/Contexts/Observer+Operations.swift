@@ -78,9 +78,13 @@ public extension Observer {
         self.onCompleted { [weak self] (model) in
             let context = mapper(model)
             context.log(self?.log)
-            result.log(context.log)
-            context.onCompleted { result.emit(data: $0) }
-            context.onError { result.emit(error: $0) }
+                .onCompleted { [weak context] data in
+                    result.log(context?.log).emit(data: data)
+                }.onError {  [weak context] error in
+                    result.log(context?.log).emit(error: error)
+                }.onCanceled { [weak context] in
+                    result.log(context?.log).cancel()
+                }
         }.onError { [weak self] (error) in
             result.log(self?.log).emit(error: error)
         }.onCanceled { [weak self] in

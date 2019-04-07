@@ -33,10 +33,15 @@ open class IfConnectionFailedFromCacheNode: Node<RawUrlRequest, Json> {
     open override func process(_ data: RawUrlRequest) -> Observer<Json> {
 
         return self.next.process(data).error { error in
+            var logMessage = self.logViewObjectName
+            logMessage += "Catching \(error)" + .lineTabDeilimeter
             if error is BaseTechnicalError, let request = data.toUrlRequest() {
+                logMessage += "Start read cache" + .lineTabDeilimeter
                 return self.cacheReaderNode.process(request)
             }
-
+            logMessage += "Error is \(type(of: error))"
+            logMessage += "and request = \(String(describing: data.toUrlRequest()))" + .lineTabDeilimeter
+            logMessage += "-> throw error"
             return .emit(error: error)
         }
     }
