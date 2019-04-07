@@ -5,11 +5,11 @@ target 'CoreNetKit' do
 
   use_frameworks!
 
-  pod 'Alamofire', '~> 4.8.0'
+  pod 'Alamofire', '~> 5.0.0-beta.4'
   pod 'CoreEvents', :git => 'https://github.com/surfstudio/CoreEvents', :tag => '1.3.0'
 
   target 'CoreNetKitIntegrationTests' do
-    pod 'Alamofire', '~> 4.8.0'
+    pod 'Alamofire', '~> 5.0.0-beta.4'
     pod 'CoreEvents', :git => 'https://github.com/surfstudio/CoreEvents', :tag => '1.3.0'
   end
 end

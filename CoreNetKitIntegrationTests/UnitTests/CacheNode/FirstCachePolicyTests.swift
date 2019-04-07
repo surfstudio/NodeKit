@@ -52,10 +52,30 @@ public class FirstCachePolicyTests: XCTestCase {
 
         let stubRequest: URLRequest?
 
-        init(request: URLRequest?) {
-            self.stubRequest = request
-            super.init(session: URLSession.shared, requestTask: .data(nil, nil))
+        init(request: URLRequestConvertible) {
+
+            self.stubRequest = request.urlRequest
+            super.init(convertible: request, underlyingQueue: .global(), serializationQueue: .main, eventMonitor: nil, interceptor: nil, delegate: Session.default)
         }
+    }
+
+    struct StubConvertible: URLRequestConvertible {
+
+        private let request: URLRequest?
+
+        init(_ request: URLRequest?) {
+            self.request = request
+        }
+
+        func asURLRequest() throws -> URLRequest {
+            guard let request = self.request else {
+                throw UrlRouteError.cantBuildUrl
+            }
+
+            return request
+        }
+
+
     }
 
     public func testThatNextNodeCalledInCaseOfBadInput() {
@@ -72,8 +92,9 @@ public class FirstCachePolicyTests: XCTestCase {
         let expectation = self.expectation(description: "\(#function)")
 
         var completedCalls = 0
-
-        let request = RawUrlRequest(dataRequest: StubRequest(request: nil))
+        
+        let model = StubRequest(request: StubConvertible(nil))
+        let request = RawUrlRequest(dataRequest: model)
 
         node.process(request).onCompleted { data in
             completedCalls += 1

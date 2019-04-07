@@ -164,6 +164,9 @@ func AuthWithFormURL(w http.ResponseWriter, r *http.Request) {
 	var secret = r.FormValue("secret")
 	var typeVal = r.FormValue("type")
 
+	log.Println(r)
+	log.Println(r.Form)
+
 	if secret == "secret" && typeVal == "type" {
 		json.NewEncoder(w).Encode(map[string]string{"accessToken": "token", "refreshToken": "token"})
 	}

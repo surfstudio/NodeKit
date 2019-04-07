@@ -40,7 +40,7 @@ open class RequestCreatorNode: Node<TransportUrlRequest, Json> {
             method: data.method.http,
             parameters: data.raw,
             encoding: paramEncoding,
-            headers: data.headers
+            headers: HTTPHeaders(data.headers)
         )
 
         return self.next.process(RawUrlRequest(dataRequest: request))

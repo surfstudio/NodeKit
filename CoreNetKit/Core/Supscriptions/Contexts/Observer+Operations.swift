@@ -14,7 +14,7 @@ public extension Observer {
     /// Этот метод позволяет конвертировать возникшую ошибку в другую модель.
     /// Например если в случае ошибки операции мы хотим выполнить другую операцию
     /// и все равно получить результат, то этот метод должен подойти.
-    public func error(_ mapper: @escaping (Error) throws -> Observer<Model>) -> Observer<Model> {
+    func error(_ mapper: @escaping (Error) throws -> Observer<Model>) -> Observer<Model> {
         let result = Context<Model>()
 
         self.onCompleted { model in
@@ -39,7 +39,7 @@ public extension Observer {
     /// Преобразует тип данных контекста из одного в другой.
     /// Аналог `Sequence.map{}`
     /// Для преобразоания необходмо передать замыкание, реализующее преобразования из типа A в тип B
-    public func map<T>(_ mapper: @escaping (Model) throws -> T) -> Observer<T> {
+    func map<T>(_ mapper: @escaping (Model) throws -> T) -> Observer<T> {
         let result = Context<T>()
 
         self.onCompleted { (model) in
@@ -60,7 +60,7 @@ public extension Observer {
     }
 
     /// Принцип работы аналогичен `map`, но для работы необходимо передать замыкание, которое возвращает контекст
-    public func flatMap<T>(_ mapper: @escaping (Model) -> Observer<T>) -> Observer<T> {
+    func flatMap<T>(_ mapper: @escaping (Model) -> Observer<T>) -> Observer<T> {
         let result = Context<T>()
 
         self.onCompleted { (model) in
@@ -78,7 +78,7 @@ public extension Observer {
 
     /// Позволяет комбинировать несколько контекстов в один.
     /// Тогда подписчик будет оповещен только после того,как выполнятся оба контекста.
-    public func combine<T>(_ context: Observer<T>) -> Observer<(Model, T)> {
+    func combine<T>(_ context: Observer<T>) -> Observer<(Model, T)> {
         let result = Context<(Model, T)>()
 
         self.onCompleted { (model) in
@@ -94,7 +94,7 @@ public extension Observer {
     }
 
     /// Аналогично `combine<T>(_ context: Context<T>)`, только принимает не контекст, а функцию, которая возвращает контекст
-    public func combine<T>(_ contextProvider: @escaping (Model) -> Observer<T>) -> Observer<(Model, T)> {
+    func combine<T>(_ contextProvider: @escaping (Model) -> Observer<T>) -> Observer<(Model, T)> {
         let result = Context<(Model, T)>()
 
         self.onCompleted { (model) in
@@ -113,7 +113,7 @@ public extension Observer {
     /// Выполняет операцию, аналогичную операции `filter` для массивов.
     /// Вызывает для каждого элемента Model predicate
     /// Если predicate возвращает true, то элемент добавлятеся в результирующую коллекцию
-    public func filter<T>(_ predicate: @escaping (T) -> Bool) -> Observer<Model> where Model == [T] {
+    func filter<T>(_ predicate: @escaping (T) -> Bool) -> Observer<Model> where Model == [T] {
         let result = Context<Model>()
 
         self.onCompleted { model in
@@ -133,7 +133,7 @@ public extension Observer {
     ///
     /// - Parameter contextProvider: Что-то что сможет создать контекст, используя результат текущего контекста
     /// - Returns: Комбинированный результат
-    public func chain<T>(with contextProvider: @escaping (Model) -> Observer<T>?) -> Observer<(Model, T)> {
+    func chain<T>(with contextProvider: @escaping (Model) -> Observer<T>?) -> Observer<(Model, T)> {
 
         let newContext = Context<(Model, T)>()
 
@@ -160,7 +160,7 @@ public extension Observer {
     /// Слушатель получит сообщение на необходмой очереди
     /// - Parameters
     ///     - queue: Очередь, на которой необходимо вызывать методы слушателя
-    public func dispatchOn(_ queue: DispatchQueue) -> Observer<Model> {
+    func dispatchOn(_ queue: DispatchQueue) -> Observer<Model> {
         let result = AsyncContext<Model>().on(queue)
 
         self.onCompleted {
@@ -176,7 +176,7 @@ public extension Observer {
 
     /// Инкапсулирует обычный context в MulticastContext,
     /// что позволяет подписываться однвоременно несколькими объектами на сообщения
-    public func multicast() -> Observer<Model> {
+    func multicast() -> Observer<Model> {
         let context = MulticastContext<Model>()
 
         self.onCompleted {

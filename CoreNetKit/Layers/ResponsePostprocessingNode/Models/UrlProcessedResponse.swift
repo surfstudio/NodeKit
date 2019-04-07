@@ -24,9 +24,14 @@ public struct UrlProcessedResponse {
         return self._dataResponse.response
     }
 
-    /// Временные метки выполнения запроса.
-    public var timeline: Timeline {
-        return self._dataResponse.timeline
+    /// Метрики запроса.
+    public var metrics: URLSessionTaskMetrics? {
+        return self._dataResponse.metrics
+    }
+
+    /// Время, затраченное на сериализацию овтета.
+    public var serializationDuration: TimeInterval {
+        return self._dataResponse.serializationDuration
     }
 
     /// Ответ, возвращенный сервером.

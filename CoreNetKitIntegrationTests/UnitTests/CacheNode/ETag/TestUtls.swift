@@ -17,7 +17,6 @@ enum Utils {
                                             statusCode: Int = 200,
                                             httpVersion: String = "1.1",
                                             headers: [String: String] = [:],
-                                            timeline: Timeline = Timeline(),
                                             data: Data = Data(),
                                             json: Json = Json()) -> UrlProcessedResponse {
         let httpResponse = HTTPURLResponse(url: url,
@@ -28,7 +27,8 @@ enum Utils {
         let dataResponse = UrlDataResponse(request: URLRequest(url: url),
                                            response: httpResponse,
                                            data: Data(),
-                                           timeline: Timeline())
+                                           metrics: nil,
+                                           serializationDuration: 0)
 
         return UrlProcessedResponse(dataResponse: dataResponse, json: json)
     }
@@ -37,7 +37,6 @@ enum Utils {
                                        statusCode: Int = 200,
                                        httpVersion: String = "1.1",
                                        headers: [String: String] = [:],
-                                       timeline: Timeline = Timeline(),
                                        data: Data = Data()) -> UrlDataResponse{
         let httpResponse = HTTPURLResponse(url: url,
                                            statusCode: statusCode,
@@ -47,6 +46,7 @@ enum Utils {
         return UrlDataResponse(request: URLRequest(url: url),
                                            response: httpResponse,
                                            data: Data(),
-                                           timeline: Timeline())
+                                           metrics: nil,
+                                           serializationDuration: 0)
     }
 }

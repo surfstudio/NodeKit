@@ -47,7 +47,7 @@ public class EncodingTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(nextNode.request.dataRequest.request!.url!.absoluteString, url)
+        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, url)
     }
 
     public func testUrlQueryConvertionWork() {
@@ -69,10 +69,10 @@ public class EncodingTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(nextNode.request.dataRequest.request!.url!.absoluteString, "\(url)?id=12345")
+        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, "\(url)?id=12345")
     }
 
-    func testKsonConvertionWork() {
+    func testJsonConvertionWork() {
         // Arrange
 
         let nextNode = StubNext()
@@ -90,6 +90,6 @@ public class EncodingTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(nextNode.request.dataRequest.request!.url!.absoluteString, url)
+        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, url)
     }
 }

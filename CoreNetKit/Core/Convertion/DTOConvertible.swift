@@ -8,11 +8,26 @@
 
 import Foundation
 
-/// Описывает сущность из верхнего слоя DTO.
-/// Может конвертировать себя в нижний слой DTO и конвертировать нижнйи слой DTO в себя.
-public protocol DTOConvertible {
+/// Композиция протоколов `DTOEncodable` и `DTODecodable`
+public typealias DTOConvertible = DTOEncodable & DTODecodable
 
-    /// Следующий слой DTO
+/// Описывает сущность из верхнего слоя DTO.
+/// Может конвертировать себя в слой DTO
+public protocol DTOEncodable {
+    /// Тип сущности DTO.
+    associatedtype DTO: RawMappable
+
+    /// Получает DTO-модель нижнего уровня из себя.
+    ///
+    /// - Returns: Результат конвертирования.
+    /// - Throws: Могут возникать любе исключения, определенные пользователем.
+    func toDTO() throws -> DTO
+}
+
+/// Описывает сущность из верхнего слоя DTO.
+/// Может ковертироать слой DTO в себя.
+public protocol DTODecodable {
+    /// Тип сущности DTO.
     associatedtype DTO: RawMappable
 
     /// Кнвертирует модель из DTO нижнего уровня в DTO-модель верхнего уровня.
@@ -20,11 +35,5 @@ public protocol DTOConvertible {
     /// - Parameter from: Модель нижнего уровня DTO из которой необходимо получить модель верхнего уровня.
     /// - Returns: Результат конвертирования.
     /// - Throws: Могут возникать любе исключения, определенные пользователем.
-    static func toModel(from: DTO) throws -> Self
-
-    /// Получает DTO-модель нижнего уровня из себя.
-    ///
-    /// - Returns: Результат конвертирования.
-    /// - Throws: Могут возникать любе исключения, определенные пользователем.
-    func toDTO() throws -> DTO
+    static func from(dto: DTO) throws -> Self
 }

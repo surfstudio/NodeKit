@@ -18,6 +18,8 @@ public struct UrlDataResponse {
     public let response: HTTPURLResponse
     /// Данные, возвращенные сервером.
     public let data: Data
-    /// Временные метки выполнения запроса.
-    public let timeline: Timeline
+    /// Метрики запроса.
+    public let metrics: URLSessionTaskMetrics?
+    /// Время, затраченное на сериализацию овтета. 
+    public let serializationDuration: TimeInterval
 }

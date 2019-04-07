@@ -1,9 +1,9 @@
 PODS:
-  - Alamofire (4.8.0)
+  - Alamofire (5.0.0-beta.4)
   - CoreEvents (1.3.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.8.0)
+  - Alamofire (~> 5.0.0-beta.4)
   - CoreEvents (from `https://github.com/surfstudio/CoreEvents`, tag `1.3.0`)
 
 SPEC REPOS:
@@ -21,9 +21,9 @@ CHECKOUT OPTIONS:
     :tag: 1.3.0
 
 SPEC CHECKSUMS:
-  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  Alamofire: 6458d95477bc40adf10129f22c67cfb014162dc8
   CoreEvents: 5cbaa323668a121ec4a54818972359f835e19002
 
-PODFILE CHECKSUM: c49a40a2a212f77cd42353577d9cf15edaefe367
+PODFILE CHECKSUM: 973dc9166ce30a46aacf5b831ee6a64cf673deea
 
 COCOAPODS: 1.5.3

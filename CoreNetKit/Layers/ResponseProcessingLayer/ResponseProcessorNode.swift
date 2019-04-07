@@ -36,7 +36,17 @@ open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
 
         switch data.result {
         case .failure(let error):
-            return Context<Json>().emit(error: error)
+
+            guard let urlResponse = data.response, let urlRequest = data.request else {
+                return .emit(error: error)
+            }
+
+            let response = UrlDataResponse(request: urlRequest,
+                                           response: urlResponse,
+                                           data: Data(), metrics: nil,
+                                           serializationDuration: -1)
+
+            return next.process(response)
         case .success(let val):
 
             guard let urlResponse = data.response, let urlRequest = data.request else {
@@ -44,7 +54,11 @@ open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
                     .emit(error: ResponseProcessorNodeError.rawResponseNotHaveMetaData)
             }
 
-            let dataResponse = UrlDataResponse(request: urlRequest, response: urlResponse, data: val, timeline: data.timeline)
+            let dataResponse = UrlDataResponse(request: urlRequest,
+                                               response: urlResponse,
+                                               data: val,
+                                               metrics: data.metrics,
+                                               serializationDuration: data.serializationDuration)
 
             return self.next.process(dataResponse)
         }

@@ -10,9 +10,6 @@ import Foundation
 
 /// Это расширение позволяет представлять словарь как RawMappable в случае если словарь это Json
 extension Dictionary: RawMappable where Dictionary.Key == String, Dictionary.Value == Any {
-    
-    /// Определение теипа для `RawMappable.Raw`
-    public typealias Raw = Json
 
     /// Провсто возвращет себя.
     /// - Throws: Не генерирует ошибок.
@@ -22,7 +19,7 @@ extension Dictionary: RawMappable where Dictionary.Key == String, Dictionary.Val
 
     /// Просто возвращает json, который получил на вход.
     /// - Throws: Не генерирует ошибок
-    public static func toModel(from json: Json) throws -> Dictionary<Key, Value> {
-        return json
+    public static func from(raw: Json) throws -> Dictionary<Key, Value> {
+        return raw
     }
 }

@@ -11,9 +11,12 @@ import Foundation
 /// Словарь вида `[String: Any]`
 public typealias Json = [String: Any]
 
+/// Композиция `RawEncodable` и `RawDecodable`
+public typealias RawMappable = RawEncodable & RawDecodable
+
 /// Описывает сущность из нижнего слоя DTO.
-/// Может конвертировать себя в RAW (например JSON) и конвертировать RAW в себя.
-public protocol RawMappable {
+/// Может конвертировать себя в RAW (например JSON).
+public protocol RawEncodable {
 
     /// Тип данных, в которые мапятся модели. Напрмиер JSON
     associatedtype Raw
@@ -22,11 +25,20 @@ public protocol RawMappable {
     /// - Returns: RAW-представление модели
     /// - Throws: Могут возникать любые исключения, определенные пользователем.
     func toRaw() throws -> Raw
+}
+
+/// Описывает сущность из нижнего слоя DTO.
+/// Может мапить RAW на себя.
+public protocol RawDecodable {
+
+    /// Тип данных, в которые мапятся модели. Напрмиер JSON
+
+    associatedtype Raw
 
     /// Преобразует данные в RAW формате в модель.
     ///
     /// - Parameter from: Данные в RAW формате
     /// - Returns: модель полученная из RAW
     /// - Throws: Могут возникать любые исключения, определенные пользователем.
-    static func toModel(from: Raw) throws -> Self
+    static func from(raw: Raw) throws -> Self
 }

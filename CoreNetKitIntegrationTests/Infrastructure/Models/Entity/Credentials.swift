@@ -20,8 +20,8 @@ extension Credentials: DTOConvertible {
 
     public typealias DTO = CredentialsEntry
 
-    public static func toModel(from entry: CredentialsEntry) throws -> Credentials {
-        return Credentials(accessToken: entry.accessToken, refreshToken: entry.refreshToken)
+    public static func from(dto: CredentialsEntry) throws -> Credentials {
+        return Credentials(accessToken: dto.accessToken, refreshToken: dto.refreshToken)
     }
 
     public func toDTO() throws -> CredentialsEntry {

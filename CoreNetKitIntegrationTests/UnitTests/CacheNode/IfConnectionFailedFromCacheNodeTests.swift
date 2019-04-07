@@ -56,7 +56,7 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
 
         init(request: URLRequest?) {
             self.stubRequest = request
-            super.init(session: URLSession.shared, requestTask: .data(nil, nil))
+            super.init(convertible: request!, underlyingQueue: .global(), serializationQueue: .main, eventMonitor: nil, interceptor: nil, delegate: Session.default)
         }
     }
 

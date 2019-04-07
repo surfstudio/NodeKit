@@ -30,7 +30,7 @@ open class DTOMapperNode<Input, Output>: Node<Input, Output> where Input: RawMap
         do {
             let data = try data.toRaw()
             return next.process(data)
-                .map { try Output.toModel(from: $0) }
+                .map { try Output.from(raw: $0) }
         } catch {
             return context.emit(error: error)
         }

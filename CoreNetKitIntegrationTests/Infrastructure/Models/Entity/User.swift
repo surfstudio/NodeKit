@@ -19,7 +19,7 @@ public struct User: DTOConvertible {
     public var firstName: String
     public var lastName: String
 
-    public static func toModel(from dto: UserEntry) throws -> User {
+    public static func from(dto: UserEntry) throws -> User {
         return User(id: dto.id, firstName: dto.firstName, lastName: dto.lastName)
     }
 

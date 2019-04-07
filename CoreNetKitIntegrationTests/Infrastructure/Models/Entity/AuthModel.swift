@@ -20,8 +20,8 @@ extension AuthModel: DTOConvertible {
 
     public typealias DTO = AuthModelEntry
 
-    public static func toModel(from entry: AuthModelEntry) throws -> AuthModel {
-        return AuthModel(type: entry.type, secret: entry.secret)
+    public static func from(dto: AuthModelEntry) throws -> AuthModel {
+        return AuthModel(type: dto.type, secret: dto.secret)
     }
 
     public func toDTO() throws -> AuthModelEntry {

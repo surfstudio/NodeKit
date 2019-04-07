@@ -24,7 +24,7 @@ extension Optional where Wrapped == URL {
     ///   - rhs: Относительный путь, который нужно добавить к базовому URL
     /// - Returns: Итоговый URL маршрут.
     /// - Throws: `UrlRouteError.cantBuildUrl`
-    static func + (lhs: URL?, rhs: String) throws -> URL {
+    public static func + (lhs: URL?, rhs: String) throws -> URL {
         guard let url = URL(string: rhs, relativeTo: lhs) else {
             throw UrlRouteError.cantBuildUrl
         }

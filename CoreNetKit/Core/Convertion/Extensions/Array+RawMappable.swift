@@ -41,16 +41,16 @@ extension Array: RawMappable where Element: RawMappable, Element.Raw == Json {
         return [MappingUtils.arrayJsonKey: arrayData]
     }
 
-    public static func toModel(from json: Json) throws -> Array<Element> {
+    public static func from(raw: Json) throws -> Array<Element> {
 
-        guard !json.isEmpty else {
+        guard !raw.isEmpty else {
             return [Element]()
         }
 
-        guard let arrayData = json[MappingUtils.arrayJsonKey] as? [Json] else {
-            throw ErrorArrayJsonMappiong.cantFindKeyInRaw(json)
+        guard let arrayData = raw[MappingUtils.arrayJsonKey] as? [Json] else {
+            throw ErrorArrayJsonMappiong.cantFindKeyInRaw(raw)
         }
 
-        return try arrayData.map { try Element.toModel(from: $0) }
+        return try arrayData.map { try Element.from(raw: $0) }
     }
 }

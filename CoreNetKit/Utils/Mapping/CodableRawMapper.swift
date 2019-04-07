@@ -17,7 +17,7 @@ public enum RawMappableCodableError: Error {
 }
 
 /// Реализация по-умолчанию для моделей, реализующий протокол Encodable для JSON
-public extension RawMappable where Self: Encodable, Raw == [String: Any] {
+public extension RawEncodable where Self: Encodable, Raw == [String: Any] {
     func toRaw() throws -> Raw {
         let encoder = JSONEncoder()
         let data = try encoder.encode(self)
@@ -30,8 +30,8 @@ public extension RawMappable where Self: Encodable, Raw == [String: Any] {
 }
 
 /// Реализация по-умолчанию для моделей, реализующий протокол Encodable для JSON
-public extension RawMappable where Self: Decodable, Raw == [String: Any] {
-    static func toModel(from raw: Raw) throws -> Self {
+public extension RawDecodable where Self: Decodable, Raw == [String: Any] {
+    static func from(raw: Raw) throws -> Self {
         let decoder = JSONDecoder()
         let data = try JSONSerialization.data(withJSONObject: raw, options: .prettyPrinted)
         return try decoder.decode(Self.self, from: data)

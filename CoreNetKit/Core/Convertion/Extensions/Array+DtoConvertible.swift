@@ -13,8 +13,8 @@ extension Array: DTOConvertible where Element: DTOConvertible, Element.DTO.Raw =
 
     public typealias DTO = Array<Element.DTO>
 
-    public static func toModel(from dto: DTO) throws -> Array<Element> {
-        return try dto.map { try Element.toModel(from: $0) }
+    public static func from(dto: DTO) throws -> Array<Element> {
+        return try dto.map { try Element.from(dto: $0) }
     }
 
     public func toDTO() throws -> DTO {
