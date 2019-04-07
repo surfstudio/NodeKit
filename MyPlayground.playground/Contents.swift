@@ -98,8 +98,3 @@ let cnt = checkHttp2().onCompleted { result in
 }.onError { error in
     print(error)
 }
-
-cnt.defer {
-    print(cnt.log!.description)
-    print("defer")
-}

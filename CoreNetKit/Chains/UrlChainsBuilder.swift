@@ -50,7 +50,8 @@ open class UrlChainsBuilder {
         where Input: DTOConvertible, Output: DTOConvertible,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let input: Node<Input, Output> = self.defaultInput(with: config)
-            return ChainConfiguratorNode<Input, Output>(next: input)
+            let config =  ChainConfiguratorNode<Input, Output>(next: input)
+            return LoggerNode(next: config)
     }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
@@ -60,6 +61,7 @@ open class UrlChainsBuilder {
         where Output: DTOConvertible, Output.DTO.Raw == Json {
             let input: Node<Json, Output> = self.defaultInput(with: config)
             let configNode = ChainConfiguratorNode<Json, Output>(next: input)
-            return VoidInputNode(next: configNode)
+            let voidNode =  VoidInputNode(next: configNode)
+            return LoggerNode(next: voidNode)
     }
 }

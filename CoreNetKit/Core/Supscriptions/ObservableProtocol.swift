@@ -108,4 +108,5 @@ open class Observer<Input>: ObservableProtocol {
         self.log = selfLog
         return self
     }
+
 }
