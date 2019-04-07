@@ -1,5 +1,5 @@
-language: swift
-osx_image: xcode10.1
+os: osx
+osx_image: xcode10.2
 xcode_project: CoreNetKit.xcworkspace
 xcode_scheme: CoreNetKit
 before_install:
