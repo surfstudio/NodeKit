@@ -164,7 +164,7 @@
 		B199E765223CF26A0001FE17 /* TransportUrlParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportUrlParameters.swift; sourceTree = "<group>"; };
 		B199E767223CF2920001FE17 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		B199E769223CF2A10001FE17 /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
-		B19FB53E2246601E0038B12B /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		B19FB53E2246601E0038B12B /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B19FB53F224664FA0038B12B /* VoidInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidInputNode.swift; sourceTree = "<group>"; };
 		B1A575542250A83200DEF33E /* EncodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingTests.swift; sourceTree = "<group>"; };
 		B1A57558225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfConnectionFailedFromCacheNodeTests.swift; sourceTree = "<group>"; };
@@ -697,7 +697,7 @@
 		B94310A01F931CC000E8A9BA = {
 			isa = PBXGroup;
 			children = (
-				B19FB53E2246601E0038B12B /* MyPlayground.playground */,
+				B19FB53E2246601E0038B12B /* Playground.playground */,
 				B94310AC1F931CC000E8A9BA /* CoreNetKit */,
 				B1C3255621CFEC480059EF33 /* CoreNetKitIntegrationTests */,
 				B94310AB1F931CC000E8A9BA /* Products */,
