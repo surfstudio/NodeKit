@@ -1,5 +1,21 @@
 # Как этим пользоваться
 
+Соедржание:
+- [Как этим пользоваться](#%D0%BA%D0%B0%D0%BA-%D1%8D%D1%82%D0%B8%D0%BC-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%D1%81%D1%8F)
+  - [Слой моделей](#%D1%81%D0%BB%D0%BE%D0%B9-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B5%D0%B9)
+    - [Raw Layer Models (RawMappable)](#raw-layer-models-rawmappable)
+    - [Application Layer Models (DTOConvertible)](#application-layer-models-dtoconvertible)
+      - [Полезно знать](#%D0%BF%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D0%BE-%D0%B7%D0%BD%D0%B0%D1%82%D1%8C)
+  - [Создание запроса](#%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0)
+    - [Маршрутизация](#%D0%BC%D0%B0%D1%80%D1%88%D1%80%D1%83%D1%82%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F)
+      - [Полезно знать](#%D0%BF%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D0%BE-%D0%B7%D0%BD%D0%B0%D1%82%D1%8C-1)
+    - [Кодировка](#%D0%BA%D0%BE%D0%B4%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0)
+  - [Отправка запроса](#%D0%BE%D1%82%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B0-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0)
+    - [Сервис](#%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81)
+    - [Ответ](#%D0%BE%D1%82%D0%B2%D0%B5%D1%82)
+
+Здесь перечислены основные моменты и вспомогательная информация о том, каким образом работать с этой бибилиотекой. 
+
 ## Слой моделей
 
 Библиотека подразумевает работу с двумя слоями моделей:
@@ -120,6 +136,8 @@ extension User: DTODecodable {
 
 CoreNetKit построен таким образом, что одинаковую модель можно использовать для любого транспортного протокола, исключая или добавляя шаги при необходимости.
 
+Далее я опишу толькко 1 и 3, потому что остальное не нуждается в объяснении.
+
 ### Маршрутизация
 
 Для того, чтобы абстрагировать способ задачи маршрута (например в gRPC нет явных URL) маршрут - generic-тип данных, однако в случае URL-запросов ожидается `UrlRouteProvider`
@@ -130,7 +148,7 @@ CoreNetKit построен таким образом, что одинакову
 
 enum RegistrationRoute {
     case auth
-    case register
+    case users
     case user(String)
 }
 
@@ -140,8 +158,8 @@ extension RegistrationRoute: UrlRouteProvider {
         switch self {
         case .auth:
             return try base + "/user/auth"
-        case .register:
-            return try base + "/user/register"
+        case .users:
+            return try base + "/user/users"
         case .user(let id):
             return try base + "/user/\(id)"
         }
@@ -161,3 +179,76 @@ CoreNetKit предоставляет следующие виды кодиров
 3) `urlQuery` - конвертирует параметры в строку, зменяя определенные символы на специальные последовательности (образует URL-encoded string)
 
 Эти параметры находятся в [ParametersEncoding](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Enums/ParametersEncoding.html)
+
+## Отправка запроса
+
+Для отправки запроса нужно вызывать цепочку и передать ей параметры, которые были описаны выше. 
+
+### Сервис
+
+В качестве примера напишем сервис.
+
+```Swift
+
+class ExampleService {
+
+    func uath(user: User) -> Observer<Void> {
+        return UrlChainsBuilder()
+            .default(with: UrlChainConfigModel(method: .post, route: RegistrationRoute.auth))
+            .process(user)
+            .map { [weak self] (user: User) in 
+                self?.saveToKeychain(user)
+                return ()
+            }
+    }
+
+    func getUser(by id: String) -> Observer<User> {
+        return UrlChainBuilder()
+            .default(with: UrlChainConfigModel(method: .get, route: RegistrationRoute.user(id)))
+            .process()
+    }
+
+    func getUsers() -> Observer<[User]> {
+        return UrlChainBuilder()
+            .default(with: UrlChainConfigModel(method: .get, route: RegistrationRoute.users)
+            .process()
+    }
+}
+```
+
+Ответ от сервиса приходит в `DispatchQueue.main`, если поведение по-умаолчанию не изменялось. 
+Сама цепочка с самого начала начинает свою работу в `DispatchQueue.global(qos: .userInitiated)` (по-умолчанию)
+
+### Ответ
+
+Для работы с сервисом предлагается использовать абстрактную сущность - `Observer<T>`. 
+Это Rx-Like объект, который имеет 4 возможных события:
+1) `onCompleted` - когда запрос выполнился
+2) `onError` - когда произошла ошибка
+3) `defer` - вызывается и в случае ошибки, и в случае успешного выполнения (аналог `finaly` в `try-catch`)
+4) `onCanceled` - вызывается в случае, если операция,за которой наблюдает `Observer` была отменена
+
+На самом деле этот объект повсеместно используется в библиотеке, а в качестве его реализации используется `Context<T>`.
+Документацую можно увидеть [здесь](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Observer.html) и [здесь](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Context.html)
+
+Так же более детальное описание работы контекстов находится [тут(TODO)]()
+
+Рассмотрим как будет выглядеть работа с сервисом из презентера (или любой другой сущности, которая общается с сервером)
+
+```Swift
+
+private let service = ExampleService()
+
+func loadUsers() {
+    self.showLoader()
+    self.service.getUsers()
+        .onCompleted { [weak self] model in
+            self?.show(users: model)
+        }.onError { [weak self] error in
+            self?.show(error: error)
+        }.defer { [weak self] in
+            self?.hideLoader()
+        }
+}
+
+```
