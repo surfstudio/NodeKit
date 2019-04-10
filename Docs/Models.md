@@ -128,8 +128,8 @@ struct PaymentField: DTOEncodable {
 struct PaymentList: DTOEncodable {
     let subitems: [PaymentEntry]
 
-    static func from(dto: PaymentEntry) -> PayemntAction {
-        guard let subitems = dto.subitems else { throw .badType } 
+    static func from(dto: PaymentEntry) -> PaymentList {
+        guard let subitems = .from(dto: dto.subitems) else { throw .badType } 
 
         return .init(subitems: subitems)
     }
