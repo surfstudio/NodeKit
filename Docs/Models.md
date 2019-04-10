@@ -44,7 +44,7 @@ struct Product: DTODecodable {
     let name: String
     let alias: String?
 
-    func from(dto: ProductEntry) {
+    static func from(dto: ProductEntry) -> Product {
         return .init(id: dto.id, name: dto.name, alias: dto.alias)
     }
 }
@@ -70,7 +70,7 @@ struct Product: DTODecodable {
 Если у нас есть `DTO` слой, то эту проблему можно решить при маппинге данных:
 
 ```Swift
-    func from(dto: ProductEntry) {
+    static func from(dto: ProductEntry) -> Product {
         let alias = {
             guard let alias = dto.alias, !alias.IsEmpty else {
                 return dto.name
@@ -79,4 +79,65 @@ struct Product: DTODecodable {
         }()
         return .init(id: dto.id, name: dto.name, alias: alias)
     }
+```
+В таком варианте мы решаем пробелу несоответствия бизнес-моделей транспортным на уровне маппинга одних в другие и не тащим эим самые пробелмы несоответствия вверх по иерархии. 
+
+### Пример 2. Один ко многим.
+
+Иногда одна сущность, приходящая с сервера в зависимости от значений полей может быть представлена несколькими бизнес моделями. 
+То есть, при наличии определенного поля читать и выводить следует определенное кол-во полей. Так бывает во врем раблоты с legacy-системами. Например с провайдерами данных платежей или подобными вещами.
+
+Как раз в таких случаях два слоя моделей отлично помогают решить проблему. 
+
+```Swift
+
+enum PaymentFiledType: Int, Codable {
+    case text
+    case dropdown
+    case button
+}
+
+struct PaymentEntry: Codable, RawMappable {
+
+    typealias Raw = Json
+
+    let type: PaymentFiledType
+    let subitems: [PaymentEntry]
+    let mask: String?
+    let regexp: String?
+    let action: String?
+}
+
+struct PayemntAction: DTOEncodable {
+    let action: String
+
+    static func from(dto: PaymentEntry) -> PayemntAction {
+        guard let action = dto.action else { throw .badType } 
+
+        return .init(action: action)
+    }
+}
+
+struct PaymentField: DTOEncodable {
+    let inputMask: String
+    let regExp: String
+
+    static func from(dto: PaymentEntry) -> PaymentField {
+        guard let mask = dto.mask, let regExp = dto.regExp else { 
+            throw .badType 
+        } 
+
+        return .init(inputMask: mask, regExp: regExp)
+    }
+}
+
+struct PaymentList: DTOEncodable {
+    let subitems: [PaymentEntry]
+
+        static func from(dto: PaymentEntry) -> PayemntAction {
+        guard let subitems = dto.subitems else { throw .badType } 
+
+        return .init(subitems: subitems)
+    }
+}
 ```
