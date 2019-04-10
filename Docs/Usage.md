@@ -123,6 +123,8 @@ extension User: DTODecodable {
 1) `UserEntry: RawDecodable` - DTO-слой.
 2) `User: DTODecodable` - App-слой. 
 
+Более подробно об этом можно прочесть [тут](Models.md)
+
 #### Полезно знать
 
 Массивы с элемантами типа `DTOConvertible` и `RawMappable` также удовлетворяют этим протоколам и имеют реализацию по-умолчанию для их методов.
