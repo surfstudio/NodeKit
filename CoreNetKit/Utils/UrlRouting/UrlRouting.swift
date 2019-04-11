@@ -25,7 +25,7 @@ extension Optional where Wrapped == URL {
     /// - Returns: Итоговый URL маршрут.
     /// - Throws: `UrlRouteError.cantBuildUrl`
     public static func + (lhs: URL?, rhs: String) throws -> URL {
-        guard let url = URL(string: rhs, relativeTo: lhs) else {
+        guard let url = lhs?.appendingPathComponent(rhs) else {
             throw UrlRouteError.cantBuildUrl
         }
         return url
