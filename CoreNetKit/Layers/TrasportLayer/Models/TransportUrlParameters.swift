@@ -11,13 +11,13 @@ import Foundation
 /// Модель для передачи параметров на транспортном сле цепочки.
 public struct TransportUrlParameters {
     /// HTTP метод.
-    let method: Method
+    public let method: Method
     /// URL эндпоинта.
-    let url: URL
+    public let url: URL
     /// Хедеры запроса.
-    let headers: [String: String]
+    public let headers: [String: String]
     /// Кодировка данных для запроса.
-    let parametersEncoding: ParametersEncoding
+    public  let parametersEncoding: ParametersEncoding
 
     /// Инициаллизирует объект.
     ///

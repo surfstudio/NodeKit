@@ -12,15 +12,15 @@ import Foundation
 public struct TransportUrlRequest {
 
     /// HTTP метод.
-    let method: Method
+    public let method: Method
     /// URL эндпоинта.
-    let url: URL
+    public let url: URL
     /// Хедеры запроса.
-    let headers: [String: String]
+    public let headers: [String: String]
     /// Данные для запроса в формате `JSON`
-    let raw: Json
+    public let raw: Json
     /// Кодировка данных для запроса.
-    let parametersEncoding: ParametersEncoding
+    public let parametersEncoding: ParametersEncoding
 
     /// Инициаллизирует объект.
     ///
