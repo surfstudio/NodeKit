@@ -40,7 +40,7 @@ open class RequestSenderNode: Node<RawUrlRequest, Json>, Aborter {
         var log = Log(self.logViewObjectName, id: self.objectName)
         self.request = data.dataRequest.responseData(queue: DispatchQueue.global(qos: .userInitiated)) { (response) in
             log += "Get response!)"
-            context.emit(data: response)
+            context.log(log).emit(data: response)
         }
         log += "Request sended!"
         return context.map { self.rawResponseProcessor.process($0) }

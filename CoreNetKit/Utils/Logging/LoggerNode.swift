@@ -39,7 +39,7 @@ open class LoggerNode<Input, Output>: Node<Input, Output> {
         let log = { (log: Logable?) -> Void in
             guard let log = log else { return }
 
-            log.flatMap().filter { filter.contains($0.id) }.forEach { print($0.description) }
+            log.flatMap().filter { !filter.contains($0.id) }.forEach { print($0.description) }
         }
 
         context.onCompleted { data in

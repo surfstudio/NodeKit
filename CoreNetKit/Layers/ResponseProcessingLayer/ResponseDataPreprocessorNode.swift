@@ -38,6 +38,6 @@ open class ResponseDataPreprocessorNode: ResponseProcessingLayerNode {
             return Context<Json>().emit(data: Json()).log(log)
         }
 
-        return self.next.process(data).log(log)
+        return self.next.process(data)
     }
 }
