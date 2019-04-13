@@ -1,6 +1,6 @@
 ![Documentation](https://lastsprint.dev/CoreNetKit/Docs/swift_output/badge.svg)
 ![Build status](https://travis-ci.org/surfstudio/CoreNetKit.svg?branch=master)
-[![codecov](https://codecov.io/gh/surfstudio/CoreNetKit/branch/NodeKit/graph/badge.svg)](https://codecov.io/gh/surfstudio/CoreNetKit)
+[![codecov](https://codecov.io/gh/surfstudio/CoreNetKit/branch/master/graph/badge.svg)](https://codecov.io/gh/surfstudio/CoreNetKit)
 ---
 ![All text](Docs/Header.svg)
 ---
