@@ -218,4 +218,13 @@ public extension Observer {
 
         return context
     }
+
+    /// Может быть использовано для чтения состояния.
+    /// Передает себя в замыкание
+    ///
+    /// - Parameter observer: Замыкание, в которое передается этот объект.
+    func process(_ observer: (Observer) -> Void) -> Self {
+        observer(self)
+        return self
+    }
 }
