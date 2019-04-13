@@ -39,7 +39,7 @@ open class Context<Model>: Observer<Model> {
         return self
     }
 
-    /// Исользуется для подписки на событие о какой-либо ошибки
+    /// Исользуется для подписки на событие о какой-либо ошибке
     @discardableResult
     open override func onError(_ closure: @escaping (Error) -> Void) -> Self {
 
@@ -74,6 +74,7 @@ open class Context<Model>: Observer<Model> {
     @discardableResult
     open func emit(data: Model) -> Self {
         self.lastEmitedData = data
+        self.lastEmitedError = nil
         self.completedClosure?(data)
         self.deferClosure?()
         return self
@@ -85,6 +86,7 @@ open class Context<Model>: Observer<Model> {
     @discardableResult
     open func emit(error: Error) -> Self {
         self.lastEmitedError = error
+        self.lastEmitedData = nil
         self.errorClosure?(error)
         self.deferClosure?()
         return self
