@@ -131,3 +131,26 @@ func getShortAccount(by id: String) -> Observer<AccountShort> { ... }
 ```
 
 Здесь мы сначала получаем некоторые описания аккаунта, а затем по id из полученной модели запрашиваем набор пользователей, которые привязаны к этому аккаунту. 
+
+### combine<T>(_ context: Observer<T>) -> Observer<(Model, T)>
+
+### combine<T>(_ contextProvider: @escaping (Model) -> Observer<T>) -> Observer<(Model, T)>
+
+### filter<T>(_ predicate: @escaping (T) -> Bool)
+
+### chain<T>(with contextProvider: @escaping (Model) -> Observer<T>?)
+
+### dispatchOn(_ queue: DispatchQueue)
+
+Конвертирует себя в [AsyncContext](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/AsyncContext.html)
+и конфигурирует его переданной очередью. 
+То есть после этого оператора ответ будет диспатчеризоваться на очереди `queue`
+
+### multicast()
+
+Конвертирует себя в [MulticastContext](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/MulticastContext.html)
+После этого оператора у каждого контекста может быть несколько слушателей.
+
+### process(_ observer: (Observer) -> Void)
+
+Просто передает себя в замыкание. Может быть полезно для просмотра логов.
