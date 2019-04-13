@@ -59,7 +59,7 @@ log message separated by \r\n and \t
 ```Swift
 
 func process(_ data: Input) -> Observer<Output> {
-    let log = Log(self.logViewObjectName, id: self.objectName)
+    var log = Log(self.logViewObjectName, id: self.objectName)
 
     // some operation with data
 
