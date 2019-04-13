@@ -1,11 +1,26 @@
-language: Swift
-osx_image: xcode9.3
-xcode_project: CoreNetKit.xcodeproj
+os: osx
+osx_image: xcode10.2
+xcode_project: CoreNetKit.xcworkspace
 xcode_scheme: CoreNetKit
 before_install:
   - pod install --repo-update
   - gem install xcpretty -N
   - brew update
-  - brew install swiftlint || true
+  - gem install jazzy
+  # - brew install swiftlint || true
+before_script:
+  - eval "$(ssh-agent -s)"
+  - chmod 600 ssh/id_rsa
+  - echo -e "Host lastsprint.dev\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - ssh-add ssh/id_rsa
 script:
+  - sh deploy_server.sh
+  - sh prepare_tests.sh
+  - xcodebuild test -workspace CoreNetKit.xcworkspace -scheme CoreNetKitIntegrationTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty -c
+after_script:
   - set -o pipefail
+  - bash <(curl -s https://codecov.io/bash) -t b62fa427-b5d3-4318-885d-e7783e1d527c 
+  # - bash <(curl -s http://lastsprint.dev:8844/shutdown)>
+  - ./deploy_docs.sh
+
+

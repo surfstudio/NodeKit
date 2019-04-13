@@ -1,0 +1,75 @@
+//
+//  RawJsonResponseProcessor.swift
+//  CoreNetKitWithExample
+//
+//  Created by Александр Кравченков on 28/11/2018.
+//  Copyright © 2018 Александр Кравченков. All rights reserved.
+//
+
+import Foundation
+import Alamofire
+
+/// Ошибки для `ResponseProcessorNode`
+///
+/// - rawResponseNotHaveMetaData: Возникает в случае, если запрос неконсистентен.
+public enum ResponseProcessorNodeError: Error {
+    case rawResponseNotHaveMetaData
+}
+
+/// Этот узел занимается первичной обработкой ответа сервера.
+open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
+
+    /// Следующий узел для обратки.
+    public let next: ResponseProcessingLayerNode
+
+    /// Инициаллизирует узел.
+    ///
+    /// - Parameter next: Следующий узел для обратки.
+    public init(next: ResponseProcessingLayerNode) {
+        self.next = next
+    }
+
+    /// Проверяет, возникла-ли какая-то ошибка во время работы.
+    ///
+    /// - Parameter data: Низкоуровневый ответ сервера.
+    open override func process(_ data: DataResponse<Data>) -> Observer<Json> {
+        var log = Log(self.logViewObjectName, id: self.objectName)
+        switch data.result {
+        case .failure(let error):
+            log += "Catch Alamofire error: \(error)" + .lineTabDeilimeter
+            guard let urlResponse = data.response, let urlRequest = data.request else {
+                return Context<Json>().log(log).emit(error: error)
+            }
+
+            log += "Skip cause can extract parameters -> continue processing"
+            let response = UrlDataResponse(request: urlRequest,
+                                           response: urlResponse,
+                                           data: Data(), metrics: nil,
+                                           serializationDuration: -1)
+
+            return next.process(response).log(log)
+        case .success(let val):
+            log += "Request success!" + .lineTabDeilimeter
+            guard let urlResponse = data.response, let urlRequest = data.request else {
+                log += "But cant extract parameters -> terminate with error"
+                return Context<Json>()
+                    .log(log)
+                    .emit(error: ResponseProcessorNodeError.rawResponseNotHaveMetaData)
+            }
+
+            let dataResponse = UrlDataResponse(request: urlRequest,
+                                               response: urlResponse,
+                                               data: val,
+                                               metrics: data.metrics,
+                                               serializationDuration: data.serializationDuration)
+            log += "response:" + .lineTabDeilimeter
+            log += "\t" + "request: \(urlRequest)" + .lineTabDeilimeter
+            log += "\t" + "response: \(urlResponse)" + .lineTabDeilimeter
+            log += "\t" + "data: \(val)" + .lineTabDeilimeter
+            log += "\t" + "metrics: \(String(describing: data.metrics))" + .lineTabDeilimeter
+            log += "\t" + "serializationDuration: \(data.serializationDuration)" + .lineTabDeilimeter
+
+            return self.next.process(dataResponse).log(log)
+        }
+    }
+}
