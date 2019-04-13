@@ -46,10 +46,12 @@ open class TokenRefresherNode: Node<Void, Void> {
         }
 
         if shouldSaveContext {
+            var log = Log(self.logViewObjectName, id: self.objectName)
             return self.arrayQueue.sync {
+                log += "Save context to queue"
                 let result = Context<Void>()
                 self.observers.append(result)
-                return result
+                return result.log(log) 
             }
         }
 
