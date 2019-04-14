@@ -132,13 +132,84 @@ func getShortAccount(by id: String) -> Observer<AccountShort> { ... }
 
 Здесь мы сначала получаем некоторые описания аккаунта, а затем по id из полученной модели запрашиваем набор пользователей, которые привязаны к этому аккаунту. 
 
-### combine<T>(_ context: Observer<T>) -> Observer<(Model, T)>
+### combine<T>(_ provider: @escaping @autoclosure () -> Observer<T>) -> Observer<(Model, T)>
 
-### combine<T>(_ contextProvider: @escaping (Model) -> Observer<T>) -> Observer<(Model, T)>
+Комбинирует несколько наблюдателей. В качестве результата будет 1 `Observer` с двумя результатами. 
 
-### filter<T>(_ predicate: @escaping (T) -> Bool)
+Может быть полезен в том случае, если необходимо испольнить два параллельных запроса. 
 
-### chain<T>(with contextProvider: @escaping (Model) -> Observer<T>?)
+Пример:
+
+Представим, что у нас есть экран, который явно состоит из 3х элементов:
+1. Рекламные баннеры
+2. Продукты (например это экран товаров в магазине)
+3. Какие-то действия для ботомшита, например, запрос следующей партии товаров или что-то еще. Это действия, которые сервер может выполнять и они могут изменяться сервером в зависимости от каки-то причин.
+
+Для того, чтобы собрать этот экран можно использовать оператор `combine`
+
+```Swift
+
+struct BuisnessValue {
+    let banner: Banner
+    let products: [Product]
+    let actions: [Action]
+} 
+
+func getBuisnessValue() -> Observer<BuisnessValue> {
+    return self.getBanner()
+        .combine(self.getProducts)
+        .combine(self.getActions)
+        .map { (args) in
+            let (banner, products, actions) = args
+            return BuisnessValue(banner: banner, 
+                                products: products, 
+                                actions: actions)
+        }
+}
+
+func getBanner() -> Observer<Banner> { }
+
+func getProducts() -> Observer<[Product]> { }
+
+func getActions() -> Observer<[Action]> { }
+
+```
+
+### chain<T>(with contextProvider: @escaping (Model) -> Observer<T>?) -> Observer<(Model, T)>
+
+Этот оператор является почти суммой операторов `combine` и `map`. 
+Он позволяет создать цепочку из наблюдателей, причем, каждый следующий наблюдатель создается из результата работы предыдущего, но в итоге работы всей цепочки будут результаты от каждого из наблюдателей.
+
+Это может быть полезно в том случае, если необходимо выполнить несколько разных запросов, каждый из которых зависит от предыдущего, но в отличии от `map` нам нужны результаты каждого запроса.
+
+Допустим, мы пишем банковское приложение и хотим получить описание счета, затем карты привязанные к этому счету, но при этом получить карты мы можем только узнав тип счета. В конечном итоге нам нужно вывести и описание счета и карты.
+
+В таком случае реализовано это будет так:
+
+```Swift
+
+    func getAccount() -> Observer<Account> {
+        return self.getShortAccount()
+        .chain(self.getCards)
+        .map { (args) in
+            let (account, cards) = args
+            return Account(short: account, cards: cards)
+        }
+    }
+
+    func getShortAccount() -> Observer<ShortAccount> {
+
+    }
+
+    func getCards(model: AccountShort) -> Observer<[Card]> {
+
+    }
+```
+
+### filter<T>(_ predicate: @escaping (T) -> Bool) where Model == [T]
+
+Следует обратить внимание, что этот оператор может быть применен только к тем наблюдателям, у которых результат представлен массивом. 
+
 
 ### dispatchOn(_ queue: DispatchQueue)
 

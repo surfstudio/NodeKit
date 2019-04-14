@@ -96,10 +96,11 @@ public extension Observer {
 
     /// Позволяет комбинировать несколько контекстов в один.
     /// Тогда подписчик будет оповещен только после того,как выполнятся оба контекста.
-    func combine<T>(_ context: Observer<T>) -> Observer<(Model, T)> {
+    func combine<T>(_ provider: @escaping @autoclosure () -> Observer<T>) -> Observer<(Model, T)> {
         let result = Context<(Model, T)>()
 
         self.onCompleted { [weak self] (model) in
+            let context = provider()
             context.log(self?.log)
                 .onCompleted { [weak context] in
                     result.log(context?.log).emit(data: (model, $0))
@@ -108,25 +109,6 @@ public extension Observer {
                 }.onCanceled { [weak context] in
                     result.log(context?.log).cancel()
                 }
-        }.onError { [weak self] (error) in
-            result.log(self?.log).emit(error: error)
-        }.onCanceled { [weak self] in
-            result.log(self?.log).cancel()
-        }
-
-        return result
-    }
-
-    /// Аналогично `combine<T>(_ context: Context<T>)`, только принимает не контекст, а функцию, которая возвращает контекст
-    func combine<T>(_ contextProvider: @escaping (Model) -> Observer<T>) -> Observer<(Model, T)> {
-        let result = Context<(Model, T)>()
-
-        self.onCompleted { [weak self] (model) in
-            let context = contextProvider(model)
-            context.log(self?.log)
-            context.onCompleted { [weak context] in result.log(context?.log).emit(data: (model, $0))}
-            context.onError { [weak context] in result.log(context?.log).emit(error: $0) }
-            context.onCanceled { [weak context] in result.log(context?.log).cancel() }
         }.onError { [weak self] (error) in
             result.log(self?.log).emit(error: error)
         }.onCanceled { [weak self] in

@@ -99,31 +99,6 @@ public class LoggingTests: XCTestCase {
         XCTAssertNil(result.log?.next?.next)
     }
 
-    func testLogCopyingInObserverProviderCombine() {
-        // Arrange
-
-        let context = Context<Json>().log(Log("", id: "")).emit(data: Json())
-        let exp = self.expectation(description: #function)
-
-        // Act
-        let result = context.combine { (model) -> Observer<Json> in
-            let result = Context<Json>()
-            DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
-                result.log(Log("1", id: "1")).emit(data: Json())
-            })
-            return result
-        }.onCompleted { _ in
-            exp.fulfill()
-        }
-
-        // Assert
-
-        self.waitForExpectations(timeout: 2, handler: nil)
-        XCTAssertNotNil(result.log)
-        XCTAssertNotNil(result.log?.next)
-        XCTAssertNil(result.log?.next?.next)
-    }
-
     func testLogCopyingInObserverCombine() {
         // Arrange
 
