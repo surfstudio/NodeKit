@@ -50,7 +50,7 @@ public struct Log: Logable {
     }
 
     /// Синтаксический сахар для `add(message:)`
-    static func += (lhs: inout Log, rhs: String) {
+    public static func += (lhs: inout Log, rhs: String) {
         lhs.add(message: rhs)
     }
 }

@@ -23,7 +23,7 @@ public extension Node {
 }
 
 /// Содержит вычисляемые константы
-extension String {
+public extension String {
     /// Возвращает последовательность "\n\t"
     static var lineTabDeilimeter: String {
         return "\r\n\t"
