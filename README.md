@@ -16,13 +16,20 @@
 
 # Документация
 
+[Как работает библиотека](/Docs/Nodes/Basic.md)
+
+[Существующие узлы](/Docs/Nodes/Existing.md)
+
 [Документация кода](https://lastsprint.dev/CoreNetKit/Docs/swift_output/)
 
 [Как этим пользоваться](/Docs/Usage.md)
 
 [Про использование моделей](/Docs/Models.md)
 
-[Логирование](/Docs/Log.md)
+[Логирование](/Docs/Log/Log.md)
 
 [Конексты и наблюдатели](/Docs/Contexts.md)
+
+[Реализованный цепочки](/Docs/Chains.md)
+
 

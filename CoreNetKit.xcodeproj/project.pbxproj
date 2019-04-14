@@ -42,6 +42,7 @@
 		B1568083222C769D00BC8D91 /* RequestAborterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1568082222C769D00BC8D91 /* RequestAborterNode.swift */; };
 		B1568086222C78F400BC8D91 /* AbortingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1568085222C78F400BC8D91 /* AbortingTests.swift */; };
 		B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */; };
+		B17451C92263652C0058AFE4 /* LoadIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17451C82263652C0058AFE4 /* LoadIndicatorNode.swift */; };
 		B17BB50F2255190500605AB8 /* UrlRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17BB50E2255190500605AB8 /* UrlRouting.swift */; };
 		B17E86912220413900400931 /* AccessSafeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17E86902220413900400931 /* AccessSafeNode.swift */; };
 		B1848A132204822400F54705 /* UserEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1848A122204822400F54705 /* UserEntry.swift */; };
@@ -157,6 +158,7 @@
 		B1568082222C769D00BC8D91 /* RequestAborterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAborterNode.swift; sourceTree = "<group>"; };
 		B1568085222C78F400BC8D91 /* AbortingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbortingTests.swift; sourceTree = "<group>"; };
 		B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TechnicaErrorMapperNode.swift; path = ../TrasportLayer/TechnicaErrorMapperNode.swift; sourceTree = "<group>"; };
+		B17451C82263652C0058AFE4 /* LoadIndicatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadIndicatorNode.swift; sourceTree = "<group>"; };
 		B17BB50E2255190500605AB8 /* UrlRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRouting.swift; sourceTree = "<group>"; };
 		B17E86902220413900400931 /* AccessSafeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessSafeNode.swift; sourceTree = "<group>"; };
 		B1848A122204822400F54705 /* UserEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntry.swift; sourceTree = "<group>"; };
@@ -551,6 +553,7 @@
 				B1568082222C769D00BC8D91 /* RequestAborterNode.swift */,
 				B17E86952223A2C600400931 /* AccessSafe */,
 				B1B7615322080E8D00AE3303 /* HeaderInjectorNode.swift */,
+				B17451C82263652C0058AFE4 /* LoadIndicatorNode.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1013,6 +1016,7 @@
 				B10D4BF0222DF45E006B9EE9 /* RequestModel.swift in Sources */,
 				B1B7613C2207A87100AE3303 /* Array+RawMappable.swift in Sources */,
 				B10FB24222079CA7004C65E3 /* ResponseDataParserNode.swift in Sources */,
+				B17451C92263652C0058AFE4 /* LoadIndicatorNode.swift in Sources */,
 				B1118EFA21C8CD8B007AD599 /* UrlServiceChainBuilder.swift in Sources */,
 				B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */,
 				B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */,

@@ -96,6 +96,7 @@ open class Context<Model>: Observer<Model> {
     @discardableResult
     open override func cancel() -> Self {
         self.cancelClosure?()
+        self.deferClosure?()
         return self
     }
 

@@ -43,13 +43,20 @@ open class UrlChainsBuilder {
             return ModelInputNode(next: dtoConverter)
     }
 
+    func supportNodes<Input, Output>(with config: UrlChainConfigModel) -> Node<Input, Output>
+        where Input: DTOEncodable, Output: DTODecodable,
+        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
+            let loadIndicator = LoadIndicatableNode<Input, Output>(next: self.defaultInput(with: config))
+            return loadIndicator
+    }
+
     /// Создает цепочку по-умолчанию. Подразумеается работа с DTO-моделями.
     ///
     /// - Parameter config: Конфигурация для запроса.
     open func `default`<Input, Output>(with config: UrlChainConfigModel) -> Node<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-            let input: Node<Input, Output> = self.defaultInput(with: config)
+            let input: Node<Input, Output> = self.supportNodes(with: config)
             let config =  ChainConfiguratorNode<Input, Output>(next: input)
             return LoggerNode(next: config)
     }
@@ -59,7 +66,7 @@ open class UrlChainsBuilder {
     /// - Parameter config: Конфигурация для запроса.
     open func `default`<Output>(with config: UrlChainConfigModel) -> Node<Void, Output>
         where Output: DTODecodable, Output.DTO.Raw == Json {
-            let input: Node<Json, Output> = self.defaultInput(with: config)
+            let input: Node<Json, Output> = self.supportNodes(with: config)
             let configNode = ChainConfiguratorNode<Json, Output>(next: input)
             let voidNode =  VoidInputNode(next: configNode)
             return LoggerNode(next: voidNode)
