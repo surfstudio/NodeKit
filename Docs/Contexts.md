@@ -1,3 +1,17 @@
+- [Контексты и наблюдатели](#%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%BA%D1%81%D1%82%D1%8B-%D0%B8-%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B0%D1%82%D0%B5%D0%BB%D0%B8)
+  - [Операции](#%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8)
+    - [error(_ mapper: @escaping (Error) throws -> Observer<Model>)](#error-mapper-escaping-error-throws---observermodel)
+    - [map(_ mapper: @escaping(Error) -> Error)](#map-mapper-escapingerror---error)
+    - [map<T>(_ mapper: @escaping (Model) throws -> T)](#mapt-mapper-escaping-model-throws---t)
+    - [map<T>(_ mapper: @escaping (Model) -> Observer<T>)](#mapt-mapper-escaping-model---observert)
+    - [combine<T>(_ provider: @escaping @autoclosure () -> Observer<T>) -> Observer<(Model, T)>](#combinet-provider-escaping-autoclosure----observert---observermodel-t)
+    - [chain<T>(with contextProvider: @escaping (Model) -> Observer<T>?) -> Observer<(Model, T)>](#chaintwith-contextprovider-escaping-model---observert---observermodel-t)
+    - [filter<T>(_ predicate: @escaping (T) -> Bool) where Model == [T]](#filtert-predicate-escaping-t---bool-where-model--t)
+    - [dispatchOn(_ queue: DispatchQueue)](#dispatchon-queue-dispatchqueue)
+    - [multicast()](#multicast)
+    - [process(_ observer: (Observer) -> Void)](#process-observer-observer---void)
+
+
 # Контексты и наблюдатели
 
 Одним из основных компонентов библиотеки является [Observer](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Observer.html), а точнее [Context](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Context.html) и его производные.
@@ -210,6 +224,7 @@ func getActions() -> Observer<[Action]> { }
 
 Следует обратить внимание, что этот оператор может быть применен только к тем наблюдателям, у которых результат представлен массивом. 
 
+Это просто обертка над операцией `filter` для коллекций. Может быть использован просто для удоства.
 
 ### dispatchOn(_ queue: DispatchQueue)
 
