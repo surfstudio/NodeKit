@@ -1,6 +1,6 @@
 # Принцип работы библиотеки
 
-Принцип работы библиотеки построен на выстраиании цеопчки операций над данными. 
+Принцип работы библиотеки построен на выстраиании цепочки операций над данными. 
 
 Каждая отдельная операция представлена узлом `Node<Input, Output>`.
 
@@ -84,9 +84,9 @@ class UserReaderNode: Node<String, User> {
 
 enum ReadError: Error {
     case notFound
-    case cantConect
+    case cantConnect
     case badRequest
-    case undefind
+    case undefined
 }
 
 class ErrorMapperNode: Node<String, User> {
@@ -112,7 +112,7 @@ class ErrorMapperNode: Node<String, User> {
 ```
 Рассмотрим как это будет работать.
 
-Сначала вызывается `ErrorMapperNode.prcoess`
+Сначала вызывается `ErrorMapperNode.process`
 
 Внутри этого метода сразу же вызывается `UserReaderNode.process` 
 
