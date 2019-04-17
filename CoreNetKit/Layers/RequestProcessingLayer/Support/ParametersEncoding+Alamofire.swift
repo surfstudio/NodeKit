@@ -15,11 +15,13 @@ extension CoreNetKit.ParametersEncoding {
     public var raw: ParameterEncoding {
         switch self {
         case .json:
-            return JSONEncoding.default
+            return JsonArrayEncoding()//JSONEncoding.default
         case .formUrl:
             return URLEncoding.default
         case .urlQuery:
             return URLEncoding.queryString
+        case .jsonArray:
+            return JsonArrayEncoding()
         }
     }
 }
