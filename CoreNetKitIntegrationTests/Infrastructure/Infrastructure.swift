@@ -26,7 +26,7 @@ public enum Routes {
 extension Routes: UrlRouteProvider {
 
     private static var base: URL? {
-        return URL(string: "http://127.0.0.1:8844")
+        return URL(string: "http://lastsprint.dev:8844")
     }
 
     public func url() throws -> URL {
