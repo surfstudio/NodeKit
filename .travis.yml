@@ -1,13 +1,13 @@
 os: osx
 osx_image: xcode10.2
-language: swift
+language: obj-c
 xcode_project: CoreNetKit.xcworkspace
 xcode_scheme: CoreNetKit
 before_install:
   - pod install --repo-update
   - gem install xcpretty -N
-  - brew update
   - gem install jazzy
+  - ls
   # - brew install swiftlint || true
 # before_script:
 #   - eval "$(ssh-agent -s)"
