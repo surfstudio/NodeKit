@@ -8,19 +8,45 @@ before_install:
   - brew update
   - gem install jazzy
   # - brew install swiftlint || true
-before_script:
-  - eval "$(ssh-agent -s)"
-  - chmod 600 ssh/id_rsa
-  - echo -e "Host lastsprint.dev\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - ssh-add ssh/id_rsa
-script:
-  - sh deploy_server.sh
-  - sh prepare_tests.sh
-  - xcodebuild test -workspace CoreNetKit.xcworkspace -scheme CoreNetKitIntegrationTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty -c
-after_script:
-  - set -o pipefail
-  - bash <(curl -s https://codecov.io/bash) -t b62fa427-b5d3-4318-885d-e7783e1d527c 
+# before_script:
+#   - eval "$(ssh-agent -s)"
+#   - chmod 600 ssh/id_rsa
+#   - echo -e "Host lastsprint.dev\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+#   - ssh-add ssh/id_rsa
+# script:
+  # - sh deploy_server.sh
+  # - sh prepare_tests.sh
+  # - xcodebuild test -workspace CoreNetKit.xcworkspace -scheme CoreNetKitIntegrationTests -configuration "Debug" -sdk iphonesimulator -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty -c
+# after_script:
+  # - set -o pipefail
+  # - bash <(curl -s https://codecov.io/bash) -t b62fa427-b5d3-4318-885d-e7783e1d527c 
   # - bash <(curl -s http://lastsprint.dev:8844/shutdown)>
-  - ./deploy_docs.sh
+  # - ./deploy_docs.sh
+jobs:
+  include:
+    - stage: test_prepare
+    - script: prepare_srv_deploy.sh
+      name: Prepare Test Server Deploy
+    - script: ci/prepare_tests.sh
+      name: Prepare Tests For Remote Server
 
+    - stage: test_deploy
+    - script: ci/deploy_server.sh
+      name: Deply Tests server
+      
+    - stage: test
+    - script: ci/run_tests.sh
+      name: Testing
 
+    - stage: test_reporting
+    - script: ci/codecov_report.sh
+      name: Deploy CodeCov Report
+    - stage: docs
+
+    - stage: docks_gen
+      name: Generate Documentation
+      script: ci/docks/dock_gen.sh
+
+    - stage: docks_deploy
+      name: Deploy Documentation 
+      script: ci/docks/deploy_docs.sh
