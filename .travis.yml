@@ -25,20 +25,24 @@ before_install:
 jobs:
   include:
     - stage: test_prepare
+      name: Prepare environment for testing
     - script: prepare_srv_deploy.sh
       name: Prepare Test Server Deploy
     - script: ci/prepare_tests.sh
       name: Prepare Tests For Remote Server
 
     - stage: test_deploy
+      name: Deploy TestServer
     - script: ci/deploy_server.sh
       name: Deply Tests server
       
     - stage: test
+      name: Testing
     - script: ci/run_tests.sh
       name: Testing
 
     - stage: test_reporting
+      name: Report test results
     - script: ci/codecov_report.sh
       name: Deploy CodeCov Report
     - stage: docs
