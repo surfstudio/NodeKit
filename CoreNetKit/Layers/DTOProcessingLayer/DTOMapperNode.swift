@@ -30,7 +30,7 @@ open class DTOMapperNode<Input, Output>: Node<Input, Output> where Input: RawEnc
         do {
             let data = try data.toRaw()
             return next.process(data)
-                .compactMap { try Output.from(raw: $0) }
+                .map { try Output.from(raw: $0) }
         } catch {
             return context.emit(error: error)
         }

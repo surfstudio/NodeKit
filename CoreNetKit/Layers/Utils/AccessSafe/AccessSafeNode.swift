@@ -70,7 +70,7 @@ open class AccessSafeNode: TransportLayerNode {
     /// Просто передает управление следующему узлу.
     /// В случае если вернулась доступа, то обноляет токен и повторяет запрос.
     override open func process(_ data: TransportUrlRequest) -> Observer<Json> {
-        return self.next.process(data).mapError { error in
+        return self.next.process(data).mapError { error -> Observer<Json> in
             switch error {
             case ResponseHttpErrorProcessorNodeError.forbidden, ResponseHttpErrorProcessorNodeError.unauthorized:
                 return self.updateTokenChain.process(()).map { _ in

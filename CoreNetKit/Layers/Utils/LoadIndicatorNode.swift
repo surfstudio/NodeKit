@@ -42,6 +42,6 @@ open class LoadIndicatableNode<Input, Output>: Node<Input, Output> {
             DispatchQueue.global().async(flags: .barrier) {
                 LoadIndicatableNodeStatic.requestConter -= 1
             }
-        }.compactMap { $0 }
+        }.map { $0 }
     }
 }
