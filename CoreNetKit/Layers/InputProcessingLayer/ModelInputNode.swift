@@ -34,7 +34,7 @@ public class ModelInputNode<Input, Output>: Node<Input, Output> where Input: DTO
         do {
             let data = try data.toDTO()
             return next.process(data)
-                .map { try Output.from(dto: $0) }
+                .compactMap { try Output.from(dto: $0) }
         } catch {
             return context.emit(error: error)
         }

@@ -20,7 +20,7 @@ open class EntryinputDtoOutputNode<Input, Output>: Node<Input, Output>
     open override func process(_ data: Input) -> Observer<Output> {
         do {
             let raw = try data.toRaw()
-            return self.next.process(raw).map { try Output.from(dto: Output.DTO.from(raw: $0) ) }
+            return self.next.process(raw).compactMap { try Output.from(dto: Output.DTO.from(raw: $0) ) }
         } catch {
             return .emit(error: error)
         }

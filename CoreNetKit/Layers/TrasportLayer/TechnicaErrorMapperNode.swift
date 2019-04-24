@@ -39,7 +39,7 @@ open class TechnicaErrorMapperNode: RequestProcessingLayerNode {
     /// - Parameter data: Данные для обработки.
     open override func process(_ data: RawUrlRequest) -> Observer<Json> {
         return self.next.process(data)
-            .map { error in
+            .compactMapError { error in
                 switch (error as NSError).code {
                 case -1009:
                     return BaseTechnicalError.noInternetConnection

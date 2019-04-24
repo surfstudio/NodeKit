@@ -66,7 +66,7 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
 
         let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
 
-        return nextNode.process(networkResponse).log(Log(log, id: self.objectName)).map { json }
+        return nextNode.process(networkResponse).log(Log(log, id: self.objectName)).compactMap { json }
     }
 
     /// Получает `json` из модели ответа сервера.
