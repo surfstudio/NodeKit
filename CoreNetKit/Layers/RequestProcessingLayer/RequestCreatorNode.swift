@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 /// Этот узел инициаллизирует URL запрос.
-open class RequestCreatorNode: Node<TransportUrlRequest, Json> {
+open class RequestCreatorNode: TransportLayerNode {
 
     /// Следующий узел для обработки.
     public var next: RequestProcessingLayerNode
