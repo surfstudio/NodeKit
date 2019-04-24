@@ -883,7 +883,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CoreNetKit-CoreNetKitIntegrationTests/Pods-CoreNetKit-CoreNetKitIntegrationTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CoreNetKit-CoreNetKitIntegrationTests/Pods-CoreNetKit-CoreNetKitIntegrationTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreEvents/CoreEvents.framework",
 			);
@@ -896,7 +896,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CoreNetKit-CoreNetKitIntegrationTests/Pods-CoreNetKit-CoreNetKitIntegrationTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoreNetKit-CoreNetKitIntegrationTests/Pods-CoreNetKit-CoreNetKitIntegrationTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B16C1C0221E66037004FBF4A /* ShellScript */ = {
@@ -914,8 +914,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "\n";
 		};
 		E1464D030E45077C4A8ACB7F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
