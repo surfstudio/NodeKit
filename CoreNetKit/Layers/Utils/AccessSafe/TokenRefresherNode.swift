@@ -65,6 +65,16 @@ open class TokenRefresherNode: Node<Void, Void> {
                 self?.observers.removeAll()
             }
             return ()
+        }.mapError { [weak self] error -> Error in
+            guard let `self` = self else { return error }
+
+            let observers = self.arrayQueue.sync(execute: { return self.observers })
+            observers.forEach { $0.emit(error: error) }
+            self.arrayQueue.async { [weak self] in
+                self?.observers.removeAll()
+            }
+
+            return error
         }
     }
 }

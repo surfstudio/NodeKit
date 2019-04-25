@@ -20,7 +20,7 @@ public class LoggingTests: XCTestCase {
 
         // Act
 
-        let result = context.compactMap { data in
+        let result = context.map { data in
             return data
         }
 
@@ -37,7 +37,7 @@ public class LoggingTests: XCTestCase {
 
         // Act
 
-        let result = context.compactMapError { error in
+        let result = context.mapError { error in
             return error
         }
 
@@ -80,7 +80,7 @@ public class LoggingTests: XCTestCase {
         let exp = self.expectation(description: #function)
 
         // Act
-        let result = context.mapError { err in
+        let result = context.mapError { err -> Context<Json> in
             let result = Context<Json>()
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
                 result.log(Log("1", id: "1")).emit(data: Json())
