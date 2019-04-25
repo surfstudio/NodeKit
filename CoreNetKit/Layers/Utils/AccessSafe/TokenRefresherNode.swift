@@ -59,6 +59,8 @@ open class TokenRefresherNode: Node<Void, Void> {
 
             guard let `self` = self else { return () }
 
+            self.flagQueue.sync { self.isRequestSended = false }
+
             let observers = self.arrayQueue.sync(execute: { return self.observers })
             observers.forEach { $0.emit(data: ()) }
             self.arrayQueue.async { [weak self] in
@@ -67,6 +69,8 @@ open class TokenRefresherNode: Node<Void, Void> {
             return ()
         }.mapError { [weak self] error -> Error in
             guard let `self` = self else { return error }
+
+            self.flagQueue.sync { self.isRequestSended = false }
 
             let observers = self.arrayQueue.sync(execute: { return self.observers })
             observers.forEach { $0.emit(error: error) }
