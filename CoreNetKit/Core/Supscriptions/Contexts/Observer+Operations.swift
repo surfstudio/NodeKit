@@ -34,6 +34,7 @@ public extension Observer {
         return result
     }
 
+    /// Позволяет конвертировать одну ошибку в другую.
     func mapError(_ mapper: @escaping(Error) -> Error) -> Observer<Model> {
         let result = Context<Model>()
 

@@ -2,8 +2,8 @@
 - [Содержание](#%D1%81%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5)
 - [Контексты и наблюдатели](#%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%BA%D1%81%D1%82%D1%8B-%D0%B8-%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B0%D1%82%D0%B5%D0%BB%D0%B8)
   - [Операции](#%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8)
-    - [error(_ mapper: @escaping (Error) throws -> Observer<Model>)](#error-mapper-escaping-error-throws---observermodel)
-    - [map(_ mapper: @escaping(Error) -> Error)](#map-mapper-escapingerror---error)
+    - [mapError(_ mapper: @escaping (Error) throws -> Observer<Model>)](#maperror-mapper-escaping-error-throws---observermodel)
+    - [mapError(_ mapper: @escaping(Error) -> Error)](#maperror-mapper-escapingerror---error)
     - [map<T>(_ mapper: @escaping (Model) throws -> T)](#mapt-mapper-escaping-model-throws---t)
     - [map<T>(_ mapper: @escaping (Model) -> Observer<T>)](#mapt-mapper-escaping-model---observert)
     - [combine<T>(_ provider: @escaping @autoclosure () -> Observer<T>) -> Observer<(Model, T)>](#combinet-provider-escaping-autoclosure----observert---observermodel-t)
@@ -82,7 +82,7 @@ context.onError { print("Error!") }
 
 Все доступные операции перечислены [тут](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Observer.html)
 
-### error(_ mapper: @escaping (Error) throws -> Observer<Model>)
+### mapError(_ mapper: @escaping (Error) throws -> Observer<Model>)
 
 Задача этой операции сконвертировать ошибку в какой-то другой `Observer`. Например, таким образом можно "глушить" ошибки. 
 Рассмотрим пример:
@@ -91,7 +91,7 @@ context.onError { print("Error!") }
 
 let context = Context<String>()
 
-context.error { error in
+context.mapError { error in
     if case Error.some = error {
         return .emit(data: "Word!")
     }
@@ -122,15 +122,57 @@ Error!
 
 В третьем случае мы заэмитили другую ошибку, и оператор `error` не зашел в блок `if case` и просто пробросил ошибку дальше.
 
-### map(_ mapper: @escaping(Error) -> Error)
+### mapError(_ mapper: @escaping(Error) -> Error)
 
 Позволяет замапить одну ошибку в другую. Это как `map` для массивов. 
 
 Удобно использовать если нужно замапить какю-то "коробочную" ошибку в кастомную.
+Предположим, что мы хотим привязать карту к определенному счету. Для этого мы используем запрос, который может вернуть ошибки типа `HttpError`. Однако мы точно знаем, что `clientError` означат то, что мы не можем привязать карту к аккаунту, потому что эту карту нельзя привязать к этому аккаунту.
+
+Например:
+
+```Swift
+
+enum HttpError {
+    case notFound
+    case serverError
+    case clientError
+}
+
+enum AddCardError {
+    case undefind
+    case badAccountNumber
+}
+
+node.process().mapError { error in 
+    switch error {
+        case HttpError.clientError: return AddCardError.badAccountNumber
+        default: return AddCardError.undefind
+    }
+}
+
+```
 
 ### map<T>(_ mapper: @escaping (Model) throws -> T)
 
 Полностью аналогично `map` для массивов.
+Вариантов использования этого оператора можноп ривести очень много, но я приведу вариант с "приглушением" ответа от сервера. Например когда нам необходимо отправить запрос авторизацию, а нам вместе с Auth-данными приходят данные о пользователе. Мы не хотим передавать токены в презентер (и вообще не хотим, чтобы презентер он них знал), но хотим передать информацию о пользвоателе. 
+
+```Swift
+
+struct AuthEntity {
+    let accessToken: String
+    let refreshToken: String
+    let userId: String
+    let userRole: UserRole
+}
+
+node.process().map { [weak self] (reply: AuthEntity) in
+    self?.store(accessToken: reply.accessToken, refreshToken: reply.refreshToken)
+    return User(id: reply.userId, role: reply.userRole)
+}
+
+```
 
 ### map<T>(_ mapper: @escaping (Model) -> Observer<T>)
 
@@ -212,11 +254,11 @@ func getActions() -> Observer<[Action]> { }
 
     func getAccount() -> Observer<Account> {
         return self.getShortAccount()
-        .chain(self.getCards)
-        .map { (args) in
-            let (account, cards) = args
-            return Account(short: account, cards: cards)
-        }
+            .chain(self.getCards)
+            .map { (args) in
+                let (account, cards) = args
+                return Account(short: account, cards: cards)
+            }
     }
 
     func getShortAccount() -> Observer<ShortAccount> {
@@ -232,7 +274,15 @@ func getActions() -> Observer<[Action]> { }
 
 Следует обратить внимание, что этот оператор может быть применен только к тем наблюдателям, у которых результат представлен массивом. 
 
-Это просто обертка над операцией `filter` для коллекций. Может быть использован просто для удоства.
+Это просто обертка над операцией `filter` для коллекций. Может быть использован просто для удобства.
+
+```Swift
+
+self.service
+    .getAllOrders()
+    .filter { $0.isCompleted }
+
+```
 
 ### dispatchOn(_ queue: DispatchQueue)
 
@@ -240,11 +290,64 @@ func getActions() -> Observer<[Action]> { }
 и конфигурирует его переданной очередью. 
 То есть после этого оператора ответ будет диспатчеризоваться на очереди `queue`
 
+```Swift
+
+self.service
+    .getAllShopItems()
+    .dispatchOn(.global(qos: .userInitiated))
+    .map { [weak self] item in
+        self.soLongExecutedMethod(item)
+    }
+
+```
+
 ### multicast()
 
 Конвертирует себя в [MulticastContext](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/MulticastContext.html)
 После этого оператора у каждого контекста может быть несколько слушателей.
 
+Вообще, не очень советую использовать эту функцию, потому что, если не понимать как это работает, то можно прострелить себе ногу.
+
+Но вообще она может быть использована для того, чтобы на двух разных компонентах экрана показывать разное представление одних и тех же данных. 
+
+Пусть у нас есть приложение на планшете. Пусть это приложение - биржа.
+
+Пусть в одной части экрана у нас есть независимый модуль, реализующий список валютных пар для обмена, а в другой части - почти та же самая информациф о выбранной валюте, только представлена немного в другом формате. Например детальнее показан тренд, показаны полные названия валют и т.п.
+Можно было бы, конечно, сделать два запроса, но для биржевых приложений (как фронта, так и бэка) важен перформанс, а еще одно TCP-соединение не очень укладывается в уменьшение нагрузки (:
+
+Тем более там стрим, открывать кучу стримов для получение модельки с парой дополнительных полей тоже странная затея.
+
+*(Вообще-то для решения подобной проблемы лучше использовать FLUX/REDUX)*
+
+Для решения проблемы шаринга **ИСТОЧНИКА** данных этот оператор и нужен. Однако в этом случае я советую все таки писать абстракцию над источником, чтобы оба логических элемента (допустим, презентера) работали с сервисом, который бы под копотом уже занимался шарингом, запросами и всем остальным. 
+
+В примере я этого писать коненчо не буду)
+
+```Swift
+
+class FirstPresenter {
+    func apply(observer: Observer<T>) { ... }
+}
+
+class SecondPresenter {
+    func apply(observer: Observer<T>) { ... }
+}
+
+let observer = node.process()
+                .multicast()
+
+let first = FirstPresenter()
+                .apply(observer)
+
+let second = SecondPresenter()
+                .apply(observer)
+```
+
 ### process(_ observer: (Observer) -> Void)
 
 Просто передает себя в замыкание. Может быть полезно для просмотра логов.
+
+```Swift
+
+node.process().process { print($0.log) }
+```
