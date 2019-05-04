@@ -32,7 +32,7 @@ open class IfConnectionFailedFromCacheNode: Node<RawUrlRequest, Json> {
     /// В противном случае передает управление следующему узлу.
     open override func process(_ data: RawUrlRequest) -> Observer<Json> {
 
-        return self.next.process(data).error { error in
+        return self.next.process(data).mapError { error -> Observer<Json> in
             var logMessage = self.logViewObjectName
             logMessage += "Catching \(error)" + .lineTabDeilimeter
             if error is BaseTechnicalError, let request = data.toUrlRequest() {

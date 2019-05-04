@@ -55,9 +55,11 @@ open class TokenRefresherNode: Node<Void, Void> {
             }
         }
 
-        return self.tokenRefreshChain.process(()).map { [weak self] (model) -> Void  in
+        return self.tokenRefreshChain.process(()).map { [weak self] model -> Void in
 
             guard let `self` = self else { return () }
+
+            self.flagQueue.sync { self.isRequestSended = false }
 
             let observers = self.arrayQueue.sync(execute: { return self.observers })
             observers.forEach { $0.emit(data: ()) }
@@ -65,6 +67,18 @@ open class TokenRefresherNode: Node<Void, Void> {
                 self?.observers.removeAll()
             }
             return ()
+        }.mapError { [weak self] error -> Error in
+            guard let `self` = self else { return error }
+
+            self.flagQueue.sync { self.isRequestSended = false }
+
+            let observers = self.arrayQueue.sync(execute: { return self.observers })
+            observers.forEach { $0.emit(error: error) }
+            self.arrayQueue.async { [weak self] in
+                self?.observers.removeAll()
+            }
+
+            return error
         }
     }
 }

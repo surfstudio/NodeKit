@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/surfstudio/CoreNetKit.git"}
 
-  s.source_files  = 'CoreNetKit/Utils/**/*.swift', 'CoreNetKit/Chains/**/*.swift', 'CoreNetKit/Layers/**/*.swift', 'CoreNetKit/Core/**/*.swift'
+  s.source_files  = 'CoreNetKit/Utils/**/*.swift', 'CoreNetKit/Chains/**/*.swift', 'CoreNetKit/Layers/**/*.swift', 'CoreNetKit/Core/**/*.swift', 'CoreNetKit/Encodings/*.swift'
   s.dependency 'Alamofire', '~> 5.0.0-beta.4'
   s.dependency 'CoreEvents', '~> 1.3.0'
 

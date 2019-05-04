@@ -14,7 +14,7 @@ public extension Observer {
     /// Этот метод позволяет конвертировать возникшую ошибку в другую модель.
     /// Например если в случае ошибки операции мы хотим выполнить другую операцию
     /// и все равно получить результат, то этот метод должен подойти.
-    func error(_ mapper: @escaping (Error) throws -> Observer<Model>) -> Observer<Model> {
+    func mapError(_ mapper: @escaping (Error) throws -> Observer<Model>) -> Observer<Model> {
         let result = Context<Model>().log(self.log)
         self.onCompleted { [weak self] model in
             result.log(self?.log).emit(data: model)
@@ -34,7 +34,8 @@ public extension Observer {
         return result
     }
 
-    func map(_ mapper: @escaping(Error) -> Error) -> Observer<Model> {
+    /// Позволяет конвертировать одну ошибку в другую.
+    func mapError(_ mapper: @escaping(Error) -> Error) -> Observer<Model> {
         let result = Context<Model>()
 
         self.onCompleted { [weak self] data in
