@@ -75,7 +75,7 @@ open class UrlChainsBuilder {
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
     ///
     /// - Parameter config: Конфигурация для запроса.
-    func `default`<Input>(with config: UrlChainConfigModel) -> Node<Input, Void>
+    open func `default`<Input>(with config: UrlChainConfigModel) -> Node<Input, Void>
         where Input: DTOEncodable, Input.DTO.Raw == Json {
             let input = self.requestBuildingChain(with: config)
             let indicator = LoadIndicatableNode(next: input)
@@ -87,7 +87,7 @@ open class UrlChainsBuilder {
     /// Создает обычную цепочку, только в качестве входных и вызодных данных имеет `Void`
     ///
     /// - Parameter config: Конфигурация для запроса.
-    func `default`(with config: UrlChainConfigModel) -> Node<Void, Void> {
+    open func `default`(with config: UrlChainConfigModel) -> Node<Void, Void> {
         let input = self.requestBuildingChain(with: config)
         let indicator = LoadIndicatableNode(next: input)
         let configNode = ChainConfiguratorNode(next: indicator)

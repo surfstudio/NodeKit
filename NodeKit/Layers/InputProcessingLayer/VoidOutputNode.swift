@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class VoidOutputNode<Input>: Node<Input, Void> where Input: DTOEncodable, Input.DTO.Raw == Json {
+open class VoidOutputNode<Input>: Node<Input, Void> where Input: DTOEncodable, Input.DTO.Raw == Json {
 
     let next: Node<Json, Json>
 
@@ -16,7 +16,7 @@ final class VoidOutputNode<Input>: Node<Input, Void> where Input: DTOEncodable, 
         self.next = next
     }
 
-    override func process(_ data: Input) -> Observer<Void> {
+    override open func process(_ data: Input) -> Observer<Void> {
 
         var newData: Json
 
