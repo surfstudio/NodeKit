@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.0.0-beta.4)
+  - Alamofire (5.0.0-beta.6)
   - CoreEvents (1.3.0)
 
 DEPENDENCIES:
@@ -21,9 +21,9 @@ CHECKOUT OPTIONS:
     :tag: 1.3.0
 
 SPEC CHECKSUMS:
-  Alamofire: 6458d95477bc40adf10129f22c67cfb014162dc8
+  Alamofire: cd08a4402bd12cacd0c66f23fb12fec8d6b965e4
   CoreEvents: 5cbaa323668a121ec4a54818972359f835e19002
 
-PODFILE CHECKSUM: 973dc9166ce30a46aacf5b831ee6a64cf673deea
+PODFILE CHECKSUM: 2c432eb08dbb9774ef714d1f1b7c5b02be868c43
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

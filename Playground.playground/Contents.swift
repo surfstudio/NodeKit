@@ -1,5 +1,5 @@
 import UIKit
-import CoreNetKit
+import NodeKit
 
 // MARK: - Инфраструктура
 
@@ -75,7 +75,7 @@ extension Http2CheckResultEntry: RawDecodable {
 
 func checkHttp2() -> Observer<Http2CheckResult> {
     return UrlChainsBuilder()
-            .default(with: UrlChainConfigModel(method: .get, route: Endpoint.isHttp2))
+            .default(with: UrlChainConfigModel(method: .post, route: Endpoint.isHttp2))
             .process()
 }
 
