@@ -101,6 +101,8 @@
 		B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F321B1DDCF00382FA5 /* UrlCacheReaderNode.swift */; };
 		B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6FA21B1DDCF00382FA5 /* Node.swift */; };
 		B94310AF1F931CC000E8A9BA /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */; };
+		B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +216,8 @@
 		B94310AA1F931CC000E8A9BA /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94310AD1F931CC000E8A9BA /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		B94310AE1F931CC000E8A9BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidOutputNode.swift; sourceTree = "<group>"; };
+		B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidIONode.swift; sourceTree = "<group>"; };
 		C93D4D7B8501ED5C5089E938 /* Pods_NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D64717B6D96F0E577E18A095 /* Pods-NodeKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit.release.xcconfig"; path = "Target Support Files/Pods-NodeKit/Pods-NodeKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -256,7 +260,6 @@
 				22AB55338E3AFD7D15EA636E /* Pods-NodeKit-IntegrationTests.debug.xcconfig */,
 				1FA15CD5765BC3071AC74B9E /* Pods-NodeKit-IntegrationTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -353,8 +356,10 @@
 			isa = PBXGroup;
 			children = (
 				B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */,
+				B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */,
 				B19FB53F224664FA0038B12B /* VoidInputNode.swift */,
 				B172440B2264EFB800CC9F70 /* EntryinputDtoOutputNode.swift */,
+				B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */,
 			);
 			path = InputProcessingLayer;
 			sourceTree = "<group>";
@@ -935,7 +940,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\n";
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -989,6 +995,7 @@
 				B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */,
 				B1B407F5223513C10036326E /* OffsetPager.swift in Sources */,
 				B199E76A223CF2A10001FE17 /* ParametersEncoding.swift in Sources */,
+				B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */,
 				B17E86912220413900400931 /* AccessSafeNode.swift in Sources */,
 				B10D4BF8222DF4B1006B9EE9 /* RequestRouterNode.swift in Sources */,
 				B10CA5282259D545002885B3 /* Logable.swift in Sources */,
@@ -1035,6 +1042,7 @@
 				B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */,
 				B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */,
 				B1B761572208118300AE3303 /* UrlDataResponse.swift in Sources */,
+				B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */,
 				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,
 				B1E61E4B224675EE00B3AAD9 /* ServerRequestsManager.swift in Sources */,
 				B10D4BFA222DF4C6006B9EE9 /* RequstEncoderNode.swift in Sources */,
