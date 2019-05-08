@@ -92,7 +92,7 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
         }
 
         let anyJson = { () -> Json? in
-            if let result = jsonObject as? [Json] {
+            if let result = jsonObject as? [Any] {
                 return [MappingUtils.arrayJsonKey: result]
             } else if let result = jsonObject as? Json {
                 return result
