@@ -38,10 +38,17 @@ open class LoadIndicatableNode<Input, Output>: Node<Input, Output> {
             LoadIndicatableNodeStatic.requestConter += 1
         }
 
-        return self.next.process(data).defer {
-            DispatchQueue.global().async(flags: .barrier) {
-                LoadIndicatableNodeStatic.requestConter -= 1
+        return self.next.process(data)
+            .map { (item: Output) -> Output in
+                DispatchQueue.global().async(flags: .barrier) {
+                    LoadIndicatableNodeStatic.requestConter -= 1
+                }
+                return item
+            }.mapError { (error: Error) -> Error in
+                DispatchQueue.global().async(flags: .barrier) {
+                    LoadIndicatableNodeStatic.requestConter -= 1
+                }
+                return error
             }
-        }.map { $0 }
     }
 }
