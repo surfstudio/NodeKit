@@ -38,10 +38,19 @@ open class LoadIndicatableNode<Input, Output>: Node<Input, Output> {
             LoadIndicatableNodeStatic.requestConter += 1
         }
 
-        return self.next.process(data).defer {
+        let decrementRequestCounter: (() -> Void) = {
             DispatchQueue.global().async(flags: .barrier) {
                 LoadIndicatableNodeStatic.requestConter -= 1
             }
-        }.map { $0 }
+        }
+
+        return self.next.process(data)
+            .map { (item: Output) -> Output in
+                decrementRequestCounter()
+                return item
+            }.mapError { (error: Error) -> Error in
+                decrementRequestCounter()
+                return error
+            }
     }
 }
