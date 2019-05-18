@@ -11,10 +11,10 @@ import Alamofire
 
 /// Этот узел отправляет запрос на сервер и ожидает ответ.
 /// - Important: этот узел имеет состояние (statefull)
-open class RequestSenderNode: Node<RawUrlRequest, Json>, Aborter {
+open class RequestSenderNode<Type>: Node<RawUrlRequest, Type>, Aborter {
 
     /// Тип для узла, который будет обрабатывать ответ от сервера.
-    public typealias RawResponseProcessor = Node<DataResponse<Data>, Json>
+    public typealias RawResponseProcessor = Node<DataResponse<Data>, Type>
 
     /// Узел для обработки ответа.
     public var rawResponseProcessor: RawResponseProcessor
@@ -32,7 +32,7 @@ open class RequestSenderNode: Node<RawUrlRequest, Json>, Aborter {
     /// Выполняет запрос,ожидает ответ и передает его следующему узлу.
     ///
     /// - Parameter data: Данные для исполнения запроса.
-    open override func process(_ data: RawUrlRequest) -> Observer<Json> {
+    open override func process(_ data: RawUrlRequest) -> Observer<Type> {
 
         let context = Context<DataResponse<Data>>()
 

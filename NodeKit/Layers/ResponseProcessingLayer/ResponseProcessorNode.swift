@@ -17,28 +17,28 @@ public enum ResponseProcessorNodeError: Error {
 }
 
 /// Этот узел занимается первичной обработкой ответа сервера.
-open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
+open class ResponseProcessorNode<Type>: Node<DataResponse<Data>, Type> {
 
     /// Следующий узел для обратки.
-    public let next: ResponseProcessingLayerNode
+    public let next: Node<UrlDataResponse, Type>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обратки.
-    public init(next: ResponseProcessingLayerNode) {
+    public init(next: Node<UrlDataResponse, Type>) {
         self.next = next
     }
 
     /// Проверяет, возникла-ли какая-то ошибка во время работы.
     ///
     /// - Parameter data: Низкоуровневый ответ сервера.
-    open override func process(_ data: DataResponse<Data>) -> Observer<Json> {
+    open override func process(_ data: DataResponse<Data>) -> Observer<Type> {
         var log = Log(self.logViewObjectName, id: self.objectName)
         switch data.result {
         case .failure(let error):
             log += "Catch Alamofire error: \(error)" + .lineTabDeilimeter
             guard let urlResponse = data.response, let urlRequest = data.request else {
-                return Context<Json>().log(log).emit(error: error)
+                return Context<Type>().log(log).emit(error: error)
             }
 
             log += "Skip cause can extract parameters -> continue processing"
@@ -52,7 +52,7 @@ open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
             log += "Request success!" + .lineTabDeilimeter
             guard let urlResponse = data.response, let urlRequest = data.request else {
                 log += "But cant extract parameters -> terminate with error"
-                return Context<Json>()
+                return Context<Type>()
                     .log(log)
                     .emit(error: ResponseProcessorNodeError.rawResponseNotHaveMetaData)
             }

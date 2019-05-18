@@ -42,7 +42,10 @@
 		B1568081222C70D300BC8D91 /* ObservableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1568080222C70D300BC8D91 /* ObservableProtocol.swift */; };
 		B1568083222C769D00BC8D91 /* RequestAborterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1568082222C769D00BC8D91 /* RequestAborterNode.swift */; };
 		B1568086222C78F400BC8D91 /* AbortingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1568085222C78F400BC8D91 /* AbortingTests.swift */; };
+		B15E54B1229019D600B62E24 /* DTOEncoderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15E54B0229019D600B62E24 /* DTOEncoderNode.swift */; };
+		B15E54B322901C2800B62E24 /* RawEncoderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15E54B222901C2800B62E24 /* RawEncoderNode.swift */; };
 		B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */; };
+		B17229612290118E0045E43D /* DataLoadingResponseProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17229602290118E0045E43D /* DataLoadingResponseProcessor.swift */; };
 		B172440C2264EFB800CC9F70 /* EntryinputDtoOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B172440B2264EFB800CC9F70 /* EntryinputDtoOutputNode.swift */; };
 		B17451C92263652C0058AFE4 /* LoadIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17451C82263652C0058AFE4 /* LoadIndicatorNode.swift */; };
 		B17BB50F2255190500605AB8 /* UrlRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17BB50E2255190500605AB8 /* UrlRouting.swift */; };
@@ -153,12 +156,16 @@
 		B113F87A222DD54B001CEEAC /* TestUtls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtls.swift; sourceTree = "<group>"; };
 		B113F87C222DD77E001CEEAC /* UrlETagReaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagReaderNodeTests.swift; sourceTree = "<group>"; };
 		B11A448A2231C559004CE4D5 /* TokenRefresherNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherNodeTests.swift; sourceTree = "<group>"; };
+		B14C3730229024DB00189B18 /* LoadPdfPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = LoadPdfPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B156807C222C65D000BC8D91 /* Observer+Shugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observer+Shugar.swift"; sourceTree = "<group>"; };
 		B156807E222C6BD300BC8D91 /* MulticastContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastContext.swift; sourceTree = "<group>"; };
 		B1568080222C70D300BC8D91 /* ObservableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableProtocol.swift; sourceTree = "<group>"; };
 		B1568082222C769D00BC8D91 /* RequestAborterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAborterNode.swift; sourceTree = "<group>"; };
 		B1568085222C78F400BC8D91 /* AbortingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbortingTests.swift; sourceTree = "<group>"; };
+		B15E54B0229019D600B62E24 /* DTOEncoderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOEncoderNode.swift; sourceTree = "<group>"; };
+		B15E54B222901C2800B62E24 /* RawEncoderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawEncoderNode.swift; sourceTree = "<group>"; };
 		B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TechnicaErrorMapperNode.swift; path = ../TrasportLayer/TechnicaErrorMapperNode.swift; sourceTree = "<group>"; };
+		B17229602290118E0045E43D /* DataLoadingResponseProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingResponseProcessor.swift; sourceTree = "<group>"; };
 		B172440B2264EFB800CC9F70 /* EntryinputDtoOutputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryinputDtoOutputNode.swift; sourceTree = "<group>"; };
 		B17451C82263652C0058AFE4 /* LoadIndicatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadIndicatorNode.swift; sourceTree = "<group>"; };
 		B17BB50E2255190500605AB8 /* UrlRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRouting.swift; sourceTree = "<group>"; };
@@ -169,7 +176,7 @@
 		B199E767223CF2920001FE17 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		B199E769223CF2A10001FE17 /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
 		B19D5171226776000081E259 /* JsonArrayEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonArrayEncoding.swift; sourceTree = "<group>"; };
-		B19FB53E2246601E0038B12B /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		B19FB53E2246601E0038B12B /* SimpleExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = SimpleExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B19FB53F224664FA0038B12B /* VoidInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidInputNode.swift; sourceTree = "<group>"; };
 		B1A575542250A83200DEF33E /* EncodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingTests.swift; sourceTree = "<group>"; };
 		B1A57558225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfConnectionFailedFromCacheNodeTests.swift; sourceTree = "<group>"; };
@@ -355,6 +362,7 @@
 		B1118EEE21C8B7D1007AD599 /* InputProcessingLayer */ = {
 			isa = PBXGroup;
 			children = (
+				B15E54B0229019D600B62E24 /* DTOEncoderNode.swift */,
 				B1118EEF21C8B7EE007AD599 /* ModelInputNode.swift */,
 				B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */,
 				B19FB53F224664FA0038B12B /* VoidInputNode.swift */,
@@ -419,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				B1118EF121C8C1B9007AD599 /* DTOMapperNode.swift */,
+				B15E54B222901C2800B62E24 /* RawEncoderNode.swift */,
 			);
 			path = DTOProcessingLayer;
 			sourceTree = "<group>";
@@ -445,6 +454,7 @@
 		B13E04F321C7F43200956853 /* ResponseProcessingLayer */ = {
 			isa = PBXGroup;
 			children = (
+				B172295F229011300045E43D /* DataLoading */,
 				B1B76155220810DE00AE3303 /* Models */,
 				B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */,
 				B10FB23F2207966D004C65E3 /* ResponseDataPreprocessorNode.swift */,
@@ -477,6 +487,14 @@
 				B1568085222C78F400BC8D91 /* AbortingTests.swift */,
 			);
 			path = RequestAbortingTests;
+			sourceTree = "<group>";
+		};
+		B172295F229011300045E43D /* DataLoading */ = {
+			isa = PBXGroup;
+			children = (
+				B17229602290118E0045E43D /* DataLoadingResponseProcessor.swift */,
+			);
+			path = DataLoading;
 			sourceTree = "<group>";
 		};
 		B17BB50D225518EB00605AB8 /* UrlRouting */ = {
@@ -713,7 +731,8 @@
 		B94310A01F931CC000E8A9BA = {
 			isa = PBXGroup;
 			children = (
-				B19FB53E2246601E0038B12B /* Playground.playground */,
+				B14C3730229024DB00189B18 /* LoadPdfPlayground.playground */,
+				B19FB53E2246601E0038B12B /* SimpleExample.playground */,
 				B94310AC1F931CC000E8A9BA /* NodeKit */,
 				B1C3255621CFEC480059EF33 /* IntegrationTests */,
 				B94310AB1F931CC000E8A9BA /* Products */,
@@ -1025,6 +1044,7 @@
 				B19D5172226776000081E259 /* JsonArrayEncoding.swift in Sources */,
 				B1B7615122080C4800AE3303 /* LayerTypes.swift in Sources */,
 				B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */,
+				B15E54B1229019D600B62E24 /* DTOEncoderNode.swift in Sources */,
 				B1F0C70121B1DDCF00382FA5 /* AsyncContext.swift in Sources */,
 				B1B761702208647600AE3303 /* IfServerFailsFromCacheNode.swift in Sources */,
 				B1E61E4E2246762E00B3AAD9 /* RawUrlRequest.swift in Sources */,
@@ -1035,6 +1055,7 @@
 				B112ECD222305F1200211E0E /* TokenRefresherNode.swift in Sources */,
 				B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */,
 				B10D4BF0222DF45E006B9EE9 /* RequestModel.swift in Sources */,
+				B15E54B322901C2800B62E24 /* RawEncoderNode.swift in Sources */,
 				B1B7613C2207A87100AE3303 /* Array+RawMappable.swift in Sources */,
 				B10FB24222079CA7004C65E3 /* ResponseDataParserNode.swift in Sources */,
 				B17451C92263652C0058AFE4 /* LoadIndicatorNode.swift in Sources */,
@@ -1049,6 +1070,7 @@
 				B1E61E522246774E00B3AAD9 /* ParametersEncoding+Alamofire.swift in Sources */,
 				B1DCC1C922464F3A006664C1 /* RawMappable+Dictionary.swift in Sources */,
 				B156807D222C65D000BC8D91 /* Observer+Shugar.swift in Sources */,
+				B17229612290118E0045E43D /* DataLoadingResponseProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
