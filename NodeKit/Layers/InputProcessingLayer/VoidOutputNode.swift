@@ -28,7 +28,7 @@ open class VoidOutputNode<Input>: Node<Input, Void> where Input: DTOEncodable, I
 
         return self.next.process(newData).map { json in
             let result = Context<Void>()
-            var log = Log(self.logViewObjectName, id: self.objectName)
+            var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.voidOutputNode)
             if !json.isEmpty {
                 log += "VoidOutputNode used but request have not empty response" + .lineTabDeilimeter
                 log += "\(json)"

@@ -11,6 +11,9 @@ import Foundation
 /// Структура, описывающая лог работы.
 public struct Log: Logable {
 
+    /// Порядок лога в цепочке. Необходим для сортировки.
+    public var order: Double = 0
+
     /// Разделитель, который будет вставлен между логами.
     /// По-умолчанию равен `\n`
     public var delimeter: String
@@ -29,10 +32,11 @@ public struct Log: Logable {
     /// - Parameters:
     ///   - message: Содержание данного лога.
     ///   - delimeter: Разделитель, который будет вставлен между логами. По-умолчанию равен `\n`
-    public init(_ message: String, id: String, delimeter: String = "\n") {
+    public init(_ message: String, id: String, delimeter: String = "\n", order: Double = 0) {
         self.message = message
         self.delimeter = delimeter
         self.id = id
+        self.order = order
     }
 
     /// Прибавлеяет `delimeter`к собственному `message`, затем к полученной строке прибавляет `next.description`.

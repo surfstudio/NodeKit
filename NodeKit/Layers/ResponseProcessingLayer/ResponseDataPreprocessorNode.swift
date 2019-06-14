@@ -26,7 +26,7 @@ open class ResponseDataPreprocessorNode: ResponseProcessingLayerNode {
     ///
     /// - Parameter data: Представление ответа.
     open override func process(_ data: UrlDataResponse) -> Observer<Json> {
-        var log = Log(self.logViewObjectName, id: self.objectName)
+        var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.responseDataPreprocessorNode)
 
         guard data.response.statusCode != 204 else {
             log += "Status code is 204 -> response data is empty -> terminate process with empty json"

@@ -173,3 +173,6 @@ func auth() -> Observer<AuthEntity> {
 auth().onCompleted { model in
     print(model.profile)
 }
+
+
+

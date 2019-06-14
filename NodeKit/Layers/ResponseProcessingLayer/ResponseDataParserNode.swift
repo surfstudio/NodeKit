@@ -52,21 +52,21 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
                 log += "Catch \(error)"
             }
 
-            context.log(Log(log, id: self.objectName)).emit(data: Json())
+            context.log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).emit(data: Json())
             return context
         }
 
         guard let nextNode = next else {
 
             log += "Next node is nil -> terminate chain process"
-            return context.log(Log(log, id: self.objectName)).emit(data: json)
+            return context.log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).emit(data: json)
         }
 
         log += "Have next node \(nextNode.objectName) -> call `process`"
 
         let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
 
-        return nextNode.process(networkResponse).log(Log(log, id: self.objectName)).map { json }
+        return nextNode.process(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).map { json }
     }
 
     /// Получает `json` из модели ответа сервера.
@@ -106,7 +106,10 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
             throw ResponseDataParserNodeError.cantDeserializeJson(log)
         }
 
-        log += "Parsing result: \(json)"
+        if let data = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
+            log += "Result:" + .lineTabDeilimeter
+            log += String(data: data, encoding: .utf8) ?? "CURRUPTED"
+        }
 
         return (json, log)
     }
