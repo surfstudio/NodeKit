@@ -63,6 +63,6 @@ open class ResponseHttpErrorProcessorNode<Type>: Node<UrlDataResponse, Type> {
             break
         }
         let log = self.logViewObjectName + "Cant match status code -> call next"
-        return self.next.process(data).log(Log(log, id: self.objectName))
+        return self.next.process(data).log(Log(log, id: self.objectName, order: LogOrder.responseHttpErrorProcessorNode))
     }
 }

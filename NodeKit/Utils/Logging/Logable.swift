@@ -10,6 +10,10 @@ import Foundation
 
 /// Описывает сущность, которая содержит описание для лога работы.
 public protocol Logable {
+
+    /// Порядок лога в цепочке. Необходим для сортировки.
+    var order: Double { get }
+
     /// Следующая лог-запись.
     var next: Logable? { get set }
 

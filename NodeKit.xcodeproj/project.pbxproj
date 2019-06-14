@@ -37,6 +37,7 @@
 		B113F871222DC460001CEEAC /* UrlETagSaverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F870222DC460001CEEAC /* UrlETagSaverNode.swift */; };
 		B113F873222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F872222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift */; };
 		B113F875222DCCDF001CEEAC /* UrlETagReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F874222DCCDF001CEEAC /* UrlETagReaderNode.swift */; };
+		B11F119822B38183003116B3 /* DefaultLogOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11F119722B38183003116B3 /* DefaultLogOrder.swift */; };
 		B156807D222C65D000BC8D91 /* Observer+Shugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156807C222C65D000BC8D91 /* Observer+Shugar.swift */; };
 		B156807F222C6BD300BC8D91 /* MulticastContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156807E222C6BD300BC8D91 /* MulticastContext.swift */; };
 		B1568081222C70D300BC8D91 /* ObservableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1568080222C70D300BC8D91 /* ObservableProtocol.swift */; };
@@ -157,6 +158,7 @@
 		B113F87C222DD77E001CEEAC /* UrlETagReaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagReaderNodeTests.swift; sourceTree = "<group>"; };
 		B11A448A2231C559004CE4D5 /* TokenRefresherNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherNodeTests.swift; sourceTree = "<group>"; };
 		B14C3730229024DB00189B18 /* LoadPdfPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = LoadPdfPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		B11F119722B38183003116B3 /* DefaultLogOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLogOrder.swift; sourceTree = "<group>"; };
 		B156807C222C65D000BC8D91 /* Observer+Shugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observer+Shugar.swift"; sourceTree = "<group>"; };
 		B156807E222C6BD300BC8D91 /* MulticastContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastContext.swift; sourceTree = "<group>"; };
 		B1568080222C70D300BC8D91 /* ObservableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableProtocol.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				B1B76158220811C400AE3303 /* ResponsePostprocessingNode */,
 				B1B7615222080E4200AE3303 /* Utils */,
 				B1B7615022080C4800AE3303 /* LayerTypes.swift */,
+				B11F119722B38183003116B3 /* DefaultLogOrder.swift */,
 			);
 			path = Layers;
 			sourceTree = "<group>";
@@ -1002,6 +1005,7 @@
 				B10CA531225A66F9002885B3 /* LoggerNode.swift in Sources */,
 				B10CA52F225A647C002885B3 /* LoggerExtensions.swift in Sources */,
 				B10D4BFC222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift in Sources */,
+				B11F119822B38183003116B3 /* DefaultLogOrder.swift in Sources */,
 				B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */,
 				B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */,
 				B1DCC1D0224659D6006664C1 /* DTOConvertible+Dictionary.swift in Sources */,

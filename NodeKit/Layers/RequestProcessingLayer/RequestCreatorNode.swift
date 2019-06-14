@@ -54,6 +54,6 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
         message += "raw: \(data.raw)\n\t"
         message += "parametersEncoding: \(data.parametersEncoding)"
 
-        return Log(message, id: self.objectName)
+        return Log(message, id: self.objectName, order: LogOrder.requestCreatorNode)
     }
 }
