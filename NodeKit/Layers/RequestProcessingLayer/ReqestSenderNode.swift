@@ -37,7 +37,7 @@ open class RequestSenderNode: Node<RawUrlRequest, Json>, Aborter {
         let context = Context<DataResponse<Data>>()
 
         self.context = context
-        var log = Log(self.logViewObjectName, id: self.objectName)
+        var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.requestSenderNode)
         self.request = data.dataRequest.responseData(queue: DispatchQueue.global(qos: .userInitiated)) { (response) in
             log += "Get response!)"
             context.log(log).emit(data: response)

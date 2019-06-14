@@ -33,7 +33,7 @@ open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
     ///
     /// - Parameter data: Низкоуровневый ответ сервера.
     open override func process(_ data: DataResponse<Data>) -> Observer<Json> {
-        var log = Log(self.logViewObjectName, id: self.objectName)
+        var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.responseProcessorNode)
         switch data.result {
         case .failure(let error):
             log += "Catch Alamofire error: \(error)" + .lineTabDeilimeter
@@ -46,6 +46,10 @@ open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
                                            response: urlResponse,
                                            data: Data(), metrics: nil,
                                            serializationDuration: -1)
+
+            log += "🌍 " + (urlRequest.method?.rawValue ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
+            log += " ~~> \(urlResponse.statusCode)" + .lineTabDeilimeter
+            log += "EMPTY"
 
             return next.process(response).log(log)
         case .success(let val):
@@ -62,12 +66,10 @@ open class ResponseProcessorNode: Node<DataResponse<Data>, Json> {
                                                data: val,
                                                metrics: data.metrics,
                                                serializationDuration: data.serializationDuration)
-            log += "response:" + .lineTabDeilimeter
-            log += "\t" + "request: \(urlRequest)" + .lineTabDeilimeter
-            log += "\t" + "response: \(urlResponse)" + .lineTabDeilimeter
-            log += "\t" + "data: \(val)" + .lineTabDeilimeter
-            log += "\t" + "metrics: \(String(describing: data.metrics))" + .lineTabDeilimeter
-            log += "\t" + "serializationDuration: \(data.serializationDuration)" + .lineTabDeilimeter
+
+            log += "🌍 " + (urlRequest.method?.rawValue ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
+            log += " --> \(urlResponse.statusCode)" + .lineTabDeilimeter
+            log += String(data: val, encoding: .utf8) ?? "CURRUPTED"
 
             return self.next.process(dataResponse).log(log)
         }

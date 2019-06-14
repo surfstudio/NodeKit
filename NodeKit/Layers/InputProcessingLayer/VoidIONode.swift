@@ -19,7 +19,7 @@ open class VoidIONode: Node<Void, Void> {
     override open func process(_ data: Void) -> Observer<Void> {
         return self.next.process(Json()).map { json in
             let result = Context<Void>()
-            var log = Log(self.logViewObjectName, id: self.objectName)
+            var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.voidIONode)
             if !json.isEmpty {
                 log += "VoidIOtNode used but request have not empty response" + .lineTabDeilimeter
                 log += "\(json)"
