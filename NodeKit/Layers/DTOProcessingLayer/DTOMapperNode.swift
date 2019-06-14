@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Этот узел отвечает за маппинг верхнего уровня DTO (`DTOConvertible`) в нижний уровень (`RawMappable`) и наорот.
+/// Этот узел отвечает за маппинг верхнего уровня DTO (`DTOConvertible`) в нижний уровень (`RawMappable`) и наборот.
 open class DTOMapperNode<Input, Output>: Node<Input, Output> where Input: RawEncodable, Output: RawDecodable {
 
     /// Следующий узел для обрабтки.

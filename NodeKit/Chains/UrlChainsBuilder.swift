@@ -94,4 +94,48 @@ open class UrlChainsBuilder {
         let voidOutput = VoidIONode(next: configNode)
         return LoggerNode(next: voidOutput)
     }
+
+    open func loadData(with config: UrlChainConfigModel) -> Node<Void, Data> {
+        let loaderParser = DataLoadingResponseProcessor()
+        let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
+        let responseProcessor = ResponseProcessorNode(next: errorProcessor)
+        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor)
+
+        let creator = RequestCreatorNode(next: sender)
+
+        let tranformator = UrlRequestTrasformatorNode(next: creator, method: config.method)
+        let encoder = RequstEncoderNode(next: tranformator, encoding: config.encoding)
+        let router = RequestRouterNode(next: encoder, route: config.route)
+        let connector = MetadataConnectorNode(next: router, metadata: config.metadata)
+
+        let indicator = LoadIndicatableNode(next: connector)
+        let configNode = ChainConfiguratorNode(next: indicator)
+
+        let voidInput = VoidInputNode(next: configNode)
+
+        return LoggerNode(next: voidInput)
+    }
+
+    open func loadData<Input>(with config: UrlChainConfigModel) -> Node<Input, Data> where Input: DTOEncodable, Input.DTO.Raw == Json {
+
+        let loaderParser = DataLoadingResponseProcessor()
+        let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
+        let responseProcessor = ResponseProcessorNode(next: errorProcessor)
+        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor)
+
+        let creator = RequestCreatorNode(next: sender)
+
+        let tranformator = UrlRequestTrasformatorNode(next: creator, method: config.method)
+        let encoder = RequstEncoderNode(next: tranformator, encoding: config.encoding)
+        let router = RequestRouterNode(next: encoder, route: config.route)
+        let connector = MetadataConnectorNode(next: router, metadata: config.metadata)
+
+        let rawEncoder = RawEncoderNode<Input.DTO, Data>(next: connector)
+        let dtoEncoder = DTOEncoderNode<Input, Data>(rawEncodable: rawEncoder)
+
+        let indicator = LoadIndicatableNode(next: dtoEncoder)
+        let configNode = ChainConfiguratorNode(next: indicator)
+
+        return LoggerNode(next: configNode)
+    }
 }

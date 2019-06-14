@@ -10,10 +10,10 @@ import Foundation
 
 /// Этот узел переводит Generic запрос в конкретную реализацию.
 /// Данный узел работает с URL-запросами, по HTTP протоколу с JSON
-open class UrlRequestTrasformatorNode: Node<EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>, Json> {
+open class UrlRequestTrasformatorNode<Type>: Node<EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>, Type> {
 
     /// Следйющий узел для обработки.
-    public var next: TransportLayerNode
+    public var next: Node<TransportUrlRequest, Type>
 
     /// HTTP метод для запроса.
     public var method: Method
@@ -23,7 +23,7 @@ open class UrlRequestTrasformatorNode: Node<EncodableRequestModel<UrlRouteProvid
     /// - Parameters:
     ///   - next: Следйющий узел для обработки.
     ///   - method: HTTP метод для запроса.
-    public init(next: TransportLayerNode, method: Method) {
+    public init(next: Node<TransportUrlRequest, Type>, method: Method) {
         self.next = next
         self.method = method
     }
@@ -31,7 +31,7 @@ open class UrlRequestTrasformatorNode: Node<EncodableRequestModel<UrlRouteProvid
     /// Конструирует модель для для работы на транспортном уровне цепочки.
     ///
     /// - Parameter data: Данные для дальнейшей обработки.
-    open override func process(_ data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>) -> Observer<Json> {
+    open override func process(_ data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>) -> Observer<Type> {
 
         var url: URL
 

@@ -10,22 +10,22 @@ import Foundation
 import Alamofire
 
 /// Этот узел инициаллизирует URL запрос.
-open class RequestCreatorNode: TransportLayerNode {
+open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
 
     /// Следующий узел для обработки.
-    public var next: RequestProcessingLayerNode
+    public var next: Node<RawUrlRequest, Output>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: RequestProcessingLayerNode) {
+    public init(next: Node<RawUrlRequest, Output>) {
         self.next = next
     }
 
     /// Конфигурирует низкоуровненвый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
-    open override func process(_ data: TransportUrlRequest) -> Observer<Json> {
+    open override func process(_ data: TransportUrlRequest) -> Observer<Output> {
         let manager = ServerRequestsManager.shared.manager
 
         let paramEncoding = {() -> ParameterEncoding in
