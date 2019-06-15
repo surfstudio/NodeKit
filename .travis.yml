@@ -14,10 +14,9 @@ jobs:
       script: xcodebuild -workspace NodeKit.xcworkspace -scheme NodeKit
     - stage: test_prepare
       name: Prepare environment for testing
-    - script: prepare_srv_deploy.sh
-      name: Prepare Test Server Deploy
-    - script: ci/prepare_tests.sh
-      name: Prepare Tests For Remote Server
+      script: 
+      - sh prepare_srv_deploy.sh
+      - sh ci/prepare_tests.sh
 
     - stage: test_deploy
       name: Deploy TestServer
