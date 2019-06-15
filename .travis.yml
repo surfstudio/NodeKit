@@ -25,6 +25,9 @@ before_install:
   # - ./deploy_docs.sh
 jobs:
   include:
+    - stage: build_stage
+      name: Build stage
+    - script: xcodebuild -workspace NodeKit.xcworkspace -scheme NodeKit
     - stage: test_prepare
       name: Prepare environment for testing
     - script: prepare_srv_deploy.sh
