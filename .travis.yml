@@ -15,18 +15,18 @@ jobs:
     - stage: test_prepare
       name: Prepare environment for testing
       script: 
-      - sh prepare_srv_deploy.sh
+      - sh ci/prepare_srv_deploy.sh
       - sh ci/prepare_tests.sh
 
     - stage: test_deploy
       name: Deploy TestServer
-    - script: ci/deploy_server.sh
-      name: Deply Tests server
+      script: sh ci/deploy_server.sh
       
     - stage: test
       name: Testing
-    - script: ci/run_tests.sh
-      name: Testing
+      script: 
+        - sh ci/run_tests.sh
+        - sh ci/codecov_report.sh
 
     - stage: test_reporting
       name: Report test results
@@ -34,10 +34,10 @@ jobs:
       name: Deploy CodeCov Report
     - stage: docs
 
-    - stage: docks_gen
-      name: Generate Documentation
-      script: ci/docks/dock_gen.sh
+    # - stage: docks_gen
+    #   name: Generate Documentation
+    #   script: ci/docks/dock_gen.sh
 
-    - stage: docks_deploy
-      name: Deploy Documentation 
-      script: ci/docks/deploy_docs.sh
+    # - stage: docks_deploy
+    #   name: Deploy Documentation 
+    #   script: ci/docks/deploy_docs.sh
