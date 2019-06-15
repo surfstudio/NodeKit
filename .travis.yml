@@ -15,12 +15,13 @@ jobs:
     - stage: test_prepare
       name: Prepare environment for testing
       script: 
-      - sh ci/prepare_srv_deploy.sh
       - sh ci/prepare_tests.sh
 
     - stage: test_deploy
       name: Deploy TestServer
-      script: sh ci/deploy_server.sh
+      script: 
+        - sh ci/prepare_srv_deploy.sh
+        - sh ci/deploy_server.sh
       
     - stage: test
       name: Testing
