@@ -1,13 +1,6 @@
 os: osx
 osx_image: xcode10.2
 language: obj-c
-xcode_project: NodeKit.xcworkspace
-xcode_scheme: NodeKit
-before_install:
-  - pod install --repo-update
-  - gem install xcpretty -N
-  - gem install jazzy
-  - ls
   # - brew install swiftlint || true
 # before_script:
 #   - eval "$(ssh-agent -s)"
@@ -25,6 +18,12 @@ before_install:
   # - ./deploy_docs.sh
 jobs:
   include:
+    - stage: prepare_job
+      name: Prepare_Job
+    - script: 
+      - pod install --repo-update
+      - gem install xcpretty -N
+      - gem install jazzy
     - stage: build_stage
       name: Build stage
     - script: xcodebuild -workspace NodeKit.xcworkspace -scheme NodeKit
