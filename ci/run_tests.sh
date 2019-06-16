@@ -1,6 +1,6 @@
 xcodebuild test \
 -workspace NodeKit.xcworkspace \
--scheme NodeKit \
+-scheme Tests \
 -configuration "Debug" \
 -sdk iphonesimulator \
 -enableCodeCoverage YES \
