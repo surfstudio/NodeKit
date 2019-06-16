@@ -40,19 +40,13 @@ extension Routes: UrlRouteProvider {
     private func tryToGetUrl() -> URL? {
         switch self {
         case .users:
-            return Routes.base + "users"
+            return try? Routes.base + "/users"
         case .emptyUsers:
-            return Routes.base + "userAmptyArr"
+            return try? Routes.base + "/userAmptyArr"
         case .emptyUsersWith402:
-            return Routes.base + "Get402UserArr"
+            return try? Routes.base + "/Get402UserArr"
         case .authWithFormUrl:
-            return Routes.base + "authWithFormUrl"
+            return try? Routes.base + "/authWithFormUrl"
         }
-    }
-}
-
-extension Optional where Wrapped == URL {
-    public static func + (lhs: URL?, rhs: String) -> URL? {
-        return URL(string: rhs, relativeTo: lhs)
     }
 }
