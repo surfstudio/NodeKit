@@ -23,9 +23,9 @@ func main() {
 	router := mux.NewRouter()
 	addHTTPListners(router)
 
-	var server = http.Server{Addr: ":8844", Handler: router}
+	var server = http.Server{Addr: ":8118", Handler: router}
 
-	router.HandleFunc("/shutdown", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/nkt/shutdown", func(w http.ResponseWriter, r *http.Request) {
 		server.Shutdown(context.Background())
 	})
 
@@ -36,14 +36,14 @@ func main() {
 }
 
 func addHTTPListners(router *mux.Router) {
-	router.HandleFunc("/users/{id}", GetUser).Methods("GET")
-	router.HandleFunc("/users", GetUsers).Methods("GET")
-	router.HandleFunc("/items", GetItemList).Methods("GET")
-	router.HandleFunc("/userAmptyArr", GetEmptyUserArr).Methods("GET")
-	router.HandleFunc("/Get402UserArr", Get402UserArr).Methods("GET")
+	router.HandleFunc("/nkt/users/{id}", GetUser).Methods("GET")
+	router.HandleFunc("/nkt/users", GetUsers).Methods("GET")
+	router.HandleFunc("/nkt/items", GetItemList).Methods("GET")
+	router.HandleFunc("/nkt/userAmptyArr", GetEmptyUserArr).Methods("GET")
+	router.HandleFunc("/nkt/Get402UserArr", Get402UserArr).Methods("GET")
 
-	router.HandleFunc("/users", AddNewUser).Methods("POST")
-	router.HandleFunc("/authWithFormUrl", AuthWithFormURL).Methods("POST")
+	router.HandleFunc("nkt/users", AddNewUser).Methods("POST")
+	router.HandleFunc("nkt/authWithFormUrl", AuthWithFormURL).Methods("POST")
 }
 
 // GetUser description
