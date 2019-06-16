@@ -4,4 +4,4 @@ xcodebuild test \
 -configuration "Debug" \
 -sdk iphonesimulator \
 -enableCodeCoverage YES \
--destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty -c
+-destination 'platform=iOS Simulator,name=iPhone 5s,OS=12.2' | xcpretty -c
