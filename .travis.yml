@@ -4,7 +4,6 @@ language: obj-c
 
 before_install:
   - pod install --repo-update
-  - xcodebuild -list
   - gem install xcpretty -N
   - gem install jazzy
 
