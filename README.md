@@ -2,7 +2,10 @@
 ![Build status](https://travis-ci.org/surfstudio/NodeKit.svg?branch=master)
 [![codecov](https://codecov.io/gh/surfstudio/NodeKit/branch/master/graph/badge.svg)](https://codecov.io/gh/surfstudio/NodeKit)
 ---
-![All text](Docs/Header.svg)
+<p align="center">
+  <img src="Docs/Header.svg">
+</p>
+<!-- ![All text](Docs/Header.svg) -->
 ---
 ![All text](Docs/NodeKitHeader.svg)
 
@@ -13,6 +16,8 @@
 Каждый узел реализует операцию по преобразованию входных данных. 
 
 Таким образом можно легко построить запрос любой сложности. 
+
+# 
 
 # Документация
 
