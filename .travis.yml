@@ -33,7 +33,6 @@ jobs:
       name: Report test results
     - script: ci/codecov_report.sh
       name: Deploy CodeCov Report
-    - stage: docs
 
     # - stage: docks_gen
     #   name: Generate Documentation
