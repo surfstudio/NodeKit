@@ -2,16 +2,13 @@ os: osx
 osx_image: xcode10.2
 language: obj-c
 
-before_install:
-  - pod install --repo-update
-  - gem install xcpretty -N
-  - gem install jazzy
-
 jobs:
   include:
     - stage: build_stage
       name: Build
-      script: xcodebuild -workspace NodeKit.xcworkspace -scheme NodeKit
+      script: 
+        - pod install --repo-update
+        - xcodebuild -workspace NodeKit.xcworkspace -scheme NodeKit
 
     - stage: deploy
       name: Deploy TestServer
@@ -23,6 +20,8 @@ jobs:
     - stage: test
       name: Test and CodeCov Report
       script: 
+        - pod install --repo-update
+        - gem install xcpretty -N
         - sh ci/prepare_tests.sh
         - sh ci/run_tests.sh
         - set -o pipefail
