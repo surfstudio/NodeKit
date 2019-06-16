@@ -5,7 +5,7 @@
 <p align="center">
   <img src="Docs/Header.svg">
 </p>
-<!-- ![All text](Docs/Header.svg) -->
+
 ---
 ![All text](Docs/NodeKitHeader.svg)
 
