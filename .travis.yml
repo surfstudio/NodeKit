@@ -19,6 +19,7 @@ jobs:
 
     - stage: test_deploy
       name: Deploy TestServer
+      install: true
       script: 
         - sh ci/prepare_srv_deploy.sh
         - sh ci/deploy_server.sh
@@ -29,10 +30,12 @@ jobs:
         - sh ci/run_tests.sh
         - sh ci/codecov_report.sh
 
-    - stage: test_reporting
-      name: Report test results
-    - script: ci/codecov_report.sh
+    - stage: Test reporting
+      install: true
       name: Deploy CodeCov Report
+      script: 
+        - set -o pipefail
+        - bash <(curl -s https://codecov.io/bash) -t b62fa427-b5d3-4318-885d-e7783e1d527c
 
     # - stage: docks_gen
     #   name: Generate Documentation
