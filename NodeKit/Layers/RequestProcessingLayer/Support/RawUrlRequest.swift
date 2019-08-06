@@ -12,7 +12,11 @@ import Alamofire
 /// Обертка над URLRequest.
 public struct UrlNetworkRequest {
     /// Данные запроса.
-    let urlRequest: URLRequest
+    public let urlRequest: URLRequest
+    
+    public init(urlRequest: URLRequest) {
+        self.urlRequest = urlRequest
+    }
 }
 
 /// Обертка над `Alamofire.DataRequest`
@@ -20,6 +24,10 @@ public struct RawUrlRequest {
 
     /// Alamifire запрос.
     public let dataRequest: DataRequest
+    
+    public init(dataRequest: DataRequest) {
+        self.dataRequest = dataRequest
+    }
 
     /// Конвертирвет себя в `UrlNetworkRequest`
     ///
