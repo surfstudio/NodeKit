@@ -1,5 +1,6 @@
 ![Documentation](https://lastsprint.dev/CoreNetKit/Docs/swift_output/badge.svg)
 ![Build status](https://travis-ci.org/surfstudio/NodeKit.svg?branch=master)
+[![codebeat badge](https://codebeat.co/badges/cf2745e0-3cc3-43f6-8081-561eaa6e1a73)](https://codebeat.co/projects/github-com-surfstudio-nodekit-master)
 [![codecov](https://codecov.io/gh/surfstudio/NodeKit/branch/master/graph/badge.svg)](https://codecov.io/gh/surfstudio/NodeKit)
 ---
 <p align="center">
