@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/surfstudio/NodeKit.git", :tag => "#{s.version}"}
 
   s.source_files  = 'NodeKit/Utils/**/*.swift', 'NodeKit/Chains/**/*.swift', 'NodeKit/Layers/**/*.swift', 'NodeKit/Core/**/*.swift', 'NodeKit/Encodings/*.swift'
-  s.dependency 'Alamofire', '~> 5.0.0-beta.4'
+  s.dependency 'Alamofire', '5.0.0-beta.4'
   s.dependency 'CoreEvents', '~> 1.3.0'
 
 end
