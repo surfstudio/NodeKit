@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -207,10 +206,6 @@ func MultipartCorrect(w http.ResponseWriter, r *http.Request) {
 
 func multipartFile(w http.ResponseWriter, r *http.Request) {
 	r.ParseMultipartForm(32 << 20)
-
-	fmt.Println(r.FormFile("file"))
-	fmt.Println("-------------------")
-	fmt.Println(r.FormValue("file"))
 
 	success := true
 

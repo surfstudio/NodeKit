@@ -70,7 +70,7 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
                 multipartForm.append(data, withName: key, fileName: filename, mimeType: mimetype)
             case .url(url: let url):
                 multipartForm.append(url, withName: key)
-            case .urlAndName(url: let url, filename: let filename, mimetype: let mimetype):
+            case .customWithUrl(url: let url, filename: let filename, mimetype: let mimetype):
                 multipartForm.append(url, withName: key, fileName: filename, mimeType: mimetype)
             }
         }
