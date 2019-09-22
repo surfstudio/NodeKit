@@ -1,11 +1,3 @@
-//
-//  RequestSenderNode.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 18/12/2018.
-//  Copyright © 2018 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 import Alamofire
 
@@ -34,6 +26,10 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
             }
             return data.parametersEncoding.raw
         }()
+
+//        manager.upload(multipartFormData: { (dt) in
+//            dt.append(<#T##data: Data##Data#>, withName: <#T##String#>)
+//        }, to: <#T##URLConvertible#>)
 
         let request = manager.request(
             data.url,

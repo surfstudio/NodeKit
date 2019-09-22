@@ -107,6 +107,8 @@
 		B94310AF1F931CC000E8A9BA /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */; };
 		B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */; };
+		B9D5B2232337A70400D66488 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2222337A70400D66488 /* MultipartModel.swift */; };
+		B9D5B2252337B3C400D66488 /* MultipartRequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,8 +159,8 @@
 		B113F87A222DD54B001CEEAC /* TestUtls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtls.swift; sourceTree = "<group>"; };
 		B113F87C222DD77E001CEEAC /* UrlETagReaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagReaderNodeTests.swift; sourceTree = "<group>"; };
 		B11A448A2231C559004CE4D5 /* TokenRefresherNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherNodeTests.swift; sourceTree = "<group>"; };
-		B14C3730229024DB00189B18 /* LoadPdfPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = LoadPdfPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B11F119722B38183003116B3 /* DefaultLogOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLogOrder.swift; sourceTree = "<group>"; };
+		B14C3730229024DB00189B18 /* LoadPdfPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = LoadPdfPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B156807C222C65D000BC8D91 /* Observer+Shugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observer+Shugar.swift"; sourceTree = "<group>"; };
 		B156807E222C6BD300BC8D91 /* MulticastContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastContext.swift; sourceTree = "<group>"; };
 		B1568080222C70D300BC8D91 /* ObservableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableProtocol.swift; sourceTree = "<group>"; };
@@ -227,6 +229,8 @@
 		B94310AE1F931CC000E8A9BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidOutputNode.swift; sourceTree = "<group>"; };
 		B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidIONode.swift; sourceTree = "<group>"; };
+		B9D5B2222337A70400D66488 /* MultipartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
+		B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequestCreatorNode.swift; sourceTree = "<group>"; };
 		C93D4D7B8501ED5C5089E938 /* Pods_NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D64717B6D96F0E577E18A095 /* Pods-NodeKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit.release.xcconfig"; path = "Target Support Files/Pods-NodeKit/Pods-NodeKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -357,6 +361,7 @@
 				B1B7613D2207A88F00AE3303 /* Extensions */,
 				B1118EEA21C8B72D007AD599 /* RawMappable.swift */,
 				B1118EEC21C8B772007AD599 /* DTOConvertible.swift */,
+				B9D5B2222337A70400D66488 /* MultipartModel.swift */,
 			);
 			path = Convertion;
 			sourceTree = "<group>";
@@ -449,6 +454,7 @@
 				B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */,
 				B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */,
 				B1F0C6EA21B1DDCF00382FA5 /* ReqestSenderNode.swift */,
+				B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */,
 			);
 			path = RequestProcessingLayer;
 			sourceTree = "<group>";
@@ -906,16 +912,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreEvents/CoreEvents.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreEvents.framework",
@@ -1033,6 +1035,7 @@
 				B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */,
 				B199E766223CF26A0001FE17 /* TransportUrlParameters.swift in Sources */,
 				B1B7616E2208637500AE3303 /* FirstCachePolicyNode.swift in Sources */,
+				B9D5B2232337A70400D66488 /* MultipartModel.swift in Sources */,
 				B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */,
 				B10CA52D225A640C002885B3 /* Log.swift in Sources */,
 				B1F0C70221B1DDCF00382FA5 /* Observer+Operations.swift in Sources */,
@@ -1067,6 +1070,7 @@
 				B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */,
 				B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */,
 				B1B761572208118300AE3303 /* UrlDataResponse.swift in Sources */,
+				B9D5B2252337B3C400D66488 /* MultipartRequestCreatorNode.swift in Sources */,
 				B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */,
 				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,
 				B1E61E4B224675EE00B3AAD9 /* ServerRequestsManager.swift in Sources */,
