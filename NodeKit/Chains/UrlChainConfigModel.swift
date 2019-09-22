@@ -1,11 +1,3 @@
-//
-//  ChainImputModel.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 10/03/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 
 /// Модель данных для конфигурироания цепочки преобразований для запроса в сеть.

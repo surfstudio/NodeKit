@@ -1,11 +1,3 @@
-//
-//  DTOConvertible.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 18/12/2018.
-//  Copyright © 2018 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 
 /// Композиция протоколов `DTOEncodable` и `DTODecodable`
@@ -36,4 +28,15 @@ public protocol DTODecodable {
     /// - Returns: Результат конвертирования.
     /// - Throws: Могут возникать любе исключения, определенные пользователем.
     static func from(dto: DTO) throws -> Self
+}
+
+/// Синтаксический сахар, позволяющий в одну строчку мапить опциональные модели.
+public extension Optional where Wrapped: DTODecodable {
+    static func from(dto: Wrapped.DTO?) throws -> Wrapped? {
+        guard let guarded = dto else {
+            return nil
+        }
+
+        return try Wrapped.from(dto: guarded)
+    }
 }

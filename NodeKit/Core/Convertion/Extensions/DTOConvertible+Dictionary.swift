@@ -1,12 +1,3 @@
-
-//
-//  File.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 23/03/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 
 /// Это расширение позволяет представлять словарь как DTOConvertible в случае если словарь это Json

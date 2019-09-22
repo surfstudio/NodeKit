@@ -1,11 +1,3 @@
-//
-//  TransportUrlRequest.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 16/03/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 
 /// Модель для внутреннего представления запроса.

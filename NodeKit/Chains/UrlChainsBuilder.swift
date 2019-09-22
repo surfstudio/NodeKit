@@ -1,11 +1,3 @@
-//
-//  Chains.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 28/01/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 
 /// Реулизует набор цепочек для отправки URL запросов.
@@ -95,6 +87,10 @@ open class UrlChainsBuilder {
         return LoggerNode(next: voidOutput)
     }
 
+    /// Позволяет загрузить бинарные данные (файл) с сервера без отправки какой-то модели на сервер.
+    ///
+    /// - Parameter config: Конфигурация.
+    /// - Returns: Корневой узел цепочки.
     open func loadData(with config: UrlChainConfigModel) -> Node<Void, Data> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
@@ -116,6 +112,10 @@ open class UrlChainsBuilder {
         return LoggerNode(next: voidInput)
     }
 
+    /// Позволяет загрузить бинарные данные (файл) с сервера.
+    ///
+    /// - Parameter config: Конфигурация.
+    /// - Returns: Корневой узел цепочки.
     open func loadData<Input>(with config: UrlChainConfigModel) -> Node<Input, Data> where Input: DTOEncodable, Input.DTO.Raw == Json {
 
         let loaderParser = DataLoadingResponseProcessor()
@@ -132,6 +132,34 @@ open class UrlChainsBuilder {
 
         let rawEncoder = RawEncoderNode<Input.DTO, Data>(next: connector)
         let dtoEncoder = DTOEncoderNode<Input, Data>(rawEncodable: rawEncoder)
+
+        let indicator = LoadIndicatableNode(next: dtoEncoder)
+        let configNode = ChainConfiguratorNode(next: indicator)
+
+        return LoggerNode(next: configNode)
+    }
+
+
+    /// Формирует цепочку для отправки multipaer-запроса.
+    /// Для работы с этой цепочкой в качестве модели необходимо использовать `MultipartModel`
+    ///
+    /// - Parameter config: Конфигурация.
+    /// - Returns: Корневой узел цепочки .
+    open func `default`<I, O>(with config: UrlChainConfigModel) -> Node<I, O> where O: DTODecodable, O.DTO.Raw == Json, I: DTOEncodable, I.DTO.Raw == MultipartModel<[String : Data]> {
+
+        let reponseProcessor = self.serviceChain.urlResponseProcessingLayerChain()
+
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor)
+
+        let creator = MultipartRequestCreatorNode(next: requestSenderNode)
+
+        let transformator = MultipartUrlRequestTrasformatorNode(next: creator, method: config.method)
+
+        let router = RequestRouterNode(next: transformator, route: config.route)
+        let connector = MetadataConnectorNode(next: router, metadata: config.metadata)
+
+        let rawEncoder = DTOMapperNode<I.DTO,O.DTO>(next: connector)
+        let dtoEncoder = ModelInputNode<I, O>(next: rawEncoder)
 
         let indicator = LoadIndicatableNode(next: dtoEncoder)
         let configNode = ChainConfiguratorNode(next: indicator)

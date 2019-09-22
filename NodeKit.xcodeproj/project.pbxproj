@@ -107,6 +107,14 @@
 		B94310AF1F931CC000E8A9BA /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */; };
 		B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */; };
+		B9D5B2232337A70400D66488 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2222337A70400D66488 /* MultipartModel.swift */; };
+		B9D5B2252337B3C400D66488 /* MultipartRequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */; };
+		B9D5B2272337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */; };
+		B9D5B2292337C2A400D66488 /* MultipartRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2282337C2A400D66488 /* MultipartRequestTests.swift */; };
+		B9D5B22E2337CC2C00D66488 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = B9D5B22D2337CC2C00D66488 /* LICENSE.txt */; };
+		B9D5B2312337E1D100D66488 /* MultipartFileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2302337E1D100D66488 /* MultipartFileProvider.swift */; };
+		B9D5B2332337E27C00D66488 /* StubEmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2322337E27C00D66488 /* StubEmptyModel.swift */; };
+		B9D5B2352337E3D900D66488 /* MultipartModel + Convertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2342337E3D900D66488 /* MultipartModel + Convertion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,8 +165,8 @@
 		B113F87A222DD54B001CEEAC /* TestUtls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtls.swift; sourceTree = "<group>"; };
 		B113F87C222DD77E001CEEAC /* UrlETagReaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagReaderNodeTests.swift; sourceTree = "<group>"; };
 		B11A448A2231C559004CE4D5 /* TokenRefresherNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherNodeTests.swift; sourceTree = "<group>"; };
-		B14C3730229024DB00189B18 /* LoadPdfPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = LoadPdfPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B11F119722B38183003116B3 /* DefaultLogOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLogOrder.swift; sourceTree = "<group>"; };
+		B14C3730229024DB00189B18 /* LoadPdfPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = LoadPdfPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B156807C222C65D000BC8D91 /* Observer+Shugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observer+Shugar.swift"; sourceTree = "<group>"; };
 		B156807E222C6BD300BC8D91 /* MulticastContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastContext.swift; sourceTree = "<group>"; };
 		B1568080222C70D300BC8D91 /* ObservableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableProtocol.swift; sourceTree = "<group>"; };
@@ -227,6 +235,14 @@
 		B94310AE1F931CC000E8A9BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidOutputNode.swift; sourceTree = "<group>"; };
 		B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidIONode.swift; sourceTree = "<group>"; };
+		B9D5B2222337A70400D66488 /* MultipartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
+		B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequestCreatorNode.swift; sourceTree = "<group>"; };
+		B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartUrlRequestTrasformatorNode.swift; sourceTree = "<group>"; };
+		B9D5B2282337C2A400D66488 /* MultipartRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequestTests.swift; sourceTree = "<group>"; };
+		B9D5B22D2337CC2C00D66488 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		B9D5B2302337E1D100D66488 /* MultipartFileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFileProvider.swift; sourceTree = "<group>"; };
+		B9D5B2322337E27C00D66488 /* StubEmptyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubEmptyModel.swift; sourceTree = "<group>"; };
+		B9D5B2342337E3D900D66488 /* MultipartModel + Convertion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultipartModel + Convertion.swift"; sourceTree = "<group>"; };
 		C93D4D7B8501ED5C5089E938 /* Pods_NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D64717B6D96F0E577E18A095 /* Pods-NodeKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit.release.xcconfig"; path = "Target Support Files/Pods-NodeKit/Pods-NodeKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -327,6 +343,7 @@
 				B10D4BF7222DF4B1006B9EE9 /* RequestRouterNode.swift */,
 				B10D4BF9222DF4C6006B9EE9 /* RequstEncoderNode.swift */,
 				B10D4BFB222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift */,
+				B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */,
 			);
 			path = RequestBuildingLayer;
 			sourceTree = "<group>";
@@ -354,6 +371,7 @@
 		B1118EE921C8B714007AD599 /* Convertion */ = {
 			isa = PBXGroup;
 			children = (
+				B9D5B22F2337E1BE00D66488 /* Multipart */,
 				B1B7613D2207A88F00AE3303 /* Extensions */,
 				B1118EEA21C8B72D007AD599 /* RawMappable.swift */,
 				B1118EEC21C8B772007AD599 /* DTOConvertible.swift */,
@@ -449,6 +467,7 @@
 				B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */,
 				B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */,
 				B1F0C6EA21B1DDCF00382FA5 /* ReqestSenderNode.swift */,
+				B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */,
 			);
 			path = RequestProcessingLayer;
 			sourceTree = "<group>";
@@ -628,11 +647,13 @@
 		B1C3255621CFEC480059EF33 /* IntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				B9D5B22A2337CBDD00D66488 /* Resources */,
 				B1E61E54224707F300B3AAD9 /* UnitTests */,
 				B1568084222C78DA00BC8D91 /* RequestAbortingTests */,
 				B1C3255921CFEC480059EF33 /* Info.plist */,
 				B1B761462207B1EB00AE3303 /* Infrastructure */,
 				B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */,
+				B9D5B2282337C2A400D66488 /* MultipartRequestTests.swift */,
 				B1B761402207B0B700AE3303 /* FormUrlCodingTests.swift */,
 				B1B7614D2207C16000AE3303 /* TestEmptyResponseMapping.swift */,
 			);
@@ -768,6 +789,25 @@
 			path = NodeKit;
 			sourceTree = "<group>";
 		};
+		B9D5B22A2337CBDD00D66488 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B9D5B22D2337CC2C00D66488 /* LICENSE.txt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B9D5B22F2337E1BE00D66488 /* Multipart */ = {
+			isa = PBXGroup;
+			children = (
+				B9D5B2222337A70400D66488 /* MultipartModel.swift */,
+				B9D5B2302337E1D100D66488 /* MultipartFileProvider.swift */,
+				B9D5B2322337E27C00D66488 /* StubEmptyModel.swift */,
+				B9D5B2342337E3D900D66488 /* MultipartModel + Convertion.swift */,
+			);
+			path = Multipart;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -866,6 +906,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9D5B22E2337CC2C00D66488 /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,16 +947,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreEvents/CoreEvents.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreEvents.framework",
@@ -984,6 +1021,7 @@
 				B1E61E5D2247082900B3AAD9 /* UrlETagReaderNodeTests.swift in Sources */,
 				B1A57559225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift in Sources */,
 				B1E61E5B2247082900B3AAD9 /* UrlETagSaverNodeTests.swift in Sources */,
+				B9D5B2292337C2A400D66488 /* MultipartRequestTests.swift in Sources */,
 				B1BED9FE21FF7BC0000B9018 /* User.swift in Sources */,
 				B1BED9FB21FF78EE000B9018 /* Infrastructure.swift in Sources */,
 				B1B761482207B34700AE3303 /* AuthModelEntry.swift in Sources */,
@@ -1014,6 +1052,7 @@
 				B17BB50F2255190500605AB8 /* UrlRouting.swift in Sources */,
 				B1568081222C70D300BC8D91 /* ObservableProtocol.swift in Sources */,
 				B19FB540224664FA0038B12B /* VoidInputNode.swift in Sources */,
+				B9D5B2332337E27C00D66488 /* StubEmptyModel.swift in Sources */,
 				B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */,
 				B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */,
 				B1B407F5223513C10036326E /* OffsetPager.swift in Sources */,
@@ -1032,7 +1071,9 @@
 				B113F873222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift in Sources */,
 				B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */,
 				B199E766223CF26A0001FE17 /* TransportUrlParameters.swift in Sources */,
+				B9D5B2352337E3D900D66488 /* MultipartModel + Convertion.swift in Sources */,
 				B1B7616E2208637500AE3303 /* FirstCachePolicyNode.swift in Sources */,
+				B9D5B2232337A70400D66488 /* MultipartModel.swift in Sources */,
 				B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */,
 				B10CA52D225A640C002885B3 /* Log.swift in Sources */,
 				B1F0C70221B1DDCF00382FA5 /* Observer+Operations.swift in Sources */,
@@ -1045,8 +1086,10 @@
 				B113F875222DCCDF001CEEAC /* UrlETagReaderNode.swift in Sources */,
 				B1118EED21C8B772007AD599 /* DTOConvertible.swift in Sources */,
 				B172440C2264EFB800CC9F70 /* EntryinputDtoOutputNode.swift in Sources */,
+				B9D5B2312337E1D100D66488 /* MultipartFileProvider.swift in Sources */,
 				B19D5172226776000081E259 /* JsonArrayEncoding.swift in Sources */,
 				B1B7615122080C4800AE3303 /* LayerTypes.swift in Sources */,
+				B9D5B2272337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift in Sources */,
 				B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */,
 				B15E54B1229019D600B62E24 /* DTOEncoderNode.swift in Sources */,
 				B1F0C70121B1DDCF00382FA5 /* AsyncContext.swift in Sources */,
@@ -1067,6 +1110,7 @@
 				B1118EF021C8B7EE007AD599 /* ModelInputNode.swift in Sources */,
 				B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */,
 				B1B761572208118300AE3303 /* UrlDataResponse.swift in Sources */,
+				B9D5B2252337B3C400D66488 /* MultipartRequestCreatorNode.swift in Sources */,
 				B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */,
 				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,
 				B1E61E4B224675EE00B3AAD9 /* ServerRequestsManager.swift in Sources */,

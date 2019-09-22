@@ -1,11 +1,3 @@
-//
-//  RawMappable.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 18/12/2018.
-//  Copyright © 2018 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 
 /// Словарь вида `[String: Any]`
@@ -41,4 +33,15 @@ public protocol RawDecodable {
     /// - Returns: модель полученная из RAW
     /// - Throws: Могут возникать любые исключения, определенные пользователем.
     static func from(raw: Raw) throws -> Self
+}
+
+/// Синтаксический сахар, позволяющий в одну строчку мапить опциональные модели.
+public extension Optional where Wrapped: RawMappable {
+    static func from(raw: Wrapped.Raw?) throws -> Wrapped? {
+        guard let guarded = raw else {
+            return nil
+        }
+
+        return try Wrapped.from(raw: guarded)
+    }
 }
