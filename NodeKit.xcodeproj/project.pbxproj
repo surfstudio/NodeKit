@@ -109,6 +109,9 @@
 		B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */; };
 		B9D5B2232337A70400D66488 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2222337A70400D66488 /* MultipartModel.swift */; };
 		B9D5B2252337B3C400D66488 /* MultipartRequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */; };
+		B9D5B2272337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */; };
+		B9D5B2292337C2A400D66488 /* MultipartRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2282337C2A400D66488 /* MultipartRequestTests.swift */; };
+		B9D5B22E2337CC2C00D66488 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = B9D5B22D2337CC2C00D66488 /* LICENSE.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,6 +234,9 @@
 		B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidIONode.swift; sourceTree = "<group>"; };
 		B9D5B2222337A70400D66488 /* MultipartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
 		B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequestCreatorNode.swift; sourceTree = "<group>"; };
+		B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartUrlRequestTrasformatorNode.swift; sourceTree = "<group>"; };
+		B9D5B2282337C2A400D66488 /* MultipartRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequestTests.swift; sourceTree = "<group>"; };
+		B9D5B22D2337CC2C00D66488 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		C93D4D7B8501ED5C5089E938 /* Pods_NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D64717B6D96F0E577E18A095 /* Pods-NodeKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit.release.xcconfig"; path = "Target Support Files/Pods-NodeKit/Pods-NodeKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -331,6 +337,7 @@
 				B10D4BF7222DF4B1006B9EE9 /* RequestRouterNode.swift */,
 				B10D4BF9222DF4C6006B9EE9 /* RequstEncoderNode.swift */,
 				B10D4BFB222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift */,
+				B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */,
 			);
 			path = RequestBuildingLayer;
 			sourceTree = "<group>";
@@ -634,11 +641,13 @@
 		B1C3255621CFEC480059EF33 /* IntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				B9D5B22A2337CBDD00D66488 /* Resources */,
 				B1E61E54224707F300B3AAD9 /* UnitTests */,
 				B1568084222C78DA00BC8D91 /* RequestAbortingTests */,
 				B1C3255921CFEC480059EF33 /* Info.plist */,
 				B1B761462207B1EB00AE3303 /* Infrastructure */,
 				B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */,
+				B9D5B2282337C2A400D66488 /* MultipartRequestTests.swift */,
 				B1B761402207B0B700AE3303 /* FormUrlCodingTests.swift */,
 				B1B7614D2207C16000AE3303 /* TestEmptyResponseMapping.swift */,
 			);
@@ -774,6 +783,14 @@
 			path = NodeKit;
 			sourceTree = "<group>";
 		};
+		B9D5B22A2337CBDD00D66488 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B9D5B22D2337CC2C00D66488 /* LICENSE.txt */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -872,6 +889,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9D5B22E2337CC2C00D66488 /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -986,6 +1004,7 @@
 				B1E61E5D2247082900B3AAD9 /* UrlETagReaderNodeTests.swift in Sources */,
 				B1A57559225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift in Sources */,
 				B1E61E5B2247082900B3AAD9 /* UrlETagSaverNodeTests.swift in Sources */,
+				B9D5B2292337C2A400D66488 /* MultipartRequestTests.swift in Sources */,
 				B1BED9FE21FF7BC0000B9018 /* User.swift in Sources */,
 				B1BED9FB21FF78EE000B9018 /* Infrastructure.swift in Sources */,
 				B1B761482207B34700AE3303 /* AuthModelEntry.swift in Sources */,
@@ -1050,6 +1069,7 @@
 				B172440C2264EFB800CC9F70 /* EntryinputDtoOutputNode.swift in Sources */,
 				B19D5172226776000081E259 /* JsonArrayEncoding.swift in Sources */,
 				B1B7615122080C4800AE3303 /* LayerTypes.swift in Sources */,
+				B9D5B2272337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift in Sources */,
 				B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */,
 				B15E54B1229019D600B62E24 /* DTOEncoderNode.swift in Sources */,
 				B1F0C70121B1DDCF00382FA5 /* AsyncContext.swift in Sources */,

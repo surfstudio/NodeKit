@@ -37,3 +37,14 @@ public protocol DTODecodable {
     /// - Throws: Могут возникать любе исключения, определенные пользователем.
     static func from(dto: DTO) throws -> Self
 }
+
+/// Синтаксический сахар, позволяющий в одну строчку мапить опциональные модели.
+public extension Optional where Wrapped: DTODecodable {
+    static func from(dto: Wrapped.DTO?) throws -> Wrapped? {
+        guard let guarded = dto else {
+            return nil
+        }
+
+        return try Wrapped.from(dto: guarded)
+    }
+}

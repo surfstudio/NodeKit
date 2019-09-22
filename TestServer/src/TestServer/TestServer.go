@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -44,6 +45,9 @@ func addHTTPListners(router *mux.Router) {
 
 	router.HandleFunc("/nkt/users", AddNewUser).Methods("POST")
 	router.HandleFunc("/nkt/authWithFormUrl", AuthWithFormURL).Methods("POST")
+	router.HandleFunc("/nkt/multipartPing", MultipartPing).Methods("POST")
+	router.HandleFunc("/nkt/multipartCorrect", MultipartCorrect).Methods("POST")
+	router.HandleFunc("/nkt/multipartFile", multipartFile).Methods("POST")
 }
 
 // GetUser description
@@ -172,4 +176,57 @@ func AuthWithFormURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusBadRequest)
+}
+
+// MultipartPing providig form/multipart endpoint
+func MultipartPing(w http.ResponseWriter, r *http.Request) {
+	r.ParseMultipartForm(32 << 20)
+	// fmt.Println(r.FormFile("file1"))
+	// fmt.Println(r.FormFile("file1"))
+	// fmt.Println(r.Form)
+	// fmt.Println(r.MultipartForm)
+	json.NewEncoder(w).Encode(map[string]bool{"success": true})
+}
+
+// MultipartCorrect check value is correct
+func MultipartCorrect(w http.ResponseWriter, r *http.Request) {
+	r.ParseMultipartForm(32 << 20)
+
+	success := true
+
+	if r.FormValue("word1") != "Test" {
+		success = false
+	}
+
+	if r.FormValue("word2") != "Success" {
+		success = false
+	}
+
+	json.NewEncoder(w).Encode(map[string]bool{"success": success})
+}
+
+func multipartFile(w http.ResponseWriter, r *http.Request) {
+	r.ParseMultipartForm(32 << 20)
+
+	fmt.Println(r.FormFile("file"))
+	fmt.Println("-------------------")
+	fmt.Println(r.FormValue("file"))
+
+	success := true
+
+	_, header, err := r.FormFile("file")
+
+	if err != nil {
+		success = false
+	}
+
+	if header.Filename != "LICENSE.txt" {
+		success = false
+	}
+
+	if header.Header.Get("Content-Type") != "text/plain" {
+		success = false
+	}
+
+	json.NewEncoder(w).Encode(map[string]bool{"success": success})
 }

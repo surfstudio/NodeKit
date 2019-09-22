@@ -42,3 +42,14 @@ public protocol RawDecodable {
     /// - Throws: Могут возникать любые исключения, определенные пользователем.
     static func from(raw: Raw) throws -> Self
 }
+
+/// Синтаксический сахар, позволяющий в одну строчку мапить опциональные модели.
+public extension Optional where Wrapped: RawMappable {
+    static func from(raw: Wrapped.Raw?) throws -> Wrapped? {
+        guard let guarded = raw else {
+            return nil
+        }
+
+        return try Wrapped.from(raw: guarded)
+    }
+}

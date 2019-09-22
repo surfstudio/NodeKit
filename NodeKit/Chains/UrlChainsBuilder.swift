@@ -138,4 +138,26 @@ open class UrlChainsBuilder {
 
         return LoggerNode(next: configNode)
     }
+
+    open func Test<I, O>(with config: UrlChainConfigModel) -> Node<I, O> where O: DTODecodable, O.DTO.Raw == Json, I: DTOEncodable, I.DTO.Raw == MultipartModel<[String : Data]> {
+
+        let reponseProcessor = self.serviceChain.urlResponseProcessingLayerChain()
+
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor)
+
+        let creator = MultipartRequestCreatorNode(next: requestSenderNode)
+
+        let transformator = MultipartUrlRequestTrasformatorNode(next: creator, method: config.method)
+
+        let router = RequestRouterNode(next: transformator, route: config.route)
+        let connector = MetadataConnectorNode(next: router, metadata: config.metadata)
+
+        let rawEncoder = DTOMapperNode<I.DTO,O.DTO>(next: connector)
+        let dtoEncoder = ModelInputNode<I, O>(next: rawEncoder)
+
+        let indicator = LoadIndicatableNode(next: dtoEncoder)
+        let configNode = ChainConfiguratorNode(next: indicator)
+
+        return LoggerNode(next: configNode)
+    }
 }
