@@ -60,7 +60,6 @@
 		B19FB540224664FA0038B12B /* VoidInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FB53F224664FA0038B12B /* VoidInputNode.swift */; };
 		B1A575562250A85A00DEF33E /* EncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A575542250A83200DEF33E /* EncodingTests.swift */; };
 		B1A57559225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A57558225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift */; };
-		B1B407F5223513C10036326E /* OffsetPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B407F4223513C10036326E /* OffsetPager.swift */; };
 		B1B407F7223524350036326E /* UrlChainConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B407F6223524350036326E /* UrlChainConfigModel.swift */; };
 		B1B7613C2207A87100AE3303 /* Array+RawMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7613B2207A87100AE3303 /* Array+RawMappable.swift */; };
 		B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7613E2207A8A000AE3303 /* Array+DtoConvertible.swift */; };
@@ -190,7 +189,6 @@
 		B19FB53F224664FA0038B12B /* VoidInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidInputNode.swift; sourceTree = "<group>"; };
 		B1A575542250A83200DEF33E /* EncodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingTests.swift; sourceTree = "<group>"; };
 		B1A57558225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfConnectionFailedFromCacheNodeTests.swift; sourceTree = "<group>"; };
-		B1B407F4223513C10036326E /* OffsetPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPager.swift; sourceTree = "<group>"; };
 		B1B407F6223524350036326E /* UrlChainConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlChainConfigModel.swift; sourceTree = "<group>"; };
 		B1B7613B2207A87100AE3303 /* Array+RawMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+RawMappable.swift"; sourceTree = "<group>"; };
 		B1B7613E2207A8A000AE3303 /* Array+DtoConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+DtoConvertible.swift"; sourceTree = "<group>"; };
@@ -572,14 +570,6 @@
 			path = Coding;
 			sourceTree = "<group>";
 		};
-		B1B407F3223513AA0036326E /* Paging */ = {
-			isa = PBXGroup;
-			children = (
-				B1B407F4223513C10036326E /* OffsetPager.swift */,
-			);
-			path = Paging;
-			sourceTree = "<group>";
-		};
 		B1B7613D2207A88F00AE3303 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -665,7 +655,6 @@
 			children = (
 				B10CA5262259D533002885B3 /* Logging */,
 				B17BB50D225518EB00605AB8 /* UrlRouting */,
-				B1B407F3223513AA0036326E /* Paging */,
 				B1C3256421D124F40059EF33 /* Mapping */,
 			);
 			path = Utils;
@@ -1055,7 +1044,6 @@
 				B9D5B2332337E27C00D66488 /* StubEmptyModel.swift in Sources */,
 				B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */,
 				B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */,
-				B1B407F5223513C10036326E /* OffsetPager.swift in Sources */,
 				B199E76A223CF2A10001FE17 /* ParametersEncoding.swift in Sources */,
 				B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */,
 				B17E86912220413900400931 /* AccessSafeNode.swift in Sources */,
