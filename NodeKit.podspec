@@ -9,7 +9,6 @@ Pod::Spec.new do |s|
   s.author = { "Alexander Kravchenkov" => "sprintend@gmail.com" }
 
   s.ios.deployment_target = "10.0"
-  s.osx.deployment_target = "10.15"
 
   s.source       = { :git => "https://github.com/surfstudio/NodeKit.git", :tag => "#{s.version}"}
 
