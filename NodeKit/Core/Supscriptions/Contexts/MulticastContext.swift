@@ -50,28 +50,28 @@ open class MulticastContext<Input>: Observer<Input> {
     /// Добавляет подписчка на успешное выполнение операции.
     @discardableResult
     open override func onCompleted(_ closure: @escaping (Input) -> Void) -> Self {
-        self.eventOnCompleted += closure
+        self.eventOnCompleted.add(key: UUID().uuidString, closure)
         return self
     }
 
     /// Дополняет подписчка на завершение операции с ошибкой.
     @discardableResult
     open override func onError(_ closure: @escaping (Error) -> Void) -> Self {
-        self.eventOnError += closure
+        self.eventOnError.add(key: UUID().uuidString, closure)
         return self
     }
 
     /// Добавляет подписчка на выполнение операции с любым исходом.
     @discardableResult
     open override func `defer`(_ closure: @escaping () -> Void) -> Self {
-        self.eventDefer += closure
+        self.eventDefer.add(key: UUID().uuidString, closure)
         return self
     }
 
     /// Добавляте одписчка на отмену операции.
     @discardableResult
     open override func onCanceled(_ closure: @escaping () -> Void) -> Self {
-        self.eventOnCancelled += closure
+        self.eventOnCancelled.add(key: UUID().uuidString, closure)
         return self
     }
 
