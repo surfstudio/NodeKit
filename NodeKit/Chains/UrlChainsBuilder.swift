@@ -38,8 +38,9 @@ open class UrlChainsBuilder {
     func supportNodes<Input, Output>(with config: UrlChainConfigModel) -> Node<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-            let loadIndicator = LoadIndicatableNode<Input, Output>(next: self.defaultInput(with: config))
-            return loadIndicator
+//            let loadIndicator = LoadIndicatableNode<Input, Output>(next: self.defaultInput(with: config))
+//            return loadIndicator
+            return self.defaultInput(with: config)
     }
 
     /// Создает цепочку по-умолчанию. Подразумеается работа с DTO-моделями.
@@ -70,8 +71,8 @@ open class UrlChainsBuilder {
     open func `default`<Input>(with config: UrlChainConfigModel) -> Node<Input, Void>
         where Input: DTOEncodable, Input.DTO.Raw == Json {
             let input = self.requestBuildingChain(with: config)
-            let indicator = LoadIndicatableNode(next: input)
-            let configNode = ChainConfiguratorNode(next: indicator)
+//            let indicator = LoadIndicatableNode(next: input)
+            let configNode = ChainConfiguratorNode(next: input)
             let voidOutput = VoidOutputNode<Input>(next: configNode)
             return LoggerNode(next: voidOutput)
     }
@@ -81,8 +82,8 @@ open class UrlChainsBuilder {
     /// - Parameter config: Конфигурация для запроса.
     open func `default`(with config: UrlChainConfigModel) -> Node<Void, Void> {
         let input = self.requestBuildingChain(with: config)
-        let indicator = LoadIndicatableNode(next: input)
-        let configNode = ChainConfiguratorNode(next: indicator)
+//        let indicator = LoadIndicatableNode(next: input)
+        let configNode = ChainConfiguratorNode(next: input)
         let voidOutput = VoidIONode(next: configNode)
         return LoggerNode(next: voidOutput)
     }
@@ -104,8 +105,8 @@ open class UrlChainsBuilder {
         let router = RequestRouterNode(next: encoder, route: config.route)
         let connector = MetadataConnectorNode(next: router, metadata: config.metadata)
 
-        let indicator = LoadIndicatableNode(next: connector)
-        let configNode = ChainConfiguratorNode(next: indicator)
+//        let indicator = LoadIndicatableNode(next: connector)
+        let configNode = ChainConfiguratorNode(next: connector)
 
         let voidInput = VoidInputNode(next: configNode)
 
@@ -133,8 +134,8 @@ open class UrlChainsBuilder {
         let rawEncoder = RawEncoderNode<Input.DTO, Data>(next: connector)
         let dtoEncoder = DTOEncoderNode<Input, Data>(rawEncodable: rawEncoder)
 
-        let indicator = LoadIndicatableNode(next: dtoEncoder)
-        let configNode = ChainConfiguratorNode(next: indicator)
+//        let indicator = LoadIndicatableNode(next: dtoEncoder)
+        let configNode = ChainConfiguratorNode(next: dtoEncoder)
 
         return LoggerNode(next: configNode)
     }
@@ -161,8 +162,8 @@ open class UrlChainsBuilder {
         let rawEncoder = DTOMapperNode<I.DTO,O.DTO>(next: connector)
         let dtoEncoder = ModelInputNode<I, O>(next: rawEncoder)
 
-        let indicator = LoadIndicatableNode(next: dtoEncoder)
-        let configNode = ChainConfiguratorNode(next: indicator)
+//        let indicator = LoadIndicatableNode(next: dtoEncoder)
+        let configNode = ChainConfiguratorNode(next: dtoEncoder)
 
         return LoggerNode(next: configNode)
     }
