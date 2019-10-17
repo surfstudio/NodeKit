@@ -32,7 +32,7 @@
 		B94310F61F93251C00E8A9BA /* PassiveRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310D21F9322AC00E8A9BA /* PassiveRequestContext.swift */; };
 		B94310F71F93251C00E8A9BA /* HandleRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310D31F9322AC00E8A9BA /* HandleRequestContext.swift */; };
 		B94310F91F932B2700E8A9BA /* PaginableRequestContextProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310F81F932B2700E8A9BA /* PaginableRequestContextProtocol.swift */; };
-		B94310FB1F932BD900E8A9BA /* PagingRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310FA1F932BD900E8A9BA /* PagingRequestContext.swift */; };
+		B94310FB1F932BD900E8A9BA /* SomeGoodRequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310FA1F932BD900E8A9BA /* SomeGoodRequestContext.swift */; };
 		B94310FF1F932D3200E8A9BA /* ReusablePagingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94310FE1F932D3200E8A9BA /* ReusablePagingRequest.swift */; };
 		B94311011F933D0F00E8A9BA /* Countable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94311001F933D0F00E8A9BA /* Countable.swift */; };
 		B96CD4141FDC450800F5A107 /* AccessSafeRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CD4131FDC450800F5A107 /* AccessSafeRequestManager.swift */; };
@@ -87,7 +87,7 @@
 		B94310E11F9322AC00E8A9BA /* ServerRequest+SupportedClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServerRequest+SupportedClasses.swift"; sourceTree = "<group>"; };
 		B94310E41F93234900E8A9BA /* BaseIteratableContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseIteratableContext.swift; sourceTree = "<group>"; };
 		B94310F81F932B2700E8A9BA /* PaginableRequestContextProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginableRequestContextProtocol.swift; sourceTree = "<group>"; };
-		B94310FA1F932BD900E8A9BA /* PagingRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingRequestContext.swift; sourceTree = "<group>"; };
+		B94310FA1F932BD900E8A9BA /* SomeGoodRequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeGoodRequestContext.swift; sourceTree = "<group>"; };
 		B94310FE1F932D3200E8A9BA /* ReusablePagingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusablePagingRequest.swift; sourceTree = "<group>"; };
 		B94311001F933D0F00E8A9BA /* Countable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countable.swift; sourceTree = "<group>"; };
 		B96CD4131FDC450800F5A107 /* AccessSafeRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessSafeRequestManager.swift; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 				B94310D11F9322AC00E8A9BA /* ActiveRequestContext.swift */,
 				B94310D21F9322AC00E8A9BA /* PassiveRequestContext.swift */,
 				B94310D31F9322AC00E8A9BA /* HandleRequestContext.swift */,
-				B94310FA1F932BD900E8A9BA /* PagingRequestContext.swift */,
+				B94310FA1F932BD900E8A9BA /* SomeGoodRequestContext.swift */,
 			);
 			path = BaseImplementations;
 			sourceTree = "<group>";
@@ -444,7 +444,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CoreNetKit-CoreNetKitTests/Pods-CoreNetKit-CoreNetKitTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CoreNetKit-CoreNetKitTests/Pods-CoreNetKit-CoreNetKitTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreEvents/CoreEvents.framework",
 			);
@@ -455,7 +455,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CoreNetKit-CoreNetKitTests/Pods-CoreNetKit-CoreNetKitTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoreNetKit-CoreNetKitTests/Pods-CoreNetKit-CoreNetKitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9CCD08BCCA7B6993037D9002 /* [CP] Check Pods Manifest.lock */ = {
@@ -494,7 +494,7 @@
 				B94310FF1F932D3200E8A9BA /* ReusablePagingRequest.swift in Sources */,
 				B94310F21F93251500E8A9BA /* PassiveContextProtocol.swift in Sources */,
 				B94310F01F93250C00E8A9BA /* ServerRequest+SupportedClasses.swift in Sources */,
-				B94310FB1F932BD900E8A9BA /* PagingRequestContext.swift in Sources */,
+				B94310FB1F932BD900E8A9BA /* SomeGoodRequestContext.swift in Sources */,
 				B94310EF1F93250B00E8A9BA /* BaseCoreServerRequest.swift in Sources */,
 				B94310E81F9324F500E8A9BA /* BaseIteratableContext.swift in Sources */,
 				B96CD4141FDC450800F5A107 /* AccessSafeRequestManager.swift in Sources */,

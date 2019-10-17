@@ -1,5 +1,5 @@
 //
-//  PagingRequestContext.swift
+//  SomeGoodRequestContext.swift
 //  CoreNetKit
 //
 //  Created by Александр Кравченков on 15.10.2017.
@@ -10,7 +10,7 @@ import Foundation
 import CoreEvents
 
 /// Context for paginable service
-public class PagingRequestContext<ResultModel>: PaginableRequestContextProtocol {
+public class SomeGoodRequestContext<ResultModel>: PaginableRequestContextProtocol {
 
     // MARK: - Typealiases
 

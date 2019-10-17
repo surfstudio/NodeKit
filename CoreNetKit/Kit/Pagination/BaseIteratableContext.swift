@@ -24,7 +24,7 @@ public class IteratableContext<ResultModel: Countable>: ActionableContext<Result
     fileprivate let startIndex: Int
     fileprivate var currentIndex: Int
     fileprivate let itemsOnPage: Int
-    fileprivate let paginableContext: PagingRequestContext<ResultModel>
+    fileprivate let paginableContext: SomeGoodRequestContext<ResultModel>
     private var completedEvents: Event<ResultType>
     private var errorEvents: Event<Error>
 
@@ -42,10 +42,10 @@ public class IteratableContext<ResultModel: Countable>: ActionableContext<Result
     /// - Parameters:
     ///   - startIndex: Start index for iterator
     ///   - itemsOnPage: Number of items on single page for iterator
-    ///   - context: PagingRequestContext for iterator
+    ///   - context: SomeGoodRequestContext for iterator
     ///   - completedEvents: Your custom-type event that contains `onCompleted` listners. **By default** `PresentEvent`
     ///   - errorEvents: Your custom-type event that contains `onError` listners. **By default** `PresentEvent`
-    public required init(startIndex: Int, itemsOnPage: Int, context: PagingRequestContext<ResultModel>, completedEvents: Event<ResultType> = PresentEvent<ResultType>(), errorEvents: Event<Error> = PresentEvent<Error>()) {
+    public required init(startIndex: Int, itemsOnPage: Int, context: SomeGoodRequestContext<ResultModel>, completedEvents: Event<ResultType> = PresentEvent<ResultType>(), errorEvents: Event<Error> = PresentEvent<Error>()) {
         self.startIndex = startIndex
         self.currentIndex = startIndex
         self.itemsOnPage = itemsOnPage
