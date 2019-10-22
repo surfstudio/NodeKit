@@ -27,12 +27,24 @@ open class DTOMapperNode<Input, Output>: Node<Input, Output> where Input: RawEnc
     open override func process(_ data: Input) -> Observer<Output> {
         let context = Context<Output>()
 
+        var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.dtoMapperNode)
+                
         do {
             let data = try data.toRaw()
-            return next.process(data)
-                .map { try Output.from(raw: $0) }
+            
+            let nextProcessResult = next.process(data)
+            
+            return nextProcessResult.map {
+                do {
+                    let model = try Output.from(raw: $0)
+                    return Context<Output>().log(nextProcessResult.log).emit(data: model)
+                } catch {
+                    log += "\(error)"
+                    return Context<Output>().log(nextProcessResult.log).log(log).emit(error: error)
+                }
+            }
         } catch {
-            return context.emit(error: error)
+            return context.log(log).emit(error: error)
         }
     }
 }
