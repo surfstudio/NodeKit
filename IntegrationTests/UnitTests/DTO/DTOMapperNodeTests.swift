@@ -14,36 +14,33 @@ import NodeKit
 
 class DTOMapperNodeTests: XCTestCase {
     
-    class CorruptedStub: Node<Json, Json> {
+    class StubNode: Node<Json, Json> {
+        let json: Json
+        let resultError: Error?
         
-        let stubJson: Json = [
-            "id": "1",
-            "name": "Francisco", // corrupted key
-            "lastName": "D'Anconia"
-        ]
-        
-        @discardableResult
-        public override func process(_ data: Json) -> Observer<Json> {
-            return .emit(data: stubJson)
+        init(json: Json, resultError: Error? = nil) {
+            self.json = json
+            self.resultError = resultError
         }
-    }
-    
-    class CorrectStub: Node<Json, Json> {
-        
-        let stubJson: Json = [
-            "id": "1",
-            "firstName": "Francisco",
-            "lastName": "D'Anconia"
-        ]
         
         @discardableResult
         public override func process(_ data: Json) -> Observer<Json> {
-            return .emit(data: stubJson)
+            if let error = resultError {
+                var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.dtoMapperNode)
+                log += "\(error)"
+                return Context<Json>().log(log).emit(error: error)
+            }
+            return .emit(data: json)
         }
     }
 
     func testThatCodableErrorLoggingCorrectly() {
-        let nextNode = CorruptedStub()
+        let nextNode = StubNode(json: [
+            "id": "1",
+            "name": "Francisco", // corrupted key
+            "lastName": "D'Anconia"
+        ])
+        
         let mapperNode = DTOMapperNode<Json, UserEntry>(next: nextNode)
         
         var resultError: Error?
@@ -69,7 +66,12 @@ class DTOMapperNodeTests: XCTestCase {
     }
     
     func testThatSuccessCaseNotLogging() {
-        let nextNode = CorrectStub()
+        let nextNode = StubNode(json: [
+            "id": "1",
+            "firstName": "Francisco",
+            "lastName": "D'Anconia"
+        ])
+        
         let mapperNode = DTOMapperNode<Json, UserEntry>(next: nextNode)
         
         var resultUser: UserEntry?
@@ -77,20 +79,46 @@ class DTOMapperNodeTests: XCTestCase {
         
         let exp = self.expectation(description: "\(#function)")
         
-        let result = mapperNode.process([:])
-            .onCompleted { user in
-                resultUser = user
-                exp.fulfill()
-            }
-            .onError { error in
-                resultError = error
-                exp.fulfill()
-            }
+        let result = mapperNode.process([:]).onCompleted { user in
+            resultUser = user
+            exp.fulfill()
+        }.onError { error in
+            resultError = error
+            exp.fulfill()
+        }
         
         waitForExpectations(timeout: 3, handler: nil)
 
         XCTAssertNotNil(resultUser)
         XCTAssertNil(resultError)
         XCTAssertNil(result.log)
+    }
+    
+    func testThatCodableErrorNotLoggingInsteadOtherError() {
+        let nextNode = StubNode(json: [:], resultError: BaseTechnicalError.noInternetConnection)
+        
+        let mapperNode = DTOMapperNode<Json, UserEntry>(next: nextNode)
+        
+        var resultError: Error?
+        
+        let exp = self.expectation(description: "\(#function)")
+        
+        let result = mapperNode.process([:]).onError { error in
+            resultError = error
+            exp.fulfill()
+        }
+        
+        waitForExpectations(timeout: 3, handler: nil)
+
+        XCTAssertNotNil(resultError)
+        XCTAssertNotNil(result.log)
+        
+        let error = resultError as? BaseTechnicalError
+        let logMessageId = result.log?.id
+
+        XCTAssertNotNil(error)
+        XCTAssertNotNil(logMessageId)
+        XCTAssertFalse(logMessageId!.contains(mapperNode.objectName))
+        XCTAssert(logMessageId!.contains(nextNode.objectName))
     }
 }
