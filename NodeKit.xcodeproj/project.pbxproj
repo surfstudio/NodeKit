@@ -103,6 +103,7 @@
 		B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F021B1DDCF00382FA5 /* Context.swift */; };
 		B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F321B1DDCF00382FA5 /* UrlCacheReaderNode.swift */; };
 		B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6FA21B1DDCF00382FA5 /* Node.swift */; };
+		B26DF411235F58A30007E6B3 /* DTOMapperNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26DF410235F58A30007E6B3 /* DTOMapperNodeTests.swift */; };
 		B94310AF1F931CC000E8A9BA /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */; };
 		B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */; };
@@ -228,6 +229,7 @@
 		B1F0C6F421B1DDCF00382FA5 /* FirstCachePolicyNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstCachePolicyNode.swift; sourceTree = "<group>"; };
 		B1F0C6F521B1DDCF00382FA5 /* UrlCacheWriterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlCacheWriterNode.swift; sourceTree = "<group>"; };
 		B1F0C6FA21B1DDCF00382FA5 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		B26DF410235F58A30007E6B3 /* DTOMapperNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOMapperNodeTests.swift; sourceTree = "<group>"; };
 		B94310AA1F931CC000E8A9BA /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94310AD1F931CC000E8A9BA /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		B94310AE1F931CC000E8A9BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -699,6 +701,7 @@
 		B1E61E54224707F300B3AAD9 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				B26DF40F235F58140007E6B3 /* DTO */,
 				B10CA529225A024E002885B3 /* Logging */,
 				B1A575532250A7FE00DEF33E /* Coding */,
 				B107BF832232B6C1002E9655 /* InputLayer */,
@@ -739,6 +742,14 @@
 				B1F0C6FA21B1DDCF00382FA5 /* Node.swift */,
 			);
 			path = Node;
+			sourceTree = "<group>";
+		};
+		B26DF40F235F58140007E6B3 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				B26DF410235F58A30007E6B3 /* DTOMapperNodeTests.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		B94310A01F931CC000E8A9BA = {
@@ -1014,6 +1025,7 @@
 				B1BED9FE21FF7BC0000B9018 /* User.swift in Sources */,
 				B1BED9FB21FF78EE000B9018 /* Infrastructure.swift in Sources */,
 				B1B761482207B34700AE3303 /* AuthModelEntry.swift in Sources */,
+				B26DF411235F58A30007E6B3 /* DTOMapperNodeTests.swift in Sources */,
 				B10CA52B225A0262002885B3 /* LoggingTests.swift in Sources */,
 				B1E61E562247082000B3AAD9 /* TokenRefresherNodeTests.swift in Sources */,
 				B1E922562251CD4B00DCDADD /* CacheReaderNodeTests.swift in Sources */,
@@ -1127,7 +1139,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8GTLF376N4;
 				INFOPLIST_FILE = IntegrationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1146,7 +1158,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8GTLF376N4;
 				INFOPLIST_FILE = IntegrationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1283,7 +1295,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ZJ45BEVK69;
+				DEVELOPMENT_TEAM = 8GTLF376N4;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1309,7 +1321,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ZJ45BEVK69;
+				DEVELOPMENT_TEAM = 8GTLF376N4;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
