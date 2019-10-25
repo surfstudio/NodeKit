@@ -9,6 +9,7 @@
 import Foundation
 
 public enum LogOrder {
+    
     public static let voidIONode = 20.0
     public static let voidOutputNode = 25.0
 
@@ -21,4 +22,6 @@ public enum LogOrder {
     public static let responseHttpErrorProcessorNode = 57.0
 
     public static let responseDataParserNode = 59.0
+    
+    public static let dtoMapperNode = 100.0
 }
