@@ -16,7 +16,7 @@
 8. `RequstEncoderNode` - добавляет кодировку к запросу
 9. `UrlRequestTrasformatorNode` - Этот узел формирует конкретный `URL` запрос. Преобразуя `metadata` в `headers`, `route` в `URL` и т.д.
 10. `RequestCreatorNode` - создает запрос в сеть с помощью `Alamofire`
-11. `TechnicaErrorMapperNode` - маппит техничесие ошибки (таймаут, отсутствие интернета и т.п.)
+11. `TechnicaErrorMapperNode` - маппит технические ошибки (таймаут, отсутствие интернета и т.п.)
 12. `RequestSenderNode` - отправляет запрос в сеть. Не маппит его. Просто отправляет
 13. `ResponseProcessorNode` - занимается обработкой ответа от сервера. Проверяет, успешно выполнился запрос или нет. Если успешно, то можно ли замаппить ответ в JSON или нет
 14. `ResponseHttpErrorProcessorNode` - этот узел занимается проверкой, возникли ли какие-то HTTP-ошибки (проверяет код). Если да, то создает экземпляр `ResponseHttpErrorProcessorNodeError` и заканчивает выполнение цепочки
