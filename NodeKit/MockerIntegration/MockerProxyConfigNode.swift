@@ -1,9 +1,9 @@
 import Foundation
 
-fileprivate enum MockerProxyConfigKey {
-    static let isProxyingOn = "X-Mocker-Redirect-Is-On"
-    static let proxyingHost = "X-Mocker-Redirect-Host"
-    static let proxyingSchema = "X-Mocker-Redirect-Scheme"
+public enum MockerProxyConfigKey {
+    public static let isProxyingOn = "X-Mocker-Redirect-Is-On"
+    public static let proxyingHost = "X-Mocker-Redirect-Host"
+    public static let proxyingScheme = "X-Mocker-Redirect-Scheme"
 }
 
 /// Этот узел добавляет специальные хедеры для конфигурирования функции проксирования у Mocker.
@@ -30,7 +30,7 @@ final class MockerProxyConfigNode<Raw, Output>: Node<RequestModel<Raw>, Output> 
     /// Адрес хоста (опционально с портом) которому будет переадресован запрос.
     public var proxyingHost: String
     /// Схема (http/https etc).
-    public var proxyingSchema: String
+    public var proxyingScheme: String
 
     // MARK: - Init
 
@@ -43,12 +43,12 @@ final class MockerProxyConfigNode<Raw, Output>: Node<RequestModel<Raw>, Output> 
     ///   - proxyingSchema: Схема (http/https etc).
     public init(next: Node<RequestModel<Raw>, Output>,
                 isProxyingOn: Bool,
-                proxyingHost: String,
-                proxyingSchema: String) {
+                proxyingHost: String = "",
+                proxyingScheme: String = "") {
         self.next = next
         self.isProxyingOn = isProxyingOn
         self.proxyingHost = proxyingHost
-        self.proxyingSchema = proxyingSchema
+        self.proxyingScheme = proxyingScheme
     }
 
     // MARK: - Node
@@ -56,11 +56,15 @@ final class MockerProxyConfigNode<Raw, Output>: Node<RequestModel<Raw>, Output> 
     /// Добавляет хедеры в `data`
     override func process(_ data: RequestModel<Raw>) -> Observer<Output> {
 
+        guard self.isProxyingOn else {
+            return self.next.process(data)
+        }
+
         var copy = data
 
         copy.metadata[Keys.isProxyingOn] = String(self.isProxyingOn)
         copy.metadata[Keys.proxyingHost] = self.proxyingHost
-        copy.metadata[Keys.proxyingSchema] = self.proxyingSchema
+        copy.metadata[Keys.proxyingScheme] = self.proxyingScheme
 
         return self.next.process(copy)
     }

@@ -108,6 +108,7 @@
 		B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */; };
 		B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */; };
 		B98DC5AA237B596500293379 /* MockerProxyConfigNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DC5A9237B596500293379 /* MockerProxyConfigNode.swift */; };
+		B98DC5AD237C111900293379 /* MockerProxyConfigNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DC5AC237C111900293379 /* MockerProxyConfigNodeTests.swift */; };
 		B9D5B2232337A70400D66488 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2222337A70400D66488 /* MultipartModel.swift */; };
 		B9D5B2252337B3C400D66488 /* MultipartRequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */; };
 		B9D5B2272337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */; };
@@ -237,6 +238,7 @@
 		B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidOutputNode.swift; sourceTree = "<group>"; };
 		B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidIONode.swift; sourceTree = "<group>"; };
 		B98DC5A9237B596500293379 /* MockerProxyConfigNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockerProxyConfigNode.swift; sourceTree = "<group>"; };
+		B98DC5AC237C111900293379 /* MockerProxyConfigNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockerProxyConfigNodeTests.swift; sourceTree = "<group>"; };
 		B9D5B2222337A70400D66488 /* MultipartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
 		B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequestCreatorNode.swift; sourceTree = "<group>"; };
 		B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartUrlRequestTrasformatorNode.swift; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 		B1E61E54224707F300B3AAD9 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				B98DC5AB237C10BB00293379 /* MockerIntegration */,
 				B26DF40F235F58140007E6B3 /* DTO */,
 				B10CA529225A024E002885B3 /* Logging */,
 				B1A575532250A7FE00DEF33E /* Coding */,
@@ -796,6 +799,14 @@
 			isa = PBXGroup;
 			children = (
 				B98DC5A9237B596500293379 /* MockerProxyConfigNode.swift */,
+			);
+			path = MockerIntegration;
+			sourceTree = "<group>";
+		};
+		B98DC5AB237C10BB00293379 /* MockerIntegration */ = {
+			isa = PBXGroup;
+			children = (
+				B98DC5AC237C111900293379 /* MockerProxyConfigNodeTests.swift */,
 			);
 			path = MockerIntegration;
 			sourceTree = "<group>";
@@ -1020,6 +1031,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B98DC5AD237C111900293379 /* MockerProxyConfigNodeTests.swift in Sources */,
 				B1E61E552247081C00B3AAD9 /* ChainConfiguratorNodeTests.swift in Sources */,
 				B1E61E612247857B00B3AAD9 /* FirstCachePolicyTests.swift in Sources */,
 				B1B761432207B0C600AE3303 /* Credentials.swift in Sources */,
