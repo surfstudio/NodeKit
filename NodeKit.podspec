@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NodeKit"
-  s.version      = "2.3.1"
+  s.version      = "2.3.2"
   s.summary      = "Framework for network interaction"
 
   s.homepage     = "https://github.com/surfstudio/NodeKit"
@@ -12,8 +12,17 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/surfstudio/NodeKit.git", :tag => "#{s.version}"}
 
-  s.source_files  = 'NodeKit/Utils/**/*.swift', 'NodeKit/Chains/**/*.swift', 'NodeKit/Layers/**/*.swift', 'NodeKit/Core/**/*.swift', 'NodeKit/Encodings/*.swift'
-  s.dependency 'Alamofire', '5.0.0-beta.4'
-  s.dependency 'CoreEvents', '~> 2.0.1'
+  s.default_subspec = 'Core'
+
+  s.subspec 'Core' do |sp|
+    sp.source_files  = 'NodeKit/Utils/**/*.swift', 'NodeKit/Chains/**/*.swift', 'NodeKit/Layers/**/*.swift', 'NodeKit/Core/**/*.swift', 'NodeKit/Encodings/*.swift'
+    sp.dependency 'Alamofire', '5.0.0-beta.4'
+    sp.dependency 'CoreEvents', '~> 2.0.1'
+  end
+
+  s.subspec 'MockerIntegration' do |sp|
+    sp.dependency 'Core'
+    sp.source_files = 'NodeKit/MockerIntegration/*.swift'
+  end
 
 end
