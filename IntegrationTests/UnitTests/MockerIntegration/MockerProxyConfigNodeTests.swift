@@ -33,17 +33,14 @@ public class MockerProxyConfigNodeTests: XCTestCase {
 
         // Arrange
 
-        let host = "host.addr"
-        let scheme = "http"
-
-        let node = MockerProxyConfigNode(next: StubNode(), isProxyingOn: true, proxyingHost: host, proxyingScheme: scheme)
+        let node = MockerProxyConfigNode(next: StubNode(), isProxyingOn: false, proxyingHost: "host", proxyingScheme: "scheme")
 
         // Act - Assert
 
         node.process(.init(metadata: [:], raw: 0)).onCompleted { model in
-            XCTAssertEqual(model.metadata[MockerProxyConfigKey.isProxyingOn], "true")
-            XCTAssertEqual(model.metadata[MockerProxyConfigKey.proxyingHost], host)
-            XCTAssertEqual(model.metadata[MockerProxyConfigKey.proxyingScheme], scheme)
+            XCTAssertEqual(model.metadata[MockerProxyConfigKey.isProxyingOn], nil)
+            XCTAssertEqual(model.metadata[MockerProxyConfigKey.proxyingHost], nil)
+            XCTAssertEqual(model.metadata[MockerProxyConfigKey.proxyingScheme], nil)
         }
     }
 }
