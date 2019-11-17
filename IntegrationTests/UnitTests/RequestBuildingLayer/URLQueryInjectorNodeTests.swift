@@ -7,33 +7,52 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
     // MARK: - Nested
 
-    class StubNode: Node<TransportUrlRequest, TransportUrlRequest> {
-        override func process(_ data: TransportUrlRequest) -> Observer<TransportUrlRequest> {
+    typealias Model = RoutableRequestModel<UrlRouteProvider, Json>
+
+    class StubNode: Node<Model, Model> {
+        override func process(_ data: Model) -> Observer<Model> {
             return .emit(data: data)
         }
     }
 
     // MARK: - Tests
 
-    func testDefaultNodeWorkSuccessForSimpleQuery() {
+    func testDefaultNodeWorkSuccessForEmptyQuery() {
 
         // Arrange
 
-        let request = TransportUrlRequest(method: .get,
-                                          url: URL(string: "http://host.dom/path")!,
-                                          headers: [:],
-                                          raw: Json(),
-                                          parametersEncoding: .json)
+        let startUrl = URL(string: "http://host.dom/path")!
 
-        let query: [String : Any] = ["name": "bob", "age": 23]
+        let request = Model(metadata: [:], raw: Json(), route: startUrl)
 
-        let node = URLQueryInjectorNode(next: StubNode(), query: query)
+        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: [:]))
 
         // Act
 
         var result: URL!
 
-        node.process(request).onCompleted { result = $0.url }
+        node.process(request).onCompleted { result = try! $0.route.url() }
+
+        // Assert
+
+        XCTAssertEqual(result, startUrl)
+    }
+
+    func testDefaultNodeWorkSuccessForSimpleQuery() {
+
+        // Arrange
+
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
+
+        let query: [String : Any] = ["name": "bob", "age": 23]
+
+        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
+
+        // Act
+
+        var result: URL!
+
+        node.process(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -47,21 +66,17 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Arrange
 
-        let request = TransportUrlRequest(method: .get,
-                                          url: URL(string: "http://host.dom/path")!,
-                                          headers: [:],
-                                          raw: Json(),
-                                          parametersEncoding: .json)
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
 
         let query: [String : Any] = ["name": "bob", "age": 23]
 
-        let node = URLQueryInjectorNode(next: StubNode(), query: query)
+        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
 
         // Act
 
         var result: URL!
 
-        node.process(request).onCompleted { result = $0.url }
+        node.process(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -77,50 +92,40 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Arrange
 
-        let request = TransportUrlRequest(method: .get,
-                                          url: URL(string: "http://host.dom/path")!,
-                                          headers: [:],
-                                          raw: Json(),
-                                          parametersEncoding: .json)
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
 
         let query: [String : Any] = ["name": "bob", "age": 23]
 
-        let node = URLQueryInjectorNode(next: StubNode(), query: query)
+        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
 
         // Act
 
-        var result: TransportUrlRequest!
+        var result: Model!
 
         node.process(request).onCompleted { result = $0 }
 
         // Assert
 
-        XCTAssertEqual(request.method, result.method)
-        XCTAssertEqual(request.headers, result.headers)
-        XCTAssertEqual(request.parametersEncoding, result.parametersEncoding)
+        XCTAssertEqual(request.metadata, result.metadata)
 
-        XCTAssertNotEqual(request.url, result.url)
+        XCTAssertNotEqual(try! request.route.url(), try! result.route.url())
     }
 
     func testDefaultNodeWorkSuccessForArrayQuery() {
 
         // Arrange
 
-        let request = TransportUrlRequest(method: .get,
-                                          url: URL(string: "http://host.dom/path")!,
-                                          headers: [:],
-                                          raw: Json(),
-                                          parametersEncoding: .json)
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
 
         let query: [String : Any] = ["arr": ["a", 23, false]]
 
-        let node = URLQueryInjectorNode(next: StubNode(), query: query)
+        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
 
         // Act
 
         var result: URL!
 
-        node.process(request).onCompleted { result = $0.url }
+        node.process(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -134,21 +139,17 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Arrange
 
-        let request = TransportUrlRequest(method: .get,
-                                          url: URL(string: "http://host.dom/path")!,
-                                          headers: [:],
-                                          raw: Json(),
-                                          parametersEncoding: .json)
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
 
         let query: [String : Any] = ["dict": ["name": "bob", "age": 23]]
 
-        let node = URLQueryInjectorNode(next: StubNode(), query: query)
+        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
 
         // Act
 
         var result: URL!
 
-        node.process(request).onCompleted { result = $0.url }
+        node.process(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -162,21 +163,17 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Arrange
 
-        let request = TransportUrlRequest(method: .get,
-                                          url: URL(string: "http://host.dom/path")!,
-                                          headers: [:],
-                                          raw: Json(),
-                                          parametersEncoding: .json)
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
 
         let query: [String : Any] = ["dict": ["name": "bob", "age": 23], "arr": ["a", 23, false]]
 
-        let node = URLQueryInjectorNode(next: StubNode(), query: query)
+        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
 
         // Act
 
         var result: URL!
 
-        node.process(request).onCompleted { result = $0.url }
+        node.process(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -190,21 +187,17 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Arrange
 
-        let request = TransportUrlRequest(method: .get,
-                                          url: URL(string: "http://host.dom/path")!,
-                                          headers: [:],
-                                          raw: Json(),
-                                          parametersEncoding: .json)
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
 
         let query: [String : Any] = ["arr": ["a", 23, false, ["map"]]]
 
-        let node = URLQueryInjectorNode(next: StubNode(), query: query)
+        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
 
         // Act
 
         var result: URL!
 
-        node.process(request).onCompleted { result = $0.url }
+        node.process(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 

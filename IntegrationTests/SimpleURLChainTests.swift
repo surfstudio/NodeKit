@@ -55,4 +55,47 @@ public class SimpleURLChainTests: XCTestCase {
             XCTAssertEqual(result![index].firstName, "\(firstName)\(index)")
         }
     }
+
+    public func testURLChainWorkSuccessWithQueryEncoding() {
+
+        // Arrange
+
+        let id = "id"
+        let lastName = "Bender"
+        let firstName = "Rodrigez"
+
+        // Act
+
+        var result: [User]?
+        var resultError: Error?
+
+        let exp = self.expectation(description: "\(#function)")
+
+        UrlChainsBuilder()
+            .set(query: ["stack": "left", "sort": false])
+            .set(boolEncodingStartegy: .asBool)
+            .default(with: .init(method: .get, route: Routes.users))
+            .process()
+            .onCompleted { (user: [User]) in
+                result = user
+                exp.fulfill()
+            }.onError { (error) in
+                resultError = error
+                exp.fulfill()
+            }
+
+        waitForExpectations(timeout: 3, handler: nil)
+
+        // Assert
+
+        XCTAssertNotNil(result)
+        XCTAssertNil(resultError, resultError!.localizedDescription)
+        XCTAssertEqual(result!.count, 4)
+
+        for index in 0..<result!.count {
+            XCTAssertEqual(result![index].id, "\(id)\(index)")
+            XCTAssertEqual(result![index].lastName, "\(lastName)\(index)")
+            XCTAssertEqual(result![index].firstName, "\(firstName)\(index)")
+        }
+    }
 }
