@@ -221,7 +221,7 @@ class ExampleService {
 
     func updateState(by params:[String], descending: Bool, by map: [String: Any], max: Int, users: [User]) -> Observer<Void> {
         return UrlChainBuilder()
-            .set(query: ["params": params], "desc": Bool, "map": map, "max": maxCount)
+            .set(query: ["params": params], "desc": descending, "map": map, "max": maxCount)
             .set(boolEncodingStartegy: .asBool)
             .set(arrayEncodingStrategy: .noBrackets)
             .default(with: UrlChainConfigModel(method: .post, route: RegistrationRoute.taskState)
