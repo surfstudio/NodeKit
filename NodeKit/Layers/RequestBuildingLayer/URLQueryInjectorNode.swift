@@ -4,6 +4,8 @@ import Foundation
 public enum URLQueryInjectorNodeError: Error {
     /// Возникает в случае, если не удалось создать URLComponents из URL
     case cantCreateUrlComponentsFromUrlString
+    /// Возникает в случае, если построить URLComponents удалось, а вот получить из него URL - нет.
+    case cantCreateUrlFromUrlComponents
 }
 
 /// Узел, который позволяет добавить данные в URL-Query.
@@ -94,7 +96,16 @@ open class URLQueryInjectorNode<Type>: Node<TransportUrlRequest, Type> {
 
         urlComponents.queryItems = self.query.map { self.makeQueryComponents(from: $1, by: $0) }.reduce([], { $0 + $1 })
 
-        return self.next.process(data)
+        guard let url = urlComponents.url else {
+            return .emit(error: Error.cantCreateUrlFromUrlComponents)
+        }
+
+        return self.next.process(.init(method:
+                                       data.method,
+                                       url: url,
+                                       headers: data.headers,
+                                       raw: data.raw,
+                                       parametersEncoding: data.parametersEncoding))
     }
 
     /// Позволяет получить список компонент URL-query, по ключу и значению.

@@ -30,6 +30,6 @@ public struct URLQueryDictionaryKeyEncodingDefaultStrategy: URLQueryDictionaryKe
     ///
     /// - Parameter value: Значение, которое нужно закодировать
     public func encode(queryItemName: String, dictionaryKey: String) -> String {
-        return "queryItemName[\(dictionaryKey)]"
+        return "\(queryItemName)[\(dictionaryKey)]"
     }
 }
