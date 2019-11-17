@@ -1,16 +1,15 @@
-//
-//  Context.swift
-//  CoreNetKitWithExample
-//
-//  Created by Александр Кравченков on 27/11/2018.
-//  Copyright © 2018 Александр Кравченков. All rights reserved.
-//
-
 import Foundation
+import Combine
 
 /// Самый обычный контекст, который покрывает большинство случаев использования.
-/// Следует всегда использовтаь именно его. 
+/// Следует всегда использовтаь именно его.
 open class Context<Model>: Observer<Model> {
+
+    // MARK: - Nested
+
+    public typealias Output = Model
+    public typealias Failure = Error
+
 
     // MARK: - Private fileds
 

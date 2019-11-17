@@ -1,12 +1,5 @@
-//
-//  MetadataConnectorNode.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 05/03/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
+import Combine
 
 /// Задача этого узла добавить метаданные к создаваемому запросу
 /// Инициаллизирует цепочку сборки HTTP - запроса.
@@ -37,5 +30,10 @@ open class MetadataConnectorNode<Raw, Output>: Node<Raw, Output> {
     /// - Parameter data: данные в Raw формате. (после маппинга из Entry)
     open override func process(_ data: Raw) -> Observer<Output> {
         return next.process(RequestModel(metadata: self.metadata, raw: data))
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: Raw) -> PublisherContext<Output> {
+        return next.make(RequestModel(metadata: self.metadata, raw: data))
     }
 }

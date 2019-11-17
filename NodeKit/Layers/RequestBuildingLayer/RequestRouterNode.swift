@@ -1,12 +1,5 @@
-//
-//  RequestRouterNode.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 05/03/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
+import Combine
 
 /// Этот узел добавляет маршрут к создаваемому запросу.
 /// - SeeAlso:
@@ -39,5 +32,10 @@ open class RequestRouterNode<Raw, Route, Output>: Node<RequestModel<Raw>, Output
     /// Преобразует `RequestModel` в `RoutableRequestModel` и передает управление следующему узлу
     open override func process(_ data: RequestModel<Raw>) -> Observer<Output> {
         return self.next.process(RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: self.route))
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: RequestModel<Raw>) -> PublisherContext<Output> {
+        return self.next.make(.init(metadata: data.metadata, raw: data.raw, route: self.route))
     }
 }

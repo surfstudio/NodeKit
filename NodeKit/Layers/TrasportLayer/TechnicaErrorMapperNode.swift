@@ -39,18 +39,25 @@ open class TechnicaErrorMapperNode: RequestProcessingLayerNode {
     /// - Parameter data: Данные для обработки.
     open override func process(_ data: RawUrlRequest) -> Observer<Json> {
         return self.next.process(data)
-            .mapError { error -> Error in
-                switch (error as NSError).code {
-                case -1009:
-                    return BaseTechnicalError.noInternetConnection
-                case -1001:
-                    return BaseTechnicalError.timeout
-                case -1004:
-                    return BaseTechnicalError.cantConnectToHost
-                default:
-                    return error
-                }
-            }
+            .mapError(self.mapError)
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: RawUrlRequest) -> PublisherContext<Json> {
+        return self.next.make(data).mapError(self.mapError)
+    }
+
+    public func mapError(error: Error) -> Error {
+        switch (error as NSError).code {
+        case -1009:
+            return BaseTechnicalError.noInternetConnection
+        case -1001:
+            return BaseTechnicalError.timeout
+        case -1004:
+            return BaseTechnicalError.cantConnectToHost
+        default:
+            return error
+        }
     }
 }
 

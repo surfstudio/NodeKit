@@ -1,12 +1,5 @@
-//
-//  RequstEncoderNode.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 05/03/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
+import Combine
 
 /// Этот узел добавляет кодировку к создаваемому запросу.
 /// - SeeAlso:
@@ -43,5 +36,11 @@ open class RequstEncoderNode<Raw, Route, Encoding, Output>: RequestRouterNode<Ra
     open override func process(_ data: RoutableRequestModel<Route, Raw>) -> Observer<Output> {
         let model = EncodableRequestModel(metadata: data.metadata, raw: data.raw, route: data.route, encoding: self.encoding)
         return self.next.process(model)
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: RoutableRequestModel<Route, Raw>) -> PublisherContext<Output> {
+        let model = EncodableRequestModel(metadata: data.metadata, raw: data.raw, route: data.route, encoding: self.encoding)
+        return self.next.make(model)
     }
 }

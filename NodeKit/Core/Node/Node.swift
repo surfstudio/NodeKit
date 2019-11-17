@@ -1,11 +1,4 @@
-//
-//  Node.swift
-//  CoreNetKitWithExample
-//
-//  Created by Александр Кравченков on 27/11/2018.
-//  Copyright © 2018 Александр Кравченков. All rights reserved.
-//
-
+import Combine
 import Foundation
 
 /// Протокол, описывающий узел или звено цепочки обработки данных
@@ -34,6 +27,9 @@ public protocol NodeProtocol {
     /// - Parameter data: Входные данные
     /// - Returns: Подписка на процесс обработки данных.
     func process(_ data: Input) -> Observer<Output>
+
+    @available(iOS 13.0, *)
+    func make(_ data: Input) -> PublisherContext<Output>
 }
 
 /// Type erasure для `NodeProtocol`
@@ -45,6 +41,11 @@ open class Node<Input, Output>: NodeProtocol {
     public init() { }
 
     open func process(_ data: Input) -> Observer<Output> {
+        fatalError("\(self.self) \(#function) must be overriden in subclass")
+    }
+
+    @available(iOS 13.0, *)
+    open func make(_ data: Input) -> PublisherContext<Output> {
         fatalError("\(self.self) \(#function) must be overriden in subclass")
     }
 }

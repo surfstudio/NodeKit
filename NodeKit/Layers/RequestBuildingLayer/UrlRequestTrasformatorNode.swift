@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 /// Этот узел переводит Generic запрос в конкретную реализацию.
 /// Данный узел работает с URL-запросами, по HTTP протоколу с JSON
@@ -25,21 +26,40 @@ open class UrlRequestTrasformatorNode<Type>: Node<EncodableRequestModel<UrlRoute
     /// - Parameter data: Данные для дальнейшей обработки.
     open override func process(_ data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>) -> Observer<Type> {
 
-        var url: URL
+        var request: TransportUrlRequest
 
         do {
-            url = try data.route.url()
+            request = try self.transform(data: data)
         } catch {
             return .emit(error: error)
         }
+
+        return next.process(request)
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>) -> PublisherContext<Type> {
+        var request: TransportUrlRequest
+
+        do {
+            request = try self.transform(data: data)
+        } catch {
+            return .emit(error: error)
+        }
+
+        return next.make(request)
+    }
+
+    open func transform(data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>) throws -> TransportUrlRequest {
+        var url: URL
+
+        url = try data.route.url()
 
         let params = TransportUrlParameters(method: self.method,
                                             url: url,
                                             headers: data.metadata,
                                             parametersEncoding: data.encoding)
 
-        let request = TransportUrlRequest(with: params, raw: data.raw)
-
-        return next.process(request)
+        return TransportUrlRequest(with: params, raw: data.raw)
     }
 }

@@ -1,5 +1,6 @@
 import Foundation
 import Alamofire
+import Combine
 
 /// Этот узел инициаллизирует URL запрос.
 open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
@@ -27,10 +28,6 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
             return data.parametersEncoding.raw
         }()
 
-//        manager.upload(multipartFormData: { (dt) in
-//            dt.append(<#T##data: Data##Data#>, withName: <#T##String#>)
-//        }, to: <#T##URLConvertible#>)
-
         let request = manager.request(
             data.url,
             method: data.method.http,
@@ -39,6 +36,27 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
             headers: HTTPHeaders(data.headers)
         )
         return self.next.process(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: TransportUrlRequest) -> PublisherContext<Output> {
+        let manager = ServerRequestsManager.shared.manager
+
+        let paramEncoding = {() -> ParameterEncoding in
+            if data.method == .get {
+                return URLEncoding.default
+            }
+            return data.parametersEncoding.raw
+        }()
+
+        let request = manager.request(
+            data.url,
+            method: data.method.http,
+            parameters: data.raw,
+            encoding: paramEncoding,
+            headers: HTTPHeaders(data.headers)
+        )
+        return self.next.make(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
     }
 
     private func getLogMessage(_ data: TransportUrlRequest) -> Log {
