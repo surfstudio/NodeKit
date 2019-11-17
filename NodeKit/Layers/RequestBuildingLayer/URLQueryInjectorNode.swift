@@ -14,7 +14,7 @@ public enum URLQueryInjectorNodeError: Error {
 /// Вне зависимости от его метода.
 ///
 /// - Info:
-/// Использовать можно после `UrlRequestTrasformatorNode`.
+/// Использовать можно после `RequestRouterNode`.
 open class URLQueryInjectorNode<Raw, Output>: Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output> {
 
     // MARK: - Nested
