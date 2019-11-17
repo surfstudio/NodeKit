@@ -37,7 +37,10 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(result.query, "name=bob&age=23")
+        let normalizedRes = result.query!.split(separator: "&").sorted()
+        let normalizedExp = "age=23&name=bob".split(separator: "&").sorted()
+
+        XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
     func testDefaultNodeSaveUrlAndOnlyAddQuery() {
@@ -62,7 +65,12 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(result.absoluteString, "http://host.dom/path?name=bob&age=23")
+        let normalizedRes = result.query!.split(separator: "&").sorted()
+        let normalizedExp = "age=23&name=bob".split(separator: "&").sorted()
+
+        XCTAssertEqual(normalizedRes, normalizedExp)
+
+        XCTAssertEqual(result.absoluteString.replacingOccurrences(of: result.query!, with: ""), "http://host.dom/path?")
     }
 
     func testDefaultNodeMutateOnlyUrlParameter() {
@@ -116,7 +124,10 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(result.query!.removingPercentEncoding, "arr[]=a&arr[]=23&arr[]=0")
+        let normalizedRes = result.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedExp = "arr[]=a&arr[]=23&arr[]=0".split(separator: "&").sorted()
+
+        XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
     func testDefaultNodeWorkSuccessForDictQuery() {
@@ -141,7 +152,10 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(result.query!.removingPercentEncoding, "dict[name]=bob&dict[age]=23")
+        let normalizedRes = result.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedExp = "dict[age]=23&dict[name]=bob".split(separator: "&").sorted()
+
+        XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
     func testDefaultNodeWorkSuccessForDictAndArrQuery() {
@@ -166,7 +180,10 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(result.query!.removingPercentEncoding, "dict[name]=bob&dict[age]=23&arr[]=a&arr[]=23&arr[]=0")
+        let normalizedRes = result.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedExp = "dict[age]=23&dict[name]=bob&arr[]=a&arr[]=23&arr[]=0".split(separator: "&").sorted()
+
+        XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
     func testDefaultNodeWorkSuccessFor2DArrQuery() {
@@ -191,6 +208,9 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(result.query!.removingPercentEncoding, "arr[]=a&arr[]=23&arr[]=0&arr[][]=map")
+        let normalizedRes = result.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedExp = "arr[]=a&arr[]=23&arr[]=0&arr[][]=map".split(separator: "&").sorted()
+
+        XCTAssertEqual(normalizedRes, normalizedExp)
     }
 }
