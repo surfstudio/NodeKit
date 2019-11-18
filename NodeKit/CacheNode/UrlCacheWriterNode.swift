@@ -1,13 +1,5 @@
-//
-//  UrlCacheWriterNode.swift
-//  CoreNetKitWithExample
-//
-//  Created by Александр Кравченков on 28/11/2018.
-//  Copyright © 2018 Александр Кравченков. All rights reserved.
-//
-
 import Foundation
-
+import Combine
 /// Этот узел занимается записью данных в URL кэш.
 /// - Important: это "глупая" реализация,
 /// в которой не учитываются server-side политики и прочее.
@@ -20,5 +12,14 @@ open class UrlCacheWriterNode: Node<UrlProcessedResponse, Void> {
         let cahced = CachedURLResponse(response: data.response, data: data.data, storagePolicy: .allowed)
         URLCache.shared.storeCachedResponse(cahced, for: data.request)
         return Context<Void>().emit(data: ())
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: UrlProcessedResponse) -> PublisherContext<Void> {
+        Just(data)
+            .map { CachedURLResponse(response: $0.response, data: $0.data, storagePolicy: .allowed) }
+            .map { URLCache.shared.storeCachedResponse($0, for: data.request) }
+            .setFailureType(to: Error.self)
+            .asContext()
     }
 }

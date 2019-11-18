@@ -46,7 +46,7 @@ open class TechnicaErrorMapperNode: RequestProcessingLayerNode {
     open override func make(_ data: RawUrlRequest) -> PublisherContext<Json> {
         return self.next.make(data)
             .mapError(self.mapError)
-            .eraseToPublisherContext()
+            .asContext()
     }
 
     public func mapError(error: Error) -> Error {

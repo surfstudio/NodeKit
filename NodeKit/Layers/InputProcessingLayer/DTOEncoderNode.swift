@@ -1,12 +1,5 @@
-//
-//  DTOConverterNode.swift
-//  NodeKit
-//
-//  Created by Александр Кравченков on 18/05/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
+import Combine
 
 /// Этот узел умеет конвертировать ВХОДНЫЕ данные в DTO, НО не пытается декодировать ответ.
 open class DTOEncoderNode<Input, Output>: Node<Input, Output> where Input: DTOEncodable {
@@ -31,5 +24,13 @@ open class DTOEncoderNode<Input, Output>: Node<Input, Output> where Input: DTOEn
         } catch {
             return .emit(error: error)
         }
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: Input) -> PublisherContext<Output> {
+        Just(data)
+            .tryMap { try $0.toDTO() }
+            .flatMap(self.rawEncodable.make)
+            .asContext()
     }
 }

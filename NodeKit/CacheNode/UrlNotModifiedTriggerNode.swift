@@ -1,11 +1,3 @@
-//
-//  ETagRederNode.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 04/03/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 
 /// Этот узел проверяет код ответа от сервера и в случае, если код равен 304 (NotModified)
@@ -47,5 +39,13 @@ open class UrlNotModifiedTriggerNode: ResponseProcessingLayerNode {
         }
         logMessage += "Response status code == 304 -> read cache"
         return cacheReader.process(UrlNetworkRequest(urlRequest: data.request))
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: UrlDataResponse) -> PublisherContext<Json> {
+        guard data.response.statusCode == 304 else {
+            return next.make(data)
+        }
+        return cacheReader.make(UrlNetworkRequest(urlRequest: data.request))
     }
 }

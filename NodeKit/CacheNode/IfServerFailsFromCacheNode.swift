@@ -1,11 +1,3 @@
-//
-//  IfServerFailsFromCacheNode.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 04/02/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 
 /// Узел реализует политику кэширования "Если интернета нет, то запросить данные из кэша"
@@ -44,6 +36,16 @@ open class IfConnectionFailedFromCacheNode: Node<RawUrlRequest, Json> {
             logMessage += "-> throw error"
             return .emit(error: error)
         }
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: RawUrlRequest) -> PublisherContext<Json> {
+        self.next.make(data).tryCatch { error -> PublisherContext<Json> in
+            guard error is BaseTechnicalError, let request = data.toUrlRequest() else {
+                throw error
+            }
+            return self.cacheReaderNode.make(request)
+        }.asContext()
     }
 
 }

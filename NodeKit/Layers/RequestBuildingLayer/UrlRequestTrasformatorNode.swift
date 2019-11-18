@@ -39,15 +39,10 @@ open class UrlRequestTrasformatorNode<Type>: Node<EncodableRequestModel<UrlRoute
 
     @available(iOS 13.0, *)
     open override func make(_ data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>) -> PublisherContext<Type> {
-        var request: TransportUrlRequest
-
-        do {
-            request = try self.transform(data: data)
-        } catch {
-            return .emit(error: error)
-        }
-
-        return next.make(request)
+        Just(data)
+            .tryMap(self.transform)
+            .flatMap(self.next.make)
+            .asContext()
     }
 
     open func transform(data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>) throws -> TransportUrlRequest {

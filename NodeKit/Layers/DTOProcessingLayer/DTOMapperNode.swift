@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 /// Этот узел отвечает за маппинг верхнего уровня DTO (`DTOConvertible`) в нижний уровень (`RawMappable`) и наборот.
 open class DTOMapperNode<Input, Output>: Node<Input, Output> where Input: RawEncodable, Output: RawDecodable {
@@ -42,26 +43,10 @@ open class DTOMapperNode<Input, Output>: Node<Input, Output> where Input: RawEnc
 
     @available(iOS 13.0, *)
     open override func make(_ data: Input) -> PublisherContext<Output> {
-        let context = Context<Output>()
-
-        var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.dtoMapperNode)
-
-        do {
-            let data = try data.toRaw()
-
-            let nextProcessResult = next.make(data)
-
-            return nextProcessResult.map {
-                do {
-                    let model = try Output.from(raw: $0)
-                    return Context<Output>().log(nextProcessResult.log).emit(data: model)
-                } catch {
-                    log += "\(error)"
-                    return Context<Output>().log(nextProcessResult.log).log(log).emit(error: error)
-                }
-            }.eraseToPublisherContext()
-        } catch {
-            return context.log(log).emit(error: error)
-        }
+        Just(data)
+            .tryMap { try $0.toRaw() }
+            .flatMap(self.next.make)
+            .tryMap { try Output.from(raw: $0) }
+            .asContext()
     }
 }

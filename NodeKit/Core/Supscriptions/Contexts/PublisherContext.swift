@@ -57,15 +57,18 @@ public extension PublisherContext {
     }
 
     static func emit(data: O) -> PublisherContext<O> {
-        Just<O>(data)
-            .mapError { _ in NSError() as Error }
-            .eraseToPublisherContext()
+        CurrentValueSubject(data).asContext()
+    }
+
+    static func emit() -> PublisherContext<Never> {
+        Empty<Never, Error>().asContext()
     }
 }
 
 @available(iOS 13.0, *)
 public extension Publisher where Failure == Error {
-    func eraseToPublisherContext() -> PublisherContext<Output> {
+
+    func asContext() -> PublisherContext<Output> {
         return PublisherContext(publisher: self)
     }
 
@@ -85,6 +88,6 @@ public extension Publisher where Failure == Error {
                     promise(.success(value))
                 }
             })
-        }.eraseToPublisherContext()
+        }.asContext()
     }
 }

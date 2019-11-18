@@ -59,49 +59,21 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
 
         let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
 
-        return nextNode.process(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).map { json }
+        return nextNode.process(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode))
     }
 
     @available(iOS 13.0, *)
     open override func make(_ data: UrlDataResponse) -> PublisherContext<Json> {
-
-        let context = Context<Json>()
-        var json = Json()
-        var log = self.logViewObjectName
-
-        do {
-            let (raw, logMsg) = try self.json(from: data)
-            json = raw
-            log += logMsg + .lineTabDeilimeter
-        } catch {
-            switch error {
-            case ResponseDataParserNodeError.cantCastDesirializedDataToJson(let logMsg), ResponseDataParserNodeError.cantDeserializeJson(let logMsg):
-                log += logMsg
-            default:
-                log += "Catch \(error)"
-            }
-
-            return Fail(error: error)
-                .eraseToPublisherContext()
-                .log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode))
-        }
-
-        guard let nextNode = next else {
-            log += "Next node is nil -> terminate chain process"
-            return Just(json)
-                .mapError( { _ in NSError() as Error })
-                .eraseToPublisherContext()
-                .log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode))
-        }
-
-        log += "Have next node \(nextNode.objectName) -> call `process`"
-
-        let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
-
-        return nextNode.make(networkResponse)
-            .log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode))
-            .map { json }
-            .eraseToPublisherContext()
+        Just(data)
+            .tryMap { try self.json(from: $0).json }
+            .map { UrlProcessedResponse(dataResponse: data, json: $0) }
+            .flatMap { resp -> PublisherContext<Json>in
+                if let next = self.next {
+                    return next.make(resp)
+                } else {
+                    return .emit(data: resp.json)
+                }
+        }.asContext()
     }
 
 
@@ -113,7 +85,7 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
     /// - Throws:
     ///     - `ResponseDataParserNodeError.cantCastDesirializedDataToJson`
     ///     - `ResponseDataParserNodeError.cantDeserializeJson`
-    open func json(from responseData: UrlDataResponse) throws -> (Json, String) {
+    open func json(from responseData: UrlDataResponse) throws -> (json: Json, log: String) {
 
         var log = ""
 

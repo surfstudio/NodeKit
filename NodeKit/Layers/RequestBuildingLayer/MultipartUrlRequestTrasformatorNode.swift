@@ -39,16 +39,10 @@ open class MultipartUrlRequestTrasformatorNode<Type>: Node<RoutableRequestModel<
 
     @available(iOS 13.0, *)
     open override func make(_ data: RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>) -> PublisherContext<Type> {
-
-        var request: MultipartUrlRequest
-
-        do {
-            request = try self.transform(data: data)
-        } catch {
-            return .emit(error: error)
-        }
-
-        return self.next.make(request)
+        return Just(data)
+            .tryMap(self.transform)
+            .flatMap(self.next.make)
+            .asContext()
     }
 
     open func transform(data: RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>) throws -> MultipartUrlRequest {

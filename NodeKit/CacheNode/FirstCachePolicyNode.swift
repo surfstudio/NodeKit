@@ -1,13 +1,6 @@
-//
-//  CachePreprocessor.swift
-//  CoreNetKitWithExample
-//
-//  Created by Александр Кравченков on 28/11/2018.
-//  Copyright © 2018 Александр Кравченков. All rights reserved.
-//
-
 import Foundation
 import Alamofire
+import Combine
 
 /// Ошибки для узла `FirstCachePolicyNode`
 ///
@@ -71,5 +64,21 @@ open class FirstCachePolicyNode: Node<RawUrlRequest, Json> {
             .onError { result.emit(error: $0) }
 
         return result
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: RawUrlRequest) -> PublisherContext<Json> {
+
+        let getPublisher = { (model: RawUrlRequest) -> PublisherContext<Json> in
+            if let urlRequest = data.toUrlRequest() {
+                return self.cacheReaderNode.make(urlRequest)
+            } else {
+                return Combine.Empty().asContext()
+            }
+        }
+
+        return next.make(data)
+            .merge(with: getPublisher(data))
+            .asContext()
     }
 }

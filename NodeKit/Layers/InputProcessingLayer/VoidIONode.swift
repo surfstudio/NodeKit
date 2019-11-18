@@ -28,4 +28,11 @@ open class VoidIONode: Node<Void, Void> {
             return result.emit(data: ())
         }
     }
+
+    @available(iOS 13.0, *)
+    override open func make(_ data: Void) -> PublisherContext<Void> {
+        self.next.make(Json())
+            .map { _ in () }
+            .asContext()
+    }
 }

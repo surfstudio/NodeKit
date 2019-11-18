@@ -47,7 +47,9 @@ open class RequestSenderNode<Type>: Node<RawUrlRequest, Type>, Aborter {
                 promise(.success(response))
             }
         }
-        return future.mapPublisher { self.rawResponseProcessor.make($0) }
+        return future
+            .flatMap { self.rawResponseProcessor.make($0) }
+            .asContext()
     }
 
     /// Отменяет запрос.

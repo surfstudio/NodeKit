@@ -1,12 +1,5 @@
-//
-//  ChainConfiguratorNode.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 08/03/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
+import Combine
 
 /// Конфигурирующий узел.
 /// Всегда должен быть корневым узлом в графе обработчиков.
@@ -52,5 +45,15 @@ open class ChainConfiguratorNode<I, O>: Node<I, O> {
             .dispatchOn(self.beginQueue)
             .map { return self.next.process(data) }
             .dispatchOn(self.endQueue)
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: I) -> PublisherContext<O> {
+        Just(data)
+            .receive(on: self.beginQueue)
+            .setFailureType(to: Error.self)
+            .flatMap(self.next.make)
+            .receive(on: self.endQueue)
+            .asContext()
     }
 }

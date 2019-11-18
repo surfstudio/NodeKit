@@ -1,12 +1,5 @@
-//
-//  ModelInputNode.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 18/12/2018.
-//  Copyright © 2018 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
+import Combine
 
 /// Узел для инциаллизации обработки данных.
 /// Иcпользуется для работы с моделями, которые представлены двумя слоями DTO.
@@ -38,5 +31,14 @@ public class ModelInputNode<Input, Output>: Node<Input, Output> where Input: DTO
         } catch {
             return context.emit(error: error)
         }
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: Input) -> PublisherContext<Output> {
+        Just(data)
+            .tryMap { try $0.toDTO() }
+            .flatMap(self.next.make)
+            .tryMap { try Output.from(dto: $0) }
+            .asContext()
     }
 }

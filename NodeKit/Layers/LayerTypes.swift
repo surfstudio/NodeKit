@@ -13,4 +13,4 @@ public typealias RequestProcessingLayerNode = Node<RawUrlRequest, Json>
 /// Явный тип для слоя обработки ответа.
 public typealias ResponseProcessingLayerNode = Node<UrlDataResponse, Json>
 /// Явный тип для слоя постобработки ответа.
-public typealias ResponsePostprocessorLayerNode = Node<UrlProcessedResponse, Void>
+public typealias ResponsePostprocessorLayerNode = Node<UrlProcessedResponse, Json>

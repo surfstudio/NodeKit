@@ -1,5 +1,6 @@
 import Foundation
 import Alamofire
+import Combine
 
 /// Ошибки для `ResponseProcessorNode`
 ///
@@ -65,5 +66,36 @@ open class ResponseProcessorNode<Type>: Node<DataResponse<Data>, Type> {
 
             return self.next.process(dataResponse).log(log)
         }
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: DataResponse<Data>) -> PublisherContext<Type> {
+        Just(data)
+            .tryMap {
+                switch $0.result {
+                case .failure(let error):
+                    guard let urlResponse = data.response, let urlRequest = data.request else {
+                        throw error
+                    }
+
+                    return UrlDataResponse(request: urlRequest,
+                                           response: urlResponse,
+                                           data: Data(), metrics: nil,
+                                           serializationDuration: -1)
+                case .success(let val):
+                    guard let urlResponse = data.response, let urlRequest = data.request else {
+                        throw ResponseProcessorNodeError.rawResponseNotHaveMetaData
+                    }
+
+                    return UrlDataResponse(request: urlRequest,
+                                           response: urlResponse,
+                                           data: val,
+                                           metrics: data.metrics,
+                                           serializationDuration: data.serializationDuration)
+
+                }
+        }.flatMap {
+            self.next.make($0)
+        }.asContext()
     }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 /// Этот узел умеет конвертировать ВХОДНЫЕ данные в RAW, НО не пытается декодировать ответ.
 open class RawEncoderNode<Input, Output>: Node<Input, Output> where Input: RawEncodable {
@@ -27,10 +28,9 @@ open class RawEncoderNode<Input, Output>: Node<Input, Output> where Input: RawEn
 
     @available(iOS 13.0, *)
     override open func make(_ data: Input) -> PublisherContext<Output> {
-        do {
-            return next.make(try data.toRaw())
-        } catch {
-            return .emit(error: error)
-        }
+        Just(data)
+            .tryMap { try $0.toRaw() }
+            .flatMap(self.next.make)
+            .asContext()
     }
 }

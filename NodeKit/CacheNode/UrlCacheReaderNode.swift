@@ -1,13 +1,6 @@
-//
-//  UrlCacheReaderNode.swift
-//  CoreNetKitWithExample
-//
-//  Created by Александр Кравченков on 28/11/2018.
-//  Copyright © 2018 Александр Кравченков. All rights reserved.
-//
-
 import Foundation
 import Alamofire
+import Combine
 
 /// Ошибки для узла `UrlCacheReaderNode`
 ///
@@ -43,6 +36,27 @@ open class UrlCacheReaderNode: Node<UrlNetworkRequest, Json> {
         }
 
         return .emit(data: json)
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: UrlNetworkRequest) -> PublisherContext<Json> {
+        Just(data)
+            .tryMap { model -> CachedURLResponse in
+                guard let cachedResponse = self.extractCachedUrlResponse(model.urlRequest) else {
+                    throw BaseUrlCacheReaderError.cantLoadDataFromCache
+                }
+                return cachedResponse
+            }.tryMap {
+                try JSONSerialization.jsonObject(with: $0.data, options: .allowFragments)
+            }.flatMap { jsonObjsect -> PublisherContext<Json>in
+                guard let json = jsonObjsect as? Json else {
+                    guard let json = jsonObjsect as? [Json] else {
+                        return .emit(error: BaseUrlCacheReaderError.cantCastToJson)
+                    }
+                    return .emit(data: [MappingUtils.arrayJsonKey: json])
+                }
+                return .emit(data: json)
+            }.asContext()
     }
 
    private func extractCachedUrlResponse(_ request: URLRequest) -> CachedURLResponse? {
