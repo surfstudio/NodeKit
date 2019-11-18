@@ -53,4 +53,19 @@ open class LoadIndicatableNode<Input, Output>: Node<Input, Output> {
                 return error
             }
     }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: Input) -> PublisherContext<Output> {
+        DispatchQueue.global().async(flags: .barrier) {
+            LoadIndicatableNodeStatic.requestConter += 1
+        }
+
+        let decrementRequestCounter: (() -> Void) = {
+            DispatchQueue.global().async(flags: .barrier) {
+                LoadIndicatableNodeStatic.requestConter -= 1
+            }
+        }
+
+        return self.next.make(data)
+    }
 }

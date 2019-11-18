@@ -56,7 +56,7 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
             encoding: paramEncoding,
             headers: HTTPHeaders(data.headers)
         )
-        return self.next.make(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
+        return self.next.make(RawUrlRequest(dataRequest: request))
     }
 
     private func getLogMessage(_ data: TransportUrlRequest) -> Log {

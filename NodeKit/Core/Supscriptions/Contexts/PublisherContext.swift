@@ -71,23 +71,4 @@ public extension Publisher where Failure == Error {
     func asContext() -> PublisherContext<Output> {
         return PublisherContext(publisher: self)
     }
-
-    func mapPublisher<T, OT>(_ transfrom: @escaping (Output) -> T) -> PublisherContext<OT> where T: Publisher, T.Output == OT, T.Failure == Failure {
-        return Future<OT, Failure> { promise in
-            let f = self.sink(receiveCompletion: { compl in
-                if case .failure(let err) = compl {
-                    promise(.failure(err))
-                }
-            }, receiveValue: { value in
-
-                transfrom(value).sink(receiveCompletion: { (sprm) in
-                    if case .failure(let err) = sprm {
-                        promise(.failure(err))
-                    }
-                }) { (value) in
-                    promise(.success(value))
-                }
-            })
-        }.asContext()
-    }
 }

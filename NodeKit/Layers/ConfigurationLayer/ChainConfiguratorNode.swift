@@ -50,9 +50,9 @@ open class ChainConfiguratorNode<I, O>: Node<I, O> {
     @available(iOS 13.0, *)
     open override func make(_ data: I) -> PublisherContext<O> {
         Just(data)
-            .receive(on: self.beginQueue)
             .setFailureType(to: Error.self)
             .flatMap(self.next.make)
+            .subscribe(on: self.beginQueue)
             .receive(on: self.endQueue)
             .asContext()
     }

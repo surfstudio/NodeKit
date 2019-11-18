@@ -55,4 +55,27 @@ public class SimpleURLChainTests: XCTestCase {
             XCTAssertEqual(result![index].firstName, "\(firstName)\(index)")
         }
     }
+
+    public func testDefaultURLChainMeasure() {
+
+        // Arrange
+
+        let chainRoot: Node<Void, [User]> = UrlChainsBuilder().default(with: .init(method: .get,
+                                                                               route: Routes.users))
+
+        // Act
+
+        self.measure {
+            let exp = self.expectation(description: "\(#function)")
+
+            chainRoot.process()
+                .onCompleted { (user) in
+                    exp.fulfill()
+                }.onError { (error) in
+                    exp.fulfill()
+                }
+
+            waitForExpectations(timeout: 3, handler: nil)
+        }
+    }
 }

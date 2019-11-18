@@ -35,6 +35,6 @@ extension Node where Input == Void {
 
     @available(iOS 13.0, *)
     open func make() -> PublisherContext<Output> {
-        self.make(())
+        self.make(Void())
     }
 }

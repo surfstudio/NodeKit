@@ -58,4 +58,9 @@ open class LoggerNode<Input, Output>: Node<Input, Output> {
 
         return result
     }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: Input) -> PublisherContext<Output> {
+        return self.next.make(data)
+    }
 }
