@@ -1,11 +1,3 @@
-//
-//  RawEncoderNode.swift
-//  NodeKit
-//
-//  Created by Александр Кравченков on 18/05/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 
 /// Этот узел умеет конвертировать ВХОДНЫЕ данные в RAW, НО не пытается декодировать ответ.
@@ -28,6 +20,15 @@ open class RawEncoderNode<Input, Output>: Node<Input, Output> where Input: RawEn
     override open func process(_ data: Input) -> Observer<Output> {
         do {
             return next.process(try data.toRaw())
+        } catch {
+            return .emit(error: error)
+        }
+    }
+
+    @available(iOS 13.0, *)
+    override open func make(_ data: Input) -> PublisherContext<Output> {
+        do {
+            return next.make(try data.toRaw())
         } catch {
             return .emit(error: error)
         }

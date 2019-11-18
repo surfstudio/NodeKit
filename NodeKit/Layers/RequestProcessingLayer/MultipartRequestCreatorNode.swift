@@ -49,6 +49,17 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
         return self.next.process(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
     }
 
+    @available(iOS 13.0, *)
+    open override func make(_ data: MultipartUrlRequest) -> PublisherContext<Output> {
+        let manager = ServerRequestsManager.shared.manager
+
+        let request = manager.upload(multipartFormData: { (multipartForm) in
+            self.append(multipartForm: multipartForm, with: data)
+        }, to: data.url, method: data.method.http, headers: .init(data.headers))
+
+        return self.next.make(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
+    }
+
     private func getLogMessage(_ data: MultipartUrlRequest) -> Log {
         var message = "<<<===\(self.objectName)===>>>\n"
         message += "input: \(type(of: data))\n\t"

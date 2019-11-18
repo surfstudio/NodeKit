@@ -1,13 +1,6 @@
-//
-//  JsonNetworkReqestSenderNode.swift
-//  CoreNetKitWithExample
-//
-//  Created by Александр Кравченков on 28/11/2018.
-//  Copyright © 2018 Александр Кравченков. All rights reserved.
-//
-
 import Foundation
 import Alamofire
+import Combine
 
 /// Этот узел отправляет запрос на сервер и ожидает ответ.
 /// - Important: этот узел имеет состояние (statefull)
@@ -44,6 +37,17 @@ open class RequestSenderNode<Type>: Node<RawUrlRequest, Type>, Aborter {
         }
         log += "Request sended!"
         return context.map { self.rawResponseProcessor.process($0) }
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: RawUrlRequest) -> PublisherContext<Type> {
+
+        let future = Future<DataResponse<Data>, Error> { promise in
+            self.request = data.dataRequest.responseData(queue: DispatchQueue.global(qos: .userInitiated)) { (response) in
+                promise(.success(response))
+            }
+        }
+        return future.mapPublisher { self.rawResponseProcessor.make($0) }
     }
 
     /// Отменяет запрос.

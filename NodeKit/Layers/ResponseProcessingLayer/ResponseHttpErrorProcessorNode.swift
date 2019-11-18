@@ -46,23 +46,38 @@ open class ResponseHttpErrorProcessorNode<Type>: Node<UrlDataResponse, Type> {
     /// - Parameter data: Модель ответа сервера.
     open override func process(_ data: UrlDataResponse) -> Observer<Type> {
 
-        let context = Context<Type>()
+        guard let error = self.mapError(by: data) else {
+            let log = self.logViewObjectName + "Cant match status code -> call next"
+            return self.next.process(data).log(Log(log, id: self.objectName, order: LogOrder.responseHttpErrorProcessorNode))
+        }
 
+        return .emit(error: error)
+    }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: UrlDataResponse) -> PublisherContext<Type> {
+        guard let error = self.mapError(by: data) else {
+            let log = self.logViewObjectName + "Cant match status code -> call next"
+            return self.next.make(data).log(Log(log, id: self.objectName, order: LogOrder.responseHttpErrorProcessorNode))
+        }
+
+        return .emit(error: error)
+    }
+
+    open func mapError(by data: UrlDataResponse) -> Error? {
         switch data.response.statusCode {
         case 400:
-            return context.emit(error: HttpError.badRequest(data.data))
+            return HttpError.badRequest(data.data)
         case 401:
-            return context.emit(error: HttpError.unauthorized(data.data))
+            return HttpError.unauthorized(data.data)
         case 403:
-            return context.emit(error: HttpError.forbidden(data.data))
+            return HttpError.forbidden(data.data)
         case 404:
-            return context.emit(error: HttpError.notFound)
+            return HttpError.notFound
         case 500:
-            return context.emit(error: HttpError.internalServerError(data.data))
+            return HttpError.internalServerError(data.data)
         default:
-            break
+            return nil
         }
-        let log = self.logViewObjectName + "Cant match status code -> call next"
-        return self.next.process(data).log(Log(log, id: self.objectName, order: LogOrder.responseHttpErrorProcessorNode))
     }
 }

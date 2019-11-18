@@ -1,12 +1,5 @@
-//
-//  ResponseDataParserNode.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 04/02/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
+import Combine
 
 /// Ошибки для узлы `ResponseDataParserNode`
 ///
@@ -68,6 +61,49 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
 
         return nextNode.process(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).map { json }
     }
+
+    @available(iOS 13.0, *)
+    open override func make(_ data: UrlDataResponse) -> PublisherContext<Json> {
+
+        let context = Context<Json>()
+        var json = Json()
+        var log = self.logViewObjectName
+
+        do {
+            let (raw, logMsg) = try self.json(from: data)
+            json = raw
+            log += logMsg + .lineTabDeilimeter
+        } catch {
+            switch error {
+            case ResponseDataParserNodeError.cantCastDesirializedDataToJson(let logMsg), ResponseDataParserNodeError.cantDeserializeJson(let logMsg):
+                log += logMsg
+            default:
+                log += "Catch \(error)"
+            }
+
+            return Fail(error: error)
+                .eraseToPublisherContext()
+                .log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode))
+        }
+
+        guard let nextNode = next else {
+            log += "Next node is nil -> terminate chain process"
+            return Just(json)
+                .mapError( { _ in NSError() as Error })
+                .eraseToPublisherContext()
+                .log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode))
+        }
+
+        log += "Have next node \(nextNode.objectName) -> call `process`"
+
+        let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
+
+        return nextNode.make(networkResponse)
+            .log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode))
+            .map { json }
+            .eraseToPublisherContext()
+    }
+
 
     /// Получает `json` из модели ответа сервера.
     /// Содержит всю логику парсинга.

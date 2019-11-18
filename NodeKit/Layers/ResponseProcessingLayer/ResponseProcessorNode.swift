@@ -1,11 +1,3 @@
-//
-//  RawJsonResponseProcessor.swift
-//  CoreNetKitWithExample
-//
-//  Created by Александр Кравченков on 28/11/2018.
-//  Copyright © 2018 Александр Кравченков. All rights reserved.
-//
-
 import Foundation
 import Alamofire
 

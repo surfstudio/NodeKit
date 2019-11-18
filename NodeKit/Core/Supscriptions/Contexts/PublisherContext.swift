@@ -55,4 +55,36 @@ public extension PublisherContext {
     static func emit(error: Error) -> PublisherContext<O> {
         PublisherContext(publisher: Fail(error: error))
     }
+
+    static func emit(data: O) -> PublisherContext<O> {
+        Just<O>(data)
+            .mapError { _ in NSError() as Error }
+            .eraseToPublisherContext()
+    }
+}
+
+@available(iOS 13.0, *)
+public extension Publisher where Failure == Error {
+    func eraseToPublisherContext() -> PublisherContext<Output> {
+        return PublisherContext(publisher: self)
+    }
+
+    func mapPublisher<T, OT>(_ transfrom: @escaping (Output) -> T) -> PublisherContext<OT> where T: Publisher, T.Output == OT, T.Failure == Failure {
+        return Future<OT, Failure> { promise in
+            let f = self.sink(receiveCompletion: { compl in
+                if case .failure(let err) = compl {
+                    promise(.failure(err))
+                }
+            }, receiveValue: { value in
+
+                transfrom(value).sink(receiveCompletion: { (sprm) in
+                    if case .failure(let err) = sprm {
+                        promise(.failure(err))
+                    }
+                }) { (value) in
+                    promise(.success(value))
+                }
+            })
+        }.eraseToPublisherContext()
+    }
 }
