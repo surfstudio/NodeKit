@@ -261,7 +261,7 @@ curl -d {id:$id,name:$name,modDate:$modDate,content:$content} -X PUT https://ser
 
 Здесь речь пойдет о том как отправить запрос вот примерно с таким `http://test.h/path?key=value&arr[]=value&map[key]=value` URL. 
 
-NodeKit позволяет прикрепить query-компоненту к URL для любого запроса. 
+NodeKit позволяет прикрепить query-компонент к URL для любого запроса. 
 
 Для этого есть специальный механизм за который отвечает `QueryInjectorNode` и `URLQueryConfigModel`.
 
