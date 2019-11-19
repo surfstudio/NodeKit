@@ -256,3 +256,24 @@ curl -d {id:$id,name:$name,modDate:$modDate,content:$content} -X PUT https://ser
 Все остальные запросы отсануться без изменений (если у вас есть узел, который умеет подставлять токены 🙃)
 
 После прочтения гайда настоятельно рекомендую почитать [документацию](Usage.md)
+
+## URL-Query
+
+Здесь речь пойдет о том как отправить запрос вот примерно с таким `http://test.h/path?key=value&arr[]=value&map[key]=value` URL. 
+
+NodeKit позволяет прикрепить query-компонент к URL для любого запроса. 
+
+Для этого есть специальный механизм за который отвечает `QueryInjectorNode` и `URLQueryConfigModel`.
+
+Пример использования:
+
+```Swift
+func testService(arr: [String], flag: Bool, map: [String: Any], data: [SomeType]) -> Observer<Void> {
+    return UrlChainsBuilder()
+            .set(query: ["arr": params], "flag": flag, "map": map)
+            .set(boolEncodingStartegy: .asBool)
+            .set(arrayEncodingStrategy: .noBrackets)
+            .default(with: UrlChainConfigModel(method: .post, route: Route.postPath)
+            .process(data)
+}
+```

@@ -163,6 +163,8 @@ extension RegistrationRoute: UrlRouteProvider {
             return try base + "/user/auth"
         case .users:
             return try base + "/user/users"
+        case .taskState:
+            return try base + "/tasks"
         case .user(let id):
             return try base + "/user/\(id)"
         }
@@ -195,7 +197,7 @@ CoreNetKit предоставляет следующие виды кодиров
 
 class ExampleService {
 
-    func uath(user: User) -> Observer<Void> {
+    func auth(user: User) -> Observer<Void> {
         return UrlChainsBuilder()
             .default(with: UrlChainConfigModel(method: .post, route: RegistrationRoute.auth))
             .process(user)
@@ -215,6 +217,15 @@ class ExampleService {
         return UrlChainBuilder()
             .default(with: UrlChainConfigModel(method: .get, route: RegistrationRoute.users)
             .process()
+    }
+
+    func updateState(by params:[String], descending: Bool, by map: [String: Any], max: Int, users: [User]) -> Observer<Void> {
+        return UrlChainBuilder()
+            .set(query: ["params": params], "desc": descending, "map": map, "max": maxCount)
+            .set(boolEncodingStartegy: .asBool)
+            .set(arrayEncodingStrategy: .noBrackets)
+            .default(with: UrlChainConfigModel(method: .post, route: RegistrationRoute.taskState)
+            .process(users) 
     }
 }
 ```

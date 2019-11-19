@@ -176,3 +176,25 @@ auth().onCompleted { model in
 
 
 
+let dict: [String: Any] = [
+    "mat": [
+        "d": 1,
+        "v": false
+    ],
+    "dam": [
+        1, false, [
+        1,2,3,4
+        ]
+    ]
+]
+
+import Alamofire
+import Foundation
+
+let encoding = URLEncoding(arrayEncoding: .noBrackets)
+
+let request = URLRequest(url: URL(string: "http://host.test/path")!)
+
+let newRequest = encoding.encode(request, with: dict)
+
+print(newRequest.url)
