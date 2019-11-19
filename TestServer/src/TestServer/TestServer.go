@@ -72,11 +72,23 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 // GetUsers return 4 users
 func GetUsers(w http.ResponseWriter, r *http.Request) {
+
 	var users []User
-	users = append(users, User{ID: "id0", Lastname: "Fry0", Firstname: "Philip0"})
-	users = append(users, User{ID: "id1", Lastname: "Fry1", Firstname: "Philip1"})
-	users = append(users, User{ID: "id2", Lastname: "Fry2", Firstname: "Philip2"})
-	users = append(users, User{ID: "id3", Lastname: "Fry3", Firstname: "Philip3"})
+
+	stackArr := r.URL.Query()["stack"]
+	sortArr := r.URL.Query()["sort"]
+
+	if len(stackArr) == 1 && len(sortArr) == 1 && stackArr[0] == "left" && sortArr[0] == "false" {
+		users = append(users, User{ID: "id0", Lastname: "Bender0", Firstname: "Rodrigez0"})
+		users = append(users, User{ID: "id1", Lastname: "Bender1", Firstname: "Rodrigez1"})
+		users = append(users, User{ID: "id2", Lastname: "Bender2", Firstname: "Rodrigez2"})
+		users = append(users, User{ID: "id3", Lastname: "Bender3", Firstname: "Rodrigez3"})
+	} else {
+		users = append(users, User{ID: "id0", Lastname: "Fry0", Firstname: "Philip0"})
+		users = append(users, User{ID: "id1", Lastname: "Fry1", Firstname: "Philip1"})
+		users = append(users, User{ID: "id2", Lastname: "Fry2", Firstname: "Philip2"})
+		users = append(users, User{ID: "id3", Lastname: "Fry3", Firstname: "Philip3"})
+	}
 
 	json.NewEncoder(w).Encode(users)
 	w.Header().Set("Content-Type", "application/json")

@@ -3,24 +3,71 @@ import Foundation
 /// Реулизует набор цепочек для отправки URL запросов.
 open class UrlChainsBuilder {
 
+    // MARK: - Properties / State
+
     /// Конструктор для создания сервисных цепочек.
     public var serviceChain: UrlServiceChainBuilder
+
+    public var urlQueryConfig: URLQueryConfigModel
+
+    // MARK: - Init
 
     /// Инициаллизирует объект.
     ///
     /// - Parameter serviceChain: Конструктор для создания сервисных цепочек.
     public init(serviceChain: UrlServiceChainBuilder = UrlServiceChainBuilder()) {
         self.serviceChain = serviceChain
+        self.urlQueryConfig = .init(
+            query: [:]
+        )
     }
+
+    // MARK: - URLQueryConfigModel mutators
+
+    open func set(query: [String: Any]) -> Self {
+        self.urlQueryConfig.query = query
+        return self
+    }
+
+    open func set(boolEncodingStartegy: URLQueryBoolEncodingStartegy) -> Self {
+        self.urlQueryConfig.boolEncodingStartegy = boolEncodingStartegy
+        return self
+    }
+
+    open func set(arrayEncodingStrategy: URLQueryArrayKeyEncodingStartegy) -> Self {
+        self.urlQueryConfig.arrayEncodingStrategy = arrayEncodingStrategy
+        return self
+    }
+
+    open func set(dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy) -> Self {
+        self.urlQueryConfig.dictEncodindStrategy = dictEncodindStrategy
+        return self
+    }
+
+    open func set(boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy) -> Self {
+        self.urlQueryConfig.boolEncodingStartegy = boolEncodingStartegy
+        return self
+    }
+
+    open func set(arrayEncodingStrategy: URLQueryArrayKeyEncodingBracketsStartegy) -> Self {
+        self.urlQueryConfig.arrayEncodingStrategy = arrayEncodingStrategy
+        return self
+    }
+
+    // MARK: - Public methods
 
     /// Создает цепочку узлов, описывающих слой построения запроса.
     ///
     /// - Parameter config: Конфигурация для запроса
     open func requestBuildingChain(with config: UrlChainConfigModel) ->  Node<Json, Json> {
         let transportChain = self.serviceChain.requestTrasportChain()
+
         let urlRequestTrasformatorNode = UrlRequestTrasformatorNode(next: transportChain, method: config.method)
         let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: config.encoding)
-        let requestRouterNode = RequestRouterNode(next: requstEncoderNode, route: config.route)
+
+        let queryInjector = URLQueryInjectorNode(next: requstEncoderNode, config: self.urlQueryConfig)
+
+        let requestRouterNode = RequestRouterNode(next: queryInjector, route: config.route)
         return MetadataConnectorNode(next: requestRouterNode, metadata: config.metadata)
     }
 
@@ -127,7 +174,10 @@ open class UrlChainsBuilder {
 
         let tranformator = UrlRequestTrasformatorNode(next: creator, method: config.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: config.encoding)
-        let router = RequestRouterNode(next: encoder, route: config.route)
+
+        let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)
+
+        let router = RequestRouterNode(next: queryInjector, route: config.route)
         let connector = MetadataConnectorNode(next: router, metadata: config.metadata)
 
         let rawEncoder = RawEncoderNode<Input.DTO, Data>(next: connector)
