@@ -112,6 +112,8 @@ Body:
 
 # Документация
 
+[Contribution Guide](/Docs/ContributionGuide.md)
+
 [Как этим пользоваться](/Docs/Usage.md)
 
 [Как работает библиотека](/Docs/Nodes/Basic.md)
