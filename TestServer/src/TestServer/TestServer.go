@@ -33,6 +33,8 @@ func main() {
 		log.Println(err)
 		os.Exit(0)
 	}
+
+	log.Println("Server starts successfully on port 8118")
 }
 
 func addHTTPListners(router *mux.Router) {
