@@ -7,11 +7,15 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
     /// Следующий узел для обработки.
     public var next: Node<RawUrlRequest, Output>
 
+    /// Провайдеры мета-данных
+    public var providers: [MetadataProvider]
+
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<RawUrlRequest, Output>) {
+    public init(next: Node<RawUrlRequest, Output>, providers: [MetadataProvider] = []) {
         self.next = next
+        self.providers = providers
     }
 
     /// Конфигурирует низкоуровненвый запрос.
@@ -27,16 +31,18 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
             return data.parametersEncoding.raw
         }()
 
-//        manager.upload(multipartFormData: { (dt) in
-//            dt.append(<#T##data: Data##Data#>, withName: <#T##String#>)
-//        }, to: <#T##URLConvertible#>)
+        var result = data.headers
+
+        self.providers.map { $0.metadata() }.forEach { dict in
+            result.merge(dict, uniquingKeysWith: { $1 })
+        }
 
         let request = manager.request(
             data.url,
             method: data.method.http,
             parameters: data.raw,
             encoding: paramEncoding,
-            headers: HTTPHeaders(data.headers)
+            headers: HTTPHeaders(result)
         )
         return self.next.process(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
     }

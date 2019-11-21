@@ -1,11 +1,3 @@
-//
-//  LoggerNode.swift
-//  CoreNetKit
-//
-//  Created by Александр Кравченков on 07/04/2019.
-//  Copyright © 2019 Кравченков Александр. All rights reserved.
-//
-
 import Foundation
 
 /// Этот узел выполняет выведение лога в консоль.

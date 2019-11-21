@@ -104,11 +104,21 @@
 		B1F0C70521B1DDCF00382FA5 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F321B1DDCF00382FA5 /* UrlCacheReaderNode.swift */; };
 		B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6FA21B1DDCF00382FA5 /* Node.swift */; };
 		B26DF411235F58A30007E6B3 /* DTOMapperNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26DF410235F58A30007E6B3 /* DTOMapperNodeTests.swift */; };
+		B91447B523817FE600D2912A /* URLQueryBoolEncodingStartegy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91447B423817FE600D2912A /* URLQueryBoolEncodingStartegy.swift */; };
+		B91447B72381805C00D2912A /* URLQueryArrayKeyEncodingStartegy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91447B62381805C00D2912A /* URLQueryArrayKeyEncodingStartegy.swift */; };
+		B91447B92381859200D2912A /* URLQueryDictionaryKeyEncodingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91447B82381859200D2912A /* URLQueryDictionaryKeyEncodingStrategy.swift */; };
+		B91447BD2381919F00D2912A /* URLQueryBoolEncodingDefaultStartegyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91447BC2381919F00D2912A /* URLQueryBoolEncodingDefaultStartegyTests.swift */; };
+		B91447BF2381925400D2912A /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91447BE2381925400D2912A /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift */; };
+		B91447C1238192BD00D2912A /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91447C0238192BD00D2912A /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift */; };
+		B91447C32381933C00D2912A /* URLQueryInjectorNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91447C22381933B00D2912A /* URLQueryInjectorNodeTests.swift */; };
+		B91447C52381A22E00D2912A /* URLQueryConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91447C42381A22E00D2912A /* URLQueryConfigModel.swift */; };
 		B94310AF1F931CC000E8A9BA /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B95459972386F5F0007D4380 /* MetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95459962386F5F0007D4380 /* MetadataProvider.swift */; };
 		B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */; };
 		B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */; };
 		B98DC5AA237B596500293379 /* MockerProxyConfigNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DC5A9237B596500293379 /* MockerProxyConfigNode.swift */; };
 		B98DC5AD237C111900293379 /* MockerProxyConfigNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DC5AC237C111900293379 /* MockerProxyConfigNodeTests.swift */; };
+		B9945BBF238170960077C14A /* URLQueryInjectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9945BBE238170960077C14A /* URLQueryInjectorNode.swift */; };
 		B9D5B2232337A70400D66488 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2222337A70400D66488 /* MultipartModel.swift */; };
 		B9D5B2252337B3C400D66488 /* MultipartRequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */; };
 		B9D5B2272337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */; };
@@ -232,13 +242,23 @@
 		B1F0C6F521B1DDCF00382FA5 /* UrlCacheWriterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlCacheWriterNode.swift; sourceTree = "<group>"; };
 		B1F0C6FA21B1DDCF00382FA5 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		B26DF410235F58A30007E6B3 /* DTOMapperNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOMapperNodeTests.swift; sourceTree = "<group>"; };
+		B91447B423817FE600D2912A /* URLQueryBoolEncodingStartegy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryBoolEncodingStartegy.swift; sourceTree = "<group>"; };
+		B91447B62381805C00D2912A /* URLQueryArrayKeyEncodingStartegy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryArrayKeyEncodingStartegy.swift; sourceTree = "<group>"; };
+		B91447B82381859200D2912A /* URLQueryDictionaryKeyEncodingStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryDictionaryKeyEncodingStrategy.swift; sourceTree = "<group>"; };
+		B91447BC2381919F00D2912A /* URLQueryBoolEncodingDefaultStartegyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryBoolEncodingDefaultStartegyTests.swift; sourceTree = "<group>"; };
+		B91447BE2381925400D2912A /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryArrayKeyEncodingBracketsStartegyTests.swift; sourceTree = "<group>"; };
+		B91447C0238192BD00D2912A /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift; sourceTree = "<group>"; };
+		B91447C22381933B00D2912A /* URLQueryInjectorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryInjectorNodeTests.swift; sourceTree = "<group>"; };
+		B91447C42381A22E00D2912A /* URLQueryConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryConfigModel.swift; sourceTree = "<group>"; };
 		B94310AA1F931CC000E8A9BA /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94310AD1F931CC000E8A9BA /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		B94310AE1F931CC000E8A9BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B95459962386F5F0007D4380 /* MetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataProvider.swift; sourceTree = "<group>"; };
 		B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidOutputNode.swift; sourceTree = "<group>"; };
 		B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidIONode.swift; sourceTree = "<group>"; };
 		B98DC5A9237B596500293379 /* MockerProxyConfigNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockerProxyConfigNode.swift; sourceTree = "<group>"; };
 		B98DC5AC237C111900293379 /* MockerProxyConfigNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockerProxyConfigNodeTests.swift; sourceTree = "<group>"; };
+		B9945BBE238170960077C14A /* URLQueryInjectorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryInjectorNode.swift; sourceTree = "<group>"; };
 		B9D5B2222337A70400D66488 /* MultipartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
 		B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequestCreatorNode.swift; sourceTree = "<group>"; };
 		B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartUrlRequestTrasformatorNode.swift; sourceTree = "<group>"; };
@@ -341,6 +361,7 @@
 		B10D4BED222DF43F006B9EE9 /* RequestBuildingLayer */ = {
 			isa = PBXGroup;
 			children = (
+				B91447B323817FCA00D2912A /* URLQueryEncoding */,
 				B10D4BFD222DF4E9006B9EE9 /* Protocols */,
 				B10D4BEE222DF453006B9EE9 /* Models */,
 				B10D4BF5222DF4A1006B9EE9 /* MetadataConnectorNode.swift */,
@@ -348,6 +369,7 @@
 				B10D4BF9222DF4C6006B9EE9 /* RequstEncoderNode.swift */,
 				B10D4BFB222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift */,
 				B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */,
+				B9945BBE238170960077C14A /* URLQueryInjectorNode.swift */,
 			);
 			path = RequestBuildingLayer;
 			sourceTree = "<group>";
@@ -360,6 +382,7 @@
 				B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */,
 				B10D4BF1222DF472006B9EE9 /* RoutableRequestModel.swift */,
 				B10D4BF3222DF48D006B9EE9 /* EncodableRequestModel.swift */,
+				B91447C42381A22E00D2912A /* URLQueryConfigModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -662,6 +685,7 @@
 				B10CA5262259D533002885B3 /* Logging */,
 				B17BB50D225518EB00605AB8 /* UrlRouting */,
 				B1C3256421D124F40059EF33 /* Mapping */,
+				B95459962386F5F0007D4380 /* MetadataProvider.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -705,6 +729,7 @@
 		B1E61E54224707F300B3AAD9 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				B91447BA2381917F00D2912A /* RequestBuildingLayer */,
 				B98DC5AB237C10BB00293379 /* MockerIntegration */,
 				B26DF40F235F58140007E6B3 /* DTO */,
 				B10CA529225A024E002885B3 /* Logging */,
@@ -755,6 +780,35 @@
 				B26DF410235F58A30007E6B3 /* DTOMapperNodeTests.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		B91447B323817FCA00D2912A /* URLQueryEncoding */ = {
+			isa = PBXGroup;
+			children = (
+				B91447B423817FE600D2912A /* URLQueryBoolEncodingStartegy.swift */,
+				B91447B62381805C00D2912A /* URLQueryArrayKeyEncodingStartegy.swift */,
+				B91447B82381859200D2912A /* URLQueryDictionaryKeyEncodingStrategy.swift */,
+			);
+			path = URLQueryEncoding;
+			sourceTree = "<group>";
+		};
+		B91447BA2381917F00D2912A /* RequestBuildingLayer */ = {
+			isa = PBXGroup;
+			children = (
+				B91447BB2381918E00D2912A /* URLQueryEncoding */,
+				B91447C22381933B00D2912A /* URLQueryInjectorNodeTests.swift */,
+			);
+			path = RequestBuildingLayer;
+			sourceTree = "<group>";
+		};
+		B91447BB2381918E00D2912A /* URLQueryEncoding */ = {
+			isa = PBXGroup;
+			children = (
+				B91447BC2381919F00D2912A /* URLQueryBoolEncodingDefaultStartegyTests.swift */,
+				B91447BE2381925400D2912A /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift */,
+				B91447C0238192BD00D2912A /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift */,
+			);
+			path = URLQueryEncoding;
 			sourceTree = "<group>";
 		};
 		B94310A01F931CC000E8A9BA = {
@@ -1035,10 +1089,13 @@
 				B1E61E552247081C00B3AAD9 /* ChainConfiguratorNodeTests.swift in Sources */,
 				B1E61E612247857B00B3AAD9 /* FirstCachePolicyTests.swift in Sources */,
 				B1B761432207B0C600AE3303 /* Credentials.swift in Sources */,
+				B91447C1238192BD00D2912A /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift in Sources */,
 				B1B761452207B13B00AE3303 /* CredentialsEntry.swift in Sources */,
 				B1848A132204822400F54705 /* UserEntry.swift in Sources */,
+				B91447BF2381925400D2912A /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift in Sources */,
 				B1568086222C78F400BC8D91 /* AbortingTests.swift in Sources */,
 				B1E61E5E2247082900B3AAD9 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */,
+				B91447C32381933C00D2912A /* URLQueryInjectorNodeTests.swift in Sources */,
 				B1B761412207B0B700AE3303 /* FormUrlCodingTests.swift in Sources */,
 				B1E61E5C2247082900B3AAD9 /* TestUtls.swift in Sources */,
 				B1E61E5D2247082900B3AAD9 /* UrlETagReaderNodeTests.swift in Sources */,
@@ -1047,6 +1104,7 @@
 				B9D5B2292337C2A400D66488 /* MultipartRequestTests.swift in Sources */,
 				B1BED9FE21FF7BC0000B9018 /* User.swift in Sources */,
 				B1BED9FB21FF78EE000B9018 /* Infrastructure.swift in Sources */,
+				B91447BD2381919F00D2912A /* URLQueryBoolEncodingDefaultStartegyTests.swift in Sources */,
 				B1B761482207B34700AE3303 /* AuthModelEntry.swift in Sources */,
 				B26DF411235F58A30007E6B3 /* DTOMapperNodeTests.swift in Sources */,
 				B10CA52B225A0262002885B3 /* LoggingTests.swift in Sources */,
@@ -1068,6 +1126,7 @@
 				B10CA52F225A647C002885B3 /* LoggerExtensions.swift in Sources */,
 				B10D4BFC222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift in Sources */,
 				B11F119822B38183003116B3 /* DefaultLogOrder.swift in Sources */,
+				B91447C52381A22E00D2912A /* URLQueryConfigModel.swift in Sources */,
 				B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */,
 				B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */,
 				B1DCC1D0224659D6006664C1 /* DTOConvertible+Dictionary.swift in Sources */,
@@ -1086,12 +1145,14 @@
 				B10CA5282259D545002885B3 /* Logable.swift in Sources */,
 				B156807F222C6BD300BC8D91 /* MulticastContext.swift in Sources */,
 				B1B7616D220862BE00AE3303 /* UrlCacheWriterNode.swift in Sources */,
+				B9945BBF238170960077C14A /* URLQueryInjectorNode.swift in Sources */,
 				B1E61E502246772F00B3AAD9 /* Method+Alamofire.swift in Sources */,
 				B1DCC1CD22465551006664C1 /* UrlChainsBuilder.swift in Sources */,
 				B1B7615B220811F300AE3303 /* UrlProcessedResponse.swift in Sources */,
 				B10D4BF4222DF48D006B9EE9 /* EncodableRequestModel.swift in Sources */,
 				B113F871222DC460001CEEAC /* UrlETagSaverNode.swift in Sources */,
 				B113F873222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift in Sources */,
+				B91447B72381805C00D2912A /* URLQueryArrayKeyEncodingStartegy.swift in Sources */,
 				B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */,
 				B199E766223CF26A0001FE17 /* TransportUrlParameters.swift in Sources */,
 				B9D5B2352337E3D900D66488 /* MultipartModel + Convertion.swift in Sources */,
@@ -1115,6 +1176,7 @@
 				B1B7615122080C4800AE3303 /* LayerTypes.swift in Sources */,
 				B9D5B2272337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift in Sources */,
 				B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */,
+				B91447B523817FE600D2912A /* URLQueryBoolEncodingStartegy.swift in Sources */,
 				B15E54B1229019D600B62E24 /* DTOEncoderNode.swift in Sources */,
 				B1F0C70121B1DDCF00382FA5 /* AsyncContext.swift in Sources */,
 				B1B761702208647600AE3303 /* IfServerFailsFromCacheNode.swift in Sources */,
@@ -1140,9 +1202,11 @@
 				B1E61E4B224675EE00B3AAD9 /* ServerRequestsManager.swift in Sources */,
 				B10D4BFA222DF4C6006B9EE9 /* RequstEncoderNode.swift in Sources */,
 				B1E61E522246774E00B3AAD9 /* ParametersEncoding+Alamofire.swift in Sources */,
+				B91447B92381859200D2912A /* URLQueryDictionaryKeyEncodingStrategy.swift in Sources */,
 				B1DCC1C922464F3A006664C1 /* RawMappable+Dictionary.swift in Sources */,
 				B156807D222C65D000BC8D91 /* Observer+Shugar.swift in Sources */,
 				B17229612290118E0045E43D /* DataLoadingResponseProcessor.swift in Sources */,
+				B95459972386F5F0007D4380 /* MetadataProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1331,6 +1395,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = AK.NodeKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1357,6 +1422,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = AK.NodeKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

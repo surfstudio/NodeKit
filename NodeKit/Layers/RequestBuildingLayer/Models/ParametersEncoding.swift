@@ -16,7 +16,6 @@ import Foundation
 /// - urlQuery: Получает из данных строку,кодирует в URL-строку и добавляет к URL запроса.
 public enum ParametersEncoding {
     case json
-    case jsonArray
     case formUrl
     case urlQuery
 }

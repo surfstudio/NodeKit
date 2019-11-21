@@ -15,13 +15,11 @@ extension NodeKit.ParametersEncoding {
     public var raw: ParameterEncoding {
         switch self {
         case .json:
-            return JsonArrayEncoding()//JSONEncoding.default
+            return JsonArrayEncoding()
         case .formUrl:
             return URLEncoding.default
         case .urlQuery:
             return URLEncoding.queryString
-        case .jsonArray:
-            return JsonArrayEncoding()
         }
     }
 }
