@@ -50,7 +50,7 @@ public class MultipartRequestTests: XCTestCase {
 
         UrlChainsBuilder()
             .route(.post, Routes.multipartPing)
-            .default()
+            .build()
             .process(model)
             .onCompleted { (json: Json) in
                 isSuccess = json["success"] as! Bool
@@ -83,7 +83,7 @@ public class MultipartRequestTests: XCTestCase {
 
         UrlChainsBuilder()
             .route(.post, Routes.multipartCorrect)
-            .default()
+            .build()
             .process(model)
             .onCompleted { (json: Json) in
                 isSuccess = json["success"] as! Bool
@@ -113,7 +113,7 @@ public class MultipartRequestTests: XCTestCase {
 
         UrlChainsBuilder()
             .route(.post, Routes.multipartFile)
-            .default()
+            .build()
             .process(model)
             .onCompleted { (json: Json) in
                 isSuccess = json["success"] as! Bool

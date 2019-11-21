@@ -20,7 +20,7 @@ public class FormUrlCodingTests: XCTestCase {
         let chainRoot: Node<AuthModel, Credentials> = UrlChainsBuilder()
             .route(.post, Routes.authWithFormUrl)
             .encode(as: .urlQuery)
-            .default()
+            .build()
 
         // Act
 
@@ -58,7 +58,7 @@ public class FormUrlCodingTests: XCTestCase {
 
         let chainRoot: Node<AuthModel, Credentials> = UrlChainsBuilder()
             .route(.post, Routes.authWithFormUrl)
-            .default()
+            .build()
         
         // Act
 

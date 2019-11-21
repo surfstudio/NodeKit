@@ -20,7 +20,7 @@ public class SimpleURLChainTests: XCTestCase {
 
         let chainRoot: Node<Void, [User]> = UrlChainsBuilder()
             .route(.get, Routes.users)
-            .default()
+            .build()
 
         let id = "id"
         let lastName = "Fry"
@@ -76,7 +76,7 @@ public class SimpleURLChainTests: XCTestCase {
             .set(query: ["stack": "left", "sort": false])
             .set(boolEncodingStartegy: .asBool)
             .route(.get, .users)
-            .default()
+            .build()
             .process()
                 .onCompleted { (user: [User]) in
                     result = user
