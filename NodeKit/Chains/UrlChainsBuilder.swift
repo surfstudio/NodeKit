@@ -32,6 +32,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     /// Маршрут до удаленного метода (в частном случае - URL endpoint'a)
     public var route: Route?
 
+    /// Массив с ID логов, которые нужно исключить из выдачи.
     public var logFilter: [String]
 
     // MARK: - Init

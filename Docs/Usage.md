@@ -197,9 +197,14 @@ CoreNetKit предоставляет следующие виды кодиров
 
 class ExampleService {
 
+    var builder: UrlChainsBuilder<RegistrationRoute> {
+        return .init()
+    }
+
     func auth(user: User) -> Observer<Void> {
-        return UrlChainsBuilder()
-            .default(with: UrlChainConfigModel(method: .post, route: RegistrationRoute.auth))
+        return self.builder
+            .route(.post, .auth)
+            .build()
             .process(user)
             .map { [weak self] (user: User) in 
                 self?.saveToKeychain(user)
@@ -208,23 +213,26 @@ class ExampleService {
     }
 
     func getUser(by id: String) -> Observer<User> {
-        return UrlChainBuilder()
-            .default(with: UrlChainConfigModel(method: .get, route: RegistrationRoute.user(id)))
+        return self.builder
+            .route(.get, .user(id))
+            .build()
             .process()
     }
 
     func getUsers() -> Observer<[User]> {
-        return UrlChainBuilder()
-            .default(with: UrlChainConfigModel(method: .get, route: RegistrationRoute.users)
+        return self.builder
+            .route(.get, .users)
+            .build()
             .process()
     }
 
     func updateState(by params:[String], descending: Bool, by map: [String: Any], max: Int, users: [User]) -> Observer<Void> {
-        return UrlChainBuilder()
+        return self.builder
             .set(query: ["params": params], "desc": descending, "map": map, "max": maxCount)
             .set(boolEncodingStartegy: .asBool)
             .set(arrayEncodingStrategy: .noBrackets)
-            .default(with: UrlChainConfigModel(method: .post, route: RegistrationRoute.taskState)
+            .route(.post, RegistrationRoute.taskState)
+            .build()
             .process(users) 
     }
 }

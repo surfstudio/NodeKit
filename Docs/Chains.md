@@ -38,3 +38,27 @@
 `loadData<I, Data>` - цепочка, скачивающая файл и передающая на сервер какие-то данные (и так бывает, да)
 
 `default<I, O> where I.DTO.Raw = MultipartModel<[String : Data]>` - цепочка, которая позволяет отправлять multipart-запросы 
+
+### Операции
+
+`set(query: [String: Any])` - изменяет URL-Query параметр у запроса. 
+
+`set(boolEncodingStartegy: URLQueryBoolEncodingStartegy)` - устанавливает стратегию парсинга булевых переменных в URL-query параметры. Доступные из-коробки имплементации: `URLQueryBoolEncodingDefaultStartegy.asInt`, `URLQueryBoolEncodingDefaultStartegy.asBool`. По-умолчанию ставится `.asInt`
+
+`set(boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy)` - то же самое, только вместо протокола принимает тип доступный из-коробки (для красоты конфигурирования)
+
+`set(arrayEncodingStrategy: URLQueryArrayKeyEncodingStartegy)` - устанавливает стратегию парсинга ключей массивов в URL-query параметры. Доступные из-коробки имплементации: `URLQueryArrayKeyEncodingBracketsStartegy.brackets`, `URLQueryArrayKeyEncodingBracketsStartegy.noBrackets`. По-умолчанию ставится `.brackets`
+
+`set(arrayEncodingStrategy: URLQueryArrayKeyEncodingBracketsStartegy)` - то же самое, только вместо протокола принимает тип доступный из-коробки (для красоты конфигурирования)
+
+`set(dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy)` - устанавливает стратегию парсинга ключей словарей в URL-query параметры. Из-коробки доступна только `URLQueryDictionaryKeyEncodingDefaultStrategy`.
+
+`set(metadata: [String: String])` - устанавливает хедеры запроса, которые добавляются на этапе конструирования в запросе (узел `MetadataProviderNode`). По-умолчанию словарь пуст. 
+
+`route(_ method: Method, _ route: Route)` - устанавливает http-метод и url для запроса.
+
+`encode(as encoding: ParametersEncoding)` - устанавлиает кодировку для запроса. По-умолчанию `.json`
+
+`add(provider: MetadataProvider)` - добавляет провайдер заголовков к запросу. Эти провайдеры будут вызываны непосредственно перед отправкой запроса.
+
+`log(exclude: [String])` - позволяет исключить какие-то определенные логи по их ID. В качестве ID у лога ставится имя узла. Подробнее [тут](Log/Log.md)

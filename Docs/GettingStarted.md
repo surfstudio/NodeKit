@@ -152,22 +152,32 @@ struct DocumentEntity: Codable, DTOConvertible {
 import NodeKit
 
 class UserService {
+
+    var builder: UrlChainsBuilder<UserServiceRoute> {
+        return .init()
+    }
+
     func auth(login: String, password: String) -> Observer<UserEntity> {
         let model = AuthEntity(login: login, password: password)
-        return UrlChainsBuilder()
-            .default(.init(method: .post, route: UserServiceRoute.auth, encoding: .formUrl))
+        return self.builder
+            .route(.post, .auth)
+            .encode(as: .formUrl)
+            .build()
             .process(model)
     }
 
     func getDocs(for user: UserEntity) -> Observer<[DocumentEntity]> {
-        return UrlChainsBuilder()
-            .default(.init(method: .get, route: UserServiceRoute.docs, encoding: .urlQuery))
-            .process(["id": user.id])
+        return self.builder
+            .route(.get, .docs)
+            .set(query: ["id": user.id])
+            .build()
+            .process()
     }
 
     func update(doc: DocumentEntity) -> Observer<Void> {
-        return UrlChainsBuilder()
-            .default(.init(method: .put, route: UserServiceRoute.doc(doc.id)))
+        return self.builder
+            .route(.put, .doc(doc.id))
+            .build()
             .process(doc)
     }
 
@@ -175,8 +185,9 @@ class UserService {
 
         let model = DocumentEntity(id: user.id, name: name, content: content)
 
-        return UrlChainsBuilder()
-            .default(.init(method: .post, route: UserServiceRoute.docs))
+        return self.builder
+            .route(.post, .docs)
+            .build()
             .process(model)
     }
 }
@@ -244,10 +255,12 @@ curl -d {id:$id,name:$name,modDate:$modDate,content:$content} -X PUT https://ser
 
 ```Swift
 
-    func auth(login: String, password: String) -> Observer<Void> {
+    func auth(login: String, password: String) -> Observer<UserEntity> {
         let model = AuthEntity(login: login, password: password)
-        return UrlChainsBuilder()
-            .default(.init(method: .post, route: UserServiceRoute.auth, encoding: .formUrl))
+        return self.builder
+            .route(.post, .auth)
+            .encode(as: .formUrl)
+            .build()
             .process(model)
             .map { self.saveToken($0) }
     }
@@ -273,7 +286,8 @@ func testService(arr: [String], flag: Bool, map: [String: Any], data: [SomeType]
             .set(query: ["arr": params], "flag": flag, "map": map)
             .set(boolEncodingStartegy: .asBool)
             .set(arrayEncodingStrategy: .noBrackets)
-            .default(with: UrlChainConfigModel(method: .post, route: Route.postPath)
+            .route(.post, Route.postPath)
+            .build()
             .process(data)
 }
 ```
