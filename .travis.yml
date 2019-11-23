@@ -1,36 +1,28 @@
 os: osx
 osx_image: xcode10.2
 language: obj-c
-
 jobs:
   include:
-    - stage: build_stage
-      name: Build
-      script: 
-        - pod install --repo-update
-        - xcodebuild -workspace NodeKit.xcworkspace -scheme NodeKit
-
-    - stage: deploy
-      name: Deploy TestServer
-      install: true
-      script: 
-        - sh ci/prepare_srv_deploy.sh
-        - sh ci/deploy_server.sh
-      
-    - stage: test
-      name: Test and CodeCov Report
-      script: 
-        - pod install --repo-update
-        - gem install xcpretty -N
-        - sh ci/prepare_tests.sh
-        - sh ci/run_tests.sh
-        - set -o pipefail
-        - bash <(curl -s https://codecov.io/bash) -t b62fa427-b5d3-4318-885d-e7783e1d527c
-
-    # - stage: docks_gen
-    #   name: Generate Documentation
-    #   script: ci/docks/dock_gen.sh
-
-    # - stage: docks_deploy
-    #   name: Deploy Documentation 
-    #   script: ci/docks/deploy_docs.sh
+  - stage: build_stage
+    name: Build
+    script:
+    - pod install --repo-update
+    - xcodebuild -workspace NodeKit.xcworkspace -scheme NodeKit
+  - stage: deploy
+    name: Deploy TestServer
+    install: true
+    script:
+    - sh ci/prepare_srv_deploy.sh
+    - sh ci/deploy_server.sh
+  - stage: test
+    name: Test and CodeCov Report
+    script:
+    - pod install --repo-update
+    - gem install xcpretty -N
+    - sh ci/prepare_tests.sh
+    - sh ci/run_tests.sh
+    - set -o pipefail
+    - bash <(curl -s https://codecov.io/bash) -t b62fa427-b5d3-4318-885d-e7783e1d527c
+before_install:
+- openssl aes-256-cbc -K $encrypted_1d95d7d3c8a9_key -iv $encrypted_1d95d7d3c8a9_iv
+  -in id_rsa.enc -out id_rsa -d
