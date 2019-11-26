@@ -49,7 +49,8 @@ public class MultipartRequestTests: XCTestCase {
         let model = MultipartModel(payloadModel: data)
 
         UrlChainsBuilder()
-            .default(with: .init(method: .post, route: Routes.multipartPing))
+            .route(.post, Routes.multipartPing)
+            .build()
             .process(model)
             .onCompleted { (json: Json) in
                 isSuccess = json["success"] as! Bool
@@ -81,7 +82,8 @@ public class MultipartRequestTests: XCTestCase {
         let model = MultipartModel(payloadModel: data)
 
         UrlChainsBuilder()
-            .default(with: .init(method: .post, route: Routes.multipartCorrect))
+            .route(.post, Routes.multipartCorrect)
+            .build()
             .process(model)
             .onCompleted { (json: Json) in
                 isSuccess = json["success"] as! Bool
@@ -110,7 +112,8 @@ public class MultipartRequestTests: XCTestCase {
         let exp = self.expectation(description: "\(#function)")
 
         UrlChainsBuilder()
-            .default(with: .init(method: .post, route: Routes.multipartFile))
+            .route(.post, Routes.multipartFile)
+            .build()
             .process(model)
             .onCompleted { (json: Json) in
                 isSuccess = json["success"] as! Bool

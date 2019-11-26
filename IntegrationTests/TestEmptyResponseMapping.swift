@@ -20,8 +20,9 @@ public class TestEmptyResponseMapping: XCTestCase {
 
         // Arrange
 
-        let chainRoot: Node<Void, [User]> = UrlChainsBuilder().default(with: .init(method: .get,
-                                                                               route: Routes.emptyUsers))
+        let chainRoot: Node<Void, [User]> = UrlChainsBuilder()
+            .route(.get, Routes.emptyUsers)
+            .build()
 
         // Act
 
@@ -53,8 +54,9 @@ public class TestEmptyResponseMapping: XCTestCase {
         // Arrange
 
 
-        let chainRoot: Node<Void, [User]> = UrlChainsBuilder().default(with: .init(method: .get,
-                                                                               route: Routes.emptyUsersWith402))
+        let chainRoot: Node<Void, [User]> = UrlChainsBuilder()
+            .route(.get, Routes.emptyUsersWith402)
+            .build()
 
         // Act
 

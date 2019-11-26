@@ -36,7 +36,6 @@ class ViewController : UIViewController {
         super.viewDidLoad()
 
         self.view.addSubview(pdfView)
-        // Layout
         pdfView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             pdfView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -49,8 +48,10 @@ class ViewController : UIViewController {
 }
 
 func loadPdf() -> Observer<Data> {
-    let request = UrlChainConfigModel(method: .get, route: Endpoint.loadPDF)
-    return UrlChainsBuilder().loadData(with: request).process()
+    return UrlChainsBuilder()
+        .route(.get, Endpoint.loadPDF)
+        .loadData()
+        .process()
 }
 
 loadPdf()

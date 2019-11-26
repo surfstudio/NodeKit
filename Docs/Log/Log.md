@@ -84,3 +84,7 @@ func process(_ data: Input) -> Observer<Output> {
 4. `ResponseDataPreprocessorNode` 
 5. `ResponseHttpErrorProcessorNode`
 6. `ResponseDataParserNode`
+
+## Как фильтровать
+
+В `UrlChainsBuilder` можно настроить логгирование. Подробнее об этом [тут](../Chains.md)

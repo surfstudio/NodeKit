@@ -18,8 +18,9 @@ public class SimpleURLChainTests: XCTestCase {
 
         // Arrange
 
-        let chainRoot: Node<Void, [User]> = UrlChainsBuilder().default(with: .init(method: .get,
-                                                                               route: Routes.users))
+        let chainRoot: Node<Void, [User]> = UrlChainsBuilder()
+            .route(.get, Routes.users)
+            .build()
 
         let id = "id"
         let lastName = "Fry"
@@ -71,18 +72,19 @@ public class SimpleURLChainTests: XCTestCase {
 
         let exp = self.expectation(description: "\(#function)")
 
-        UrlChainsBuilder()
+        UrlChainsBuilder<Routes>()
             .set(query: ["stack": "left", "sort": false])
             .set(boolEncodingStartegy: .asBool)
-            .default(with: .init(method: .get, route: Routes.users))
+            .route(.get, .users)
+            .build()
             .process()
-            .onCompleted { (user: [User]) in
-                result = user
-                exp.fulfill()
-            }.onError { (error) in
-                resultError = error
-                exp.fulfill()
-            }
+                .onCompleted { (user: [User]) in
+                    result = user
+                    exp.fulfill()
+                }.onError { (error) in
+                    resultError = error
+                    exp.fulfill()
+                }
 
         waitForExpectations(timeout: 3, handler: nil)
 

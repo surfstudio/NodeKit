@@ -56,20 +56,17 @@ public class AbortingTests: XCTestCase {
             .process(())
             .onCompleted { val in
                 completedCalls += 1
-                exp.fulfill()
             }.onError { val in
                 errorCalls += 1
-                exp.fulfill()
             }.onCanceled {
                 canceledCalls += 1
                 exp.fulfill()
             }.defer {
                 deferCalls += 1
-                exp.fulfill()
             }
 
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+        DispatchQueue.main.async {
             context.cancel()
         }
 

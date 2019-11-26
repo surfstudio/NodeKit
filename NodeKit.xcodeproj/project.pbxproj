@@ -113,6 +113,7 @@
 		B91447C32381933C00D2912A /* URLQueryInjectorNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91447C22381933B00D2912A /* URLQueryInjectorNodeTests.swift */; };
 		B91447C52381A22E00D2912A /* URLQueryConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91447C42381A22E00D2912A /* URLQueryConfigModel.swift */; };
 		B94310AF1F931CC000E8A9BA /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B94310AD1F931CC000E8A9BA /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B95459972386F5F0007D4380 /* MetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95459962386F5F0007D4380 /* MetadataProvider.swift */; };
 		B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */; };
 		B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */; };
 		B98DC5AA237B596500293379 /* MockerProxyConfigNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DC5A9237B596500293379 /* MockerProxyConfigNode.swift */; };
@@ -252,6 +253,7 @@
 		B94310AA1F931CC000E8A9BA /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94310AD1F931CC000E8A9BA /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		B94310AE1F931CC000E8A9BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B95459962386F5F0007D4380 /* MetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataProvider.swift; sourceTree = "<group>"; };
 		B9701CE62281AA6E00CFBCD6 /* VoidOutputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidOutputNode.swift; sourceTree = "<group>"; };
 		B9701CE82281AAC800CFBCD6 /* VoidIONode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidIONode.swift; sourceTree = "<group>"; };
 		B98DC5A9237B596500293379 /* MockerProxyConfigNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockerProxyConfigNode.swift; sourceTree = "<group>"; };
@@ -683,6 +685,7 @@
 				B10CA5262259D533002885B3 /* Logging */,
 				B17BB50D225518EB00605AB8 /* UrlRouting */,
 				B1C3256421D124F40059EF33 /* Mapping */,
+				B95459962386F5F0007D4380 /* MetadataProvider.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1203,6 +1206,7 @@
 				B1DCC1C922464F3A006664C1 /* RawMappable+Dictionary.swift in Sources */,
 				B156807D222C65D000BC8D91 /* Observer+Shugar.swift in Sources */,
 				B17229612290118E0045E43D /* DataLoadingResponseProcessor.swift in Sources */,
+				B95459972386F5F0007D4380 /* MetadataProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
