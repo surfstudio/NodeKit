@@ -197,7 +197,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         return LoggerNode(next: voidOutput)
     }
 
-    /// Формирует цепочку для отправки multipaer-запроса.
+    /// Формирует цепочку для отправки multipart-запроса.
     /// Для работы с этой цепочкой в качестве модели необходимо использовать `MultipartModel`
     ///
     /// - Returns: Корневой узел цепочки .
