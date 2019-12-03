@@ -71,7 +71,7 @@ public class AccessSafeRequestManager: AccessSafeManager {
     fileprivate var isRefreshTokenRequestWasSended: Bool
 
     fileprivate let delegate: AccessSafeRequestManagerDelegate
-    private let queue = DispatchQueue(label: "com.magnit.AccessSafeRequestManager", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "com.AccessSafeRequestManager", qos: .userInitiated)
 
     public init(delegate: AccessSafeRequestManagerDelegate) {
         self.requests = [SafableRequest]()
