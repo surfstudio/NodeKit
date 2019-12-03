@@ -80,7 +80,10 @@ public class AccessSafeRequestManager: AccessSafeManager {
     }
 
     public func addRequest(request: SafableRequest) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.backgoundAddRequest(request: request)
         }
     }
@@ -96,7 +99,10 @@ public class AccessSafeRequestManager: AccessSafeManager {
 private extension AccessSafeRequestManager {
 
     func backgoundAddRequest(request: SafableRequest) {
-        queue.async {
+        queue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.requests.append(request)
             // true if no need perform
             // false if perform needed
@@ -109,7 +115,10 @@ private extension AccessSafeRequestManager {
 
     func requestPerformationWrapper(request: SafableRequest) {
         request.perform { (isCompletedWithoutUnauthorized) in
-            self.queue.async {
+            self.queue.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
                 guard !isCompletedWithoutUnauthorized else {
                     self.successPerformation(request: request)
                     return
@@ -143,7 +152,10 @@ private extension AccessSafeRequestManager {
     }
 
     private func successPerformation(request: SafableRequest) {
-        queue.async {
+        queue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             if !self.isRefreshTokenRequestWasSended,
                 let index = self.requests.index(where: { $0.isEqual(request) }) {
                 self.requests.remove(at: index)
@@ -163,7 +175,10 @@ private extension AccessSafeRequestManager {
     }
 
     func successSafePerformation() {
-        queue.async {
+        queue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.isRefreshTokenRequestWasSended = false
             for awaitedRequest in self.requests {
                 self.requestPerformationWrapper(request: awaitedRequest)
