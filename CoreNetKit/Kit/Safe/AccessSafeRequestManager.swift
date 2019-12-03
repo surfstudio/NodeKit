@@ -68,15 +68,13 @@ public class AccessSafeRequestManager: AccessSafeManager {
 
     fileprivate var requests: [SafableRequest]
 
-    fileprivate let dispatchGroup: DispatchGroup
-
     fileprivate var isRefreshTokenRequestWasSended: Bool
 
     fileprivate let delegate: AccessSafeRequestManagerDelegate
+    private let queue = DispatchQueue(label: "com.magnit.AccessSafeRequestManager", qos: .userInitiated)
 
     public init(delegate: AccessSafeRequestManagerDelegate) {
         self.requests = [SafableRequest]()
-        self.dispatchGroup = DispatchGroup()
         self.isRefreshTokenRequestWasSended = false
         self.delegate = delegate
     }
@@ -85,18 +83,6 @@ public class AccessSafeRequestManager: AccessSafeManager {
         DispatchQueue.global(qos: .userInitiated).async {
             self.backgoundAddRequest(request: request)
         }
-    }
-
-    /// Removed all sleeped requests and allows perform new requests
-    public func clear() {
-
-        self.requests.removeAll()
-
-        dispatchGroup.enter()
-
-        self.isRefreshTokenRequestWasSended = false
-
-        dispatchGroup.leave()
     }
 
     /// Tried reperform all waiting requests
@@ -110,42 +96,32 @@ public class AccessSafeRequestManager: AccessSafeManager {
 private extension AccessSafeRequestManager {
 
     func backgoundAddRequest(request: SafableRequest) {
-
-        self.dispatchGroup.enter()
-
-        self.requests.append(request)
-        // true if no need perform
-        // false if perform needed
-        guard !isRefreshTokenRequestWasSended else {
-            self.dispatchGroup.leave()
-            return
+        queue.async {
+            self.requests.append(request)
+            // true if no need perform
+            // false if perform needed
+            guard !self.isRefreshTokenRequestWasSended else {
+                return
+            }
+            self.requestPerformationWrapper(request: request)
         }
-
-        self.dispatchGroup.leave()
-
-        self.requestPerformationWrapper(request: request)
     }
 
     func requestPerformationWrapper(request: SafableRequest) {
         request.perform { (isCompletedWithoutUnauthorized) in
-            guard !isCompletedWithoutUnauthorized else {
-                self.successPerformation(request: request)
-                return
+            self.queue.async {
+                guard !isCompletedWithoutUnauthorized else {
+                    self.successPerformation(request: request)
+                    return
+                }
+                // true if no need perform
+                // false if perform needed
+                if self.isRefreshTokenRequestWasSended {
+                    return
+                }
+                self.isRefreshTokenRequestWasSended = true
+                self.safePerform(request: request)
             }
-
-            self.dispatchGroup.enter()
-
-            // true if no need perform
-            // false if perform needed
-            if self.isRefreshTokenRequestWasSended {
-                self.dispatchGroup.leave()
-                return
-            }
-
-            self.isRefreshTokenRequestWasSended = true
-            self.dispatchGroup.leave()
-
-            self.safePerform(request: request)
         }
     }
 
@@ -167,15 +143,12 @@ private extension AccessSafeRequestManager {
     }
 
     private func successPerformation(request: SafableRequest) {
-        self.dispatchGroup.enter()
-
-        if !self.isRefreshTokenRequestWasSended,
-            let index = self.requests.index(where: { $0.isEqual(request)}) {
-
-            self.requests.remove(at: index)
+        queue.async {
+            if !self.isRefreshTokenRequestWasSended,
+                let index = self.requests.index(where: { $0.isEqual(request) }) {
+                self.requests.remove(at: index)
+            }
         }
-
-        self.dispatchGroup.leave()
     }
 
     private func failedSafePerformation(request: SafableRequest?) {
@@ -190,26 +163,12 @@ private extension AccessSafeRequestManager {
     }
 
     func successSafePerformation() {
-        self.dispatchGroup.enter()
-
-        self.isRefreshTokenRequestWasSended = false
-
-        self.dispatchGroup.leave()
-
-        for awaitedRequest in self.requests {
-            self.requestPerformationWrapper(request: awaitedRequest)
+        queue.async {
+            self.isRefreshTokenRequestWasSended = false
+            for awaitedRequest in self.requests {
+                self.requestPerformationWrapper(request: awaitedRequest)
+            }
         }
     }
 
-    private func initializeNewPerformation() {
-        self.dispatchGroup.enter()
-
-        guard let request = self.requests.first else {
-            self.dispatchGroup.leave()
-            return
-        }
-        self.dispatchGroup.leave()
-
-        self.requestPerformationWrapper(request: request)
-    }
 }
