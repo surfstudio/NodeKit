@@ -80,8 +80,10 @@ public class AccessSafeRequestManager: AccessSafeManager {
     }
 
     public func addRequest(request: SafableRequest) {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self, weak request] in
+            guard
+                let self = self,
+                let request = request else {
                 return
             }
             self.backgoundAddRequest(request: request)
@@ -99,8 +101,10 @@ public class AccessSafeRequestManager: AccessSafeManager {
 private extension AccessSafeRequestManager {
 
     func backgoundAddRequest(request: SafableRequest) {
-        queue.async { [weak self] in
-            guard let self = self else {
+        queue.async { [weak self, weak request] in
+            guard
+                let self = self,
+                let request = request else {
                 return
             }
             self.requests.append(request)
@@ -114,9 +118,11 @@ private extension AccessSafeRequestManager {
     }
 
     func requestPerformationWrapper(request: SafableRequest) {
-        request.perform { (isCompletedWithoutUnauthorized) in
-            self.queue.async { [weak self] in
-                guard let self = self else {
+        request.perform { [weak request] (isCompletedWithoutUnauthorized) in
+            self.queue.async { [weak self, weak request] in
+                guard
+                    let self = self,
+                    let request = request else {
                     return
                 }
                 guard !isCompletedWithoutUnauthorized else {
@@ -135,7 +141,11 @@ private extension AccessSafeRequestManager {
     }
 
     private func safePerform(request: SafableRequest) {
-        self.delegate.refreshAccess { (isSuccess) in
+        self.delegate.refreshAccess { [weak request] (isSuccess) in
+            guard
+                let request = request else {
+                return
+            }
             guard isSuccess else {
                 self.failedSafePerformation(request: request)
                 return
@@ -152,8 +162,10 @@ private extension AccessSafeRequestManager {
     }
 
     private func successPerformation(request: SafableRequest) {
-        queue.async { [weak self] in
-            guard let self = self else {
+        queue.async { [weak self, weak request] in
+            guard
+                let self = self,
+                let request = request else {
                 return
             }
             if !self.isRefreshTokenRequestWasSended,
