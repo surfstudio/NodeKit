@@ -101,6 +101,8 @@ open class MulticastContext<Input>: Observer<Input> {
     @discardableResult
     open override func cancel() -> Self {
         self.eventOnCancelled.invoke(with: ())
+        self.eventOnCompleted.clear()
+        self.eventOnError.clear()
         return self
     }
 

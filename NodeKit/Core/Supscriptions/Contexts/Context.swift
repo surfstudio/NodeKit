@@ -97,6 +97,8 @@ open class Context<Model>: Observer<Model> {
     open override func cancel() -> Self {
         self.cancelClosure?()
         self.deferClosure?()
+        self.completedClosure = nil
+        self.errorClosure = nil
         return self
     }
 
