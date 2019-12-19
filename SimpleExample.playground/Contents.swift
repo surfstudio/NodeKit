@@ -76,6 +76,7 @@ extension Http2CheckResultEntry: RawDecodable {
 func checkHttp2() -> Observer<Http2CheckResult> {
     return UrlChainsBuilder()
             .route(.post, Endpoint.isHttp2)
+        .log(exclude: ["ResponseDataParserNode"])
             .build()
             .process()
 }
