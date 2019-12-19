@@ -52,7 +52,7 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
                 log += "Catch \(error)"
             }
 
-            context.log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).emit(data: Json())
+            context.log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).emit(error: error)
             return context
         }
 
