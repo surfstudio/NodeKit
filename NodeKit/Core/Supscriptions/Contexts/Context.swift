@@ -93,10 +93,13 @@ open class Context<Model>: Observer<Model> {
     }
 
     /// Отмена действия
+    /// - Warning: Затирает всех подписчиков
     @discardableResult
     open override func cancel() -> Self {
         self.cancelClosure?()
         self.deferClosure?()
+        self.completedClosure = nil
+        self.errorClosure = nil
         return self
     }
 
