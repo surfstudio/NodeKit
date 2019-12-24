@@ -1,7 +1,7 @@
 import Foundation
 import Alamofire
 
-/// Умеет создавать цеопчки 
+/// Умеет создавать цепочки 
 open class UrlServiceChainBuilder {
 
     /// Конструктор по-умолчанию.
@@ -16,9 +16,9 @@ open class UrlServiceChainBuilder {
     }
 
     /// Создает цепочку узлов, описывающих транспортный слой обработки.
-    open func requestTrasportChain(providers: [MetadataProvider]) -> TransportLayerNode {
+    open func requestTrasportChain(providers: [MetadataProvider], session: Session?) -> TransportLayerNode {
         let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseProcessingLayerChain())
         let technicalErrorMapperNode = TechnicaErrorMapperNode(next: requestSenderNode)
-        return RequestCreatorNode(next: technicalErrorMapperNode, providers: providers)
+        return RequestCreatorNode(next: technicalErrorMapperNode, providers: providers, session: session)
     }
 }

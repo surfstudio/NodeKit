@@ -1,5 +1,6 @@
 
 import Foundation
+import Alamofire
 
 /// Реулизует набор цепочек для отправки URL запросов.
 open class UrlChainsBuilder<Route: UrlRouteProvider> {
@@ -31,6 +32,9 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     /// Маршрут до удаленного метода (в частном случае - URL endpoint'a)
     public var route: Route?
+
+    /// Менеджер сессий
+    private var session: Session?
 
     /// Массив с ID логов, которые нужно исключить из выдачи.
     public var logFilter: [String]
@@ -87,6 +91,14 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
+    // MARK: -- Seession config
+    
+    open func set(session: Session) -> Self {
+        self.session = session
+        return self
+    }
+
+
     // MARK: -- Request config
 
     open func set(metadata: [String: String]) -> Self {
@@ -123,7 +135,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     ///
     /// - Parameter config: Конфигурация для запроса
     open func requestBuildingChain() ->  Node<Json, Json> {
-        let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders)
+        let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, session: session)
 
         let urlRequestTrasformatorNode = UrlRequestTrasformatorNode(next: transportChain, method: self.method)
         let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
@@ -207,7 +219,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor)
 
-        let creator = MultipartRequestCreatorNode(next: requestSenderNode)
+        let creator = MultipartRequestCreatorNode(next: requestSenderNode, session: session)
 
         let transformator = MultipartUrlRequestTrasformatorNode(next: creator, method: self.method)
 
@@ -233,7 +245,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
         let sender = RequestSenderNode(rawResponseProcessor: responseProcessor)
 
-        let creator = RequestCreatorNode(next: sender, providers: headersProviders)
+        let creator = RequestCreatorNode(next: sender, providers: headersProviders, session: session)
 
         let tranformator = UrlRequestTrasformatorNode(next: creator, method: self.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
@@ -260,7 +272,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
         let sender = RequestSenderNode(rawResponseProcessor: responseProcessor)
 
-        let creator = RequestCreatorNode(next: sender, providers: headersProviders)
+        let creator = RequestCreatorNode(next: sender, providers: headersProviders, session: session)
 
         let tranformator = UrlRequestTrasformatorNode(next: creator, method: self.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
