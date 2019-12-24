@@ -53,6 +53,9 @@ func addHTTPListners(router *mux.Router) {
 	router.HandleFunc("/nkt/multipartPing", MultipartPing).Methods("POST")
 	router.HandleFunc("/nkt/multipartCorrect", MultipartCorrect).Methods("POST")
 	router.HandleFunc("/nkt/multipartFile", multipartFile).Methods("POST")
+
+	router.HandleFunc("/nkt/bson", bsonGet).Methods("GET")
+	router.HandleFunc("/nkt/bson", bsonPost).Methods("POST")
 }
 
 // GetUser description
