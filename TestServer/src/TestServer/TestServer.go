@@ -7,9 +7,13 @@ import (
 	"net/http"
 	"os"
 
+	"io/ioutil"
+
 	"strconv"
 
 	"github.com/gorilla/mux"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 // User stub model
@@ -238,4 +242,46 @@ func multipartFile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(map[string]bool{"success": success})
+}
+
+func bsonGet(w http.ResponseWriter, r *http.Request) {
+	usr := User{ID: "123", Lastname: "Freeze", Firstname: "John"}
+
+	data, err := bson.Marshal(&usr)
+	
+	if err != nil {
+		http.Error(w, "Cant map", 500)
+		return
+	}
+	
+	w.Write(data)
+	
+	w.Header().Set("Content-Type", "application/bson")
+}
+
+func bsonPost(w http.ResponseWriter, r *http.Request) {
+	var user User
+
+	data, err := ioutil.ReadAll(r.Body)
+
+	if err != nil {
+		w.WriteHeader(400)
+		return
+	}
+
+	err = bson.Unmarshal(data, &user)
+
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+
+	switch user.ID {
+	case "409":
+		http.Error(w, "Already exist", 409)
+	default:
+		w.WriteHeader(201)
+	}
+	
+	w.Header().Set("Content-Type", "application/bson")
 }
