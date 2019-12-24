@@ -120,7 +120,7 @@ public class MultipartRequestTests: XCTestCase {
                 exp.fulfill()
         }
 
-        waitForExpectations(timeout: 3, handler: nil)
+        waitForExpectations(timeout: 30, handler: nil)
 
         // Assert
 

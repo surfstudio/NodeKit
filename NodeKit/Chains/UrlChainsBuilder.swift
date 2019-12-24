@@ -166,7 +166,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let input: Node<Input, Output> = self.supportNodes()
             let config =  ChainConfiguratorNode<Input, Output>(next: input)
-            return LoggerNode(next: config)
+            return LoggerNode(next: config, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
@@ -175,7 +175,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
             let input: Node<Json, Output> = self.supportNodes()
             let configNode = ChainConfiguratorNode<Json, Output>(next: input)
             let voidNode =  VoidInputNode(next: configNode)
-            return LoggerNode(next: voidNode)
+            return LoggerNode(next: voidNode, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
@@ -185,7 +185,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
             let indicator = LoadIndicatableNode(next: input)
             let configNode = ChainConfiguratorNode(next: indicator)
             let voidOutput = VoidOutputNode<Input>(next: configNode)
-            return LoggerNode(next: voidOutput)
+            return LoggerNode(next: voidOutput, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных и вызодных данных имеет `Void`
@@ -194,7 +194,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let indicator = LoadIndicatableNode(next: input)
         let configNode = ChainConfiguratorNode(next: indicator)
         let voidOutput = VoidIONode(next: configNode)
-        return LoggerNode(next: voidOutput)
+        return LoggerNode(next: voidOutput, filters: self.logFilter)
     }
 
     /// Формирует цепочку для отправки multipart-запроса.
@@ -222,7 +222,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let indicator = LoadIndicatableNode(next: dtoEncoder)
         let configNode = ChainConfiguratorNode(next: indicator)
 
-        return LoggerNode(next: configNode)
+        return LoggerNode(next: configNode, filters: self.logFilter)
     }
 
     /// Позволяет загрузить бинарные данные (файл) с сервера без отправки какой-то модели на сервер.
@@ -248,7 +248,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let voidInput = VoidInputNode(next: configNode)
 
-        return LoggerNode(next: voidInput)
+        return LoggerNode(next: voidInput, filters: self.logFilter)
     }
 
     /// Позволяет загрузить бинарные данные (файл) с сервера.
@@ -276,6 +276,6 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let indicator = LoadIndicatableNode(next: dtoEncoder)
         let configNode = ChainConfiguratorNode(next: indicator)
 
-        return LoggerNode(next: configNode)
+        return LoggerNode(next: configNode, filters: self.logFilter)
     }
 }

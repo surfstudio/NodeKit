@@ -97,10 +97,13 @@ open class MulticastContext<Input>: Observer<Input> {
         return self
     }
 
-    //// Оповещает всех слушателей об отмене.
+    //// Оповещает всех слушателей об отмене
+    /// - Warning: Удаляет всех слушателей!
     @discardableResult
     open override func cancel() -> Self {
         self.eventOnCancelled.invoke(with: ())
+        self.eventOnCompleted.clear()
+        self.eventOnError.clear()
         return self
     }
 
