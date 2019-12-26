@@ -73,3 +73,4 @@ fastlane/screenshots
 fastlane/test_output
 .DS_Store
 TestServer/.vscode/launch.json
+TestServer/pkg
