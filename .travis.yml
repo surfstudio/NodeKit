@@ -6,7 +6,8 @@ jobs:
   - stage: build_stage
     name: Build
     script:
-    - pod install --repo-update
+    - pod repo update
+    - pod install
     - xcodebuild -workspace NodeKit.xcworkspace -scheme NodeKit
   - stage: deploy
     name: Deploy TestServer
@@ -17,7 +18,8 @@ jobs:
   - stage: test
     name: Test and CodeCov Report
     script:
-    - pod install --repo-update
+    - pod repo update
+    - pod install
     - gem install xcpretty -N
     - sh ci/prepare_tests.sh
     - sh ci/run_tests.sh
