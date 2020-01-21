@@ -29,18 +29,21 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
     /// Следующий узел для обработки.
     public var next: Node<RawUrlRequest, Output>
 
+    /// Менеджер сессий
+    private(set) var manager: Session
+
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<RawUrlRequest, Output>) {
+    public init(next: Node<RawUrlRequest, Output>, session: Session? = nil) {
         self.next = next
+        self.manager = session ?? ServerRequestsManager.shared.manager
     }
 
     /// Конфигурирует низкоуровненвый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open override func process(_ data: MultipartUrlRequest) -> Observer<Output> {
-        let manager = ServerRequestsManager.shared.manager
 
         let request = manager.upload(multipartFormData: { (multipartForm) in
             self.append(multipartForm: multipartForm, with: data)
