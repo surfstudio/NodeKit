@@ -33,6 +33,7 @@ open class Context<Model>: Observer<Model> {
         self.completedClosure = closure
         if let lastEmitedData = self.lastEmitedData {
             self.completedClosure?(lastEmitedData)
+            self.deferClosure?()
             self.lastEmitedData = nil
         }
 
@@ -47,6 +48,7 @@ open class Context<Model>: Observer<Model> {
 
         if let lastEmitedError = self.lastEmitedError {
             self.errorClosure?(lastEmitedError)
+            self.deferClosure?()
             self.lastEmitedError = nil
         }
 
