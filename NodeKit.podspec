@@ -21,12 +21,12 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'MockerIntegration' do |sp|
-    sp.dependency 'Core'
+    sp.dependency 'NodeKit/Core'
     sp.source_files = 'NodeKit/MockerIntegration/*.swift'
   end
   
   s.subspec 'UrlCache' do |sp|
-    sp.dependency 'Core'
+    sp.dependency 'NodeKit/Core'
     sp.source_files = 'NodeKit/CacheNode/**/*.swift'
   end
 
