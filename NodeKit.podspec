@@ -24,5 +24,10 @@ Pod::Spec.new do |s|
     sp.dependency 'Core'
     sp.source_files = 'NodeKit/MockerIntegration/*.swift'
   end
+  
+  s.subspec 'UrlCache' do |sp|
+    sp.dependency 'Core'
+    sp.source_files = 'NodeKit/CacheNode/**/*.swift'
+  end
 
 end
