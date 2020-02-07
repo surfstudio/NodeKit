@@ -24,20 +24,27 @@ public enum BaseUrlCacheReaderError: Error {
 /// Сам по себе узел является листом и не может быть встроен в сквозную цепочку.
 open class UrlCacheReaderNode: Node<UrlNetworkRequest, Json> {
 
+
+    public var needsToThrowError: Bool
+
+    public init(needsToThrowError: Bool) {
+        self.needsToThrowError = needsToThrowError
+    }
+
     /// Посылает запрос в кэш и пытается сериализовать данные в JSON.
     open override func process(_ data: UrlNetworkRequest) -> Context<Json> {
 
         guard let cachedResponse = self.extractCachedUrlResponse(data.urlRequest) else {
-            return .emit(error: BaseUrlCacheReaderError.cantLoadDataFromCache)
+            return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantLoadDataFromCache) : Context<Json>()
         }
 
         guard let jsonObjsect = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: .allowFragments) else {
-            return .emit(error: BaseUrlCacheReaderError.cantSerializeJson)
+            return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantSerializeJson) : Context<Json>()
         }
 
         guard let json = jsonObjsect as? Json else {
             guard let json = jsonObjsect as? [Json] else {
-                return .emit(error: BaseUrlCacheReaderError.cantCastToJson)
+                return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantCastToJson) : Context<Json>()
             }
             return .emit(data: [MappingUtils.arrayJsonKey: json])
         }
