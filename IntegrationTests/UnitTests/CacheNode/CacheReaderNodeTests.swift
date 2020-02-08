@@ -20,7 +20,7 @@ public class CacheReaderNodeTests: XCTestCase {
         let url = URL(string: "http://example.test")!
         let request = URLRequest(url: url)
         let model = UrlNetworkRequest(urlRequest: request)
-        let testNode = UrlCacheReaderNode()
+        let testNode = UrlCacheReaderNode(needsToThrowError: true)
 
         URLCache.shared.removeAllCachedResponses()
 
@@ -61,7 +61,7 @@ public class CacheReaderNodeTests: XCTestCase {
 
         let url = URL(string: "http://example.test/usr?id=123")!
         let request = URLRequest(url: url)
-        let testNode = UrlCacheReaderNode()
+        let testNode = UrlCacheReaderNode(needsToThrowError: true)
 
         URLCache.shared.removeAllCachedResponses()
 
@@ -93,7 +93,7 @@ public class CacheReaderNodeTests: XCTestCase {
         // Assert
 
         guard let guardedData = expected as? BaseUrlCacheReaderError else {
-            XCTFail("\(expected)")
+            XCTFail("\(expected.debugDescription)")
             return
         }
 
@@ -107,7 +107,7 @@ public class CacheReaderNodeTests: XCTestCase {
         let url = URL(string: "http://example.test")!
         let request = URLRequest(url: url)
         let model = UrlNetworkRequest(urlRequest: request)
-        let testNode = UrlCacheReaderNode()
+        let testNode = UrlCacheReaderNode(needsToThrowError: true)
 
         URLCache.shared.removeAllCachedResponses()
 
@@ -132,7 +132,7 @@ public class CacheReaderNodeTests: XCTestCase {
         // Assert
 
         guard let guardedData = expected as? BaseUrlCacheReaderError else {
-            XCTFail("\(expected)")
+            XCTFail("\(expected.debugDescription)")
             return
         }
 
@@ -146,7 +146,7 @@ public class CacheReaderNodeTests: XCTestCase {
         let url = URL(string: "http://example.test")!
         let request = URLRequest(url: url)
         let model = UrlNetworkRequest(urlRequest: request)
-        let testNode = UrlCacheReaderNode()
+        let testNode = UrlCacheReaderNode(needsToThrowError: true)
 
         URLCache.shared.removeAllCachedResponses()
 
@@ -171,7 +171,7 @@ public class CacheReaderNodeTests: XCTestCase {
         // Assert
 
         guard let guardedData = expected as? BaseUrlCacheReaderError else {
-            XCTFail("\(expected)")
+            XCTFail("\(expected.debugDescription)")
             return
         }
 

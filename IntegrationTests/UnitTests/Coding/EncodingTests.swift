@@ -43,7 +43,7 @@ public class EncodingTests: XCTestCase {
                                             parametersEncoding: .formUrl)
         let trasportReq = TransportUrlRequest(with: params, raw: ["id": "123455"])
 
-        node.process(trasportReq)
+        _ = node.process(trasportReq)
 
         // Assert
 
@@ -65,7 +65,7 @@ public class EncodingTests: XCTestCase {
                                             parametersEncoding: .urlQuery)
         let trasportReq = TransportUrlRequest(with: params, raw: ["id": "12345"])
 
-        node.process(trasportReq)
+        _ = node.process(trasportReq)
 
         // Assert
 
@@ -86,7 +86,7 @@ public class EncodingTests: XCTestCase {
                                             headers: [:], parametersEncoding: .json)
         let trasportReq = TransportUrlRequest(with: params, raw: ["id": "12345"])
 
-        node.process(trasportReq)
+        _ = node.process(trasportReq)
 
         // Assert
 
