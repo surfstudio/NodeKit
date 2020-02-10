@@ -34,7 +34,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     public var route: Route?
 
     /// Менеджер сессий
-    private var session: Session?
+    public var session: Session?
 
     /// Массив с ID логов, которые нужно исключить из выдачи.
     public var logFilter: [String]
@@ -91,7 +91,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
-    // MARK: -- Seession config
+    // MARK: - Session config
     
     open func set(session: Session) -> Self {
         self.session = session
@@ -99,7 +99,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     }
 
 
-    // MARK: -- Request config
+    // MARK: - Request config
 
     open func set(metadata: [String: String]) -> Self {
         self.metadata = metadata
