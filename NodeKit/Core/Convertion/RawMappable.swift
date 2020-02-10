@@ -36,7 +36,7 @@ public protocol RawDecodable {
 }
 
 /// Синтаксический сахар, позволяющий в одну строчку мапить опциональные модели.
-public extension Optional where Wrapped: RawMappable {
+public extension Optional where Wrapped: RawDecodable {
     static func from(raw: Wrapped.Raw?) throws -> Wrapped? {
         guard let guarded = raw else {
             return nil

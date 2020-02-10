@@ -23,15 +23,18 @@ public enum MappingUtils {
 }
 
 /// Содержит реализацию маппинга массива в JSON
-extension Array: RawMappable where Element: RawMappable, Element.Raw == Json {
-
-    public typealias Raw = Json
+extension Array: RawEncodable where Element: RawEncodable, Element.Raw == Json {
 
     public func toRaw() throws -> Json {
         let arrayData = try self.map { try $0.toRaw() }
 
         return [MappingUtils.arrayJsonKey: arrayData]
     }
+
+}
+
+/// Содержит реализацию маппинга JSON в массив
+extension Array: RawDecodable where Element: RawDecodable, Element.Raw == Json {
 
     public static func from(raw: Json) throws -> Array<Element> {
 
