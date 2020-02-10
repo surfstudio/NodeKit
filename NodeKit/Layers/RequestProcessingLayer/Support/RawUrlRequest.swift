@@ -33,11 +33,11 @@ public struct RawUrlRequest {
     ///
     /// - Returns: Новое представление запроса.
     public func toUrlRequest() -> UrlNetworkRequest? {
-
-        guard let urlRequest = self.dataRequest.request else {
+        do {
+            let urlRequest = try self.dataRequest.convertible.asURLRequest()
+            return UrlNetworkRequest(urlRequest: urlRequest)
+        } catch {
             return nil
         }
-
-        return UrlNetworkRequest(urlRequest: urlRequest)
     }
 }
