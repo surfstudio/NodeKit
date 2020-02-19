@@ -68,7 +68,7 @@ open class Context<Model>: Observer<Model> {
     open override func `defer`(_ closure: @escaping () -> Void) -> Self {
         self.deferClosure = closure
 
-        if needCallDefer {
+        if self.needCallDefer {
             self.deferClosure?()
             self.needCallDefer = false
         }
@@ -85,7 +85,7 @@ open class Context<Model>: Observer<Model> {
         self.lastEmitedError = nil
         self.completedClosure?(data)
         self.deferClosure?()
-        needCallDefer = true
+        self.needCallDefer = true
         return self
     }
 
@@ -98,7 +98,7 @@ open class Context<Model>: Observer<Model> {
         self.lastEmitedData = nil
         self.errorClosure?(error)
         self.deferClosure?()
-        needCallDefer = true
+        self.needCallDefer = true
         return self
     }
 
