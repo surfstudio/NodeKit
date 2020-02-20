@@ -22,6 +22,8 @@ open class Context<Model>: Observer<Model> {
     private var lastEmitedData: Model?
     private var lastEmitedError: Error?
 
+    private var needCallDefer = false
+
     private var dispatchQueue: DispatchQueue = DispatchQueue.main
 
     public override init() { }
@@ -65,6 +67,12 @@ open class Context<Model>: Observer<Model> {
     @discardableResult
     open override func `defer`(_ closure: @escaping () -> Void) -> Self {
         self.deferClosure = closure
+
+        if self.needCallDefer {
+            self.deferClosure?()
+            self.needCallDefer = false
+        }
+        
         return self
     }
 
@@ -77,6 +85,7 @@ open class Context<Model>: Observer<Model> {
         self.lastEmitedError = nil
         self.completedClosure?(data)
         self.deferClosure?()
+        self.needCallDefer = true
         return self
     }
 
@@ -89,6 +98,7 @@ open class Context<Model>: Observer<Model> {
         self.lastEmitedData = nil
         self.errorClosure?(error)
         self.deferClosure?()
+        self.needCallDefer = true
         return self
     }
 

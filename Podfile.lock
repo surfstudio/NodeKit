@@ -7,7 +7,7 @@ DEPENDENCIES:
   - CoreEvents (from `https://github.com/surfstudio/CoreEvents`, tag `2.0.1`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
 
 EXTERNAL SOURCES:
@@ -26,4 +26,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 7d1ca02896de8dd68de5347b03a506cb8e6a7990
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.7.4
