@@ -61,8 +61,8 @@ open class Context<Model>: Observer<Model> {
     open override func onCanceled(_ closure: @escaping () -> Void) -> Self {
         self.cancelClosure = closure
 
-        if self.needSendCancelClosure {
-            self.sendCancel()
+        if self.needCallCancel {
+            self.callCancel()
         }
 
         return self
@@ -74,8 +74,8 @@ open class Context<Model>: Observer<Model> {
     open override func `defer`(_ closure: @escaping () -> Void) -> Self {
         self.deferClosure = closure
 
-        if self.needSendDeferClosure {
-            self.sendDefer()
+        if self.needCallDefer {
+            self.callDefer()
         }
 
         return self
@@ -89,7 +89,7 @@ open class Context<Model>: Observer<Model> {
         self.lastEmitedData = data
         self.lastEmitedError = nil
         self.completedClosure?(data)
-        self.sendDefer()
+        self.callDefer()
         return self
     }
 
@@ -101,16 +101,16 @@ open class Context<Model>: Observer<Model> {
         self.lastEmitedError = error
         self.lastEmitedData = nil
         self.errorClosure?(error)
-        self.sendDefer()
-        retun self
+        self.callDefer()
+        return self
     }
 
     /// Отмена действия
     /// - Warning: Затирает всех подписчиков
     @discardableResult
     open override func cancel() -> Self {
-        self.sendCancel()
-        self.sendDefer()
+        self.callCancel()
+        self.callDefer()
         self.completedClosure = nil
         self.errorClosure = nil
         return self
@@ -131,13 +131,13 @@ private extension Context {
 
     /// Отправляет `deferClosure` и обновляет значение `needSendDeferClosure`, `true` если `deferClosure == nil`.
     func callDefer() {
-        self.needSendDeferClosure = self.deferClosure == nil
+        self.needCallDefer = self.deferClosure == nil
         self.deferClosure?()
     }
 
     /// Отправляет `cancelClosure` и обновляет значение `needSendCancelClosure`, `true` если `cancelClosure == nil`.
     func callCancel() {
-        self.needSendCancelClosure = self.cancelClosure == nil
+        self.needCallCancel = self.cancelClosure == nil
         self.cancelClosure?()
     }
 
