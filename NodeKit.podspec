@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NodeKit"
-  s.version      = "3.1.0"
+  s.version      = "3.2.0"
   s.summary      = "Framework for network interaction"
 
   s.homepage     = "https://github.com/surfstudio/NodeKit"
@@ -21,8 +21,13 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'MockerIntegration' do |sp|
-    sp.dependency 'Core'
+    sp.dependency 'NodeKit/Core'
     sp.source_files = 'NodeKit/MockerIntegration/*.swift'
+  end
+  
+  s.subspec 'UrlCache' do |sp|
+    sp.dependency 'NodeKit/Core'
+    sp.source_files = 'NodeKit/CacheNode/**/*.swift'
   end
 
 end

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		46E5DFE26AAAEF094F0F40E7 /* Pods_NodeKit_IntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */; };
 		81DE7744A4629F6178E37B74 /* Pods_NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93D4D7B8501ED5C5089E938 /* Pods_NodeKit.framework */; };
+		89F34DC223F6DCBC0026EE40 /* DeferCallingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F34DC123F6DCBC0026EE40 /* DeferCallingTests.swift */; };
 		B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */; };
 		B10AD422223ED5E300B4D7AA /* ETagConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10AD421223ED5E300B4D7AA /* ETagConstants.swift */; };
 		B10CA5282259D545002885B3 /* Logable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10CA5272259D545002885B3 /* Logable.swift */; };
@@ -144,6 +145,7 @@
 		22AB55338E3AFD7D15EA636E /* Pods-NodeKit-IntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit-IntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NodeKit_IntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5777A9DA3AF74A9441C27193 /* Pods-NodeKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit/Pods-NodeKit.debug.xcconfig"; sourceTree = "<group>"; };
+		89F34DC123F6DCBC0026EE40 /* DeferCallingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeferCallingTests.swift; sourceTree = "<group>"; };
 		B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNode.swift; sourceTree = "<group>"; };
 		B107BF842232B6D0002E9655 /* ChainConfiguratorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNodeTests.swift; sourceTree = "<group>"; };
 		B10AD421223ED5E300B4D7AA /* ETagConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETagConstants.swift; sourceTree = "<group>"; };
@@ -675,6 +677,7 @@
 				B9D5B2282337C2A400D66488 /* MultipartRequestTests.swift */,
 				B1B761402207B0B700AE3303 /* FormUrlCodingTests.swift */,
 				B1B7614D2207C16000AE3303 /* TestEmptyResponseMapping.swift */,
+				89F34DC123F6DCBC0026EE40 /* DeferCallingTests.swift */,
 			);
 			path = IntegrationTests;
 			sourceTree = "<group>";
@@ -1088,6 +1091,7 @@
 				B98DC5AD237C111900293379 /* MockerProxyConfigNodeTests.swift in Sources */,
 				B1E61E552247081C00B3AAD9 /* ChainConfiguratorNodeTests.swift in Sources */,
 				B1E61E612247857B00B3AAD9 /* FirstCachePolicyTests.swift in Sources */,
+				89F34DC223F6DCBC0026EE40 /* DeferCallingTests.swift in Sources */,
 				B1B761432207B0C600AE3303 /* Credentials.swift in Sources */,
 				B91447C1238192BD00D2912A /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift in Sources */,
 				B1B761452207B13B00AE3303 /* CredentialsEntry.swift in Sources */,

@@ -22,6 +22,9 @@ open class Context<Model>: Observer<Model> {
     private var lastEmitedData: Model?
     private var lastEmitedError: Error?
 
+    private var needCallCancel = false
+    private var needCallDefer = false
+
     private var dispatchQueue: DispatchQueue = DispatchQueue.main
 
     public override init() { }
@@ -57,6 +60,11 @@ open class Context<Model>: Observer<Model> {
     @discardableResult
     open override func onCanceled(_ closure: @escaping () -> Void) -> Self {
         self.cancelClosure = closure
+
+        if self.needSendCancelClosure {
+            self.sendCancel()
+        }
+
         return self
     }
 
@@ -65,6 +73,11 @@ open class Context<Model>: Observer<Model> {
     @discardableResult
     open override func `defer`(_ closure: @escaping () -> Void) -> Self {
         self.deferClosure = closure
+
+        if self.needSendDeferClosure {
+            self.sendDefer()
+        }
+
         return self
     }
 
@@ -76,7 +89,7 @@ open class Context<Model>: Observer<Model> {
         self.lastEmitedData = data
         self.lastEmitedError = nil
         self.completedClosure?(data)
-        self.deferClosure?()
+        self.sendDefer()
         return self
     }
 
@@ -88,16 +101,16 @@ open class Context<Model>: Observer<Model> {
         self.lastEmitedError = error
         self.lastEmitedData = nil
         self.errorClosure?(error)
-        self.deferClosure?()
-        return self
+        self.sendDefer()
+        retun self
     }
 
     /// Отмена действия
     /// - Warning: Затирает всех подписчиков
     @discardableResult
     open override func cancel() -> Self {
-        self.cancelClosure?()
-        self.deferClosure?()
+        self.sendCancel()
+        self.sendDefer()
         self.completedClosure = nil
         self.errorClosure = nil
         return self
@@ -110,4 +123,22 @@ open class Context<Model>: Observer<Model> {
         self.completedClosure = nil
         self.deferClosure = nil
     }
+}
+
+// MARK: - Private methods
+
+private extension Context {
+
+    /// Отправляет `deferClosure` и обновляет значение `needSendDeferClosure`, `true` если `deferClosure == nil`.
+    func callDefer() {
+        self.needSendDeferClosure = self.deferClosure == nil
+        self.deferClosure?()
+    }
+
+    /// Отправляет `cancelClosure` и обновляет значение `needSendCancelClosure`, `true` если `cancelClosure == nil`.
+    func callCancel() {
+        self.needSendCancelClosure = self.cancelClosure == nil
+        self.cancelClosure?()
+    }
+
 }
