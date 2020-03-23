@@ -22,6 +22,7 @@ open class Context<Model>: Observer<Model> {
     private var lastEmitedData: Model?
     private var lastEmitedError: Error?
 
+    private var needCallCancel = false
     private var needCallDefer = false
 
     private var dispatchQueue: DispatchQueue = DispatchQueue.main
@@ -59,6 +60,11 @@ open class Context<Model>: Observer<Model> {
     @discardableResult
     open override func onCanceled(_ closure: @escaping () -> Void) -> Self {
         self.cancelClosure = closure
+
+        if self.needCallCancel {
+            self.callCancel()
+        }
+
         return self
     }
 
@@ -69,10 +75,9 @@ open class Context<Model>: Observer<Model> {
         self.deferClosure = closure
 
         if self.needCallDefer {
-            self.deferClosure?()
-            self.needCallDefer = false
+            self.callDefer()
         }
-        
+
         return self
     }
 
@@ -84,8 +89,7 @@ open class Context<Model>: Observer<Model> {
         self.lastEmitedData = data
         self.lastEmitedError = nil
         self.completedClosure?(data)
-        self.deferClosure?()
-        self.needCallDefer = true
+        self.callDefer()
         return self
     }
 
@@ -97,8 +101,7 @@ open class Context<Model>: Observer<Model> {
         self.lastEmitedError = error
         self.lastEmitedData = nil
         self.errorClosure?(error)
-        self.deferClosure?()
-        self.needCallDefer = true
+        self.callDefer()
         return self
     }
 
@@ -106,8 +109,8 @@ open class Context<Model>: Observer<Model> {
     /// - Warning: Затирает всех подписчиков
     @discardableResult
     open override func cancel() -> Self {
-        self.cancelClosure?()
-        self.deferClosure?()
+        self.callCancel()
+        self.callDefer()
         self.completedClosure = nil
         self.errorClosure = nil
         return self
@@ -120,4 +123,22 @@ open class Context<Model>: Observer<Model> {
         self.completedClosure = nil
         self.deferClosure = nil
     }
+}
+
+// MARK: - Private methods
+
+private extension Context {
+
+    /// Отправляет `deferClosure` и обновляет значение `needSendDeferClosure`, `true` если `deferClosure == nil`.
+    func callDefer() {
+        self.needCallDefer = self.deferClosure == nil
+        self.deferClosure?()
+    }
+
+    /// Отправляет `cancelClosure` и обновляет значение `needSendCancelClosure`, `true` если `cancelClosure == nil`.
+    func callCancel() {
+        self.needCallCancel = self.cancelClosure == nil
+        self.cancelClosure?()
+    }
+
 }
