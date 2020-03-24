@@ -11,13 +11,8 @@ import Foundation
 /// Протокол, который обладает базовой реализацией над Observer.
 /// Кейс использования – отмена реквестов в цикле
 public protocol CancelableContext {
-    func cancelRequest()
+    @discardableResult
+    func cancel() -> Self
 }
 
-extension Observer: CancelableContext {
-
-    public func cancelRequest() {
-        cancel()
-    }
-
-}
+extension Observer: CancelableContext {}
