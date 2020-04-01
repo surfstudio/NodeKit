@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		46E5DFE26AAAEF094F0F40E7 /* Pods_NodeKit_IntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */; };
+		57DA0E14243375E300ED0AA8 /* ResponseBsonDataParserNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0E13243375E300ED0AA8 /* ResponseBsonDataParserNode.swift */; };
+		57DA0E1D2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0E1C2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift */; };
+		57DA0E1F24339E9300ED0AA8 /* UrlBsonChainsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0E1E24339E9300ED0AA8 /* UrlBsonChainsBuilder.swift */; };
 		81DE7744A4629F6178E37B74 /* Pods_NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93D4D7B8501ED5C5089E938 /* Pods_NodeKit.framework */; };
 		89F34DC223F6DCBC0026EE40 /* DeferCallingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F34DC123F6DCBC0026EE40 /* DeferCallingTests.swift */; };
 		B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */; };
@@ -145,6 +148,9 @@
 		22AB55338E3AFD7D15EA636E /* Pods-NodeKit-IntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit-IntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NodeKit_IntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5777A9DA3AF74A9441C27193 /* Pods-NodeKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit/Pods-NodeKit.debug.xcconfig"; sourceTree = "<group>"; };
+		57DA0E13243375E300ED0AA8 /* ResponseBsonDataParserNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBsonDataParserNode.swift; sourceTree = "<group>"; };
+		57DA0E1C2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBsonDataPreprocessorNode.swift; sourceTree = "<group>"; };
+		57DA0E1E24339E9300ED0AA8 /* UrlBsonChainsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlBsonChainsBuilder.swift; sourceTree = "<group>"; };
 		89F34DC123F6DCBC0026EE40 /* DeferCallingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeferCallingTests.swift; sourceTree = "<group>"; };
 		B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNode.swift; sourceTree = "<group>"; };
 		B107BF842232B6D0002E9655 /* ChainConfiguratorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNodeTests.swift; sourceTree = "<group>"; };
@@ -303,6 +309,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		57DA0E192433851800ED0AA8 /* Bson */ = {
+			isa = PBXGroup;
+			children = (
+				57DA0E13243375E300ED0AA8 /* ResponseBsonDataParserNode.swift */,
+				57DA0E1C2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift */,
+			);
+			path = Bson;
+			sourceTree = "<group>";
+		};
 		7E762D5C2F30C3C9BAC54658 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,6 +442,7 @@
 				B1DCC1CC22465551006664C1 /* UrlChainsBuilder.swift */,
 				B1118EF921C8CD8B007AD599 /* UrlServiceChainBuilder.swift */,
 				B1B407F6223524350036326E /* UrlChainConfigModel.swift */,
+				57DA0E1E24339E9300ED0AA8 /* UrlBsonChainsBuilder.swift */,
 			);
 			path = Chains;
 			sourceTree = "<group>";
@@ -504,6 +520,7 @@
 		B13E04F321C7F43200956853 /* ResponseProcessingLayer */ = {
 			isa = PBXGroup;
 			children = (
+				57DA0E192433851800ED0AA8 /* Bson */,
 				B172295F229011300045E43D /* DataLoading */,
 				B1B76155220810DE00AE3303 /* Models */,
 				B1F0C6E921B1DDCF00382FA5 /* ResponseProcessorNode.swift */,
@@ -1029,12 +1046,26 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/BSON/BSON.framework",
+				"${BUILT_PRODUCTS_DIR}/CNIOAtomics/CNIOAtomics.framework",
+				"${BUILT_PRODUCTS_DIR}/CNIODarwin/CNIODarwin.framework",
+				"${BUILT_PRODUCTS_DIR}/CNIOLinux/CNIOLinux.framework",
+				"${BUILT_PRODUCTS_DIR}/CNIOSHA1/CNIOSHA1.framework",
 				"${BUILT_PRODUCTS_DIR}/CoreEvents/CoreEvents.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftNIO/NIO.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftNIOConcurrencyHelpers/NIOConcurrencyHelpers.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CNIOAtomics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CNIODarwin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CNIOLinux.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CNIOSHA1.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreEvents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NIOConcurrencyHelpers.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1169,10 +1200,12 @@
 				B10D4BE9222DE450006B9EE9 /* UrlRouteProvider.swift in Sources */,
 				B1F0C6FF21B1DDCF00382FA5 /* ReqestSenderNode.swift in Sources */,
 				B1118EF721C8CBDC007AD599 /* ResponseProcessorNode.swift in Sources */,
+				57DA0E14243375E300ED0AA8 /* ResponseBsonDataParserNode.swift in Sources */,
 				B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */,
 				B199E764223CF2500001FE17 /* TransportUrlRequest.swift in Sources */,
 				B1C3256621D1251B0059EF33 /* CodableRawMapper.swift in Sources */,
 				B113F875222DCCDF001CEEAC /* UrlETagReaderNode.swift in Sources */,
+				57DA0E1D2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift in Sources */,
 				B1118EED21C8B772007AD599 /* DTOConvertible.swift in Sources */,
 				B172440C2264EFB800CC9F70 /* EntryinputDtoOutputNode.swift in Sources */,
 				B9D5B2312337E1D100D66488 /* MultipartFileProvider.swift in Sources */,
@@ -1209,6 +1242,7 @@
 				B91447B92381859200D2912A /* URLQueryDictionaryKeyEncodingStrategy.swift in Sources */,
 				B1DCC1C922464F3A006664C1 /* RawMappable+Dictionary.swift in Sources */,
 				B156807D222C65D000BC8D91 /* Observer+Shugar.swift in Sources */,
+				57DA0E1F24339E9300ED0AA8 /* UrlBsonChainsBuilder.swift in Sources */,
 				B17229612290118E0045E43D /* DataLoadingResponseProcessor.swift in Sources */,
 				B95459972386F5F0007D4380 /* MetadataProvider.swift in Sources */,
 			);

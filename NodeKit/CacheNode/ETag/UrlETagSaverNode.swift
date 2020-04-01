@@ -39,7 +39,7 @@ open class UrlETagSaverNode: ResponsePostprocessorLayerNode {
 
     /// Пытается получить eTag-токен по ключу `UrlETagSaverNode.eTagHeaderKey`.
     /// В любом случае передает управление дальше.
-    open override func process(_ data: UrlProcessedResponse) -> Observer<Void> {
+    open override func process(_ data: UrlProcessedResponse<Json>) -> Observer<Void> {
         guard let tag = data.response.allHeaderFields[self.eTagHeaderKey] as? String,
             let url = data.request.url else {
             return .emit(data: ())

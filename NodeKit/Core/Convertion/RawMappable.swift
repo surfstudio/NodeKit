@@ -1,7 +1,10 @@
 import Foundation
+import BSON
 
 /// Словарь вида `[String: Any]`
 public typealias Json = [String: Any]
+
+public typealias Bson = Document
 
 /// Композиция `RawEncodable` и `RawDecodable`
 public typealias RawMappable = RawEncodable & RawDecodable

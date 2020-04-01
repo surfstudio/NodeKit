@@ -1,14 +1,36 @@
 PODS:
   - Alamofire (5.0.0-beta.6)
+  - BSON (7.0.4):
+    - SwiftNIO (~> 2.0)
+  - CNIOAtomics (2.15.0)
+  - CNIODarwin (2.15.0)
+  - CNIOLinux (2.15.0)
+  - CNIOSHA1 (2.15.0)
   - CoreEvents (2.0.0)
+  - SwiftNIO (2.15.0):
+    - CNIOAtomics (= 2.15.0)
+    - CNIODarwin (= 2.15.0)
+    - CNIOLinux (= 2.15.0)
+    - CNIOSHA1 (= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (= 2.15.0)
+  - SwiftNIOConcurrencyHelpers (2.15.0):
+    - CNIOAtomics (= 2.15.0)
 
 DEPENDENCIES:
   - Alamofire (= 5.0.0-beta.6)
+  - BSON (= 7.0.4)
   - CoreEvents (from `https://github.com/surfstudio/CoreEvents`, tag `2.0.1`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - BSON
+    - CNIOAtomics
+    - CNIODarwin
+    - CNIOLinux
+    - CNIOSHA1
+    - SwiftNIO
+    - SwiftNIOConcurrencyHelpers
 
 EXTERNAL SOURCES:
   CoreEvents:
@@ -22,8 +44,15 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: cd08a4402bd12cacd0c66f23fb12fec8d6b965e4
+  BSON: a9fcc811928874db09b06332a1e056ff9b9b28c1
+  CNIOAtomics: ba49b1c86f281e1ecfd84c9205fbc27a81826847
+  CNIODarwin: 2e341dd283fa3972706568b12925366145a8e2cd
+  CNIOLinux: 61598a8e49510207acb74c87f8fc11f762f76b5a
+  CNIOSHA1: 7b1dcceef9682aef4c6578b9fc67f87a03f0c48e
   CoreEvents: 4d0e45da41c36851236c57af0d8693571c04dfb9
+  SwiftNIO: c9889dcd8aed2655af9163b42fc11ebd4ce94252
+  SwiftNIOConcurrencyHelpers: 2357037a16e9c51880c01b896a5ac3cd41066044
 
-PODFILE CHECKSUM: 7d1ca02896de8dd68de5347b03a506cb8e6a7990
+PODFILE CHECKSUM: 2a0d33664c34206dc8438e9b9822bb579194aa22
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.7.2
