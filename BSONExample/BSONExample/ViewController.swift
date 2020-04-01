@@ -19,11 +19,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        nodeKitBsonRequest()
+//        nodeKitBsonRequest()
+        urlSessionBsonPostRequest()
     }
 
     func nodeKitBsonRequest() {
-        SomeService().loadBson()
+        SomeService().getBson()
             .onCompleted { userEntity in
                 print(userEntity)
             }.onError { error in
@@ -49,6 +50,38 @@ class ViewController: UIViewController {
             } else if let data = data {
                 let document = Document(data: data)
                 print(document)
+            } else {
+                print("some shit")
+            }
+        })
+        dataTask?.resume()
+    }
+
+    func urlSessionBsonPostRequest() {
+        guard let url = URL(string: "http://localhost:8118/nkt/bson") else {
+            return
+        }
+
+        let document: Document = [
+            "id": "123",
+            "firstname": "Freeze",
+            "lastname": "John"
+        ]
+        var request = URLRequest(url: url)
+        request.method = .post
+        request.httpBody = document.makeData()
+        request.addValue("application/bson", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/bson", forHTTPHeaderField: "Accept")
+
+        dataTask = defaultSession.dataTask(with: request, completionHandler: { [weak self] data, response, error in
+            defer {
+                self?.dataTask = nil
+            }
+            print(response)
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let data = data {
+                print(data)
             } else {
                 print("some shit")
             }
@@ -127,7 +160,7 @@ final class BsonChain: UrlBsonChainsBuilder<Endpoint> {
 
 class SomeService {
 
-    func loadBson() -> Observer<UserEntity> {
+    func getBson() -> Observer<UserEntity> {
         return BsonChain()
             .route(.get, .loadBson)
             .build()

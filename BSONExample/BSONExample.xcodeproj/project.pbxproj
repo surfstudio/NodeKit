@@ -7,19 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5741FDBC2434AFDF0061BFDA /* bson in Resources */ = {isa = PBXBuildFile; fileRef = 5741FDBB2434AFDF0061BFDA /* bson */; };
 		57DA0DFB24334CA900ED0AA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0DFA24334CA900ED0AA8 /* AppDelegate.swift */; };
 		57DA0DFF24334CA900ED0AA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0DFE24334CA900ED0AA8 /* ViewController.swift */; };
 		57DA0E0224334CA900ED0AA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57DA0E0024334CA900ED0AA8 /* Main.storyboard */; };
 		57DA0E0424334CAB00ED0AA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57DA0E0324334CAB00ED0AA8 /* Assets.xcassets */; };
 		57DA0E0724334CAB00ED0AA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57DA0E0524334CAB00ED0AA8 /* LaunchScreen.storyboard */; };
 		57DA0E1024334F1100ED0AA8 /* UserEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0E0F24334F1100ED0AA8 /* UserEntry.swift */; };
-		57DA0E1224335BCB00ED0AA8 /* bson in Resources */ = {isa = PBXBuildFile; fileRef = 57DA0E1124335BCA00ED0AA8 /* bson */; };
 		6F33FDDCB015065A20790B63 /* Pods_BSONExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1827B17672C4418499CB62 /* Pods_BSONExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		31441DD685914B1C878D28AD /* Pods-BSONExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSONExample.debug.xcconfig"; path = "Target Support Files/Pods-BSONExample/Pods-BSONExample.debug.xcconfig"; sourceTree = "<group>"; };
 		545A7834B4FC4C11012E3E0C /* Pods-BSONExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSONExample.release.xcconfig"; path = "Target Support Files/Pods-BSONExample/Pods-BSONExample.release.xcconfig"; sourceTree = "<group>"; };
+		5741FDBB2434AFDF0061BFDA /* bson */ = {isa = PBXFileReference; lastKnownFileType = file; path = bson; sourceTree = "<group>"; };
 		57DA0DF724334CA900ED0AA8 /* BSONExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSONExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57DA0DFA24334CA900ED0AA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57DA0DFE24334CA900ED0AA8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,7 +29,6 @@
 		57DA0E0624334CAB00ED0AA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		57DA0E0824334CAB00ED0AA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57DA0E0F24334F1100ED0AA8 /* UserEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntry.swift; sourceTree = "<group>"; };
-		57DA0E1124335BCA00ED0AA8 /* bson */ = {isa = PBXFileReference; lastKnownFileType = file; path = bson; sourceTree = "<group>"; };
 		5B1827B17672C4418499CB62 /* Pods_BSONExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BSONExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -67,8 +67,8 @@
 			children = (
 				57DA0E0E24334F0400ED0AA8 /* Models */,
 				57DA0DFA24334CA900ED0AA8 /* AppDelegate.swift */,
+				5741FDBB2434AFDF0061BFDA /* bson */,
 				57DA0DFE24334CA900ED0AA8 /* ViewController.swift */,
-				57DA0E1124335BCA00ED0AA8 /* bson */,
 				57DA0E0024334CA900ED0AA8 /* Main.storyboard */,
 				57DA0E0324334CAB00ED0AA8 /* Assets.xcassets */,
 				57DA0E0524334CAB00ED0AA8 /* LaunchScreen.storyboard */,
@@ -164,7 +164,7 @@
 			files = (
 				57DA0E0724334CAB00ED0AA8 /* LaunchScreen.storyboard in Resources */,
 				57DA0E0424334CAB00ED0AA8 /* Assets.xcassets in Resources */,
-				57DA0E1224335BCB00ED0AA8 /* bson in Resources */,
+				5741FDBC2434AFDF0061BFDA /* bson in Resources */,
 				57DA0E0224334CA900ED0AA8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
