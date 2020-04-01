@@ -49,3 +49,16 @@ public extension Optional where Wrapped: RawDecodable {
         return try Wrapped.from(raw: guarded)
     }
 }
+
+/// Имплементация протокола для `BSON` мапинга
+extension Document: RawMappable {
+    public static func from(raw: Bson) throws -> Document {
+        return raw
+    }
+
+    public func toRaw() throws -> Bson {
+        return self
+    }
+
+    public typealias Raw = Bson
+}

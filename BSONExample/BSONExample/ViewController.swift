@@ -58,24 +58,6 @@ class ViewController: UIViewController {
 
 }
 
-extension Data {
-    public var bytes: Array<UInt8> {
-      Array(self)
-    }
-}
-
-extension Document: RawMappable {
-    public static func from(raw: Bson) throws -> Document {
-        return raw
-    }
-
-    public func toRaw() throws -> Bson {
-        return self
-    }
-
-    public typealias Raw = Bson
-}
-
 struct UserEntity {
     let id: String
     let firstName: String
@@ -105,11 +87,6 @@ final class BsonServiceChain: UrlServiceChainBuilder {
         return ResponseProcessorNode(next: responseHttpErrorProcessorNode)
     }
 
-//    override func requestTrasportChain() -> TransportLayerNode {
-//        let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseProcessingLayerChain())
-//        let technicalErrorMapperNode = TechnicaErrorMapperNode(next: requestSenderNode)
-//        return RequestCreatorNode(next: technicalErrorMapperNode)
-//    }
 
 }
 
