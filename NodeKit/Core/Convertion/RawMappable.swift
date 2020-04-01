@@ -4,6 +4,7 @@ import BSON
 /// Словарь вида `[String: Any]`
 public typealias Json = [String: Any]
 
+/// Объект содержащий словарь примитивов 
 public typealias Bson = Document
 
 /// Композиция `RawEncodable` и `RawDecodable`

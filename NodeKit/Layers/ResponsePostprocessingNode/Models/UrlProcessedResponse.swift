@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 /// Используется для передачи данных внутри слоя постпроцессинга запроса.
-public struct UrlProcessedResponse<Model> {
+public struct UrlProcessedResponse<Type> {
 
     private let _dataResponse: UrlDataResponse
 
@@ -39,16 +39,16 @@ public struct UrlProcessedResponse<Model> {
         return self._dataResponse.data
     }
 
-    /// JSON сериализованный после обработки ответа.
-    public let model: Model
+    /// JSON/BSON сериализованный после обработки ответа.
+    public let type: Type
 
     /// Инициаллизирует объект.
     ///
     /// - Parameters:
     ///   - dataResponse: Модель полученная после обрабокти ответа.
-    ///   - json: Сериализованный JSON
-    public init(dataResponse: UrlDataResponse, model: Model) {
+    ///   - type: Сериализованный JSON/BSON
+    public init(dataResponse: UrlDataResponse, type: Type) {
         self._dataResponse = dataResponse
-        self.model = model
+        self.type = type
     }
 }

@@ -24,7 +24,7 @@ open class UrlServiceChainBuilder {
     }
 
     /// Создает цепочку узлов, описывающих транспортный слой обработки.
-    open func requestBsonTrasportChain(providers: [MetadataProvider], session: Session?) -> Node<TransportUrlRequest, Bson> {
+    open func requestBsonTrasportChain(providers: [MetadataProvider], session: Session?) -> TransportBsonLayerNode {
         let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseBsonProcessingLayerChain())
         let technicalErrorMapperNode = TechnicaErrorMapperNode(next: requestSenderNode)
         return RequestCreatorNode(next: technicalErrorMapperNode, providers: providers, session: session)

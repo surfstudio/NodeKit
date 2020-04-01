@@ -9,7 +9,7 @@
 import Foundation
 import BSON
 
-open class ResponseBsonDataParserNode: Node<UrlDataResponse, Bson> {
+open class ResponseBsonDataParserNode: BsonResponseProcessingLayerNode {
 
     /// Следующий узел для обработки.
     public var next: BsonResponsePostprocessorLayerNode?
@@ -37,7 +37,7 @@ open class ResponseBsonDataParserNode: Node<UrlDataResponse, Bson> {
 
         log += "Have next node \(nextNode.objectName) -> call `process`"
 
-        let networkResponse = UrlProcessedResponse(dataResponse: data, model: bson)
+        let networkResponse = UrlProcessedResponse(dataResponse: data, type: bson)
 
         return nextNode.process(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).map { bson }
     }
