@@ -20,22 +20,34 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
 //        nodeKitBsonRequest()
-        urlSessionBsonPostRequest()
+//        urlSessionBsonPostRequest()
+        nodeKitBsonPostRequest()
     }
 
     func nodeKitBsonRequest() {
-        SomeService().getBson()
-            .onCompleted { userEntity in
-                print(userEntity)
-            }.onError { error in
-                print(error)
-            }.onCanceled {
-                print("cancel called")
-            }.defer {
-                print("defer called")
-            }
+//        SomeService().getBson()
+//            .onCompleted { userEntity in
+//                print(userEntity)
+//            }.onError { error in
+//                print(error)
+//            }.onCanceled {
+//                print("cancel called")
+//            }.defer {
+//                print("defer called")
+//            }
     }
 
+    func nodeKitBsonPostRequest() {
+        let userEntity = UserEntity(id: "123", firstName: "Freeze", lastName: "John")
+        SomeService().postBson(with: userEntity)
+            .onCompleted { _ in
+                print("done")
+            }.onError { error in
+                print(error.localizedDescription)
+            }.defer {
+                print("defer")
+            }
+    }
 
     func urlSessionBsonRequest() {
         guard let url = URL(string: "http://localhost:8118/nkt/bson") else {
@@ -97,7 +109,7 @@ struct UserEntity {
     let lastName: String
 }
 
-extension UserEntity: DTODecodable {
+extension UserEntity: DTOConvertible {
 
     typealias DTO = Document
 
@@ -106,6 +118,15 @@ extension UserEntity: DTODecodable {
         let firstName = (model["firstname"] as? String) ?? ""
         let lastName = (model["lastname"] as? String) ?? ""
         return .init(id: id, firstName: firstName, lastName: lastName)
+    }
+
+    func toDTO() throws -> Document {
+        let document: Document = [
+            "id": id,
+            "firstname": firstName,
+            "lastname": lastName
+        ]
+        return document
     }
 
 }
@@ -160,11 +181,19 @@ final class BsonChain: UrlBsonChainsBuilder<Endpoint> {
 
 class SomeService {
 
-    func getBson() -> Observer<UserEntity> {
+//    func getBson() -> Observer<UserEntity> {
+//        return BsonChain()
+//            .route(.get, .loadBson)
+//            .build()
+//            .process()
+//    }
+
+    func postBson(with entity: UserEntity) -> Observer<Void> {
         return BsonChain()
-            .route(.get, .loadBson)
+            .route(.post, .loadBson)
             .build()
-            .process()
+            .process(entity)
+
     }
 
 }

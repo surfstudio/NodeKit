@@ -141,10 +141,10 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     /// Создает цепочку узлов, описывающих слой построения запроса.
     ///
     /// - Parameter config: Конфигурация для запроса
-    open func requestBuildingChain() ->  Node<Json, Bson> {
+    open func requestBuildingChain() -> Node<Bson, Bson> {
         let transportChain = self.serviceChain.requestBsonTrasportChain(providers: self.headersProviders, session: session)
 
-        let urlRequestTrasformatorNode = UrlRequestTrasformatorNode(next: transportChain, method: self.method)
+        let urlRequestTrasformatorNode = BsonUrlRequestTransformatorNode(next: transportChain, method: self.method)
         let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
 
         let queryInjector = URLQueryInjectorNode(next: requstEncoderNode, config: self.urlQueryConfig)
@@ -157,7 +157,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     /// Создает цепочку для отправки DTO моделей данных.
     open func defaultInput<Input, Output>() -> Node<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
-        Input.DTO.Raw == Json, Output.DTO.Raw == Bson {
+        Input.DTO.Raw == Bson, Output.DTO.Raw == Bson {
             let buildingChain = self.requestBuildingChain()
             let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: buildingChain)
             return ModelInputNode(next: dtoConverter)
@@ -165,7 +165,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
 
     func supportNodes<Input, Output>() -> Node<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
-        Input.DTO.Raw == Json, Output.DTO.Raw == Bson {
+        Input.DTO.Raw == Bson, Output.DTO.Raw == Bson {
             let loadIndicator = LoadIndicatableNode<Input, Output>(next: self.defaultInput())
             return loadIndicator
     }
@@ -182,30 +182,30 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     /// Создает цепочку по-умолчанию. Подразумеается работа с DTO-моделями.
     open func build<Input, Output>() -> Node<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
-        Input.DTO.Raw == Json, Output.DTO.Raw == Bson {
+        Input.DTO.Raw == Bson, Output.DTO.Raw == Bson {
             let input: Node<Input, Output> = self.supportNodes()
             let config =  ChainConfiguratorNode<Input, Output>(next: input)
             return LoggerNode(next: config, filters: self.logFilter)
     }
 
-    /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
-    open func build<Output>() -> Node<Void, Output>
-        where Output: DTODecodable, Output.DTO.Raw == Bson {
-            let input: Node<Json, Output> = self.supportNodes()
-            let configNode = ChainConfiguratorNode<Json, Output>(next: input)
-            let voidNode =  VoidInputNode(next: configNode)
-            return LoggerNode(next: voidNode, filters: self.logFilter)
-    }
-
 //    /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
-//    open func build<Input>() -> Node<Input, Void>
-//        where Input: DTOEncodable, Input.DTO.Raw == Json {
-//            let input = self.requestBuildingChain()
-//            let indicator = LoadIndicatableNode(next: input)
-//            let configNode = ChainConfiguratorNode(next: indicator)
-//            let voidOutput = VoidOutputNode<Input>(next: configNode)
-//            return LoggerNode(next: voidOutput, filters: self.logFilter)
+//    open func build<Output>() -> Node<Void, Output>
+//        where Output: DTODecodable, Output.DTO.Raw == Bson {
+//            let input: Node<Bson, Output> = self.supportNodes()
+//            let configNode = ChainConfiguratorNode<Bson, Output>(next: input)
+//            let voidNode =  VoidBsonInputNode(next: configNode)
+//            return LoggerNode(next: voidNode, filters: self.logFilter)
 //    }
+
+    /// Создает обычную цепочку, только в качестве выходных данных отдает `Void`
+    open func build<Input>() -> Node<Input, Void>
+        where Input: DTOEncodable, Input.DTO.Raw == Bson {
+            let input = self.requestBuildingChain()
+            let indicator = LoadIndicatableNode(next: input)
+            let configNode = ChainConfiguratorNode(next: indicator)
+            let voidOutput = VoidBsonOutputNode<Input>(next: configNode)
+            return LoggerNode(next: voidOutput, filters: self.logFilter)
+    }
 
 //    /// Создает обычную цепочку, только в качестве входных и выходных данных имеет `Void`
 //    open func build() -> Node<Void, Void> {
@@ -215,34 +215,6 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
 //        let voidOutput = VoidIONode(next: configNode)
 //        return LoggerNode(next: voidOutput, filters: self.logFilter)
 //    }
-
-    /// Формирует цепочку для отправки multipart-запроса.
-    /// Для работы с этой цепочкой в качестве модели необходимо использовать `MultipartModel`
-    ///
-    /// - Returns: Корневой узел цепочки .
-    open func build<I, O>() -> Node<I, O> where O: DTODecodable, O.DTO.Raw == Bson, I: DTOEncodable, I.DTO.Raw == MultipartModel<[String : Data]> {
-
-        let reponseProcessor = self.serviceChain.urlResponseBsonProcessingLayerChain()
-
-        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor)
-
-        let creator = MultipartRequestCreatorNode(next: requestSenderNode, session: session)
-
-        let transformator = MultipartUrlRequestTrasformatorNode(next: creator, method: self.method)
-
-        let queryInjector = URLQueryInjectorNode(next: transformator, config: self.urlQueryConfig)
-
-        let router = self.requestRouterNode(next: queryInjector)
-        let connector = MetadataConnectorNode(next: router, metadata: self.metadata)
-
-        let rawEncoder = DTOMapperNode<I.DTO,O.DTO>(next: connector)
-        let dtoEncoder = ModelInputNode<I, O>(next: rawEncoder)
-
-        let indicator = LoadIndicatableNode(next: dtoEncoder)
-        let configNode = ChainConfiguratorNode(next: indicator)
-
-        return LoggerNode(next: configNode, filters: self.logFilter)
-    }
 
     /// Позволяет загрузить бинарные данные (файл) с сервера без отправки какой-то модели на сервер.
     /// - Returns: Корневой узел цепочки.
