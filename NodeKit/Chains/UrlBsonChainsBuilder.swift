@@ -188,14 +188,14 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
             return LoggerNode(next: config, filters: self.logFilter)
     }
 
-//    /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
-//    open func build<Output>() -> Node<Void, Output>
-//        where Output: DTODecodable, Output.DTO.Raw == Bson {
-//            let input: Node<Bson, Output> = self.supportNodes()
-//            let configNode = ChainConfiguratorNode<Bson, Output>(next: input)
-//            let voidNode =  VoidBsonInputNode(next: configNode)
-//            return LoggerNode(next: voidNode, filters: self.logFilter)
-//    }
+    /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
+    open func build<Output>() -> Node<Void, Output>
+        where Output: DTODecodable, Output.DTO.Raw == Bson {
+            let input: Node<Bson, Output> = self.supportNodes()
+            let configNode = ChainConfiguratorNode<Bson, Output>(next: input)
+            let voidNode =  VoidBsonInputNode(next: configNode)
+            return LoggerNode(next: voidNode, filters: self.logFilter)
+    }
 
     /// Создает обычную цепочку, только в качестве выходных данных отдает `Void`
     open func build<Input>() -> Node<Input, Void>
@@ -207,14 +207,14 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
             return LoggerNode(next: voidOutput, filters: self.logFilter)
     }
 
-//    /// Создает обычную цепочку, только в качестве входных и выходных данных имеет `Void`
-//    open func build() -> Node<Void, Void> {
-//        let input = self.requestBuildingChain()
-//        let indicator = LoadIndicatableNode(next: input)
-//        let configNode = ChainConfiguratorNode(next: indicator)
-//        let voidOutput = VoidIONode(next: configNode)
-//        return LoggerNode(next: voidOutput, filters: self.logFilter)
-//    }
+    /// Создает обычную цепочку, только в качестве входных и выходных данных имеет `Void`
+    open func build() -> Node<Void, Void> {
+        let input = self.requestBuildingChain()
+        let indicator = LoadIndicatableNode(next: input)
+        let configNode = ChainConfiguratorNode(next: indicator)
+        let voidOutput = VoidBsonIONode(next: configNode)
+        return LoggerNode(next: voidOutput, filters: self.logFilter)
+    }
 
     /// Позволяет загрузить бинарные данные (файл) с сервера без отправки какой-то модели на сервер.
     /// - Returns: Корневой узел цепочки.
