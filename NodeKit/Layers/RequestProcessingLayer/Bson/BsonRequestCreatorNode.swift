@@ -40,12 +40,23 @@ open class BsonRequestCreatorNode<Output>: Node<TransportUrlBsonRequest, Output>
             mergedHeaders.merge(dict, uniquingKeysWith: { $1 })
         }
 
-        let request = manager.upload(data.raw.makeData(),
-                                     to: data.url,
-                                     method: data.method.http,
-                                     headers: HTTPHeaders(mergedHeaders))
+        let dataRequest: DataRequest
 
-        return self.next.process(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
+        if data.method.http == .get {
+            /// TODO: Костыль пока не переписал транспортный слой 
+            dataRequest = manager.request(data.url,
+                                          method: data.method.http,
+                                          parameters: [:],
+                                          encoding: URLEncoding.default,
+                                          headers: HTTPHeaders(mergedHeaders))
+        } else {
+            dataRequest = manager.upload(data.raw.makeData(),
+                                         to: data.url,
+                                         method: data.method.http,
+                                         headers: HTTPHeaders(mergedHeaders))
+        }
+
+        return self.next.process(RawUrlRequest(dataRequest: dataRequest)).log(self.getLogMessage(data))
     }
 
     private func getLogMessage(_ data: TransportUrlBsonRequest) -> Log {

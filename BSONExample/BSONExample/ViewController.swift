@@ -19,12 +19,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        nodeKitBsonRequest()
+        nodeKitBsonRequest()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        nodeKitBsonPostRequest()
+//        nodeKitBsonPostRequest()
     }
 
     func nodeKitBsonRequest() {

@@ -217,58 +217,5 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
         return LoggerNode(next: voidOutput, filters: self.logFilter)
     }
 
-    /// Позволяет загрузить бинарные данные (файл) с сервера без отправки какой-то модели на сервер.
-    /// - Returns: Корневой узел цепочки.
-//    open func loadData() -> Node<Void, Data> {
-//        let loaderParser = DataLoadingResponseProcessor()
-//        let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
-//        let responseProcessor = ResponseProcessorNode(next: errorProcessor)
-//        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor)
-//
-//        let creator = RequestCreatorNode(next: sender, providers: headersProviders, session: session)
-//
-//        let tranformator = UrlRequestTrasformatorNode(next: creator, method: self.method)
-//        let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
-//
-//        let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)
-//
-//        let router = self.requestRouterNode(next: queryInjector)
-//        let connector = MetadataConnectorNode(next: router, metadata: self.metadata)
-//
-//        let indicator = LoadIndicatableNode(next: connector)
-//        let configNode = ChainConfiguratorNode(next: indicator)
-//
-//        let voidInput = VoidInputNode(next: configNode)
-//
-//        return LoggerNode(next: voidInput, filters: self.logFilter)
-//    }
-
-    /// Позволяет загрузить бинарные данные (файл) с сервера.
-    /// - Returns: Корневой узел цепочки.
-//    open func loadData<Input>() -> Node<Input, Data> where Input: DTOEncodable, Input.DTO.Raw == Json {
-//
-//        let loaderParser = DataLoadingResponseProcessor()
-//        let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
-//        let responseProcessor = ResponseProcessorNode(next: errorProcessor)
-//        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor)
-//
-//        let creator = RequestCreatorNode(next: sender, providers: headersProviders, session: session)
-//
-//        let tranformator = UrlRequestTrasformatorNode(next: creator, method: self.method)
-//        let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
-//
-//        let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)
-//
-//        let router = self.requestRouterNode(next: queryInjector)
-//        let connector = MetadataConnectorNode(next: router, metadata: self.metadata)
-//
-//        let rawEncoder = RawEncoderNode<Input.DTO, Data>(next: connector)
-//        let dtoEncoder = DTOEncoderNode<Input, Data>(rawEncodable: rawEncoder)
-//
-//        let indicator = LoadIndicatableNode(next: dtoEncoder)
-//        let configNode = ChainConfiguratorNode(next: indicator)
-//
-//        return LoggerNode(next: configNode, filters: self.logFilter)
-//    }
 }
 
