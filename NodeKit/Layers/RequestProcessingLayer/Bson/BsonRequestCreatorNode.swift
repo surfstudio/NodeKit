@@ -43,7 +43,7 @@ open class BsonRequestCreatorNode<Output>: Node<TransportUrlBsonRequest, Output>
         let dataRequest: DataRequest
 
         if data.method.http == .get {
-            /// TODO: Костыль пока не переписал транспортный слой 
+            /// TODO: Костыль пока не переписал транспортный слой
             dataRequest = manager.request(data.url,
                                           method: data.method.http,
                                           parameters: [:],
