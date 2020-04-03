@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		46E5DFE26AAAEF094F0F40E7 /* Pods_NodeKit_IntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */; };
+		57138796243786E400E4134A /* BsonUrlChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57138795243786E400E4134A /* BsonUrlChainTests.swift */; };
+		57138798243787DE00E4134A /* UserBsonEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57138797243787DE00E4134A /* UserBsonEntity.swift */; };
+		5713879B24378CA500E4134A /* CustomServerErrorProcessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713879A24378CA500E4134A /* CustomServerErrorProcessorNode.swift */; };
+		5713879E24378D5D00E4134A /* CustomServiceChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713879D24378D5D00E4134A /* CustomServiceChain.swift */; };
+		571387A024378DF100E4134A /* BsonChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713879F24378DF100E4134A /* BsonChain.swift */; };
 		577722172434EB40001AC3DB /* VoidBsonOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577722162434EB40001AC3DB /* VoidBsonOutputNode.swift */; };
 		5777221A2435E497001AC3DB /* BsonRequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577722192435E497001AC3DB /* BsonRequestCreatorNode.swift */; };
 		5777221C2435E8BF001AC3DB /* TransportUrlBsonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777221B2435E8BF001AC3DB /* TransportUrlBsonRequest.swift */; };
@@ -154,6 +159,11 @@
 		1FA15CD5765BC3071AC74B9E /* Pods-NodeKit-IntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit-IntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		22AB55338E3AFD7D15EA636E /* Pods-NodeKit-IntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit-IntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NodeKit_IntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		57138795243786E400E4134A /* BsonUrlChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BsonUrlChainTests.swift; sourceTree = "<group>"; };
+		57138797243787DE00E4134A /* UserBsonEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBsonEntity.swift; sourceTree = "<group>"; };
+		5713879A24378CA500E4134A /* CustomServerErrorProcessorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomServerErrorProcessorNode.swift; sourceTree = "<group>"; };
+		5713879D24378D5D00E4134A /* CustomServiceChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomServiceChain.swift; sourceTree = "<group>"; };
+		5713879F24378DF100E4134A /* BsonChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BsonChain.swift; sourceTree = "<group>"; };
 		577722162434EB40001AC3DB /* VoidBsonOutputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidBsonOutputNode.swift; sourceTree = "<group>"; };
 		577722192435E497001AC3DB /* BsonRequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BsonRequestCreatorNode.swift; sourceTree = "<group>"; };
 		5777221B2435E8BF001AC3DB /* TransportUrlBsonRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportUrlBsonRequest.swift; sourceTree = "<group>"; };
@@ -321,6 +331,23 @@
 				5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5713879924378C8800E4134A /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				5713879A24378CA500E4134A /* CustomServerErrorProcessorNode.swift */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		5713879C24378D4B00E4134A /* Chains */ = {
+			isa = PBXGroup;
+			children = (
+				5713879D24378D5D00E4134A /* CustomServiceChain.swift */,
+				5713879F24378DF100E4134A /* BsonChain.swift */,
+			);
+			path = Chains;
 			sourceTree = "<group>";
 		};
 		577722182435E484001AC3DB /* Bson */ = {
@@ -631,6 +658,7 @@
 				B1BED9FD21FF7BC0000B9018 /* User.swift */,
 				B1B761422207B0C600AE3303 /* Credentials.swift */,
 				B1B761492207B39A00AE3303 /* AuthModel.swift */,
+				57138797243787DE00E4134A /* UserBsonEntity.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -676,7 +704,9 @@
 		B1B761462207B1EB00AE3303 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				5713879C24378D4B00E4134A /* Chains */,
 				B1BED9FA21FF78EE000B9018 /* Infrastructure.swift */,
+				5713879924378C8800E4134A /* Nodes */,
 				B1BED9FC21FF7BAE000B9018 /* Models */,
 			);
 			path = Infrastructure;
@@ -739,6 +769,7 @@
 				B1B761402207B0B700AE3303 /* FormUrlCodingTests.swift */,
 				B1B7614D2207C16000AE3303 /* TestEmptyResponseMapping.swift */,
 				89F34DC123F6DCBC0026EE40 /* DeferCallingTests.swift */,
+				57138795243786E400E4134A /* BsonUrlChainTests.swift */,
 			);
 			path = IntegrationTests;
 			sourceTree = "<group>";
@@ -1174,6 +1205,7 @@
 				B1848A132204822400F54705 /* UserEntry.swift in Sources */,
 				B91447BF2381925400D2912A /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift in Sources */,
 				B1568086222C78F400BC8D91 /* AbortingTests.swift in Sources */,
+				5713879E24378D5D00E4134A /* CustomServiceChain.swift in Sources */,
 				B1E61E5E2247082900B3AAD9 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */,
 				B91447C32381933C00D2912A /* URLQueryInjectorNodeTests.swift in Sources */,
 				B1B761412207B0B700AE3303 /* FormUrlCodingTests.swift in Sources */,
@@ -1182,16 +1214,20 @@
 				B1A57559225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift in Sources */,
 				B1E61E5B2247082900B3AAD9 /* UrlETagSaverNodeTests.swift in Sources */,
 				B9D5B2292337C2A400D66488 /* MultipartRequestTests.swift in Sources */,
+				57138796243786E400E4134A /* BsonUrlChainTests.swift in Sources */,
 				B1BED9FE21FF7BC0000B9018 /* User.swift in Sources */,
 				B1BED9FB21FF78EE000B9018 /* Infrastructure.swift in Sources */,
 				B91447BD2381919F00D2912A /* URLQueryBoolEncodingDefaultStartegyTests.swift in Sources */,
+				5713879B24378CA500E4134A /* CustomServerErrorProcessorNode.swift in Sources */,
 				B1B761482207B34700AE3303 /* AuthModelEntry.swift in Sources */,
 				B26DF411235F58A30007E6B3 /* DTOMapperNodeTests.swift in Sources */,
 				B10CA52B225A0262002885B3 /* LoggingTests.swift in Sources */,
 				B1E61E562247082000B3AAD9 /* TokenRefresherNodeTests.swift in Sources */,
 				B1E922562251CD4B00DCDADD /* CacheReaderNodeTests.swift in Sources */,
+				571387A024378DF100E4134A /* BsonChain.swift in Sources */,
 				B1BED9F421FF4D6F000B9018 /* SimpleURLChainTests.swift in Sources */,
 				B1B7614A2207B39A00AE3303 /* AuthModel.swift in Sources */,
+				57138798243787DE00E4134A /* UserBsonEntity.swift in Sources */,
 				B1A575562250A85A00DEF33E /* EncodingTests.swift in Sources */,
 				B1B7614E2207C16000AE3303 /* TestEmptyResponseMapping.swift in Sources */,
 			);
