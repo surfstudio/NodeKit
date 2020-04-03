@@ -19,22 +19,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        nodeKitBsonRequest()
-//        urlSessionBsonPostRequest()
-        nodeKitBsonPostRequest()
+        nodeKitBsonRequest()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        nodeKitBsonPostRequest()
     }
 
     func nodeKitBsonRequest() {
-//        SomeService().getBson()
-//            .onCompleted { userEntity in
-//                print(userEntity)
-//            }.onError { error in
-//                print(error)
-//            }.onCanceled {
-//                print("cancel called")
-//            }.defer {
-//                print("defer called")
-//            }
+        SomeService().getBson()
+            .onCompleted { userEntity in
+                print(userEntity)
+            }.onError { error in
+                print(error)
+            }.onCanceled {
+                print("cancel called")
+            }.defer {
+                print("defer called")
+            }
     }
 
     func nodeKitBsonPostRequest() {
@@ -181,19 +184,18 @@ final class BsonChain: UrlBsonChainsBuilder<Endpoint> {
 
 class SomeService {
 
-//    func getBson() -> Observer<UserEntity> {
-//        return BsonChain()
-//            .route(.get, .loadBson)
-//            .build()
-//            .process()
-//    }
+    func getBson() -> Observer<UserEntity> {
+        return BsonChain()
+            .route(.get, .loadBson)
+            .build()
+            .process()
+    }
 
     func postBson(with entity: UserEntity) -> Observer<Void> {
         return BsonChain()
             .route(.post, .loadBson)
             .build()
             .process(entity)
-
     }
 
 }
