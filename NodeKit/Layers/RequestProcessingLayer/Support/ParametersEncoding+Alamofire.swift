@@ -20,6 +20,9 @@ extension NodeKit.ParametersEncoding {
             return URLEncoding.default
         case .urlQuery:
             return URLEncoding.queryString
+        case .bson:
+            // TODO: Replace to BSON Encoding 
+            return JsonArrayEncoding()
         }
     }
 }

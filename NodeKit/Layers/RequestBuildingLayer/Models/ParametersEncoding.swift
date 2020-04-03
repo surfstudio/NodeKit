@@ -15,6 +15,7 @@ import Foundation
 /// - formUrl: Пытается закодировать данные в формате FormUrl и кладет из в тело запроса.
 /// - urlQuery: Получает из данных строку,кодирует в URL-строку и добавляет к URL запроса.
 public enum ParametersEncoding {
+    case bson
     case json
     case formUrl
     case urlQuery

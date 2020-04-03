@@ -18,6 +18,7 @@ Pod::Spec.new do |s|
     sp.source_files  = 'NodeKit/Utils/**/*.swift', 'NodeKit/Chains/**/*.swift', 'NodeKit/Layers/**/*.swift', 'NodeKit/Core/**/*.swift', 'NodeKit/Encodings/*.swift'
     sp.dependency 'Alamofire', '5.0.0-beta.4'
     sp.dependency 'CoreEvents', '~> 2.0.1'
+    sp.dependency 'BSON', '7.0.4'
   end
 
   s.subspec 'MockerIntegration' do |sp|

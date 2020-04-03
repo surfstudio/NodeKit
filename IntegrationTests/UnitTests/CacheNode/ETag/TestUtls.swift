@@ -18,7 +18,7 @@ enum Utils {
                                             httpVersion: String = "1.1",
                                             headers: [String: String] = [:],
                                             data: Data = Data(),
-                                            json: Json = Json()) -> UrlProcessedResponse {
+                                            json: Json = Json()) -> UrlProcessedResponse<Json> {
         let httpResponse = HTTPURLResponse(url: url,
                                            statusCode: statusCode,
                                            httpVersion: httpVersion,
@@ -30,7 +30,7 @@ enum Utils {
                                            metrics: nil,
                                            serializationDuration: 0)
 
-        return UrlProcessedResponse(dataResponse: dataResponse, json: json)
+        return UrlProcessedResponse(dataResponse: dataResponse, type: json)
     }
 
     static func getMockUrlDataResponse(url: URL,

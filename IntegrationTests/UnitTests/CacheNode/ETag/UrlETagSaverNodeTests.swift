@@ -19,7 +19,7 @@ public class UrlETagSaverNodeTests: XCTestCase {
 
         // Arrange
 
-        let node = UrlETagSaverNode(next: nil)
+        let node = UrlETagSaverNode<Json>(next: nil)
         let url = URL(string: "http://urletagsaver.tests/testNodeSaveTag")!
         let tag = "\(NSObject().hash)"
 
@@ -60,7 +60,7 @@ public class UrlETagSaverNodeTests: XCTestCase {
 
         // Arrange
 
-        let node = UrlETagSaverNode(next: nil)
+        let node = UrlETagSaverNode<Json>(next: nil)
         let url = URL(string: "http://urletagsaver.tests/testNodeNotSaveTag")!
 
         let data = Utils.getMockUrlProcessedResponse(url: url)
@@ -102,7 +102,7 @@ public class UrlETagSaverNodeTests: XCTestCase {
         let tag = "\(NSObject().hash)"
         let tagKey = "My-Custom-ETag-Key"
 
-        let node = UrlETagSaverNode(next: nil, eTagHeaderKey: tagKey)
+        let node = UrlETagSaverNode<Json>(next: nil, eTagHeaderKey: tagKey)
 
         let data = Utils.getMockUrlProcessedResponse(url: url, headers: [tagKey: tag])
 
