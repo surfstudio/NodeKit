@@ -8,7 +8,7 @@ open class UrlServiceChainBuilder {
     public init() { }
 
     /// Создает цепочку для слоя обработки ответа.
-    open func urlResponseProcessingLayerChain() -> Node<DataResponse<Data>, Json> {
+    open func urlResponseProcessingLayerChain() -> Node<NodeDataResponse, Json> {
         let responseDataParserNode = ResponseDataParserNode()
         let responseDataPreprocessorNode = ResponseDataPreprocessorNode(next: responseDataParserNode)
         let responseHttpErrorProcessorNode = ResponseHttpErrorProcessorNode(next: responseDataPreprocessorNode)
@@ -16,7 +16,7 @@ open class UrlServiceChainBuilder {
     }
 
     /// Создает цепочку для слоя обработки ответа.
-    open func urlResponseBsonProcessingLayerChain() -> Node<DataResponse<Data>, Bson> {
+    open func urlResponseBsonProcessingLayerChain() -> Node<NodeDataResponse, Bson> {
         let responseDataParserNode = ResponseBsonDataParserNode()
         let responseDataPreprocessorNode = ResponseBsonDataPreprocessorNode(next: responseDataParserNode)
         let responseHttpErrorProcessorNode = ResponseHttpErrorProcessorNode(next: responseDataPreprocessorNode)
@@ -36,4 +36,5 @@ open class UrlServiceChainBuilder {
         let technicalErrorMapperNode = TechnicaErrorMapperNode(next: requestSenderNode)
         return RequestCreatorNode(next: technicalErrorMapperNode, providers: providers, session: session)
     }
+
 }

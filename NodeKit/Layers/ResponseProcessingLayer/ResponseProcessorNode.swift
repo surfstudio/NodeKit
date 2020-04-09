@@ -17,7 +17,7 @@ public enum ResponseProcessorNodeError: Error {
 }
 
 /// Этот узел занимается первичной обработкой ответа сервера.
-open class ResponseProcessorNode<Type>: Node<DataResponse<Data>, Type> {
+open class ResponseProcessorNode<Type>: Node<NodeDataResponse, Type> {
 
     /// Следующий узел для обратки.
     public let next: Node<UrlDataResponse, Type>
@@ -32,44 +32,46 @@ open class ResponseProcessorNode<Type>: Node<DataResponse<Data>, Type> {
     /// Проверяет, возникла-ли какая-то ошибка во время работы.
     ///
     /// - Parameter data: Низкоуровневый ответ сервера.
-    open override func process(_ data: DataResponse<Data>) -> Observer<Type> {
+    open override func process(_ data: NodeDataResponse) -> Observer<Type> {
         var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.responseProcessorNode)
+
         switch data.result {
         case .failure(let error):
-            log += "Catch Alamofire error: \(error)" + .lineTabDeilimeter
-            guard let urlResponse = data.response, let urlRequest = data.request else {
+            log += "Catch URLSeesions error: \(error)" + .lineTabDeilimeter
+
+            guard let urlResponse = data.urlResponse, let urlRequest = data.urlRequest else {
                 return Context<Type>().log(log).emit(error: error)
             }
-
             log += "Skip cause can extract parameters -> continue processing"
+
             let response = UrlDataResponse(request: urlRequest,
                                            response: urlResponse,
-                                           data: Data(), metrics: nil,
+                                           data: Data(),
+                                           metrics: nil,
                                            serializationDuration: -1)
-
             log += "🌍 " + (urlRequest.method?.rawValue ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
             log += " ~~> \(urlResponse.statusCode)" + .lineTabDeilimeter
             log += "EMPTY"
 
             return next.process(response).log(log)
-        case .success(let val):
+        case .success(let value):
             log += "Request success!" + .lineTabDeilimeter
-            guard let urlResponse = data.response, let urlRequest = data.request else {
+
+            guard let urlResponse = data.urlResponse, let urlRequest = data.urlRequest else {
                 log += "But cant extract parameters -> terminate with error"
                 return Context<Type>()
                     .log(log)
                     .emit(error: ResponseProcessorNodeError.rawResponseNotHaveMetaData)
             }
-
             let dataResponse = UrlDataResponse(request: urlRequest,
                                                response: urlResponse,
-                                               data: val,
-                                               metrics: data.metrics,
-                                               serializationDuration: data.serializationDuration)
+                                               data: value,
+                                               metrics: nil,
+                                               serializationDuration: -1)
 
             log += "🌍 " + (urlRequest.method?.rawValue ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
             log += " --> \(urlResponse.statusCode)" + .lineTabDeilimeter
-            log += String(data: val, encoding: .utf8) ?? "CURRUPTED"
+            log += String(data: value, encoding: .utf8) ?? "CURRUPTED"
 
             return self.next.process(dataResponse).log(log)
         }
