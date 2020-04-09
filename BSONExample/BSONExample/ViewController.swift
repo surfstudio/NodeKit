@@ -22,8 +22,13 @@ class ViewController: UIViewController {
         nodeKitBsonRequest()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        nodeKitBsonPostRequest()
+    }
+
     func nodeKitBsonRequest() {
-        SomeService().loadBson()
+        SomeService().getBson()
             .onCompleted { userEntity in
                 print(userEntity)
             }.onError { error in
@@ -35,6 +40,17 @@ class ViewController: UIViewController {
             }
     }
 
+    func nodeKitBsonPostRequest() {
+        let userEntity = UserEntity(id: "123", firstName: "Freeze", lastName: "John")
+        SomeService().postBson(with: userEntity)
+            .onCompleted { _ in
+                print("done")
+            }.onError { error in
+                print(error.localizedDescription)
+            }.defer {
+                print("defer")
+            }
+    }
 
     func urlSessionBsonRequest() {
         guard let url = URL(string: "http://localhost:8118/nkt/bson") else {
@@ -56,6 +72,38 @@ class ViewController: UIViewController {
         dataTask?.resume()
     }
 
+    func urlSessionBsonPostRequest() {
+        guard let url = URL(string: "http://localhost:8118/nkt/bson") else {
+            return
+        }
+
+        let document: Document = [
+            "id": "123",
+            "firstname": "Freeze",
+            "lastname": "John"
+        ]
+        var request = URLRequest(url: url)
+        request.method = .post
+        request.httpBody = document.makeData()
+        request.addValue("application/bson", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/bson", forHTTPHeaderField: "Accept")
+
+        dataTask = defaultSession.dataTask(with: request, completionHandler: { [weak self] data, response, error in
+            defer {
+                self?.dataTask = nil
+            }
+            print(response)
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let data = data {
+                print(data)
+            } else {
+                print("some shit")
+            }
+        })
+        dataTask?.resume()
+    }
+
 }
 
 struct UserEntity {
@@ -64,7 +112,7 @@ struct UserEntity {
     let lastName: String
 }
 
-extension UserEntity: DTODecodable {
+extension UserEntity: DTOConvertible {
 
     typealias DTO = Document
 
@@ -73,6 +121,15 @@ extension UserEntity: DTODecodable {
         let firstName = (model["firstname"] as? String) ?? ""
         let lastName = (model["lastname"] as? String) ?? ""
         return .init(id: id, firstName: firstName, lastName: lastName)
+    }
+
+    func toDTO() throws -> Document {
+        let document: Document = [
+            "id": id,
+            "firstname": firstName,
+            "lastname": lastName
+        ]
+        return document
     }
 
 }
@@ -127,11 +184,18 @@ final class BsonChain: UrlBsonChainsBuilder<Endpoint> {
 
 class SomeService {
 
-    func loadBson() -> Observer<UserEntity> {
+    func getBson() -> Observer<UserEntity> {
         return BsonChain()
             .route(.get, .loadBson)
             .build()
             .process()
+    }
+
+    func postBson(with entity: UserEntity) -> Observer<Void> {
+        return BsonChain()
+            .route(.post, .loadBson)
+            .build()
+            .process(entity)
     }
 
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import BSON
 
 /// Содержит ошибки, которые может возвращать маппер на `Codable`
 /// SeeAlso:
