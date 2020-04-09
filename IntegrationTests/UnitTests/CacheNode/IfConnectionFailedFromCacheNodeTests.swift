@@ -17,7 +17,7 @@ import NodeKit
 
 public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
 
-    private class NextStub: Node<RawUrlRequest, Json> {
+    private class NextStub: Node<URLRequest, Json> {
 
         var numberOfCalls: Int
         var lambda: () -> Observer<Json>
@@ -27,7 +27,7 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
             self.numberOfCalls = 0
         }
 
-        override func process(_ data: RawUrlRequest) -> Observer<Json> {
+        override func process(_ data: URLRequest) -> Observer<Json> {
             self.numberOfCalls += 1
 
             return self.lambda()
@@ -72,12 +72,11 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
         let mapper = TechnicaErrorMapperNode(next: next)
         let testNode = IfConnectionFailedFromCacheNode(next: mapper, cacheReaderNode: reader)
 
-        let model = StubRequest(request: URLRequest(url: URL(string: "test.ex.temp")!))
-        let rawUrlRequest = RawUrlRequest(dataRequest: model)
+        let request = URLRequest(url: URL(string: "test.ex.temp")!)
 
         // Act
 
-        _ = testNode.process(rawUrlRequest)
+        _ = testNode.process(request)
 
         // Assert
 
@@ -96,12 +95,11 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
         let mapper = TechnicaErrorMapperNode(next: next)
         let testNode = IfConnectionFailedFromCacheNode(next: mapper, cacheReaderNode: reader)
 
-        let model = StubRequest(request: URLRequest(url: URL(string: "test.ex.temp")!))
-        let rawUrlRequest = RawUrlRequest(dataRequest: model)
+        let request = URLRequest(url: URL(string: "test.ex.temp")!)
 
         // Act
 
-        _ = testNode.process(rawUrlRequest)
+        _ = testNode.process(request)
 
         // Assert
 

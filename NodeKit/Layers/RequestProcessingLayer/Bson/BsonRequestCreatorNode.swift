@@ -12,21 +12,17 @@ import Alamofire
 open class BsonRequestCreatorNode<Output>: Node<TransportUrlBsonRequest, Output> {
 
     /// Следующий узел для обработки.
-    public var next: Node<RawUrlRequest, Output>
+    public var next: Node<URLRequest, Output>
 
     /// Провайдеры мета-данных
     public var providers: [MetadataProvider]
 
-    /// Менеджер сессий
-    private(set) var manager: Session
-
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<RawUrlRequest, Output>, providers: [MetadataProvider] = [], session: Session? = nil) {
+    public init(next: Node<URLRequest, Output>, providers: [MetadataProvider] = []) {
         self.next = next
         self.providers = providers
-        self.manager = session ?? ServerRequestsManager.shared.manager
     }
 
     /// Конфигурирует низкоуровненвый запрос.
@@ -39,24 +35,13 @@ open class BsonRequestCreatorNode<Output>: Node<TransportUrlBsonRequest, Output>
         self.providers.map { $0.metadata() }.forEach { dict in
             mergedHeaders.merge(dict, uniquingKeysWith: { $1 })
         }
+        
+        var request = URLRequest(url: data.url)
+        request.method = data.method.http
+        request.httpBody = data.raw.makeData()
+        mergedHeaders.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
 
-        let dataRequest: DataRequest
-
-        if data.method.http == .get {
-            /// TODO: Костыль пока не переписал транспортный слой
-            dataRequest = manager.request(data.url,
-                                          method: data.method.http,
-                                          parameters: [:],
-                                          encoding: URLEncoding.default,
-                                          headers: HTTPHeaders(mergedHeaders))
-        } else {
-            dataRequest = manager.upload(data.raw.makeData(),
-                                         to: data.url,
-                                         method: data.method.http,
-                                         headers: HTTPHeaders(mergedHeaders))
-        }
-
-        return self.next.process(RawUrlRequest(dataRequest: dataRequest)).log(self.getLogMessage(data))
+        return self.next.process(request).log(self.getLogMessage(data))
     }
 
     private func getLogMessage(_ data: TransportUrlBsonRequest) -> Log {

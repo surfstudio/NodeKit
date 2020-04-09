@@ -42,7 +42,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     public var route: Route?
 
     /// Менеджер сессий
-    public var session: Session?
+    public var session: URLSession?
 
     /// Массив с ID логов, которые нужно исключить из выдачи.
     public var logFilter: [String]
@@ -101,7 +101,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
 
     // MARK: - Session config
 
-    open func set(session: Session) -> Self {
+    open func set(session: URLSession) -> Self {
         self.session = session
         return self
     }

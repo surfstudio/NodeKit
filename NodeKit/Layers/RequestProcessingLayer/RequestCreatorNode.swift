@@ -5,49 +5,35 @@ import Alamofire
 open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
 
     /// Следующий узел для обработки.
-    public var next: Node<RawUrlRequest, Output>
+    public var next: Node<URLRequest, Output>
 
     /// Провайдеры мета-данных
     public var providers: [MetadataProvider]
 
-    /// Менеджер сессий
-    private(set) var manager: Session
-
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<RawUrlRequest, Output>, providers: [MetadataProvider] = [], session: Session? = nil) {
+    public init(next: Node<URLRequest, Output>, providers: [MetadataProvider] = []) {
         self.next = next
         self.providers = providers
-        self.manager = session ?? ServerRequestsManager.shared.manager
     }
 
     /// Конфигурирует низкоуровненвый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open override func process(_ data: TransportUrlRequest) -> Observer<Output> {
-
-        let paramEncoding = {() -> ParameterEncoding in
-            if data.method == .get {
-                return URLEncoding.default
-            }
-            return data.parametersEncoding.raw
-        }()
-
-        var result = data.headers
-
+        var mergedHeaders = data.headers
         self.providers.map { $0.metadata() }.forEach { dict in
-            result.merge(dict, uniquingKeysWith: { $1 })
+            mergedHeaders.merge(dict, uniquingKeysWith: { $1 })
         }
 
-        let request = manager.request(
-            data.url,
-            method: data.method.http,
-            parameters: data.raw,
-            encoding: paramEncoding,
-            headers: HTTPHeaders(result)
-        )
-        return self.next.process(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
+        var request = URLRequest(url: data.url)
+        request.method = data.method.http
+        // TODO: Remove unwrap
+        request.httpBody = try! JSONSerialization.data(withJSONObject: data.raw, options: .prettyPrinted)
+        mergedHeaders.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
+
+        return self.next.process(request).log(self.getLogMessage(data))
     }
 
     private func getLogMessage(_ data: TransportUrlRequest) -> Log {

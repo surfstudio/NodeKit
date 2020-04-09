@@ -34,7 +34,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     public var route: Route?
 
     /// Менеджер сессий
-    public var session: Session?
+    public var session: URLSession?
 
     /// Массив с ID логов, которые нужно исключить из выдачи.
     public var logFilter: [String]
@@ -93,7 +93,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     // MARK: - Session config
     
-    open func set(session: Session) -> Self {
+    open func set(session: URLSession) -> Self {
         self.session = session
         return self
     }
@@ -217,9 +217,9 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let reponseProcessor = self.serviceChain.urlResponseProcessingLayerChain()
 
-        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor)
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor, manager: session)
 
-        let creator = MultipartRequestCreatorNode(next: requestSenderNode, session: session)
+        let creator = MultipartRequestCreatorNode(next: requestSenderNode)
 
         let transformator = MultipartUrlRequestTrasformatorNode(next: creator, method: self.method)
 
@@ -243,9 +243,9 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
-        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor)
+        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, manager: session)
 
-        let creator = RequestCreatorNode(next: sender, providers: headersProviders, session: session)
+        let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
         let tranformator = UrlRequestTrasformatorNode(next: creator, method: self.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
@@ -270,9 +270,9 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
-        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor)
+        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, manager: session)
 
-        let creator = RequestCreatorNode(next: sender, providers: headersProviders, session: session)
+        let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
         let tranformator = UrlRequestTrasformatorNode(next: creator, method: self.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)

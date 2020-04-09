@@ -17,7 +17,9 @@ public class ServerRequestsManager {
     public static let shared = ServerRequestsManager()
 
     /// Менеджер сессий.
-    public let manager: Session
+    public let manager: URLSession
+
+    public let oldManager: Session
 
     private init() {
         let configuration = URLSessionConfiguration.default
@@ -25,6 +27,7 @@ public class ServerRequestsManager {
         configuration.timeoutIntervalForRequest = 60 * 3
         configuration.requestCachePolicy = .reloadIgnoringCacheData
         configuration.urlCache = nil
-        self.manager = Alamofire.Session(configuration: configuration)
+        self.manager = URLSession(configuration: configuration)
+        self.oldManager = Alamofire.Session(configuration: configuration)
     }
 }

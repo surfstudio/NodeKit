@@ -19,10 +19,10 @@ public class EncodingTests: XCTestCase {
 
     class StubNext: RequestProcessingLayerNode {
 
-        var request: RawUrlRequest! = nil
+        var request: URLRequest! = nil
 
         @discardableResult
-        public override func process(_ data: RawUrlRequest) -> Observer<Json> {
+        public override func process(_ data: URLRequest) -> Observer<Json> {
             self.request = data
             return .emit(data: Json())
         }
@@ -47,7 +47,8 @@ public class EncodingTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, url)
+        XCTAssertEqual(nextNode.request.url!.absoluteString, url)
+//        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, url)
     }
 
     public func testUrlQueryConvertionWork() {
@@ -69,7 +70,8 @@ public class EncodingTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, "\(url)?id=12345")
+        XCTAssertEqual(nextNode.request.url!.absoluteString, "\(url)?id=12345")
+//        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, "\(url)?id=12345")
     }
 
     func testJsonConvertionWork() {
@@ -90,6 +92,7 @@ public class EncodingTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, url)
+        XCTAssertEqual(nextNode.request.url!.absoluteString, url)
+//        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, url)
     }
 }

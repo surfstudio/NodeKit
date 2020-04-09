@@ -27,7 +27,7 @@ public struct MultipartUrlRequest {
 /// Узел, умеющий создавать multipart-запрос.
 open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output> {
     /// Следующий узел для обработки.
-    public var next: Node<RawUrlRequest, Output>
+    public var next: Node<URLRequest, Output>
 
     /// Менеджер сессий
     private(set) var manager: Session
@@ -35,9 +35,9 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<RawUrlRequest, Output>, session: Session? = nil) {
+    public init(next: Node<URLRequest, Output>, session: Session? = nil) {
         self.next = next
-        self.manager = session ?? ServerRequestsManager.shared.manager
+        self.manager = session ?? ServerRequestsManager.shared.oldManager
     }
 
     /// Конфигурирует низкоуровненвый запрос.
@@ -49,7 +49,8 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
             self.append(multipartForm: multipartForm, with: data)
         }, to: data.url, method: data.method.http, headers: .init(data.headers))
 
-        return self.next.process(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
+        // TODO: Rebuild multipart request
+        return self.next.process(RawUrlRequest(dataRequest: request).dataRequest.request!).log(self.getLogMessage(data))
     }
 
     private func getLogMessage(_ data: MultipartUrlRequest) -> Log {
