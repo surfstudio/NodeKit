@@ -38,7 +38,9 @@ open class BsonRequestCreatorNode<Output>: Node<TransportUrlBsonRequest, Output>
         
         var request = URLRequest(url: data.url)
         request.method = data.method.http
-        request.httpBody = data.raw.makeData()
+        if !data.raw.isEmpty {
+            request.httpBody = data.raw.makeData()
+        }
         mergedHeaders.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
 
         return self.next.process(request).log(self.getLogMessage(data))
