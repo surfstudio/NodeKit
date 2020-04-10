@@ -3,7 +3,18 @@ import Foundation
 /// Модель, хранящая конфигурацию для `URLQueryInjectorNode`
 public struct URLQueryConfigModel {
     /// Модель из которой создается URL-query.
-    public var query: [String: Any]
+    public var query: [String: Any] {
+        get {
+            var allParameters = _query
+            paginationModel?.query.forEach {
+                allParameters[$0] = $1
+            }
+            return allParameters
+        }
+        set {
+            _query = newValue
+        }
+    }
 
     /// Стратегия для кодирования булевых значений.
     /// - SeeAlso: `URLQueryBoolEncodingDefaultStartegy`
@@ -17,6 +28,13 @@ public struct URLQueryConfigModel {
     /// - SeeAlso: `URLQueryDictionaryKeyEncodingDefaultStrategy`
     public var dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy
 
+    /// Модель пагинации запросов - позволяет отдельно отслеживать параметры именно для пагинации
+    public var paginationModel: PaginationModel?
+
+    // MARK - Private properties
+
+    private var _query: [String: Any]
+
     /// Инициллизирует структуру.
     /// - Parameter query: Модель из которой создается URL-query.
     /// - Parameter boolEncodingStartegy: Стратегия для кодирования булевых значений.
@@ -25,12 +43,14 @@ public struct URLQueryConfigModel {
     public init(query: [String: Any],
                 boolEncodingStartegy: URLQueryBoolEncodingStartegy,
                 arrayEncodingStrategy: URLQueryArrayKeyEncodingStartegy,
-                dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy) {
+                dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy,
+                paginationModel: PaginationModel?) {
 
-        self.query = query
+        self._query = query
         self.boolEncodingStartegy = boolEncodingStartegy
         self.arrayEncodingStrategy = arrayEncodingStrategy
         self.dictEncodindStrategy = dictEncodindStrategy
+        self.paginationModel = paginationModel
     }
 
     /// Инцииаллизирует структуру с дефолтными параметрами стратегий.
@@ -44,6 +64,8 @@ public struct URLQueryConfigModel {
         self.init(query: query,
                   boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy.asInt,
                   arrayEncodingStrategy: URLQueryArrayKeyEncodingBracketsStartegy.brackets,
-                  dictEncodindStrategy: URLQueryDictionaryKeyEncodingDefaultStrategy())
+                  dictEncodindStrategy: URLQueryDictionaryKeyEncodingDefaultStrategy(),
+                  paginationModel: nil)
     }
+
 }

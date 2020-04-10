@@ -87,6 +87,11 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
+    open func set(pagination: PaginationModel) -> Self {
+        self.urlQueryConfig.paginationModel = pagination
+        return self
+    }
+
     // MARK: -- Request config
 
     open func set(metadata: [String: String]) -> Self {
@@ -165,7 +170,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let input: Node<Input, Output> = self.supportNodes()
-            let config =  ChainConfiguratorNode<Input, Output>(next: input)
+            let config = ChainConfiguratorNode<Input, Output>(next: input)
             return LoggerNode(next: config, filters: self.logFilter)
     }
 
@@ -174,7 +179,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         where Output: DTODecodable, Output.DTO.Raw == Json {
             let input: Node<Json, Output> = self.supportNodes()
             let configNode = ChainConfiguratorNode<Json, Output>(next: input)
-            let voidNode =  VoidInputNode(next: configNode)
+            let voidNode = VoidInputNode(next: configNode)
             return LoggerNode(next: voidNode, filters: self.logFilter)
     }
 

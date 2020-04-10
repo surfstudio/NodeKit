@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		46E5DFE26AAAEF094F0F40E7 /* Pods_NodeKit_IntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */; };
+		5732004C23D4D83400A51FB3 /* PaginationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5732004B23D4D83400A51FB3 /* PaginationModel.swift */; };
 		81DE7744A4629F6178E37B74 /* Pods_NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93D4D7B8501ED5C5089E938 /* Pods_NodeKit.framework */; };
 		B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */; };
 		B10AD422223ED5E300B4D7AA /* ETagConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10AD421223ED5E300B4D7AA /* ETagConstants.swift */; };
@@ -143,6 +144,7 @@
 		1FA15CD5765BC3071AC74B9E /* Pods-NodeKit-IntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit-IntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		22AB55338E3AFD7D15EA636E /* Pods-NodeKit-IntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit-IntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NodeKit_IntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5732004B23D4D83400A51FB3 /* PaginationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationModel.swift; sourceTree = "<group>"; };
 		5777A9DA3AF74A9441C27193 /* Pods-NodeKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit/Pods-NodeKit.debug.xcconfig"; sourceTree = "<group>"; };
 		B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNode.swift; sourceTree = "<group>"; };
 		B107BF842232B6D0002E9655 /* ChainConfiguratorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNodeTests.swift; sourceTree = "<group>"; };
@@ -301,6 +303,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5732004A23D4D81F00A51FB3 /* Pagination */ = {
+			isa = PBXGroup;
+			children = (
+				5732004B23D4D83400A51FB3 /* PaginationModel.swift */,
+			);
+			path = Pagination;
+			sourceTree = "<group>";
+		};
 		7E762D5C2F30C3C9BAC54658 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +374,7 @@
 				B91447B323817FCA00D2912A /* URLQueryEncoding */,
 				B10D4BFD222DF4E9006B9EE9 /* Protocols */,
 				B10D4BEE222DF453006B9EE9 /* Models */,
+				5732004A23D4D81F00A51FB3 /* Pagination */,
 				B10D4BF5222DF4A1006B9EE9 /* MetadataConnectorNode.swift */,
 				B10D4BF7222DF4B1006B9EE9 /* RequestRouterNode.swift */,
 				B10D4BF9222DF4C6006B9EE9 /* RequstEncoderNode.swift */,
@@ -1200,6 +1211,7 @@
 				B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */,
 				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,
 				B1E61E4B224675EE00B3AAD9 /* ServerRequestsManager.swift in Sources */,
+				5732004C23D4D83400A51FB3 /* PaginationModel.swift in Sources */,
 				B10D4BFA222DF4C6006B9EE9 /* RequstEncoderNode.swift in Sources */,
 				B1E61E522246774E00B3AAD9 /* ParametersEncoding+Alamofire.swift in Sources */,
 				B91447B92381859200D2912A /* URLQueryDictionaryKeyEncodingStrategy.swift in Sources */,
