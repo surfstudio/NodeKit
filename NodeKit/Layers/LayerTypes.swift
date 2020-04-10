@@ -9,7 +9,7 @@
 /// Явный тип для слоя транспорта с `JSON`
 public typealias TransportLayerNode = Node<TransportUrlRequest, Json>
 /// Явный тип для слоя транспорта с `BSON`
-public typealias TransportBsonLayerNode = Node<TransportUrlBsonRequest, Bson>
+public typealias TransportBsonLayerNode = Node<TransportUrlRequest, Bson>
 /// Явный тип для слоя обработки запроса.
 public typealias RequestProcessingLayerNode = Node<URLRequest, Json>
 /// Явный тип для слоя обработки ответа `JSON`
