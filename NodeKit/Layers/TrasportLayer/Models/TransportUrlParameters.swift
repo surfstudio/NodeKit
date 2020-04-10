@@ -16,8 +16,6 @@ public struct TransportUrlParameters {
     public let url: URL
     /// Хедеры запроса.
     public let headers: [String: String]
-    /// Кодировка данных для запроса.
-    public  let parametersEncoding: ParametersEncoding
 
     /// Инициаллизирует объект.
     ///
@@ -26,10 +24,10 @@ public struct TransportUrlParameters {
     ///   - url: URL эндпоинта.
     ///   - headers: Хедеры запроса.
     ///   - parametersEncoding: Кодировка данных для запроса.
-    public init(method: Method, url: URL, headers: [String: String] = [:], parametersEncoding: ParametersEncoding = .json) {
+    public init(method: Method, url: URL, headers: [String: String] = [:]) {
         self.method = method
         self.url = url
         self.headers = headers
-        self.parametersEncoding = parametersEncoding
     }
+
 }

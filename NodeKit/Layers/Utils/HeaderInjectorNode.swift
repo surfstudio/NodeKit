@@ -39,8 +39,7 @@ open class HeaderInjectorNode<Type>: Node<TransportUrlRequest, Type> {
         let newData = TransportUrlRequest(method: data.method,
                                           url: data.url,
                                           headers: resultHeaders,
-                                          raw: data.raw,
-                                          parametersEncoding: data.parametersEncoding)
+                                          raw: data.raw)
         log += "Result headers: \(resultHeaders)"
         return next.process(newData)
     }

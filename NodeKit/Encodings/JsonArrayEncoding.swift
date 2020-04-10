@@ -34,7 +34,6 @@ open class JsonArrayEncoding: ParameterEncoding {
         }
 
         return urlRequest
-
-        
     }
+
 }
