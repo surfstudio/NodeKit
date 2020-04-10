@@ -137,7 +137,8 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     open func requestBuildingChain() ->  Node<Json, Json> {
         let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, session: session)
 
-        let urlRequestTrasformatorNode = UrlRequestTrasformatorNode<Json, Json>(next: transportChain, method: self.method)
+        let urlRequestEncodingNode = UrlRequestEncodingNode<Json, Json>(next: transportChain)
+        let urlRequestTrasformatorNode = UrlRequestTrasformatorNode<Json, Json>(next: urlRequestEncodingNode, method: self.method)
         let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
 
         let queryInjector = URLQueryInjectorNode(next: requstEncoderNode, config: self.urlQueryConfig)
@@ -247,7 +248,8 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
-        let tranformator = UrlRequestTrasformatorNode<Json, Data>(next: creator, method: self.method)
+        let encoding = UrlRequestEncodingNode<Json, Data>(next: creator)
+        let tranformator = UrlRequestTrasformatorNode<Json, Data>(next: encoding, method: self.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
 
         let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)
@@ -274,7 +276,8 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
-        let tranformator = UrlRequestTrasformatorNode<Json, Data>(next: creator, method: self.method)
+        let encoding = UrlRequestEncodingNode<Json, Data>(next: creator)
+        let tranformator = UrlRequestTrasformatorNode<Json, Data>(next: encoding, method: self.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
 
         let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)

@@ -17,31 +17,6 @@ import NodeKit
 
 public class EncodingTests: XCTestCase {
 
-    enum EncodingRoutes: UrlRouteProvider {
-
-        enum Exception: Error {
-            case badUrl
-        }
-
-        case usr
-
-        func url() throws -> URL {
-            guard let url = self.tryToGetUrl() else {
-                throw Exception.badUrl
-            }
-
-            return url
-        }
-
-        func tryToGetUrl() -> URL? {
-            switch self {
-            case .usr:
-                return URL(string: "http://test.com/usr")
-            }
-        }
-
-    }
-
     class StubNext: RequestProcessingLayerNode {
 
         var request: URLRequest! = nil
@@ -58,15 +33,16 @@ public class EncodingTests: XCTestCase {
 
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
-        let requestTransformNode = UrlRequestTrasformatorNode<Json, Json>(next: node, method: .post)
+        let requestEncodingNode = UrlRequestEncodingNode<Json, Json>(next: node)
         let url = "http://test.com/usr"
 
         // Act
 
-        let dataRaw = ["id": "123455"]
-        let encodableModel = EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>(metadata: [:], raw: dataRaw, route: EncodingRoutes.usr, encoding: .formUrl)
+        let dataRaw: Json = ["id": "123455"]
+        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let encodingModel = RequestEncodingModel(urlParameters: urlParameters, raw: dataRaw, encoding: .formUrl)
 
-        _ = requestTransformNode.process(encodableModel)
+        _ = requestEncodingNode.process(encodingModel)
 
         // Assert
 
@@ -78,15 +54,16 @@ public class EncodingTests: XCTestCase {
 
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
-        let requestTransformNode = UrlRequestTrasformatorNode<Json, Json>(next: node, method: .post)
+        let requestEncodingNode = UrlRequestEncodingNode<Json, Json>(next: node)
         let url = "http://test.com/usr"
 
         // Act
 
-        let dataRaw = ["id": "12345"]
-        let encodableModel = EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>(metadata: [:], raw: dataRaw, route: EncodingRoutes.usr, encoding: .urlQuery)
+        let dataRaw: Json = ["id": "12345"]
+        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let encodingModel = RequestEncodingModel(urlParameters: urlParameters, raw: dataRaw, encoding: .urlQuery)
 
-        _ = requestTransformNode.process(encodableModel)
+        _ = requestEncodingNode.process(encodingModel)
 
         // Assert
 
@@ -98,15 +75,16 @@ public class EncodingTests: XCTestCase {
 
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
-        let requestTransformNode = UrlRequestTrasformatorNode<Json, Json>(next: node, method: .post)
+        let requestEncodingNode = UrlRequestEncodingNode<Json, Json>(next: node)
         let url = "http://test.com/usr"
 
         // Act
 
-        let dataRaw = ["id": "12345"]
-        let encodableModel = EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>(metadata: [:], raw: dataRaw, route: EncodingRoutes.usr, encoding: .json)
+        let dataRaw: Json = ["id": "12345"]
+        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let encodingModel = RequestEncodingModel(urlParameters: urlParameters, raw: dataRaw, encoding: .json)
 
-        _ = requestTransformNode.process(encodableModel)
+        _ = requestEncodingNode.process(encodingModel)
 
         // Assert
 

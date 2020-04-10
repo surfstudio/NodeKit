@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Модель для передачи параметров на транспортном сле цепочки.
+/// Модель для передачи параметров на транспортном слое цепочки.
 public struct TransportUrlParameters {
     /// HTTP метод.
     public let method: Method

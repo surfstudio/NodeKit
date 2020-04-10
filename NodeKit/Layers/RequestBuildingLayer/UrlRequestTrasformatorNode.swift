@@ -10,7 +10,7 @@ enum RequestEncodingError: Error {
 open class UrlRequestTrasformatorNode<Raw, Type>: Node<EncodableRequestModel<UrlRouteProvider, Raw, ParametersEncoding>, Type> {
 
     /// Следйющий узел для обработки.
-    public var next: Node<TransportUrlRequest, Type>
+    public var next: Node<RequestEncodingModel<Raw>, Type>
 
     /// HTTP метод для запроса.
     public var method: Method
@@ -20,7 +20,7 @@ open class UrlRequestTrasformatorNode<Raw, Type>: Node<EncodableRequestModel<Url
     /// - Parameters:
     ///   - next: Следйющий узел для обработки.
     ///   - method: HTTP метод для запроса.
-    public init(next: Node<TransportUrlRequest, Type>, method: Method) {
+    public init(next: Node<RequestEncodingModel<Raw>, Type>, method: Method) {
         self.next = next
         self.method = method
     }
@@ -42,32 +42,10 @@ open class UrlRequestTrasformatorNode<Raw, Type>: Node<EncodableRequestModel<Url
                                             url: url,
                                             headers: data.metadata)
 
-        let paramEncoding = { () -> ParameterEncoding in
-            guard self.method == .get else {
-                return data.encoding.raw
-            }
-            return URLEncoding.default
-        }()
-
-        let request: TransportUrlRequest?
-
-        if let jsonData = data.raw as? Json {
-            do {
-                request = try paramEncoding.encode(urlParameters: params, parameters: jsonData)
-            } catch {
-                return .emit(error: error)
-            }
-        } else if let bsonData = data.raw as? Bson {
-            let body = params.method != .get ? bsonData.makeData() : nil
-            request = TransportUrlRequest(with: params, raw: body)
-        } else {
-            request = nil
-        }
-
-        guard let unwrappedRequest = request else {
-            return .emit(error: RequestEncodingError.unsupportedDataType)
-        }
-
-        return next.process(unwrappedRequest)
+        let encodingModel = RequestEncodingModel(urlParameters: params,
+                                                 raw: data.raw,
+                                                 encoding: data.encoding)
+        return next.process(encodingModel)
     }
+
 }
