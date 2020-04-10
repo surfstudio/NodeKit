@@ -29,8 +29,7 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
 
         var request = URLRequest(url: data.url)
         request.method = data.method.http
-        // TODO: Remove unwrap
-        request.httpBody = try! JSONSerialization.data(withJSONObject: data.raw, options: .prettyPrinted)
+        request.httpBody = data.raw
         mergedHeaders.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
 
         return self.next.process(request).log(self.getLogMessage(data))
@@ -42,8 +41,7 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
         message += "method: \(data.method.http.rawValue)\n\t"
         message += "url: \(data.url.absoluteString)\n\t"
         message += "headers: \(data.headers)\n\t"
-        message += "raw: \(data.raw)\n\t"
-        message += "parametersEncoding: \(data.parametersEncoding)"
+        message += "raw: \(String(describing: data.raw))\n\t"
 
         return Log(message, id: self.objectName, order: LogOrder.requestCreatorNode)
     }

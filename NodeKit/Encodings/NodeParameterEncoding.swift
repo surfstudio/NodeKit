@@ -24,6 +24,29 @@
 
 import Alamofire
 
+/// A type used to define how a set of parameters are applied to a `URLRequest`.
+public protocol ParameterEncoding {
+    /// Creates a URL request by encoding parameters and applying them onto an existing request.
+    ///
+    /// - parameter urlRequest: The request to have parameters applied.
+    /// - parameter parameters: The parameters to apply.
+    ///
+    /// - throws: An `AFError.parameterEncodingFailed` error if encoding fails.
+    ///
+    /// - returns: The encoded request.
+    func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest
+
+    /// Create a TransportUrlRequest model by encoding parameters and apply them into an exisiting url parameters
+    ///
+    /// - parameter urlParameters: The request parameters that should by applied
+    /// - parameter parameters: Raw `Json` parameters to apply
+    ///
+    /// - throws: An `AFError.parameterEncodingFailed` error if encoding fails.
+    ///
+    /// - returns: The encoded TransportUrlRequest.
+    func encode(urlParameters: TransportUrlParameters, parameters: Json?) throws -> TransportUrlRequest
+}
+
 // MARK: -
 
 /// Creates a url-encoded query string to be set as or appended to any existing URL query string or set as the HTTP

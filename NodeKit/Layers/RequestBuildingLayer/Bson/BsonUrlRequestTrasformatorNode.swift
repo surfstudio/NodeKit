@@ -39,10 +39,11 @@ open class BsonUrlRequestTransformatorNode<Type>: Node<EncodableRequestModel<Url
             return .emit(error: error)
         }
 
+        // TODO: Neew new node 
+
         let params = TransportUrlParameters(method: self.method,
                                             url: url,
-                                            headers: data.metadata,
-                                            parametersEncoding: data.encoding)
+                                            headers: data.metadata)
 
         let request = TransportUrlBsonRequest(with: params, raw: data.raw)
 

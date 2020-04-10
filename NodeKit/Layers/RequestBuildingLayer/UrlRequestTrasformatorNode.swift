@@ -1,8 +1,13 @@
 import Foundation
+import Alamofire
+
+enum RequestEncodingError: Error {
+    case unsupportedDataType
+}
 
 /// Этот узел переводит Generic запрос в конкретную реализацию.
 /// Данный узел работает с URL-запросами, по HTTP протоколу с JSON
-open class UrlRequestTrasformatorNode<Type>: Node<EncodableRequestModel<UrlRouteProvider, Data, ParametersEncoding>, Type> {
+open class UrlRequestTrasformatorNode<Raw, Type>: Node<EncodableRequestModel<UrlRouteProvider, Raw, ParametersEncoding>, Type> {
 
     /// Следйющий узел для обработки.
     public var next: Node<TransportUrlRequest, Type>
@@ -23,7 +28,7 @@ open class UrlRequestTrasformatorNode<Type>: Node<EncodableRequestModel<UrlRoute
     /// Конструирует модель для для работы на транспортном уровне цепочки.
     ///
     /// - Parameter data: Данные для дальнейшей обработки.
-    open override func process(_ data: EncodableRequestModel<UrlRouteProvider, Data, ParametersEncoding>) -> Observer<Type> {
+    open override func process(_ data: EncodableRequestModel<UrlRouteProvider, Raw, ParametersEncoding>) -> Observer<Type> {
 
         var url: URL
 
@@ -35,11 +40,34 @@ open class UrlRequestTrasformatorNode<Type>: Node<EncodableRequestModel<UrlRoute
 
         let params = TransportUrlParameters(method: self.method,
                                             url: url,
-                                            headers: data.metadata,
-                                            parametersEncoding: data.encoding)
+                                            headers: data.metadata)
 
-        let request = TransportUrlRequest(with: params, raw: data.raw)
+        let paramEncoding = { () -> ParameterEncoding in
+            guard self.method == .get else {
+                return data.encoding.raw
+            }
+            return URLEncoding.default
+        }()
 
-        return next.process(request)
+        let request: TransportUrlRequest?
+
+        if let jsonData = data.raw as? Json {
+            do {
+                request = try paramEncoding.encode(urlParameters: params, parameters: jsonData)
+            } catch {
+                return .emit(error: error)
+            }
+        } else if let bsonData = data.raw as? Bson {
+            let body = params.method != .get ? bsonData.makeData() : nil
+            request = TransportUrlRequest(with: params, raw: body)
+        } else {
+            request = nil
+        }
+
+        guard let unwrappedRequest = request else {
+            return .emit(error: RequestEncodingError.unsupportedDataType)
+        }
+
+        return next.process(unwrappedRequest)
     }
 }

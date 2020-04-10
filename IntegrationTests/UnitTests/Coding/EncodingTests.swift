@@ -17,6 +17,31 @@ import NodeKit
 
 public class EncodingTests: XCTestCase {
 
+    enum EncodingRoutes: UrlRouteProvider {
+
+        enum Exception: Error {
+            case badUrl
+        }
+
+        case usr
+
+        func url() throws -> URL {
+            guard let url = self.tryToGetUrl() else {
+                throw Exception.badUrl
+            }
+
+            return url
+        }
+
+        func tryToGetUrl() -> URL? {
+            switch self {
+            case .usr:
+                return URL(string: "http://test.com/usr")
+            }
+        }
+
+    }
+
     class StubNext: RequestProcessingLayerNode {
 
         var request: URLRequest! = nil
@@ -33,22 +58,19 @@ public class EncodingTests: XCTestCase {
 
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
+        let requestTransformNode = UrlRequestTrasformatorNode<Json, Json>(next: node, method: .post)
         let url = "http://test.com/usr"
 
         // Act
 
-        let params = TransportUrlParameters(method: .post,
-                                            url: URL(string: url)!,
-                                            headers: [:],
-                                            parametersEncoding: .formUrl)
-        let trasportReq = TransportUrlRequest(with: params, raw: ["id": "123455"])
+        let dataRaw = ["id": "123455"]
+        let encodableModel = EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>(metadata: [:], raw: dataRaw, route: EncodingRoutes.usr, encoding: .formUrl)
 
-        _ = node.process(trasportReq)
+        _ = requestTransformNode.process(encodableModel)
 
         // Assert
 
         XCTAssertEqual(nextNode.request.url!.absoluteString, url)
-//        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, url)
     }
 
     public func testUrlQueryConvertionWork() {
@@ -56,22 +78,19 @@ public class EncodingTests: XCTestCase {
 
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
+        let requestTransformNode = UrlRequestTrasformatorNode<Json, Json>(next: node, method: .post)
         let url = "http://test.com/usr"
 
         // Act
 
-        let params = TransportUrlParameters(method: .post,
-                                            url: URL(string: url)!,
-                                            headers: [:],
-                                            parametersEncoding: .urlQuery)
-        let trasportReq = TransportUrlRequest(with: params, raw: ["id": "12345"])
+        let dataRaw = ["id": "12345"]
+        let encodableModel = EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>(metadata: [:], raw: dataRaw, route: EncodingRoutes.usr, encoding: .urlQuery)
 
-        _ = node.process(trasportReq)
+        _ = requestTransformNode.process(encodableModel)
 
         // Assert
 
         XCTAssertEqual(nextNode.request.url!.absoluteString, "\(url)?id=12345")
-//        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, "\(url)?id=12345")
     }
 
     func testJsonConvertionWork() {
@@ -79,20 +98,19 @@ public class EncodingTests: XCTestCase {
 
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
+        let requestTransformNode = UrlRequestTrasformatorNode<Json, Json>(next: node, method: .post)
         let url = "http://test.com/usr"
 
         // Act
 
-        let params = TransportUrlParameters(method: .post,
-                                            url: URL(string: url)!,
-                                            headers: [:], parametersEncoding: .json)
-        let trasportReq = TransportUrlRequest(with: params, raw: ["id": "12345"])
+        let dataRaw = ["id": "12345"]
+        let encodableModel = EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding>(metadata: [:], raw: dataRaw, route: EncodingRoutes.usr, encoding: .json)
 
-        _ = node.process(trasportReq)
+        _ = requestTransformNode.process(encodableModel)
 
         // Assert
 
         XCTAssertEqual(nextNode.request.url!.absoluteString, url)
-//        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, url)
     }
+
 }

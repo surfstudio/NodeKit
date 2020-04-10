@@ -73,7 +73,6 @@
 		B199E766223CF26A0001FE17 /* TransportUrlParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E765223CF26A0001FE17 /* TransportUrlParameters.swift */; };
 		B199E768223CF2920001FE17 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E767223CF2920001FE17 /* Method.swift */; };
 		B199E76A223CF2A10001FE17 /* ParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E769223CF2A10001FE17 /* ParametersEncoding.swift */; };
-		B19D5172226776000081E259 /* JsonArrayEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19D5171226776000081E259 /* JsonArrayEncoding.swift */; };
 		B19FB540224664FA0038B12B /* VoidInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FB53F224664FA0038B12B /* VoidInputNode.swift */; };
 		B1A575562250A85A00DEF33E /* EncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A575542250A83200DEF33E /* EncodingTests.swift */; };
 		B1A57559225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A57558225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift */; };
@@ -231,7 +230,6 @@
 		B199E765223CF26A0001FE17 /* TransportUrlParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportUrlParameters.swift; sourceTree = "<group>"; };
 		B199E767223CF2920001FE17 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		B199E769223CF2A10001FE17 /* ParametersEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametersEncoding.swift; sourceTree = "<group>"; };
-		B19D5171226776000081E259 /* JsonArrayEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonArrayEncoding.swift; sourceTree = "<group>"; };
 		B19FB53E2246601E0038B12B /* SimpleExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = SimpleExample.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B19FB53F224664FA0038B12B /* VoidInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidInputNode.swift; sourceTree = "<group>"; };
 		B1A575542250A83200DEF33E /* EncodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingTests.swift; sourceTree = "<group>"; };
@@ -679,7 +677,6 @@
 			isa = PBXGroup;
 			children = (
 				57D113282440779200B8AB07 /* NodeParameterEncoding.swift */,
-				B19D5171226776000081E259 /* JsonArrayEncoding.swift */,
 			);
 			path = Encodings;
 			sourceTree = "<group>";
@@ -1296,7 +1293,6 @@
 				B1118EED21C8B772007AD599 /* DTOConvertible.swift in Sources */,
 				B172440C2264EFB800CC9F70 /* EntryinputDtoOutputNode.swift in Sources */,
 				B9D5B2312337E1D100D66488 /* MultipartFileProvider.swift in Sources */,
-				B19D5172226776000081E259 /* JsonArrayEncoding.swift in Sources */,
 				B1B7615122080C4800AE3303 /* LayerTypes.swift in Sources */,
 				B9D5B2272337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift in Sources */,
 				B1118EEB21C8B72D007AD599 /* RawMappable.swift in Sources */,

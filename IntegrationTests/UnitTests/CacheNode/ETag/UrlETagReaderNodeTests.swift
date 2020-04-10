@@ -37,7 +37,7 @@ public class UrlETagReaderNodeTests: XCTestCase {
 
         let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccess")!
         let params = TransportUrlParameters(method: .get, url: url)
-        let request = TransportUrlRequest(with:params , raw: [:])
+        let request = TransportUrlRequest(with:params , raw: Data())
 
         let expectation = self.expectation(description: "\(#function)")
 
@@ -76,7 +76,7 @@ public class UrlETagReaderNodeTests: XCTestCase {
 
         let url = URL(string: "http://UrlETagReaderNodeTests/testNotReadIfTagNotExist")!
         let params = TransportUrlParameters(method: .get, url: url)
-        let request = TransportUrlRequest(with:params , raw: [:])
+        let request = TransportUrlRequest(with:params , raw: Data())
 
         let expectation = self.expectation(description: "\(#function)")
 
@@ -115,7 +115,7 @@ public class UrlETagReaderNodeTests: XCTestCase {
 
         let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccessWithCustomKey")!
         let params = TransportUrlParameters(method: .get, url: url)
-        let request = TransportUrlRequest(with:params , raw: [:])
+        let request = TransportUrlRequest(with:params , raw: Data())
 
         let expectation = self.expectation(description: "\(#function)")
 

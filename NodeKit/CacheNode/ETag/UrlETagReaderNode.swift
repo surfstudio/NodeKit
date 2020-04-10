@@ -39,10 +39,10 @@ open class UrlETagReaderNode: TransportLayerNode {
         var headers = data.headers
         headers[self.etagHeaderKey] = tag
 
+        // TODO: Need rewrite 
         let params = TransportUrlParameters(method: data.method,
                                             url: data.url,
-                                            headers: headers,
-                                            parametersEncoding: data.parametersEncoding)
+                                            headers: headers)
 
         let newData = TransportUrlRequest(with: params, raw: data.raw)
 
