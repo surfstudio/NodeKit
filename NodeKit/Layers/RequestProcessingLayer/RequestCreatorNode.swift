@@ -10,19 +10,22 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
     /// Провайдеры мета-данных
     public var providers: [MetadataProvider]
 
+    /// Менеджер сессий
+    private(set) var manager: Session
+
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<RawUrlRequest, Output>, providers: [MetadataProvider] = []) {
+    public init(next: Node<RawUrlRequest, Output>, providers: [MetadataProvider] = [], session: Session? = nil) {
         self.next = next
         self.providers = providers
+        self.manager = session ?? ServerRequestsManager.shared.manager
     }
 
     /// Конфигурирует низкоуровненвый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open override func process(_ data: TransportUrlRequest) -> Observer<Output> {
-        let manager = ServerRequestsManager.shared.manager
 
         let paramEncoding = {() -> ParameterEncoding in
             if data.method == .get {
