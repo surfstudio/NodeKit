@@ -27,6 +27,7 @@ open class UrlRequestEncodingNode<Raw, Type>: Node<RequestEncodingModel<Raw>, Ty
     }
 
     open override func process(_ data: RequestEncodingModel<Raw>) -> Observer<Type> {
+        var log = getLogMessage(data)
         let request: TransportUrlRequest?
 
         let paramEncoding = { () -> ParameterEncoding in
@@ -39,21 +40,40 @@ open class UrlRequestEncodingNode<Raw, Type>: Node<RequestEncodingModel<Raw>, Ty
         if let jsonData = data.raw as? Json {
             do {
                 request = try paramEncoding.encode(urlParameters: data.urlParameters, parameters: jsonData)
+                log.message += "type: Json"
             } catch {
-                return .emit(error: error)
+                log += "But cant encode data -> terminate with error"
+                return Context<Type>().log(log).emit(error: RequestEncodingError.unsupportedDataType)
             }
         } else if let bsonData = data.raw as? Bson {
             let body = data.urlParameters.method != .get ? bsonData.makeData() : nil
             request = TransportUrlRequest(with: data.urlParameters, raw: body)
+            log.message += "type: Bson"
         } else {
             request = nil
+            log.message += "type: Unsupported"
         }
 
         guard let unwrappedRequest = request else {
-            return .emit(error: RequestEncodingError.unsupportedDataType)
+            log += "Unsupported data type -> terminate with error"
+            return Context<Type>().log(log).emit(error: RequestEncodingError.unsupportedDataType)
         }
 
-        return next.process(unwrappedRequest)
+        return next.process(unwrappedRequest).log(log)
+    }
+
+}
+
+// MARK: - Help Methods
+
+private extension UrlRequestEncodingNode {
+
+    func getLogMessage(_ data: RequestEncodingModel<Raw>) -> Log {
+        var message = "<<<===\(self.objectName)===>>>\n"
+        message += "input: \(type(of: data))"
+        message += "encoding: \(data.encoding)"
+        message += "raw: \(String(describing: data.raw))"
+        return Log(message, id: self.objectName, order: LogOrder.requestEncodingNode)
     }
 
 }
