@@ -29,15 +29,11 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
     /// Следующий узел для обработки.
     public var next: Node<URLRequest, Output>
 
-    /// Менеджер сессий
-    private(set) var manager: Session
-
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<URLRequest, Output>, session: Session? = nil) {
+    public init(next: Node<URLRequest, Output>) {
         self.next = next
-        self.manager = session ?? ServerRequestsManager.shared.oldManager
     }
 
     /// Конфигурирует низкоуровненвый запрос.

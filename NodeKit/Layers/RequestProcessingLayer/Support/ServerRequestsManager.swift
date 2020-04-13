@@ -19,8 +19,6 @@ public class ServerRequestsManager {
     /// Менеджер сессий.
     public let manager: URLSession
 
-    public let oldManager: Session
-
     private init() {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForResource = 60 * 3
@@ -28,6 +26,6 @@ public class ServerRequestsManager {
         configuration.requestCachePolicy = .reloadIgnoringCacheData
         configuration.urlCache = nil
         self.manager = URLSession(configuration: configuration)
-        self.oldManager = Alamofire.Session(configuration: configuration)
     }
+
 }
