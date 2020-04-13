@@ -10,7 +10,6 @@ import Foundation
 
 
 /// Этот узел позволяет добавить любые хедеры в запрос.
-/// - SeeAlso: TransportLayerNode
 open class HeaderInjectorNode<Type>: Node<TransportUrlRequest, Type> {
 
     /// Следующий в цепочке узел.

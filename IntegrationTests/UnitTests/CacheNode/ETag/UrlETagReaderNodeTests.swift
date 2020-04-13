@@ -14,7 +14,7 @@ import NodeKit
 
 public class UrlETagReaderNodeTests: XCTestCase {
 
-    class MockNode: TransportLayerNode {
+    class MockNode: Node<TransportUrlRequest, Json> {
 
         var tag: String? = nil
 

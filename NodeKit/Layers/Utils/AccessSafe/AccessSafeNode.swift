@@ -47,10 +47,10 @@ public enum AccessSafeNodeError: Error {
 /// - SeeAlso:
 ///     - `TransportLayerNode`
 ///     - `TokenRefresherNode`
-open class AccessSafeNode: TransportLayerNode {
+open class AccessSafeNode<Type>: Node<TransportUrlRequest, Type> {
 
     /// Следующий в цепочке узел.
-    public var next: TransportLayerNode
+    public var next: Node<TransportUrlRequest, Type>
 
     /// Цепочка для обновления токена.
     /// Эта цепочкаа в самом начале должна выключать узел, который имплементирует заморозку запросов и их возобновление.
@@ -62,15 +62,15 @@ open class AccessSafeNode: TransportLayerNode {
     /// - Parameters:
     ///   - next: Следующий в цепочке узел.
     ///   - updateTokenChain: Цепочка для обновления токена.
-    public init(next: TransportLayerNode, updateTokenChain: Node<Void, Void>) {
+    public init(next: Node<TransportUrlRequest, Type>, updateTokenChain: Node<Void, Void>) {
         self.next = next
         self.updateTokenChain = updateTokenChain
     }
 
     /// Просто передает управление следующему узлу.
     /// В случае если вернулась доступа, то обноляет токен и повторяет запрос.
-    override open func process(_ data: TransportUrlRequest) -> Observer<Json> {
-        return self.next.process(data).mapError { error -> Observer<Json> in
+    override open func process(_ data: TransportUrlRequest) -> Observer<Type> {
+        return self.next.process(data).mapError { error -> Observer<Type> in
             switch error {
             case ResponseHttpErrorProcessorNodeError.forbidden, ResponseHttpErrorProcessorNodeError.unauthorized:
                 return self.updateTokenChain.process(()).map { _ in

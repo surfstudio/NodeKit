@@ -14,13 +14,12 @@
 		5713879E24378D5D00E4134A /* CustomServiceChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713879D24378D5D00E4134A /* CustomServiceChain.swift */; };
 		571387A024378DF100E4134A /* BsonChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5713879F24378DF100E4134A /* BsonChain.swift */; };
 		577722172434EB40001AC3DB /* VoidBsonOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577722162434EB40001AC3DB /* VoidBsonOutputNode.swift */; };
-		5777221A2435E497001AC3DB /* BsonRequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577722192435E497001AC3DB /* BsonRequestCreatorNode.swift */; };
 		5777221C2435E8BF001AC3DB /* TransportUrlBsonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777221B2435E8BF001AC3DB /* TransportUrlBsonRequest.swift */; };
-		5777221F2435F4EA001AC3DB /* BsonUrlRequestTrasformatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777221E2435F4EA001AC3DB /* BsonUrlRequestTrasformatorNode.swift */; };
 		577722242435F9C0001AC3DB /* VoidBsonInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577722232435F9C0001AC3DB /* VoidBsonInputNode.swift */; };
 		57A34FFD2437182D00F67D86 /* VoidBsonIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A34FFC2437182D00F67D86 /* VoidBsonIONode.swift */; };
 		57A34FFF24377A1600F67D86 /* DTOConvertible+Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A34FFE24377A1600F67D86 /* DTOConvertible+Document.swift */; };
 		57CA5C6F2440BFCD00104FB6 /* UrlRequestEncodingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CA5C6E2440BFCD00104FB6 /* UrlRequestEncodingNode.swift */; };
+		57CA5C712444639F00104FB6 /* RequestEncodingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CA5C702444639F00104FB6 /* RequestEncodingModel.swift */; };
 		57D113292440779200B8AB07 /* NodeParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D113282440779200B8AB07 /* NodeParameterEncoding.swift */; };
 		57DA0E14243375E300ED0AA8 /* ResponseBsonDataParserNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0E13243375E300ED0AA8 /* ResponseBsonDataParserNode.swift */; };
 		57DA0E1D2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0E1C2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift */; };
@@ -166,14 +165,13 @@
 		5713879D24378D5D00E4134A /* CustomServiceChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomServiceChain.swift; sourceTree = "<group>"; };
 		5713879F24378DF100E4134A /* BsonChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BsonChain.swift; sourceTree = "<group>"; };
 		577722162434EB40001AC3DB /* VoidBsonOutputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidBsonOutputNode.swift; sourceTree = "<group>"; };
-		577722192435E497001AC3DB /* BsonRequestCreatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BsonRequestCreatorNode.swift; sourceTree = "<group>"; };
 		5777221B2435E8BF001AC3DB /* TransportUrlBsonRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportUrlBsonRequest.swift; sourceTree = "<group>"; };
-		5777221E2435F4EA001AC3DB /* BsonUrlRequestTrasformatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BsonUrlRequestTrasformatorNode.swift; sourceTree = "<group>"; };
 		577722232435F9C0001AC3DB /* VoidBsonInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidBsonInputNode.swift; sourceTree = "<group>"; };
 		5777A9DA3AF74A9441C27193 /* Pods-NodeKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit/Pods-NodeKit.debug.xcconfig"; sourceTree = "<group>"; };
 		57A34FFC2437182D00F67D86 /* VoidBsonIONode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidBsonIONode.swift; sourceTree = "<group>"; };
 		57A34FFE24377A1600F67D86 /* DTOConvertible+Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTOConvertible+Document.swift"; sourceTree = "<group>"; };
 		57CA5C6E2440BFCD00104FB6 /* UrlRequestEncodingNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRequestEncodingNode.swift; sourceTree = "<group>"; };
+		57CA5C702444639F00104FB6 /* RequestEncodingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncodingModel.swift; sourceTree = "<group>"; };
 		57D113282440779200B8AB07 /* NodeParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeParameterEncoding.swift; sourceTree = "<group>"; };
 		57DA0E13243375E300ED0AA8 /* ResponseBsonDataParserNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBsonDataParserNode.swift; sourceTree = "<group>"; };
 		57DA0E1C2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBsonDataPreprocessorNode.swift; sourceTree = "<group>"; };
@@ -352,22 +350,6 @@
 			path = Chains;
 			sourceTree = "<group>";
 		};
-		577722182435E484001AC3DB /* Bson */ = {
-			isa = PBXGroup;
-			children = (
-				577722192435E497001AC3DB /* BsonRequestCreatorNode.swift */,
-			);
-			path = Bson;
-			sourceTree = "<group>";
-		};
-		5777221D2435F4DD001AC3DB /* Bson */ = {
-			isa = PBXGroup;
-			children = (
-				5777221E2435F4EA001AC3DB /* BsonUrlRequestTrasformatorNode.swift */,
-			);
-			path = Bson;
-			sourceTree = "<group>";
-		};
 		577722202435F984001AC3DB /* Bson */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,7 +429,6 @@
 		B10D4BED222DF43F006B9EE9 /* RequestBuildingLayer */ = {
 			isa = PBXGroup;
 			children = (
-				5777221D2435F4DD001AC3DB /* Bson */,
 				B91447B323817FCA00D2912A /* URLQueryEncoding */,
 				B10D4BFD222DF4E9006B9EE9 /* Protocols */,
 				B10D4BEE222DF453006B9EE9 /* Models */,
@@ -471,6 +452,7 @@
 				B10D4BF1222DF472006B9EE9 /* RoutableRequestModel.swift */,
 				B10D4BF3222DF48D006B9EE9 /* EncodableRequestModel.swift */,
 				B91447C42381A22E00D2912A /* URLQueryConfigModel.swift */,
+				57CA5C702444639F00104FB6 /* RequestEncodingModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -579,7 +561,6 @@
 		B13E04F221C7F42300956853 /* RequestProcessingLayer */ = {
 			isa = PBXGroup;
 			children = (
-				577722182435E484001AC3DB /* Bson */,
 				B1E61E4C2246761400B3AAD9 /* Support */,
 				B1118EF521C8C7E3007AD599 /* RequestCreatorNode.swift */,
 				B160C91E2212A41500C94859 /* TechnicaErrorMapperNode.swift */,
@@ -1264,6 +1245,7 @@
 				B10D4BF8222DF4B1006B9EE9 /* RequestRouterNode.swift in Sources */,
 				B10CA5282259D545002885B3 /* Logable.swift in Sources */,
 				B156807F222C6BD300BC8D91 /* MulticastContext.swift in Sources */,
+				57CA5C712444639F00104FB6 /* RequestEncodingModel.swift in Sources */,
 				B1B7616D220862BE00AE3303 /* UrlCacheWriterNode.swift in Sources */,
 				B9945BBF238170960077C14A /* URLQueryInjectorNode.swift in Sources */,
 				B1E61E502246772F00B3AAD9 /* Method+Alamofire.swift in Sources */,
@@ -1286,7 +1268,6 @@
 				B98DC5AA237B596500293379 /* MockerProxyConfigNode.swift in Sources */,
 				B10D4BE9222DE450006B9EE9 /* UrlRouteProvider.swift in Sources */,
 				B1F0C6FF21B1DDCF00382FA5 /* ReqestSenderNode.swift in Sources */,
-				5777221A2435E497001AC3DB /* BsonRequestCreatorNode.swift in Sources */,
 				B1118EF721C8CBDC007AD599 /* ResponseProcessorNode.swift in Sources */,
 				57DA0E14243375E300ED0AA8 /* ResponseBsonDataParserNode.swift in Sources */,
 				B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */,
@@ -1317,7 +1298,6 @@
 				B1F0C70A21B1DDCF00382FA5 /* Node.swift in Sources */,
 				B10D4BF0222DF45E006B9EE9 /* RequestModel.swift in Sources */,
 				B15E54B322901C2800B62E24 /* RawEncoderNode.swift in Sources */,
-				5777221F2435F4EA001AC3DB /* BsonUrlRequestTrasformatorNode.swift in Sources */,
 				B1B7613C2207A87100AE3303 /* Array+RawMappable.swift in Sources */,
 				B10FB24222079CA7004C65E3 /* ResponseDataParserNode.swift in Sources */,
 				B17451C92263652C0058AFE4 /* LoadIndicatorNode.swift in Sources */,

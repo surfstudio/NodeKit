@@ -13,22 +13,6 @@ enum RequestEncodingNodeError: Error {
     case unsupportedDataType
 }
 
-public struct RequestEncodingModel<Raw> {
-
-    public let urlParameters: TransportUrlParameters
-    public let raw: Raw
-    public let encoding: ParametersEncoding
-
-    public init(urlParameters: TransportUrlParameters,
-                raw: Raw,
-                encoding: ParametersEncoding) {
-        self.urlParameters = urlParameters
-        self.raw = raw
-        self.encoding = encoding
-    }
-
-}
-
 open class UrlRequestEncodingNode<Raw, Type>: Node<RequestEncodingModel<Raw>, Type> {
 
     /// Следйющий узел для обработки.
