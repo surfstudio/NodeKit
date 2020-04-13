@@ -45,12 +45,17 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open override func process(_ data: MultipartUrlRequest) -> Observer<Output> {
 
-        let request = manager.upload(multipartFormData: { (multipartForm) in
-            self.append(multipartForm: multipartForm, with: data)
-        }, to: data.url, method: data.method.http, headers: .init(data.headers))
-
-        // TODO: Rebuild multipart request
-        return self.next.process(RawUrlRequest(dataRequest: request).dataRequest.request!).log(self.getLogMessage(data))
+        let formData = MultipartFormData(fileManager: FileManager.default)
+        append(multipartForm: formData, with: data)
+        do {
+            var request = try URLRequest(url: data.url, method: data.method.http, headers: HTTPHeaders(data.headers))
+            let encodedFormData = try formData.encode()
+            request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
+            request.httpBody = encodedFormData
+            return self.next.process(request).log(self.getLogMessage(data))
+        } catch {
+            return .emit(error: error)
+        }
     }
 
     private func getLogMessage(_ data: MultipartUrlRequest) -> Log {
