@@ -15,7 +15,7 @@ public struct RequestEncodingModel<Raw> {
     /// Данные в виде `BSON` или `JSON`
     public let raw: Raw
     /// Кодировка данных запроса
-    public let encoding: ParametersEncoding
+    public let encoding: ParametersEncoding?
 
     /// Инцииаллизирует объект.
     /// - Parameter urlParameters: Параметры для формирования запроса.
@@ -23,7 +23,7 @@ public struct RequestEncodingModel<Raw> {
     /// - Parameter encoding: Кодировка данных запроса
     public init(urlParameters: TransportUrlParameters,
                 raw: Raw,
-                encoding: ParametersEncoding) {
+                encoding: ParametersEncoding?) {
         self.urlParameters = urlParameters
         self.raw = raw
         self.encoding = encoding

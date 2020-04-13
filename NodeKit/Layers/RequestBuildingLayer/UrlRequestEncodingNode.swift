@@ -30,16 +30,16 @@ open class UrlRequestEncodingNode<Raw, Type>: Node<RequestEncodingModel<Raw>, Ty
         var log = getLogMessage(data)
         let request: TransportUrlRequest?
 
-        let paramEncoding = { () -> ParameterEncoding in
+        let paramEncoding = { () -> ParameterEncoding? in
             guard data.urlParameters.method == .get else {
-                return data.encoding.raw
+                return data.encoding?.raw
             }
             return URLEncoding.default
         }()
 
-        if let jsonData = data.raw as? Json {
+        if let jsonData = data.raw as? Json, let encoding = paramEncoding {
             do {
-                request = try paramEncoding.encode(urlParameters: data.urlParameters, parameters: jsonData)
+                request = try encoding.encode(urlParameters: data.urlParameters, parameters: jsonData)
                 log.message += "type: Json"
             } catch {
                 log += "But cant encode data -> terminate with error"

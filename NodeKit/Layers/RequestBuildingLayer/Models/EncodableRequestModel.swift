@@ -23,5 +23,5 @@ public struct EncodableRequestModel<Route, Raw, Encoding> {
     /// Маршрут до удаленного метода
     public var route: Route
     /// Кодировка данных запроса
-    public var encoding: Encoding
+    public var encoding: Encoding?
 }

@@ -29,11 +29,6 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     /// По-умолчанию GET
     public var method: Method
 
-    /// Кодировка данных для запроса.
-    ///
-    /// По умолчанию`.json`
-    public var encoding: ParametersEncoding
-
     /// В случае классического HTTP это Header'ы запроса.
     /// По-умолчанию пустой.
     public var metadata: [String: String]
@@ -60,7 +55,6 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
 
         self.metadata = [:]
         self.method = .get
-        self.encoding = .bson
         self.headersProviders = []
         self.logFilter = []
     }
@@ -120,11 +114,6 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
-    open func encode(as encoding: ParametersEncoding) -> Self {
-        self.encoding = encoding
-        return self
-    }
-
     open func add(provider: MetadataProvider) -> Self {
         self.headersProviders.append(provider)
         return self
@@ -147,7 +136,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
 
         let urlRequestEncodingNode = UrlRequestEncodingNode<Bson, Bson>(next: transportChain)
         let urlRequestTrasformatorNode = UrlRequestTrasformatorNode<Bson, Bson>(next: urlRequestEncodingNode, method: self.method)
-        let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
+        let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: nil)
 
         let queryInjector = URLQueryInjectorNode(next: requstEncoderNode, config: self.urlQueryConfig)
 
