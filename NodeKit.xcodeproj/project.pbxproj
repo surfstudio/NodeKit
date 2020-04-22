@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		46E5DFE26AAAEF094F0F40E7 /* Pods_NodeKit_IntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */; };
-		5732004C23D4D83400A51FB3 /* PaginationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5732004B23D4D83400A51FB3 /* PaginationModel.swift */; };
+		5732004C23D4D83400A51FB3 /* OffsetPaginationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5732004B23D4D83400A51FB3 /* OffsetPaginationModel.swift */; };
+		57682CC024508603002B63EE /* PaginationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57682CBF24508603002B63EE /* PaginationModel.swift */; };
+		57682CC2245087E8002B63EE /* PagesPaginationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57682CC1245087E8002B63EE /* PagesPaginationModel.swift */; };
+		57682CC4245088BD002B63EE /* CursorPaginationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57682CC3245088BD002B63EE /* CursorPaginationModel.swift */; };
 		57E7B64F23DDF3900036A02E /* CancelableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E7B64E23DDF3900036A02E /* CancelableContext.swift */; };
 		81DE7744A4629F6178E37B74 /* Pods_NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93D4D7B8501ED5C5089E938 /* Pods_NodeKit.framework */; };
 		89F34DC223F6DCBC0026EE40 /* DeferCallingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F34DC123F6DCBC0026EE40 /* DeferCallingTests.swift */; };
@@ -146,7 +149,10 @@
 		1FA15CD5765BC3071AC74B9E /* Pods-NodeKit-IntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit-IntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		22AB55338E3AFD7D15EA636E /* Pods-NodeKit-IntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit-IntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NodeKit_IntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5732004B23D4D83400A51FB3 /* PaginationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationModel.swift; sourceTree = "<group>"; };
+		5732004B23D4D83400A51FB3 /* OffsetPaginationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPaginationModel.swift; sourceTree = "<group>"; };
+		57682CBF24508603002B63EE /* PaginationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationModel.swift; sourceTree = "<group>"; };
+		57682CC1245087E8002B63EE /* PagesPaginationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesPaginationModel.swift; sourceTree = "<group>"; };
+		57682CC3245088BD002B63EE /* CursorPaginationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorPaginationModel.swift; sourceTree = "<group>"; };
 		5777A9DA3AF74A9441C27193 /* Pods-NodeKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit/Pods-NodeKit.debug.xcconfig"; sourceTree = "<group>"; };
 		57E7B64E23DDF3900036A02E /* CancelableContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelableContext.swift; sourceTree = "<group>"; };
 		89F34DC123F6DCBC0026EE40 /* DeferCallingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeferCallingTests.swift; sourceTree = "<group>"; };
@@ -310,7 +316,10 @@
 		5732004A23D4D81F00A51FB3 /* Pagination */ = {
 			isa = PBXGroup;
 			children = (
-				5732004B23D4D83400A51FB3 /* PaginationModel.swift */,
+				57682CBF24508603002B63EE /* PaginationModel.swift */,
+				5732004B23D4D83400A51FB3 /* OffsetPaginationModel.swift */,
+				57682CC1245087E8002B63EE /* PagesPaginationModel.swift */,
+				57682CC3245088BD002B63EE /* CursorPaginationModel.swift */,
 			);
 			path = Pagination;
 			sourceTree = "<group>";
@@ -1148,6 +1157,7 @@
 				B1118EF621C8C7E3007AD599 /* RequestCreatorNode.swift in Sources */,
 				B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */,
 				B1DCC1D0224659D6006664C1 /* DTOConvertible+Dictionary.swift in Sources */,
+				57682CC4245088BD002B63EE /* CursorPaginationModel.swift in Sources */,
 				B10AD422223ED5E300B4D7AA /* ETagConstants.swift in Sources */,
 				B10D4BF2222DF472006B9EE9 /* RoutableRequestModel.swift in Sources */,
 				B17BB50F2255190500605AB8 /* UrlRouting.swift in Sources */,
@@ -1162,6 +1172,7 @@
 				B10D4BF8222DF4B1006B9EE9 /* RequestRouterNode.swift in Sources */,
 				B10CA5282259D545002885B3 /* Logable.swift in Sources */,
 				B156807F222C6BD300BC8D91 /* MulticastContext.swift in Sources */,
+				57682CC024508603002B63EE /* PaginationModel.swift in Sources */,
 				B1B7616D220862BE00AE3303 /* UrlCacheWriterNode.swift in Sources */,
 				B9945BBF238170960077C14A /* URLQueryInjectorNode.swift in Sources */,
 				B1E61E502246772F00B3AAD9 /* Method+Alamofire.swift in Sources */,
@@ -1200,6 +1211,7 @@
 				B1F0C70121B1DDCF00382FA5 /* AsyncContext.swift in Sources */,
 				B1B761702208647600AE3303 /* IfServerFailsFromCacheNode.swift in Sources */,
 				B1E61E4E2246762E00B3AAD9 /* RawUrlRequest.swift in Sources */,
+				57682CC2245087E8002B63EE /* PagesPaginationModel.swift in Sources */,
 				B10D4BF6222DF4A1006B9EE9 /* MetadataConnectorNode.swift in Sources */,
 				B1B407F7223524350036326E /* UrlChainConfigModel.swift in Sources */,
 				B1B7615422080E8D00AE3303 /* HeaderInjectorNode.swift in Sources */,
@@ -1219,7 +1231,7 @@
 				B9701CE92281AAC800CFBCD6 /* VoidIONode.swift in Sources */,
 				B1118EF221C8C1B9007AD599 /* DTOMapperNode.swift in Sources */,
 				B1E61E4B224675EE00B3AAD9 /* ServerRequestsManager.swift in Sources */,
-				5732004C23D4D83400A51FB3 /* PaginationModel.swift in Sources */,
+				5732004C23D4D83400A51FB3 /* OffsetPaginationModel.swift in Sources */,
 				B10D4BFA222DF4C6006B9EE9 /* RequstEncoderNode.swift in Sources */,
 				B1E61E522246774E00B3AAD9 /* ParametersEncoding+Alamofire.swift in Sources */,
 				B91447B92381859200D2912A /* URLQueryDictionaryKeyEncodingStrategy.swift in Sources */,

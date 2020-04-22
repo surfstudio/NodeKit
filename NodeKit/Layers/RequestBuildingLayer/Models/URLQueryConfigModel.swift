@@ -5,14 +5,14 @@ public struct URLQueryConfigModel {
     /// Модель из которой создается URL-query.
     public var query: [String: Any] {
         get {
-            var allParameters = _query
-            paginationModel?.query.forEach {
-                allParameters[$0] = $1
-            }
-            return allParameters
+            return _query
         }
         set {
-            _query = newValue
+            var allParameters = _query
+            newValue.forEach {
+                allParameters[$0] = $1
+            }
+            _query = allParameters
         }
     }
 
@@ -28,9 +28,6 @@ public struct URLQueryConfigModel {
     /// - SeeAlso: `URLQueryDictionaryKeyEncodingDefaultStrategy`
     public var dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy
 
-    /// Модель пагинации запросов - позволяет отдельно отслеживать параметры именно для пагинации
-    public var paginationModel: PaginationModel?
-
     // MARK - Private properties
 
     private var _query: [String: Any]
@@ -43,14 +40,12 @@ public struct URLQueryConfigModel {
     public init(query: [String: Any],
                 boolEncodingStartegy: URLQueryBoolEncodingStartegy,
                 arrayEncodingStrategy: URLQueryArrayKeyEncodingStartegy,
-                dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy,
-                paginationModel: PaginationModel?) {
+                dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy) {
 
         self._query = query
         self.boolEncodingStartegy = boolEncodingStartegy
         self.arrayEncodingStrategy = arrayEncodingStrategy
         self.dictEncodindStrategy = dictEncodindStrategy
-        self.paginationModel = paginationModel
     }
 
     /// Инцииаллизирует структуру с дефолтными параметрами стратегий.
@@ -64,8 +59,7 @@ public struct URLQueryConfigModel {
         self.init(query: query,
                   boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy.asInt,
                   arrayEncodingStrategy: URLQueryArrayKeyEncodingBracketsStartegy.brackets,
-                  dictEncodindStrategy: URLQueryDictionaryKeyEncodingDefaultStrategy(),
-                  paginationModel: nil)
+                  dictEncodindStrategy: URLQueryDictionaryKeyEncodingDefaultStrategy())
     }
 
 }

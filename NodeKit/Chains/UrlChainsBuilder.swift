@@ -13,6 +13,9 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     /// Модель для конфигурирования URL-query в запросе.
     public var urlQueryConfig: URLQueryConfigModel
 
+    /// Модель пагинации запросов - позволяет отдельно отслеживать параметры именно для пагинации
+    public var paginationModel: PaginationModel?
+
     /// Массив провайдеров заголовков для запроса.
     /// Эти провайдеры используются перед непосредственной отправкой запроса.
     public var headersProviders: [MetadataProvider]
@@ -91,8 +94,13 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
-    open func set(pagination: PaginationModel) -> Self {
-        self.urlQueryConfig.paginationModel = pagination
+    open func set(pagination: PaginationModel?) -> Self {
+        self.paginationModel = pagination
+        if paginationModel?.encoding == .urlQuery {
+            self.urlQueryConfig.query = paginationModel?.parameters ?? [:]
+        } else if paginationModel?.encoding == .json {
+            
+        }
         return self
     }
 
@@ -138,13 +146,13 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     /// Создает цепочку узлов, описывающих слой построения запроса.
     ///
     /// - Parameter config: Конфигурация для запроса
-    open func requestBuildingChain() ->  Node<Json, Json> {
+    open func requestBuildingChain() -> Node<Json, Json> {
         let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, session: session)
 
         let urlRequestTrasformatorNode = UrlRequestTrasformatorNode(next: transportChain, method: self.method)
-        let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
+        let requestEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
 
-        let queryInjector = URLQueryInjectorNode(next: requstEncoderNode, config: self.urlQueryConfig)
+        let queryInjector = URLQueryInjectorNode(next: requestEncoderNode, config: self.urlQueryConfig)
 
         let requestRouterNode = self.requestRouterNode(next: queryInjector)
 
