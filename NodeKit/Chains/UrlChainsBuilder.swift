@@ -96,10 +96,8 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     open func set(pagination: PaginationModel?) -> Self {
         self.paginationModel = pagination
-        if paginationModel?.encoding == .urlQuery {
-            self.urlQueryConfig.query = paginationModel?.parameters ?? [:]
-        } else if paginationModel?.encoding == .json {
-            
+        if let model = paginationModel, model.encoding == .urlQuery {
+            self.urlQueryConfig.query = model.parameters
         }
         return self
     }
@@ -156,7 +154,8 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let requestRouterNode = self.requestRouterNode(next: queryInjector)
 
-        return MetadataConnectorNode(next: requestRouterNode, metadata: self.metadata)
+
+        return MetadataConnectorNode(next: requestRouterNode, metadata: self.metadata, paginationModel: getPaginationModelJsonEncoding())
     }
 
     /// Создает цепочку для отправки DTO моделей данных.
@@ -238,7 +237,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let queryInjector = URLQueryInjectorNode(next: transformator, config: self.urlQueryConfig)
 
         let router = self.requestRouterNode(next: queryInjector)
-        let connector = MetadataConnectorNode(next: router, metadata: self.metadata)
+        let connector = MetadataConnectorNode(next: router, metadata: self.metadata, paginationModel: getPaginationModelJsonEncoding())
 
         let rawEncoder = DTOMapperNode<I.DTO,O.DTO>(next: connector)
         let dtoEncoder = ModelInputNode<I, O>(next: rawEncoder)
@@ -265,7 +264,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)
 
         let router = self.requestRouterNode(next: queryInjector)
-        let connector = MetadataConnectorNode(next: router, metadata: self.metadata)
+        let connector = MetadataConnectorNode(next: router, metadata: self.metadata, paginationModel: getPaginationModelJsonEncoding())
 
         let indicator = LoadIndicatableNode(next: connector)
         let configNode = ChainConfiguratorNode(next: indicator)
@@ -292,7 +291,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)
 
         let router = self.requestRouterNode(next: queryInjector)
-        let connector = MetadataConnectorNode(next: router, metadata: self.metadata)
+        let connector = MetadataConnectorNode(next: router, metadata: self.metadata, paginationModel: getPaginationModelJsonEncoding())
 
         let rawEncoder = RawEncoderNode<Input.DTO, Data>(next: connector)
         let dtoEncoder = DTOEncoderNode<Input, Data>(rawEncodable: rawEncoder)
@@ -301,5 +300,14 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let configNode = ChainConfiguratorNode(next: indicator)
 
         return LoggerNode(next: configNode, filters: self.logFilter)
+    }
+
+    // MARK: - Private methods
+    private func getPaginationModelJsonEncoding() -> PaginationModel? {
+        guard encoding == .json, encoding == paginationModel?.encoding else {
+            return nil
+        }
+
+        return paginationModel
     }
 }
