@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// Модель пагинации на курсорах
+/// Поддерживает возможность завать предыдущий и следующий индексы
 public class CursorPaginationModel: PaginationModel {
 
     // MARK: - Private properties

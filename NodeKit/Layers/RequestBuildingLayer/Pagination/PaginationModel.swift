@@ -8,18 +8,24 @@
 
 import Foundation
 
+/// Протокол для реализации моделей пагинации
+/// За счет отсутсвия четкой структуры у api пагинаций - настраивать следует самостоятельно
+/// - SeeAlso:
+///     - `OffsetPaginationModel`
+///     - `PagesPaginationModel`
+///     - `CursorPaginationModel`
 public protocol PaginationModel {
 
-    /// This parameter check where parameters should go - query or body
+    /// Отвечает за то куда подставлять параметры отвечающие за пагинацию - query или body
     var encoding: ParametersEncoding { get }
 
-    /// Parameters for pagination request
+    /// Параметры пагинации
     var parameters: [String: Any] { get }
 
-    /// This metnod alows 
+    /// Метод позволяет пересчитать параметры для следующей страницы внутри модели
     func next(customIndexesUpdate: [String: Any])
 
-    /// This method allows to restart paging from start point
+    /// Метод позволяет сбросить параметры к начальному состоянию
     func renew()
 
 }

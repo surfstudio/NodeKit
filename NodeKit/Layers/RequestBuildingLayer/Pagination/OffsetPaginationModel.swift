@@ -8,6 +8,9 @@
 
 import Foundation
 
+/// Модель пагинации основанной на лимитах и смещениях (offset)
+/// Есть дефолтныые ключи для переменных
+/// Но есть возможность задавать кастомные
 public class OffsetPaginationModel: PaginationModel {
 
     // MARK: - Constants

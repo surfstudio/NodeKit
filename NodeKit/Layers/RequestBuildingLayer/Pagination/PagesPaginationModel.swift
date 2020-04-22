@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// Модель пагинации основанной на страницах и смещениях (offset)
+/// Дефолтное значение первой страницы 0
 public class PagesPaginationModel: PaginationModel {
 
     // MARK: - Private properties
