@@ -9,7 +9,7 @@ public struct TransportUrlRequest {
     public let url: URL
     /// Хедеры запроса.
     public let headers: [String: String]
-    /// Данные для запроса в формате `JSON`
+    /// Данные для запроса в чистой `Data`
     public let raw: Data?
 
     /// Инициаллизирует объект.

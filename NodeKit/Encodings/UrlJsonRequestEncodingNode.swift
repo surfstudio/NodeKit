@@ -1,19 +1,14 @@
 //
-//  UrlRequestEncodingNode.swift
+//  UrlJsonRequestEncodingNode.swift
 //  NodeKit
 //
-//  Created by Vladislav Krupenko on 10.04.2020.
+//  Created by Vladislav Krupenko on 06.05.2020.
 //  Copyright © 2020 Кравченков Александр. All rights reserved.
 //
 
 import Foundation
-import Alamofire
 
-enum RequestEncodingNodeError: Error {
-    case unsupportedDataType
-}
-
-open class UrlRequestEncodingNode<Raw, Type>: Node<RequestEncodingModel<Raw>, Type> {
+open class UrlJsonRequestEncodingNode<Type>: Node<RequestEncodingModel<Json>, Type> {
 
     /// Следйющий узел для обработки.
     public var next: Node<TransportUrlRequest, Type>
@@ -26,32 +21,25 @@ open class UrlRequestEncodingNode<Raw, Type>: Node<RequestEncodingModel<Raw>, Ty
         self.next = next
     }
 
-    open override func process(_ data: RequestEncodingModel<Raw>) -> Observer<Type> {
+    open override func process(_ data: RequestEncodingModel<Json>) -> Observer<Type> {
         var log = getLogMessage(data)
         let request: TransportUrlRequest?
-
         let paramEncoding = { () -> ParameterEncoding? in
             guard data.urlParameters.method == .get else {
                 return data.encoding?.raw
             }
             return URLEncoding.default
         }()
-
-        if let jsonData = data.raw as? Json, let encoding = paramEncoding {
-            do {
-                request = try encoding.encode(urlParameters: data.urlParameters, parameters: jsonData)
-                log.message += "type: Json"
-            } catch {
-                log += "But cant encode data -> terminate with error"
-                return Context<Type>().log(log).emit(error: RequestEncodingError.unsupportedDataType)
-            }
-        } else if let bsonData = data.raw as? Bson {
-            let body = data.urlParameters.method != .get ? bsonData.makeData() : nil
-            request = TransportUrlRequest(with: data.urlParameters, raw: body)
-            log.message += "type: Bson"
-        } else {
-            request = nil
-            log.message += "type: Unsupported"
+        guard let encoding = paramEncoding else {
+            log += "Missed encoding type -> terminate with error"
+            return Context<Type>().log(log).emit(error: RequestEncodingNodeError.missedJsonEncodingType)
+        }
+        do {
+            request = try encoding.encode(urlParameters: data.urlParameters, parameters: data.raw)
+            log.message += "type: Json"
+        } catch {
+            log += "But can't encode data -> terminate with error"
+            return Context<Type>().log(log).emit(error: RequestEncodingError.unsupportedDataType)
         }
 
         guard let unwrappedRequest = request else {
@@ -66,12 +54,12 @@ open class UrlRequestEncodingNode<Raw, Type>: Node<RequestEncodingModel<Raw>, Ty
 
 // MARK: - Help Methods
 
-private extension UrlRequestEncodingNode {
+private extension UrlJsonRequestEncodingNode {
 
-    func getLogMessage(_ data: RequestEncodingModel<Raw>) -> Log {
+    func getLogMessage(_ data: RequestEncodingModel<Json>) -> Log {
         var message = "<<<===\(self.objectName)===>>>\n"
         message += "input: \(type(of: data))"
-        message += "encoding: \(data.encoding)"
+        message += "encoding: \(String(describing: data.encoding))"
         message += "raw: \(String(describing: data.raw))"
         return Log(message, id: self.objectName, order: LogOrder.requestEncodingNode)
     }

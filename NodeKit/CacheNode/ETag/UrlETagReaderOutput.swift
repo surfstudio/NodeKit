@@ -9,7 +9,7 @@
 import Foundation
 
 /// Этот узел читает eTag-токен из хранилища и добавляет его к запросу.
-open class UrlETagReaderNode<Type>: Node<TransportUrlRequest, Type> {
+open class UrlETagReaderOutput<Type>: Node<TransportUrlRequest, Type> {
 
     // Следующий узел для обработки.
     public var next: Node<TransportUrlRequest, Type>

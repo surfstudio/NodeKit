@@ -24,6 +24,8 @@
 		57DA0E14243375E300ED0AA8 /* ResponseBsonDataParserNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0E13243375E300ED0AA8 /* ResponseBsonDataParserNode.swift */; };
 		57DA0E1D2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0E1C2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift */; };
 		57DA0E1F24339E9300ED0AA8 /* UrlBsonChainsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DA0E1E24339E9300ED0AA8 /* UrlBsonChainsBuilder.swift */; };
+		57E81DE32462BAF100F87471 /* UrlJsonRequestEncodingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E81DE22462BAF100F87471 /* UrlJsonRequestEncodingNode.swift */; };
+		57E81DE52462BDAB00F87471 /* UrlBsonRequestEncodingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E81DE42462BDAB00F87471 /* UrlBsonRequestEncodingNode.swift */; };
 		81DE7744A4629F6178E37B74 /* Pods_NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93D4D7B8501ED5C5089E938 /* Pods_NodeKit.framework */; };
 		89F34DC223F6DCBC0026EE40 /* DeferCallingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F34DC123F6DCBC0026EE40 /* DeferCallingTests.swift */; };
 		B107BF822232B38B002E9655 /* ChainConfiguratorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */; };
@@ -53,7 +55,7 @@
 		B112ECD222305F1200211E0E /* TokenRefresherNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B112ECD122305F1200211E0E /* TokenRefresherNode.swift */; };
 		B113F871222DC460001CEEAC /* UrlETagSaverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F870222DC460001CEEAC /* UrlETagSaverNode.swift */; };
 		B113F873222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F872222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift */; };
-		B113F875222DCCDF001CEEAC /* UrlETagReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F874222DCCDF001CEEAC /* UrlETagReaderNode.swift */; };
+		B113F875222DCCDF001CEEAC /* UrlETagReaderOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F874222DCCDF001CEEAC /* UrlETagReaderOutput.swift */; };
 		B11F119822B38183003116B3 /* DefaultLogOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11F119722B38183003116B3 /* DefaultLogOrder.swift */; };
 		B156807D222C65D000BC8D91 /* Observer+Shugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156807C222C65D000BC8D91 /* Observer+Shugar.swift */; };
 		B156807F222C6BD300BC8D91 /* MulticastContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156807E222C6BD300BC8D91 /* MulticastContext.swift */; };
@@ -176,6 +178,8 @@
 		57DA0E13243375E300ED0AA8 /* ResponseBsonDataParserNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBsonDataParserNode.swift; sourceTree = "<group>"; };
 		57DA0E1C2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseBsonDataPreprocessorNode.swift; sourceTree = "<group>"; };
 		57DA0E1E24339E9300ED0AA8 /* UrlBsonChainsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlBsonChainsBuilder.swift; sourceTree = "<group>"; };
+		57E81DE22462BAF100F87471 /* UrlJsonRequestEncodingNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlJsonRequestEncodingNode.swift; sourceTree = "<group>"; };
+		57E81DE42462BDAB00F87471 /* UrlBsonRequestEncodingNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlBsonRequestEncodingNode.swift; sourceTree = "<group>"; };
 		89F34DC123F6DCBC0026EE40 /* DeferCallingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeferCallingTests.swift; sourceTree = "<group>"; };
 		B107BF812232B38B002E9655 /* ChainConfiguratorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNode.swift; sourceTree = "<group>"; };
 		B107BF842232B6D0002E9655 /* ChainConfiguratorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNodeTests.swift; sourceTree = "<group>"; };
@@ -205,7 +209,7 @@
 		B112ECD122305F1200211E0E /* TokenRefresherNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherNode.swift; sourceTree = "<group>"; };
 		B113F870222DC460001CEEAC /* UrlETagSaverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagSaverNode.swift; sourceTree = "<group>"; };
 		B113F872222DC8E9001CEEAC /* UrlNotModifiedTriggerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlNotModifiedTriggerNode.swift; sourceTree = "<group>"; };
-		B113F874222DCCDF001CEEAC /* UrlETagReaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagReaderNode.swift; sourceTree = "<group>"; };
+		B113F874222DCCDF001CEEAC /* UrlETagReaderOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagReaderOutput.swift; sourceTree = "<group>"; };
 		B113F878222DCEC2001CEEAC /* UrlETagSaverNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagSaverNodeTests.swift; sourceTree = "<group>"; };
 		B113F87A222DD54B001CEEAC /* TestUtls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtls.swift; sourceTree = "<group>"; };
 		B113F87C222DD77E001CEEAC /* UrlETagReaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlETagReaderNodeTests.swift; sourceTree = "<group>"; };
@@ -369,6 +373,15 @@
 			path = Bson;
 			sourceTree = "<group>";
 		};
+		57E81DE62462C86000F87471 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				57CA5C702444639F00104FB6 /* RequestEncodingModel.swift */,
+				B199E769223CF2A10001FE17 /* ParametersEncoding.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		7E762D5C2F30C3C9BAC54658 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,7 +451,6 @@
 				B10D4BFB222DF4D9006B9EE9 /* UrlRequestTrasformatorNode.swift */,
 				B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */,
 				B9945BBE238170960077C14A /* URLQueryInjectorNode.swift */,
-				57CA5C6E2440BFCD00104FB6 /* UrlRequestEncodingNode.swift */,
 			);
 			path = RequestBuildingLayer;
 			sourceTree = "<group>";
@@ -447,12 +459,10 @@
 			isa = PBXGroup;
 			children = (
 				B199E767223CF2920001FE17 /* Method.swift */,
-				B199E769223CF2A10001FE17 /* ParametersEncoding.swift */,
 				B10D4BEF222DF45E006B9EE9 /* RequestModel.swift */,
 				B10D4BF1222DF472006B9EE9 /* RoutableRequestModel.swift */,
 				B10D4BF3222DF48D006B9EE9 /* EncodableRequestModel.swift */,
 				B91447C42381A22E00D2912A /* URLQueryConfigModel.swift */,
-				57CA5C702444639F00104FB6 /* RequestEncodingModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -504,7 +514,7 @@
 			isa = PBXGroup;
 			children = (
 				B113F870222DC460001CEEAC /* UrlETagSaverNode.swift */,
-				B113F874222DCCDF001CEEAC /* UrlETagReaderNode.swift */,
+				B113F874222DCCDF001CEEAC /* UrlETagReaderOutput.swift */,
 				B10AD421223ED5E300B4D7AA /* ETagConstants.swift */,
 			);
 			path = ETag;
@@ -660,7 +670,11 @@
 		B19D5170226775EA0081E259 /* Encodings */ = {
 			isa = PBXGroup;
 			children = (
+				57E81DE62462C86000F87471 /* Models */,
 				57D113282440779200B8AB07 /* NodeParameterEncoding.swift */,
+				57CA5C6E2440BFCD00104FB6 /* UrlRequestEncodingNode.swift */,
+				57E81DE22462BAF100F87471 /* UrlJsonRequestEncodingNode.swift */,
+				57E81DE42462BDAB00F87471 /* UrlBsonRequestEncodingNode.swift */,
 			);
 			path = Encodings;
 			sourceTree = "<group>";
@@ -1234,6 +1248,7 @@
 				B10AD422223ED5E300B4D7AA /* ETagConstants.swift in Sources */,
 				B10D4BF2222DF472006B9EE9 /* RoutableRequestModel.swift in Sources */,
 				B17BB50F2255190500605AB8 /* UrlRouting.swift in Sources */,
+				57E81DE32462BAF100F87471 /* UrlJsonRequestEncodingNode.swift in Sources */,
 				B1568081222C70D300BC8D91 /* ObservableProtocol.swift in Sources */,
 				B19FB540224664FA0038B12B /* VoidInputNode.swift in Sources */,
 				B9D5B2332337E27C00D66488 /* StubEmptyModel.swift in Sources */,
@@ -1272,8 +1287,9 @@
 				57DA0E14243375E300ED0AA8 /* ResponseBsonDataParserNode.swift in Sources */,
 				B1F0C70321B1DDCF00382FA5 /* Context.swift in Sources */,
 				B199E764223CF2500001FE17 /* TransportUrlRequest.swift in Sources */,
+				57E81DE52462BDAB00F87471 /* UrlBsonRequestEncodingNode.swift in Sources */,
 				B1C3256621D1251B0059EF33 /* CodableRawMapper.swift in Sources */,
-				B113F875222DCCDF001CEEAC /* UrlETagReaderNode.swift in Sources */,
+				B113F875222DCCDF001CEEAC /* UrlETagReaderOutput.swift in Sources */,
 				57DA0E1D2433868900ED0AA8 /* ResponseBsonDataPreprocessorNode.swift in Sources */,
 				B1118EED21C8B772007AD599 /* DTOConvertible.swift in Sources */,
 				B172440C2264EFB800CC9F70 /* EntryinputDtoOutputNode.swift in Sources */,

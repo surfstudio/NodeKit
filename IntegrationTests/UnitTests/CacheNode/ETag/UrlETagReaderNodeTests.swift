@@ -32,7 +32,7 @@ public class UrlETagReaderNodeTests: XCTestCase {
         // Arrange
 
         let mock = MockNode()
-        let node = UrlETagReaderNode(next: mock)
+        let node = UrlETagReaderOutput(next: mock)
         let tag = "\(NSObject().hash)"
 
         let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccess")!
@@ -72,7 +72,7 @@ public class UrlETagReaderNodeTests: XCTestCase {
         // Arrange
 
         let mock = MockNode()
-        let node = UrlETagReaderNode(next: mock)
+        let node = UrlETagReaderOutput(next: mock)
 
         let url = URL(string: "http://UrlETagReaderNodeTests/testNotReadIfTagNotExist")!
         let params = TransportUrlParameters(method: .get, url: url)
@@ -109,7 +109,7 @@ public class UrlETagReaderNodeTests: XCTestCase {
         let key = "My-Custom-ETag-Key"
         let mock = MockNode()
         mock.key = key
-        let node = UrlETagReaderNode(next: mock, etagHeaderKey: key)
+        let node = UrlETagReaderOutput(next: mock, etagHeaderKey: key)
         let tag = "\(NSObject().hash)"
 
 
