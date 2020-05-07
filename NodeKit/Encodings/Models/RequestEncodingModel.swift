@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// Модель слоя `Encoding`, собирает все данные для реквеста. Используется в `UrlRequestEncodingNode`
+/// В качестве `Raw` принимает любые данные вида `BSON` или `JSON`
 public struct RequestEncodingModel<Raw> {
 
     /// Параметры для формирования запроса.
