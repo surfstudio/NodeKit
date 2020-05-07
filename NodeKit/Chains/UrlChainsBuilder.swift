@@ -38,6 +38,9 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     /// Массив с ID логов, которые нужно исключить из выдачи.
     public var logFilter: [String]
 
+    /// Очередь, на которой response вашего запроса должен будет быть обработан. По дефолту `Global` с приоритетом `.userInitiated`
+    public var responseDispatchQueue: DispatchQueue = DispatchQueue.global(qos: .userInitiated)
+
     // MARK: - Init
 
     /// Инициаллизирует объект.
@@ -121,6 +124,11 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
+    open func setResponseQueue(_ queue: DispatchQueue) -> Self {
+        self.responseDispatchQueue = queue
+        return self
+    }
+
     // MARK: - Infrastructure Config
 
     open func log(exclude: [String]) -> Self {
@@ -134,7 +142,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     ///
     /// - Parameter config: Конфигурация для запроса
     open func requestBuildingChain() ->  Node<Json, Json> {
-        let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, session: session)
+        let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, responseQueue: responseDispatchQueue, session: session)
 
         let urlRequestEncodingNode = UrlRequestEncodingNode<Json, Json>(next: transportChain)
         let urlRequestTrasformatorNode = UrlRequestTrasformatorNode<Json, Json>(next: urlRequestEncodingNode, method: self.method)
@@ -217,7 +225,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let reponseProcessor = self.serviceChain.urlResponseProcessingLayerChain()
 
-        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor, manager: session)
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor, responseQueue: responseDispatchQueue, manager: session)
 
         let creator = MultipartRequestCreatorNode(next: requestSenderNode)
 
@@ -243,7 +251,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
-        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, manager: session)
+        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, responseQueue: responseDispatchQueue, manager: session)
 
         let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
@@ -271,7 +279,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
-        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, manager: session)
+        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, responseQueue: responseDispatchQueue, manager: session)
 
         let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 

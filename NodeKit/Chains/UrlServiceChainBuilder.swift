@@ -23,15 +23,19 @@ open class UrlServiceChainBuilder {
     }
 
     /// Создает цепочку узлов, описывающих транспортный слой обработки.
-    open func requestBsonTrasportChain(providers: [MetadataProvider], session: URLSession?) -> Node<TransportUrlRequest, Bson> {
-        let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseBsonProcessingLayerChain(), manager: session)
+    open func requestBsonTrasportChain(providers: [MetadataProvider], responseQueue: DispatchQueue, session: URLSession?) -> Node<TransportUrlRequest, Bson> {
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseBsonProcessingLayerChain(),
+                                                  responseQueue: responseQueue,
+                                                  manager: session)
         let technicalErrorMapperNode = TechnicaErrorMapperNode(next: requestSenderNode)
         return RequestCreatorNode(next: technicalErrorMapperNode, providers: providers)
     }
 
     /// Создает цепочку узлов, описывающих транспортный слой обработки.
-    open func requestTrasportChain(providers: [MetadataProvider], session: URLSession?) -> Node<TransportUrlRequest, Json> {
-        let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseProcessingLayerChain(), manager: session)
+    open func requestTrasportChain(providers: [MetadataProvider], responseQueue: DispatchQueue, session: URLSession?) -> Node<TransportUrlRequest, Json> {
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseProcessingLayerChain(),
+                                                  responseQueue: responseQueue,
+                                                  manager: session)
         let technicalErrorMapperNode = TechnicaErrorMapperNode(next: requestSenderNode)
         return RequestCreatorNode(next: technicalErrorMapperNode, providers: providers)
     }

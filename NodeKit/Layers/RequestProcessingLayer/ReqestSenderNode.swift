@@ -27,14 +27,18 @@ open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
     /// Менеджер сессий
     private(set) var manager: URLSession
 
+    /// Response queue
+    private var responseQueue: DispatchQueue
+
     private weak var task: URLSessionDataTask?
     private weak var context: Observer<NodeDataResponse>?
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter rawResponseProcessor: Узел для обработки ответа.
-    public init(rawResponseProcessor: RawResponseProcessor, manager: URLSession? = nil) {
+    public init(rawResponseProcessor: RawResponseProcessor, responseQueue: DispatchQueue, manager: URLSession? = nil) {
         self.rawResponseProcessor = rawResponseProcessor
+        self.responseQueue = responseQueue
         self.manager = manager ?? ServerRequestsManager.shared.manager
     }
 
@@ -48,8 +52,8 @@ open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
 
         var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.requestSenderNode)
 
-        self.task = manager.dataTask(with: request) { data, response, error in
-            DispatchQueue.global(qos: .userInitiated).async {
+        self.task = manager.dataTask(with: request) { [weak self] data, response, error in
+            self?.responseQueue.async {
                 log += "Get response!)"
                 let result: Result<Data, Error>
 

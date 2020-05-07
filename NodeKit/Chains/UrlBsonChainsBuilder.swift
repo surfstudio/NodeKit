@@ -41,6 +41,9 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     /// Массив с ID логов, которые нужно исключить из выдачи.
     public var logFilter: [String]
 
+    /// Очередь, на которой response вашего запроса должен будет быть обработан. По дефолту `Global` с приоритетом `.userInitiated`
+    public var responseDispatchQueue: DispatchQueue = DispatchQueue.global(qos: .userInitiated)
+
     // MARK: - Init
 
     /// Инициаллизирует объект.
@@ -118,6 +121,11 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
+    open func setResponseQueue(_ queue: DispatchQueue) -> Self {
+        self.responseDispatchQueue = queue
+        return self
+    }
+
     // MARK: - Infrastructure Config
 
     open func log(exclude: [String]) -> Self {
@@ -131,7 +139,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     ///
     /// - Parameter config: Конфигурация для запроса
     open func requestBuildingChain() -> Node<Bson, Bson> {
-        let transportChain = self.serviceChain.requestBsonTrasportChain(providers: self.headersProviders, session: session)
+        let transportChain = self.serviceChain.requestBsonTrasportChain(providers: self.headersProviders, responseQueue: responseDispatchQueue, session: session)
 
         let urlRequestEncodingNode = UrlRequestEncodingNode<Bson, Bson>(next: transportChain)
         let urlRequestTrasformatorNode = UrlRequestTrasformatorNode<Bson, Bson>(next: urlRequestEncodingNode, method: self.method)
