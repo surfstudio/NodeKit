@@ -1,5 +1,4 @@
 import Foundation
-import Alamofire
 
 /// Модель для внутреннего представления multipart запроса.
 public struct MultipartUrlRequest {
@@ -44,7 +43,7 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
         let formData = MultipartFormData(fileManager: FileManager.default)
         append(multipartForm: formData, with: data)
         do {
-            var request = try URLRequest(url: data.url, method: data.method.http, headers: HTTPHeaders(data.headers))
+            var request = URLRequest(url: data.url, method: data.method, headers: HTTPHeaders(data.headers))
             let encodedFormData = try formData.encode()
             request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
             request.httpBody = encodedFormData
@@ -57,7 +56,7 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
     private func getLogMessage(_ data: MultipartUrlRequest) -> Log {
         var message = "<<<===\(self.objectName)===>>>\n"
         message += "input: \(type(of: data))\n\t"
-        message += "method: \(data.method.http.rawValue)\n\t"
+        message += "method: \(data.method.rawValue)\n\t"
         message += "url: \(data.url.absoluteString)\n\t"
         message += "headers: \(data.headers)\n\t"
         message += "parametersEncoding: multipart)"

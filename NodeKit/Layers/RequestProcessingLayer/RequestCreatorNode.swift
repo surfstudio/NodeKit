@@ -1,5 +1,4 @@
 import Foundation
-import Alamofire
 
 /// Этот узел инициаллизирует URL запрос.
 open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
@@ -28,7 +27,7 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
         }
 
         var request = URLRequest(url: data.url)
-        request.method = data.method.http
+        request.httpMethod = data.method.rawValue
         request.httpBody = data.raw
         mergedHeaders.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
 
@@ -38,7 +37,7 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
     private func getLogMessage(_ data: TransportUrlRequest) -> Log {
         var message = "<<<===\(self.objectName)===>>>\n"
         message += "input: \(type(of: data))\n\t"
-        message += "method: \(data.method.http.rawValue)\n\t"
+        message += "method: \(data.method.rawValue)\n\t"
         message += "url: \(data.url.absoluteString)\n\t"
         message += "headers: \(data.headers)\n\t"
         message += "raw: \(String(describing: data.raw))\n\t"

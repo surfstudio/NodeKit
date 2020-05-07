@@ -1,5 +1,4 @@
 import Foundation
-import Alamofire
 
 /// Умеет создавать цепочки 
 open class UrlServiceChainBuilder {

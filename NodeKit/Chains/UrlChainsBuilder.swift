@@ -1,6 +1,5 @@
 
 import Foundation
-import Alamofire
 
 /// Реулизует набор цепочек для отправки URL запросов.
 open class UrlChainsBuilder<Route: UrlRouteProvider> {

@@ -6,8 +6,6 @@
 //  Copyright © 2019 Кравченков Александр. All rights reserved.
 //
 
-import Alamofire
-
 /// Содержит конвертирование NodeKit.ParametersEncoding в Alamofire.ParameterEncoding
 extension NodeKit.ParametersEncoding {
 

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 /// Используется для передачи данных внутри слоя постпроцессинга запроса.
 public struct UrlProcessedResponse<Type> {

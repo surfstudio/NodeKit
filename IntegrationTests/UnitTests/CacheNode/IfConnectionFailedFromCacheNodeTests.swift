@@ -10,9 +10,6 @@ import Foundation
 import XCTest
 
 @testable
-import Alamofire
-
-@testable
 import NodeKit
 
 public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
@@ -43,20 +40,6 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
             self.numberOfCalls += 1
 
             return .emit(data: Json())
-        }
-    }
-
-    class StubRequest: DataRequest {
-
-        override var request: URLRequest? {
-            return self.stubRequest
-        }
-
-        let stubRequest: URLRequest?
-
-        init(request: URLRequest?) {
-            self.stubRequest = request
-            super.init(convertible: request!, underlyingQueue: .global(), serializationQueue: .main, eventMonitor: nil, interceptor: nil, delegate: Session.default)
         }
     }
 

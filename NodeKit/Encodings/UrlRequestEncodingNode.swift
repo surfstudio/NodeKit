@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 enum RequestEncodingNodeError: Error {
     case unsupportedDataType

@@ -10,7 +10,6 @@ import Foundation
 
 @testable
 import NodeKit
-import Alamofire
 
 final class CustomServiceChain: UrlServiceChainBuilder {
 

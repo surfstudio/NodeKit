@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 /// Менеджер запросов к серверу.
 /// Работает c `SessionManager` и является синглтоном.

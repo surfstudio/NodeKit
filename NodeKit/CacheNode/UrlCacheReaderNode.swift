@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 /// Ошибки для узла `UrlCacheReaderNode`
 ///

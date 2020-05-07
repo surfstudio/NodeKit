@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 public struct NodeDataResponse {
     public let urlResponse: HTTPURLResponse?

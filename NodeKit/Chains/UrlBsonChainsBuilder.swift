@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 import BSON
 
 /// Реулизует набор цепочек для отправки URL запросов.

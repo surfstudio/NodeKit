@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (5.0.0-beta.6)
   - BSON (7.0.4):
     - SwiftNIO (~> 2.0)
   - CNIOAtomics (2.15.0)
@@ -17,13 +16,11 @@ PODS:
     - CNIOAtomics (= 2.15.0)
 
 DEPENDENCIES:
-  - Alamofire (= 5.0.0-beta.6)
   - BSON (= 7.0.4)
   - CoreEvents (from `https://github.com/surfstudio/CoreEvents`, tag `2.0.1`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - Alamofire
+  https://github.com/CocoaPods/Specs.git:
     - BSON
     - CNIOAtomics
     - CNIODarwin
@@ -43,7 +40,6 @@ CHECKOUT OPTIONS:
     :tag: 2.0.1
 
 SPEC CHECKSUMS:
-  Alamofire: cd08a4402bd12cacd0c66f23fb12fec8d6b965e4
   BSON: a9fcc811928874db09b06332a1e056ff9b9b28c1
   CNIOAtomics: ba49b1c86f281e1ecfd84c9205fbc27a81826847
   CNIODarwin: 2e341dd283fa3972706568b12925366145a8e2cd
@@ -53,6 +49,6 @@ SPEC CHECKSUMS:
   SwiftNIO: c9889dcd8aed2655af9163b42fc11ebd4ce94252
   SwiftNIOConcurrencyHelpers: 2357037a16e9c51880c01b896a5ac3cd41066044
 
-PODFILE CHECKSUM: 2a0d33664c34206dc8438e9b9822bb579194aa22
+PODFILE CHECKSUM: eccdc2eafdb489168b75b2396101ab7c05aeda21
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.8.0

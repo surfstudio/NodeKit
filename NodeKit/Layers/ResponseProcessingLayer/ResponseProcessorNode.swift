@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 /// Ошибки для `ResponseProcessorNode`
 ///
@@ -49,7 +48,7 @@ open class ResponseProcessorNode<Type>: Node<NodeDataResponse, Type> {
                                            data: Data(),
                                            metrics: nil,
                                            serializationDuration: -1)
-            log += "🌍 " + (urlRequest.method?.rawValue ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
+//            log += "🌍 " + (urlRequest.method?.rawValue ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
             log += " ~~> \(urlResponse.statusCode)" + .lineTabDeilimeter
             log += "EMPTY"
 
@@ -69,7 +68,7 @@ open class ResponseProcessorNode<Type>: Node<NodeDataResponse, Type> {
                                                metrics: nil,
                                                serializationDuration: -1)
 
-            log += "🌍 " + (urlRequest.method?.rawValue ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
+//            log += "🌍 " + (urlRequest.method?.rawValue ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
             log += " --> \(urlResponse.statusCode)" + .lineTabDeilimeter
             log += String(data: value, encoding: .utf8) ?? "CURRUPTED"
 

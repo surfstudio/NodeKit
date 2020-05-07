@@ -22,19 +22,11 @@
 //  THE SOFTWARE.
 //
 
-import Alamofire
+/// A dictionary of parameters to apply to a `URLRequest`.
+public typealias Parameters = [String: Any]
 
 /// A type used to define how a set of parameters are applied to a `URLRequest`.
 public protocol ParameterEncoding {
-    /// Creates a URL request by encoding parameters and applying them onto an existing request.
-    ///
-    /// - parameter urlRequest: The request to have parameters applied.
-    /// - parameter parameters: The parameters to apply.
-    ///
-    /// - throws: An `AFError.parameterEncodingFailed` error if encoding fails.
-    ///
-    /// - returns: The encoded request.
-    func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest
 
     /// Create a TransportUrlRequest model by encoding parameters and apply them into an exisiting url parameters
     ///
@@ -77,7 +69,7 @@ public struct URLEncoding: ParameterEncoding {
     public enum Destination {
         case methodDependent, queryString, httpBody
 
-        func encodesParametersInURL(for method: HTTPMethod) -> Bool {
+        func encodesParametersInURL(for method: Method) -> Bool {
             switch self {
             case .methodDependent: return [.get, .head, .delete].contains(method)
             case .queryString:     return true
@@ -158,40 +150,6 @@ public struct URLEncoding: ParameterEncoding {
 
     // MARK: Encoding
 
-    /// Creates a URL request by encoding parameters and applying them onto an existing request.
-    ///
-    /// - parameter urlRequest: The request to have parameters applied.
-    /// - parameter parameters: The parameters to apply.
-    ///
-    /// - throws: An `Error` if the encoding process encounters an error.
-    ///
-    /// - returns: The encoded request.
-    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
-        var urlRequest = try urlRequest.asURLRequest()
-
-        guard let parameters = parameters else { return urlRequest }
-
-        if let method = urlRequest.method, destination.encodesParametersInURL(for: method) {
-            guard let url = urlRequest.url else {
-                throw AFError.parameterEncodingFailed(reason: .missingURL)
-            }
-
-            if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {
-                let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + query(parameters)
-                urlComponents.percentEncodedQuery = percentEncodedQuery
-                urlRequest.url = urlComponents.url
-            }
-        } else {
-            if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
-                urlRequest.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            }
-
-            urlRequest.httpBody = Data(query(parameters).utf8)
-        }
-
-        return urlRequest
-    }
-
     public func encode(urlParameters: TransportUrlParameters, parameters: Json?) throws -> TransportUrlRequest {
         guard let parameters = parameters else {
             return TransportUrlRequest(with: urlParameters, raw: nil)
@@ -201,7 +159,7 @@ public struct URLEncoding: ParameterEncoding {
         var url = urlParameters.url
         var headers = urlParameters.headers
 
-        if destination.encodesParametersInURL(for: urlParameters.method.http) {
+        if destination.encodesParametersInURL(for: urlParameters.method) {
             if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {
                 let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + query(parameters)
                 urlComponents.percentEncodedQuery = percentEncodedQuery
@@ -304,34 +262,6 @@ public struct JSONEncoding: ParameterEncoding {
 
     // MARK: Encoding
 
-    /// Creates a URL request by encoding parameters and applying them onto an existing request.
-    ///
-    /// - parameter urlRequest: The request to have parameters applied.
-    /// - parameter parameters: The parameters to apply.
-    ///
-    /// - throws: An `Error` if the encoding process encounters an error.
-    ///
-    /// - returns: The encoded request.
-    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
-        var urlRequest = try urlRequest.asURLRequest()
-
-        guard let parameters = parameters else { return urlRequest }
-
-        do {
-            let data = try JSONSerialization.data(withJSONObject: parameters, options: options)
-
-            if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
-                urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            }
-
-            urlRequest.httpBody = data
-        } catch {
-            throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
-        }
-
-        return urlRequest
-    }
-
     public func encode(urlParameters: TransportUrlParameters, parameters: Json?) throws -> TransportUrlRequest {
         guard let parameters = parameters else {
             return TransportUrlRequest(with: urlParameters, raw: nil)
@@ -362,37 +292,30 @@ public struct JSONEncoding: ParameterEncoding {
                                    raw: body)
     }
 
-    /// Creates a URL request by encoding the JSON object and setting the resulting data on the HTTP body.
-    ///
-    /// - parameter urlRequest: The request to apply the JSON object to.
-    /// - parameter jsonObject: The JSON object to apply to the request.
-    ///
-    /// - throws: An `Error` if the encoding process encounters an error.
-    ///
-    /// - returns: The encoded request.
-    public func encode(_ urlRequest: URLRequestConvertible, withJSONObject jsonObject: Any? = nil) throws -> URLRequest {
-        var urlRequest = try urlRequest.asURLRequest()
-
-        guard let jsonObject = jsonObject else { return urlRequest }
-
-        do {
-            let data = try JSONSerialization.data(withJSONObject: jsonObject, options: options)
-
-            if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
-                urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            }
-
-            urlRequest.httpBody = data
-        } catch {
-            throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
-        }
-
-        return urlRequest
-    }
 }
 
 // MARK: -
 
 extension NSNumber {
     fileprivate var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
+}
+
+extension CharacterSet {
+    /// Creates a CharacterSet from RFC 3986 allowed characters.
+    ///
+    /// RFC 3986 states that the following characters are "reserved" characters.
+    ///
+    /// - General Delimiters: ":", "#", "[", "]", "@", "?", "/"
+    /// - Sub-Delimiters: "!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="
+    ///
+    /// In RFC 3986 - Section 3.4, it states that the "?" and "/" characters should not be escaped to allow
+    /// query strings to include a URL. Therefore, all "reserved" characters with the exception of "?" and "/"
+    /// should be percent-escaped in the query string.
+    public static let afURLQueryAllowed: CharacterSet = {
+        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+        let subDelimitersToEncode = "!$&'()*+,;="
+        let encodableDelimiters = CharacterSet(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+
+        return CharacterSet.urlQueryAllowed.subtracting(encodableDelimiters)
+    }()
 }
