@@ -13,7 +13,7 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"gopkg.in/mgo.v2/bson"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 // User stub model
@@ -56,6 +56,7 @@ func addHTTPListners(router *mux.Router) {
 
 	router.HandleFunc("/nkt/bson", bsonGet).Methods("GET")
 	router.HandleFunc("/nkt/bson", bsonPost).Methods("POST")
+	router.HandleFunc("/nkt/bsonArray", bsonArrayGet).Methods("GET")
 }
 
 // GetUser description
@@ -259,6 +260,29 @@ func bsonGet(w http.ResponseWriter, r *http.Request) {
 	
 	w.Write(data)
 	
+	w.Header().Set("Content-Type", "application/bson")
+}
+
+func bsonArrayGet(w http.ResponseWriter, r *http.Request) {
+	users := [5]User{
+		User{ID: "1", Lastname: "Freeze", Firstname: "John"},
+		User{ID: "2", Lastname: "Uwais", Firstname: "Cain"},
+		User{ID: "3", Lastname: "Stuart", Firstname: "Cummings"},
+		User{ID: "4", Lastname: "Roisin", Firstname: "Beattie"},
+		User{ID: "5", Lastname: "Damon", Firstname: "Devlin"}}
+
+	bsonArray := bson.A{}
+	for _, data := range users {
+		bsonArray = append(bsonArray, data)	
+	}
+
+	data, err := bson.Marshal(bsonArray)
+
+	if err != nil {
+		http.Error(w, "Cant map", 500)
+	}
+
+	w.Write(data)
 	w.Header().Set("Content-Type", "application/bson")
 }
 
