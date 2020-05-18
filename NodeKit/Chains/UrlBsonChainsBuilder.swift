@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 import BSON
 
 /// Реулизует набор цепочек для отправки URL запросов.
@@ -29,11 +28,6 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     /// По-умолчанию GET
     public var method: Method
 
-    /// Кодировка данных для запроса.
-    ///
-    /// По умолчанию`.json`
-    public var encoding: ParametersEncoding
-
     /// В случае классического HTTP это Header'ы запроса.
     /// По-умолчанию пустой.
     public var metadata: [String: String]
@@ -42,10 +36,13 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     public var route: Route?
 
     /// Менеджер сессий
-    public var session: Session?
+    public var session: URLSession?
 
     /// Массив с ID логов, которые нужно исключить из выдачи.
     public var logFilter: [String]
+
+    /// Очередь, на которой response вашего запроса должен будет быть обработан. По дефолту `Global` с приоритетом `.userInitiated`
+    public var responseDispatchQueue: DispatchQueue = DispatchQueue.global(qos: .userInitiated)
 
     // MARK: - Init
 
@@ -60,7 +57,6 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
 
         self.metadata = [:]
         self.method = .get
-        self.encoding = .bson
         self.headersProviders = []
         self.logFilter = []
     }
@@ -101,7 +97,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
 
     // MARK: - Session config
 
-    open func set(session: Session) -> Self {
+    open func set(session: URLSession) -> Self {
         self.session = session
         return self
     }
@@ -120,13 +116,13 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
-    open func encode(as encoding: ParametersEncoding) -> Self {
-        self.encoding = encoding
+    open func add(provider: MetadataProvider) -> Self {
+        self.headersProviders.append(provider)
         return self
     }
 
-    open func add(provider: MetadataProvider) -> Self {
-        self.headersProviders.append(provider)
+    open func setResponseQueue(_ queue: DispatchQueue) -> Self {
+        self.responseDispatchQueue = queue
         return self
     }
 
@@ -143,10 +139,11 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     ///
     /// - Parameter config: Конфигурация для запроса
     open func requestBuildingChain() -> Node<Bson, Bson> {
-        let transportChain = self.serviceChain.requestBsonTrasportChain(providers: self.headersProviders, session: session)
+        let transportChain = self.serviceChain.requestBsonTrasportChain(providers: self.headersProviders, responseQueue: responseDispatchQueue, session: session)
 
-        let urlRequestTrasformatorNode = BsonUrlRequestTransformatorNode(next: transportChain, method: self.method)
-        let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
+        let urlRequestEncodingNode = UrlRequestEncodingNode<Bson, Bson>(next: transportChain)
+        let urlRequestTrasformatorNode = UrlRequestTrasformatorNode<Bson, Bson>(next: urlRequestEncodingNode, method: self.method)
+        let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: nil)
 
         let queryInjector = URLQueryInjectorNode(next: requstEncoderNode, config: self.urlQueryConfig)
 

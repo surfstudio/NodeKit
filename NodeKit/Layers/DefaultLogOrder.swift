@@ -13,6 +13,7 @@ public enum LogOrder {
     public static let voidIONode = 20.0
     public static let voidOutputNode = 25.0
 
+    public static let requestEncodingNode = 39.0
     public static let requestCreatorNode = 40.0
     public static let requestSenderNode = 49.0
 

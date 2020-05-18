@@ -60,7 +60,6 @@ public class MultipartRequestTests: XCTestCase {
         waitForExpectations(timeout: 3, handler: nil)
 
         // Assert
-
         XCTAssertTrue(isSuccess)
     }
 
@@ -93,7 +92,6 @@ public class MultipartRequestTests: XCTestCase {
         waitForExpectations(timeout: 3, handler: nil)
 
         // Assert
-
         XCTAssertTrue(isSuccess)
     }
 
@@ -123,7 +121,6 @@ public class MultipartRequestTests: XCTestCase {
         waitForExpectations(timeout: 30, handler: nil)
 
         // Assert
-
         XCTAssertTrue(isSuccess)
     }
 }

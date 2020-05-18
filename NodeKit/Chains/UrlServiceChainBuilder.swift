@@ -1,5 +1,4 @@
 import Foundation
-import Alamofire
 
 /// Умеет создавать цепочки 
 open class UrlServiceChainBuilder {
@@ -8,7 +7,7 @@ open class UrlServiceChainBuilder {
     public init() { }
 
     /// Создает цепочку для слоя обработки ответа.
-    open func urlResponseProcessingLayerChain() -> Node<DataResponse<Data>, Json> {
+    open func urlResponseProcessingLayerChain() -> Node<NodeDataResponse, Json> {
         let responseDataParserNode = ResponseDataParserNode()
         let responseDataPreprocessorNode = ResponseDataPreprocessorNode(next: responseDataParserNode)
         let responseHttpErrorProcessorNode = ResponseHttpErrorProcessorNode(next: responseDataPreprocessorNode)
@@ -16,7 +15,7 @@ open class UrlServiceChainBuilder {
     }
 
     /// Создает цепочку для слоя обработки ответа.
-    open func urlResponseBsonProcessingLayerChain() -> Node<DataResponse<Data>, Bson> {
+    open func urlResponseBsonProcessingLayerChain() -> Node<NodeDataResponse, Bson> {
         let responseDataParserNode = ResponseBsonDataParserNode()
         let responseDataPreprocessorNode = ResponseBsonDataPreprocessorNode(next: responseDataParserNode)
         let responseHttpErrorProcessorNode = ResponseHttpErrorProcessorNode(next: responseDataPreprocessorNode)
@@ -24,16 +23,21 @@ open class UrlServiceChainBuilder {
     }
 
     /// Создает цепочку узлов, описывающих транспортный слой обработки.
-    open func requestBsonTrasportChain(providers: [MetadataProvider], session: Session?) -> TransportBsonLayerNode {
-        let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseBsonProcessingLayerChain())
+    open func requestBsonTrasportChain(providers: [MetadataProvider], responseQueue: DispatchQueue, session: URLSession?) -> Node<TransportUrlRequest, Bson> {
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseBsonProcessingLayerChain(),
+                                                  responseQueue: responseQueue,
+                                                  manager: session)
         let technicalErrorMapperNode = TechnicaErrorMapperNode(next: requestSenderNode)
-        return BsonRequestCreatorNode(next: technicalErrorMapperNode, providers: providers, session: session)
+        return RequestCreatorNode(next: technicalErrorMapperNode, providers: providers)
     }
 
     /// Создает цепочку узлов, описывающих транспортный слой обработки.
-    open func requestTrasportChain(providers: [MetadataProvider], session: Session?) -> TransportLayerNode {
-        let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseProcessingLayerChain())
+    open func requestTrasportChain(providers: [MetadataProvider], responseQueue: DispatchQueue, session: URLSession?) -> Node<TransportUrlRequest, Json> {
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseProcessingLayerChain(),
+                                                  responseQueue: responseQueue,
+                                                  manager: session)
         let technicalErrorMapperNode = TechnicaErrorMapperNode(next: requestSenderNode)
-        return RequestCreatorNode(next: technicalErrorMapperNode, providers: providers, session: session)
+        return RequestCreatorNode(next: technicalErrorMapperNode, providers: providers)
     }
+
 }
