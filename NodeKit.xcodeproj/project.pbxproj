@@ -65,13 +65,11 @@
 		B1B407F7223524350036326E /* UrlChainConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B407F6223524350036326E /* UrlChainConfigModel.swift */; };
 		B1B7613C2207A87100AE3303 /* Array+RawMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7613B2207A87100AE3303 /* Array+RawMappable.swift */; };
 		B1B7613F2207A8A000AE3303 /* Array+DtoConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7613E2207A8A000AE3303 /* Array+DtoConvertible.swift */; };
-		B1B761412207B0B700AE3303 /* FormUrlCodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B761402207B0B700AE3303 /* FormUrlCodingTests.swift */; };
 		B1B761432207B0C600AE3303 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B761422207B0C600AE3303 /* Credentials.swift */; };
 		B1B761452207B13B00AE3303 /* CredentialsEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B761442207B13B00AE3303 /* CredentialsEntry.swift */; };
 		B1B761482207B34700AE3303 /* AuthModelEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B761472207B34700AE3303 /* AuthModelEntry.swift */; };
 		B1B7614A2207B39A00AE3303 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B761492207B39A00AE3303 /* AuthModel.swift */; };
 		B1B7614C2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7614B2207B5D700AE3303 /* ResponseHttpErrorProcessorNode.swift */; };
-		B1B7614E2207C16000AE3303 /* TestEmptyResponseMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7614D2207C16000AE3303 /* TestEmptyResponseMapping.swift */; };
 		B1B7615122080C4800AE3303 /* LayerTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7615022080C4800AE3303 /* LayerTypes.swift */; };
 		B1B7615422080E8D00AE3303 /* HeaderInjectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7615322080E8D00AE3303 /* HeaderInjectorNode.swift */; };
 		B1B761572208118300AE3303 /* UrlDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B761562208118300AE3303 /* UrlDataResponse.swift */; };
@@ -79,7 +77,6 @@
 		B1B7616D220862BE00AE3303 /* UrlCacheWriterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F521B1DDCF00382FA5 /* UrlCacheWriterNode.swift */; };
 		B1B7616E2208637500AE3303 /* FirstCachePolicyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0C6F421B1DDCF00382FA5 /* FirstCachePolicyNode.swift */; };
 		B1B761702208647600AE3303 /* IfServerFailsFromCacheNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B7616F2208647600AE3303 /* IfServerFailsFromCacheNode.swift */; };
-		B1BED9F421FF4D6F000B9018 /* SimpleURLChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9F321FF4D6F000B9018 /* SimpleURLChainTests.swift */; };
 		B1BED9FB21FF78EE000B9018 /* Infrastructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9FA21FF78EE000B9018 /* Infrastructure.swift */; };
 		B1BED9FE21FF7BC0000B9018 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BED9FD21FF7BC0000B9018 /* User.swift */; };
 		B1C3255A21CFEC480059EF33 /* NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B94310AA1F931CC000E8A9BA /* NodeKit.framework */; };
@@ -124,7 +121,6 @@
 		B9D5B2232337A70400D66488 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2222337A70400D66488 /* MultipartModel.swift */; };
 		B9D5B2252337B3C400D66488 /* MultipartRequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2242337B3C400D66488 /* MultipartRequestCreatorNode.swift */; };
 		B9D5B2272337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2262337BCD500D66488 /* MultipartUrlRequestTrasformatorNode.swift */; };
-		B9D5B2292337C2A400D66488 /* MultipartRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2282337C2A400D66488 /* MultipartRequestTests.swift */; };
 		B9D5B22E2337CC2C00D66488 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = B9D5B22D2337CC2C00D66488 /* LICENSE.txt */; };
 		B9D5B2312337E1D100D66488 /* MultipartFileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2302337E1D100D66488 /* MultipartFileProvider.swift */; };
 		B9D5B2332337E27C00D66488 /* StubEmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5B2322337E27C00D66488 /* StubEmptyModel.swift */; };
@@ -1103,12 +1099,10 @@
 				B1568086222C78F400BC8D91 /* AbortingTests.swift in Sources */,
 				B1E61E5E2247082900B3AAD9 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */,
 				B91447C32381933C00D2912A /* URLQueryInjectorNodeTests.swift in Sources */,
-				B1B761412207B0B700AE3303 /* FormUrlCodingTests.swift in Sources */,
 				B1E61E5C2247082900B3AAD9 /* TestUtls.swift in Sources */,
 				B1E61E5D2247082900B3AAD9 /* UrlETagReaderNodeTests.swift in Sources */,
 				B1A57559225110BE00DEF33E /* IfConnectionFailedFromCacheNodeTests.swift in Sources */,
 				B1E61E5B2247082900B3AAD9 /* UrlETagSaverNodeTests.swift in Sources */,
-				B9D5B2292337C2A400D66488 /* MultipartRequestTests.swift in Sources */,
 				B1BED9FE21FF7BC0000B9018 /* User.swift in Sources */,
 				B1BED9FB21FF78EE000B9018 /* Infrastructure.swift in Sources */,
 				B91447BD2381919F00D2912A /* URLQueryBoolEncodingDefaultStartegyTests.swift in Sources */,
@@ -1117,10 +1111,8 @@
 				B10CA52B225A0262002885B3 /* LoggingTests.swift in Sources */,
 				B1E61E562247082000B3AAD9 /* TokenRefresherNodeTests.swift in Sources */,
 				B1E922562251CD4B00DCDADD /* CacheReaderNodeTests.swift in Sources */,
-				B1BED9F421FF4D6F000B9018 /* SimpleURLChainTests.swift in Sources */,
 				B1B7614A2207B39A00AE3303 /* AuthModel.swift in Sources */,
 				B1A575562250A85A00DEF33E /* EncodingTests.swift in Sources */,
-				B1B7614E2207C16000AE3303 /* TestEmptyResponseMapping.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
