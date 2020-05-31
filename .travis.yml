@@ -8,18 +8,18 @@ jobs:
     script:
     - pod install --repo-update
     - xcodebuild -workspace NodeKit.xcworkspace -scheme NodeKit
-  - stage: deploy
-    name: Deploy TestServer
-    install: true
-    script:
-    - sh ci/prepare_srv_deploy.sh
-    - sh ci/deploy_server.sh
+  # - stage: deploy
+  #   name: Deploy TestServer
+  #   install: true
+  #   script:
+  #   - sh ci/prepare_srv_deploy.sh
+  #   - sh ci/deploy_server.sh
   - stage: test
     name: Test and CodeCov Report
     script:
     - pod install --repo-update
     - gem install xcpretty -N
-    - sh ci/prepare_tests.sh
+    # - sh ci/prepare_tests.sh
     - sh ci/run_tests.sh
     - set -o pipefail
     - bash <(curl -s https://codecov.io/bash) -t b62fa427-b5d3-4318-885d-e7783e1d527c
