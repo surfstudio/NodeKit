@@ -48,7 +48,7 @@ open class ResponseProcessorNode<Type>: Node<NodeDataResponse, Type> {
                                            data: Data(),
                                            metrics: nil,
                                            serializationDuration: -1)
-//            log += "🌍 " + (urlRequest.method?.rawValue ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
+            log += "🌍 " + (urlRequest.httpMethod ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
             log += " ~~> \(urlResponse.statusCode)" + .lineTabDeilimeter
             log += "EMPTY"
 

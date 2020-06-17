@@ -17,6 +17,8 @@
 		5777221C2435E8BF001AC3DB /* TransportUrlBsonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5777221B2435E8BF001AC3DB /* TransportUrlBsonRequest.swift */; };
 		577722242435F9C0001AC3DB /* VoidBsonInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577722232435F9C0001AC3DB /* VoidBsonInputNode.swift */; };
 		579F5E8A2499E4820031DEC3 /* UrlBsonServiceChainBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579F5E892499E4820031DEC3 /* UrlBsonServiceChainBuilder.swift */; };
+		579F5E8C2499E7840031DEC3 /* BsonLayerTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579F5E8B2499E7840031DEC3 /* BsonLayerTypes.swift */; };
+		579F5E8E2499E8380031DEC3 /* RawBsonMappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579F5E8D2499E8380031DEC3 /* RawBsonMappable.swift */; };
 		57A34FFD2437182D00F67D86 /* VoidBsonIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A34FFC2437182D00F67D86 /* VoidBsonIONode.swift */; };
 		57A34FFF24377A1600F67D86 /* DTOConvertible+Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A34FFE24377A1600F67D86 /* DTOConvertible+Document.swift */; };
 		57CA5C6F2440BFCD00104FB6 /* UrlRequestEncodingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CA5C6E2440BFCD00104FB6 /* UrlRequestEncodingNode.swift */; };
@@ -171,6 +173,8 @@
 		577722232435F9C0001AC3DB /* VoidBsonInputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidBsonInputNode.swift; sourceTree = "<group>"; };
 		5777A9DA3AF74A9441C27193 /* Pods-NodeKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit/Pods-NodeKit.debug.xcconfig"; sourceTree = "<group>"; };
 		579F5E892499E4820031DEC3 /* UrlBsonServiceChainBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlBsonServiceChainBuilder.swift; sourceTree = "<group>"; };
+		579F5E8B2499E7840031DEC3 /* BsonLayerTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BsonLayerTypes.swift; sourceTree = "<group>"; };
+		579F5E8D2499E8380031DEC3 /* RawBsonMappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawBsonMappable.swift; sourceTree = "<group>"; };
 		57A34FFC2437182D00F67D86 /* VoidBsonIONode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidBsonIONode.swift; sourceTree = "<group>"; };
 		57A34FFE24377A1600F67D86 /* DTOConvertible+Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTOConvertible+Document.swift"; sourceTree = "<group>"; };
 		57CA5C6E2440BFCD00104FB6 /* UrlRequestEncodingNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRequestEncodingNode.swift; sourceTree = "<group>"; };
@@ -503,6 +507,7 @@
 				B9D5B22F2337E1BE00D66488 /* Multipart */,
 				B1B7613D2207A88F00AE3303 /* Extensions */,
 				B1118EEA21C8B72D007AD599 /* RawMappable.swift */,
+				579F5E8D2499E8380031DEC3 /* RawBsonMappable.swift */,
 				B1118EEC21C8B772007AD599 /* DTOConvertible.swift */,
 			);
 			path = Convertion;
@@ -631,6 +636,7 @@
 				B1B76158220811C400AE3303 /* ResponsePostprocessingNode */,
 				B1B7615222080E4200AE3303 /* Utils */,
 				B1B7615022080C4800AE3303 /* LayerTypes.swift */,
+				579F5E8B2499E7840031DEC3 /* BsonLayerTypes.swift */,
 				B11F119722B38183003116B3 /* DefaultLogOrder.swift */,
 			);
 			path = Layers;
@@ -1277,6 +1283,7 @@
 				B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */,
 				B17E86912220413900400931 /* AccessSafeNode.swift in Sources */,
 				B10D4BF8222DF4B1006B9EE9 /* RequestRouterNode.swift in Sources */,
+				579F5E8C2499E7840031DEC3 /* BsonLayerTypes.swift in Sources */,
 				B10CA5282259D545002885B3 /* Logable.swift in Sources */,
 				B156807F222C6BD300BC8D91 /* MulticastContext.swift in Sources */,
 				57CA5C712444639F00104FB6 /* RequestEncodingModel.swift in Sources */,
@@ -1298,6 +1305,7 @@
 				57A34FFF24377A1600F67D86 /* DTOConvertible+Document.swift in Sources */,
 				57D113292440779200B8AB07 /* NodeParameterEncoding.swift in Sources */,
 				579F5E8A2499E4820031DEC3 /* UrlBsonServiceChainBuilder.swift in Sources */,
+				579F5E8E2499E8380031DEC3 /* RawBsonMappable.swift in Sources */,
 				B10CA52D225A640C002885B3 /* Log.swift in Sources */,
 				B1F0C70221B1DDCF00382FA5 /* Observer+Operations.swift in Sources */,
 				57E81DF22462FE2300F87471 /* MultipartFormData.swift in Sources */,

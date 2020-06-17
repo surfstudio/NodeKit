@@ -10,9 +10,5 @@
 public typealias RequestProcessingLayerNode = Node<URLRequest, Json>
 /// Явный тип для слоя обработки ответа `JSON`
 public typealias ResponseProcessingLayerNode = Node<UrlDataResponse, Json>
-/// Явный тип для слоя обработки ответа `JSON`
-public typealias BsonResponseProcessingLayerNode = Node<UrlDataResponse, Bson>
 /// Явный тип для слоя постобработки ответа с `JSON`
 public typealias ResponsePostprocessorLayerNode = Node<UrlProcessedResponse<Json>, Void>
-/// Явный тип для слоя постобработки ответа с `BSON`
-public typealias BsonResponsePostprocessorLayerNode = Node<UrlProcessedResponse<Bson>, Void>

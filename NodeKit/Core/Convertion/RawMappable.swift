@@ -1,11 +1,7 @@
 import Foundation
-import BSON
 
 /// Словарь вида `[String: Any]`
 public typealias Json = [String: Any]
-
-/// Объект содержащий словарь примитивов 
-public typealias Bson = Document
 
 /// Композиция `RawEncodable` и `RawDecodable`
 public typealias RawMappable = RawEncodable & RawDecodable
@@ -48,17 +44,4 @@ public extension Optional where Wrapped: RawDecodable {
 
         return try Wrapped.from(raw: guarded)
     }
-}
-
-/// Имплементация протокола для `BSON` мапинга
-extension Document: RawMappable {
-    public static func from(raw: Bson) throws -> Document {
-        return raw
-    }
-
-    public func toRaw() throws -> Bson {
-        return self
-    }
-
-    public typealias Raw = Bson
 }
