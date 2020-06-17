@@ -16,3 +16,20 @@ extension Array: DTOEncodable where Element: DTOEncodable, Element.DTO.Raw == Js
         return try self.map { try $0.toDTO() }
     }
 }
+
+/// Позволяетп редставлять массив с элементами `DTODecodable` как `DTODecodable` в случае, если `Raw == Bson`
+extension Array where Element: DTODecodable, Element.DTO.Raw == Bson {
+
+    public static func from(dto: DTO) throws -> Array<Element> {
+        return try dto.map { try Element.from(dto: $0) }
+    }
+}
+
+/// Позволяетп редставлять массив с элементами `DTOEncodable` как `DTOEncodable` в случае, если `Raw == Bson`
+extension Array where Element: DTOEncodable, Element.DTO.Raw == Bson {
+
+    public func toDTO() throws -> Array<Element.DTO> {
+        return try self.map { try $0.toDTO() }
+    }
+
+}

@@ -86,4 +86,13 @@ public class BsonUrlChainTests: XCTestCase {
         XCTAssertEqual(result!.lastName, lastName)
     }
 
+    public func testGetArrayRequest() {
+
+        // Arrange
+
+        let chainRoot: Node<Void, [UserBsonEntity]> = BsonChain()
+            .route(.get, Routes.bsonArray)
+            .build()
+    }
+
 }

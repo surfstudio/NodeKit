@@ -1,10 +1,11 @@
 import Foundation
 
-/// Ошибки для маппинга массивов в/из JSON
+/// Ошибки для маппинга массивов в/из `Raw`, где `Raw` это `JSON` или `BSON`
 ///
 /// - cantFindKeyInRaw: Возникает в случае если при парсинге JSON-массива не удалось найти ключ `MappingUtils.arrayJsonKey`
-public enum ErrorArrayJsonMappiong: Error {
+public enum ErrorArrayRawMapping: Error {
     case cantFindKeyInRaw(Json)
+    case cantFindArrayInBson(Bson)
 }
 
 /// В том случае, когда JSON представлен тлько массивом.
@@ -43,9 +44,33 @@ extension Array: RawDecodable where Element: RawDecodable, Element.Raw == Json {
         }
 
         guard let arrayData = raw[MappingUtils.arrayJsonKey] as? [Json] else {
-            throw ErrorArrayJsonMappiong.cantFindKeyInRaw(raw)
+            throw ErrorArrayRawMapping.cantFindKeyInRaw(raw)
         }
 
         return try arrayData.map { try Element.from(raw: $0) }
     }
+}
+
+extension Array where Element: RawEncodable, Element.Raw == Bson {
+
+    public func toRaw() throws -> Bson {
+        let arrayData = try self.map { try $0.toRaw() }
+        return Bson(array: arrayData)
+    }
+
+}
+
+extension Array where Element: RawDecodable, Element.Raw == Bson {
+
+    public static func from(raw: Bson) throws -> Array<Element> {
+        guard !raw.isEmpty else {
+            return [Element]()
+        }
+        guard raw.isArray else {
+            throw ErrorArrayRawMapping.cantFindArrayInBson(raw)
+        }
+        let arrayData = raw.values.compactMap { $0 as? Bson }
+        return try arrayData.map { try Element.from(raw: $0) }
+    }
+
 }
