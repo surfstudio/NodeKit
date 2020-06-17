@@ -11,7 +11,7 @@ import Foundation
 @testable
 import NodeKit
 
-final class CustomServiceChain: UrlServiceChainBuilder {
+final class CustomServiceChain: UrlBsonServiceChainBuilder {
 
     override func urlResponseBsonProcessingLayerChain() -> Node<NodeDataResponse, Bson> {
         let responseDataParserNode = ResponseBsonDataParserNode()

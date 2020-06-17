@@ -15,7 +15,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     // MARK: - Properties / State
 
     /// Конструктор для создания сервисных цепочек.
-    public var serviceChain: UrlServiceChainBuilder
+    public var serviceChain: UrlBsonServiceChainBuilder
 
     /// Модель для конфигурирования URL-query в запросе.
     public var urlQueryConfig: URLQueryConfigModel
@@ -49,7 +49,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     /// Инициаллизирует объект.
     ///
     /// - Parameter serviceChain: Конструктор для создания сервисных цепочек.
-    public init(serviceChain: UrlServiceChainBuilder = UrlServiceChainBuilder()) {
+    public init(serviceChain: UrlBsonServiceChainBuilder = UrlBsonServiceChainBuilder()) {
         self.serviceChain = serviceChain
         self.urlQueryConfig = .init(
             query: [:]

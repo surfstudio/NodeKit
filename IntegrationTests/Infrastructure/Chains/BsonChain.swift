@@ -13,7 +13,7 @@ import NodeKit
 
 final class BsonChain: UrlBsonChainsBuilder<Routes> {
 
-    override init(serviceChain: UrlServiceChainBuilder = CustomServiceChain()) {
+    override init(serviceChain: UrlBsonServiceChainBuilder = CustomServiceChain()) {
         super.init(serviceChain: serviceChain)
     }
 
