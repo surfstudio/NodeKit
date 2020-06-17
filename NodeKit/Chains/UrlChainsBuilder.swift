@@ -144,7 +144,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     open func requestBuildingChain() ->  Node<Json, Json> {
         let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, responseQueue: responseDispatchQueue, session: session)
 
-        let urlRequestEncodingNode = UrlRequestEncodingNode<Json, Json>(next: transportChain)
+        let urlRequestEncodingNode = UrlJsonRequestEncodingNode(next: transportChain)
         let urlRequestTrasformatorNode = UrlRequestTrasformatorNode<Json, Json>(next: urlRequestEncodingNode, method: self.method)
         let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
 
@@ -255,7 +255,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
-        let encoding = UrlRequestEncodingNode<Json, Data>(next: creator)
+        let encoding = UrlJsonRequestEncodingNode(next: creator)
         let tranformator = UrlRequestTrasformatorNode<Json, Data>(next: encoding, method: self.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
 
@@ -283,7 +283,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
-        let encoding = UrlRequestEncodingNode<Json, Data>(next: creator)
+        let encoding = UrlJsonRequestEncodingNode(next: creator)
         let tranformator = UrlRequestTrasformatorNode<Json, Data>(next: encoding, method: self.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
 

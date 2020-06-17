@@ -141,7 +141,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
     open func requestBuildingChain() -> Node<Bson, Bson> {
         let transportChain = self.serviceChain.requestBsonTrasportChain(providers: self.headersProviders, responseQueue: responseDispatchQueue, session: session)
 
-        let urlRequestEncodingNode = UrlRequestEncodingNode<Bson, Bson>(next: transportChain)
+        let urlRequestEncodingNode = UrlBsonRequestEncodingNode(next: transportChain)
         let urlRequestTrasformatorNode = UrlRequestTrasformatorNode<Bson, Bson>(next: urlRequestEncodingNode, method: self.method)
         let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: nil)
 

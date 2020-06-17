@@ -30,7 +30,7 @@ public class EncodingTests: XCTestCase {
 
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
-        let requestEncodingNode = UrlRequestEncodingNode<Json, Json>(next: node)
+        let requestEncodingNode = UrlJsonRequestEncodingNode(next: node)
         let url = "http://test.com/usr"
 
         // Act
@@ -51,7 +51,7 @@ public class EncodingTests: XCTestCase {
 
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
-        let requestEncodingNode = UrlRequestEncodingNode<Json, Json>(next: node)
+        let requestEncodingNode = UrlJsonRequestEncodingNode(next: node)
         let url = "http://test.com/usr"
 
         // Act
@@ -72,7 +72,7 @@ public class EncodingTests: XCTestCase {
 
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
-        let requestEncodingNode = UrlRequestEncodingNode<Json, Json>(next: node)
+        let requestEncodingNode = UrlJsonRequestEncodingNode(next: node)
         let url = "http://test.com/usr"
 
         // Act
