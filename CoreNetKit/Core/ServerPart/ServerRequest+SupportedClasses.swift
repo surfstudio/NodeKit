@@ -33,7 +33,7 @@ public class ServerRequestsManager {
                                                 serverTrustPolicyManager: ServerTrustPolicyManager(policies: ServerRequestsManager.serverTrustPolicies))
     }
 
-    class func setup(with serverTrustPolicies: [String: ServerTrustPolicy]) {
+    public class func setup(with serverTrustPolicies: [String: ServerTrustPolicy]) {
         self.serverTrustPolicies = serverTrustPolicies
     }
 
