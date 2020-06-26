@@ -64,7 +64,7 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
 
         log += "Have next node \(nextNode.objectName) -> call `process`"
 
-        let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
+        let networkResponse = UrlProcessedResponse(dataResponse: data, type: json)
 
         return nextNode.process(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).map { json }
     }

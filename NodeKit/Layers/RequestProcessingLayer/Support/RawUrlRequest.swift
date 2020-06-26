@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 /// Обертка над URLRequest.
 public struct UrlNetworkRequest {
@@ -19,13 +18,13 @@ public struct UrlNetworkRequest {
     }
 }
 
-/// Обертка над `Alamofire.DataRequest`
+///// Обертка над `Alamofire.DataRequest`
 public struct RawUrlRequest {
 
     /// Alamifire запрос.
-    public let dataRequest: DataRequest
-    
-    public init(dataRequest: DataRequest) {
+    public let dataRequest: URLRequest?
+
+    public init(dataRequest: URLRequest?) {
         self.dataRequest = dataRequest
     }
 
@@ -33,11 +32,10 @@ public struct RawUrlRequest {
     ///
     /// - Returns: Новое представление запроса.
     public func toUrlRequest() -> UrlNetworkRequest? {
-        do {
-            let urlRequest = try self.dataRequest.convertible.asURLRequest()
-            return UrlNetworkRequest(urlRequest: urlRequest)
-        } catch {
+        guard let request = dataRequest else {
             return nil
         }
+        return UrlNetworkRequest(urlRequest: request)
     }
+
 }

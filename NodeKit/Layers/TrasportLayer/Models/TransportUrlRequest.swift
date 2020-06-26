@@ -9,33 +9,29 @@ public struct TransportUrlRequest {
     public let url: URL
     /// Хедеры запроса.
     public let headers: [String: String]
-    /// Данные для запроса в формате `JSON`
-    public let raw: Json
-    /// Кодировка данных для запроса.
-    public let parametersEncoding: ParametersEncoding
+    /// Данные для запроса в чистой `Data`
+    public let raw: Data?
 
     /// Инициаллизирует объект.
     ///
     /// - Parameters:
     ///   - params: Параметры для формирования запроса.
-    ///   - raw: Данные для запроса в формате `JSON`
-    public init(with params: TransportUrlParameters, raw: Json) {
+    ///   - raw: Данные для запроса в формате `Data`
+    public init(with params: TransportUrlParameters, raw: Data?) {
         self.init(method: params.method,
                   url: params.url,
                   headers: params.headers,
-                  raw: raw,
-                  parametersEncoding: params.parametersEncoding)
+                  raw: raw)
     }
 
     public init(method: Method,
                 url: URL,
                 headers: [String: String],
-                raw: Json,
-                parametersEncoding: ParametersEncoding) {
+                raw: Data?) {
         self.method = method
         self.url = url
         self.headers = headers
         self.raw = raw
-        self.parametersEncoding = parametersEncoding
     }
+
 }
