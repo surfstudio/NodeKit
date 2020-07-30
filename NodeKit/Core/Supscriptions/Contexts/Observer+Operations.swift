@@ -10,6 +10,29 @@ import Foundation
 
 public extension Observer {
 
+    /// Для обработки ошибки с кастомным типом
+    /// **ВАЖНО**: Использовать перед вызовом .onError
+    /// **ВАЖНО**: метод defer не дергается при использовании catchError
+    func catchError<Type: Error>(_ closure: @escaping (Type) -> Void) -> Observer<Model> {
+        let observer = Context<Model>()
+
+        self.onError { error in
+            guard
+                let casted = error as? Type
+            else {
+                observer.emit(error: error)
+                return
+            }
+            closure(casted)
+        }.onCompleted {
+            observer.emit(data: $0)
+        }.onCanceled {
+            observer.cancel()
+        }
+
+        return observer
+    }
+
     /// Позволяет изменить процесс обработки в случае ошибки.
     /// Этот метод позволяет конвертировать возникшую ошибку в другую модель.
     /// Например если в случае ошибки операции мы хотим выполнить другую операцию
@@ -95,6 +118,36 @@ public extension Observer {
         return result
     }
 
+    /// Используется для комбинирования нескольких запросов
+    /// В отличие от `combine`, если один из ответов вернул ошибку, вызывается `onCompleted`
+    /// `onError` вызывается только, если для всех запросов вернулась ошибка
+    func combineTolerance<T>(_ provider: @escaping @autoclosure () -> Observer<T>) -> Observer<(Model?, T?)> {
+        let result = Context<(Model?, T?)>()
+        let successBody = { [weak self] (model: Model?) -> Void in
+            let context = provider()
+            context.log(self?.log)
+                .onCompleted { [weak context] in
+                    result.log(context?.log).emit(data: (model, $0))
+                }.onError { [weak context] in
+                    if model == nil {
+                        result.log(context?.log).emit(error: $0)
+                    } else {
+                        result.log(context?.log).emit(data: (model, nil))
+                    }
+                }.onCanceled { [weak context] in
+                    result.log(context?.log).cancel()
+                }
+        }
+        self.onCompleted { (model) in
+            successBody(model)
+        }.onError { (error) in
+            successBody(nil)
+        }.onCanceled { [weak self] in
+           result.log(self?.log).cancel()
+        }
+        return result
+    }
+    
     /// Позволяет комбинировать несколько контекстов в один.
     /// Тогда подписчик будет оповещен только после того,как выполнятся оба контекста.
     func combine<T>(_ provider: @escaping @autoclosure () -> Observer<T>) -> Observer<(Model, T)> {
