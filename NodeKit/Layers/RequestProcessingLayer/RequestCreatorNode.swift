@@ -29,7 +29,7 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
         var request = URLRequest(url: data.url)
         request.httpMethod = data.method.rawValue
         request.httpBody = data.raw
-        mergedHeaders.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
+        mergedHeaders.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
 
         return self.next.process(request).log(self.getLogMessage(data))
     }
