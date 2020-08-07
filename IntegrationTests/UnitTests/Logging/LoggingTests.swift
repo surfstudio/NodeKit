@@ -125,6 +125,30 @@ public class LoggingTests: XCTestCase {
         XCTAssertNil(result.log?.next?.next)
     }
 
+    func testLogCopyingInObserverCombineTolerance() {
+
+        // given
+        let context = Context<Json>().log(Log("", id: "")).emit(data: Json())
+        let exp = self.expectation(description: #function)
+
+        // when
+        let combined = Context<Json>()
+        
+        let result = context.combineTolerance(combined).onCompleted { _ in
+            exp.fulfill()
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+            combined.log(Log("1", id: "1")).emit(data: Json())
+        })
+
+        // Assert
+        self.waitForExpectations(timeout: 2, handler: nil)
+        XCTAssertNotNil(result.log)
+        XCTAssertNotNil(result.log?.next)
+        XCTAssertNil(result.log?.next?.next)
+    }
+
     func testLogCopyingInFilter() {
         // Arrange
 
@@ -196,4 +220,5 @@ public class LoggingTests: XCTestCase {
         XCTAssertNotNil(result.log)
         XCTAssertNil(result.log?.next)
     }
+
 }

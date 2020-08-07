@@ -82,6 +82,35 @@ context.onError { print("Error!") }
 
 Все доступные операции перечислены [тут](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Observer.html)
 
+### catchError<Type: Error>(_ closure: @escaping (Type) -> Void) -> Observer<Model>
+
+**ВАЖНО**: Использовать перед вызовом .onError
+**ВАЖНО**: метод defer не дергается при использовании catchError
+
+Позволяет обработать ошибку с кастомным типом пришедшую с сервера. 
+
+Данная операция помогает отделить логику специальных ошибок получаемых с сервера от стандартных ошибок обрабатываемых в методе  `onError`.
+
+Например:
+
+```Swift
+
+struct CustomServerError: Codable, Error {
+    let code: Int
+    let userMessage: String
+    let commonCode: Int
+}
+
+getUserData().catchError { [weak self] in 
+    self?.customErrorHandler
+} .onComleted { [weak self] in 
+    self?.onSuccess()
+} .onError {
+    print("Error!")
+}
+
+```
+
 ### mapError(_ mapper: @escaping (Error) throws -> Observer<Model>)
 
 Задача этой операции сконвертировать ошибку в какой-то другой `Observer`. Например, таким образом можно "глушить" ошибки. 
@@ -236,6 +265,49 @@ func getBanner() -> Observer<Banner> { }
 func getProducts() -> Observer<[Product]> { }
 
 func getActions() -> Observer<[Action]> { }
+
+```
+### combineTolerance<T>(_ provider: @escaping @autoclosure () -> Observer<T>) -> Observer<(Model?, T?)>
+
+Аналогична  `combine<T>`: комбинирует несколько наблюдателей и в качестве результата выдает 1 `Observer` с двумя результатами, но в отличие `combine<T>` для случая когда один из ответов вернул ошибку вызывается `onCompleted`. Только если для всех запросов вернулась ошибка вызывается `onError` .
+
+Может быть полезен в том случае, если необходимо исполнить два параллельных запроса, но не все результаты необходимы.
+
+Пример:
+
+Представим, что у нас есть экран отображающий акции, специальные предложения для пользователя и товары по акции из каталога:
+1. Рекламные акции
+2. Специальные предложения
+3. Товары по скидке
+При этом если допустим пользователь не авторизован, то при запросе Специльных предложений сервер выдаст ошибку.
+
+Для того, чтобы собрать этот экран можно использовать оператор `combineTolerance`
+
+```Swift
+
+struct PromotionsValue {
+    let promotions: Promotions
+    let personalDiscounts: [PersonalDiscounts]
+    let stockItems: [StockItems]
+} 
+
+func getPromotionsValue() -> Observer<BuisnessValue> {
+    return self.getPromotions()
+        .combineTolerance(self.getPersonalDiscounts)
+        .combineTolerance(self.getStockItemss)
+        .map { (args) in
+            let (promotions, personalDiscounts, stockItems) = args
+            return PromotionsValue(promotions: promotions, 
+                                   personalDiscounts: personalDiscounts, 
+                                   stockItems: stockItems)
+        }
+}
+
+func getPromotions() -> Observer<Promotions> { }
+
+func getPersonalDiscounts() -> Observer<[PersonalDiscounts]> { }
+
+func getStockItems() -> Observer<[StockItems]> { }
 
 ```
 
