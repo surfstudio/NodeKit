@@ -288,7 +288,7 @@ public struct JSONEncoding: ParameterEncoding {
 
         return TransportUrlRequest(method: urlParameters.method,
                                    url: urlParameters.url,
-                                   headers: urlParameters.headers,
+                                   headers: headers,
                                    raw: body)
     }
 
