@@ -32,6 +32,7 @@ public class EncodingTests: XCTestCase {
         let node = RequestCreatorNode(next: nextNode)
         let requestEncodingNode = UrlJsonRequestEncodingNode(next: node)
         let url = "http://test.com/usr"
+        let headersArray: [String: String] = ["Content-Type": "application/x-www-form-urlencoded; charset=utf-8"]
 
         // Act
 
@@ -44,6 +45,7 @@ public class EncodingTests: XCTestCase {
         // Assert
 
         XCTAssertEqual(nextNode.request.url!.absoluteString, url)
+        XCTAssertEqual(nextNode.request.headers.dictionary, headersArray)
     }
 
     public func testUrlQueryConvertionWork() {
@@ -74,6 +76,7 @@ public class EncodingTests: XCTestCase {
         let node = RequestCreatorNode(next: nextNode)
         let requestEncodingNode = UrlJsonRequestEncodingNode(next: node)
         let url = "http://test.com/usr"
+        let headersArray: [String: String] = ["Content-Type": "application/json"]
 
         // Act
 
@@ -86,6 +89,7 @@ public class EncodingTests: XCTestCase {
         // Assert
 
         XCTAssertEqual(nextNode.request.url!.absoluteString, url)
+        XCTAssertEqual(nextNode.request.headers.dictionary, headersArray)
     }
 
 }

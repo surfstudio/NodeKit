@@ -25,10 +25,10 @@ public class ChainConfiguratorNodeTests: XCTestCase {
 
     class NextStub: Node<Void, Void> {
 
-        var queueLable = ""
+        var queueLabel = ""
 
         override func process(_ data: Void) -> Observer<Void> {
-            self.queueLable = DispatchQueue.currentLabel
+            self.queueLabel = DispatchQueue.currentLabel
             return .emit(data: data)
         }
     }
@@ -54,7 +54,7 @@ public class ChainConfiguratorNodeTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(next.queueLable, "com.apple.root.user-initiated-qos")
+        XCTAssertEqual(next.queueLabel, "com.apple.root.user-initiated-qos")
     }
 
     public func testNextNodeDispatchedInMain() {

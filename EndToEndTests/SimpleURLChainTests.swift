@@ -19,6 +19,7 @@ public class SimpleURLChainTests: XCTestCase {
         // Arrange
 
         let chainRoot: Node<Void, [User]> = UrlChainsBuilder()
+            .set(metadata: ["TestHeader":"testHeaderValue"])
             .route(.get, Routes.users)
             .build()
 

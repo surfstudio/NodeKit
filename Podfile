@@ -14,4 +14,14 @@ target 'NodeKit' do
     pod 'CoreEvents', :git => 'https://github.com/surfstudio/CoreEvents', :tag => '2.0.1'
     pod 'BSON', '7.0.4'
   end
+
+  target 'UnitTests' do
+    pod 'CoreEvents', :git => 'https://github.com/surfstudio/CoreEvents', :tag => '2.0.1'
+    pod 'BSON', '7.0.4'
+  end
+
+  target 'EndToEndTests' do
+    pod 'CoreEvents', :git => 'https://github.com/surfstudio/CoreEvents', :tag => '2.0.1'
+    pod 'BSON', '7.0.4'
+  end
 end
