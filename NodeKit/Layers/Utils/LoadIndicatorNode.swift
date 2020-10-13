@@ -6,14 +6,19 @@
 //  Copyright © 2019 Кравченков Александр. All rights reserved.
 //
 
+#if canImport(UIKit)
 import UIKit
+#endif
+import Dispatch
 
 private enum LoadIndicatableNodeStatic {
     static var requestConter: Int = 0 {
         didSet {
+            #if canImport(UIKit)
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = requestConter != 0
             }
+            #endif
         }
     }
 }
