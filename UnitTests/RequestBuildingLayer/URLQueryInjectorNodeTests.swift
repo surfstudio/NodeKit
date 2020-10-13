@@ -206,4 +206,5 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         XCTAssertEqual(normalizedRes, normalizedExp)
     }
+
 }
