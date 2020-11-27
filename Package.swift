@@ -32,11 +32,18 @@ let package = Package(
             name: "IntegrationTests",
             dependencies: [
                 "NodeKit",
+                "Alamofire",
+                "CoreEvents"
             ],
             path: "IntegrationTests",
             exclude: [
                 "Info.plist",
                 "Resources/LICENSE.txt",
+                // TODO: - Переписать тесты на блекбокс - убрать завязку на сервер
+                "FormUrlCodingTests.swift",
+                "MultipartRequestTests.swift",
+                "SimpleURLChainTests.swift",
+                "TestEmptyResponseMapping.swift"
             ]
         ),
     ]
