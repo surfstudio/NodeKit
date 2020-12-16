@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		016DDD9E2589F8FD0076C01D /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016DDD9D2589F8FD0076C01D /* Debouncer.swift */; };
+		016DDDA22589F92F0076C01D /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016DDDA12589F92F0076C01D /* Throttler.swift */; };
 		46E5DFE26AAAEF094F0F40E7 /* Pods_NodeKit_IntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */; };
 		57E7B64F23DDF3900036A02E /* CancelableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E7B64E23DDF3900036A02E /* CancelableContext.swift */; };
 		81DE7744A4629F6178E37B74 /* Pods_NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C93D4D7B8501ED5C5089E938 /* Pods_NodeKit.framework */; };
@@ -144,6 +146,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		016DDD9D2589F8FD0076C01D /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
+		016DDDA12589F92F0076C01D /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		1FA15CD5765BC3071AC74B9E /* Pods-NodeKit-IntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit-IntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		22AB55338E3AFD7D15EA636E /* Pods-NodeKit-IntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NodeKit-IntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-NodeKit-IntegrationTests/Pods-NodeKit-IntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5570B1414116697CC4D39629 /* Pods_NodeKit_IntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NodeKit_IntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -785,6 +789,8 @@
 				B156807C222C65D000BC8D91 /* Observer+Shugar.swift */,
 				B156807E222C6BD300BC8D91 /* MulticastContext.swift */,
 				57E7B64E23DDF3900036A02E /* CancelableContext.swift */,
+				016DDD9D2589F8FD0076C01D /* Debouncer.swift */,
+				016DDDA12589F92F0076C01D /* Throttler.swift */,
 			);
 			path = Contexts;
 			sourceTree = "<group>";
@@ -1155,6 +1161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				016DDDA22589F92F0076C01D /* Throttler.swift in Sources */,
 				B1568083222C769D00BC8D91 /* RequestAborterNode.swift in Sources */,
 				B10CA531225A66F9002885B3 /* LoggerNode.swift in Sources */,
 				B10CA52F225A647C002885B3 /* LoggerExtensions.swift in Sources */,
@@ -1172,6 +1179,7 @@
 				B9D5B2332337E27C00D66488 /* StubEmptyModel.swift in Sources */,
 				B160C91F2212A41500C94859 /* TechnicaErrorMapperNode.swift in Sources */,
 				87239D7924D41A6500D38EC7 /* PagingError.swift in Sources */,
+				016DDD9E2589F8FD0076C01D /* Debouncer.swift in Sources */,
 				B10FB2402207966D004C65E3 /* ResponseDataPreprocessorNode.swift in Sources */,
 				B199E76A223CF2A10001FE17 /* ParametersEncoding.swift in Sources */,
 				B9701CE72281AA6E00CFBCD6 /* VoidOutputNode.swift in Sources */,
