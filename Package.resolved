@@ -14,9 +14,9 @@
         "package": "CoreEvents",
         "repositoryURL": "https://github.com/surfstudio/CoreEvents",
         "state": {
-          "branch": "add-swiftpm-support",
-          "revision": "c7c27f0db03c75cd39476e58a0a42ac5e2c66be5",
-          "version": null
+          "branch": null,
+          "revision": "e98f6fea97a1e8a974dbe99156346412de0dfc7a",
+          "version": "2.0.2"
         }
       }
     ]
