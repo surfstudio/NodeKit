@@ -272,7 +272,6 @@ public extension Observer {
     func debounce(on queue: DispatchQueue = .global(qos: .utility),
                   after delay: DispatchTimeInterval) -> Observer<Model> {
         let result = Context<Model>()
-        let debouncer = Debouncer.get(by: "\(self)")
         debouncer.run(on: queue, delay: delay) { [weak self] in
             self?.onCompleted { [weak self] in
                 result.log(self?.log)
@@ -294,7 +293,6 @@ public extension Observer {
     ///     - time: Время задержки
     func throttle(next time: DispatchTimeInterval) -> Observer<Model> {
         let result = Context<Model>()
-        let throttler = Throttler.get(by: "\(self)")
         throttler.run(delay: time) { [weak self] in
             self?.onCompleted { [weak self] in
                 result.log(self?.log)

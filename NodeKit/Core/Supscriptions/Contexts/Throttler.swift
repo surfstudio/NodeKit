@@ -10,21 +10,7 @@ import Foundation
 
 class Throttler {
 
-    private static var dictionary: [String: Throttler] = [:]
-
-    static func get(by key: String) -> Throttler {
-        if let throttler = dictionary[key] {
-            return throttler
-        } else {
-            let throttler = Throttler()
-            dictionary[key] = throttler
-            return throttler
-        }
-    }
-
     private var lastExecutedAt: Date?
-
-    private init() {}
 
     func run(delay: DispatchTimeInterval, action: @escaping () -> Void) {
         let now = Date()
