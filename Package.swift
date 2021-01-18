@@ -14,7 +14,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/Alamofire/Alamofire", .exact("5.0.0-beta.6")),
-        .package(url: "https://github.com/surfstudio/CoreEvents", .branch("add-swiftpm-support")),
+        .package(url: "https://github.com/surfstudio/CoreEvents", .exact("2.0.2"))
     ],
     targets: [
         .target(
