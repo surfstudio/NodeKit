@@ -291,6 +291,8 @@ public extension Observer {
 
     /// Заблокирует выполнение на величину задержки
     /// - _ o x x
+    /// **ВНИМАНИЕ**
+    /// Если вызывать дважды на одном и том же контексте, то `emit` произойдет дважды.
     /// - Parameters:
     ///     - time: Время задержки
     func throttle(next time: DispatchTimeInterval) -> Observer<Model> {
