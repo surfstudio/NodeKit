@@ -43,6 +43,10 @@ open class Observer<Input>: ObservableProtocol {
     /// Лог-сообщение.
     public var log: Logable?
 
+    /// Задержки - см. Observer+operations debounce/throttle
+    let debouncer = Debouncer()
+    let throttler = Throttler()
+
     /// Конструткор по-умолчанию.
     public init() { }
 

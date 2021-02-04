@@ -263,4 +263,52 @@ public extension Observer {
         observer(self)
         return self
     }
+
+    /// Отложит выполнение на величину задержки
+    /// -  x x o _
+    /// **ВНИМАНИЕ**
+    /// Если вызывать дважды на одном и том же контексте, то `emit` произойдет дважды. 
+    /// - Parameters:
+    ///     - queue: Очередь, на которой будет обрабатываться задержка
+    ///     - delay: Время задержки
+    func debounce(on queue: DispatchQueue = .global(qos: .utility),
+                  after delay: DispatchTimeInterval) -> Observer<Model> {
+        let result = Context<Model>()
+        debouncer.run(on: queue, delay: delay) { [weak self] in
+            self?.onCompleted { [weak self] in
+                result.log(self?.log)
+                    .emit(data: $0)
+            }.onError { [weak self] error in
+                result.log(self?.log)
+                    .emit(error: error)
+            }.onCanceled { [weak self] in
+                result.log(self?.log)
+                    .cancel()
+            }
+        }
+        return result
+    }
+
+    /// Заблокирует выполнение на величину задержки
+    /// - _ o x x
+    /// **ВНИМАНИЕ**
+    /// Если вызывать дважды на одном и том же контексте, то `emit` произойдет дважды.
+    /// - Parameters:
+    ///     - time: Время задержки
+    func throttle(next time: DispatchTimeInterval) -> Observer<Model> {
+        let result = Context<Model>()
+        throttler.run(delay: time) { [weak self] in
+            self?.onCompleted { [weak self] in
+                result.log(self?.log)
+                    .emit(data: $0)
+            }.onError { [weak self] error in
+                result.log(self?.log)
+                    .emit(error: error)
+            }.onCanceled { [weak self] in
+                result.log(self?.log)
+                    .cancel()
+            }
+        }
+        return result
+    }
 }
