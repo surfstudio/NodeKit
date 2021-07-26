@@ -14,13 +14,13 @@ import Alamofire
 open class RequestSenderNode<Type>: Node<RawUrlRequest, Type>, Aborter {
 
     /// Тип для узла, который будет обрабатывать ответ от сервера.
-    public typealias RawResponseProcessor = Node<DataResponse<Data>, Type>
+    public typealias RawResponseProcessor = Node<DataResponse<Data, Error>, Type>
 
     /// Узел для обработки ответа.
     public var rawResponseProcessor: RawResponseProcessor
 
     private weak var request: DataRequest?
-    private weak var context: Observer<DataResponse<Data>>?
+    private weak var context: Observer<DataResponse<Data, Error>>?
 
     /// Инициаллизирует узел.
     ///
@@ -34,13 +34,26 @@ open class RequestSenderNode<Type>: Node<RawUrlRequest, Type>, Aborter {
     /// - Parameter data: Данные для исполнения запроса.
     open override func process(_ data: RawUrlRequest) -> Observer<Type> {
 
-        let context = Context<DataResponse<Data>>()
+        let context = Context<DataResponse<Data, Error>>()
 
         self.context = context
         var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.requestSenderNode)
         self.request = data.dataRequest.responseData(queue: DispatchQueue.global(qos: .userInitiated)) { (response) in
             log += "Get response!)"
-            context.log(log).emit(data: response)
+            switch response.result {
+            case .failure(let error):
+                context.log(log).emit(error: error)
+            case .success:
+                let dataResponse = DataResponse<Data, Error>(
+                    request: response.request,
+                    response: response.response,
+                    data: response.data,
+                    metrics: response.metrics,
+                    serializationDuration: response.serializationDuration,
+                    result: response.result.mapError { $0 }
+                )
+                context.log(log).emit(data: dataResponse)
+            }
         }
         log += "Request sended!"
         return context.map { self.rawResponseProcessor.process($0) }

@@ -17,7 +17,7 @@ public enum ResponseProcessorNodeError: Error {
 }
 
 /// Этот узел занимается первичной обработкой ответа сервера.
-open class ResponseProcessorNode<Type>: Node<DataResponse<Data>, Type> {
+open class ResponseProcessorNode<Type>: Node<DataResponse<Data, Error>, Type> {
 
     /// Следующий узел для обратки.
     public let next: Node<UrlDataResponse, Type>
@@ -32,7 +32,7 @@ open class ResponseProcessorNode<Type>: Node<DataResponse<Data>, Type> {
     /// Проверяет, возникла-ли какая-то ошибка во время работы.
     ///
     /// - Parameter data: Низкоуровневый ответ сервера.
-    open override func process(_ data: DataResponse<Data>) -> Observer<Type> {
+    open override func process(_ data: DataResponse<Data, Error>) -> Observer<Type> {
         var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.responseProcessorNode)
         switch data.result {
         case .failure(let error):
