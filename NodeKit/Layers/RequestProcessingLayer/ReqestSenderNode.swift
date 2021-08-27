@@ -40,20 +40,16 @@ open class RequestSenderNode<Type>: Node<RawUrlRequest, Type>, Aborter {
         var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.requestSenderNode)
         self.request = data.dataRequest.responseData(queue: DispatchQueue.global(qos: .userInitiated)) { (response) in
             log += "Get response!)"
-            switch response.result {
-            case .failure(let error):
-                context.log(log).emit(error: error)
-            case .success:
-                let dataResponse = DataResponse<Data, Error>(
-                    request: response.request,
-                    response: response.response,
-                    data: response.data,
-                    metrics: response.metrics,
-                    serializationDuration: response.serializationDuration,
-                    result: response.result.mapError { $0 }
-                )
-                context.log(log).emit(data: dataResponse)
-            }
+
+            let dataResponse = DataResponse<Data, Error>(
+                request: response.request,
+                response: response.response,
+                data: response.data,
+                metrics: response.metrics,
+                serializationDuration: response.serializationDuration,
+                result: response.result.mapError { $0 }
+            )
+            context.log(log).emit(data: dataResponse)
         }
         log += "Request sended!"
         return context.map { self.rawResponseProcessor.process($0) }
