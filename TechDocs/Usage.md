@@ -1,6 +1,6 @@
 # Как этим пользоваться
 
-Соедржание:
+Содержание:
 - [Как этим пользоваться](#%D0%BA%D0%B0%D0%BA-%D1%8D%D1%82%D0%B8%D0%BC-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%D1%81%D1%8F)
   - [Слой моделей](#%D1%81%D0%BB%D0%BE%D0%B9-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B5%D0%B9)
     - [Raw Layer Models (RawMappable)](#raw-layer-models-rawmappable)
@@ -32,10 +32,10 @@
 
 За определение модели из этого слоя отвечают два протокола:
 
-1) [RawEncodable](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Protocols/RawEncodable.html)
-2) [RawDecodable](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Protocols/RawDecodable.html)
+1) [RawEncodable](https://surfstudio.github.io/NodeKit/Protocols/RawEncodable.html)
+2) [RawDecodable](https://surfstudio.github.io/NodeKit/Protocols/RawDecodable.html)
 
-Существует также алиас [RawMappable](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Typealiases.html#/s:10CoreNetKit14RawMappable)
+Существует также алиас [RawMappable](https://surfstudio.github.io/NodeKit/Typealiases.html#/s:10CoreNetKit14RawMappable)
 
 Для сущностей, удовлетворяющих протоколам `Codable` есть реализация маппинга по-умолчанию. 
 
@@ -77,10 +77,10 @@ extension UserEntry: RawDecodable {
 
 За определение модели из этого слоя отвечают два протокола:
 
-1) [DTOEncodable](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Protocols/DTOEncodable.html)
-2) [DTODecodable](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Protocols/DTODecodable.html)
+1) [DTOEncodable](https://surfstudio.github.io/NodeKit/Protocols/DTOEncodable.html)
+2) [DTODecodable](https://surfstudio.github.io/NodeKit/Protocols/DTODecodable.html)
 
-Существует также алиас [DTOConvertible](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Typealiases.html#/s:10CoreNetKit14DTOConvertiblea)
+Существует также алиас [DTOConvertible](https://surfstudio.github.io/NodeKit/Typealiases.html#/s:10CoreNetKit14DTOConvertiblea)
 
 Продолжим пример:
 
@@ -174,7 +174,7 @@ extension RegistrationRoute: UrlRouteProvider {
 
 #### Полезно знать
 
-Для упрощения работы с URL в CoreNetKit есть [расширение](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Extensions/Optional.html) для конкатенации `URL` и `String`
+Для упрощения работы с URL в CoreNetKit есть [расширение](https://surfstudio.github.io/NodeKit/Extensions/Optional.html) для конкатенации `URL` и `String`
 
 ### Кодировка
 
@@ -183,7 +183,7 @@ CoreNetKit предоставляет следующие виды кодиров
 2) `formUrl` - сериализует парамтеры запроса в формат FormUrlEncoding иприкрепляет к телу запроса. 
 3) `urlQuery` - конвертирует параметры в строку, зменяя определенные символы на специальные последовательности (образует URL-encoded string)
 
-Эти параметры находятся в [ParametersEncoding](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Enums/ParametersEncoding.html)
+Эти параметры находятся в [ParametersEncoding](https://surfstudio.github.io/Enums/ParametersEncoding.html)
 
 ## Отправка запроса
 
@@ -253,7 +253,7 @@ class ExampleService {
 4) `onCanceled` - вызывается в случае, если операция,за которой наблюдает `Observer` была отменена
 
 На самом деле этот объект повсеместно используется в библиотеке, а в качестве его реализации используется `Context<T>`.
-Документацую можно увидеть [здесь](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Observer.html) и [здесь](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Context.html)
+Документацую можно увидеть [здесь](https://surfstudio.github.io/NodeKit/Classes/Observer.html) и [здесь](https://surfstudio.github.io/NodeKit/Classes/Context.html)
 
 Так же более детальное описание работы контекстов находится [тут](Contexts.md)
 

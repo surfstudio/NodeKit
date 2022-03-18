@@ -16,7 +16,7 @@
 
 # Контексты и наблюдатели
 
-Одним из основных компонентов библиотеки является [Observer](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Observer.html), а точнее [Context](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Context.html) и его производные.
+Одним из основных компонентов библиотеки является [Observer](https://surfstudio.github.io/NodeKit/Classes/Observer.html), а точнее [Context](https://surfstudio.github.io/NodeKit/Classes/Context.html) и его производные.
 
 Они используются для того, чтобы наблюдать за запросом и в случае необходимости как-то его менять (например, отменять).
 
@@ -80,7 +80,7 @@ context.onError { print("Error!") }
 
 ## Операции
 
-Все доступные операции перечислены [тут](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/Observer.html)
+Все доступные операции перечислены [тут](https://surfstudio.github.io/NodeKit/Classes/Observer.html)
 
 ### catchError<Type: Error>(_ closure: @escaping (Type) -> Void) -> Observer<Model>
 
@@ -358,7 +358,7 @@ self.service
 
 ### dispatchOn(_ queue: DispatchQueue)
 
-Конвертирует себя в [AsyncContext](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/AsyncContext.html)
+Конвертирует себя в [AsyncContext](https://surfstudio.github.io/NodeKit/Classes/AsyncContext.html)
 и конфигурирует его переданной очередью. 
 То есть после этого оператора ответ будет диспатчеризоваться на очереди `queue`
 
@@ -375,7 +375,7 @@ self.service
 
 ### multicast()
 
-Конвертирует себя в [MulticastContext](https://lastsprint.dev/CoreNetKit/Docs/swift_output/Classes/MulticastContext.html)
+Конвертирует себя в [MulticastContext](https://surfstudio.github.io/NodeKit/Classes/MulticastContext.html)
 После этого оператора у каждого контекста может быть несколько слушателей.
 
 Вообще, не очень советую использовать эту функцию, потому что, если не понимать как это работает, то можно прострелить себе ногу.

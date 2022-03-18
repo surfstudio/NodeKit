@@ -5,4 +5,4 @@
 ## MockerProxyConfigNode
 
 Это узел, который умеет конфигурировать запрос так, чтобы включить функцию проксирования запроса у Mocker.
-Узел встраивается между [MetadataConnectorNode](../Existing/#cборка-запроса) и [RequestRouterNode](../Existing/#cборка-запроса).
+Узел встраивается между [MetadataConnectorNode](../Existing.md/#cборка-запроса) и [RequestRouterNode](../Existing.md/#cборка-запроса).
