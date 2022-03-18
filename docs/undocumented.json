@@ -1,0 +1,642 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/CacheNode/ETag/UrlETagReaderNode.swift",
+      "line": 15,
+      "symbol": "UrlETagReaderNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/CacheNode/FirstCachePolicyNode.swift",
+      "line": 18,
+      "symbol": "BaseFirstCachePolicyNodeError.cantGetUrlRequest",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/CacheNode/UrlCacheReaderNode.swift",
+      "line": 18,
+      "symbol": "BaseUrlCacheReaderError.cantLoadDataFromCache",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/CacheNode/UrlCacheReaderNode.swift",
+      "line": 19,
+      "symbol": "BaseUrlCacheReaderError.cantSerializeJson",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/CacheNode/UrlCacheReaderNode.swift",
+      "line": 20,
+      "symbol": "BaseUrlCacheReaderError.cantCastToJson",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/CacheNode/UrlCacheReaderNode.swift",
+      "line": 28,
+      "symbol": "UrlCacheReaderNode.needsToThrowError",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/CacheNode/UrlCacheReaderNode.swift",
+      "line": 30,
+      "symbol": "UrlCacheReaderNode.init(needsToThrowError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 64,
+      "symbol": "UrlChainsBuilder.set(query:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 69,
+      "symbol": "UrlChainsBuilder.set(boolEncodingStartegy:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 74,
+      "symbol": "UrlChainsBuilder.set(arrayEncodingStrategy:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 79,
+      "symbol": "UrlChainsBuilder.set(dictEncodindStrategy:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 84,
+      "symbol": "UrlChainsBuilder.set(boolEncodingStartegy:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 89,
+      "symbol": "UrlChainsBuilder.set(arrayEncodingStrategy:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 96,
+      "symbol": "UrlChainsBuilder.set(session:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 104,
+      "symbol": "UrlChainsBuilder.set(metadata:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 109,
+      "symbol": "UrlChainsBuilder.route(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 115,
+      "symbol": "UrlChainsBuilder.encode(as:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 120,
+      "symbol": "UrlChainsBuilder.add(provider:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 127,
+      "symbol": "UrlChainsBuilder.log(exclude:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Chains/UrlChainsBuilder.swift",
+      "line": 166,
+      "symbol": "UrlChainsBuilder.requestRouterNode(next:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Convertion/DTOConvertible.swift",
+      "line": 35,
+      "symbol": "Optional.from(dto:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Convertion/Extensions/Array+RawMappable.swift",
+      "line": 7,
+      "symbol": "ErrorArrayJsonMappiong.cantFindKeyInRaw(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Convertion/Multipart/MultipartFileProvider.swift",
+      "line": 10,
+      "symbol": "MultipartFileProvider.data(data:filename:mimetype:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Convertion/Multipart/MultipartFileProvider.swift",
+      "line": 11,
+      "symbol": "MultipartFileProvider.url(url:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Convertion/Multipart/MultipartFileProvider.swift",
+      "line": 12,
+      "symbol": "MultipartFileProvider.customWithUrl(url:filename:mimetype:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Convertion/Multipart/StubEmptyModel.swift",
+      "line": 6,
+      "symbol": "Stubable.stub()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Convertion/Multipart/StubEmptyModel.swift",
+      "line": 11,
+      "symbol": "Dictionary.stub()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Convertion/RawMappable.swift",
+      "line": 40,
+      "symbol": "Optional.from(raw:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Node/Node.swift",
+      "line": 45,
+      "symbol": "Node.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Supscriptions/Contexts/CancelableContext.swift",
+      "line": 15,
+      "symbol": "CancelableContext.cancel()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Core/Supscriptions/ObservableProtocol.swift",
+      "line": 13,
+      "symbol": "DefaultInitable.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Encodings/JsonArrayEncoding.swift",
+      "line": 12,
+      "symbol": "JsonArrayEncoding",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/DefaultLogOrder.swift",
+      "line": 11,
+      "symbol": "LogOrder",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/DefaultLogOrder.swift",
+      "line": 13,
+      "symbol": "LogOrder.voidIONode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/DefaultLogOrder.swift",
+      "line": 14,
+      "symbol": "LogOrder.voidOutputNode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/DefaultLogOrder.swift",
+      "line": 16,
+      "symbol": "LogOrder.requestCreatorNode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/DefaultLogOrder.swift",
+      "line": 17,
+      "symbol": "LogOrder.requestSenderNode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/DefaultLogOrder.swift",
+      "line": 19,
+      "symbol": "LogOrder.responseProcessorNode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/DefaultLogOrder.swift",
+      "line": 20,
+      "symbol": "LogOrder.responseDataPreprocessorNode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/DefaultLogOrder.swift",
+      "line": 22,
+      "symbol": "LogOrder.responseHttpErrorProcessorNode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/DefaultLogOrder.swift",
+      "line": 24,
+      "symbol": "LogOrder.responseDataParserNode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/DefaultLogOrder.swift",
+      "line": 26,
+      "symbol": "LogOrder.dtoMapperNode",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/InputProcessingLayer/EntryinputDtoOutputNode.swift",
+      "line": 11,
+      "symbol": "EntryinputDtoOutputNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/InputProcessingLayer/EntryinputDtoOutputNode.swift",
+      "line": 14,
+      "symbol": "EntryinputDtoOutputNode.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/InputProcessingLayer/EntryinputDtoOutputNode.swift",
+      "line": 20,
+      "symbol": "EntryinputDtoOutputNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/InputProcessingLayer/VoidIONode.swift",
+      "line": 11,
+      "symbol": "VoidIONode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/InputProcessingLayer/VoidIONode.swift",
+      "line": 19,
+      "symbol": "VoidIONode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/InputProcessingLayer/VoidOutputNode.swift",
+      "line": 11,
+      "symbol": "VoidOutputNode",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/InputProcessingLayer/VoidOutputNode.swift",
+      "line": 19,
+      "symbol": "VoidOutputNode.process(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/Method.swift",
+      "line": 23,
+      "symbol": "Method.get",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/Method.swift",
+      "line": 24,
+      "symbol": "Method.head",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/Method.swift",
+      "line": 25,
+      "symbol": "Method.post",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/Method.swift",
+      "line": 26,
+      "symbol": "Method.put",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/Method.swift",
+      "line": 27,
+      "symbol": "Method.delete",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/Method.swift",
+      "line": 28,
+      "symbol": "Method.connect",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/Method.swift",
+      "line": 29,
+      "symbol": "Method.options",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/Method.swift",
+      "line": 30,
+      "symbol": "Method.trace",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/Method.swift",
+      "line": 31,
+      "symbol": "Method.patch",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/ParametersEncoding.swift",
+      "line": 18,
+      "symbol": "ParametersEncoding.json",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/ParametersEncoding.swift",
+      "line": 19,
+      "symbol": "ParametersEncoding.formUrl",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/Models/ParametersEncoding.swift",
+      "line": 20,
+      "symbol": "ParametersEncoding.urlQuery",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/URLQueryEncoding/URLQueryArrayKeyEncodingStartegy.swift",
+      "line": 35,
+      "symbol": "URLQueryArrayKeyEncodingBracketsStartegy.brackets",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/URLQueryEncoding/URLQueryArrayKeyEncodingStartegy.swift",
+      "line": 36,
+      "symbol": "URLQueryArrayKeyEncodingBracketsStartegy.noBrackets",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/URLQueryEncoding/URLQueryBoolEncodingStartegy.swift",
+      "line": 25,
+      "symbol": "URLQueryBoolEncodingDefaultStartegy.asInt",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/URLQueryEncoding/URLQueryBoolEncodingStartegy.swift",
+      "line": 26,
+      "symbol": "URLQueryBoolEncodingDefaultStartegy.asBool",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestBuildingLayer/URLQueryInjectorNode.swift",
+      "line": 30,
+      "symbol": "URLQueryInjectorNode.config",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestProcessingLayer/MultipartRequestCreatorNode.swift",
+      "line": 16,
+      "symbol": "MultipartUrlRequest.init(method:url:headers:data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestProcessingLayer/MultipartRequestCreatorNode.swift",
+      "line": 66,
+      "symbol": "MultipartRequestCreatorNode.append(multipartForm:with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestProcessingLayer/Support/RawUrlRequest.swift",
+      "line": 17,
+      "symbol": "UrlNetworkRequest.init(urlRequest:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/RequestProcessingLayer/Support/RawUrlRequest.swift",
+      "line": 28,
+      "symbol": "RawUrlRequest.init(dataRequest:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/ResponseProcessingLayer/ResponseDataParserNode.swift",
+      "line": 16,
+      "symbol": "ResponseDataParserNodeError.cantDeserializeJson(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/ResponseProcessingLayer/ResponseDataParserNode.swift",
+      "line": 17,
+      "symbol": "ResponseDataParserNodeError.cantCastDesirializedDataToJson(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 19,
+      "symbol": "ResponseHttpErrorProcessorNodeError.badRequest(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 20,
+      "symbol": "ResponseHttpErrorProcessorNodeError.unauthorized(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 21,
+      "symbol": "ResponseHttpErrorProcessorNodeError.forbidden(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 22,
+      "symbol": "ResponseHttpErrorProcessorNodeError.notFound",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 23,
+      "symbol": "ResponseHttpErrorProcessorNodeError.internalServerError(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/ResponseProcessingLayer/ResponseHttpErrorProcessorNode.swift",
+      "line": 31,
+      "symbol": "ResponseHttpErrorProcessorNode.HttpError",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/ResponseProcessingLayer/ResponseProcessorNode.swift",
+      "line": 16,
+      "symbol": "ResponseProcessorNodeError.rawResponseNotHaveMetaData",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/TrasportLayer/Models/TransportUrlRequest.swift",
+      "line": 30,
+      "symbol": "TransportUrlRequest.init(method:url:headers:raw:parametersEncoding:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/TrasportLayer/TechnicaErrorMapperNode.swift",
+      "line": 17,
+      "symbol": "BaseTechnicalError.noInternetConnection",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/TrasportLayer/TechnicaErrorMapperNode.swift",
+      "line": 18,
+      "symbol": "BaseTechnicalError.timeout",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/TrasportLayer/TechnicaErrorMapperNode.swift",
+      "line": 19,
+      "symbol": "BaseTechnicalError.cantConnectToHost",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/Utils/AccessSafe/AccessSafeNode.swift",
+      "line": 15,
+      "symbol": "AccessSafeNodeError.nodeWasRelease",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/MockerIntegration/MockerProxyConfigNode.swift",
+      "line": 3,
+      "symbol": "MockerProxyConfigKey",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/MockerIntegration/MockerProxyConfigNode.swift",
+      "line": 4,
+      "symbol": "MockerProxyConfigKey.isProxyingOn",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/MockerIntegration/MockerProxyConfigNode.swift",
+      "line": 5,
+      "symbol": "MockerProxyConfigKey.proxyingHost",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/MockerIntegration/MockerProxyConfigNode.swift",
+      "line": 6,
+      "symbol": "MockerProxyConfigKey.proxyingScheme",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Utils/AsyncIterator/PagingError.swift",
+      "line": 8,
+      "symbol": "PagingError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Utils/AsyncIterator/PagingError.swift",
+      "line": 9,
+      "symbol": "PagingError.dataProviderNotSet",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Utils/UrlRouting/UrlRouting.swift",
+      "line": 15,
+      "symbol": "UrlRouteError.cantBuildUrl",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit"
+}

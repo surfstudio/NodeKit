@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/surfstudio/NodeKit/branch/master/graph/badge.svg)](https://codecov.io/gh/surfstudio/NodeKit)
 ---
 <p align="center">
-  <img src="Docs/Header.svg">
+  <img src="TechDocs/Header.svg">
 </p>
 
 # Гибкая и полностью кастомизируемая библиотека для работы с сетью.
