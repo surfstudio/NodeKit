@@ -17,7 +17,7 @@
   - [AccessSafe](#accesssafe)
     - [AccessSafeNode](#accesssafenode)
     - [TokenRefresherNode](#tokenrefreshernode)
-  - [HeaderInjectorNode](#Headerinjectornode)
+  - [HeaderInjectorNode](#headerinjectornode)
   - [LoadIndicatableNode](#loadindicatablenode)
 
 ## ChainConfiguratorNode
