@@ -1,4 +1,4 @@
-![Documentation](https://lastsprint.dev/CoreNetKit/Docs/swift_output/badge.svg)
+[![Documentation](https://github.com/surfstudio/NodeKit/blob/master/docs/badge.svg)](https://surfstudio.github.io/NodeKit/index.html)
 ![Build status](https://travis-ci.org/surfstudio/NodeKit.svg?branch=master)
 [![codebeat badge](https://codebeat.co/badges/cf2745e0-3cc3-43f6-8081-561eaa6e1a73)](https://codebeat.co/projects/github-com-surfstudio-nodekit-master)
 [![codecov](https://codecov.io/gh/surfstudio/NodeKit/branch/master/graph/badge.svg)](https://codecov.io/gh/surfstudio/NodeKit)
@@ -12,7 +12,7 @@
 Архитектура библиотеки представляет из себя граф узлов, где узел представляет из себя операцию по преобразовании входных данных. Таким образом мы преобразуем входные данные в ответ от сервера с помощью цепочки узлов. И такое преобразование может быть сколько угодно сложным. 
 Причем подразумевается, что каждый отдельный узел может исполнятся в каком-то другом потоке.
 
-![All text](Docs/NodeKitHeader.svg)
+![All text](TechDocs/NodeKitHeader.svg)
 
 Такая архитектура позволяет гибко подстраиватья под самые разные требования в рамках одного проекта. 
 При этом с точки зрения API все выглядит прозрачно
@@ -44,7 +44,7 @@ func makeRequest() -> Observer<Void> {
 ```
 Это только пример 🙂 (так делать не надо)
 
-У нас есть [гайд](Docs/GettingStarted.md). 
+У нас есть [гайд](TechDocs/GettingStarted.md). 
 Так же в проекте есть песочницы:
 - [Несколько простых примеров](SimpleExample.playground)
 - [Загрузка PDF](LoadPdfPlayground.playground)
@@ -112,21 +112,21 @@ Body:
 
 # Документация
 
-[Contribution Guide](/Docs/ContributionGuide.md)
+[Contribution Guide](/TechDocs/ContributionGuide.md)
 
-[Как этим пользоваться](/Docs/Usage.md)
+[Как этим пользоваться](/TechDocs/Usage.md)
 
-[Как работает библиотека](/Docs/Nodes/Basic.md)
+[Как работает библиотека](/TechDocs/Nodes/Basic.md)
 
-[Существующие узлы](/Docs/Nodes/Existing.md)
+[Существующие узлы](/TechDocs/Nodes/Existing.md)
 
-[Реализованные цепочки](/Docs/Chains.md)
+[Реализованные цепочки](/TechDocs/Chains.md)
 
-[Про использование моделей](/Docs/Models.md)
+[Про использование моделей](/TechDocs/Models.md)
 
-[Логирование](/Docs/Log/Log.md)
+[Логирование](/TechDocs/Log/Log.md)
 
-[Конексты и наблюдатели](/Docs/Contexts.md)
+[Конексты и наблюдатели](/TechDocs/Contexts.md)
 
-[Документация кода](https://lastsprint.dev/CoreNetKit/Docs/swift_output/)
+[Документация кода](https://surfstudio.github.io/NodeKit/index.html)
 
