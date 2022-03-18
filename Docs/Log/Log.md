@@ -2,11 +2,11 @@
 
 Из-коробки библиотека позволяет логировать любую операцию, которая осущеставляется узлом. 
 
-Для хранения информации используется проткол [Logable](https://surfstudio.github.io/NodeKit/TechDocs/swift_output/Protocols/Logable.html)
+Для хранения информации используется проткол [Logable](https://surfstudio.github.io/NodeKit/Protocols/Logable.html)
 
-По-умолчанию в качестве реализации этого протокола используется [Log](https://surfstudio.github.io/NodeKit/TechDocs/swift_output/Structs/Log.html)
+По-умолчанию в качестве реализации этого протокола используется [Log](https://surfstudio.github.io/NodeKit/Structs/Log.html)
 
-Выводом логов в консоль занимается [LoggerNode](https://surfstudio.github.io/NodeKit/TechDocs/swift_output/Classes/LoggerNode.html)
+Выводом логов в консоль занимается [LoggerNode](https://surfstudio.github.io/NodeKit/Classes/LoggerNode.html)
 
 ## Как работает логирование
 
@@ -17,7 +17,7 @@
 ![All text](log_nodes_tree.svg)
 
 Каждый узел записывает некоторую информацию о своей работе в объект типа `Logable`. 
-Далее лог работы "прикрепляется" к предыдущему логу и передается по цепочку наверх при помощи метода [log(:)](https://surfstudio.github.io/NodeKit/TechDocs/swift_output/Classes/Observer.html#/s:10CoreNetKit8ObserverC3logyACyxGXDAA7Logable_pSgF) у `Observer`.
+Далее лог работы "прикрепляется" к предыдущему логу и передается по цепочку наверх при помощи метода [log(:)](https://surfstudio.github.io/NodeKit/Classes/Observer.html#/s:10CoreNetKit8ObserverC3logyACyxGXDAA7Logable_pSgF) у `Observer`.
 
 Логи "собираются" с каждого узла, а затем, после завершения работы цепочки выводится в консоль. 
 
