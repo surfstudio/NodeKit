@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NodeKit"
-  s.version      = "3.2.0"
+  s.version      = "3.4.0"
   s.summary      = "Framework for network interaction"
 
   s.homepage     = "https://github.com/surfstudio/NodeKit"
@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
 
   s.subspec 'Core' do |sp|
     sp.source_files  = 'NodeKit/Utils/**/*.swift', 'NodeKit/Chains/**/*.swift', 'NodeKit/Layers/**/*.swift', 'NodeKit/Core/**/*.swift', 'NodeKit/Encodings/*.swift'
-    sp.dependency 'Alamofire', '5.0.0-beta.4'
-    sp.dependency 'CoreEvents', '~> 2.0.1'
+    sp.dependency 'Alamofire', '5.0.0-beta.6'
+    sp.dependency 'CoreEvents', '~> 2.0.2'
   end
 
   s.subspec 'MockerIntegration' do |sp|

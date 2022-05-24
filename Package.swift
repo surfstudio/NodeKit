@@ -5,7 +5,7 @@ let package = Package(
     name: "NodeKit",
     platforms: [
         .macOS(.v10_12),
-        .iOS(.v11),
+        .iOS(.v10),
     ],
     products: [
         .library(
