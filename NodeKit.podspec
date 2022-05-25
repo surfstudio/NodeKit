@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
 
   s.homepage     = "https://github.com/surfstudio/NodeKit"
   s.license      = "MIT"
-  s.author = { "Alexander Kravchenkov" => "sprintend@gmail.com" }
+  s.author       = { "Alexander Kravchenkov" => "sprintend@gmail.com" }
 
   s.ios.deployment_target = "11.0"
 
