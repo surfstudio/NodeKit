@@ -12,9 +12,9 @@ final class OffsetAsyncPagerTests: XCTestCase {
     func testOffsetIteratorReturnsValue() {
         // given
 
-        let await = ["1", "2", "3", "4", "5"]
+        let data = ["1", "2", "3", "4", "5"]
         let iterator = OffsetAsyncPager<[String]>(dataPrivider: { index, offset in
-            return .emit(data: (await, await.count))
+            return .emit(data: (data, data.count))
         }, pageSize: 5)
 
         var accept = [String]()
@@ -25,7 +25,7 @@ final class OffsetAsyncPagerTests: XCTestCase {
 
         // then
 
-        XCTAssertEqual(accept, await)
+        XCTAssertEqual(accept, data)
     }
 
     func testOffsetIteratorOnEndCalledInCaseOfZeroOutput() {
