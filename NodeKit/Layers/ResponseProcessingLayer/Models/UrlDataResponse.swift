@@ -21,4 +21,17 @@ public struct UrlDataResponse {
     public let metrics: URLSessionTaskMetrics?
     /// Время, затраченное на сериализацию овтета. 
     public let serializationDuration: TimeInterval
+
+    public init(request: URLRequest,
+                response: HTTPURLResponse,
+                data: Data,
+                metrics: URLSessionTaskMetrics?,
+                serializationDuration: TimeInterval) {
+        self.request = request
+        self.response = response
+        self.data = data
+        self.metrics = metrics
+        self.serializationDuration = serializationDuration
+    }
+
 }
