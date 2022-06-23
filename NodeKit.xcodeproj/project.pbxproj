@@ -1411,7 +1411,7 @@
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
 			requirement = {
 				kind = exactVersion;
-				version = "5.0.0-beta.6";
+				version = "5.0.0-rc.3";
 			};
 		};
 		90B60A17283E1819006F4309 /* XCRemoteSwiftPackageReference "CoreEvents" */ = {

@@ -14,13 +14,13 @@ import Alamofire
 open class RequestSenderNode<Type>: Node<RawUrlRequest, Type>, Aborter {
 
     /// Тип для узла, который будет обрабатывать ответ от сервера.
-    public typealias RawResponseProcessor = Node<DataResponse<Data>, Type>
+    public typealias RawResponseProcessor = Node<AFDataResponse<Data>, Type>
 
     /// Узел для обработки ответа.
     public var rawResponseProcessor: RawResponseProcessor
 
     private weak var request: DataRequest?
-    private weak var context: Observer<DataResponse<Data>>?
+    private weak var context: Observer<AFDataResponse<Data>>?
 
     /// Инициаллизирует узел.
     ///
@@ -34,7 +34,7 @@ open class RequestSenderNode<Type>: Node<RawUrlRequest, Type>, Aborter {
     /// - Parameter data: Данные для исполнения запроса.
     open override func process(_ data: RawUrlRequest) -> Observer<Type> {
 
-        let context = Context<DataResponse<Data>>()
+        let context = Context<AFDataResponse<Data>>()
 
         self.context = context
         var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.requestSenderNode)
