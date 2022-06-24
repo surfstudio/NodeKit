@@ -562,21 +562,28 @@
     },
     {
       "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/TrasportLayer/TechnicaErrorMapperNode.swift",
-      "line": 17,
+      "line": 18,
       "symbol": "BaseTechnicalError.noInternetConnection",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/TrasportLayer/TechnicaErrorMapperNode.swift",
-      "line": 18,
+      "line": 19,
+      "symbol": "BaseTechnicalError.dataNotAllowed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/TrasportLayer/TechnicaErrorMapperNode.swift",
+      "line": 20,
       "symbol": "BaseTechnicalError.timeout",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/chausov/Documents/SurfProjects/github/trash/NodeKit/NodeKit/Layers/TrasportLayer/TechnicaErrorMapperNode.swift",
-      "line": 19,
+      "line": 21,
       "symbol": "BaseTechnicalError.cantConnectToHost",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"

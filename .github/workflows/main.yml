@@ -1,0 +1,48 @@
+name: CI
+
+# Controls when the action will run. 
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '**'
+    types: [ opened, edited, synchronize, reopened ]
+
+jobs:
+  build:
+
+    runs-on: macos-12
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Init
+      run: |
+        make init
+    - name: Force select xcode 13
+      run: |
+        sudo xcode-select -switch /Applications/Xcode_13.4.app
+    - name: Build
+      run: |
+        make build
+    - name: SPM Build
+      run: |
+        make spm_build
+    - name: Tests
+      run: |
+        make test
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1.2.1
+    - name: documentation
+      if: github.ref == 'refs/heads/master'
+      run: |
+        make doc
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v4
+      with:
+        author_name: chausovSurfStudio
+        author_email: chausov@surf.dev
+        message: "Updates for documentation"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

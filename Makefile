@@ -19,6 +19,10 @@ spm_build:
 test:
 	xcodebuild test -scheme NodeKit -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=15.5' | bundle exec xcpretty -c
 
+## Created documentation by comments from code
+doc:
+	bundle exec jazzy --clean --build-tool-arguments -scheme,NodeKit,-sdk,iphonesimulator --output "docs"
+
 # COLORS
 GREEN  := $(shell tput -Txterm setaf 2)
 YELLOW := $(shell tput -Txterm setaf 3)
