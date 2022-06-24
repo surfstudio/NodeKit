@@ -42,6 +42,7 @@ playground.xcworkspace
 # Packages/
 # Package.pins
 .build/
+.bundle/
 
 # CocoaPods
 #
@@ -52,6 +53,7 @@ playground.xcworkspace
 
 Pods/
 Podfile.lock
+Gemfile.lock
 
 # Carthage
 #
