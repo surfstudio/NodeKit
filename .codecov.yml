@@ -1,6 +1,0 @@
-ignore:
-  - "CoreNetKitIntegrationTests"
-  - "CoreNetKit/Core/Supscriptions/"
-  - "CoreNetKit/Core/Node"
-  - "CoreNetKit/Core/Convertion/"
-  - "Pods"
