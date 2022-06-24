@@ -29,15 +29,14 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "IntegrationTests",
+            name: "NodeKitTests",
             dependencies: [
                 "NodeKit",
                 "Alamofire",
                 "CoreEvents"
             ],
-            path: "IntegrationTests",
+            path: "NodeKitTests",
             exclude: [
-                "Info.plist",
                 "Resources/LICENSE.txt",
                 // TODO: - Переписать тесты на блекбокс - убрать завязку на сервер
                 "FormUrlCodingTests.swift",
