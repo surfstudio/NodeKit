@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NodeKit"
-  s.version      = "3.4.0"
+  s.version      = "3.4.1"
   s.summary      = "Framework for network interaction"
 
   s.homepage     = "https://github.com/surfstudio/NodeKit"
