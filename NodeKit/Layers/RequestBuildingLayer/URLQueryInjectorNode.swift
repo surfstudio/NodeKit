@@ -64,9 +64,9 @@ open class URLQueryInjectorNode<Raw, Output>: Node<RoutableRequestModel<UrlRoute
         }
 
         urlComponents.queryItems = self.config.query
-            .sorted(by: { $0.key < $1.key })
             .map { self.makeQueryComponents(from: $1, by: $0) }
             .reduce([], { $0 + $1 })
+            .sorted(by: { $0.name < $1.name })
 
         guard let newUrl = urlComponents.url else {
             return .emit(error: Error.cantCreateUrlFromUrlComponents)
