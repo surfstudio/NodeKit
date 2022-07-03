@@ -11,10 +11,12 @@ import Foundation
 /// Ошибки для узла `TechnicaErrorMapperNode`
 ///
 /// - noInternetConnection: Возникает в случае, если вернулась системная ошибка об отсутствии соединения.
+/// - dataNotAllowed: Возникает в случае, если вернулась системная ошибка 'kCFURLErrorDataNotAllowed' (предположительная причина - wifi нет, мобильный интернет в целом мог бы быть использован, но выключен. Доки apple крайне скудны в таких объяснениях)
 /// - timeout: Возникает в случае, если превышен лимит ожидания ответа от сервера.
 /// - cantConnectToHost: Возникает в случае, если не удалось установить соединение по конкретному адресу.
 public enum BaseTechnicalError: Error {
     case noInternetConnection
+    case dataNotAllowed
     case timeout
     case cantConnectToHost
 }
@@ -41,6 +43,8 @@ open class TechnicaErrorMapperNode: RequestProcessingLayerNode {
         return self.next.process(data)
             .mapError { error -> Error in
                 switch (error as NSError).code {
+                case -1020:
+                      return BaseTechnicalError.dataNotAllowed
                 case -1009:
                     return BaseTechnicalError.noInternetConnection
                 case -1001:
