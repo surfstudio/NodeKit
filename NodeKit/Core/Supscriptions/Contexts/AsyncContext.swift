@@ -18,7 +18,7 @@ open class AsyncContext<Model>: Context<Model> {
     /// Используется для подписки на событие об успешного выполнения.
     @discardableResult
     override open func onCompleted(_ closure: @escaping (Model) -> Void) -> Self {
-        self.dispatchQueue.async {
+        self.queueTask {
             super.onCompleted(closure)
         }
         return self
@@ -27,7 +27,7 @@ open class AsyncContext<Model>: Context<Model> {
     /// Исользуется для подписки на событие о какой-либо ошибки
     @discardableResult
     override open func onError(_ closure: @escaping (Error) -> Void) -> Self {
-        self.dispatchQueue.async {
+        self.queueTask {
             super.onError(closure)
         }
         return self
@@ -37,7 +37,7 @@ open class AsyncContext<Model>: Context<Model> {
     /// Аналог finally в try-catch
     @discardableResult
     override open func `defer`(_ closure: @escaping () -> Void) -> Self {
-        self.dispatchQueue.async {
+        self.queueTask {
             super.defer(closure)
         }
         return self
@@ -46,7 +46,7 @@ open class AsyncContext<Model>: Context<Model> {
     /// Используется для подписку на отмену операции.
     @discardableResult
     override open func onCanceled(_ closure: @escaping () -> Void) -> Self {
-        self.dispatchQueue.async {
+        self.queueTask {
             super.onCanceled(closure)
         }
         return self
@@ -57,7 +57,7 @@ open class AsyncContext<Model>: Context<Model> {
     /// - Parameter data: Результат события
     @discardableResult
     override open func emit(data: Model) -> Self {
-        self.dispatchQueue.async {
+        self.queueTask {
             super.emit(data: data)
         }
         return self
@@ -68,7 +68,7 @@ open class AsyncContext<Model>: Context<Model> {
     /// - Parameter error: Произошедшая ошибка
     @discardableResult
     override open func emit(error: Error) -> Self {
-        self.dispatchQueue.async {
+        self.queueTask {
             super.emit(error: error)
         }
         return self
@@ -77,7 +77,7 @@ open class AsyncContext<Model>: Context<Model> {
     /// Отмена действия
     @discardableResult
     override open func cancel() -> Self {
-        self.dispatchQueue.async {
+        self.queueTask {
             super.cancel()
         }
         return self
@@ -91,4 +91,21 @@ open class AsyncContext<Model>: Context<Model> {
         self.dispatchQueue = queue
         return self
     }
+}
+
+extension AsyncContext {
+
+    func queueTask(_ function: @escaping () -> Void) {
+        switch dispatchQueue {
+        case .main:
+            dispatchQueue.async {
+                function()
+            }
+        default:
+            dispatchQueue.sync {
+                function()
+            }
+        }
+    }
+
 }
