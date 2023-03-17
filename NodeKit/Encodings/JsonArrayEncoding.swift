@@ -22,7 +22,12 @@ open class JsonArrayEncoding: ParameterEncoding {
         }
 
         do {
-            let data = try JSONSerialization.data(withJSONObject: json, options: [])
+            let data: Data
+            #if os(macOS)
+            data = try JSONSerialization.data(withJSONObject: json, options: [])
+            #else
+            data = try JSONSerialization.data(withJSONObject: json, options: .sortedKeys)
+            #endif
 
             if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
                 urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
