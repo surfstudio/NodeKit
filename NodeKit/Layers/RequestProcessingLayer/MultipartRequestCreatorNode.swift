@@ -45,8 +45,8 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open override func process(_ data: MultipartUrlRequest) -> Observer<Output> {
 
-        let request = manager.upload(multipartFormData: { (multipartForm) in
-            self.append(multipartForm: multipartForm, with: data)
+        let request = manager.upload(multipartFormData: { [weak self] (multipartForm) in
+            self?.append(multipartForm: multipartForm, with: data)
         }, to: data.url, method: data.method.http, headers: .init(data.headers))
 
         return self.next.process(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))

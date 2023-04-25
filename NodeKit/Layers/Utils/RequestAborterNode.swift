@@ -44,8 +44,8 @@ open class AborterNode<Input, Output>: Node<Input, Output> {
     open override func process(_ data: Input) -> Observer<Output> {
         return self.next.process(data)
             .multicast()
-            .onCanceled {
-                self.aborter.cancel()
+            .onCanceled { [weak self] in
+                self?.aborter.cancel()
             }
     }
 }

@@ -20,7 +20,7 @@ open class LoggerNode<Input, Output>: Node<Input, Output> {
 
     /// Сразу же передает управление следующему узлу и подписывается на выполнение операций.
     ///
-    /// - Parameter data: Данные для обработки. Этот узел их не импользует. 
+    /// - Parameter data: Данные для обработки. Этот узел их не импользует.
     open override func process(_ data: Input) -> Observer<Output> {
         let result = Context<Output>()
 
@@ -37,15 +37,15 @@ open class LoggerNode<Input, Output>: Node<Input, Output> {
                 .forEach { print($0.description) }
         }
 
-        context.onCompleted { data in
-            log(context.log)
-            result.log(context.log).emit(data: data)
-        }.onError { error in
-            log(context.log)
-            result.log(context.log).emit(error: error)
-        }.onCanceled {
-            log(context.log)
-            result.log(context.log).cancel()
+        context.onCompleted { [weak context] data in
+            log(context?.log)
+            result.log(context?.log).emit(data: data)
+        }.onError { [weak context] error in
+            log(context?.log)
+            result.log(context?.log).emit(error: error)
+        }.onCanceled { [weak context] in
+            log(context?.log)
+            result.log(context?.log).cancel()
         }
 
         return result
