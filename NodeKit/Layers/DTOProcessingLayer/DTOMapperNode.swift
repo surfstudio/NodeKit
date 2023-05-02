@@ -34,13 +34,13 @@ open class DTOMapperNode<Input, Output>: Node<Input, Output> where Input: RawEnc
             
             let nextProcessResult = next.process(data)
             
-            return nextProcessResult.map {
+            return nextProcessResult.map { [weak nextProcessResult] result in
                 do {
-                    let model = try Output.from(raw: $0)
-                    return Context<Output>().log(nextProcessResult.log).emit(data: model)
+                    let model = try Output.from(raw: result)
+                    return Context<Output>().log(nextProcessResult?.log).emit(data: model)
                 } catch {
                     log += "\(error)"
-                    return Context<Output>().log(nextProcessResult.log).log(log).emit(error: error)
+                    return Context<Output>().log(nextProcessResult?.log).log(log).emit(error: error)
                 }
             }
         } catch {
