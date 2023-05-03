@@ -1,5 +1,4 @@
 import Foundation
-import Alamofire
 
 /// Модель для внутреннего представления multipart запроса.
 public struct MultipartUrlRequest {
@@ -27,35 +26,43 @@ public struct MultipartUrlRequest {
 /// Узел, умеющий создавать multipart-запрос.
 open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output> {
     /// Следующий узел для обработки.
-    public var next: Node<RawUrlRequest, Output>
-
-    /// Менеджер сессий
-    private(set) var manager: Session
+    public var next: Node<URLRequest, Output>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<RawUrlRequest, Output>, session: Session? = nil) {
+    public init(next: Node<URLRequest, Output>) {
         self.next = next
-        self.manager = session ?? ServerRequestsManager.shared.manager
     }
 
     /// Конфигурирует низкоуровненвый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open override func process(_ data: MultipartUrlRequest) -> Observer<Output> {
+        do {
+            var request = URLRequest(url: data.url)
+            request.httpMethod = data.method.rawValue
 
-        let request = manager.upload(multipartFormData: { [weak self] (multipartForm) in
-            self?.append(multipartForm: multipartForm, with: data)
-        }, to: data.url, method: data.method.http, headers: .init(data.headers))
+            // Add Headers
+            data.headers.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
 
-        return self.next.process(RawUrlRequest(dataRequest: request)).log(self.getLogMessage(data))
+            // Form Data
+            let formData = MultipartFormData(fileManager: FileManager.default)
+            append(multipartForm: formData, with: data)
+            request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
+            let encodedFormData = try formData.encode()
+            request.httpBody = encodedFormData
+
+            return self.next.process(request).log(self.getLogMessage(data))
+        } catch {
+            return .emit(error: error)
+        }
     }
 
     private func getLogMessage(_ data: MultipartUrlRequest) -> Log {
         var message = "<<<===\(self.objectName)===>>>\n"
         message += "input: \(type(of: data))\n\t"
-        message += "method: \(data.method.http.rawValue)\n\t"
+        message += "method: \(data.method.rawValue)\n\t"
         message += "url: \(data.url.absoluteString)\n\t"
         message += "headers: \(data.headers)\n\t"
         message += "parametersEncoding: multipart)"

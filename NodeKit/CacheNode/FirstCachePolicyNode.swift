@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 /// Ошибки для узла `FirstCachePolicyNode`
 ///
@@ -34,7 +33,7 @@ open class FirstCachePolicyNode: Node<RawUrlRequest, Json> {
     // MARK: - Properties
 
     /// Следующий узел для обработки.
-    public var next: Node<RawUrlRequest, Json>
+    public var next: NextProcessorNode
 
     /// Узел для чтения из кэша.
     public var cacheReaderNode: CacheReaderNode
@@ -60,10 +59,10 @@ open class FirstCachePolicyNode: Node<RawUrlRequest, Json> {
     open override func process(_ data: RawUrlRequest) -> Context<Json> {
         let result = Context<Json>()
 
-        if let urlRequest = data.toUrlRequest() {
-            self.cacheReaderNode.process(urlRequest)
+        if let request = data.toUrlRequest() {
+            cacheReaderNode.process(request)
                 .onCompleted { result.emit(data: $0) }
-                .onError { result.emit(error: $0) }
+                .onError { result.emit(error: $0)}
         }
 
         next.process(data)
@@ -72,4 +71,5 @@ open class FirstCachePolicyNode: Node<RawUrlRequest, Json> {
 
         return result
     }
+
 }

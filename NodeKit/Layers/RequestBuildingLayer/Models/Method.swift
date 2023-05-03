@@ -19,14 +19,14 @@ import Foundation
 /// - options: Используется для описания параметров соединения с ресурсом.
 /// - trace: Выполняет вызов возвращаемого тестового сообщения с ресурса.
 /// - patch: Используется для частичного изменения ресурса.
-public enum Method {
-    case get
-    case head
-    case post
-    case put
-    case delete
-    case connect
-    case options
-    case trace
-    case patch
+public enum Method: String {
+    case get = "GET"
+    case head = "HEAD"
+    case post = "POST"
+    case put = "PUT"
+    case delete = "DELETE"
+    case connect = "CONNECT"
+    case options = "OPTIONS"
+    case trace = "TRACE"
+    case patch = "PATCH"
 }

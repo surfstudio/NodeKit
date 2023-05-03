@@ -26,7 +26,7 @@ open class RequstEncoderNode<Raw, Route, Encoding, Output>: RequestRouterNode<Ra
     public var next: NextNode
 
     /// Кодировка для запроса.
-    public var encoding: Encoding
+    public var encoding: Encoding?
 
     /// Инициаллизирует узел.
     ///
@@ -44,4 +44,5 @@ open class RequstEncoderNode<Raw, Route, Encoding, Output>: RequestRouterNode<Ra
         let model = EncodableRequestModel(metadata: data.metadata, raw: data.raw, route: data.route, encoding: self.encoding)
         return self.next.process(model)
     }
+
 }
