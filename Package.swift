@@ -13,14 +13,12 @@ let package = Package(
             targets: ["NodeKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire", .exact("5.0.0-beta.6")),
         .package(url: "https://github.com/surfstudio/CoreEvents", .exact("2.0.2"))
     ],
     targets: [
         .target(
             name: "NodeKit",
             dependencies: [
-                "Alamofire",
                 "CoreEvents",
             ],
             path: "NodeKit",
