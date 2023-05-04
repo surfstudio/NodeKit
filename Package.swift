@@ -4,29 +4,38 @@ import PackageDescription
 let package = Package(
     name: "NodeKit",
     platforms: [
-        .macOS(.v10_12),
+        .macOS(.v10_15),
         .iOS(.v11)
     ],
     products: [
         .library(
-            name: "NodeKitCore",
+            name: "NodeKit",
             targets: ["NodeKit"]),
+        .library(name: "NodeKitBSON",
+                 targets: ["NodeKitBSON"])
     ],
     dependencies: [
         .package(url: "https://github.com/surfstudio/CoreEvents", .exact("2.0.2")),
-        .package(url: "https://github.com/OpenKitten/BSON.git", from: "8.0.0")
+        .package(url: "https://github.com/OpenKitten/BSON.git", .exact("7.0.31"))
     ],
     targets: [
         .target(
             name: "NodeKit",
             dependencies: [
-                "CoreEvents",
-                "BSON"
+                "CoreEvents"
             ],
             path: "NodeKit",
             exclude: [
-                "Info.plist",
+                "Info.plist"
             ]
+        ),
+        .target(
+            name: "NodeKitBSON",
+            dependencies: [
+                "NodeKit",
+                "BSON"
+            ],
+            path: "NodeKitBson"
         ),
         .testTarget(
             name: "NodeKitTests",

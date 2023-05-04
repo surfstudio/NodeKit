@@ -35,7 +35,6 @@ open class URLQueryInjectorNode<Raw, Output>: Node<RoutableRequestModel<UrlRoute
     /// - Parameter next: Следующий по порядку узел.
     /// - Parameter config: Конфигурация для узла.
     public init(next: Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>, config: URLQueryConfigModel) {
-
         self.next = next
         self.config = config
     }
