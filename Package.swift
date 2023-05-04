@@ -5,21 +5,23 @@ let package = Package(
     name: "NodeKit",
     platforms: [
         .macOS(.v10_12),
-        .iOS(.v11),
+        .iOS(.v11)
     ],
     products: [
         .library(
-            name: "NodeKit",
+            name: "NodeKitCore",
             targets: ["NodeKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/surfstudio/CoreEvents", .exact("2.0.2"))
+        .package(url: "https://github.com/surfstudio/CoreEvents", .exact("2.0.2")),
+        .package(url: "https://github.com/OpenKitten/BSON.git", from: "8.0.0")
     ],
     targets: [
         .target(
             name: "NodeKit",
             dependencies: [
                 "CoreEvents",
+                "BSON"
             ],
             path: "NodeKit",
             exclude: [
@@ -30,7 +32,6 @@ let package = Package(
             name: "NodeKitTests",
             dependencies: [
                 "NodeKit",
-                "Alamofire",
                 "CoreEvents"
             ],
             path: "NodeKitTests",

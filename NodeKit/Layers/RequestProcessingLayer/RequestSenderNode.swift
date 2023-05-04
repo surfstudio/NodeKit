@@ -9,10 +9,10 @@
 import Foundation
 
 public struct NodeDataResponse {
-     public let urlResponse: HTTPURLResponse?
-     public let urlRequest: URLRequest?
-     public let result: Result<Data, Error>
- }
+    public let urlResponse: HTTPURLResponse?
+    public let urlRequest: URLRequest?
+    public let result: Result<Data, Error>
+}
 
 /// Этот узел отправляет запрос на сервер и ожидает ответ.
 /// - Important: этот узел имеет состояние (statefull)
@@ -84,4 +84,5 @@ open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
         self.task?.cancel()
         self.context?.cancel()
     }
+
 }

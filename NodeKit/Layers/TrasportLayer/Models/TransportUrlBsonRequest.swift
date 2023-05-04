@@ -1,7 +1,14 @@
+//  TransportUrlBsonRequest.swift
+//  NodeKit
+//
+//  Created by Vladislav Krupenko on 02.04.2020.
+//  Copyright © 2020 Кравченков Александр. All rights reserved.
+//
+
 import Foundation
 
 /// Модель для внутреннего представления запроса.
-public struct TransportUrlRequest {
+public struct TransportUrlBsonRequest {
 
     /// HTTP метод.
     public let method: Method
@@ -9,15 +16,15 @@ public struct TransportUrlRequest {
     public let url: URL
     /// Хедеры запроса.
     public let headers: [String: String]
-    /// Данные для запроса в чистой `Data`
-    public let raw: Data?
+    /// Данные для запроса в формате `JSON`
+    public let raw: Bson
 
     /// Инициаллизирует объект.
     ///
     /// - Parameters:
     ///   - params: Параметры для формирования запроса.
-    ///   - raw: Данные для запроса в формате `Data`
-    public init(with params: TransportUrlParameters, raw: Data?) {
+    ///   - raw: Данные для запроса в формате `BSON`
+    public init(with params: TransportUrlParameters, raw: Bson) {
         self.init(method: params.method,
                   url: params.url,
                   headers: params.headers,
@@ -27,7 +34,7 @@ public struct TransportUrlRequest {
     public init(method: Method,
                 url: URL,
                 headers: [String: String],
-                raw: Data?) {
+                raw: Bson) {
         self.method = method
         self.url = url
         self.headers = headers

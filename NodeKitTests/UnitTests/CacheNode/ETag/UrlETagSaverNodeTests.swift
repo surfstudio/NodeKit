@@ -8,7 +8,6 @@
 
 import Foundation
 import XCTest
-import Alamofire
 
 @testable
 import NodeKit

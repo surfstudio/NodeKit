@@ -21,6 +21,9 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
+
+import Foundation
+
 /// A dictionary of parameters to apply to a `URLRequest`.
 public typealias Parameters = [String: Any]
 
@@ -39,6 +42,7 @@ public protocol ParameterEncoding {
 }
 
 // MARK: -
+
 /// Creates a url-encoded query string to be set as or appended to any existing URL query string or set as the HTTP
 /// body of the URL request. Whether the query string is set or appended to any existing URL query string or set as
 /// the HTTP body depends on the destination of the encoding.
@@ -227,6 +231,7 @@ public struct URLEncoding: ParameterEncoding {
 }
 
 // MARK: -
+
 /// Uses `JSONSerialization` to create a JSON representation of the parameters object, which is set as the body of the
 /// request. The `Content-Type` HTTP header field of an encoded request is set to `application/json`.
 public struct JSONEncoding: ParameterEncoding {
@@ -285,6 +290,7 @@ public struct JSONEncoding: ParameterEncoding {
 }
 
 // MARK: -
+
 extension NSNumber {
     fileprivate var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
 }
@@ -307,4 +313,5 @@ extension CharacterSet {
 
         return CharacterSet.urlQueryAllowed.subtracting(encodableDelimiters)
     }()
+
 }

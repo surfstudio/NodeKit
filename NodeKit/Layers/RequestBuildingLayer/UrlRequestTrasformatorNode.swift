@@ -41,8 +41,6 @@ open class UrlRequestTrasformatorNode<Raw, Type>: Node<EncodableRequestModel<Url
                                             url: url,
                                             headers: data.metadata)
 
-        let request = TransportUrlRequest(with: params, raw: data.raw)
-
         let encodingModel = RequestEncodingModel(urlParameters: params,
                                                  raw: data.raw,
                                                  encoding: data.encoding ?? nil)

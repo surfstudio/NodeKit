@@ -6,6 +6,8 @@
 //  Copyright © 2019 Кравченков Александр. All rights reserved.
 //
 
+import Foundation
+
 /// Явный тип для слоя обработки запроса.
 public typealias RequestProcessingLayerNode = Node<URLRequest, Json>
 /// Явный тип для слоя обработки ответа `JSON`

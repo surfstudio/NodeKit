@@ -10,9 +10,6 @@ import Foundation
 import XCTest
 
 @testable
-import Alamofire
-
-@testable
 import NodeKit
 
 public class FirstCachePolicyTests: XCTestCase {
