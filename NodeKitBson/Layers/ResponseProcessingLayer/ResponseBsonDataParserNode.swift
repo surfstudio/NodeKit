@@ -8,6 +8,7 @@
 
 import Foundation
 import BSON
+import NodeKit
 
 open class ResponseBsonDataParserNode: BsonResponseProcessingLayerNode {
 

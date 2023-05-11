@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import NodeKit
 
 open class VoidBsonOutputNode<Input>: Node<Input, Void> where Input: DTOEncodable, Input.DTO.Raw == Bson {
 

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import NodeKit
 
 open class UrlBsonRequestEncodingNode<Type>: Node<RequestEncodingModel<Bson>, Type> {
 

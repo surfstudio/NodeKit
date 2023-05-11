@@ -8,6 +8,7 @@
 
 import Foundation
 import BSON
+import NodeKit
 
 /// Этот узел занимается десериализаций данных ответа в `Bson`.
 /// В случае 204-го ответа далее передает пустой `Bson`.

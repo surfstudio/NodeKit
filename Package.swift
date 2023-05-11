@@ -5,7 +5,7 @@ let package = Package(
     name: "NodeKit",
     platforms: [
         .macOS(.v10_15),
-        .iOS(.v11)
+        .iOS(.v13)
     ],
     products: [
         .library(
@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/surfstudio/CoreEvents", .exact("2.0.2")),
-        .package(url: "https://github.com/OpenKitten/BSON.git", .exact("7.0.31"))
+        .package(url: "https://github.com/OpenKitten/BSON.git", .exact("8.0.9"))
     ],
     targets: [
         .target(

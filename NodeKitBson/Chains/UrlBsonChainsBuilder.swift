@@ -7,6 +7,7 @@
 //
 import Foundation
 import BSON
+import NodeKit
 
 /// Реулизует набор цепочек для отправки URL запросов.
 open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
@@ -24,7 +25,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
 
     /// HTTP метод, который будет использован цепочкой
     /// По-умолчанию GET
-    public var method: Method
+    public var method: NodeKit.Method 
 
     /// В случае классического HTTP это Header'ы запроса.
     /// По-умолчанию пустой.
@@ -108,7 +109,7 @@ open class UrlBsonChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
-    open func route(_ method: Method, _ route: Route) -> Self {
+    open func route(_ method: NodeKit.Method, _ route: Route) -> Self {
         self.method = method
         self.route = route
         return self

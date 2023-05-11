@@ -7,6 +7,7 @@
 //
 import Foundation
 import BSON
+import NodeKit
 
 extension Bson: DTOConvertible {
 

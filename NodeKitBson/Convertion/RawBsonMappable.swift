@@ -7,6 +7,7 @@
 //
 import Foundation
 import BSON
+import NodeKit
 
 /// Объект содержащий словарь примитивов
 public typealias Bson = Document

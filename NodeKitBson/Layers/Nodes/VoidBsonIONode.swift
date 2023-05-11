@@ -6,6 +6,7 @@
 //  Copyright © 2020 Кравченков Александр. All rights reserved.
 //
 import Foundation
+import NodeKit
 
 open class VoidBsonIONode: Node<Void, Void> {
 

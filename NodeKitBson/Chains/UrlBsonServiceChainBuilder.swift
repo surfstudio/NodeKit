@@ -6,6 +6,7 @@
 //  Copyright © 2020 Кравченков Александр. All rights reserved.
 //
 import Foundation
+import NodeKit
 
 /// Умеет создавать цепочки
 open class UrlBsonServiceChainBuilder {

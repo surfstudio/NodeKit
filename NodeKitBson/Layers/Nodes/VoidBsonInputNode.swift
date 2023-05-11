@@ -6,6 +6,7 @@
 //  Copyright © 2020 Кравченков Александр. All rights reserved.
 //
 import Foundation
+import NodeKit
 
 /// Узел, который позволяет передать на вход `Void`.
 open class VoidBsonInputNode<Output>: Node<Void, Output> {

@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import NodeKit
 
 /// Модель для внутреннего представления запроса.
 public struct TransportUrlBsonRequest {
 
     /// HTTP метод.
-    public let method: Method
+    public let method: NodeKit.Method
     /// URL эндпоинта.
     public let url: URL
     /// Хедеры запроса.
@@ -31,7 +32,7 @@ public struct TransportUrlBsonRequest {
                   raw: raw)
     }
 
-    public init(method: Method,
+    public init(method: NodeKit.Method,
                 url: URL,
                 headers: [String: String],
                 raw: Bson) {
