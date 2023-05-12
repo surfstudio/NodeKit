@@ -24,6 +24,7 @@ public enum Routes {
     case multipartPing
     case multipartCorrect
     case multipartFile
+    case bson
 }
 
 extension Routes: UrlRouteProvider {
@@ -56,6 +57,8 @@ extension Routes: UrlRouteProvider {
             return try? Routes.base + "/multipartCorrect"
         case .multipartFile:
             return try? Routes.base + "/multipartFile"
+        case .bson:
+             return try? Routes.base + "/bson"
         }
     }
 }

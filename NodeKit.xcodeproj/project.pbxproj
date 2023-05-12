@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		390E696A2A135AD6007F2304 /* BSON in Frameworks */ = {isa = PBXBuildFile; productRef = 390E69692A135AD6007F2304 /* BSON */; };
 		397AB7102A03EC75000A09AB /* RequestSenderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB70F2A03EC75000A09AB /* RequestSenderNode.swift */; };
 		397AB7262A03ECBD000A09AB /* UrlBsonRequestEncodingNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7132A03ECBC000A09AB /* UrlBsonRequestEncodingNode.swift */; };
 		397AB7272A03ECBD000A09AB /* VoidBsonIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7162A03ECBC000A09AB /* VoidBsonIONode.swift */; };
@@ -20,7 +21,6 @@
 		397AB72F2A03ECBD000A09AB /* DTOConvertible+Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7222A03ECBD000A09AB /* DTOConvertible+Document.swift */; };
 		397AB7302A03ECBD000A09AB /* UrlBsonChainsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7242A03ECBD000A09AB /* UrlBsonChainsBuilder.swift */; };
 		397AB7312A03ECBD000A09AB /* UrlBsonServiceChainBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7252A03ECBD000A09AB /* UrlBsonServiceChainBuilder.swift */; };
-		397AB7342A03EDE5000A09AB /* BSON in Frameworks */ = {isa = PBXBuildFile; productRef = 397AB7332A03EDE5000A09AB /* BSON */; };
 		397AB73A2A03F12C000A09AB /* RequestEncodingNodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7352A03F12C000A09AB /* RequestEncodingNodeError.swift */; };
 		397AB73B2A03F12C000A09AB /* NodeParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7362A03F12C000A09AB /* NodeParameterEncoding.swift */; };
 		397AB73C2A03F12C000A09AB /* ParametersEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7382A03F12C000A09AB /* ParametersEncoding.swift */; };
@@ -31,6 +31,10 @@
 		397AB7472A03F515000A09AB /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7442A03F515000A09AB /* HTTPHeaders.swift */; };
 		39EF561D2A0E5542004B77C0 /* RequestCreatorNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EF561C2A0E5542004B77C0 /* RequestCreatorNodeTests.swift */; };
 		39EF56202A0E55BD004B77C0 /* CustomServerErrorProcessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EF561F2A0E55BD004B77C0 /* CustomServerErrorProcessorNode.swift */; };
+		39EF56222A0E5960004B77C0 /* BsonUrlChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EF56212A0E5960004B77C0 /* BsonUrlChainTests.swift */; };
+		39EF56252A0E5A37004B77C0 /* BsonChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EF56242A0E5A37004B77C0 /* BsonChain.swift */; };
+		39EF56272A0E5A58004B77C0 /* CustomServiceChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EF56262A0E5A58004B77C0 /* CustomServiceChain.swift */; };
+		39EF56292A0E5A91004B77C0 /* UserBsonEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EF56282A0E5A91004B77C0 /* UserBsonEntity.swift */; };
 		90B608D4283E1110006F4309 /* NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B608CB283E1110006F4309 /* NodeKit.framework */; };
 		90B608DA283E1110006F4309 /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B608CE283E1110006F4309 /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90B6090E283E1268006F4309 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608E4283E1268006F4309 /* UrlCacheReaderNode.swift */; };
@@ -189,6 +193,10 @@
 		397AB7442A03F515000A09AB /* HTTPHeaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
 		39EF561C2A0E5542004B77C0 /* RequestCreatorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreatorNodeTests.swift; sourceTree = "<group>"; };
 		39EF561F2A0E55BD004B77C0 /* CustomServerErrorProcessorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomServerErrorProcessorNode.swift; sourceTree = "<group>"; };
+		39EF56212A0E5960004B77C0 /* BsonUrlChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BsonUrlChainTests.swift; sourceTree = "<group>"; };
+		39EF56242A0E5A37004B77C0 /* BsonChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BsonChain.swift; sourceTree = "<group>"; };
+		39EF56262A0E5A58004B77C0 /* CustomServiceChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomServiceChain.swift; sourceTree = "<group>"; };
+		39EF56282A0E5A91004B77C0 /* UserBsonEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBsonEntity.swift; sourceTree = "<group>"; };
 		90B608CB283E1110006F4309 /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90B608CE283E1110006F4309 /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		90B608D3283E1110006F4309 /* NodeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -322,7 +330,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				397AB7342A03EDE5000A09AB /* BSON in Frameworks */,
+				390E696A2A135AD6007F2304 /* BSON in Frameworks */,
 				90B60A19283E1819006F4309 /* CoreEvents in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -452,6 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				90B60A0C283E16E4006F4309 /* SimpleURLChainTests.swift */,
+				39EF56212A0E5960004B77C0 /* BsonUrlChainTests.swift */,
 				90B60A0E283E16E4006F4309 /* TestEmptyResponseMapping.swift */,
 			);
 			path = EndToEndTests;
@@ -463,6 +472,15 @@
 				39EF561F2A0E55BD004B77C0 /* CustomServerErrorProcessorNode.swift */,
 			);
 			path = Nodes;
+			sourceTree = "<group>";
+		};
+		39EF56232A0E5A29004B77C0 /* Chains */ = {
+			isa = PBXGroup;
+			children = (
+				39EF56242A0E5A37004B77C0 /* BsonChain.swift */,
+				39EF56262A0E5A58004B77C0 /* CustomServiceChain.swift */,
+			);
+			path = Chains;
 			sourceTree = "<group>";
 		};
 		90B608C1283E1110006F4309 = {
@@ -1009,6 +1027,7 @@
 		90B609E2283E16DC006F4309 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				39EF56232A0E5A29004B77C0 /* Chains */,
 				39EF561E2A0E55AB004B77C0 /* Nodes */,
 				90B609E3283E16DC006F4309 /* Infrastructure.swift */,
 				90B609E4283E16DC006F4309 /* Models */,
@@ -1039,6 +1058,7 @@
 			isa = PBXGroup;
 			children = (
 				90B609EA283E16DC006F4309 /* AuthModel.swift */,
+				39EF56282A0E5A91004B77C0 /* UserBsonEntity.swift */,
 				90B609EB283E16DC006F4309 /* User.swift */,
 				90B609EC283E16DC006F4309 /* Credentials.swift */,
 			);
@@ -1091,7 +1111,7 @@
 			name = NodeKit;
 			packageProductDependencies = (
 				90B60A18283E1819006F4309 /* CoreEvents */,
-				397AB7332A03EDE5000A09AB /* BSON */,
+				390E69692A135AD6007F2304 /* BSON */,
 			);
 			productName = NodeKit;
 			productReference = 90B608CB283E1110006F4309 /* NodeKit.framework */;
@@ -1144,7 +1164,7 @@
 			mainGroup = 90B608C1283E1110006F4309;
 			packageReferences = (
 				90B60A17283E1819006F4309 /* XCRemoteSwiftPackageReference "CoreEvents" */,
-				397AB7322A03EDE5000A09AB /* XCRemoteSwiftPackageReference "BSON" */,
+				390E69682A135AD6007F2304 /* XCRemoteSwiftPackageReference "BSON" */,
 			);
 			productRefGroup = 90B608CC283E1110006F4309 /* Products */;
 			projectDirPath = "";
@@ -1302,11 +1322,13 @@
 				90B609FE283E16DC006F4309 /* UrlWithOrderedQuery.swift in Sources */,
 				90B60A10283E16E4006F4309 /* DeferCallingTests.swift in Sources */,
 				90B609F9283E16DC006F4309 /* CacheReaderNodeTests.swift in Sources */,
+				39EF56252A0E5A37004B77C0 /* BsonChain.swift in Sources */,
 				39EF561D2A0E5542004B77C0 /* RequestCreatorNodeTests.swift in Sources */,
 				90B60A05283E16DC006F4309 /* UserEntry.swift in Sources */,
 				90B60A06283E16DC006F4309 /* AuthModel.swift in Sources */,
 				90B60A04283E16DC006F4309 /* AuthModelEntry.swift in Sources */,
 				90B60A01283E16DC006F4309 /* LoggingTests.swift in Sources */,
+				39EF56292A0E5A91004B77C0 /* UserBsonEntity.swift in Sources */,
 				90B609FC283E16DC006F4309 /* UrlETagSaverNodeTests.swift in Sources */,
 				90B609FF283E16DC006F4309 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */,
 				90B60A02283E16DC006F4309 /* Infrastructure.swift in Sources */,
@@ -1315,6 +1337,7 @@
 				90B609F1283E16DC006F4309 /* ChainConfiguratorNodeTests.swift in Sources */,
 				90B609F6283E16DC006F4309 /* URLQueryInjectorNodeTests.swift in Sources */,
 				90B609FD283E16DC006F4309 /* UrlETagReaderNodeTests.swift in Sources */,
+				39EF56222A0E5960004B77C0 /* BsonUrlChainTests.swift in Sources */,
 				90B609F7283E16DC006F4309 /* TokenRefresherNodeTests.swift in Sources */,
 				90B609F4283E16DC006F4309 /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift in Sources */,
 				90B609EF283E16DC006F4309 /* DTOMapperNodeTests.swift in Sources */,
@@ -1326,6 +1349,7 @@
 				90B60A00283E16DC006F4309 /* IfConnectionFailedFromCacheNodeTests.swift in Sources */,
 				90B60A03283E16DC006F4309 /* CredentialsEntry.swift in Sources */,
 				90B609F2283E16DC006F4309 /* MockerProxyConfigNodeTests.swift in Sources */,
+				39EF56272A0E5A58004B77C0 /* CustomServiceChain.swift in Sources */,
 				90B609FA283E16DC006F4309 /* FirstCachePolicyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1594,12 +1618,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		397AB7322A03EDE5000A09AB /* XCRemoteSwiftPackageReference "BSON" */ = {
+		390E69682A135AD6007F2304 /* XCRemoteSwiftPackageReference "BSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/orlandos-nl/BSON";
 			requirement = {
 				kind = exactVersion;
-				version = 7.0.31;
+				version = 8.0.9;
 			};
 		};
 		90B60A17283E1819006F4309 /* XCRemoteSwiftPackageReference "CoreEvents" */ = {
@@ -1613,9 +1637,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		397AB7332A03EDE5000A09AB /* BSON */ = {
+		390E69692A135AD6007F2304 /* BSON */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 397AB7322A03EDE5000A09AB /* XCRemoteSwiftPackageReference "BSON" */;
+			package = 390E69682A135AD6007F2304 /* XCRemoteSwiftPackageReference "BSON" */;
 			productName = BSON;
 		};
 		90B60A18283E1819006F4309 /* CoreEvents */ = {

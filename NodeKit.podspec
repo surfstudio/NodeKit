@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NodeKit"
-  s.version      = "3.5.0"
+  s.version      = "4.1.0"
   s.summary      = "Framework for network interaction"
 
   s.homepage     = "https://github.com/surfstudio/NodeKit"
@@ -15,8 +15,8 @@ Pod::Spec.new do |s|
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |sp|
-    sp.source_files  = 'NodeKit/Utils/**/*.swift', 'NodeKit/Chains/**/*.swift', 'NodeKit/Layers/**/*.swift', 'NodeKit/Core/**/*.swift', 'NodeKit/Encodings/*.swift'
-    sp.dependency 'Alamofire', '5.0.0-beta.6'
+    sp.source_files  = 'NodeKit/Utils/**/*.swift', 'NodeKit/Chains/**/*.swift', 'NodeKit/Layers/**/*.swift', 'NodeKit/Core/**/*.swift', 'NodeKit/Encodings/**/*.swift', 'NodeKit/ThirdParty/**/*.swift'
+    sp.exclude_files = 'NodeKit/NodeKitBson/**/*.swift'
     sp.dependency 'CoreEvents', '~> 2.0.2'
   end
 
@@ -29,5 +29,9 @@ Pod::Spec.new do |s|
     sp.dependency 'NodeKit/Core'
     sp.source_files = 'NodeKit/CacheNode/**/*.swift'
   end
-
+  s.subspec 'BSON' do |sp|
+   	sp.dependency 'NodeKit/Core'
+   	sp.dependency 'BSON', '7.0.4'
+   	sp.source_files = 'NodeKit/CacheNode/**/*.swift'
+  end
 end
