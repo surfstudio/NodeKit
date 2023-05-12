@@ -10,7 +10,7 @@ public struct TransportUrlRequest {
     /// Хедеры запроса.
     public let headers: [String: String]
     /// Данные для запроса в чистой `Data`
-     public let raw: Data?
+    public let raw: Data?
 
     /// Инициаллизирует объект.
     ///

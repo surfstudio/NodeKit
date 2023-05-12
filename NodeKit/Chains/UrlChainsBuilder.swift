@@ -156,19 +156,19 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     /// Создает цепочку для отправки DTO моделей данных.
     open func defaultInput<Input, Output>() -> Node<Input, Output>
-    where Input: DTOEncodable, Output: DTODecodable,
-          Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-              let buildingChain = self.requestBuildingChain()
-              let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: buildingChain)
-              return ModelInputNode(next: dtoConverter)
-          }
+        where Input: DTOEncodable, Output: DTODecodable,
+        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
+            let buildingChain = self.requestBuildingChain()
+            let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: buildingChain)
+            return ModelInputNode(next: dtoConverter)
+    }
 
     func supportNodes<Input, Output>() -> Node<Input, Output>
-    where Input: DTOEncodable, Output: DTODecodable,
-          Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-              let loadIndicator = LoadIndicatableNode<Input, Output>(next: self.defaultInput())
-              return loadIndicator
-          }
+        where Input: DTOEncodable, Output: DTODecodable,
+        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
+            let loadIndicator = LoadIndicatableNode<Input, Output>(next: self.defaultInput())
+            return loadIndicator
+    }
 
     open func requestRouterNode<Raw, Output>(next: Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>) -> RequestRouterNode<Raw, UrlRouteProvider, Output> {
 
@@ -181,30 +181,30 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     /// Создает цепочку по-умолчанию. Подразумеается работа с DTO-моделями.
     open func build<Input, Output>() -> Node<Input, Output>
-    where Input: DTOEncodable, Output: DTODecodable,
-          Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-              let input: Node<Input, Output> = self.supportNodes()
-              let config =  ChainConfiguratorNode<Input, Output>(next: input)
-              return LoggerNode(next: config, filters: self.logFilter)
-          }
+        where Input: DTOEncodable, Output: DTODecodable,
+        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
+            let input: Node<Input, Output> = self.supportNodes()
+            let config =  ChainConfiguratorNode<Input, Output>(next: input)
+            return LoggerNode(next: config, filters: self.logFilter)
+    }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
     open func build<Output>() -> Node<Void, Output>
-    where Output: DTODecodable, Output.DTO.Raw == Json {
-        let input: Node<Json, Output> = self.supportNodes()
-        let configNode = ChainConfiguratorNode<Json, Output>(next: input)
-        let voidNode =  VoidInputNode(next: configNode)
-        return LoggerNode(next: voidNode, filters: self.logFilter)
+        where Output: DTODecodable, Output.DTO.Raw == Json {
+            let input: Node<Json, Output> = self.supportNodes()
+            let configNode = ChainConfiguratorNode<Json, Output>(next: input)
+            let voidNode =  VoidInputNode(next: configNode)
+            return LoggerNode(next: voidNode, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
     open func build<Input>() -> Node<Input, Void>
-    where Input: DTOEncodable, Input.DTO.Raw == Json {
-        let input = self.requestBuildingChain()
-        let indicator = LoadIndicatableNode(next: input)
-        let configNode = ChainConfiguratorNode(next: indicator)
-        let voidOutput = VoidOutputNode<Input>(next: configNode)
-        return LoggerNode(next: voidOutput, filters: self.logFilter)
+        where Input: DTOEncodable, Input.DTO.Raw == Json {
+            let input = self.requestBuildingChain()
+            let indicator = LoadIndicatableNode(next: input)
+            let configNode = ChainConfiguratorNode(next: indicator)
+            let voidOutput = VoidOutputNode<Input>(next: configNode)
+            return LoggerNode(next: voidOutput, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных и вызодных данных имеет `Void`
@@ -299,4 +299,5 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         return LoggerNode(next: configNode, filters: self.logFilter)
     }
+
 }

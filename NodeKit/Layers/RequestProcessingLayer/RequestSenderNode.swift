@@ -35,8 +35,8 @@ open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
     /// Инициаллизирует узел.
     ///
     /// - Parameter rawResponseProcessor: Узел для обработки ответа.
-    /// - Parameter responseQueue:
-    /// - Parameter manager: // TODO
+    /// - Parameter responseQueue: Очередь, на которой будет выполнен ответ
+    /// - Parameter manager: URLSession менеджер, по умолчанию задается сессия из ServerRequestsManager
     public init(
         rawResponseProcessor: RawResponseProcessor,
         responseQueue: DispatchQueue,
@@ -49,7 +49,7 @@ open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
 
     /// Выполняет запрос,ожидает ответ и передает его следующему узлу.
     ///
-    /// - Parameter request: Данные для исполнения запроса. // TODO
+    /// - Parameter request: Данные для исполнения запроса.
     open override func process(_ request: URLRequest) -> Observer<Type> {
 
         let context = Context<NodeDataResponse>()
@@ -84,4 +84,5 @@ open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
         self.task?.cancel()
         self.context?.cancel()
     }
+
 }
