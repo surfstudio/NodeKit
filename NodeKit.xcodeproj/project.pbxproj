@@ -29,6 +29,8 @@
 		397AB7452A03F515000A09AB /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7422A03F515000A09AB /* MultipartFormData.swift */; };
 		397AB7462A03F515000A09AB /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7432A03F515000A09AB /* AFError.swift */; };
 		397AB7472A03F515000A09AB /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397AB7442A03F515000A09AB /* HTTPHeaders.swift */; };
+		39EF561D2A0E5542004B77C0 /* RequestCreatorNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EF561C2A0E5542004B77C0 /* RequestCreatorNodeTests.swift */; };
+		39EF56202A0E55BD004B77C0 /* CustomServerErrorProcessorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EF561F2A0E55BD004B77C0 /* CustomServerErrorProcessorNode.swift */; };
 		90B608D4283E1110006F4309 /* NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B608CB283E1110006F4309 /* NodeKit.framework */; };
 		90B608DA283E1110006F4309 /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B608CE283E1110006F4309 /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90B6090E283E1268006F4309 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608E4283E1268006F4309 /* UrlCacheReaderNode.swift */; };
@@ -185,6 +187,8 @@
 		397AB7422A03F515000A09AB /* MultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		397AB7432A03F515000A09AB /* AFError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
 		397AB7442A03F515000A09AB /* HTTPHeaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
+		39EF561C2A0E5542004B77C0 /* RequestCreatorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCreatorNodeTests.swift; sourceTree = "<group>"; };
+		39EF561F2A0E55BD004B77C0 /* CustomServerErrorProcessorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomServerErrorProcessorNode.swift; sourceTree = "<group>"; };
 		90B608CB283E1110006F4309 /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90B608CE283E1110006F4309 /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		90B608D3283E1110006F4309 /* NodeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -444,6 +448,23 @@
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
+		39EF561B2A0E28C3004B77C0 /* EndToEndTests */ = {
+			isa = PBXGroup;
+			children = (
+				90B60A0C283E16E4006F4309 /* SimpleURLChainTests.swift */,
+				90B60A0E283E16E4006F4309 /* TestEmptyResponseMapping.swift */,
+			);
+			path = EndToEndTests;
+			sourceTree = "<group>";
+		};
+		39EF561E2A0E55AB004B77C0 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				39EF561F2A0E55BD004B77C0 /* CustomServerErrorProcessorNode.swift */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
 		90B608C1283E1110006F4309 = {
 			isa = PBXGroup;
 			children = (
@@ -482,14 +503,13 @@
 		90B608D7283E1110006F4309 /* NodeKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				39EF561B2A0E28C3004B77C0 /* EndToEndTests */,
 				90B609E2283E16DC006F4309 /* Infrastructure */,
 				90B60A1A283E19C5006F4309 /* Resources */,
 				90B609C3283E16DC006F4309 /* UnitTests */,
 				90B60A0B283E16E4006F4309 /* DeferCallingTests.swift */,
 				90B60A0D283E16E4006F4309 /* FormUrlCodingTests.swift */,
 				90B60A0A283E16E4006F4309 /* MultipartRequestTests.swift */,
-				90B60A0C283E16E4006F4309 /* SimpleURLChainTests.swift */,
-				90B60A0E283E16E4006F4309 /* TestEmptyResponseMapping.swift */,
 			);
 			path = NodeKitTests;
 			sourceTree = "<group>";
@@ -924,6 +944,7 @@
 			children = (
 				90B609CD283E16DC006F4309 /* URLQueryEncoding */,
 				90B609D1283E16DC006F4309 /* URLQueryInjectorNodeTests.swift */,
+				39EF561C2A0E5542004B77C0 /* RequestCreatorNodeTests.swift */,
 			);
 			path = RequestBuildingLayer;
 			sourceTree = "<group>";
@@ -988,6 +1009,7 @@
 		90B609E2283E16DC006F4309 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				39EF561E2A0E55AB004B77C0 /* Nodes */,
 				90B609E3283E16DC006F4309 /* Infrastructure.swift */,
 				90B609E4283E16DC006F4309 /* Models */,
 			);
@@ -1280,6 +1302,7 @@
 				90B609FE283E16DC006F4309 /* UrlWithOrderedQuery.swift in Sources */,
 				90B60A10283E16E4006F4309 /* DeferCallingTests.swift in Sources */,
 				90B609F9283E16DC006F4309 /* CacheReaderNodeTests.swift in Sources */,
+				39EF561D2A0E5542004B77C0 /* RequestCreatorNodeTests.swift in Sources */,
 				90B60A05283E16DC006F4309 /* UserEntry.swift in Sources */,
 				90B60A06283E16DC006F4309 /* AuthModel.swift in Sources */,
 				90B60A04283E16DC006F4309 /* AuthModelEntry.swift in Sources */,
@@ -1299,6 +1322,7 @@
 				90B609FB283E16DC006F4309 /* TestUtls.swift in Sources */,
 				90B60A08283E16DC006F4309 /* Credentials.swift in Sources */,
 				90B609F0283E16DC006F4309 /* OffsetAsyncPagerTests.swift in Sources */,
+				39EF56202A0E55BD004B77C0 /* CustomServerErrorProcessorNode.swift in Sources */,
 				90B60A00283E16DC006F4309 /* IfConnectionFailedFromCacheNodeTests.swift in Sources */,
 				90B60A03283E16DC006F4309 /* CredentialsEntry.swift in Sources */,
 				90B609F2283E16DC006F4309 /* MockerProxyConfigNodeTests.swift in Sources */,
@@ -1369,7 +1393,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1427,7 +1451,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

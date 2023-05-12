@@ -5,7 +5,6 @@
 //  Created by Александр Кравченков on 31/03/2019.
 //  Copyright © 2019 Кравченков Александр. All rights reserved.
 //
-
 import Foundation
 import XCTest
 
@@ -16,10 +15,10 @@ public class EncodingTests: XCTestCase {
 
     class StubNext: RequestProcessingLayerNode {
 
-        var request: RawUrlRequest! = nil
+        var request: URLRequest! = nil
 
         @discardableResult
-        public override func process(_ data: RawUrlRequest) -> Observer<Json> {
+        public override func process(_ data: URLRequest) -> Observer<Json> {
             self.request = data
             return .emit(data: Json())
         }
@@ -27,66 +26,60 @@ public class EncodingTests: XCTestCase {
 
     public func testFormUrlConvertinWork() {
         // Arrange
-
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
+        let requestEncodingNode = UrlJsonRequestEncodingNode(next: node)
         let url = "http://test.com/usr"
+        let headersArray: [String: String] = ["Content-Type": "application/x-www-form-urlencoded; charset=utf-8"]
 
         // Act
+        let dataRaw: Json = ["id": "123455"]
+        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let encodingModel = RequestEncodingModel(urlParameters: urlParameters, raw: dataRaw, encoding: .formUrl)
 
-        let params = TransportUrlParameters(method: .post,
-                                            url: URL(string: url)!,
-                                            headers: [:],
-                                            parametersEncoding: .formUrl)
-        let trasportReq = TransportUrlRequest(with: params, raw: ["id": "123455"])
-
-        _ = node.process(trasportReq)
+        _ = requestEncodingNode.process(encodingModel)
 
         // Assert
-
-        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, url)
+        XCTAssertEqual(nextNode.request.url!.absoluteString, url)
+        XCTAssertEqual(nextNode.request.headers.dictionary, headersArray)
     }
 
     public func testUrlQueryConvertionWork() {
         // Arrange
-
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
+        let requestEncodingNode = UrlJsonRequestEncodingNode(next: node)
         let url = "http://test.com/usr"
 
         // Act
+        let dataRaw: Json = ["id": "12345"]
+        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let encodingModel = RequestEncodingModel(urlParameters: urlParameters, raw: dataRaw, encoding: .urlQuery)
 
-        let params = TransportUrlParameters(method: .post,
-                                            url: URL(string: url)!,
-                                            headers: [:],
-                                            parametersEncoding: .urlQuery)
-        let trasportReq = TransportUrlRequest(with: params, raw: ["id": "12345"])
-
-        _ = node.process(trasportReq)
+        _ = requestEncodingNode.process(encodingModel)
 
         // Assert
-
-        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, "\(url)?id=12345")
+        XCTAssertEqual(nextNode.request.url!.absoluteString, "\(url)?id=12345")
     }
 
     func testJsonConvertionWork() {
         // Arrange
-
         let nextNode = StubNext()
         let node = RequestCreatorNode(next: nextNode)
+        let requestEncodingNode = UrlJsonRequestEncodingNode(next: node)
         let url = "http://test.com/usr"
+        let headersArray: [String: String] = ["Content-Type": "application/json"]
 
         // Act
+        let dataRaw: Json = ["id": "12345"]
+        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let encodingModel = RequestEncodingModel(urlParameters: urlParameters, raw: dataRaw, encoding: .json)
 
-        let params = TransportUrlParameters(method: .post,
-                                            url: URL(string: url)!,
-                                            headers: [:], parametersEncoding: .json)
-        let trasportReq = TransportUrlRequest(with: params, raw: ["id": "12345"])
-
-        _ = node.process(trasportReq)
+        _ = requestEncodingNode.process(encodingModel)
 
         // Assert
-
-        XCTAssertEqual(nextNode.request.dataRequest.convertible.urlRequest!.url!.absoluteString, url)
+        XCTAssertEqual(nextNode.request.url!.absoluteString, url)
+        XCTAssertEqual(nextNode.request.headers.dictionary, headersArray)
     }
+
 }

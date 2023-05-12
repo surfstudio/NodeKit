@@ -41,40 +41,6 @@ public class FirstCachePolicyTests: XCTestCase {
         }
     }
 
-    class StubRequest: DataRequest {
-
-        override var request: URLRequest? {
-            return self.stubRequest
-        }
-
-        let stubRequest: URLRequest?
-
-        init(request: URLRequestConvertible) {
-
-            self.stubRequest = request.urlRequest
-            super.init(convertible: request, underlyingQueue: .global(), serializationQueue: .main, eventMonitor: nil, interceptor: nil, delegate: Session.default)
-        }
-    }
-
-    struct StubConvertible: URLRequestConvertible {
-
-        private let request: URLRequest?
-
-        init(_ request: URLRequest?) {
-            self.request = request
-        }
-
-        func asURLRequest() throws -> URLRequest {
-            guard let request = self.request else {
-                throw UrlRouteError.cantBuildUrl
-            }
-
-            return request
-        }
-
-
-    }
-
     public func testThatNextNodeCalledInCaseOfBadInput() {
 
         // Arrange
@@ -89,9 +55,8 @@ public class FirstCachePolicyTests: XCTestCase {
         let expectation = self.expectation(description: "\(#function)")
 
         var completedCalls = 0
-        
-        let model = StubRequest(request: StubConvertible(nil))
-        let request = RawUrlRequest(dataRequest: model)
+
+        let request = RawUrlRequest(dataRequest: nil)
 
         node.process(request).onCompleted { data in
             completedCalls += 1
@@ -127,9 +92,7 @@ public class FirstCachePolicyTests: XCTestCase {
         let expectation = self.expectation(description: "\(#function)")
 
         var completedCalls = 0
-
-        let model = StubRequest(request: URLRequest(url: URL(string: "test.ex.temp")!))
-        let request = RawUrlRequest(dataRequest: model)
+        let request = RawUrlRequest(dataRequest: URLRequest(url: URL(string: "test.ex.temp")!))
 
         node.process(request).onCompleted { data in
             completedCalls += 1
@@ -150,4 +113,5 @@ public class FirstCachePolicyTests: XCTestCase {
         XCTAssertEqual(next.numberOfCalls, 1)
         XCTAssertEqual(reader.numberOfCalls, 1)
     }
+
 }
