@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class UrlJsonRequestEncodingNode<Type>: Node<RequestEncodingModel<Json>, Type> {
+open class UrlJsonRequestEncodingNode<Type>: Node<RequestEncodingModel, Type> {
 
     /// Следующий узел для обработки.
     public var next: Node<TransportUrlRequest, Type>
@@ -21,7 +21,7 @@ open class UrlJsonRequestEncodingNode<Type>: Node<RequestEncodingModel<Json>, Ty
         self.next = next
     }
 
-    open override func process(_ data: RequestEncodingModel<Json>) -> Observer<Type> {
+    open override func process(_ data: RequestEncodingModel) -> Observer<Type> {
         var log = getLogMessage(data)
         let request: TransportUrlRequest?
         let paramEncoding = { () -> ParameterEncoding? in
@@ -56,7 +56,7 @@ open class UrlJsonRequestEncodingNode<Type>: Node<RequestEncodingModel<Json>, Ty
 
 private extension UrlJsonRequestEncodingNode {
 
-    func getLogMessage(_ data: RequestEncodingModel<Json>) -> Log {
+    func getLogMessage(_ data: RequestEncodingModel) -> Log {
         var message = "<<<===\(self.objectName)===>>>\n"
         message += "input: \(type(of: data))"
         message += "encoding: \(String(describing: data.encoding))"
