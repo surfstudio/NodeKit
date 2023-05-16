@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 @testable
 import NodeKit

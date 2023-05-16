@@ -1,6 +1,4 @@
-
 import Foundation
-import Alamofire
 
 /// Реулизует набор цепочек для отправки URL запросов.
 open class UrlChainsBuilder<Route: UrlRouteProvider> {
@@ -34,10 +32,13 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     public var route: Route?
 
     /// Менеджер сессий
-    public var session: Session?
+    public var session: URLSession?
 
     /// Массив с ID логов, которые нужно исключить из выдачи.
     public var logFilter: [String]
+
+    /// Очередь, на которой response вашего запроса должен будет быть обработан. По дефолту `Global` с приоритетом `.userInitiated`
+    public var responseDispatchQueue: DispatchQueue = DispatchQueue.global(qos: .userInitiated)
 
     // MARK: - Init
 
@@ -92,8 +93,8 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     }
 
     // MARK: - Session config
-    
-    open func set(session: Session) -> Self {
+
+    open func set(session: URLSession) -> Self {
         self.session = session
         return self
     }
@@ -122,6 +123,11 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
+    open func setResponseQueue(_ queue: DispatchQueue) -> Self {
+        self.responseDispatchQueue = queue
+        return self
+    }
+
     // MARK: - Infrastructure Config
 
     open func log(exclude: [String]) -> Self {
@@ -135,9 +141,10 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     ///
     /// - Parameter config: Конфигурация для запроса
     open func requestBuildingChain() ->  Node<Json, Json> {
-        let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, session: session)
+        let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, responseQueue: responseDispatchQueue, session: session)
 
-        let urlRequestTrasformatorNode = UrlRequestTrasformatorNode(next: transportChain, method: self.method)
+        let urlRequestEncodingNode = UrlJsonRequestEncodingNode(next: transportChain)
+        let urlRequestTrasformatorNode = UrlRequestTrasformatorNode<Json, Json>(next: urlRequestEncodingNode, method: self.method)
         let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
 
         let queryInjector = URLQueryInjectorNode(next: requstEncoderNode, config: self.urlQueryConfig)
@@ -149,19 +156,19 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     /// Создает цепочку для отправки DTO моделей данных.
     open func defaultInput<Input, Output>() -> Node<Input, Output>
-        where Input: DTOEncodable, Output: DTODecodable,
-        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-            let buildingChain = self.requestBuildingChain()
-            let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: buildingChain)
-            return ModelInputNode(next: dtoConverter)
-    }
+    where Input: DTOEncodable, Output: DTODecodable,
+          Input.DTO.Raw == Json, Output.DTO.Raw == Json {
+              let buildingChain = self.requestBuildingChain()
+              let dtoConverter = DTOMapperNode<Input.DTO, Output.DTO>(next: buildingChain)
+              return ModelInputNode(next: dtoConverter)
+          }
 
     func supportNodes<Input, Output>() -> Node<Input, Output>
-        where Input: DTOEncodable, Output: DTODecodable,
-        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-            let loadIndicator = LoadIndicatableNode<Input, Output>(next: self.defaultInput())
-            return loadIndicator
-    }
+    where Input: DTOEncodable, Output: DTODecodable,
+          Input.DTO.Raw == Json, Output.DTO.Raw == Json {
+              let loadIndicator = LoadIndicatableNode<Input, Output>(next: self.defaultInput())
+              return loadIndicator
+          }
 
     open func requestRouterNode<Raw, Output>(next: Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>) -> RequestRouterNode<Raw, UrlRouteProvider, Output> {
 
@@ -174,30 +181,30 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     /// Создает цепочку по-умолчанию. Подразумеается работа с DTO-моделями.
     open func build<Input, Output>() -> Node<Input, Output>
-        where Input: DTOEncodable, Output: DTODecodable,
-        Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-            let input: Node<Input, Output> = self.supportNodes()
-            let config =  ChainConfiguratorNode<Input, Output>(next: input)
-            return LoggerNode(next: config, filters: self.logFilter)
-    }
+    where Input: DTOEncodable, Output: DTODecodable,
+          Input.DTO.Raw == Json, Output.DTO.Raw == Json {
+              let input: Node<Input, Output> = self.supportNodes()
+              let config =  ChainConfiguratorNode<Input, Output>(next: input)
+              return LoggerNode(next: config, filters: self.logFilter)
+          }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
     open func build<Output>() -> Node<Void, Output>
-        where Output: DTODecodable, Output.DTO.Raw == Json {
-            let input: Node<Json, Output> = self.supportNodes()
-            let configNode = ChainConfiguratorNode<Json, Output>(next: input)
-            let voidNode =  VoidInputNode(next: configNode)
-            return LoggerNode(next: voidNode, filters: self.logFilter)
+    where Output: DTODecodable, Output.DTO.Raw == Json {
+        let input: Node<Json, Output> = self.supportNodes()
+        let configNode = ChainConfiguratorNode<Json, Output>(next: input)
+        let voidNode =  VoidInputNode(next: configNode)
+        return LoggerNode(next: voidNode, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
     open func build<Input>() -> Node<Input, Void>
-        where Input: DTOEncodable, Input.DTO.Raw == Json {
-            let input = self.requestBuildingChain()
-            let indicator = LoadIndicatableNode(next: input)
-            let configNode = ChainConfiguratorNode(next: indicator)
-            let voidOutput = VoidOutputNode<Input>(next: configNode)
-            return LoggerNode(next: voidOutput, filters: self.logFilter)
+    where Input: DTOEncodable, Input.DTO.Raw == Json {
+        let input = self.requestBuildingChain()
+        let indicator = LoadIndicatableNode(next: input)
+        let configNode = ChainConfiguratorNode(next: indicator)
+        let voidOutput = VoidOutputNode<Input>(next: configNode)
+        return LoggerNode(next: voidOutput, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных и вызодных данных имеет `Void`
@@ -217,9 +224,9 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let reponseProcessor = self.serviceChain.urlResponseProcessingLayerChain()
 
-        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor)
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor, responseQueue: responseDispatchQueue, manager: session)
 
-        let creator = MultipartRequestCreatorNode(next: requestSenderNode, session: session)
+        let creator = MultipartRequestCreatorNode(next: requestSenderNode)
 
         let transformator = MultipartUrlRequestTrasformatorNode(next: creator, method: self.method)
 
@@ -243,11 +250,12 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
-        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor)
+        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, responseQueue: responseDispatchQueue, manager: session)
 
-        let creator = RequestCreatorNode(next: sender, providers: headersProviders, session: session)
+        let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
-        let tranformator = UrlRequestTrasformatorNode(next: creator, method: self.method)
+        let encoding = UrlJsonRequestEncodingNode(next: creator)
+        let tranformator = UrlRequestTrasformatorNode<Json, Data>(next: encoding, method: self.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
 
         let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)
@@ -270,11 +278,12 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
-        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor)
+        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, responseQueue: responseDispatchQueue, manager: session)
 
-        let creator = RequestCreatorNode(next: sender, providers: headersProviders, session: session)
+        let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
-        let tranformator = UrlRequestTrasformatorNode(next: creator, method: self.method)
+        let encoding = UrlJsonRequestEncodingNode(next: creator)
+        let tranformator = UrlRequestTrasformatorNode<Json, Data>(next: encoding, method: self.method)
         let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
 
         let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)

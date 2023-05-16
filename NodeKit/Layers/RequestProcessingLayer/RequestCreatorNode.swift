@@ -15,7 +15,6 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
     public init(next: Node<URLRequest, Output>, providers: [MetadataProvider] = []) {
         self.next = next
         self.providers = providers
-        self.manager = session ?? ServerRequestsManager.shared.manager
     }
 
     /// Конфигурирует низкоуровненвый запрос.
