@@ -19,18 +19,17 @@ let package = Package(
         .target(
             name: "NodeKit",
             dependencies: [
-                "CoreEvents",
+                "CoreEvents"
             ],
             path: "NodeKit",
             exclude: [
-                "Info.plist",
+                "Info.plist"
             ]
         ),
         .testTarget(
             name: "NodeKitTests",
             dependencies: [
                 "NodeKit",
-                "Alamofire",
                 "CoreEvents"
             ],
             path: "NodeKitTests",
@@ -39,8 +38,8 @@ let package = Package(
                 // TODO: - Переписать тесты на блекбокс - убрать завязку на сервер
                 "FormUrlCodingTests.swift",
                 "MultipartRequestTests.swift",
-                "SimpleURLChainTests.swift",
-                "TestEmptyResponseMapping.swift"
+                "EndToEndTests/SimpleURLChainTests.swift",
+                "EndToEndTests/TestEmptyResponseMapping.swift"
             ]
         ),
     ]
