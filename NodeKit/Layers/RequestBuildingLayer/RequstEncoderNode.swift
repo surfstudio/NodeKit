@@ -40,9 +40,9 @@ open class RequstEncoderNode<Raw, Route, Encoding, Output>: RequestRouterNode<Ra
 
     /// Преобразует `RoutableRequestModel` в `EncodableRequestModel`
     /// и передает управление следующему узлу.
-    open override func process(_ data: RoutableRequestModel<Route, Raw>) -> Observer<Output> {
+    open override func process(_ data: RoutableRequestModel<Route, Raw>) async -> Result<Output, Error> {
         let model = EncodableRequestModel(metadata: data.metadata, raw: data.raw, route: data.route, encoding: self.encoding)
-        return self.next.process(model)
+        return await next.process(model)
     }
 
 }

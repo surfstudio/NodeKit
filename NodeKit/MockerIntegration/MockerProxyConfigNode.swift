@@ -54,18 +54,17 @@ final class MockerProxyConfigNode<Raw, Output>: Node<RequestModel<Raw>, Output> 
     // MARK: - Node
 
     /// Добавляет хедеры в `data`
-    override func process(_ data: RequestModel<Raw>) -> Observer<Output> {
-
+    override func process(_ data: RequestModel<Raw>) async -> Result<Output, Error> {
         guard self.isProxyingOn else {
-            return self.next.process(data)
+            return await next.process(data)
         }
 
         var copy = data
 
-        copy.metadata[Keys.isProxyingOn] = String(self.isProxyingOn)
-        copy.metadata[Keys.proxyingHost] = self.proxyingHost
-        copy.metadata[Keys.proxyingScheme] = self.proxyingScheme
+        copy.metadata[Keys.isProxyingOn] = String(isProxyingOn)
+        copy.metadata[Keys.proxyingHost] = proxyingHost
+        copy.metadata[Keys.proxyingScheme] = proxyingScheme
 
-        return self.next.process(copy)
+        return await next.process(copy)
     }
 }

@@ -37,7 +37,7 @@ open class RequestRouterNode<Raw, Route, Output>: Node<RequestModel<Raw>, Output
     }
 
     /// Преобразует `RequestModel` в `RoutableRequestModel` и передает управление следующему узлу
-    open override func process(_ data: RequestModel<Raw>) -> Observer<Output> {
-        return self.next.process(RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: self.route))
+    open override func process(_ data: RequestModel<Raw>) async -> Result<Output, Error> {
+        return await next.process(RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: self.route))
     }
 }

@@ -2,6 +2,7 @@ import Foundation
 
 /// Этот узел переводит Generic запрос в конкретную реализацию.
 /// Данный узел работает с URL-запросами, по HTTP протоколу с JSON
+@available(iOS 13.0, *)
 open class MultipartUrlRequestTrasformatorNode<Type>: Node<RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>, Type> {
 
     /// Следйющий узел для обработки.
@@ -23,22 +24,16 @@ open class MultipartUrlRequestTrasformatorNode<Type>: Node<RoutableRequestModel<
     /// Конструирует модель для для работы на транспортном уровне цепочки.
     ///
     /// - Parameter data: Данные для дальнейшей обработки.
-    open override func process(_ data: RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>) -> Observer<Type> {
-
-        var url: URL
-
-        do {
-            url = try data.route.url()
-        } catch {
-            return .emit(error: error)
+    open override func process(_ data: RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>) async -> Result<Type, Error> {
+        return await .withMappedExceptions {
+            let url = try data.route.url()
+            let request = MultipartUrlRequest(
+                method: self.method,
+                url: url,
+                headers: data.metadata,
+                data: data.raw
+            )
+            return await next.process(request)
         }
-
-
-        let request = MultipartUrlRequest(method: self.method,
-                                          url: url,
-                                          headers: data.metadata,
-                                          data: data.raw)
-
-        return next.process(request)
     }
 }

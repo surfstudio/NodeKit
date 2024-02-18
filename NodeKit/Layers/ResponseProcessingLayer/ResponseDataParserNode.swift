@@ -19,6 +19,7 @@ public enum ResponseDataParserNodeError: Error {
 
 /// Выполняет преобразование преобразование "сырых" данных в `Json`
 /// - SeeAlso: `MappingUtils`
+@available(iOS 13.0, *)
 open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
 
     /// Следующий узел для обработки.
@@ -34,39 +35,12 @@ open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
     /// Парсит ответ и в случае успеха передает управление следующему узлу.
     ///
     /// - Parameter data: Модель овтета сервера.
-    open override func process(_ data: UrlDataResponse) -> Observer<Json> {
-
-        let context = Context<Json>()
-        var json = Json()
-        var log = self.logViewObjectName
-
-        do {
-            let (raw, logMsg) = try self.json(from: data)
-            json = raw
-            log += logMsg + .lineTabDeilimeter
-        } catch {
-            switch error {
-            case ResponseDataParserNodeError.cantCastDesirializedDataToJson(let logMsg), ResponseDataParserNodeError.cantDeserializeJson(let logMsg):
-                log += logMsg
-            default:
-                log += "Catch \(error)"
-            }
-
-            context.log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).emit(error: error)
-            return context
+    open override func process(_ data: UrlDataResponse) async -> Result<Json, Error> {
+        return await .withMappedExceptions {
+            let (json, _) = try self.json(from: data)
+            lazy var networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
+            return await next?.process(networkResponse).flatMap { .success(json) } ?? .success(json)
         }
-
-        guard let nextNode = next else {
-
-            log += "Next node is nil -> terminate chain process"
-            return context.log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).emit(data: json)
-        }
-
-        log += "Have next node \(nextNode.objectName) -> call `process`"
-
-        let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
-
-        return nextNode.process(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).map { json }
     }
 
     /// Получает `json` из модели ответа сервера.

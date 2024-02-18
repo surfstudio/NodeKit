@@ -44,25 +44,21 @@ open class ResponseHttpErrorProcessorNode<Type>: Node<UrlDataResponse, Type> {
     /// В противном случае возвращает `HttpError`
     ///
     /// - Parameter data: Модель ответа сервера.
-    open override func process(_ data: UrlDataResponse) -> Observer<Type> {
-
-        let context = Context<Type>()
-
+    open override func process(_ data: UrlDataResponse) async -> Result<Type, Error> {
         switch data.response.statusCode {
         case 400:
-            return context.emit(error: HttpError.badRequest(data.data))
+            return .failure(HttpError.badRequest(data.data))
         case 401:
-            return context.emit(error: HttpError.unauthorized(data.data))
+            return .failure(HttpError.unauthorized(data.data))
         case 403:
-            return context.emit(error: HttpError.forbidden(data.data))
+            return .failure(HttpError.forbidden(data.data))
         case 404:
-            return context.emit(error: HttpError.notFound)
+            return .failure(HttpError.notFound)
         case 500:
-            return context.emit(error: HttpError.internalServerError(data.data))
+            return .failure(HttpError.internalServerError(data.data))
         default:
             break
         }
-        let log = self.logViewObjectName + "Cant match status code -> call next"
-        return self.next.process(data).log(Log(log, id: self.objectName, order: LogOrder.responseHttpErrorProcessorNode))
+        return await next.process(data)
     }
 }

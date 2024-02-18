@@ -15,6 +15,9 @@
 		390E697B2A13660C007F2304 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390E69782A13660C007F2304 /* MultipartFormData.swift */; };
 		390E697C2A13660C007F2304 /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390E69792A13660C007F2304 /* AFError.swift */; };
 		390E697D2A13660C007F2304 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390E697A2A13660C007F2304 /* HTTPHeaders.swift */; };
+		5093F7472B7CF153005DC385 /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093F7462B7CF153005DC385 /* Result+Extension.swift */; };
+		5093F74D2B7E29FF005DC385 /* TokenRefresherActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093F74C2B7E29FF005DC385 /* TokenRefresherActor.swift */; };
+		5093F74F2B7E53DE005DC385 /* ChainConfiguratorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093F74E2B7E53DE005DC385 /* ChainConfiguratorNode.swift */; };
 		90B608D4283E1110006F4309 /* NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B608CB283E1110006F4309 /* NodeKit.framework */; };
 		90B608DA283E1110006F4309 /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B608CE283E1110006F4309 /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90B6090E283E1268006F4309 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608E4283E1268006F4309 /* UrlCacheReaderNode.swift */; };
@@ -88,7 +91,6 @@
 		90B609AA283E1287006F4309 /* TransportUrlParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60961283E1287006F4309 /* TransportUrlParameters.swift */; };
 		90B609AB283E1287006F4309 /* UrlProcessedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60964283E1287006F4309 /* UrlProcessedResponse.swift */; };
 		90B609AC283E1287006F4309 /* DefaultLogOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60965283E1287006F4309 /* DefaultLogOrder.swift */; };
-		90B609AD283E1287006F4309 /* ChainConfiguratorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60967283E1287006F4309 /* ChainConfiguratorNode.swift */; };
 		90B609AE283E1287006F4309 /* LayerTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60968283E1287006F4309 /* LayerTypes.swift */; };
 		90B609AF283E1287006F4309 /* RequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B6096A283E1287006F4309 /* RequestCreatorNode.swift */; };
 		90B609B1283E1287006F4309 /* MultipartRequestCreatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B6096C283E1287006F4309 /* MultipartRequestCreatorNode.swift */; };
@@ -159,6 +161,9 @@
 		390E69782A13660C007F2304 /* MultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		390E69792A13660C007F2304 /* AFError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
 		390E697A2A13660C007F2304 /* HTTPHeaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
+		5093F7462B7CF153005DC385 /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
+		5093F74C2B7E29FF005DC385 /* TokenRefresherActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherActor.swift; sourceTree = "<group>"; };
+		5093F74E2B7E53DE005DC385 /* ChainConfiguratorNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNode.swift; sourceTree = "<group>"; };
 		90B608CB283E1110006F4309 /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90B608CE283E1110006F4309 /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		90B608D3283E1110006F4309 /* NodeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,7 +238,6 @@
 		90B60961283E1287006F4309 /* TransportUrlParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransportUrlParameters.swift; sourceTree = "<group>"; };
 		90B60964283E1287006F4309 /* UrlProcessedResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlProcessedResponse.swift; sourceTree = "<group>"; };
 		90B60965283E1287006F4309 /* DefaultLogOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLogOrder.swift; sourceTree = "<group>"; };
-		90B60967283E1287006F4309 /* ChainConfiguratorNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNode.swift; sourceTree = "<group>"; };
 		90B60968283E1287006F4309 /* LayerTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerTypes.swift; sourceTree = "<group>"; };
 		90B6096A283E1287006F4309 /* RequestCreatorNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCreatorNode.swift; sourceTree = "<group>"; };
 		90B6096C283E1287006F4309 /* MultipartRequestCreatorNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartRequestCreatorNode.swift; sourceTree = "<group>"; };
@@ -471,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				90B60900283E1268006F4309 /* Node.swift */,
+				5093F7462B7CF153005DC385 /* Result+Extension.swift */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -604,6 +609,7 @@
 			children = (
 				90B6094E283E1287006F4309 /* TokenRefresherNode.swift */,
 				90B6094F283E1287006F4309 /* AccessSafeNode.swift */,
+				5093F74C2B7E29FF005DC385 /* TokenRefresherActor.swift */,
 			);
 			path = AccessSafe;
 			sourceTree = "<group>";
@@ -683,7 +689,7 @@
 		90B60966283E1287006F4309 /* ConfigurationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				90B60967283E1287006F4309 /* ChainConfiguratorNode.swift */,
+				5093F74E2B7E53DE005DC385 /* ChainConfiguratorNode.swift */,
 			);
 			path = ConfigurationLayer;
 			sourceTree = "<group>";
@@ -1059,18 +1065,19 @@
 				90B609B3283E1287006F4309 /* RawUrlRequest.swift in Sources */,
 				90B609AC283E1287006F4309 /* DefaultLogOrder.swift in Sources */,
 				90B609BD283E1287006F4309 /* UrlRouting.swift in Sources */,
+				5093F74D2B7E29FF005DC385 /* TokenRefresherActor.swift in Sources */,
 				90B60926283E1268006F4309 /* Observer+Operations.swift in Sources */,
 				90B609A1283E1287006F4309 /* UrlDataResponse.swift in Sources */,
 				90B609AA283E1287006F4309 /* TransportUrlParameters.swift in Sources */,
 				90B60987283E1287006F4309 /* URLQueryDictionaryKeyEncodingStrategy.swift in Sources */,
 				90B609BA283E1287006F4309 /* AsyncIterator.swift in Sources */,
 				90B6099C283E1287006F4309 /* LoadIndicatorNode.swift in Sources */,
+				5093F7472B7CF153005DC385 /* Result+Extension.swift in Sources */,
 				90B60992283E1287006F4309 /* MultipartUrlRequestTrasformatorNode.swift in Sources */,
 				90B609A3283E1287006F4309 /* DataLoadingResponseProcessor.swift in Sources */,
 				90B60911283E1268006F4309 /* UrlCacheWriterNode.swift in Sources */,
 				90B6099E283E1287006F4309 /* AccessSafeNode.swift in Sources */,
 				90B60923283E1268006F4309 /* Node.swift in Sources */,
-				90B609AD283E1287006F4309 /* ChainConfiguratorNode.swift in Sources */,
 				90B60991283E1287006F4309 /* URLQueryInjectorNode.swift in Sources */,
 				90B6092A283E1268006F4309 /* MulticastContext.swift in Sources */,
 				90B6098E283E1287006F4309 /* RoutableRequestModel.swift in Sources */,
@@ -1107,6 +1114,7 @@
 				90B60996283E1287006F4309 /* VoidIONode.swift in Sources */,
 				90B60912283E1268006F4309 /* IfServerFailsFromCacheNode.swift in Sources */,
 				90B6091E283E1268006F4309 /* MultipartModel + Convertion.swift in Sources */,
+				5093F74F2B7E53DE005DC385 /* ChainConfiguratorNode.swift in Sources */,
 				90B60910283E1268006F4309 /* UrlNotModifiedTriggerNode.swift in Sources */,
 				90B6098C283E1287006F4309 /* EncodableRequestModel.swift in Sources */,
 				90B609A0283E1287006F4309 /* ResponseHttpErrorProcessorNode.swift in Sources */,

@@ -24,6 +24,7 @@ public struct MultipartUrlRequest {
 }
 
 /// Узел, умеющий создавать multipart-запрос.
+@available(iOS 13.0, *)
 open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output> {
     /// Следующий узел для обработки.
     public var next: Node<URLRequest, Output>
@@ -38,8 +39,8 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
     /// Конфигурирует низкоуровненвый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
-    open override func process(_ data: MultipartUrlRequest) -> Observer<Output> {
-        do {
+    open override func process(_ data: MultipartUrlRequest) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
             var request = URLRequest(url: data.url)
             request.httpMethod = data.method.rawValue
 
@@ -53,9 +54,7 @@ open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output
             let encodedFormData = try formData.encode()
             request.httpBody = encodedFormData
 
-            return self.next.process(request).log(self.getLogMessage(data))
-        } catch {
-            return .emit(error: error)
+            return await next.process(request)
         }
     }
 

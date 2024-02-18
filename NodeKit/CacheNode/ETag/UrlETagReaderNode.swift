@@ -31,9 +31,9 @@ open class UrlETagReaderNode: TransportLayerNode {
 
     /// Пытается прочесть eTag-токен из хранилища и добавить его к запросу.
     /// В случае, если прочесть токен не удалось, то управление просто передается дальше.
-    open override func process(_ data: TransportUrlRequest) -> Observer<Json> {
+    open override func process(_ data: TransportUrlRequest) async -> Result<Json, Error> {
         guard let tag = UserDefaults.etagStorage?.value(forKey: data.url.absoluteString) as? String else {
-            return next.process(data)
+            return await next.process(data)
         }
 
         var headers = data.headers
@@ -45,7 +45,7 @@ open class UrlETagReaderNode: TransportLayerNode {
 
         let newData = TransportUrlRequest(with: params, raw: data.raw)
 
-        return next.process(newData)
+        return await next.process(newData)
     }
 
 }

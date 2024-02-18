@@ -21,6 +21,7 @@ public protocol Aborter {
 /// - SeeAlso:
 ///     - `Aborter`
 ///     - `Node`
+@available(iOS 13.0, *)
 open class AborterNode<Input, Output>: Node<Input, Output> {
 
     /// Следюущий в цепочке узел
@@ -39,13 +40,18 @@ open class AborterNode<Input, Output>: Node<Input, Output> {
         self.aborter = aborter
     }
 
-    /// Просто передает поток следующему узлу
-    /// и если пришло сообщение об отмене запроса, то посылает Aborter'у `cancel()`
-    open override func process(_ data: Input) -> Observer<Output> {
-        return self.next.process(data)
-            .multicast()
-            .onCanceled { [weak self] in
-                self?.aborter.cancel()
-            }
+    /// Если в момент вызова process задача уже отменена, то вернет CancellationError
+    /// Если process был вызван и получили событие отмены задачи, то посылает Aborter'у `cancel()`
+    open override func process(_ data: Input) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            try Task.checkCancellation()
+            return .success(())
+        }
+        .flatMap {
+            return await withTaskCancellationHandler(
+                operation: { return await next.process(data) },
+                onCancel: { aborter.cancel() }
+            )
+        }
     }
 }

@@ -56,20 +56,20 @@ open class FirstCachePolicyNode: Node<RawUrlRequest, Json> {
     /// а затем, передает управление следующему узлу.
     /// В случае, если получить `URLRequest` не удалось,
     /// то управление просто передается следующему узлу
-    open override func process(_ data: RawUrlRequest) -> Context<Json> {
-        let result = Context<Json>()
+    open override func process(_ data: RawUrlRequest) async -> Result<Json, Error> {
+//        let result = Context<Json>()
+//
+//        if let request = data.toUrlRequest() {
+//            cacheReaderNode.process(request)
+//                .onCompleted { result.emit(data: $0) }
+//                .onError { result.emit(error: $0)}
+//        }
+//
+//        next.process(data)
+//            .onCompleted { result.emit(data: $0)}
+//            .onError { result.emit(error: $0) }
 
-        if let request = data.toUrlRequest() {
-            cacheReaderNode.process(request)
-                .onCompleted { result.emit(data: $0) }
-                .onError { result.emit(error: $0)}
-        }
-
-        next.process(data)
-            .onCompleted { result.emit(data: $0)}
-            .onError { result.emit(error: $0) }
-
-        return result
+        return await next.process(data)
     }
 
 }

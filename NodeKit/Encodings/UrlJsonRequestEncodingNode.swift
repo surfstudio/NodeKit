@@ -8,6 +8,7 @@
 
 import Foundation
 
+@available(iOS 13.0, *)
 open class UrlJsonRequestEncodingNode<Type>: Node<RequestEncodingModel, Type> {
 
     /// Следующий узел для обработки.
@@ -21,39 +22,29 @@ open class UrlJsonRequestEncodingNode<Type>: Node<RequestEncodingModel, Type> {
         self.next = next
     }
 
-    open override func process(_ data: RequestEncodingModel) -> Observer<Type> {
-        var log = getLogMessage(data)
-        let request: TransportUrlRequest?
-        let paramEncoding = { () -> ParameterEncoding? in
-            guard data.urlParameters.method == .get else {
-                return data.encoding?.raw
+    open override func process(_ data: RequestEncodingModel) async -> Result<Type, Error> {
+        let paramEncoding = parameterEncoding(from: data)
+        return await .withMappedExceptions(RequestEncodingError.unsupportedDataType) {
+            guard let encoding = paramEncoding else {
+                return .failure(RequestEncodingNodeError.missedJsonEncodingType)
             }
-            return URLEncoding.default
-        }()
-        guard let encoding = paramEncoding else {
-            log += "Missed encoding type -> terminate with error"
-            return Context<Type>().log(log).emit(error: RequestEncodingNodeError.missedJsonEncodingType)
+            let request = try encoding.encode(urlParameters: data.urlParameters, parameters: data.raw)
+            return await next.process(request)
         }
-        do {
-            request = try encoding.encode(urlParameters: data.urlParameters, parameters: data.raw)
-            log.message += "type: Json"
-        } catch {
-            log += "But can't encode data -> terminate with error"
-            return Context<Type>().log(log).emit(error: RequestEncodingError.unsupportedDataType)
-        }
+    }
 
-        guard let unwrappedRequest = request else {
-            log += "Unsupported data type -> terminate with error"
-            return Context<Type>().log(log).emit(error: RequestEncodingError.unsupportedDataType)
+    private func parameterEncoding(from data: RequestEncodingModel) -> ParameterEncoding? {
+        guard data.urlParameters.method == .get else {
+            return data.encoding?.raw
         }
-
-        return next.process(unwrappedRequest).log(log)
+        return URLEncoding.default
     }
 
 }
 
 // MARK: - Help Methods
 
+@available(iOS 13.0, *)
 private extension UrlJsonRequestEncodingNode {
 
     func getLogMessage(_ data: RequestEncodingModel) -> Log {

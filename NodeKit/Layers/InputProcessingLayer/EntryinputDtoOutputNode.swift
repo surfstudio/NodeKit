@@ -8,6 +8,7 @@
 
 import Foundation
 
+@available(iOS 13.0, *)
 open class EntryinputDtoOutputNode<Input, Output>: Node<Input, Output>
                                                     where Input: RawEncodable, Output: DTODecodable {
 
@@ -17,12 +18,13 @@ open class EntryinputDtoOutputNode<Input, Output>: Node<Input, Output>
         self.next = next
     }
 
-    open override func process(_ data: Input) -> Observer<Output> {
-        do {
+    open override func process(_ data: Input) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
             let raw = try data.toRaw()
-            return self.next.process(raw).map { try Output.from(dto: Output.DTO.from(raw: $0) ) }
-        } catch {
-            return .emit(error: error)
+            return try await next.process(raw).map {
+                let dto = try Output.DTO.from(raw: $0)
+                return try Output.from(dto: dto)
+            }
         }
     }
 

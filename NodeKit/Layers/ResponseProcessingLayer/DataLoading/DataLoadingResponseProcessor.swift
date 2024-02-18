@@ -25,11 +25,7 @@ open class DataLoadingResponseProcessor: Node<UrlDataResponse, Data> {
     }
 
     /// В случае, если узел для постобработки существует, то вызывает его, если нет - возвращает данные.
-    override open func process(_ data: UrlDataResponse) -> Observer<Data> {
-        guard let next = self.next else {
-            return .emit(data: data.data)
-        }
-
-        return next.process(data).map { data.data }
+    override open func process(_ data: UrlDataResponse) async -> Result<Data, Error> {
+        return await next?.process(data).map { data.data } ?? .success(data.data)
     }
 }

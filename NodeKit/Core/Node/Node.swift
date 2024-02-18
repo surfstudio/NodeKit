@@ -33,7 +33,8 @@ public protocol NodeProtocol {
     ///
     /// - Parameter data: Входные данные
     /// - Returns: Подписка на процесс обработки данных.
-    func process(_ data: Input) -> Observer<Output>
+    @discardableResult
+    func process(_ data: Input) async -> Result<Output, Error>
 }
 
 /// Type erasure для `NodeProtocol`
@@ -41,10 +42,10 @@ public protocol NodeProtocol {
 /// При наследовании **необходимо** переопределить метод `process(_ data: Input)`
 /// В противном случае при выхове этого метода приложение будет крашится
 open class Node<Input, Output>: NodeProtocol {
-
     public init() { }
 
-    open func process(_ data: Input) -> Observer<Output> {
+    @discardableResult
+    open func process(_ data: Input) async -> Result<Output, Error> {
         fatalError("\(self.self) \(#function) must be overriden in subclass")
     }
 }

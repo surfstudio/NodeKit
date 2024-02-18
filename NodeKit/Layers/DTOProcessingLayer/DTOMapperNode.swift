@@ -9,6 +9,7 @@
 import Foundation
 
 /// Этот узел отвечает за маппинг верхнего уровня DTO (`DTOConvertible`) в нижний уровень (`RawMappable`) и наборот.
+@available(iOS 13.0, *)
 open class DTOMapperNode<Input, Output>: Node<Input, Output> where Input: RawEncodable, Output: RawDecodable {
 
     /// Следующий узел для обрабтки.
@@ -24,27 +25,13 @@ open class DTOMapperNode<Input, Output>: Node<Input, Output> where Input: RawEnc
     /// Маппит данные в RawMappable, передает управление следующей цепочке, а затем маппит ответ в DTOConvertible
     ///
     /// - Parameter data: Данные для обработки.
-    open override func process(_ data: Input) -> Observer<Output> {
-        let context = Context<Output>()
-
-        var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.dtoMapperNode)
-                
-        do {
+    open override func process(_ data: Input) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
             let data = try data.toRaw()
-            
-            let nextProcessResult = next.process(data)
-            
-            return nextProcessResult.map { [weak nextProcessResult] result in
-                do {
-                    let model = try Output.from(raw: result)
-                    return Context<Output>().log(nextProcessResult?.log).emit(data: model)
-                } catch {
-                    log += "\(error)"
-                    return Context<Output>().log(nextProcessResult?.log).log(log).emit(error: error)
-                }
+            let nextProcessResult = await next.process(data)
+            return try nextProcessResult.map { result in
+                return try Output.from(raw: result)
             }
-        } catch {
-            return context.log(log).emit(error: error)
         }
     }
 }

@@ -16,6 +16,7 @@ public struct NodeDataResponse {
 
 /// Этот узел отправляет запрос на сервер и ожидает ответ.
 /// - Important: этот узел имеет состояние (statefull)
+@available(iOS 13.0, *)
 open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
 
     /// Тип для узла, который будет обрабатывать ответ от сервера.
@@ -50,32 +51,28 @@ open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
     /// Выполняет запрос,ожидает ответ и передает его следующему узлу.
     ///
     /// - Parameter request: Данные для исполнения запроса.
-    open override func process(_ request: URLRequest) -> Observer<Type> {
+    open override func process(_ request: URLRequest) async -> Result<Type, Error> {
+        async let nodeResponse = nodeResponse(request)
+        return await rawResponseProcessor.process(nodeResponse)
+    }
 
-        let context = Context<NodeDataResponse>()
-        self.context = context
-
-        var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.requestSenderNode)
-        self.task = manager.dataTask(with: request) { [weak self] data, response, error in
-            self?.responseQueue.async {
-                log += "Get response!)"
+    private func nodeResponse(_ request: URLRequest) async -> NodeDataResponse {
+        return await withCheckedContinuation { continuation in
+            manager.dataTask(with: request) { data, response, error in
                 let result: Result<Data, Error>
-
                 if let error = error {
                     result = .failure(error)
                 } else {
                     result = .success(data ?? Data())
                 }
-
-                let nodeResponse = NodeDataResponse(urlResponse: response as? HTTPURLResponse,
-                                                    urlRequest: request,
-                                                    result: result)
-                context.log(log).emit(data: nodeResponse)
+                let nodeResponse = NodeDataResponse(
+                    urlResponse: response as? HTTPURLResponse,
+                    urlRequest: request,
+                    result: result
+                )
+                continuation.resume(with: .success(nodeResponse))
             }
         }
-        log += "Request sended!"
-        task?.resume()
-        return context.map { self.rawResponseProcessor.process($0) }
     }
 
     /// Отменяет запрос.

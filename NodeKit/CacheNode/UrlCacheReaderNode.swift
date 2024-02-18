@@ -31,24 +31,24 @@ open class UrlCacheReaderNode: Node<UrlNetworkRequest, Json> {
     }
 
     /// Посылает запрос в кэш и пытается сериализовать данные в JSON.
-    open override func process(_ data: UrlNetworkRequest) -> Context<Json> {
+    open override func process(_ data: UrlNetworkRequest) async -> Result<Json, Error> {
 
         guard let cachedResponse = self.extractCachedUrlResponse(data.urlRequest) else {
-            return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantLoadDataFromCache) : Context<Json>()
+            return .failure(BaseUrlCacheReaderError.cantLoadDataFromCache)
         }
 
         guard let jsonObjsect = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: .allowFragments) else {
-            return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantSerializeJson) : Context<Json>()
+            return .failure(BaseUrlCacheReaderError.cantSerializeJson)
         }
 
         guard let json = jsonObjsect as? Json else {
             guard let json = jsonObjsect as? [Json] else {
-                return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantCastToJson) : Context<Json>()
+                return .failure(BaseUrlCacheReaderError.cantCastToJson)
             }
-            return .emit(data: [MappingUtils.arrayJsonKey: json])
+            return .success([MappingUtils.arrayJsonKey: json])
         }
 
-        return .emit(data: json)
+        return .success(json)
     }
 
    private func extractCachedUrlResponse(_ request: URLRequest) -> CachedURLResponse? {

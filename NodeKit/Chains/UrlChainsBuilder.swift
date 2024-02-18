@@ -1,6 +1,7 @@
 import Foundation
 
 /// Реулизует набор цепочек для отправки URL запросов.
+@available(iOS 13.0, *)
 open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     // MARK: - Properties / State

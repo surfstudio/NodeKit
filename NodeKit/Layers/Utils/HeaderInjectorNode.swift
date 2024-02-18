@@ -30,7 +30,7 @@ open class HeaderInjectorNode: TransportLayerNode {
     }
 
     /// Добавляет хедеры к запросу и отправляет его слудующему в цепочке узлу.
-    open override func process(_ data: TransportUrlRequest) -> Observer<Json> {
+    open override func process(_ data: TransportUrlRequest) async -> Result<Json, Error> {
         var resultHeaders = self.headers
         var log = self.logViewObjectName
         log += "Add headers \(self.headers)" + .lineTabDeilimeter
@@ -41,6 +41,6 @@ open class HeaderInjectorNode: TransportLayerNode {
                                           headers: resultHeaders,
                                           raw: data.raw)
         log += "Result headers: \(resultHeaders)"
-        return next.process(newData)
+        return await next.process(newData)
     }
 }

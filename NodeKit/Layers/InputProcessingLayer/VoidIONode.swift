@@ -16,8 +16,8 @@ open class VoidIONode: Node<Void, Void> {
         self.next = next
     }
 
-    override open func process(_ data: Void) -> Observer<Void> {
-        return self.next.process(Json()).map { json in
+    override open func process(_ data: Void) async -> Result<Void, Error> {
+        return await next.process(Json()).flatMap { json in
             let result = Context<Void>()
             var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.voidIONode)
             if !json.isEmpty {
@@ -25,7 +25,7 @@ open class VoidIONode: Node<Void, Void> {
                 log += "\(json)"
                 result.log(log)
             }
-            return result.emit(data: ())
+            return .success(())
         }
     }
 }

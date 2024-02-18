@@ -10,6 +10,7 @@ import Foundation
 
 /// Узел для инциаллизации обработки данных.
 /// Иcпользуется для работы с моделями, которые представлены двумя слоями DTO.
+@available(iOS 13.0, *)
 public class ModelInputNode<Input, Output>: Node<Input, Output> where Input: DTOEncodable, Output: DTODecodable {
 
     /// Следующий узел для обработки.
@@ -27,16 +28,10 @@ public class ModelInputNode<Input, Output>: Node<Input, Output> where Input: DTO
     /// Если при маппинге произошла ошибка, то она будет проброшена выше.
     ///
     /// - Parameter data: Данные для запроса.
-    open override func process(_ data: Input) -> Observer<Output> {
-
-        let context = Context<Output>()
-
-        do {
+    open override func process(_ data: Input) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
             let data = try data.toDTO()
-            return next.process(data)
-                .map { try Output.from(dto: $0) }
-        } catch {
-            return context.emit(error: error)
+            return try await next.process(data).map { try Output.from(dto: $0) }
         }
     }
 }

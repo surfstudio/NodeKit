@@ -21,33 +21,7 @@ open class LoggerNode<Input, Output>: Node<Input, Output> {
     /// Сразу же передает управление следующему узлу и подписывается на выполнение операций.
     ///
     /// - Parameter data: Данные для обработки. Этот узел их не импользует.
-    open override func process(_ data: Input) -> Observer<Output> {
-        let result = Context<Output>()
-
-        let context = self.next.process(data)
-
-        let filter = self.filters
-
-        let log = { (log: Logable?) -> Void in
-            guard let log = log else { return }
-
-            log.flatMap()
-                .filter { !filter.contains($0.id) }
-                .sorted(by: { $0.order < $1.order })
-                .forEach { print($0.description) }
-        }
-
-        context.onCompleted { [weak context] data in
-            log(context?.log)
-            result.log(context?.log).emit(data: data)
-        }.onError { [weak context] error in
-            log(context?.log)
-            result.log(context?.log).emit(error: error)
-        }.onCanceled { [weak context] in
-            log(context?.log)
-            result.log(context?.log).cancel()
-        }
-
-        return result
+    open override func process(_ data: Input) async -> Result<Output, Error> {
+        return await next.process(data)
     }
 }

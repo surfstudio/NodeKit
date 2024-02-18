@@ -1,6 +1,7 @@
 import Foundation
 
 /// Умеет создавать цепочки 
+@available(iOS 13.0, *)
 open class UrlServiceChainBuilder {
 
     /// Конструктор по-умолчанию.

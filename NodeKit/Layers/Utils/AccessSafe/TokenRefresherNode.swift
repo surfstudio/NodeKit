@@ -11,10 +11,12 @@ import Foundation
 /// Узел для обновления токена и заморозки запросов.
 /// Внутри себя работает на приватных очередях.
 /// Ответ возращает в той очереди, из которой узел был вызыван.
+@available(iOS 13.0, *)
 open class TokenRefresherNode: Node<Void, Void> {
 
     /// Цепочка для обновления токена.
     public var tokenRefreshChain: Node<Void, Void>
+    private var tokenRefresherActor: TokenRefresherActor
 
     private var isRequestSended = false
     private var observers: [Context<Void>]
@@ -27,6 +29,7 @@ open class TokenRefresherNode: Node<Void, Void> {
     /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
     public init(tokenRefreshChain: Node<Void, Void>) {
         self.tokenRefreshChain = tokenRefreshChain
+        self.tokenRefresherActor = TokenRefresherActor(tokenRefreshChain: tokenRefreshChain)
         self.observers = []
     }
 
@@ -34,51 +37,10 @@ open class TokenRefresherNode: Node<Void, Void> {
     /// Если запрос был отправлен, то создает `Observer`, сохраняет его у себя и возвращает предыдущему узлу.
     /// Если нет - отплавляет запрос и сохраняет `Observer`
     /// После того как запрос на обновление токена был выполнен успешно - эмитит данные во все сохраненные Observer'ы и удаляет их из памяти
-    open override func process(_ data: Void) -> Observer<Void> {
-
-        let shouldSaveContext: Bool = self.flagQueue.sync {
-            if self.isRequestSended {
-                return true
-            } else {
-                self.isRequestSended = true
-            }
-            return false
+    open override func process(_ data: Void) async -> Result<Void, Error> {
+        if let task = await tokenRefresherActor.task {
+            return await task.value
         }
-
-        if shouldSaveContext {
-            var log = Log(self.logViewObjectName, id: self.objectName)
-            return self.arrayQueue.sync {
-                log += "Save context to queue"
-                let result = Context<Void>()
-                self.observers.append(result)
-                return result.log(log) 
-            }
-        }
-
-        return self.tokenRefreshChain.process(()).map { [weak self] model -> Void in
-
-            guard let `self` = self else { return () }
-
-            self.flagQueue.sync { self.isRequestSended = false }
-
-            let observers = self.arrayQueue.sync(execute: { return self.observers })
-            observers.forEach { $0.emit(data: ()) }
-            self.arrayQueue.async { [weak self] in
-                self?.observers.removeAll()
-            }
-            return ()
-        }.mapError { [weak self] error -> Error in
-            guard let `self` = self else { return error }
-
-            self.flagQueue.sync { self.isRequestSended = false }
-
-            let observers = self.arrayQueue.sync(execute: { return self.observers })
-            observers.forEach { $0.emit(error: error) }
-            self.arrayQueue.async { [weak self] in
-                self?.observers.removeAll()
-            }
-
-            return error
-        }
+        return await tokenRefresherActor.refresh()
     }
 }

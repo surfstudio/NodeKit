@@ -9,6 +9,7 @@
 import Foundation
 
 /// Этот узел умеет конвертировать ВХОДНЫЕ данные в RAW, НО не пытается декодировать ответ.
+@available(iOS 13.0, *)
 open class RawEncoderNode<Input, Output>: Node<Input, Output> where Input: RawEncodable {
 
     /// Узел, который умеет работать с RAW
@@ -25,11 +26,9 @@ open class RawEncoderNode<Input, Output>: Node<Input, Output> where Input: RawEn
     /// Если при конвертирвоании произошла ошибка - прерывает выполнение цепочки.
     ///
     /// - Parameter data: Входящая модель.
-    override open func process(_ data: Input) -> Observer<Output> {
-        do {
-            return next.process(try data.toRaw())
-        } catch {
-            return .emit(error: error)
+    override open func process(_ data: Input) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            return await next.process(try data.toRaw())
         }
     }
 }

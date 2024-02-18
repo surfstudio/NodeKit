@@ -38,7 +38,7 @@ open class LoadIndicatableNode<Input, Output>: Node<Input, Output> {
 
     /// Показывает индикатор и передает управление дальше.
     /// По окнчании работы цепочки скрывает индикатор.
-    open override func process(_ data: Input) -> Observer<Output> {
+    open override func process(_ data: Input) async -> Result<Output, Error> {
         DispatchQueue.global().async(flags: .barrier) {
             LoadIndicatableNodeStatic.requestConter += 1
         }
@@ -49,13 +49,8 @@ open class LoadIndicatableNode<Input, Output>: Node<Input, Output> {
             }
         }
 
-        return self.next.process(data)
-            .map { (item: Output) -> Output in
-                decrementRequestCounter()
-                return item
-            }.mapError { (error: Error) -> Error in
-                decrementRequestCounter()
-                return error
-            }
+        let result = await next.process(data)
+        decrementRequestCounter()
+        return result
     }
 }

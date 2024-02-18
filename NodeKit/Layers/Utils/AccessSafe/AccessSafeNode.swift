@@ -47,6 +47,7 @@ public enum AccessSafeNodeError: Error {
 /// - SeeAlso:
 ///     - `TransportLayerNode`
 ///     - `TokenRefresherNode`
+@available(iOS 13.0, *)
 open class AccessSafeNode: TransportLayerNode {
 
     /// Следующий в цепочке узел.
@@ -69,16 +70,17 @@ open class AccessSafeNode: TransportLayerNode {
 
     /// Просто передает управление следующему узлу.
     /// В случае если вернулась доступа, то обноляет токен и повторяет запрос.
-    override open func process(_ data: TransportUrlRequest) -> Observer<Json> {
-        return self.next.process(data).mapError { error -> Observer<Json> in
-            switch error {
-            case ResponseHttpErrorProcessorNodeError.forbidden, ResponseHttpErrorProcessorNodeError.unauthorized:
-                return self.updateTokenChain.process(()).map { _ in
-                    return self.next.process(data)
+    override open func process(_ data: TransportUrlRequest) async -> Result<Json, Error> {
+        return await next.process(data)
+            .flatMapError { error in
+                guard case ResponseHttpErrorProcessorNodeError.forbidden = error else {
+                    return .failure(error)
                 }
-            default:
-                return .emit(error: error)
+                return await processWithTokenUpdate(data)
             }
-        }
+    }
+
+    private func processWithTokenUpdate(_ data: TransportUrlRequest) async -> Result<Json, Error> {
+        return await updateTokenChain.process(()) .flatMap { await next.process(data) }
     }
 }

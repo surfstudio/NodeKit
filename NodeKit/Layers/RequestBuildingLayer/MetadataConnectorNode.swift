@@ -27,7 +27,7 @@ open class MetadataConnectorNode<Raw, Output>: Node<Raw, Output> {
     /// формирует модель `RequestModel` и передает ее на дальнейшую обработку.
     ///
     /// - Parameter data: данные в Raw формате. (после маппинга из Entry)
-    open override func process(_ data: Raw) -> Observer<Output> {
-        return next.process(RequestModel(metadata: self.metadata, raw: data))
+    open override func process(_ data: Raw) async -> Result<Output, Error> {
+        return await next.process(RequestModel(metadata: metadata, raw: data))
     }
 }

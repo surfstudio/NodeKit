@@ -10,6 +10,7 @@ import Foundation
 
 /// Узел реализует политику кэширования "Если интернета нет, то запросить данные из кэша"
 /// Этот узел работает с URL кэшом.
+@available(iOS 13.0, *)
 open class IfConnectionFailedFromCacheNode: Node<URLRequest, Json> {
 
     /// Следующий узел для обработки.
@@ -30,21 +31,15 @@ open class IfConnectionFailedFromCacheNode: Node<URLRequest, Json> {
     /// Проверяет, произошла ли ошибка связи в ответ на запрос.
     /// Если ошибка произошла, то возвращает успешный ответ из кэша.
     /// В противном случае передает управление следующему узлу.
-    open override func process(_ data: URLRequest) -> Observer<Json> {
-
-        return self.next.process(data).mapError { error -> Observer<Json> in
-            var logMessage = self.logViewObjectName
-            logMessage += "Catching \(error)" + .lineTabDeilimeter
-            let request = UrlNetworkRequest(urlRequest: data)
-            if error is BaseTechnicalError {
-                logMessage += "Start read cache" + .lineTabDeilimeter
-                return self.cacheReaderNode.process(request)
+    open override func process(_ data: URLRequest) async -> Result<Json, Error> {
+        return await next.process(data)
+            .flatMapError { error in
+                let request = UrlNetworkRequest(urlRequest: data)
+                if error is BaseTechnicalError {
+                    return await cacheReaderNode.process(request)
+                }
+                return .failure(error)
             }
-            logMessage += "Error is \(type(of: error))"
-            logMessage += "and request = \(String(describing: request))" + .lineTabDeilimeter
-            logMessage += "-> throw error"
-            return .emit(error: error)
-        }
     }
 
 }

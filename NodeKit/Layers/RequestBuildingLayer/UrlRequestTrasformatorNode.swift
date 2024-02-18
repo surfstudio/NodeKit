@@ -6,6 +6,7 @@ enum RequestEncodingError: Error {
 
 /// Этот узел переводит Generic запрос в конкретную реализацию.
 /// Данный узел работает с URL-запросами, по HTTP протоколу с JSON
+@available(iOS 13.0, *)
 open class UrlRequestTrasformatorNode<Type>: Node<EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding?>, Type> {
 
     /// Следйющий узел для обработки.
@@ -27,24 +28,24 @@ open class UrlRequestTrasformatorNode<Type>: Node<EncodableRequestModel<UrlRoute
     /// Конструирует модель для для работы на транспортном уровне цепочки.
     ///
     /// - Parameter data: Данные для дальнейшей обработки.
-    open override func process(_ data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding?>) -> Observer<Type> {
-
-        var url: URL
-
-        do {
-            url = try data.route.url()
-        } catch {
-            return .emit(error: error)
+    open override func process(
+        _ data: EncodableRequestModel<UrlRouteProvider, Json,
+        ParametersEncoding?>
+    ) async -> Result<Type, Error> {
+        return await .withMappedExceptions {
+            let url = try data.route.url()
+            let params = TransportUrlParameters(
+                method: self.method,
+                url: url,
+                headers: data.metadata
+            )
+            let encodingModel = RequestEncodingModel(
+                urlParameters: params,
+                raw: data.raw,
+                encoding: data.encoding ?? nil
+            )
+            return await next.process(encodingModel)
         }
-
-        let params = TransportUrlParameters(method: self.method,
-                                            url: url,
-                                            headers: data.metadata)
-
-        let encodingModel = RequestEncodingModel(urlParameters: params,
-                                                 raw: data.raw,
-                                                 encoding: data.encoding ?? nil)
-        return next.process(encodingModel)
     }
 
 }

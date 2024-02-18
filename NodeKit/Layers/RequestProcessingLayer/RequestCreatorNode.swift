@@ -20,7 +20,7 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
     /// Конфигурирует низкоуровненвый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
-    open override func process(_ data: TransportUrlRequest) -> Observer<Output> {
+    open override func process(_ data: TransportUrlRequest) async -> Result<Output, Error> {
         var mergedHeaders = data.headers
 
         self.providers.map { $0.metadata() }.forEach { dict in
@@ -32,7 +32,7 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
         request.httpBody = data.raw
         mergedHeaders.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
 
-        return self.next.process(request).log(self.getLogMessage(data))
+        return await next.process(request)
     }
 
     private func getLogMessage(_ data: TransportUrlRequest) -> Log {

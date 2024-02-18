@@ -9,6 +9,7 @@
 import Foundation
 
 /// Этот узел умеет конвертировать ВХОДНЫЕ данные в DTO, НО не пытается декодировать ответ.
+@available(iOS 13.0, *)
 open class DTOEncoderNode<Input, Output>: Node<Input, Output> where Input: DTOEncodable {
 
     /// Узел, который умеет работать с DTO
@@ -25,11 +26,9 @@ open class DTOEncoderNode<Input, Output>: Node<Input, Output> where Input: DTOEn
     /// Если при конвертирвоании произошла ошибка - прерывает выполнение цепочки.
     ///
     /// - Parameter data: Входящая модель.
-    override open func process(_ data: Input) -> Observer<Output> {
-        do {
-            return rawEncodable.process(try data.toDTO())
-        } catch {
-            return .emit(error: error)
+    override open func process(_ data: Input) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            await rawEncodable.process(try data.toDTO())
         }
     }
 }

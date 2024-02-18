@@ -39,8 +39,8 @@ open class TechnicaErrorMapperNode: Node<URLRequest, Json> {
     /// Передает управление следующему узлу, и в случае ошибки маппит ее.
     ///
     /// - Parameter data: Данные для обработки.
-    open override func process(_ data: URLRequest) -> Observer<Json> {
-        return self.next.process(data)
+    open override func process(_ data: URLRequest) async -> Result<Json, Error> {
+        return await next.process(data)
             .mapError { error -> Error in
                 switch (error as NSError).code {
                 case -1020:

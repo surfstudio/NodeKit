@@ -40,10 +40,7 @@ open class ChainConfiguratorNode<I, O>: Node<I, O> {
     /// затем выполняет всю цепочку операций и диспатчит ответ на `endQueue`
     ///
     /// - Parameter data: Данные для обработки
-    open override func process(_ data: I) -> Observer<O> {
-        return Context<Void>.emit(data: ())
-            .dispatchOn(self.beginQueue)
-            .map { return self.next.process(data) }
-            .dispatchOn(self.endQueue)
+    open override func process(_ data: I) async -> Result<O, Error> {
+        return await next.process(data)
     }
 }
