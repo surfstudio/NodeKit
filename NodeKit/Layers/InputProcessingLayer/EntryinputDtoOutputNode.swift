@@ -8,16 +8,16 @@
 
 import Foundation
 
-open class EntryinputDtoOutputNode<Input, Output>: Node<Input, Output>
+open class EntryinputDtoOutputNode<Input, Output>: Node
                                                     where Input: RawEncodable, Output: DTODecodable {
 
-    open var next: Node<Input.Raw, Output.DTO.Raw>
+    open var next: any Node<Input.Raw, Output.DTO.Raw>
 
-    init(next: Node<Input.Raw, Output.DTO.Raw>) {
+    init(next: any Node<Input.Raw, Output.DTO.Raw>) {
         self.next = next
     }
 
-    open override func process(_ data: Input) -> Observer<Output> {
+    open func process(_ data: Input) -> Observer<Output> {
         do {
             let raw = try data.toRaw()
             return self.next.process(raw).map { try Output.from(dto: Output.DTO.from(raw: $0) ) }

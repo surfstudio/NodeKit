@@ -21,8 +21,7 @@ public enum BaseUrlCacheReaderError: Error {
 
 /// Этот узел отвечает за чтение данных из URL кэша.
 /// Сам по себе узел является листом и не может быть встроен в сквозную цепочку.
-open class UrlCacheReaderNode: Node<UrlNetworkRequest, Json> {
-
+open class UrlCacheReaderNode: Node {
 
     public var needsToThrowError: Bool
 
@@ -31,7 +30,7 @@ open class UrlCacheReaderNode: Node<UrlNetworkRequest, Json> {
     }
 
     /// Посылает запрос в кэш и пытается сериализовать данные в JSON.
-    open override func process(_ data: UrlNetworkRequest) -> Context<Json> {
+    open func process(_ data: UrlNetworkRequest) -> Observer<Json> {
 
         guard let cachedResponse = self.extractCachedUrlResponse(data.urlRequest) else {
             return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantLoadDataFromCache) : Context<Json>()

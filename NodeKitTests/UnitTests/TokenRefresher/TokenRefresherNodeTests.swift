@@ -14,11 +14,11 @@ import NodeKit
 
 public class TokenRefresherNodeTests: XCTestCase {
 
-    class NodeStub: Node<Void, Void> {
+    class NodeStub: Node {
 
         var countOfCals = 0
 
-        override func process(_ data: Void) -> Observer<Void> {
+        func process(_ data: Void) -> Observer<Void> {
 
             let result = Context<Void>()
 

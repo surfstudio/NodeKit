@@ -9,15 +9,15 @@
 import Foundation
 
 /// Этот узел умеет конвертировать ВХОДНЫЕ данные в DTO, НО не пытается декодировать ответ.
-open class DTOEncoderNode<Input, Output>: Node<Input, Output> where Input: DTOEncodable {
+open class DTOEncoderNode<Input, Output>: Node where Input: DTOEncodable {
 
     /// Узел, который умеет работать с DTO
-    open var rawEncodable: Node<Input.DTO, Output>
+    open var rawEncodable: any Node<Input.DTO, Output>
 
     /// Инициаллизирует объект
     ///
     /// - Parameter rawEncodable: Узел, который умеет работать с DTO.
-    public init(rawEncodable: Node<Input.DTO, Output>) {
+    public init(rawEncodable: some Node<Input.DTO, Output>) {
         self.rawEncodable = rawEncodable
     }
 
@@ -25,7 +25,7 @@ open class DTOEncoderNode<Input, Output>: Node<Input, Output> where Input: DTOEn
     /// Если при конвертирвоании произошла ошибка - прерывает выполнение цепочки.
     ///
     /// - Parameter data: Входящая модель.
-    override open func process(_ data: Input) -> Observer<Output> {
+    open func process(_ data: Input) -> Observer<Output> {
         do {
             return rawEncodable.process(try data.toDTO())
         } catch {

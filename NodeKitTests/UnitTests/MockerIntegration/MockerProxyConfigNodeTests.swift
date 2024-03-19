@@ -4,9 +4,9 @@ import XCTest
 public class MockerProxyConfigNodeTests: XCTestCase {
 
 
-    private class StubNode: Node<RequestModel<Int>, RequestModel<Int>> {
+    private class StubNode: Node {
 
-        override func process(_ data: RequestModel<Int>) -> Observer<RequestModel<Int>> {
+        func process(_ data: RequestModel<Int>) -> Observer<RequestModel<Int>> {
             return .emit(data: data)
         }
     }

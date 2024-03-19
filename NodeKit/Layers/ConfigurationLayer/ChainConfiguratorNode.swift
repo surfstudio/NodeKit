@@ -5,10 +5,10 @@ import Foundation
 /// Всегда должен быть корневым узлом в графе обработчиков.
 /// Этот узел позволяет установить очередь на которой будет происходит дальнейшая обработк запроса
 /// И очередь на которой обработка будет закончена.
-open class ChainConfiguratorNode<I, O>: Node<I, O> {
+open class ChainConfiguratorNode<I, O>: Node {
 
     /// Следующей узел для обработки.
-    public var next: Node<I, O>
+    public var next: any Node<I, O>
     /// Очерель на которой необходимо выполнить все дальнейшие преобразования.
     public var beginQueue: DispatchQueue
     /// Очередь на которой необходимо выполнить возврат результата работы цепочки.
@@ -20,7 +20,7 @@ open class ChainConfiguratorNode<I, O>: Node<I, O> {
     ///   - next: Следующей узел для обработки.
     ///   - beginQueue: Очерель на которой необходимо выполнить все дальнейшие преобразования.
     ///   - endQueue: Очередь на которой необходимо выполнить возврат результата работы цепочки.
-    public init(next: Node<I, O>, beginQueue: DispatchQueue, endQueue: DispatchQueue) {
+    public init(next: some Node<I, O>, beginQueue: DispatchQueue, endQueue: DispatchQueue) {
         self.next = next
         self.beginQueue = beginQueue
         self.endQueue = endQueue
@@ -32,7 +32,7 @@ open class ChainConfiguratorNode<I, O>: Node<I, O> {
     /// - `endQueue = .main`
     ///
     /// - Parameter next: Следующей узел для обработки.
-    public convenience init(next: Node<I, O>) {
+    public convenience init(next: some Node<I, O>) {
         self.init(next: next, beginQueue: .global(qos: .userInitiated), endQueue: .main)
     }
 
@@ -40,7 +40,7 @@ open class ChainConfiguratorNode<I, O>: Node<I, O> {
     /// затем выполняет всю цепочку операций и диспатчит ответ на `endQueue`
     ///
     /// - Parameter data: Данные для обработки
-    open override func process(_ data: I) -> Observer<O> {
+    open func process(_ data: I) -> Observer<O> {
         return Context<Void>.emit(data: ())
             .dispatchOn(self.beginQueue)
             .map { return self.next.process(data) }

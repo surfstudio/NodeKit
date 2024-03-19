@@ -11,10 +11,10 @@ import Foundation
 /// Узел для обновления токена и заморозки запросов.
 /// Внутри себя работает на приватных очередях.
 /// Ответ возращает в той очереди, из которой узел был вызыван.
-open class TokenRefresherNode: Node<Void, Void> {
+open class TokenRefresherNode: Node {
 
     /// Цепочка для обновления токена.
-    public var tokenRefreshChain: Node<Void, Void>
+    public var tokenRefreshChain: any Node<Void, Void>
 
     private var isRequestSended = false
     private var observers: [Context<Void>]
@@ -25,7 +25,7 @@ open class TokenRefresherNode: Node<Void, Void> {
     /// Иницицаллизирует
     ///
     /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
-    public init(tokenRefreshChain: Node<Void, Void>) {
+    public init(tokenRefreshChain: any Node<Void, Void>) {
         self.tokenRefreshChain = tokenRefreshChain
         self.observers = []
     }
@@ -34,7 +34,7 @@ open class TokenRefresherNode: Node<Void, Void> {
     /// Если запрос был отправлен, то создает `Observer`, сохраняет его у себя и возвращает предыдущему узлу.
     /// Если нет - отплавляет запрос и сохраняет `Observer`
     /// После того как запрос на обновление токена был выполнен успешно - эмитит данные во все сохраненные Observer'ы и удаляет их из памяти
-    open override func process(_ data: Void) -> Observer<Void> {
+    open func process(_ data: Void) -> Observer<Void> {
 
         let shouldSaveContext: Bool = self.flagQueue.sync {
             if self.isRequestSended {

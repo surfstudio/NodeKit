@@ -15,11 +15,11 @@ import NodeKit
 public class AbortingTests: XCTestCase {
 
 
-    class MockAborter: Node<Void, Void>, Aborter {
+    class MockAborter: Node, Aborter {
 
         var cancelCallsNumber = 0
 
-        override func process(_ data: Void) -> Context<Void> {
+        func process(_ data: Void) -> Observer<Void> {
             let context = Context<Void>()
 
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) {

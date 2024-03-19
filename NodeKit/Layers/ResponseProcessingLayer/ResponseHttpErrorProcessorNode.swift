@@ -26,17 +26,17 @@ public enum ResponseHttpErrorProcessorNodeError: Error {
 /// Этот узел обрабатывает ответ сервера и в случае статус кодов,
 /// которые соответствуют ошибкам, перечисленным в `ResponseHttpErrorProcessorNodeError`
 /// В случае, если коды не совпали в необходимыми,то управление переходит следующему узлу.
-open class ResponseHttpErrorProcessorNode<Type>: Node<UrlDataResponse, Type> {
+open class ResponseHttpErrorProcessorNode<Type>: Node {
 
     public typealias HttpError = ResponseHttpErrorProcessorNodeError
 
     /// Следующий узел для обработки.
-    public var next: Node<UrlDataResponse, Type>
+    public var next: any Node<UrlDataResponse, Type>
 
     /// Инициаллизирует объект.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<UrlDataResponse, Type>) {
+    public init(next: some Node<UrlDataResponse, Type>) {
         self.next = next
     }
 
@@ -44,7 +44,7 @@ open class ResponseHttpErrorProcessorNode<Type>: Node<UrlDataResponse, Type> {
     /// В противном случае возвращает `HttpError`
     ///
     /// - Parameter data: Модель ответа сервера.
-    open override func process(_ data: UrlDataResponse) -> Observer<Type> {
+    open func process(_ data: UrlDataResponse) -> Observer<Type> {
 
         let context = Context<Type>()
 

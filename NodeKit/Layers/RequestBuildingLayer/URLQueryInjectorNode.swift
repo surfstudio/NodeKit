@@ -15,7 +15,7 @@ public enum URLQueryInjectorNodeError: Error {
 ///
 /// - Info:
 /// Использовать можно после `RequestRouterNode`.
-open class URLQueryInjectorNode<Raw, Output>: Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output> {
+open class URLQueryInjectorNode<Raw, Output>: Node {
 
     // MARK: - Nested
 
@@ -25,7 +25,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node<RoutableRequestModel<UrlRoute
     // MARK: - Properties
 
     /// Следующий по порядку узел.
-    open var next: Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>
+    open var next: any Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>
 
     open var config: URLQueryConfigModel
 
@@ -34,8 +34,10 @@ open class URLQueryInjectorNode<Raw, Output>: Node<RoutableRequestModel<UrlRoute
     /// Инцииаллизирует объект.
     /// - Parameter next: Следующий по порядку узел.
     /// - Parameter config: Конфигурация для узла.
-    public init(next: Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>, config: URLQueryConfigModel) {
-
+    public init(
+        next: any Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>,
+        config: URLQueryConfigModel
+    ) {
         self.next = next
         self.config = config
     }
@@ -45,7 +47,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node<RoutableRequestModel<UrlRoute
     /// Добавляет URL-query если может и передает управление следующему узлу.
     /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateUrlComponentsFromUrlString`
     /// - SeeAlso: `URLQueryInjectorNodeError`
-    open override func process(_ data: RoutableRequestModel<UrlRouteProvider, Raw>) -> Observer<Output> {
+    open func process(_ data: RoutableRequestModel<UrlRouteProvider, Raw>) -> Observer<Output> {
 
         guard !self.config.query.isEmpty else {
             return self.next.process(data)

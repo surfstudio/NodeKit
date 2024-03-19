@@ -13,12 +13,12 @@ import NodeKit
 
 public class EncodingTests: XCTestCase {
 
-    class StubNext: RequestProcessingLayerNode {
+    class StubNext: Node {
 
         var request: URLRequest! = nil
 
         @discardableResult
-        public override func process(_ data: URLRequest) -> Observer<Json> {
+        public func process(_ data: URLRequest) -> Observer<Json> {
             self.request = data
             return .emit(data: Json())
         }

@@ -16,14 +16,14 @@ public enum MockerProxyConfigKey {
 /// - SeeAlso:
 ///     - `MetadataConnectorNode`
 ///     - `RequestRouterNode`
-final class MockerProxyConfigNode<Raw, Output>: Node<RequestModel<Raw>, Output> {
+final class MockerProxyConfigNode<Raw, Output>: Node {
 
     private typealias Keys = MockerProxyConfigKey
 
     // MARK: - Public Properties
 
     /// Следующий в цепочке узел.
-    public var next: Node<RequestModel<Raw>, Output>
+    public var next: any Node<RequestModel<Raw>, Output>
 
     /// Указывает, включено ли проексирование.
     public var isProxyingOn: Bool
@@ -41,7 +41,7 @@ final class MockerProxyConfigNode<Raw, Output>: Node<RequestModel<Raw>, Output> 
     ///   - isProxyingOn: Указывает, включено ли проексирование.
     ///   - proxyingHost: Адрес хоста (опционально с портом) которому будет переадресован запрос.
     ///   - proxyingSchema: Схема (http/https etc).
-    public init(next: Node<RequestModel<Raw>, Output>,
+    public init(next: any Node<RequestModel<Raw>, Output>,
                 isProxyingOn: Bool,
                 proxyingHost: String = "",
                 proxyingScheme: String = "") {
@@ -54,7 +54,7 @@ final class MockerProxyConfigNode<Raw, Output>: Node<RequestModel<Raw>, Output> 
     // MARK: - Node
 
     /// Добавляет хедеры в `data`
-    override func process(_ data: RequestModel<Raw>) -> Observer<Output> {
+    public func process(_ data: RequestModel<Raw>) -> Observer<Output> {
 
         guard self.isProxyingOn else {
             return self.next.process(data)

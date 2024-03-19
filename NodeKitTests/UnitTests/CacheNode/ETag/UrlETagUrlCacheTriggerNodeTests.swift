@@ -14,21 +14,21 @@ import NodeKit
 
 public class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
 
-    class TransportMock: ResponseProcessingLayerNode {
+    class TransportMock: Node {
 
         var numberOfCalls = 0
 
-        override func process(_ data: UrlDataResponse) -> Observer<Json> {
+        func process(_ data: UrlDataResponse) -> Observer<Json> {
             self.numberOfCalls += 1
             return .emit(data: Json())
         }
     }
 
-    class CacheSaverMock: Node<UrlNetworkRequest, Json> {
+    class CacheSaverMock: Node {
 
         var numberOfCalls = 0
 
-        override func process(_ data: UrlNetworkRequest) -> Observer<Json> {
+        func process(_ data: UrlNetworkRequest) -> Observer<Json> {
 
             self.numberOfCalls += 1
 
