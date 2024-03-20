@@ -9,7 +9,7 @@
 @testable import NodeKit
 
 extension Log: Equatable {
-    
+
     public static func == (lhs: NodeKit.Log, rhs: NodeKit.Log) -> Bool {
         return lhs.message == rhs.message &&
             lhs.description == rhs.description &&
@@ -17,5 +17,5 @@ extension Log: Equatable {
             lhs.id == rhs.id &&
             lhs.order == rhs.order
     }
-    
+
 }

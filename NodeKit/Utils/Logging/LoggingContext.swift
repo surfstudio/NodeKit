@@ -11,17 +11,17 @@ import Foundation
 protocol LoggingContextProtocol: Actor {
     // Лог контекста
     var log: Logable? { get }
-    
+
     /// Добавляет лог-сообщение к контексту.
     /// - Parameter log: лог-сообщение.
     func add(_ log: Logable?)
 }
 
 actor LoggingContext: LoggingContextProtocol {
-    
+
     // Лог контекста
     public private(set) var log: Logable?
-    
+
     /// Добавляет лог-сообщение к контексту.
     /// В случае, если у контекста не было лога, то он появится.
     /// В случае, если у контекста был лог, но у него не было следующего, то этот добавится в качестве следующего лога.
@@ -45,5 +45,5 @@ actor LoggingContext: LoggingContextProtocol {
         self.log = selfLog
         return
     }
-    
+
 }
