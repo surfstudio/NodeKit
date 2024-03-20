@@ -65,4 +65,31 @@ open class ResponseHttpErrorProcessorNode<Type>: Node {
         let log = self.logViewObjectName + "Cant match status code -> call next"
         return self.next.process(data).log(Log(log, id: self.objectName, order: LogOrder.responseHttpErrorProcessorNode))
     }
+
+    /// Сопосотавляет HTTP-коды с заданными и в случае их несовпадения передает управление дальше.
+    /// В противном случае возвращает `HttpError`
+    ///
+    /// - Parameter data: Модель ответа сервера.
+    open func process(
+        _ data: UrlDataResponse,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Type, Error> {
+        switch data.response.statusCode {
+        case 400:
+            return .failure(HttpError.badRequest(data.data))
+        case 401:
+            return .failure(HttpError.unauthorized(data.data))
+        case 403:
+            return .failure(HttpError.forbidden(data.data))
+        case 404:
+            return .failure(HttpError.notFound)
+        case 500:
+            return .failure(HttpError.internalServerError(data.data))
+        default:
+            break
+        }
+        let log = Log(logViewObjectName + "Cant match status code -> call next", id: objectName)
+        await logContext.add(log)
+        return await next.process(data, logContext: logContext)
+    }
 }

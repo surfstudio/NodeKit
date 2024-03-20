@@ -28,4 +28,21 @@ open class VoidIONode: Node {
             return result.emit(data: ())
         }
     }
+
+    open func process(
+        _ data: Void,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Void, Error> {
+        return await next.process(Json(), logContext: logContext).flatMap { json in
+            let result = Context<Void>()
+            if !json.isEmpty {
+                var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidIONode)
+                log += "VoidIOtNode used but request have not empty response"
+                log += .lineTabDeilimeter
+                log += "\(json)"
+                await logContext.add(log)
+            }
+            return .success(())
+        }
+    }
 }

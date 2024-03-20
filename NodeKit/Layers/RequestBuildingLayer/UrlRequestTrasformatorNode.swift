@@ -49,4 +49,26 @@ open class UrlRequestTrasformatorNode<Type>: Node {
         return next.process(encodingModel)
     }
 
+    /// Конструирует модель для для работы на транспортном уровне цепочки.
+    ///
+    /// - Parameter data: Данные для дальнейшей обработки.
+    open func process(
+        _ data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding?>,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Type, Error> {
+        return await .withMappedExceptions {
+            let url = try data.route.url()
+            let params = TransportUrlParameters(
+                method: self.method,
+                url: url,
+                headers: data.metadata
+            )
+            let encodingModel = RequestEncodingModel(
+                urlParameters: params,
+                raw: data.raw,
+                encoding: data.encoding ?? nil
+            )
+            return await next.process(encodingModel, logContext: logContext)
+        }
+    }
 }

@@ -59,6 +59,32 @@ open class MultipartRequestCreatorNode<Output>: Node {
         }
     }
 
+    /// Конфигурирует низкоуровненвый запрос.
+    ///
+    /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
+    open func process(
+        _ data: MultipartUrlRequest,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            var request = URLRequest(url: data.url)
+            request.httpMethod = data.method.rawValue
+
+            // Add Headers
+            data.headers.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
+
+            // Form Data
+            let formData = MultipartFormData(fileManager: FileManager.default)
+            append(multipartForm: formData, with: data)
+            request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
+            let encodedFormData = try formData.encode()
+            request.httpBody = encodedFormData
+
+            await logContext.add(getLogMessage(data))
+            return await next.process(request, logContext: logContext)
+        }
+    }
+
     private func getLogMessage(_ data: MultipartUrlRequest) -> Log {
         var message = "<<<===\(self.objectName)===>>>\n"
         message += "input: \(type(of: data))\n\t"

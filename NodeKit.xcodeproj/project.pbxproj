@@ -18,6 +18,8 @@
 		502F9D972BAA36CF00151A8D /* LoggingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D962BAA36CF00151A8D /* LoggingContext.swift */; };
 		502F9D9A2BAA389500151A8D /* LoggingContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D992BAA389500151A8D /* LoggingContextTests.swift */; };
 		502F9D9D2BAA39F400151A8D /* Log+Equatalbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */; };
+		502F9DA72BAAFD3E00151A8D /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9DA62BAAFD3E00151A8D /* Result+Extension.swift */; };
+		502F9DA92BAB0CF000151A8D /* TokenRefresherActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9DA82BAB0CF000151A8D /* TokenRefresherActor.swift */; };
 		90B608D4283E1110006F4309 /* NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B608CB283E1110006F4309 /* NodeKit.framework */; };
 		90B608DA283E1110006F4309 /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B608CE283E1110006F4309 /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90B6090E283E1268006F4309 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608E4283E1268006F4309 /* UrlCacheReaderNode.swift */; };
@@ -165,6 +167,8 @@
 		502F9D962BAA36CF00151A8D /* LoggingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContext.swift; sourceTree = "<group>"; };
 		502F9D992BAA389500151A8D /* LoggingContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContextTests.swift; sourceTree = "<group>"; };
 		502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+Equatalbe.swift"; sourceTree = "<group>"; };
+		502F9DA62BAAFD3E00151A8D /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
+		502F9DA82BAB0CF000151A8D /* TokenRefresherActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherActor.swift; sourceTree = "<group>"; };
 		90B608CB283E1110006F4309 /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90B608CE283E1110006F4309 /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		90B608D3283E1110006F4309 /* NodeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -366,6 +370,14 @@
 			path = Equatable;
 			sourceTree = "<group>";
 		};
+		502F9DA52BAAFD3000151A8D /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				502F9DA62BAAFD3E00151A8D /* Result+Extension.swift */,
+			);
+			path = Result;
+			sourceTree = "<group>";
+		};
 		90B608C1283E1110006F4309 = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +463,7 @@
 		90B608F1283E1268006F4309 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				502F9DA52BAAFD3000151A8D /* Result */,
 				90B608F2283E1268006F4309 /* Convertion */,
 				90B608FF283E1268006F4309 /* Node */,
 				90B60901283E1268006F4309 /* Supscriptions */,
@@ -628,6 +641,7 @@
 			children = (
 				90B6094E283E1287006F4309 /* TokenRefresherNode.swift */,
 				90B6094F283E1287006F4309 /* AccessSafeNode.swift */,
+				502F9DA82BAB0CF000151A8D /* TokenRefresherActor.swift */,
 			);
 			path = AccessSafe;
 			sourceTree = "<group>";
@@ -1147,6 +1161,7 @@
 				90B609B8283E1287006F4309 /* AnyAsyncIterator.swift in Sources */,
 				90B60986283E1287006F4309 /* RequestRouterNode.swift in Sources */,
 				90B6091A283E1268006F4309 /* RawMappable+Dictionary.swift in Sources */,
+				502F9DA72BAAFD3E00151A8D /* Result+Extension.swift in Sources */,
 				90B609A7283E1287006F4309 /* RawEncoderNode.swift in Sources */,
 				90B609B9283E1287006F4309 /* OffsetAsyncPager.swift in Sources */,
 				390E697D2A13660C007F2304 /* HTTPHeaders.swift in Sources */,
@@ -1173,6 +1188,7 @@
 				90B60915283E1268006F4309 /* UrlETagReaderNode.swift in Sources */,
 				90B60985283E1287006F4309 /* UrlRequestTrasformatorNode.swift in Sources */,
 				390E69702A136586007F2304 /* NodeParameterEncoding.swift in Sources */,
+				502F9DA92BAB0CF000151A8D /* TokenRefresherActor.swift in Sources */,
 				90B60928283E1268006F4309 /* CancelableContext.swift in Sources */,
 				90B609C1283E1287006F4309 /* Log.swift in Sources */,
 				90B60924283E1268006F4309 /* Throttler.swift in Sources */,

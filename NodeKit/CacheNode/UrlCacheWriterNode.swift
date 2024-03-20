@@ -21,4 +21,19 @@ open class UrlCacheWriterNode: Node {
         URLCache.shared.storeCachedResponse(cahced, for: data.request)
         return Context<Void>().emit(data: ())
     }
+
+    /// Формирует `CachedURLResponse` с политикой `.allowed`, сохраняет его в кэш,
+    /// а затем возвращает сообщение об успешной операции.
+    open func process(
+        _ data: UrlProcessedResponse,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Void, Error> {
+        let cahced = CachedURLResponse(
+            response: data.response,
+            data: data.data,
+            storagePolicy: .allowed
+        )
+        URLCache.shared.storeCachedResponse(cahced, for: data.request)
+        return .success(())
+    }
 }

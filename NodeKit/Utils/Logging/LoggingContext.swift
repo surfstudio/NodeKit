@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol LoggingContextProtocol: Actor {
+public protocol LoggingContextProtocol: Actor {
     // Лог контекста
     var log: Logable? { get }
 
@@ -17,7 +17,7 @@ protocol LoggingContextProtocol: Actor {
     func add(_ log: Logable?)
 }
 
-actor LoggingContext: LoggingContextProtocol {
+public actor LoggingContext: LoggingContextProtocol {
 
     // Лог контекста
     public private(set) var log: Logable?

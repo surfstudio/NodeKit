@@ -32,4 +32,17 @@ open class DTOEncoderNode<Input, Output>: Node where Input: DTOEncodable {
             return .emit(error: error)
         }
     }
+
+    /// Пытается конвертировать модель в DTO, а затем просто передает результат конвертации следующему узлу.
+    /// Если при конвертирвоании произошла ошибка - прерывает выполнение цепочки.
+    ///
+    /// - Parameter data: Входящая модель.
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            await rawEncodable.process(try data.toDTO(), logContext: logContext)
+        }
+    }
 }

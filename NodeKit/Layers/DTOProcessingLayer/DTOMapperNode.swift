@@ -47,4 +47,43 @@ open class DTOMapperNode<Input, Output>: Node where Input: RawEncodable, Output:
             return context.log(log).emit(error: error)
         }
     }
+
+    /// Маппит данные в RawMappable, передает управление следующей цепочке, а затем маппит ответ в DTOConvertible
+    ///
+    /// - Parameter data: Данные для обработки.
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            let raw = try data.toRaw()
+            return .success(raw)
+        }
+        .flatMapError { error in
+            await log(error: error, logContext: logContext)
+            return .failure(error)
+        }
+        .flatMap { data in
+            await next.process(data, logContext: logContext)
+        }
+        .flatMap { result in
+            await .withMappedExceptions {
+                let output = try Output.from(raw: result)
+                return .success(output)
+            }
+            .flatMapError { error in
+                await log(error: error, logContext: logContext)
+                return .failure(error)
+            }
+        }
+    }
+
+    private func log(error: Error, logContext: LoggingContextProtocol) async {
+        let log = Log(
+            logViewObjectName + "\(error)",
+            id: objectName,
+            order: LogOrder.dtoMapperNode
+        )
+        await logContext.add(log)
+    }
 }

@@ -32,4 +32,13 @@ open class DataLoadingResponseProcessor: Node {
 
         return next.process(data).map { data.data }
     }
+
+    /// В случае, если узел для постобработки существует, то вызывает его, если нет - возвращает данные.
+    open func process(
+        _ data: UrlDataResponse,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Data, Error> {
+        return await next?.process(data, logContext: logContext)
+            .map { data.data } ?? .success(data.data)
+    }
 }

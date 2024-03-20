@@ -50,4 +50,21 @@ open class LoggerNode<Input, Output>: Node {
 
         return result
     }
+
+    /// Сразу же передает управление следующему узлу и подписывается на выполнение операций.
+    ///
+    /// - Parameter data: Данные для обработки. Этот узел их не импользует.
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        let result = await next.process(data, logContext: logContext)
+
+        await logContext.log?.flatMap()
+            .filter { !filters.contains($0.id) }
+            .sorted(by: { $0.order < $1.order })
+            .forEach { print($0.description) }
+
+        return result
+    }
 }

@@ -50,18 +50,43 @@ open class UrlJsonRequestEncodingNode<Type>: Node {
         return next.process(unwrappedRequest).log(log)
     }
 
-}
+    open func process(
+        _ data: RequestEncodingModel,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Type, Error> {
+        var log = getLogMessage(data)
+        let paramEncoding = parameterEncoding(from: data)
 
-// MARK: - Help Methods
-
-private extension UrlJsonRequestEncodingNode {
-
-    func getLogMessage(_ data: RequestEncodingModel) -> Log {
-        var message = "<<<===\(self.objectName)===>>>\n"
-        message += "input: \(type(of: data))"
-        message += "encoding: \(String(describing: data.encoding))"
-        message += "raw: \(String(describing: data.raw))"
-        return Log(message, id: self.objectName, order: LogOrder.requestEncodingNode)
+        guard let encoding = paramEncoding else {
+            log += "Missed encoding type -> terminate with error"
+            await logContext.add(log)
+            return .failure(RequestEncodingNodeError.missedJsonEncodingType)
+        }
+        do {
+            let request = try encoding.encode(urlParameters: data.urlParameters, parameters: data.raw)
+            log += "type: Json"
+            return await next.process(request, logContext: logContext)
+        } catch {
+            log += "But can't encode data -> terminate with error"
+            await logContext.add(log)
+            return .failure(RequestEncodingError.unsupportedDataType)
+        }
     }
 
+    // MARK: - Private Methods
+
+    private func parameterEncoding(from data: RequestEncodingModel) -> ParameterEncoding? {
+        guard data.urlParameters.method == .get else {
+            return data.encoding?.raw
+        }
+        return URLEncoding.default
+    }
+
+    private func getLogMessage(_ data: RequestEncodingModel) -> Log {
+        let message = "<<<===\(self.objectName)===>>>\n" +
+            "input: \(type(of: data))" +
+            "encoding: \(String(describing: data.encoding))" +
+            "raw: \(String(describing: data.raw))"
+        return Log(message, id: self.objectName, order: LogOrder.requestEncodingNode)
+    }
 }

@@ -25,6 +25,14 @@ open class VoidInputNode<Output>: Node {
     open func process(_ data: Void) -> Observer<Output> {
         return next.process(Json())
     }
+
+    /// Передает управление следующему узлу,в качестве параметра передает пустой `Json`
+    open func process(
+        _ data: Void,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        return await next.process(Json(), logContext: logContext)
+    }
 }
 
 // MARK: - Node void extension

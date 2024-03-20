@@ -69,6 +69,35 @@ open class ResponseDataParserNode: Node {
         return nextNode.process(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).map { json }
     }
 
+    /// Парсит ответ и в случае успеха передает управление следующему узлу.
+    ///
+    /// - Parameter data: Модель овтета сервера.
+    open func process(
+        _ data: UrlDataResponse,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Json, Error> {
+        return await parse(with: data, logContext: logContext)
+            .flatMap { json, logMessage in
+                let logMsg = logViewObjectName + logMessage + .lineTabDeilimeter
+                var log = Log(logMsg, id: objectName, order: LogOrder.responseDataParserNode)
+
+                guard let next = next else {
+                    log += "Next node is nil -> terminate chain process"
+                    await logContext.add(log)
+                    return .success(json)
+                }
+
+                let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
+
+                log += "Have next node \(next.objectName) -> call `process`"
+
+                await logContext.add(log)
+                await next.process(networkResponse, logContext: logContext)
+
+                return .success(json)
+            }
+    }
+
     /// Получает `json` из модели ответа сервера.
     /// Содержит всю логику парсинга.
     ///
@@ -113,5 +142,26 @@ open class ResponseDataParserNode: Node {
 
         return (json, log)
     }
-}
 
+    // MARK: - Private Methods
+
+    private func parse(
+        with data: UrlDataResponse,
+        logContext: LoggingContextProtocol
+    ) async -> Result<(Json, String), Error> {
+        do {
+            let result = try json(from: data)
+            return .success(result)
+        } catch {
+            var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseDataParserNode)
+            switch error {
+            case ResponseDataParserNodeError.cantCastDesirializedDataToJson(let logMsg), ResponseDataParserNodeError.cantDeserializeJson(let logMsg):
+                log += logMsg
+            default:
+                log += "Catch \(error)"
+            }
+            await logContext.add(log)
+            return .failure(error)
+        }
+    }
+}

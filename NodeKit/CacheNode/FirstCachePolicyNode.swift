@@ -72,4 +72,28 @@ open class FirstCachePolicyNode: Node {
         return result
     }
 
+    /// Пытается получить `URLRequest` и если удается, то обращается в кэш
+    /// а затем, передает управление следующему узлу.
+    /// В случае, если получить `URLRequest` не удалось,
+    /// то управление просто передается следующему узлу
+    open func process(
+        _ data: RawUrlRequest,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Json, Error> {
+        return await next.process(data, logContext: logContext)
+//        let result = Context<Json>()
+//
+//        if let request = data.toUrlRequest() {
+//            cacheReaderNode.process(request)
+//                .onCompleted { result.emit(data: $0) }
+//                .onError { result.emit(error: $0)}
+//        }
+//
+//        next.process(data)
+//            .onCompleted { result.emit(data: $0)}
+//            .onError { result.emit(error: $0) }
+//
+//        return result
+    }
+
 }
