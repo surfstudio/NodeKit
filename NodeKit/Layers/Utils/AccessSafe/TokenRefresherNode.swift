@@ -14,7 +14,12 @@ import Foundation
 open class TokenRefresherNode: Node {
 
     /// Цепочка для обновления токена.
-    public var tokenRefreshChain: any Node<Void, Void>
+    public var tokenRefreshChain: any Node<Void, Void> {
+        didSet {
+            tokenRefresherActor = TokenRefresherActor(tokenRefreshChain: tokenRefreshChain)
+        }
+    }
+    private var tokenRefresherActor: TokenRefresherActor
 
     private var isRequestSended = false
     private var observers: [Context<Void>]
@@ -80,5 +85,19 @@ open class TokenRefresherNode: Node {
 
             return error
         }
+    }
+
+    /// Проверяет, был ли отправлен запрос на обновление токена
+    /// Если запрос был отправлен, то создает `Observer`, сохраняет его у себя и возвращает предыдущему узлу.
+    /// Если нет - отплавляет запрос и сохраняет `Observer`
+    /// После того как запрос на обновление токена был выполнен успешно - эмитит данные во все сохраненные Observer'ы и удаляет их из памяти
+    open func process(
+        _ data: Void,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Void, Error> {
+        if let task = await tokenRefresherActor.task {
+            return await task.value
+        }
+        return await tokenRefresherActor.refresh(logContext: logContext)
     }
 }

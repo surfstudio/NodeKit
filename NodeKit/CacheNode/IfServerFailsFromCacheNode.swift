@@ -47,4 +47,45 @@ open class IfConnectionFailedFromCacheNode: Node {
         }
     }
 
+    /// Проверяет, произошла ли ошибка связи в ответ на запрос.
+    /// Если ошибка произошла, то возвращает успешный ответ из кэша.
+    /// В противном случае передает управление следующему узлу.
+    open func process(
+        _ data: URLRequest,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Json, Error> {
+        return await next.process(data, logContext: logContext)
+            .flatMapError { error in
+                let request = UrlNetworkRequest(urlRequest: data)
+                if error is BaseTechnicalError {
+                    await logContext.add(makeBaseTechinalLog(with: error))
+                    return await cacheReaderNode.process(request, logContext: logContext)
+                }
+                await logContext.add(makeLog(with: error, from: request))
+                return .failure(error)
+            }
+    }
+
+    // MARK: - Private Method
+
+    private func makeBaseTechinalLog(with error: Error) -> Log {
+        return Log(
+            logViewObjectName + 
+                "Catching \(error)" + .lineTabDeilimeter +
+                "Start read cache" + .lineTabDeilimeter,
+            id: objectName
+        )
+    }
+
+    private func makeLog(with error: Error, from request: UrlNetworkRequest) -> Log {
+        return Log(
+            logViewObjectName +
+                "Catching \(error)" + .lineTabDeilimeter +
+                "Error is \(type(of: error))" +
+                "and request = \(String(describing: request))" + .lineTabDeilimeter +
+                "-> throw error",
+            id: objectName
+        )
+    }
+
 }

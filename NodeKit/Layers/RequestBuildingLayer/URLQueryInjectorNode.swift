@@ -62,7 +62,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
         }
 
         guard var urlComponents = URLComponents(string: url.absoluteString) else {
-            return .emit(error: Error.cantCreateUrlComponentsFromUrlString)
+            return .emit(error: NodeError.cantCreateUrlComponentsFromUrlString)
         }
 
         urlComponents.queryItems = self.config.query
@@ -71,7 +71,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
             .sorted(by: { $0.name < $1.name })
 
         guard let newUrl = urlComponents.url else {
-            return .emit(error: Error.cantCreateUrlFromUrlComponents)
+            return .emit(error: NodeError.cantCreateUrlFromUrlComponents)
         }
 
         let newModel = RoutableRequestModel<UrlRouteProvider, Raw>(metadata: data.metadata,
@@ -79,6 +79,19 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
                                                                    route: newUrl)
 
         return self.next.process(newModel)
+    }
+
+    /// Добавляет URL-query если может и передает управление следующему узлу.
+    /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateUrlComponentsFromUrlString`
+    /// - SeeAlso: `URLQueryInjectorNodeError`
+    open func process(
+        _ data: RoutableRequestModel<UrlRouteProvider, Raw>,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            async let model = try transform(from: data)
+            return await next.process(data, logContext: logContext)
+        }
     }
 
     /// Позволяет получить список компонент URL-query, по ключу и значению.
@@ -107,5 +120,38 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
         }
 
         return items
+    }
+
+    private func transform(
+        from data: RoutableRequestModel<UrlRouteProvider, Raw>
+    ) async throws -> Result<RoutableRequestModel<UrlRouteProvider, Raw>, Error> {
+        guard !config.query.isEmpty else {
+            return .success(data)
+        }
+        return await urlComponents(try data.route.url())
+            .flatMap {
+                guard let url = $0.url else {
+                    return .failure(NodeError.cantCreateUrlFromUrlComponents)
+                }
+                return .success(url)
+            }
+            .map {
+                return RoutableRequestModel<UrlRouteProvider, Raw>(
+                    metadata: data.metadata,
+                    raw: data.raw,
+                    route: $0
+                )
+            }
+    }
+
+    private func urlComponents(_ url: URL) async -> Result<URLComponents, Error> {
+        guard var urlComponents = URLComponents(string: url.absoluteString) else {
+            return .failure(NodeError.cantCreateUrlComponentsFromUrlString)
+        }
+        urlComponents.queryItems = config.query
+            .map { makeQueryComponents(from: $1, by: $0) }
+            .reduce([], { $0 + $1 })
+            .sorted(by: { $0.name < $1.name })
+        return .success(urlComponents)
     }
 }

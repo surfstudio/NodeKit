@@ -26,4 +26,17 @@ open class EntryinputDtoOutputNode<Input, Output>: Node
         }
     }
 
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            let raw = try data.toRaw()
+            return try await next.process(raw, logContext: logContext).map {
+                let dto = try Output.DTO.from(raw: $0)
+                return try Output.from(dto: dto)
+            }
+        }
+    }
+
 }

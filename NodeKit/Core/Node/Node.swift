@@ -34,4 +34,11 @@ public protocol Node<Input, Output> {
     /// - Parameter data: Входные данные
     /// - Returns: Подписка на процесс обработки данных.
     func process(_ data: Input) -> Observer<Output>
+
+    /// Ассинхронный метод, который содержит логику для обработки данных
+    ///
+    /// - Parameter data: Входные данные
+    /// - Returns: Результат.
+    @discardableResult
+    func process(_ data: Input, logContext: LoggingContextProtocol) async -> Result<Output, Error>
 }

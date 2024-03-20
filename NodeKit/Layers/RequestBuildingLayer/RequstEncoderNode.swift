@@ -45,4 +45,19 @@ open class RequstEncoderNode<Raw, Route, Encoding, Output>: Node {
         return self.next.process(model)
     }
 
+    /// Преобразует `RoutableRequestModel` в `EncodableRequestModel`
+    /// и передает управление следующему узлу.
+    open func process(
+        _ data: RoutableRequestModel<Route, Raw>,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        let model = EncodableRequestModel(
+            metadata: data.metadata,
+            raw: data.raw,
+            route: data.route,
+            encoding: encoding
+        )
+        return await next.process(model, logContext: logContext)
+    }
+
 }

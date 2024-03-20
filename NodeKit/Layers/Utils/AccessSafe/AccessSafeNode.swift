@@ -81,4 +81,29 @@ open class AccessSafeNode: Node {
             }
         }
     }
+
+    /// Просто передает управление следующему узлу.
+    /// В случае если вернулась доступа, то обноляет токен и повторяет запрос.
+    open func process(
+        _ data: TransportUrlRequest,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Json, Error> {
+        return await next.process(data, logContext: logContext)
+            .flatMapError { error in
+                guard case ResponseHttpErrorProcessorNodeError.forbidden = error else {
+                    return .failure(error)
+                }
+                return await processWithTokenUpdate(data, logContext: logContext)
+            }
+    }
+
+    // MARK: - Private Methods
+
+    private func processWithTokenUpdate(
+        _ data: TransportUrlRequest,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Json, Error> {
+        return await updateTokenChain.process((), logContext: logContext)
+            .flatMap { await next.process(data, logContext: logContext) }
+    }
 }

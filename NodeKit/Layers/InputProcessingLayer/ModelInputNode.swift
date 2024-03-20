@@ -39,4 +39,20 @@ public class ModelInputNode<Input, Output>: Node where Input: DTOEncodable, Outp
             return context.emit(error: error)
         }
     }
+
+    /// Передает управление следующему узлу,
+    /// а по получении ответа пытается замапить нижний DTO-слой на верхний.
+    /// Если при маппинге произошла ошибка, то она будет проброшена выше.
+    ///
+    /// - Parameter data: Данные для запроса.
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            let data = try data.toDTO()
+            return try await next.process(data, logContext: logContext)
+                .map { try Output.from(dto: $0) }
+        }
+    }
 }

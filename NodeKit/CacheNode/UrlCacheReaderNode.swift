@@ -50,6 +50,32 @@ open class UrlCacheReaderNode: Node {
         return .emit(data: json)
     }
 
+    /// Посылает запрос в кэш и пытается сериализовать данные в JSON.
+    open func process(
+        _ data: UrlNetworkRequest,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Json, Error> {
+        guard let cachedResponse = extractCachedUrlResponse(data.urlRequest) else {
+            return .failure(BaseUrlCacheReaderError.cantLoadDataFromCache)
+        }
+
+        guard let jsonObjsect = try? JSONSerialization.jsonObject(
+            with: cachedResponse.data,
+            options: .allowFragments
+        ) else {
+            return .failure(BaseUrlCacheReaderError.cantSerializeJson)
+        }
+
+        guard let json = jsonObjsect as? Json else {
+            guard let json = jsonObjsect as? [Json] else {
+                return .failure(BaseUrlCacheReaderError.cantCastToJson)
+            }
+            return .success([MappingUtils.arrayJsonKey: json])
+        }
+
+        return .success(json)
+    }
+
    private func extractCachedUrlResponse(_ request: URLRequest) -> CachedURLResponse? {
         if let response = URLCache.shared.cachedResponse(for: request) {
             return response

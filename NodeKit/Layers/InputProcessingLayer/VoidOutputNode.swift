@@ -37,4 +37,23 @@ open class VoidOutputNode<Input>: Node where Input: DTOEncodable, Input.DTO.Raw 
             return result.emit(data: ())
         }
     }
+
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Void, Error> {
+        return await .withMappedExceptions {
+            let newData = try data.toDTO().toRaw()
+            return await next.process(newData, logContext: logContext).flatMap { json in
+                if !json.isEmpty {
+                    var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidOutputNode)
+                    log += "VoidOutputNode used but request have not empty response"
+                    log += .lineTabDeilimeter
+                    log += "\(json)"
+                    await logContext.add(log)
+                }
+                return .success(())
+            }
+        }
+    }
 }

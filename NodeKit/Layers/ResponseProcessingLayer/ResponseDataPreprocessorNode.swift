@@ -40,4 +40,33 @@ open class ResponseDataPreprocessorNode: Node {
 
         return self.next.process(data)
     }
+
+    /// Сериализует "сырые" данные в `Json`
+    ///
+    /// - Parameter data: Представление ответа.
+    open func process(
+        _ data: UrlDataResponse,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Json, Error> {
+        var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseDataPreprocessorNode)
+
+        guard data.response.statusCode != 204 else {
+            log += "Status code is 204 -> response data is empty -> terminate process with empty json"
+            await logContext.add(log)
+            return .success(Json())
+        }
+
+        if let jsonObject = try? JSONSerialization.jsonObject(
+                with: data.data,
+                options: .allowFragments
+            ), 
+            jsonObject is NSNull 
+        {
+            log += "Json serialization sucess but json is NSNull -> terminate process with empty json"
+            await logContext.add(log)
+            return .success(Json())
+        }
+
+        return await next.process(data, logContext: logContext)
+    }
 }

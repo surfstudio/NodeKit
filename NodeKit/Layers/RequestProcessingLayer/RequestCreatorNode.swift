@@ -35,6 +35,28 @@ open class RequestCreatorNode<Output>: Node {
         return self.next.process(request).log(self.getLogMessage(data))
     }
 
+    /// Конфигурирует низкоуровненвый запрос.
+    ///
+    /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
+    open func process(
+        _ data: TransportUrlRequest,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        var mergedHeaders = data.headers
+
+        providers.map { $0.metadata() }.forEach { dict in
+            mergedHeaders.merge(dict, uniquingKeysWith: { $1 })
+        }
+
+        var request = URLRequest(url: data.url)
+        request.httpMethod = data.method.rawValue
+        request.httpBody = data.raw
+        mergedHeaders.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
+
+        await logContext.add(getLogMessage(data))
+        return await next.process(request, logContext: logContext)
+    }
+
     private func getLogMessage(_ data: TransportUrlRequest) -> Log {
         var message = "<<<===\(self.objectName)===>>>\n"
         message += "input: \(type(of: data))\n\t"

@@ -58,4 +58,25 @@ open class LoadIndicatableNode<Input, Output>: Node {
                 return error
             }
     }
+
+    /// Показывает индикатор и передает управление дальше.
+    /// По окнчании работы цепочки скрывает индикатор.
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        DispatchQueue.global().async(flags: .barrier) {
+            LoadIndicatableNodeStatic.requestConter += 1
+        }
+
+        let decrementRequestCounter: (() -> Void) = {
+            DispatchQueue.global().async(flags: .barrier) {
+                LoadIndicatableNodeStatic.requestConter -= 1
+            }
+        }
+
+        let result = await next.process(data, logContext: logContext)
+        decrementRequestCounter()
+        return result
+    }
 }

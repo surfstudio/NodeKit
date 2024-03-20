@@ -46,4 +46,15 @@ open class ChainConfiguratorNode<I, O>: Node {
             .map { return self.next.process(data) }
             .dispatchOn(self.endQueue)
     }
+
+    /// Созздает асинхронный контект с очередью `beginQueue`,
+    /// затем выполняет всю цепочку операций и диспатчит ответ на `endQueue`
+    ///
+    /// - Parameter data: Данные для обработки
+    open func process(
+        _ data: I,
+        logContext: LoggingContextProtocol
+    ) async -> Result<O, Error> {
+        return await next.process(data, logContext: logContext)
+    }
 }

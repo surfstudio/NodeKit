@@ -43,4 +43,23 @@ open class MultipartUrlRequestTrasformatorNode<Type>: Node {
 
         return next.process(request)
     }
+
+    /// Конструирует модель для для работы на транспортном уровне цепочки.
+    ///
+    /// - Parameter data: Данные для дальнейшей обработки.
+    open func process(
+        _ data: RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Type, Error> {
+        return await .withMappedExceptions {
+            let url = try data.route.url()
+            let request = MultipartUrlRequest(
+                method: method,
+                url: url,
+                headers: data.metadata,
+                data: data.raw
+            )
+            return await next.process(request, logContext: logContext)
+        }
+    }
 }

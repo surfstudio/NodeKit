@@ -13,6 +13,8 @@ import Foundation
 public protocol Aborter {
     /// Отменяет операцию.
     func cancel()
+
+    func cancel(logContext: LoggingContextProtocol)
 }
 
 /// Узел, который позволяет отменить цепочку операций.
@@ -47,5 +49,23 @@ open class AborterNode<Input, Output>: Node {
             .onCanceled { [weak self] in
                 self?.aborter.cancel()
             }
+    }
+
+    /// Если в момент вызова process задача уже отменена, то вернет CancellationError
+    /// Если process был вызван и получили событие отмены задачи, то посылает Aborter'у `cancel()`
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            try Task.checkCancellation()
+            return .success(())
+        }
+        .flatMap {
+            return await withTaskCancellationHandler(
+                operation: { return await next.process(data, logContext: logContext) },
+                onCancel: { aborter.cancel(logContext: logContext) }
+            )
+        }
     }
 }

@@ -32,4 +32,17 @@ open class RawEncoderNode<Input, Output>: Node where Input: RawEncodable {
             return .emit(error: error)
         }
     }
+
+    /// Пытается конвертировать модель в RAW, а затем просто передает результат конвертации следующему узлу.
+    /// Если при конвертирвоании произошла ошибка - прерывает выполнение цепочки.
+    ///
+    /// - Parameter data: Входящая модель.
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        return await .withMappedExceptions {
+            return await next.process(try data.toRaw(), logContext: logContext)
+        }
+    }
 }

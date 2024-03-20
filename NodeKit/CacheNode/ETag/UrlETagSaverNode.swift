@@ -53,6 +53,24 @@ open class UrlETagSaverNode: Node {
 
         return next?.process(data) ?? .emit(data: ())
     }
+
+    /// Пытается получить eTag-токен по ключу `UrlETagSaverNode.eTagHeaderKey`.
+    /// В любом случае передает управление дальше.
+    open func process(
+        _ data: UrlProcessedResponse,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Void, Error> {
+        guard let tag = data.response.allHeaderFields[self.eTagHeaderKey] as? String,
+            let url = data.request.url,
+            let urlAsKey = url.withOrderedQuery()
+        else {
+            return .success(())
+        }
+
+        UserDefaults.etagStorage?.set(tag, forKey: urlAsKey)
+
+        return await next?.process(data, logContext: logContext) ?? .success(())
+    }
 }
 
 public extension URL {

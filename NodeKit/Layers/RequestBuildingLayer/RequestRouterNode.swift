@@ -40,4 +40,15 @@ open class RequestRouterNode<Raw, Route, Output>: Node {
     open func process(_ data: RequestModel<Raw>) -> Observer<Output> {
         return self.next.process(RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: self.route))
     }
+
+    /// Преобразует `RequestModel` в `RoutableRequestModel` и передает управление следующему узлу
+    open func process(
+        _ data: RequestModel<Raw>,
+        logContext: LoggingContextProtocol
+    ) async -> Result<Output, Error> {
+        return await next.process(
+            RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: route),
+            logContext: logContext
+        )
+    }
 }
