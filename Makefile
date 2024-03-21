@@ -13,11 +13,11 @@ build:
 ## Used to build target with SPM dependencies. Usually, it is not called manually, it is necessary for the CI to work.
 spm_build:
 	swift package clean
-	swift build -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios15.5-simulator" -Xswiftc "-lswiftUIKit"
+	swift build --sdk "`xcrun -sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios17.4-simulator" -Xswiftc "-lswiftUIKit"
 
 ## Run tests
 test:
-	xcodebuild test -scheme NodeKit -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=15.5' | bundle exec xcpretty -c
+	xcodebuild test -scheme NodeKit -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.4' | bundle exec xcpretty -c
 
 ## Created documentation by comments from code
 doc:
