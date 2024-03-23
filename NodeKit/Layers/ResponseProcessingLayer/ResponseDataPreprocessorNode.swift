@@ -10,7 +10,7 @@ import Foundation
 
 /// Этот узел занимается десериализаций данных ответа в `JSON`.
 /// В случае 204-го ответа далее передает пустой `Json`.
-open class ResponseDataPreprocessorNode: Node {
+open class ResponseDataPreprocessorNode: AsyncNode {
 
     /// Следующий узел для обработки.
     public var next: any ResponseProcessingLayerNode
@@ -47,7 +47,7 @@ open class ResponseDataPreprocessorNode: Node {
     open func process(
         _ data: UrlDataResponse,
         logContext: LoggingContextProtocol
-    ) async -> Result<Json, Error> {
+    ) async -> NodeResult<Json> {
         var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseDataPreprocessorNode)
 
         guard data.response.statusCode != 204 else {

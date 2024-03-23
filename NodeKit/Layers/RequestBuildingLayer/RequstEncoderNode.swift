@@ -17,10 +17,10 @@ import Foundation
 ///     - `RequestRouterNode`
 ///     - `EncodableRequestModel`
 ///     - `UrlRequestTrasformatorNode`
-open class RequstEncoderNode<Raw, Route, Encoding, Output>: Node {
+open class RequstEncoderNode<Raw, Route, Encoding, Output>: AsyncNode {
 
     /// Тип для следюущего узла.
-    public typealias NextNode = Node<EncodableRequestModel<Route, Raw, Encoding>, Output>
+    public typealias NextNode = AsyncNode<EncodableRequestModel<Route, Raw, Encoding>, Output>
 
     /// Следюущий узел для обработки.
     public var next: any NextNode
@@ -50,7 +50,7 @@ open class RequstEncoderNode<Raw, Route, Encoding, Output>: Node {
     open func process(
         _ data: RoutableRequestModel<Route, Raw>,
         logContext: LoggingContextProtocol
-    ) async -> Result<Output, Error> {
+    ) async -> NodeResult<Output> {
         let model = EncodableRequestModel(
             metadata: data.metadata,
             raw: data.raw,

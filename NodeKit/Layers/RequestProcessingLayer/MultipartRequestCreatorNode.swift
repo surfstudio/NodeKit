@@ -24,14 +24,14 @@ public struct MultipartUrlRequest {
 }
 
 /// Узел, умеющий создавать multipart-запрос.
-open class MultipartRequestCreatorNode<Output>: Node {
+open class MultipartRequestCreatorNode<Output>: AsyncNode {
     /// Следующий узел для обработки.
-    public var next: any Node<URLRequest, Output>
+    public var next: any AsyncNode<URLRequest, Output>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: any Node<URLRequest, Output>) {
+    public init(next: any AsyncNode<URLRequest, Output>) {
         self.next = next
     }
 
@@ -65,7 +65,7 @@ open class MultipartRequestCreatorNode<Output>: Node {
     open func process(
         _ data: MultipartUrlRequest,
         logContext: LoggingContextProtocol
-    ) async -> Result<Output, Error> {
+    ) async -> NodeResult<Output> {
         return await .withMappedExceptions {
             var request = URLRequest(url: data.url)
             request.httpMethod = data.method.rawValue

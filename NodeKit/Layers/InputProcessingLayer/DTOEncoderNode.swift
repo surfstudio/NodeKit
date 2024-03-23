@@ -9,15 +9,15 @@
 import Foundation
 
 /// Этот узел умеет конвертировать ВХОДНЫЕ данные в DTO, НО не пытается декодировать ответ.
-open class DTOEncoderNode<Input, Output>: Node where Input: DTOEncodable {
+open class DTOEncoderNode<Input, Output>: AsyncNode where Input: DTOEncodable {
 
     /// Узел, который умеет работать с DTO
-    open var rawEncodable: any Node<Input.DTO, Output>
+    open var rawEncodable: any AsyncNode<Input.DTO, Output>
 
     /// Инициаллизирует объект
     ///
     /// - Parameter rawEncodable: Узел, который умеет работать с DTO.
-    public init(rawEncodable: some Node<Input.DTO, Output>) {
+    public init(rawEncodable: some AsyncNode<Input.DTO, Output>) {
         self.rawEncodable = rawEncodable
     }
 
@@ -40,7 +40,7 @@ open class DTOEncoderNode<Input, Output>: Node where Input: DTOEncodable {
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol
-    ) async -> Result<Output, Error> {
+    ) async -> NodeResult<Output> {
         return await .withMappedExceptions {
             await rawEncodable.process(try data.toDTO(), logContext: logContext)
         }

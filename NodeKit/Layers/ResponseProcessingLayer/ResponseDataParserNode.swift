@@ -19,7 +19,7 @@ public enum ResponseDataParserNodeError: Error {
 
 /// Выполняет преобразование преобразование "сырых" данных в `Json`
 /// - SeeAlso: `MappingUtils`
-open class ResponseDataParserNode: Node {
+open class ResponseDataParserNode: AsyncNode {
 
     /// Следующий узел для обработки.
     public var next: (any ResponsePostprocessorLayerNode)?
@@ -75,9 +75,9 @@ open class ResponseDataParserNode: Node {
     open func process(
         _ data: UrlDataResponse,
         logContext: LoggingContextProtocol
-    ) async -> Result<Json, Error> {
+    ) async -> NodeResult<Json> {
         return await parse(with: data, logContext: logContext)
-            .flatMap { json, logMessage in
+            .asyncFlatMap { json, logMessage in
                 let logMsg = logViewObjectName + logMessage + .lineTabDeilimeter
                 var log = Log(logMsg, id: objectName, order: LogOrder.responseDataParserNode)
 
@@ -148,7 +148,7 @@ open class ResponseDataParserNode: Node {
     private func parse(
         with data: UrlDataResponse,
         logContext: LoggingContextProtocol
-    ) async -> Result<(Json, String), Error> {
+    ) async -> NodeResult<(Json, String)> {
         do {
             let result = try json(from: data)
             return .success(result)

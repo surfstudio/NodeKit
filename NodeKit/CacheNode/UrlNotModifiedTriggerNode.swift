@@ -10,7 +10,7 @@ import Foundation
 
 /// Этот узел проверяет код ответа от сервера и в случае, если код равен 304 (NotModified)
 /// Узел посылает запрос в URL кэш.
-open class UrlNotModifiedTriggerNode: Node {
+open class UrlNotModifiedTriggerNode: AsyncNode {
 
     // MARK: - Properties
 
@@ -18,7 +18,7 @@ open class UrlNotModifiedTriggerNode: Node {
     public var next: any ResponseProcessingLayerNode
 
     /// Узел для чтения данных из кэша.
-    public var cacheReader: any Node<UrlNetworkRequest, Json>
+    public var cacheReader: any AsyncNode<UrlNetworkRequest, Json>
 
     // MARK: - Init and deinit
 
@@ -28,7 +28,7 @@ open class UrlNotModifiedTriggerNode: Node {
     ///   - next: Следующий узел для обратки.
     ///   - cacheReader: Узел для чтения данных из кэша.
     public init(next: some ResponseProcessingLayerNode,
-                cacheReader: some Node<UrlNetworkRequest, Json>) {
+                cacheReader: some AsyncNode<UrlNetworkRequest, Json>) {
         self.next = next
         self.cacheReader = cacheReader
     }
@@ -50,7 +50,7 @@ open class UrlNotModifiedTriggerNode: Node {
     open func process(
         _ data: UrlDataResponse,
         logContext: LoggingContextProtocol
-    ) async -> Result<Json, Error> {
+    ) async -> NodeResult<Json> {
         guard data.response.statusCode == 304 else {
             await logContext.add(makeErrorLog(code: data.response.statusCode))
             return await next.process(data, logContext: logContext)

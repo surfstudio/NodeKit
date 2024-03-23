@@ -16,10 +16,10 @@ public struct NodeDataResponse {
 
 /// Этот узел отправляет запрос на сервер и ожидает ответ.
 /// - Important: этот узел имеет состояние (statefull)
-open class RequestSenderNode<Type>: Node, Aborter {
+open class RequestSenderNode<Type>: AsyncNode, Aborter {
 
     /// Тип для узла, который будет обрабатывать ответ от сервера.
-    public typealias RawResponseProcessor = Node<NodeDataResponse, Type>
+    public typealias RawResponseProcessor = AsyncNode<NodeDataResponse, Type>
 
     /// Узел для обработки ответа.
     public var rawResponseProcessor: any RawResponseProcessor
@@ -84,7 +84,7 @@ open class RequestSenderNode<Type>: Node, Aborter {
     open func process(
         _ request: URLRequest,
         logContext: LoggingContextProtocol
-    ) async -> Result<Type, Error> {
+    ) async -> NodeResult<Type> {
         var log = Log(logViewObjectName, id: objectName, order: LogOrder.requestSenderNode)
         async let nodeResponse = nodeResponse(request, logContext: logContext)
 

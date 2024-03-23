@@ -6,10 +6,10 @@ import Foundation
 ///     - `RequestModel`
 ///     - `Node`
 ///     - `RequestRouterNode`
-open class MetadataConnectorNode<Raw, Output>: Node {
+open class MetadataConnectorNode<Raw, Output>: AsyncNode {
 
     /// Следующий в цепочке узел.
-    public var next: any Node<RequestModel<Raw>, Output>
+    public var next: any AsyncNode<RequestModel<Raw>, Output>
 
     /// Метаданные для запроса
     public var metadata: [String: String]
@@ -19,7 +19,7 @@ open class MetadataConnectorNode<Raw, Output>: Node {
     /// - Parameters:
     ///   - next: Следующий в цепочке узел.
     ///   - metadata: Метаданные для запроса.
-    public init(next: some Node<RequestModel<Raw>, Output>, metadata: [String: String]) {
+    public init(next: some AsyncNode<RequestModel<Raw>, Output>, metadata: [String: String]) {
         self.next = next
         self.metadata = metadata
     }
@@ -37,7 +37,7 @@ open class MetadataConnectorNode<Raw, Output>: Node {
     open func process(
         _ data: Raw,
         logContext: LoggingContextProtocol
-    ) async -> Result<Output, Error> {
+    ) async -> NodeResult<Output> {
         return await next.process(
             RequestModel(metadata: metadata, raw: data),
             logContext: logContext

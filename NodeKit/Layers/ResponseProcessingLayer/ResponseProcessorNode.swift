@@ -16,15 +16,15 @@ public enum ResponseProcessorNodeError: Error {
 }
 
 /// Этот узел занимается первичной обработкой ответа сервера.
-open class ResponseProcessorNode<Type>: Node {
+open class ResponseProcessorNode<Type>: AsyncNode {
 
     /// Следующий узел для обратки.
-    public let next: any Node<UrlDataResponse, Type>
+    public let next: any AsyncNode<UrlDataResponse, Type>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обратки.
-    public init(next: some Node<UrlDataResponse, Type>) {
+    public init(next: some AsyncNode<UrlDataResponse, Type>) {
         self.next = next
     }
 
@@ -85,7 +85,7 @@ open class ResponseProcessorNode<Type>: Node {
     open func process(
         _ data: NodeDataResponse,
         logContext: LoggingContextProtocol
-    ) async -> Result<Type, Error> {
+    ) async -> NodeResult<Type> {
         var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseProcessorNode)
 
         switch data.result {

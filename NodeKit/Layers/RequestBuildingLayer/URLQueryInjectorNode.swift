@@ -15,7 +15,7 @@ public enum URLQueryInjectorNodeError: Error {
 ///
 /// - Info:
 /// Использовать можно после `RequestRouterNode`.
-open class URLQueryInjectorNode<Raw, Output>: Node {
+open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
 
     // MARK: - Nested
 
@@ -25,7 +25,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
     // MARK: - Properties
 
     /// Следующий по порядку узел.
-    open var next: any Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>
+    open var next: any AsyncNode<RoutableRequestModel<UrlRouteProvider, Raw>, Output>
 
     open var config: URLQueryConfigModel
 
@@ -35,7 +35,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
     /// - Parameter next: Следующий по порядку узел.
     /// - Parameter config: Конфигурация для узла.
     public init(
-        next: any Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>,
+        next: any AsyncNode<RoutableRequestModel<UrlRouteProvider, Raw>, Output>,
         config: URLQueryConfigModel
     ) {
         self.next = next
@@ -87,7 +87,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
     open func process(
         _ data: RoutableRequestModel<UrlRouteProvider, Raw>,
         logContext: LoggingContextProtocol
-    ) async -> Result<Output, Error> {
+    ) async -> NodeResult<Output> {
         return await .withMappedExceptions {
             async let model = try transform(from: data)
             return await next.process(data, logContext: logContext)
@@ -124,7 +124,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
 
     private func transform(
         from data: RoutableRequestModel<UrlRouteProvider, Raw>
-    ) async throws -> Result<RoutableRequestModel<UrlRouteProvider, Raw>, Error> {
+    ) async throws -> NodeResult<RoutableRequestModel<UrlRouteProvider, Raw>> {
         guard !config.query.isEmpty else {
             return .success(data)
         }
@@ -144,7 +144,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
             }
     }
 
-    private func urlComponents(_ url: URL) async -> Result<URLComponents, Error> {
+    private func urlComponents(_ url: URL) async -> NodeResult<URLComponents> {
         guard var urlComponents = URLComponents(string: url.absoluteString) else {
             return .failure(NodeError.cantCreateUrlComponentsFromUrlString)
         }

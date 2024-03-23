@@ -24,15 +24,15 @@ public enum BaseTechnicalError: Error {
 /// Этот узел заниматеся маппингом технических ошибок
 /// (ошибок уровня ОС)
 /// - SeeAlso: `BaseTechnicalError`
-open class TechnicaErrorMapperNode: Node {
+open class TechnicaErrorMapperNode: AsyncNode {
 
     /// Следующий узел для обработки.
-    open var next: any Node<URLRequest, Json>
+    open var next: any AsyncNode<URLRequest, Json>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: any Node<URLRequest, Json>) {
+    public init(next: any AsyncNode<URLRequest, Json>) {
         self.next = next
     }
 
@@ -63,7 +63,7 @@ open class TechnicaErrorMapperNode: Node {
     open func process(
         _ data: URLRequest,
         logContext: LoggingContextProtocol
-    ) async -> Result<Json, Error> {
+    ) async -> NodeResult<Json> {
         return await next.process(data, logContext: logContext)
             .mapError { error in
                 switch (error as NSError).code {

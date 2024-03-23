@@ -5,10 +5,10 @@ import Foundation
 /// Всегда должен быть корневым узлом в графе обработчиков.
 /// Этот узел позволяет установить очередь на которой будет происходит дальнейшая обработк запроса
 /// И очередь на которой обработка будет закончена.
-open class ChainConfiguratorNode<I, O>: Node {
+open class ChainConfiguratorNode<I, O>: AsyncNode {
 
     /// Следующей узел для обработки.
-    public var next: any Node<I, O>
+    public var next: any AsyncNode<I, O>
     /// Очерель на которой необходимо выполнить все дальнейшие преобразования.
     public var beginQueue: DispatchQueue
     /// Очередь на которой необходимо выполнить возврат результата работы цепочки.
@@ -20,7 +20,7 @@ open class ChainConfiguratorNode<I, O>: Node {
     ///   - next: Следующей узел для обработки.
     ///   - beginQueue: Очерель на которой необходимо выполнить все дальнейшие преобразования.
     ///   - endQueue: Очередь на которой необходимо выполнить возврат результата работы цепочки.
-    public init(next: some Node<I, O>, beginQueue: DispatchQueue, endQueue: DispatchQueue) {
+    public init(next: some AsyncNode<I, O>, beginQueue: DispatchQueue, endQueue: DispatchQueue) {
         self.next = next
         self.beginQueue = beginQueue
         self.endQueue = endQueue
@@ -32,7 +32,7 @@ open class ChainConfiguratorNode<I, O>: Node {
     /// - `endQueue = .main`
     ///
     /// - Parameter next: Следующей узел для обработки.
-    public convenience init(next: some Node<I, O>) {
+    public convenience init(next: some AsyncNode<I, O>) {
         self.init(next: next, beginQueue: .global(qos: .userInitiated), endQueue: .main)
     }
 
@@ -54,7 +54,7 @@ open class ChainConfiguratorNode<I, O>: Node {
     open func process(
         _ data: I,
         logContext: LoggingContextProtocol
-    ) async -> Result<O, Error> {
+    ) async -> NodeResult<O> {
         return await next.process(data, logContext: logContext)
     }
 }

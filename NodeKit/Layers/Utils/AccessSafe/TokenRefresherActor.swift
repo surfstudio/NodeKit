@@ -6,15 +6,60 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
-actor TokenRefresherActor {
-    private var tokenRefreshChain: any Node<Void, Void>
-    private(set) var task: Task<Result<Void, Error>, Never>?
+/// Протокол актора обновления токена
+public protocol TokenRefresherActorProtocol: Actor {
+    /// Возвращает результат обновления токена.
+    /// Если процесс был запущен, ждет и возвращает результат предыдущего запроса
+    ///
+    /// - Parameter logContext: контекст для записи логов
+    /// - Returns результат обновления токена
+    func refresh(logContext: LoggingContextProtocol) async -> NodeResult<Void>
+    
+    /// Обновлят цепочку обновления токена
+    ///
+    /// - Parameter tokenRefreshChain: цепочка обновления токена
+    func update(tokenRefreshChain: some AsyncNode<Void, Void>)
+}
 
-    init(tokenRefreshChain: some Node<Void, Void>) {
+/// Релизация протокола актора для создания таски обновления токена
+actor TokenRefresherActor: TokenRefresherActorProtocol {
+
+    // MARK: - Private Properties
+    
+    /// Текущая таска обновления токена
+    private var task: Task<NodeResult<Void>, Never>?
+    
+    /// Цепочка нод, которые обновляют токен
+    private var tokenRefreshChain: any AsyncNode<Void, Void>
+    
+    // MARK: - Initialization
+
+    init(tokenRefreshChain: some AsyncNode<Void, Void>) {
         self.tokenRefreshChain = tokenRefreshChain
     }
+    
+    // MARK: - Methods
 
-    func refresh(logContext: LoggingContextProtocol) async -> Result<Void, Error> {
+    /// Возвращает результат обновления токена.
+    /// Если процесс был запущен, ждет и возвращает результат предыдущего запроса
+    ///
+    /// - Parameter logContext: контекст для записи логов
+    /// - Returns результат обновления токена
+    func refresh(logContext: LoggingContextProtocol) async -> NodeResult<Void> {
+        guard let task = task else {
+            return await resultFromNewTask(logContext: logContext)
+        }
+        return await task.value
+    }
+
+    /// Обновлят цепочку обновления токена
+    ///
+    /// - Parameter tokenRefreshChain: цепочка обновления токена
+    func update(tokenRefreshChain: some AsyncNode<Void, Void>) {
+        self.tokenRefreshChain = tokenRefreshChain
+    }
+    
+    private func resultFromNewTask(logContext: LoggingContextProtocol) async -> NodeResult<Void> {
         let refreshTask = Task {
             return await tokenRefreshChain.process((), logContext: logContext)
         }

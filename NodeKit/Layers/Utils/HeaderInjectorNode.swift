@@ -11,7 +11,7 @@ import Foundation
 
 /// Этот узел позволяет добавить любые хедеры в запрос.
 /// - SeeAlso: TransportLayerNode
-open class HeaderInjectorNode: Node {
+open class HeaderInjectorNode: AsyncNode {
 
     /// Следующий в цепочке узел.
     public var next: any TransportLayerNode
@@ -48,7 +48,7 @@ open class HeaderInjectorNode: Node {
     open func process(
         _ data: TransportUrlRequest,
         logContext: LoggingContextProtocol
-    ) async -> Result<Json, Error> {
+    ) async -> NodeResult<Json> {
         var resultHeaders = headers
         var log = logViewObjectName
         log += "Add headers \(headers)" + .lineTabDeilimeter

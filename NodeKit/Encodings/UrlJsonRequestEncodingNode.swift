@@ -8,16 +8,16 @@
 
 import Foundation
 
-open class UrlJsonRequestEncodingNode<Type>: Node {
+open class UrlJsonRequestEncodingNode<Type>: AsyncNode {
 
     /// Следующий узел для обработки.
-    public var next: any Node<TransportUrlRequest, Type>
+    public var next: any AsyncNode<TransportUrlRequest, Type>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameters:
     ///   - next: Следйющий узел для обработки.
-    public init(next: some Node<TransportUrlRequest, Type>) {
+    public init(next: some AsyncNode<TransportUrlRequest, Type>) {
         self.next = next
     }
 
@@ -53,7 +53,7 @@ open class UrlJsonRequestEncodingNode<Type>: Node {
     open func process(
         _ data: RequestEncodingModel,
         logContext: LoggingContextProtocol
-    ) async -> Result<Type, Error> {
+    ) async -> NodeResult<Type> {
         var log = getLogMessage(data)
         let paramEncoding = parameterEncoding(from: data)
 
