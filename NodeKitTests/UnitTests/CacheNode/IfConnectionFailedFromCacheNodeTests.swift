@@ -13,81 +13,118 @@ import XCTest
 import NodeKit
 
 public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
-
-    private class NextStub: Node {
-
-        var numberOfCalls: Int
-        var lambda: () -> Observer<Json>
-
-        init(with lambda: @escaping () -> Observer<Json>) {
-            self.lambda = lambda
-            self.numberOfCalls = 0
-        }
-
-        func process(_ data: URLRequest) -> Observer<Json> {
-            self.numberOfCalls += 1
-
-            return self.lambda()
-        }
+    
+    // MARK: - Dependencies
+    
+    private var logContextMock: LoggingContextMock!
+    private var cacheReaderNodeMock: AsyncNodeMock<UrlNetworkRequest, Json>!
+    private var mapperNode: TechnicaErrorMapperNode!
+    private var mapperNextNodeMock: AsyncNodeMock<URLRequest, Json>!
+    
+    // MARK: - Sut
+    
+    private var sut: IfConnectionFailedFromCacheNode!
+    
+    // MARK: - Lifecycle
+    
+    public override func setUp() {
+        super.setUp()
+        logContextMock = LoggingContextMock()
+        cacheReaderNodeMock = AsyncNodeMock()
+        mapperNextNodeMock = AsyncNodeMock()
+        mapperNode = TechnicaErrorMapperNode(next: mapperNextNodeMock)
+        sut = IfConnectionFailedFromCacheNode(next: mapperNode, cacheReaderNode: cacheReaderNodeMock)
     }
-
-    class ReaderStub: Node {
-
-        var numberOfCalls = 0
-
-        func process(_ data: UrlNetworkRequest) -> Observer<Json> {
-
-            self.numberOfCalls += 1
-
-            return .emit(data: Json())
-        }
+    
+    public override func tearDown() {
+        super.tearDown()
+        logContextMock = nil
+        cacheReaderNodeMock = nil
+        mapperNextNodeMock = nil
+        mapperNode = nil
+        sut = nil
     }
+    
+    // MARK: - Tests
 
-    public func testThatNodeWorkInCaseOfBadInternet() {
-
-        // Arrange
-
-        let next = NextStub(with: {
-            return .emit(error: NSError(domain: "app.network", code: -1009, userInfo: nil))
-        })
-
-        let reader = ReaderStub()
-        let mapper = TechnicaErrorMapperNode(next: next)
-        let testNode = IfConnectionFailedFromCacheNode(next: mapper, cacheReaderNode: reader)
-
+    public func testProcess_whenErrorReceived_thenNodeWorkInCaseOfBadInternet() {
+        // given
+        
         let request = URLRequest(url: URL(string: "test.ex.temp")!)
+        
+        mapperNextNodeMock.stubbedProccessResult = .emit(error: NSError(domain: "app.network", code: -1009, userInfo: nil))
+        cacheReaderNodeMock.stubbedProccessResult = .emit(data: Json())
 
-        // Act
+        // when
 
-        _ = testNode.process(request)
+        _ = sut.process(request)
 
-        // Assert
+        // then
 
-        XCTAssertEqual(next.numberOfCalls, 1)
-        XCTAssertEqual(reader.numberOfCalls, 1)
+        XCTAssertEqual(mapperNextNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(cacheReaderNodeMock.invokedProcessCount, 1)
     }
-
-    public func testThatNodeWorkInCaseOfGoodInternet() {
-        // Arrange
-
-        let next = NextStub(with: {
-            return .emit(data: Json())
-        })
-
-        let reader = ReaderStub()
-        let mapper = TechnicaErrorMapperNode(next: next)
-        let testNode = IfConnectionFailedFromCacheNode(next: mapper, cacheReaderNode: reader)
-
+    
+    public func testProcess_withoutError_thenNodeWorkInCaseOfGoodInternet() {
+        // given
+        
         let request = URLRequest(url: URL(string: "test.ex.temp")!)
+        
+        mapperNextNodeMock.stubbedProccessResult = .emit(data: Json())
+        cacheReaderNodeMock.stubbedProccessResult = .emit(data: Json())
 
-        // Act
+        // when
 
-        _ = testNode.process(request)
+        _ = sut.process(request)
 
-        // Assert
+        // then
 
-        XCTAssertEqual(next.numberOfCalls, 1)
-        XCTAssertEqual(reader.numberOfCalls, 0)
+        XCTAssertEqual(mapperNextNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(cacheReaderNodeMock.invokedProcessCount, 0)
     }
+    
+    public func testAsyncProcess_whenErrorReceived_thenNodeWorkInCaseOfBadInternet() async throws {
+        // given
+        
+        let request = URLRequest(url: URL(string: "test.ex.temp")!)
+        let expectedResult = ["test": "value"]
+        
+        mapperNextNodeMock.stubbedAsyncProccessResult = .failure(NSError(domain: "app.network", code: -1009, userInfo: nil))
+        cacheReaderNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
 
+        // when
+
+        let result = await sut.process(request, logContext: logContextMock)
+
+        // then
+
+        let unwrappedResult = try XCTUnwrap(result.get() as? [String: String])
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameter, request)
+        XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessParameter?.urlRequest, request)
+        XCTAssertEqual(unwrappedResult, expectedResult)
+    }
+    
+    public func testAsyncProcess_withoutError_thenNodeWorkInCaseOfGoodInternet() async throws {
+        // given
+        
+        let request = URLRequest(url: URL(string: "test.ex.temp")!)
+        let expectedResult = ["test2": "value2"]
+        
+        mapperNextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
+        cacheReaderNodeMock.stubbedAsyncProccessResult = .success(["test1": "value1"])
+
+        // when
+
+        let result = await sut.process(request, logContext: logContextMock)
+
+        // then
+
+        let unwrappedResult = try XCTUnwrap(result.get() as? [String: String])
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameter, request)
+        XCTAssertFalse(cacheReaderNodeMock.invokedAsyncProcess)
+        XCTAssertEqual(unwrappedResult, expectedResult)
+    }
 }

@@ -9,15 +9,15 @@
 import Foundation
 
 /// Этот узел умеет конвертировать ВХОДНЫЕ данные в RAW, НО не пытается декодировать ответ.
-open class RawEncoderNode<Input, Output>: Node where Input: RawEncodable {
+open class RawEncoderNode<Input, Output>: AsyncNode where Input: RawEncodable {
 
     /// Узел, который умеет работать с RAW
-    open var next: any Node<Input.Raw, Output>
+    open var next: any AsyncNode<Input.Raw, Output>
 
     /// Инициаллизирует объект
     ///
     /// - Parameter rawEncodable: Узел, который умеет работать с RAW.
-    public init(next: some Node<Input.Raw, Output>) {
+    public init(next: some AsyncNode<Input.Raw, Output>) {
         self.next = next
     }
 
@@ -40,7 +40,7 @@ open class RawEncoderNode<Input, Output>: Node where Input: RawEncodable {
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol
-    ) async -> Result<Output, Error> {
+    ) async -> NodeResult<Output> {
         return await .withMappedExceptions {
             return await next.process(try data.toRaw(), logContext: logContext)
         }

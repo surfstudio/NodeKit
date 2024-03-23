@@ -9,15 +9,15 @@
 import Foundation
 
 /// Узел, который позволяет передать на вход `Void`.
-open class VoidInputNode<Output>: Node {
+open class VoidInputNode<Output>: AsyncNode {
 
     /// Следующий узел для обработки.
-    public var next: any Node<Json, Output>
+    public var next: any AsyncNode<Json, Output>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: any Node<Json, Output>) {
+    public init(next: any AsyncNode<Json, Output>) {
         self.next = next
     }
 
@@ -30,7 +30,7 @@ open class VoidInputNode<Output>: Node {
     open func process(
         _ data: Void,
         logContext: LoggingContextProtocol
-    ) async -> Result<Output, Error> {
+    ) async -> NodeResult<Output> {
         return await next.process(Json(), logContext: logContext)
     }
 }

@@ -14,6 +14,7 @@ public protocol Aborter {
     /// Отменяет операцию.
     func cancel()
 
+    /// Отменяет асинхронную операцию.
     func cancel(logContext: LoggingContextProtocol)
 }
 
@@ -23,10 +24,10 @@ public protocol Aborter {
 /// - SeeAlso:
 ///     - `Aborter`
 ///     - `Node`
-open class AborterNode<Input, Output>: Node {
+open class AborterNode<Input, Output>: AsyncNode {
 
     /// Следюущий в цепочке узел
-    public var next: any Node<Input, Output>
+    public var next: any AsyncNode<Input, Output>
 
     /// Сущность, отменяющая преобразование
     public var aborter: Aborter
@@ -36,7 +37,7 @@ open class AborterNode<Input, Output>: Node {
     /// - Parameters:
     ///   - next: Следюущий в цепочке узел
     ///   - aborter: Сущность, отменяющая преобразование
-    public init(next: any Node<Input, Output>, aborter: Aborter) {
+    public init(next: any AsyncNode<Input, Output>, aborter: Aborter) {
         self.next = next
         self.aborter = aborter
     }
@@ -56,12 +57,12 @@ open class AborterNode<Input, Output>: Node {
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol
-    ) async -> Result<Output, Error> {
+    ) async -> NodeResult<Output> {
         return await .withMappedExceptions {
             try Task.checkCancellation()
             return .success(())
         }
-        .flatMap {
+        .asyncFlatMap {
             return await withTaskCancellationHandler(
                 operation: { return await next.process(data, logContext: logContext) },
                 onCancel: { aborter.cancel(logContext: logContext) }

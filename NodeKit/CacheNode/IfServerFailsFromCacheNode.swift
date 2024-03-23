@@ -10,19 +10,19 @@ import Foundation
 
 /// Узел реализует политику кэширования "Если интернета нет, то запросить данные из кэша"
 /// Этот узел работает с URL кэшом.
-open class IfConnectionFailedFromCacheNode: Node {
+open class IfConnectionFailedFromCacheNode: AsyncNode {
 
     /// Следующий узел для обработки.
-    public var next: any Node<URLRequest, Json>
+    public var next: any AsyncNode<URLRequest, Json>
     /// Узел, считывающий данные из URL кэша.
-    public var cacheReaderNode: any Node<UrlNetworkRequest, Json>
+    public var cacheReaderNode: any AsyncNode<UrlNetworkRequest, Json>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameters:
     ///   - next: Следующий узел для обработки.
     ///   - cacheReaderNode: Узел, считывающий данные из URL кэша.
-    public init(next: any Node<URLRequest, Json>, cacheReaderNode: any Node<UrlNetworkRequest, Json>) {
+    public init(next: any AsyncNode<URLRequest, Json>, cacheReaderNode: any AsyncNode<UrlNetworkRequest, Json>) {
         self.next = next
         self.cacheReaderNode = cacheReaderNode
     }
@@ -53,9 +53,9 @@ open class IfConnectionFailedFromCacheNode: Node {
     open func process(
         _ data: URLRequest,
         logContext: LoggingContextProtocol
-    ) async -> Result<Json, Error> {
+    ) async -> NodeResult<Json> {
         return await next.process(data, logContext: logContext)
-            .flatMapError { error in
+            .asyncFlatMapError { error in
                 let request = UrlNetworkRequest(urlRequest: data)
                 if error is BaseTechnicalError {
                     await logContext.add(makeBaseTechinalLog(with: error))

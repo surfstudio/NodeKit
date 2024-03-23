@@ -9,15 +9,15 @@
 import Foundation
 
 /// Этот узел отвечает за маппинг верхнего уровня DTO (`DTOConvertible`) в нижний уровень (`RawMappable`) и наборот.
-open class DTOMapperNode<Input, Output>: Node where Input: RawEncodable, Output: RawDecodable {
+open class DTOMapperNode<Input, Output>: AsyncNode where Input: RawEncodable, Output: RawDecodable {
 
     /// Следующий узел для обрабтки.
-    public var next: any Node<Input.Raw, Output.Raw>
+    public var next: any AsyncNode<Input.Raw, Output.Raw>
 
     /// Инциаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обрабтки.
-    public init(next: any Node<Input.Raw, Output.Raw>) {
+    public init(next: any AsyncNode<Input.Raw, Output.Raw>) {
         self.next = next
     }
 
@@ -54,24 +54,24 @@ open class DTOMapperNode<Input, Output>: Node where Input: RawEncodable, Output:
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol
-    ) async -> Result<Output, Error> {
+    ) async -> NodeResult<Output> {
         return await .withMappedExceptions {
             let raw = try data.toRaw()
             return .success(raw)
         }
-        .flatMapError { error in
+        .asyncFlatMapError { error in
             await log(error: error, logContext: logContext)
             return .failure(error)
         }
-        .flatMap { data in
+        .asyncFlatMap { data in
             await next.process(data, logContext: logContext)
         }
-        .flatMap { result in
+        .asyncFlatMap { result in
             await .withMappedExceptions {
                 let output = try Output.from(raw: result)
                 return .success(output)
             }
-            .flatMapError { error in
+            .asyncFlatMapError { error in
                 await log(error: error, logContext: logContext)
                 return .failure(error)
             }

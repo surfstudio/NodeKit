@@ -20,15 +20,14 @@ public enum BaseFirstCachePolicyNodeError: Error {
 /// Этот узел реализует политику кэширования
 /// "Сначала читаем из кэша, а затем запрашиваем у сервера"
 /// - Important: В ообщем случае слушатель может быть оповещен дважды. Первый раз, когда ответ прочитан из кэша, а второй раз, когда он был получен с сервера.
-open class FirstCachePolicyNode: Node {
-
+open class FirstCachePolicyNode: AsyncStreamNode {
     // MARK: - Nested
 
     /// Тип для читающего из URL кэша узла
-    public typealias CacheReaderNode = Node<UrlNetworkRequest, Json>
+    public typealias CacheReaderNode = AsyncNode<UrlNetworkRequest, Json>
 
     /// Тип для следующего узла
-    public typealias NextProcessorNode = Node<RawUrlRequest, Json>
+    public typealias NextProcessorNode = AsyncNode<RawUrlRequest, Json>
 
     // MARK: - Properties
 
@@ -71,29 +70,26 @@ open class FirstCachePolicyNode: Node {
 
         return result
     }
-
+    
     /// Пытается получить `URLRequest` и если удается, то обращается в кэш
     /// а затем, передает управление следующему узлу.
     /// В случае, если получить `URLRequest` не удалось,
     /// то управление просто передается следующему узлу
-    open func process(
+    public func process(
         _ data: RawUrlRequest,
         logContext: LoggingContextProtocol
-    ) async -> Result<Json, Error> {
-        return await next.process(data, logContext: logContext)
-//        let result = Context<Json>()
-//
-//        if let request = data.toUrlRequest() {
-//            cacheReaderNode.process(request)
-//                .onCompleted { result.emit(data: $0) }
-//                .onError { result.emit(error: $0)}
-//        }
-//
-//        next.process(data)
-//            .onCompleted { result.emit(data: $0)}
-//            .onError { result.emit(error: $0) }
-//
-//        return result
+    ) -> AsyncStream<NodeResult<Json>> {
+        return AsyncStream { continuation in
+            Task {
+                if let request = data.toUrlRequest() {
+                    let cacheResult = await cacheReaderNode.process(request, logContext: logContext)
+                    continuation.yield(cacheResult)
+                }
+                
+                let nextResult = await next.process(data, logContext: logContext)
+                continuation.yield(nextResult)
+                continuation.finish()
+            }
+        }
     }
-
 }

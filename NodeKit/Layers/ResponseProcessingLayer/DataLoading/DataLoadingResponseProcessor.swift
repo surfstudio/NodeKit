@@ -12,15 +12,15 @@ import Foundation
 /// Должен использоваться для тех случаях, когда конвертирование в JSON не нужно или не возможно (например загрузка картинок)
 /// Содержит указание на следующий узел, который нужен для постобработки.
 /// Например может использоваться для сохранения.
-open class DataLoadingResponseProcessor: Node {
+open class DataLoadingResponseProcessor: AsyncNode {
 
     /// Узел для постобработки загруженных данных.
-    open var next: (any Node<UrlDataResponse, Void>)?
+    open var next: (any AsyncNode<UrlDataResponse, Void>)?
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Узел для постобработки загруженных данных. По-умолчанию nil.
-    public init(next: (any Node<UrlDataResponse, Void>)? = nil) {
+    public init(next: (any AsyncNode<UrlDataResponse, Void>)? = nil) {
         self.next = next
     }
 
@@ -37,7 +37,7 @@ open class DataLoadingResponseProcessor: Node {
     open func process(
         _ data: UrlDataResponse,
         logContext: LoggingContextProtocol
-    ) async -> Result<Data, Error> {
+    ) async -> NodeResult<Data> {
         return await next?.process(data, logContext: logContext)
             .map { data.data } ?? .success(data.data)
     }

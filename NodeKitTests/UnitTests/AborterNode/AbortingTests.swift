@@ -12,37 +12,42 @@ import XCTest
 @testable
 import NodeKit
 
-public class AbortingTests: XCTestCase {
-
-
-    class MockAborter: Node, Aborter {
-
-        var cancelCallsNumber = 0
-
-        func process(_ data: Void) -> Observer<Void> {
-            let context = Context<Void>()
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) {
-                context.emit(data: ())
-            }
-
-            return context
-        }
-
-        func cancel() {
-            self.cancelCallsNumber += 1
-        }
+final class AbortingTests: XCTestCase {
+    
+    // MARK: - Dependencies
+    
+    private var aborterMock: AborterMock!
+    private var nextNodeMock: AsyncNodeMock<Void, Void>!
+    
+    // MARK: - Sut
+    
+    private var sut: AborterNode<Void, Void>!
+    
+    // MARK: - Lifecycle
+    
+    override func setUp() {
+        super.setUp()
+        aborterMock = AborterMock()
+        nextNodeMock = AsyncNodeMock()
+        sut = AborterNode(next: nextNodeMock, aborter: aborterMock)
     }
+    
+    override func tearDown() {
+        super.tearDown()
+        aborterMock = nil
+        nextNodeMock = nil
+        sut = nil
+    }
+    
+    // MARK: - Tests
 
+    func testAbort_thenPassedSuccess() {
+        // given
+        
+        let nextContext = Context<Void>()
+        nextNodeMock.stubbedProccessResult = nextContext
 
-    public func testAbortPassedSuccess() {
-
-        // Arrange
-
-        let abortedNode = MockAborter()
-        let aborterNode = AborterNode<Void, Void>(next: abortedNode, aborter: abortedNode)
-
-        // Act
+        // when
 
         let exp = self.expectation(description: "\(#function)")
 
@@ -52,7 +57,7 @@ public class AbortingTests: XCTestCase {
         var canceledCalls = 0
         var deferCalls = 0
 
-        let context = aborterNode
+        let context = sut
             .process(())
             .onCompleted { val in
                 completedCalls += 1
@@ -65,6 +70,9 @@ public class AbortingTests: XCTestCase {
                 deferCalls += 1
             }
 
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) {
+            nextContext.emit(data: ())
+        }
 
         DispatchQueue.main.async {
             context.cancel()
@@ -72,14 +80,19 @@ public class AbortingTests: XCTestCase {
 
         waitForExpectations(timeout: 10, handler: nil)
 
-        // Assert
+        // then
 
         XCTAssertEqual(canceledCalls, 1)
-        XCTAssertEqual(abortedNode.cancelCallsNumber, 1)
+        XCTAssertEqual(aborterMock.invokedCancelCount, 1)
 
         XCTAssertEqual(completedCalls, 0)
         XCTAssertEqual(errorCalls, 0)
         XCTAssertEqual(errorCalls, 0)
     }
+    
+    func testAsyncAbort_whenTaskCancelBeforeProcess_thenProcessNotCalled() {
+    }
+    
+    func testAsyncAbort_whenTaskCancelAfterProcess_thenProcessCalled_andPassedSuccess() {
+    }
 }
-

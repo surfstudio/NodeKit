@@ -1,10 +1,10 @@
 import Foundation
 
 /// Этот узел инициаллизирует URL запрос.
-open class RequestCreatorNode<Output>: Node {
+open class RequestCreatorNode<Output>: AsyncNode {
 
     /// Следующий узел для обработки.
-    public var next: any Node<URLRequest, Output>
+    public var next: any AsyncNode<URLRequest, Output>
 
     /// Провайдеры мета-данных
     public var providers: [MetadataProvider]
@@ -12,7 +12,7 @@ open class RequestCreatorNode<Output>: Node {
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: some Node<URLRequest, Output>, providers: [MetadataProvider] = []) {
+    public init(next: some AsyncNode<URLRequest, Output>, providers: [MetadataProvider] = []) {
         self.next = next
         self.providers = providers
     }
@@ -41,7 +41,7 @@ open class RequestCreatorNode<Output>: Node {
     open func process(
         _ data: TransportUrlRequest,
         logContext: LoggingContextProtocol
-    ) async -> Result<Output, Error> {
+    ) async -> NodeResult<Output> {
         var mergedHeaders = data.headers
 
         providers.map { $0.metadata() }.forEach { dict in

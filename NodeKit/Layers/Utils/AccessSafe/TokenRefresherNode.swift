@@ -11,15 +11,17 @@ import Foundation
 /// Узел для обновления токена и заморозки запросов.
 /// Внутри себя работает на приватных очередях.
 /// Ответ возращает в той очереди, из которой узел был вызыван.
-open class TokenRefresherNode: Node {
+open class TokenRefresherNode: AsyncNode {
 
     /// Цепочка для обновления токена.
-    public var tokenRefreshChain: any Node<Void, Void> {
+    public var tokenRefreshChain: any AsyncNode<Void, Void> {
         didSet {
-            tokenRefresherActor = TokenRefresherActor(tokenRefreshChain: tokenRefreshChain)
+            Task {
+                await tokenRefresherActor.update(tokenRefreshChain: tokenRefreshChain)
+            }
         }
     }
-    private var tokenRefresherActor: TokenRefresherActor
+    private var tokenRefresherActor: TokenRefresherActorProtocol
 
     private var isRequestSended = false
     private var observers: [Context<Void>]
@@ -30,9 +32,17 @@ open class TokenRefresherNode: Node {
     /// Иницицаллизирует
     ///
     /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
-    public init(tokenRefreshChain: any Node<Void, Void>) {
+    /// - Parameter tokenRefresherActor: Актор для обновления токена.
+    public init(tokenRefreshChain: any AsyncNode<Void, Void>, tokenRefresherActor: TokenRefresherActorProtocol) {
         self.tokenRefreshChain = tokenRefreshChain
         self.observers = []
+    }
+    
+    /// Иницицаллизирует
+    ///
+    /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
+    public convenience init(tokenRefreshChain: any AsyncNode<Void, Void>) {
+        self.init(tokenRefreshChain: tokenRefreshChain, tokenRefresherActor: TokenRefresherActor(tokenRefreshChain: tokenRefreshChain))
     }
 
     /// Проверяет, был ли отправлен запрос на обновление токена
@@ -94,10 +104,7 @@ open class TokenRefresherNode: Node {
     open func process(
         _ data: Void,
         logContext: LoggingContextProtocol
-    ) async -> Result<Void, Error> {
-        if let task = await tokenRefresherActor.task {
-            return await task.value
-        }
+    ) async -> NodeResult<Void> {
         return await tokenRefresherActor.refresh(logContext: logContext)
     }
 }

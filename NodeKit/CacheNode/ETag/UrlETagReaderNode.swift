@@ -9,7 +9,7 @@
 import Foundation
 
 /// Этот узел читает eTag-токен из хранилища и добавляет его к запросу.
-open class UrlETagReaderNode: Node {
+open class UrlETagReaderNode: AsyncNode {
 
     // Следующий узел для обработки.
     public var next: any TransportLayerNode
@@ -53,7 +53,7 @@ open class UrlETagReaderNode: Node {
     open func process(
         _ data: TransportUrlRequest, 
         logContext: LoggingContextProtocol
-    ) async -> Result<Json, Error> {
+    ) async -> NodeResult<Json> {
         guard
             let tag = UserDefaults.etagStorage?.value(forKey: data.url.absoluteString) as? String
         else {
