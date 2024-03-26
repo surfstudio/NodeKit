@@ -1,11 +1,11 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
     name: "NodeKit",
     platforms: [
-        .macOS(.v10_12),
-        .iOS(.v11),
+        .macOS(.v11),
+        .iOS(.v13),
     ],
     products: [
         .library(
@@ -13,7 +13,7 @@ let package = Package(
             targets: ["NodeKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/surfstudio/CoreEvents", .exact("2.0.2"))
+        .package(url: "https://github.com/surfstudio/CoreEvents", exact: "2.0.2")
     ],
     targets: [
         .target(
