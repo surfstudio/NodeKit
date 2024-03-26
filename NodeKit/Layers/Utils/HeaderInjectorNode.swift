@@ -11,10 +11,10 @@ import Foundation
 
 /// Этот узел позволяет добавить любые хедеры в запрос.
 /// - SeeAlso: TransportLayerNode
-open class HeaderInjectorNode: TransportLayerNode {
+open class HeaderInjectorNode: Node {
 
     /// Следующий в цепочке узел.
-    public var next: TransportLayerNode
+    public var next: any TransportLayerNode
 
     /// Хедеры, которые необходимо добавить.
     public var headers: [String: String]
@@ -24,13 +24,13 @@ open class HeaderInjectorNode: TransportLayerNode {
     /// - Parameters:
     ///   - next: Следующий в цепочке узел.
     ///   - headers: Хедеры, которые необходимо добавить.
-    public init(next: TransportLayerNode, headers: [String: String]) {
+    public init(next: some TransportLayerNode, headers: [String: String]) {
         self.next = next
         self.headers = headers
     }
 
     /// Добавляет хедеры к запросу и отправляет его слудующему в цепочке узлу.
-    open override func process(_ data: TransportUrlRequest) -> Observer<Json> {
+    open func process(_ data: TransportUrlRequest) -> Observer<Json> {
         var resultHeaders = self.headers
         var log = self.logViewObjectName
         log += "Add headers \(self.headers)" + .lineTabDeilimeter

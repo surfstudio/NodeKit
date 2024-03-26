@@ -140,7 +140,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     /// Создает цепочку узлов, описывающих слой построения запроса.
     ///
     /// - Parameter config: Конфигурация для запроса
-    open func requestBuildingChain() ->  Node<Json, Json> {
+    open func requestBuildingChain() ->  some Node<Json, Json> {
         let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, responseQueue: responseDispatchQueue, session: session)
 
         let urlRequestEncodingNode = UrlJsonRequestEncodingNode(next: transportChain)
@@ -155,7 +155,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     }
 
     /// Создает цепочку для отправки DTO моделей данных.
-    open func defaultInput<Input, Output>() -> Node<Input, Output>
+    open func defaultInput<Input, Output>() -> some Node<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let buildingChain = self.requestBuildingChain()
@@ -163,14 +163,14 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
             return ModelInputNode(next: dtoConverter)
     }
 
-    func supportNodes<Input, Output>() -> Node<Input, Output>
+    func supportNodes<Input, Output>() -> some Node<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let loadIndicator = LoadIndicatableNode<Input, Output>(next: self.defaultInput())
             return loadIndicator
     }
 
-    open func requestRouterNode<Raw, Output>(next: Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>) -> RequestRouterNode<Raw, UrlRouteProvider, Output> {
+    open func requestRouterNode<Raw, Output>(next: some Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>) -> RequestRouterNode<Raw, UrlRouteProvider, Output> {
 
         guard let url = self.route else {
             preconditionFailure("\(self.self) URLRoute is nil")
@@ -180,25 +180,25 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     }
 
     /// Создает цепочку по-умолчанию. Подразумеается работа с DTO-моделями.
-    open func build<Input, Output>() -> Node<Input, Output>
+    open func build<Input, Output>() -> some Node<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-            let input: Node<Input, Output> = self.supportNodes()
+            let input: some Node<Input, Output> = self.supportNodes()
             let config =  ChainConfiguratorNode<Input, Output>(next: input)
             return LoggerNode(next: config, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
-    open func build<Output>() -> Node<Void, Output>
+    open func build<Output>() -> some Node<Void, Output>
         where Output: DTODecodable, Output.DTO.Raw == Json {
-            let input: Node<Json, Output> = self.supportNodes()
+            let input: some Node<Json, Output> = self.supportNodes()
             let configNode = ChainConfiguratorNode<Json, Output>(next: input)
             let voidNode =  VoidInputNode(next: configNode)
             return LoggerNode(next: voidNode, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
-    open func build<Input>() -> Node<Input, Void>
+    open func build<Input>() -> some Node<Input, Void>
         where Input: DTOEncodable, Input.DTO.Raw == Json {
             let input = self.requestBuildingChain()
             let indicator = LoadIndicatableNode(next: input)
@@ -208,7 +208,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     }
 
     /// Создает обычную цепочку, только в качестве входных и вызодных данных имеет `Void`
-    open func build() -> Node<Void, Void> {
+    open func build() -> some Node<Void, Void> {
         let input = self.requestBuildingChain()
         let indicator = LoadIndicatableNode(next: input)
         let configNode = ChainConfiguratorNode(next: indicator)
@@ -220,7 +220,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     /// Для работы с этой цепочкой в качестве модели необходимо использовать `MultipartModel`
     ///
     /// - Returns: Корневой узел цепочки .
-    open func build<I, O>() -> Node<I, O> where O: DTODecodable, O.DTO.Raw == Json, I: DTOEncodable, I.DTO.Raw == MultipartModel<[String : Data]> {
+    open func build<I, O>() -> some Node<I, O> where O: DTODecodable, O.DTO.Raw == Json, I: DTOEncodable, I.DTO.Raw == MultipartModel<[String : Data]> {
 
         let reponseProcessor = self.serviceChain.urlResponseProcessingLayerChain()
 
@@ -246,7 +246,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     /// Позволяет загрузить бинарные данные (файл) с сервера без отправки какой-то модели на сервер.
     /// - Returns: Корневой узел цепочки.
-    open func loadData() -> Node<Void, Data> {
+    open func loadData() -> some Node<Void, Data> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
@@ -273,7 +273,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     /// Позволяет загрузить бинарные данные (файл) с сервера.
     /// - Returns: Корневой узел цепочки.
-    open func loadData<Input>() -> Node<Input, Data> where Input: DTOEncodable, Input.DTO.Raw == Json {
+    open func loadData<Input>() -> some Node<Input, Data> where Input: DTOEncodable, Input.DTO.Raw == Json {
 
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)

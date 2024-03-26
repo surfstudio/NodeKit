@@ -1,10 +1,10 @@
 import Foundation
 
 /// Этот узел инициаллизирует URL запрос.
-open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
+open class RequestCreatorNode<Output>: Node {
 
     /// Следующий узел для обработки.
-    public var next: Node<URLRequest, Output>
+    public var next: any Node<URLRequest, Output>
 
     /// Провайдеры мета-данных
     public var providers: [MetadataProvider]
@@ -12,7 +12,7 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<URLRequest, Output>, providers: [MetadataProvider] = []) {
+    public init(next: some Node<URLRequest, Output>, providers: [MetadataProvider] = []) {
         self.next = next
         self.providers = providers
     }
@@ -20,7 +20,7 @@ open class RequestCreatorNode<Output>: Node<TransportUrlRequest, Output> {
     /// Конфигурирует низкоуровненвый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
-    open override func process(_ data: TransportUrlRequest) -> Observer<Output> {
+    open func process(_ data: TransportUrlRequest) -> Observer<Output> {
         var mergedHeaders = data.headers
 
         self.providers.map { $0.metadata() }.forEach { dict in

@@ -21,10 +21,10 @@ public protocol Aborter {
 /// - SeeAlso:
 ///     - `Aborter`
 ///     - `Node`
-open class AborterNode<Input, Output>: Node<Input, Output> {
+open class AborterNode<Input, Output>: Node {
 
     /// Следюущий в цепочке узел
-    public var next: Node<Input, Output>
+    public var next: any Node<Input, Output>
 
     /// Сущность, отменяющая преобразование
     public var aborter: Aborter
@@ -34,14 +34,14 @@ open class AborterNode<Input, Output>: Node<Input, Output> {
     /// - Parameters:
     ///   - next: Следюущий в цепочке узел
     ///   - aborter: Сущность, отменяющая преобразование
-    public init(next: Node<Input, Output>, aborter: Aborter) {
+    public init(next: any Node<Input, Output>, aborter: Aborter) {
         self.next = next
         self.aborter = aborter
     }
 
     /// Просто передает поток следующему узлу
     /// и если пришло сообщение об отмене запроса, то посылает Aborter'у `cancel()`
-    open override func process(_ data: Input) -> Observer<Output> {
+    open func process(_ data: Input) -> Observer<Output> {
         return self.next.process(data)
             .multicast()
             .onCanceled { [weak self] in

@@ -20,10 +20,10 @@ extension UserDefaults {
 
 /// Этот узел сохраняет пришедшие eTag-токены.
 /// В качестве ключа используется абсолютный URL до endpoint-a.
-open class UrlETagSaverNode: ResponsePostprocessorLayerNode {
+open class UrlETagSaverNode: Node {
 
     /// Следующий узел для обработки.
-    public var next: ResponsePostprocessorLayerNode?
+    public var next: (any ResponsePostprocessorLayerNode)?
 
     /// Ключ, по которому необходимо получить eTag-токен из хедеров.
     /// По-молчанию имеет значение `ETagConstants.eTagResponseHeaderKey`
@@ -34,14 +34,14 @@ open class UrlETagSaverNode: ResponsePostprocessorLayerNode {
     /// - Parameters:
     ///   - next: Следующий узел для обработки.
     ///   - eTagHeaderKey: Ключ, по которому необходимо получить eTag-токен из хедеров.
-    public init(next: ResponsePostprocessorLayerNode?, eTagHeaderKey: String = ETagConstants.eTagResponseHeaderKey) {
+    public init(next: (any ResponsePostprocessorLayerNode)?, eTagHeaderKey: String = ETagConstants.eTagResponseHeaderKey) {
         self.next = next
         self.eTagHeaderKey = eTagHeaderKey
     }
 
     /// Пытается получить eTag-токен по ключу `UrlETagSaverNode.eTagHeaderKey`.
     /// В любом случае передает управление дальше.
-    open override func process(_ data: UrlProcessedResponse) -> Observer<Void> {
+    open func process(_ data: UrlProcessedResponse) -> Observer<Void> {
         guard let tag = data.response.allHeaderFields[self.eTagHeaderKey] as? String,
             let url = data.request.url,
             let urlAsKey = url.withOrderedQuery()

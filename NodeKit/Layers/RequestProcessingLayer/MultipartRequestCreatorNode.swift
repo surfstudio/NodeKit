@@ -24,21 +24,21 @@ public struct MultipartUrlRequest {
 }
 
 /// Узел, умеющий создавать multipart-запрос.
-open class MultipartRequestCreatorNode<Output>: Node<MultipartUrlRequest, Output> {
+open class MultipartRequestCreatorNode<Output>: Node {
     /// Следующий узел для обработки.
-    public var next: Node<URLRequest, Output>
+    public var next: any Node<URLRequest, Output>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<URLRequest, Output>) {
+    public init(next: any Node<URLRequest, Output>) {
         self.next = next
     }
 
     /// Конфигурирует низкоуровненвый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
-    open override func process(_ data: MultipartUrlRequest) -> Observer<Output> {
+    open func process(_ data: MultipartUrlRequest) -> Observer<Output> {
         do {
             var request = URLRequest(url: data.url)
             request.httpMethod = data.method.rawValue

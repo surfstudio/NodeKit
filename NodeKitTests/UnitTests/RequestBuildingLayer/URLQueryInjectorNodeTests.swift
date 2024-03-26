@@ -9,8 +9,8 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
     typealias Model = RoutableRequestModel<UrlRouteProvider, Json>
 
-    class StubNode: Node<Model, Model> {
-        override func process(_ data: Model) -> Observer<Model> {
+    class StubNode: Node {
+        func process(_ data: Model) -> Observer<Model> {
             return .emit(data: data)
         }
     }

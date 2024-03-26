@@ -23,11 +23,11 @@ extension DispatchQueue {
 public class ChainConfiguratorNodeTests: XCTestCase {
 
 
-    class NextStub: Node<Void, Void> {
+    class NextStub: Node {
 
         var queueLabel = ""
 
-        override func process(_ data: Void) -> Observer<Void> {
+        func process(_ data: Void) -> Observer<Void> {
             self.queueLabel = DispatchQueue.currentLabel
             return .emit(data: data)
         }

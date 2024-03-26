@@ -8,15 +8,15 @@
 
 import Foundation
 
-open class VoidIONode: Node<Void, Void> {
+open class VoidIONode: Node {
 
-    let next: Node<Json, Json>
+    let next: any Node<Json, Json>
 
-    init(next: Node<Json, Json>) {
+    init(next: some Node<Json, Json>) {
         self.next = next
     }
 
-    override open func process(_ data: Void) -> Observer<Void> {
+    open func process(_ data: Void) -> Observer<Void> {
         return self.next.process(Json()).map { json in
             let result = Context<Void>()
             var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.voidIONode)

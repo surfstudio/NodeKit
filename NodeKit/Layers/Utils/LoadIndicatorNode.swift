@@ -24,21 +24,21 @@ private enum LoadIndicatableNodeStatic {
 }
 
 /// Показыает спиннер загрзки в статус-баре.
-open class LoadIndicatableNode<Input, Output>: Node<Input, Output> {
+open class LoadIndicatableNode<Input, Output>: Node {
 
     /// Следующий узел в цепочке.
-    open var next: Node<Input, Output>
+    open var next: any Node<Input, Output>
 
     /// Инциаллизирует узел.
     ///
     /// - Parameter next: Следующий узел в цепочке.
-    public init(next: Node<Input, Output> ) {
+    public init(next: some Node<Input, Output> ) {
         self.next = next
     }
 
     /// Показывает индикатор и передает управление дальше.
     /// По окнчании работы цепочки скрывает индикатор.
-    open override func process(_ data: Input) -> Observer<Output> {
+    open func process(_ data: Input) -> Observer<Output> {
         DispatchQueue.global().async(flags: .barrier) {
             LoadIndicatableNodeStatic.requestConter += 1
         }

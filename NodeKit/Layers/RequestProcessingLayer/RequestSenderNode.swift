@@ -16,13 +16,13 @@ public struct NodeDataResponse {
 
 /// Этот узел отправляет запрос на сервер и ожидает ответ.
 /// - Important: этот узел имеет состояние (statefull)
-open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
+open class RequestSenderNode<Type>: Node, Aborter {
 
     /// Тип для узла, который будет обрабатывать ответ от сервера.
     public typealias RawResponseProcessor = Node<NodeDataResponse, Type>
 
     /// Узел для обработки ответа.
-    public var rawResponseProcessor: RawResponseProcessor
+    public var rawResponseProcessor: any RawResponseProcessor
 
     /// Менеджер сессий
     private(set) var manager: URLSession
@@ -38,7 +38,7 @@ open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
     /// - Parameter responseQueue: Очередь, на которой будет выполнен ответ
     /// - Parameter manager: URLSession менеджер, по умолчанию задается сессия из ServerRequestsManager
     public init(
-        rawResponseProcessor: RawResponseProcessor,
+        rawResponseProcessor: some RawResponseProcessor,
         responseQueue: DispatchQueue,
         manager: URLSession? = nil
     ) {
@@ -50,7 +50,7 @@ open class RequestSenderNode<Type>: Node<URLRequest, Type>, Aborter {
     /// Выполняет запрос,ожидает ответ и передает его следующему узлу.
     ///
     /// - Parameter request: Данные для исполнения запроса.
-    open override func process(_ request: URLRequest) -> Observer<Type> {
+    open func process(_ request: URLRequest) -> Observer<Type> {
 
         let context = Context<NodeDataResponse>()
         self.context = context

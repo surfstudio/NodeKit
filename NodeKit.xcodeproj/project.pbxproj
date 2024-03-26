@@ -15,6 +15,9 @@
 		390E697B2A13660C007F2304 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390E69782A13660C007F2304 /* MultipartFormData.swift */; };
 		390E697C2A13660C007F2304 /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390E69792A13660C007F2304 /* AFError.swift */; };
 		390E697D2A13660C007F2304 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390E697A2A13660C007F2304 /* HTTPHeaders.swift */; };
+		502F9D972BAA36CF00151A8D /* LoggingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D962BAA36CF00151A8D /* LoggingContext.swift */; };
+		502F9D9A2BAA389500151A8D /* LoggingContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D992BAA389500151A8D /* LoggingContextTests.swift */; };
+		502F9D9D2BAA39F400151A8D /* Log+Equatalbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */; };
 		90B608D4283E1110006F4309 /* NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B608CB283E1110006F4309 /* NodeKit.framework */; };
 		90B608DA283E1110006F4309 /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B608CE283E1110006F4309 /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90B6090E283E1268006F4309 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608E4283E1268006F4309 /* UrlCacheReaderNode.swift */; };
@@ -159,6 +162,9 @@
 		390E69782A13660C007F2304 /* MultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		390E69792A13660C007F2304 /* AFError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
 		390E697A2A13660C007F2304 /* HTTPHeaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
+		502F9D962BAA36CF00151A8D /* LoggingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContext.swift; sourceTree = "<group>"; };
+		502F9D992BAA389500151A8D /* LoggingContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContextTests.swift; sourceTree = "<group>"; };
+		502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+Equatalbe.swift"; sourceTree = "<group>"; };
 		90B608CB283E1110006F4309 /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90B608CE283E1110006F4309 /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		90B608D3283E1110006F4309 /* NodeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -343,6 +349,23 @@
 			path = EndToEndTests;
 			sourceTree = "<group>";
 		};
+		502F9D982BAA385E00151A8D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				502F9D9B2BAA39E700151A8D /* Equatable */,
+				502F9D992BAA389500151A8D /* LoggingContextTests.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		502F9D9B2BAA39E700151A8D /* Equatable */ = {
+			isa = PBXGroup;
+			children = (
+				502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */,
+			);
+			path = Equatable;
+			sourceTree = "<group>";
+		};
 		90B608C1283E1110006F4309 = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +403,7 @@
 		90B608D7283E1110006F4309 /* NodeKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				502F9D982BAA385E00151A8D /* Utils */,
 				39EF561B2A0E28C3004B77C0 /* EndToEndTests */,
 				90B609E2283E16DC006F4309 /* Infrastructure */,
 				90B60A1A283E19C5006F4309 /* Resources */,
@@ -756,6 +780,7 @@
 				90B60980283E1287006F4309 /* Logable.swift */,
 				90B60981283E1287006F4309 /* LoggerExtensions.swift */,
 				90B60982283E1287006F4309 /* Log.swift */,
+				502F9D962BAA36CF00151A8D /* LoggingContext.swift */,
 			);
 			path = Logging;
 			sourceTree = "<group>";
@@ -1136,6 +1161,7 @@
 				90B6098D283E1287006F4309 /* Method.swift in Sources */,
 				90B6092B283E1268006F4309 /* Debouncer.swift in Sources */,
 				90B609C2283E1287006F4309 /* MockerProxyConfigNode.swift in Sources */,
+				502F9D972BAA36CF00151A8D /* LoggingContext.swift in Sources */,
 				90B60988283E1287006F4309 /* URLQueryArrayKeyEncodingStartegy.swift in Sources */,
 				390E69752A136591007F2304 /* RequestEncodingModel.swift in Sources */,
 				90B609AF283E1287006F4309 /* RequestCreatorNode.swift in Sources */,
@@ -1175,10 +1201,12 @@
 				90B609F8283E16DC006F4309 /* EncodingTests.swift in Sources */,
 				90B609F1283E16DC006F4309 /* ChainConfiguratorNodeTests.swift in Sources */,
 				90B609F6283E16DC006F4309 /* URLQueryInjectorNodeTests.swift in Sources */,
+				502F9D9A2BAA389500151A8D /* LoggingContextTests.swift in Sources */,
 				90B609FD283E16DC006F4309 /* UrlETagReaderNodeTests.swift in Sources */,
 				90B609F7283E16DC006F4309 /* TokenRefresherNodeTests.swift in Sources */,
 				90B609F4283E16DC006F4309 /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift in Sources */,
 				90B609EF283E16DC006F4309 /* DTOMapperNodeTests.swift in Sources */,
+				502F9D9D2BAA39F400151A8D /* Log+Equatalbe.swift in Sources */,
 				90B60A09283E16DC006F4309 /* AbortingTests.swift in Sources */,
 				90B609FB283E16DC006F4309 /* TestUtls.swift in Sources */,
 				90B60A08283E16DC006F4309 /* Credentials.swift in Sources */,

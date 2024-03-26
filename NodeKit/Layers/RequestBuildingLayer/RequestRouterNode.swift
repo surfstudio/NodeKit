@@ -15,13 +15,13 @@ import Foundation
 ///     - `Node`
 ///     - `MetadataConnectorNode`
 ///     - `RequstEncoderNode`
-open class RequestRouterNode<Raw, Route, Output>: Node<RequestModel<Raw>, Output> {
+open class RequestRouterNode<Raw, Route, Output>: Node {
 
     /// Тип для следующего узла.
     public typealias NextNode = Node<RoutableRequestModel<Route, Raw>, Output>
 
     /// Следующий узел для обработки.
-    public var next: NextNode
+    public var next: any NextNode
 
     /// Маршрут для запроса.
     public var route: Route
@@ -31,13 +31,13 @@ open class RequestRouterNode<Raw, Route, Output>: Node<RequestModel<Raw>, Output
     /// - Parameters:
     ///   - next: Следующий узел для обработки.
     ///   - route: Маршрут для запроса.
-    public init(next: NextNode, route: Route) {
+    public init(next: any NextNode, route: Route) {
         self.next = next
         self.route = route
     }
 
     /// Преобразует `RequestModel` в `RoutableRequestModel` и передает управление следующему узлу
-    open override func process(_ data: RequestModel<Raw>) -> Observer<Output> {
+    open func process(_ data: RequestModel<Raw>) -> Observer<Output> {
         return self.next.process(RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: self.route))
     }
 }

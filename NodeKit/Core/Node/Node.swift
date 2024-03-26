@@ -22,7 +22,7 @@ import Foundation
 /// - Отдельный узел для получения ответа
 /// - Отдельный ухел для валидации ответа
 /// Узел может осдержать в себе несколько других узлов, таким образом возможно инкапсулировать цепочку операций над данными. 
-public protocol NodeProtocol {
+public protocol Node<Input, Output> {
 
     /// Тип данных, который узел получает на вход
     associatedtype Input
@@ -34,17 +34,4 @@ public protocol NodeProtocol {
     /// - Parameter data: Входные данные
     /// - Returns: Подписка на процесс обработки данных.
     func process(_ data: Input) -> Observer<Output>
-}
-
-/// Type erasure для `NodeProtocol`
-/// Все узлы необходимо наследовать от этого класса
-/// При наследовании **необходимо** переопределить метод `process(_ data: Input)`
-/// В противном случае при выхове этого метода приложение будет крашится
-open class Node<Input, Output>: NodeProtocol {
-
-    public init() { }
-
-    open func process(_ data: Input) -> Observer<Output> {
-        fatalError("\(self.self) \(#function) must be overriden in subclass")
-    }
 }

@@ -10,22 +10,22 @@ import Foundation
 
 /// Этот узел занимается десериализаций данных ответа в `JSON`.
 /// В случае 204-го ответа далее передает пустой `Json`.
-open class ResponseDataPreprocessorNode: ResponseProcessingLayerNode {
+open class ResponseDataPreprocessorNode: Node {
 
     /// Следующий узел для обработки.
-    public var next: ResponseProcessingLayerNode
+    public var next: any ResponseProcessingLayerNode
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: ResponseProcessingLayerNode) {
+    public init(next: some ResponseProcessingLayerNode) {
         self.next = next
     }
 
     /// Сериализует "сырые" данные в `Json`
     ///
     /// - Parameter data: Представление ответа.
-    open override func process(_ data: UrlDataResponse) -> Observer<Json> {
+    open func process(_ data: UrlDataResponse) -> Observer<Json> {
         var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.responseDataPreprocessorNode)
 
         guard data.response.statusCode != 204 else {

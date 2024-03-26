@@ -14,13 +14,13 @@ import NodeKit
 
 public class UrlETagReaderNodeTests: XCTestCase {
 
-    class MockNode: TransportLayerNode {
+    class MockNode: Node {
 
         var tag: String? = nil
 
         var key = ETagConstants.eTagRequestHeaderKey
 
-        override func process(_ data: TransportUrlRequest) -> Observer<Json> {
+        func process(_ data: TransportUrlRequest) -> Observer<Json> {
             tag = data.headers[self.key]
 
             return .emit(data: Json())

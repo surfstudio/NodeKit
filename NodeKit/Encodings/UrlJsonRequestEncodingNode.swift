@@ -8,20 +8,20 @@
 
 import Foundation
 
-open class UrlJsonRequestEncodingNode<Type>: Node<RequestEncodingModel, Type> {
+open class UrlJsonRequestEncodingNode<Type>: Node {
 
     /// Следующий узел для обработки.
-    public var next: Node<TransportUrlRequest, Type>
+    public var next: any Node<TransportUrlRequest, Type>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameters:
     ///   - next: Следйющий узел для обработки.
-    public init(next: Node<TransportUrlRequest, Type>) {
+    public init(next: some Node<TransportUrlRequest, Type>) {
         self.next = next
     }
 
-    open override func process(_ data: RequestEncodingModel) -> Observer<Type> {
+    open func process(_ data: RequestEncodingModel) -> Observer<Type> {
         var log = getLogMessage(data)
         let request: TransportUrlRequest?
         let paramEncoding = { () -> ParameterEncoding? in

@@ -10,15 +10,15 @@ import Foundation
 
 /// Узел для инциаллизации обработки данных.
 /// Иcпользуется для работы с моделями, которые представлены двумя слоями DTO.
-public class ModelInputNode<Input, Output>: Node<Input, Output> where Input: DTOEncodable, Output: DTODecodable {
+public class ModelInputNode<Input, Output>: Node where Input: DTOEncodable, Output: DTODecodable {
 
     /// Следующий узел для обработки.
-    public var next: Node<Input.DTO, Output.DTO>
+    public var next: any Node<Input.DTO, Output.DTO>
 
     /// Инциаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<Input.DTO, Output.DTO>) {
+    public init(next: any Node<Input.DTO, Output.DTO>) {
         self.next = next
     }
 
@@ -27,7 +27,7 @@ public class ModelInputNode<Input, Output>: Node<Input, Output> where Input: DTO
     /// Если при маппинге произошла ошибка, то она будет проброшена выше.
     ///
     /// - Parameter data: Данные для запроса.
-    open override func process(_ data: Input) -> Observer<Output> {
+    open func process(_ data: Input) -> Observer<Output> {
 
         let context = Context<Output>()
 

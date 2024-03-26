@@ -14,7 +14,7 @@ import NodeKit
 
 class DTOMapperNodeTests: XCTestCase {
     
-    class StubNode: Node<Json, Json> {
+    class StubNode: Node {
         let json: Json
         let resultError: Error?
         
@@ -24,7 +24,7 @@ class DTOMapperNodeTests: XCTestCase {
         }
         
         @discardableResult
-        public override func process(_ data: Json) -> Observer<Json> {
+        public func process(_ data: Json) -> Observer<Json> {
             if let error = resultError {
                 var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.dtoMapperNode)
                 log += "\(error)"

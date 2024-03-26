@@ -1,4 +1,5 @@
 {
+  "originHash" : "1d2e6911b0388532b33f83466feee8deadacbc6241719180eb45fd871a5091ac",
   "pins" : [
     {
       "identity" : "coreevents",
@@ -10,5 +11,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
