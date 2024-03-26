@@ -20,7 +20,7 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
     // MARK: - Nested
 
     /// Тип ошибки для этого узла.
-    public typealias Error = URLQueryInjectorNodeError
+    public typealias NodeError = URLQueryInjectorNodeError
 
     // MARK: - Properties
 
