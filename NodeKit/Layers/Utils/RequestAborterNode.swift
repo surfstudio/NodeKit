@@ -64,7 +64,13 @@ open class AborterNode<Input, Output>: AsyncNode {
         }
         .asyncFlatMap {
             return await withTaskCancellationHandler(
-                operation: { return await next.process(data, logContext: logContext) },
+                operation: {
+                    return await .withMappedExceptions {
+                        let result = await next.process(data, logContext: logContext)
+                        try Task.checkCancellation()
+                        return result
+                    }
+                },
                 onCancel: { aborter.cancel(logContext: logContext) }
             )
         }

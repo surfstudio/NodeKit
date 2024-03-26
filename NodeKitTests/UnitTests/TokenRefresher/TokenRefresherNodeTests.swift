@@ -31,7 +31,10 @@ public class TokenRefresherNodeTests: XCTestCase {
         tokenRefresherActorMock = TokenRefresherActorMock()
         logContextMock = LoggingContextMock()
         tokenRefreshChainMock = AsyncNodeMock()
-        sut = TokenRefresherNode(tokenRefreshChain: tokenRefreshChainMock, tokenRefresherActor: tokenRefresherActorMock)
+        sut = TokenRefresherNode(
+            tokenRefreshChain: tokenRefreshChainMock,
+            tokenRefresherActor: tokenRefresherActorMock
+        )
     }
     
     public override func tearDown() {
@@ -107,14 +110,14 @@ public class TokenRefresherNodeTests: XCTestCase {
         
         // when
 
-        for _ in 0...countOfRequests {
+        for _ in 0..<countOfRequests {
             _ = await sut.process((), logContext: logContextMock)
         }
         
         // then
         
         let refreshCount = await tokenRefresherActorMock.invokedRefreshCount
-        XCTAssertEqual(refreshCount, 1)
+        XCTAssertEqual(refreshCount, countOfRequests)
     }
     
     private func stubNewContextTotokenRefreshChain() {
