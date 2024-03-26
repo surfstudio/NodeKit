@@ -28,12 +28,12 @@ open class UrlCacheWriterNode: AsyncNode {
         _ data: UrlProcessedResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Void> {
-        let cahced = CachedURLResponse(
+        let cached = CachedURLResponse(
             response: data.response,
             data: data.data,
             storagePolicy: .allowed
         )
-        URLCache.shared.storeCachedResponse(cahced, for: data.request)
+        URLCache.shared.storeCachedResponse(cached, for: data.request)
         return .success(())
     }
 }
