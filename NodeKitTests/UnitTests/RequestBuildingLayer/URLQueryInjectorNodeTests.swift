@@ -9,9 +9,16 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
     typealias Model = RoutableRequestModel<UrlRouteProvider, Json>
 
-    class StubNode: Node {
+    class StubNode: AsyncNode {
         func process(_ data: Model) -> Observer<Model> {
             return .emit(data: data)
+        }
+        
+        func process(
+            _ data: RoutableRequestModel<UrlRouteProvider, Json>,
+            logContext: LoggingContextProtocol
+        ) async -> NodeResult<RoutableRequestModel<UrlRouteProvider, Json>> {
+            return .success(data)
         }
     }
 

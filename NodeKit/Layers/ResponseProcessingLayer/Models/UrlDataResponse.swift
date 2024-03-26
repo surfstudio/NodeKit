@@ -10,7 +10,7 @@ import Foundation
 
 /// Модель представления ответа сервера.
 /// Используется для передачи информации внутри цепочки обработки ответа.
-public struct UrlDataResponse {
+public struct UrlDataResponse: Equatable {
     /// Запрос, отправленный на сервер.
     public let request: URLRequest
     /// Ответ, полученный от сервера
@@ -33,5 +33,4 @@ public struct UrlDataResponse {
         self.metrics = metrics
         self.serializationDuration = serializationDuration
     }
-
 }

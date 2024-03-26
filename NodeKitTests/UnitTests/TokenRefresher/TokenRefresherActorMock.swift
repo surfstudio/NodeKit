@@ -14,10 +14,15 @@ actor TokenRefresherActorMock: TokenRefresherActorProtocol {
     var invokedRefreshCount = 0
     var invokedRefreshPrameter: LoggingContextProtocol?
     var invokedRefreshParameterList: [LoggingContextProtocol] = []
+    var stubbedRefreshRunFunction: (() async -> Void)?
     var stubbedRefreshResult: NodeResult<Void>!
     
     func stub(result: NodeResult<Void>!) {
         stubbedRefreshResult = result
+    }
+    
+    func stub(runFunction: @escaping (() async -> Void)) {
+        stubbedRefreshRunFunction = runFunction
     }
     
     func refresh(logContext: LoggingContextProtocol) async -> NodeResult<Void> {
@@ -25,6 +30,9 @@ actor TokenRefresherActorMock: TokenRefresherActorProtocol {
         invokedRefreshCount += 1
         invokedRefreshPrameter = logContext
         invokedRefreshParameterList.append(logContext)
+        if let function = stubbedRefreshRunFunction {
+            await function()
+        }
         return stubbedRefreshResult
     }
     

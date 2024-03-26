@@ -41,7 +41,7 @@ final class TokenRefresherActorTests: XCTestCase {
         // given
         
         let expectedChain = AsyncNodeMock<Void, Void>()
-        tokenRefreshChain.stubbedAsyncProccessResult = .success(())
+        expectedChain.stubbedAsyncProccessResult = .success(())
         
         // when
         

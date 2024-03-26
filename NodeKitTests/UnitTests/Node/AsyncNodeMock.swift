@@ -36,7 +36,9 @@ final class AsyncNodeMock<Input, Output>: AsyncNode {
         invokedAsyncProcessCount += 1
         invokedAsyncProcessParameter = data
         invokedAsyncProcessParameterList.append(data)
-        await stubbedAsyncProcessRunFunction?()
+        if let function = stubbedAsyncProcessRunFunction {
+            await function()
+        }
         return stubbedAsyncProccessResult
     }
 }

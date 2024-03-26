@@ -35,6 +35,7 @@ open class TokenRefresherNode: AsyncNode {
     /// - Parameter tokenRefresherActor: Актор для обновления токена.
     public init(tokenRefreshChain: any AsyncNode<Void, Void>, tokenRefresherActor: TokenRefresherActorProtocol) {
         self.tokenRefreshChain = tokenRefreshChain
+        self.tokenRefresherActor = tokenRefresherActor
         self.observers = []
     }
     
