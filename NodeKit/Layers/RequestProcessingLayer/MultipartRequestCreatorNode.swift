@@ -35,7 +35,7 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
         self.next = next
     }
 
-    /// Конфигурирует низкоуровненвый запрос.
+    /// Конфигурирует низкоуровневый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open func process(_ data: MultipartUrlRequest) -> Observer<Output> {
@@ -59,7 +59,7 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
         }
     }
 
-    /// Конфигурирует низкоуровненвый запрос.
+    /// Конфигурирует низкоуровневый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open func process(

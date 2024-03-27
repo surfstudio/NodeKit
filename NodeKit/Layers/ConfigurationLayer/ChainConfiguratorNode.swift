@@ -36,7 +36,7 @@ open class ChainConfiguratorNode<I, O>: AsyncNode {
         self.init(next: next, beginQueue: .global(qos: .userInitiated), endQueue: .main)
     }
 
-    /// Созздает асинхронный контект с очередью `beginQueue`,
+    /// оздает асинхронный контекст с очередью `beginQueue`,
     /// затем выполняет всю цепочку операций и диспатчит ответ на `endQueue`
     ///
     /// - Parameter data: Данные для обработки
@@ -47,8 +47,7 @@ open class ChainConfiguratorNode<I, O>: AsyncNode {
             .dispatchOn(self.endQueue)
     }
 
-    /// Созздает асинхронный контект с очередью `beginQueue`,
-    /// затем выполняет всю цепочку операций и диспатчит ответ на `endQueue`
+    /// Передает управление следующему узлу
     ///
     /// - Parameter data: Данные для обработки
     open func process(

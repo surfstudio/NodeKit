@@ -40,7 +40,7 @@ open class ResponseHttpErrorProcessorNode<Type>: AsyncNode {
         self.next = next
     }
 
-    /// Сопосотавляет HTTP-коды с заданными и в случае их несовпадения передает управление дальше.
+    /// Сопоставляет HTTP-коды с заданными и в случае их несовпадения передает управление дальше.
     /// В противном случае возвращает `HttpError`
     ///
     /// - Parameter data: Модель ответа сервера.
@@ -66,7 +66,7 @@ open class ResponseHttpErrorProcessorNode<Type>: AsyncNode {
         return self.next.process(data).log(Log(log, id: self.objectName, order: LogOrder.responseHttpErrorProcessorNode))
     }
 
-    /// Сопосотавляет HTTP-коды с заданными и в случае их несовпадения передает управление дальше.
+    /// Сопоставляет HTTP-коды с заданными и в случае их несовпадения передает управление дальше.
     /// В противном случае возвращает `HttpError`
     ///
     /// - Parameter data: Модель ответа сервера.

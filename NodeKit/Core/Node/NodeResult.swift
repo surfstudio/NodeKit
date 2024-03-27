@@ -9,13 +9,13 @@
 /// Результат метода обработки данных узла.
 public typealias NodeResult<Output> = Result<Output, Error>
 
-extension NodeResult {
+public extension NodeResult {
     
     /// Метод асинхронной трансформации положительного результата
     ///
     /// - Parameter transform: Ассинхронная функция трансформации положительного результата
     /// - Returns: Результат применения трансформации.
-    @inlinable public func asyncFlatMap<NewSuccess>(
+    @inlinable func asyncFlatMap<NewSuccess>(
         _ transform: (Success) async -> NodeResult<NewSuccess>
     ) async -> NodeResult<NewSuccess> {
         switch self {
@@ -30,7 +30,7 @@ extension NodeResult {
     ///
     /// - Parameter transform: Ассинхронная функция трансформации ошибки
     /// - Returns: Результат применения трансформации.
-    @inlinable public func asyncFlatMapError(
+    @inlinable func asyncFlatMapError(
         _ transform: (Failure) async -> NodeResult<Success>
     ) async -> NodeResult<Success> {
         switch self {
@@ -45,7 +45,7 @@ extension NodeResult {
     ///
     /// - Parameter transform: Функция трансформации ошибки, способная выкинуть Exception
     /// - Returns: Результат применения трансформации или Exception.
-    @inlinable public func map<NewSuccess>(
+    @inlinable func map<NewSuccess>(
         _ transform: (Success) throws -> NewSuccess
     ) rethrows -> NodeResult<NewSuccess> {
         switch self {
@@ -58,8 +58,9 @@ extension NodeResult {
 
     /// Метод вызывает ассинхронную функцию и оборачивает пойманные Exceptions в failure(error)
     ///
-    /// - Parameter customError: Ошибка, которая будет передаваться в failure вместо Exeception
-    /// - Parameter function: Ассинхронная функция, способная выкинуть Exception
+    /// - Parameters:
+    ///   - customError: Ошибка, которая будет передаваться в failure вместо Exeception
+    ///   - function: Ассинхронная функция, способная выкинуть Exception
     /// - Returns: Результат с преобразованными Exceptions в failure.
     static func withMappedExceptions<T>(
         _ customError: Error? = nil,
