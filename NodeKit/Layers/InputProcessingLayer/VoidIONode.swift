@@ -8,11 +8,11 @@
 
 import Foundation
 
-open class VoidIONode: Node {
+open class VoidIONode: AsyncNode {
 
-    let next: any Node<Json, Json>
+    let next: any AsyncNode<Json, Json>
 
-    init(next: some Node<Json, Json>) {
+    init(next: some AsyncNode<Json, Json>) {
         self.next = next
     }
 
@@ -26,6 +26,23 @@ open class VoidIONode: Node {
                 result.log(log)
             }
             return result.emit(data: ())
+        }
+    }
+
+    open func process(
+        _ data: Void,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Void> {
+        return await next.process(Json(), logContext: logContext).asyncFlatMap { json in
+            let result = Context<Void>()
+            if !json.isEmpty {
+                var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidIONode)
+                log += "VoidIOtNode used but request have not empty response"
+                log += .lineTabDeilimeter
+                log += "\(json)"
+                await logContext.add(log)
+            }
+            return .success(())
         }
     }
 }

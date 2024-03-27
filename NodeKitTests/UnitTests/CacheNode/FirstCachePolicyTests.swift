@@ -12,53 +12,51 @@ import XCTest
 @testable
 import NodeKit
 
-public class FirstCachePolicyTests: XCTestCase {
-
-    private class NextStub: Node {
-
-        var numberOfCalls = 0
-
-        func process(_ data: RawUrlRequest) -> Observer<Json> {
-            self.numberOfCalls += 1
-
-            let result = Context<Json>()
-            DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
-                result.emit(data: Json())
-            })
-            return result
-        }
+final class FirstCachePolicyTests: XCTestCase {
+    
+    // MARK: - Dependencies
+    
+    private var nextNodeMock: AsyncNodeMock<RawUrlRequest, Json>!
+    private var readerNodeMock: AsyncNodeMock<UrlNetworkRequest, Json>!
+    private var logContextMock: LoggingContextMock!
+    
+    // MARK: - Sut
+    
+    private var sut: FirstCachePolicyNode!
+    
+    // MARK: - Lifecycle
+    
+    override func setUp() {
+        super.setUp()
+        nextNodeMock = AsyncNodeMock()
+        readerNodeMock = AsyncNodeMock()
+        logContextMock = LoggingContextMock()
+        sut = FirstCachePolicyNode(cacheReaderNode: readerNodeMock, next: nextNodeMock)
     }
-
-    class ReaderStub: Node {
-
-        var numberOfCalls = 0
-
-        func process(_ data: UrlNetworkRequest) -> Observer<Json> {
-
-            self.numberOfCalls += 1
-
-            return .emit(data: Json())
-        }
+    
+    override func tearDown() {
+        super.tearDown()
+        nextNodeMock = nil
+        readerNodeMock = nil
+        logContextMock = nil
+        sut = nil
     }
-
-    public func testThatNextNodeCalledInCaseOfBadInput() {
-
-        // Arrange
-
-        let next = NextStub()
-        let reader = ReaderStub()
-
-        let node = FirstCachePolicyNode(cacheReaderNode: reader, next: next)
-
-        // Act
-
+    
+    // MARK: - Tests
+    
+    func testProcess_whenBadInput_thenNextCalled() {
+        // given
+        
         let expectation = self.expectation(description: "\(#function)")
-
-        var completedCalls = 0
-
         let request = RawUrlRequest(dataRequest: nil)
+        
+        var completedCalls = 0
+        
+        nextNodeMock.stubbedProccessResult = .emit(data: Json())
 
-        node.process(request).onCompleted { data in
+        // when
+
+        sut.process(request).onCompleted { data in
             completedCalls += 1
             expectation.fulfill()
         }
@@ -70,31 +68,31 @@ public class FirstCachePolicyTests: XCTestCase {
             }
             XCTFail("\(err)")
         }
-
-        // Assert
-
+        
+        // then
+        
         XCTAssertEqual(completedCalls, 1)
-        XCTAssertEqual(next.numberOfCalls, 1)
-        XCTAssertEqual(reader.numberOfCalls, 0)
+        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
+        XCTAssertFalse(readerNodeMock.invokedProcess)
     }
-
-    public func testThatNextNodeCalledInCaseOfGoodInput() {
-
-        // Arrange
-
-        let next = NextStub()
-        let reader = ReaderStub()
-
-        let node = FirstCachePolicyNode(cacheReaderNode: reader, next: next)
-
-        // Act
-
+    
+    func testProcess_whenGoodInput_thenReaderCalled() {
+        // given
+        
         let expectation = self.expectation(description: "\(#function)")
-
-        var completedCalls = 0
         let request = RawUrlRequest(dataRequest: URLRequest(url: URL(string: "test.ex.temp")!))
+        
+        var completedCalls = 0
+        
+        let nextNodeContext = Context<Json>()
+        let readerNodeContext = Context<Json>()
+        
+        nextNodeMock.stubbedProccessResult = nextNodeContext
+        readerNodeMock.stubbedProccessResult = readerNodeContext
+        
+        // when
 
-        node.process(request).onCompleted { data in
+        sut.process(request).onCompleted { data in
             completedCalls += 1
             if completedCalls == 2 {
                 expectation.fulfill()
@@ -104,14 +102,72 @@ public class FirstCachePolicyTests: XCTestCase {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
             expectation.fulfill()
         }
+        
+        nextNodeContext.emit(data: Json())
+        readerNodeContext.emit(data: Json())
 
         self.waitForExpectations(timeout: 30, handler: nil)
 
-        // Assert
+        // then
 
         XCTAssertEqual(completedCalls, 2)
-        XCTAssertEqual(next.numberOfCalls, 1)
-        XCTAssertEqual(reader.numberOfCalls, 1)
+        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(readerNodeMock.invokedProcessCount, 1)
     }
+    
+    func testAsyncProcess_whenBadInput_thenNextCalled() async throws {
+        // given
+        
+        let exepctedNextResult = ["test0": "value0"]
+        let request = RawUrlRequest(dataRequest: nil)
+        
+        var results: [NodeResult<Json>] = []
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(exepctedNextResult)
 
+        // when
+
+        for await result in sut.process(request, logContext: logContextMock) {
+            results.append(result)
+        }
+        
+        // then
+        
+        let firstResult = try XCTUnwrap(try results[0].get() as? [String: String])
+        
+        XCTAssertEqual(results.count, 1)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(firstResult, exepctedNextResult)
+        XCTAssertFalse(readerNodeMock.invokedAsyncProcess)
+    }
+    
+    func testAsyncProcess_whenGoodInput_thenReaderCalled() async throws {
+        // given
+        
+        let exepctedNextResult = ["test": "value"]
+        let expectedReaderResult = ["test1": "value1"]
+        let request = RawUrlRequest(dataRequest: URLRequest(url: URL(string: "test.ex.temp")!))
+        
+        var results: [NodeResult<Json>] = []
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(exepctedNextResult)
+        readerNodeMock.stubbedAsyncProccessResult = .success(expectedReaderResult)
+        
+        // when
+
+        for await result in sut.process(request, logContext: logContextMock) {
+            results.append(result)
+        }
+
+        // then
+        
+        let firstResult = try XCTUnwrap(try results[0].get() as? [String: String])
+        let secondResult = try XCTUnwrap(try results[1].get() as? [String: String])
+
+        XCTAssertEqual(results.count, 2)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(readerNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(firstResult, expectedReaderResult)
+        XCTAssertEqual(secondResult, exepctedNextResult)
+    }
 }

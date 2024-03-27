@@ -16,14 +16,14 @@ public enum MockerProxyConfigKey {
 /// - SeeAlso:
 ///     - `MetadataConnectorNode`
 ///     - `RequestRouterNode`
-final class MockerProxyConfigNode<Raw, Output>: Node {
+final class MockerProxyConfigNode<Raw, Output>: AsyncNode {
 
     private typealias Keys = MockerProxyConfigKey
 
     // MARK: - Public Properties
 
     /// Следующий в цепочке узел.
-    public var next: any Node<RequestModel<Raw>, Output>
+    public var next: any AsyncNode<RequestModel<Raw>, Output>
 
     /// Указывает, включено ли проексирование.
     public var isProxyingOn: Bool
@@ -41,7 +41,7 @@ final class MockerProxyConfigNode<Raw, Output>: Node {
     ///   - isProxyingOn: Указывает, включено ли проексирование.
     ///   - proxyingHost: Адрес хоста (опционально с портом) которому будет переадресован запрос.
     ///   - proxyingSchema: Схема (http/https etc).
-    public init(next: any Node<RequestModel<Raw>, Output>,
+    public init(next: any AsyncNode<RequestModel<Raw>, Output>,
                 isProxyingOn: Bool,
                 proxyingHost: String = "",
                 proxyingScheme: String = "") {
@@ -67,5 +67,25 @@ final class MockerProxyConfigNode<Raw, Output>: Node {
         copy.metadata[Keys.proxyingScheme] = self.proxyingScheme
 
         return self.next.process(copy)
+    }
+
+    // MARK: - Node
+
+    /// Добавляет хедеры в `data`
+    public func process(
+        _ data: RequestModel<Raw>,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Output> {
+        guard isProxyingOn else {
+            return await next.process(data, logContext: logContext)
+        }
+
+        var copy = data
+
+        copy.metadata[Keys.isProxyingOn] = String(isProxyingOn)
+        copy.metadata[Keys.proxyingHost] = proxyingHost
+        copy.metadata[Keys.proxyingScheme] = proxyingScheme
+
+        return await next.process(copy, logContext: logContext)
     }
 }

@@ -15,17 +15,17 @@ public enum URLQueryInjectorNodeError: Error {
 ///
 /// - Info:
 /// Использовать можно после `RequestRouterNode`.
-open class URLQueryInjectorNode<Raw, Output>: Node {
+open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
 
     // MARK: - Nested
 
     /// Тип ошибки для этого узла.
-    public typealias Error = URLQueryInjectorNodeError
+    public typealias NodeError = URLQueryInjectorNodeError
 
     // MARK: - Properties
 
     /// Следующий по порядку узел.
-    open var next: any Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>
+    open var next: any AsyncNode<RoutableRequestModel<UrlRouteProvider, Raw>, Output>
 
     open var config: URLQueryConfigModel
 
@@ -35,7 +35,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
     /// - Parameter next: Следующий по порядку узел.
     /// - Parameter config: Конфигурация для узла.
     public init(
-        next: any Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>,
+        next: any AsyncNode<RoutableRequestModel<UrlRouteProvider, Raw>, Output>,
         config: URLQueryConfigModel
     ) {
         self.next = next
@@ -46,7 +46,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
 
     /// Добавляет URL-query если может и передает управление следующему узлу.
     /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateUrlComponentsFromUrlString`
-    /// - SeeAlso: `URLQueryInjectorNodeError`
+    /// - SeeAlso: ``URLQueryInjectorNodeError``
     open func process(_ data: RoutableRequestModel<UrlRouteProvider, Raw>) -> Observer<Output> {
 
         guard !self.config.query.isEmpty else {
@@ -62,7 +62,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
         }
 
         guard var urlComponents = URLComponents(string: url.absoluteString) else {
-            return .emit(error: Error.cantCreateUrlComponentsFromUrlString)
+            return .emit(error: NodeError.cantCreateUrlComponentsFromUrlString)
         }
 
         urlComponents.queryItems = self.config.query
@@ -71,7 +71,7 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
             .sorted(by: { $0.name < $1.name })
 
         guard let newUrl = urlComponents.url else {
-            return .emit(error: Error.cantCreateUrlFromUrlComponents)
+            return .emit(error: NodeError.cantCreateUrlFromUrlComponents)
         }
 
         let newModel = RoutableRequestModel<UrlRouteProvider, Raw>(metadata: data.metadata,
@@ -79,6 +79,21 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
                                                                    route: newUrl)
 
         return self.next.process(newModel)
+    }
+
+    /// Добавляет URL-query если может и передает управление следующему узлу.
+    /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateUrlComponentsFromUrlString`
+    /// - SeeAlso: ``URLQueryInjectorNodeError``
+    open func process(
+        _ data: RoutableRequestModel<UrlRouteProvider, Raw>,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Output> {
+        return await .withMappedExceptions {
+            return try await transform(from: data)
+                .asyncFlatMap { result in
+                    return await next.process(result, logContext: logContext)
+                }
+        }
     }
 
     /// Позволяет получить список компонент URL-query, по ключу и значению.
@@ -107,5 +122,38 @@ open class URLQueryInjectorNode<Raw, Output>: Node {
         }
 
         return items
+    }
+
+    private func transform(
+        from data: RoutableRequestModel<UrlRouteProvider, Raw>
+    ) async throws -> NodeResult<RoutableRequestModel<UrlRouteProvider, Raw>> {
+        guard !config.query.isEmpty else {
+            return .success(data)
+        }
+        return await urlComponents(try data.route.url())
+            .flatMap {
+                guard let url = $0.url else {
+                    return .failure(NodeError.cantCreateUrlFromUrlComponents)
+                }
+                return .success(url)
+            }
+            .map {
+                return RoutableRequestModel<UrlRouteProvider, Raw>(
+                    metadata: data.metadata,
+                    raw: data.raw,
+                    route: $0
+                )
+            }
+    }
+
+    private func urlComponents(_ url: URL) async -> NodeResult<URLComponents> {
+        guard var urlComponents = URLComponents(string: url.absoluteString) else {
+            return .failure(NodeError.cantCreateUrlComponentsFromUrlString)
+        }
+        urlComponents.queryItems = config.query
+            .map { makeQueryComponents(from: $1, by: $0) }
+            .reduce([], { $0 + $1 })
+            .sorted(by: { $0.name < $1.name })
+        return .success(urlComponents)
     }
 }

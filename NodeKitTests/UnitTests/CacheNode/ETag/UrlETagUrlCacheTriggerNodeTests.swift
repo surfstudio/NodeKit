@@ -12,48 +12,51 @@ import XCTest
 @testable
 import NodeKit
 
-public class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
-
-    class TransportMock: Node {
-
-        var numberOfCalls = 0
-
-        func process(_ data: UrlDataResponse) -> Observer<Json> {
-            self.numberOfCalls += 1
-            return .emit(data: Json())
-        }
+final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
+    
+    // MARK: - Dependencies
+    
+    private var transportNodeMock: AsyncNodeMock<UrlDataResponse, Json>!
+    private var cacheSaverMock: AsyncNodeMock<UrlNetworkRequest, Json>!
+    private var logContextMock: LoggingContextMock!
+    
+    // MARK: - Sut
+    
+    private var sut: UrlNotModifiedTriggerNode!
+    
+    // MARK: - Lifecycle
+    
+    override func setUp() {
+        super.setUp()
+        transportNodeMock = AsyncNodeMock()
+        cacheSaverMock = AsyncNodeMock()
+        logContextMock = LoggingContextMock()
+        sut = UrlNotModifiedTriggerNode(next: transportNodeMock, cacheReader: cacheSaverMock)
     }
-
-    class CacheSaverMock: Node {
-
-        var numberOfCalls = 0
-
-        func process(_ data: UrlNetworkRequest) -> Observer<Json> {
-
-            self.numberOfCalls += 1
-
-            return .emit(data: Json())
-        }
+    
+    override func tearDown() {
+        super.tearDown()
+        transportNodeMock = nil
+        cacheSaverMock = nil
+        logContextMock = nil
+        sut = nil
     }
-
-    public func testNextCalledIfDataIsNotNotModified() {
-        // Arrange
-
-        let transportMock = TransportMock()
-        let cacheSaverMock = CacheSaverMock()
-
-        let testedNode = UrlNotModifiedTriggerNode(next: transportMock, cacheReader: cacheSaverMock)
-
+    
+    func testProcess_whenDataIsNotModified_thenNextCalled() {
+        // given
+        
         let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCalledIfDataIsNotNotModified")!
         let response = Utils.getMockUrlDataResponse(url: url)
 
         let expectation = self.expectation(description: "\(#function)")
+        
+        transportNodeMock.stubbedProccessResult = .emit(data: Json())
 
-        // Act
+        // when
 
         var numberOfCalls = 0
 
-        testedNode.process(response).onCompleted { _ in
+        sut.process(response).onCompleted { _ in
             numberOfCalls += 1
             expectation.fulfill()
         }.onError { _ in
@@ -63,31 +66,28 @@ public class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
 
         self.waitForExpectations(timeout: 1, handler: nil)
 
-        // Assert
+        // then
 
         XCTAssertEqual(numberOfCalls, 1)
-        XCTAssertEqual(transportMock.numberOfCalls, 1)
-        XCTAssertEqual(cacheSaverMock.numberOfCalls, 0)
+        XCTAssertEqual(transportNodeMock.invokedProcessCount, 1)
+        XCTAssertFalse(cacheSaverMock.invokedProcess)
     }
-
-    public func testNextCalledIfDataNotModified() {
-        // Arrange
-
-        let transportMock = TransportMock()
-        let cacheSaverMock = CacheSaverMock()
-
-        let testedNode = UrlNotModifiedTriggerNode(next: transportMock, cacheReader: cacheSaverMock)
+    
+    func testProcess_whenStatus304_thenCacheNodeCalled() {
+        // given
 
         let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCAlledIfDataIsNotNotModified")!
         let response = Utils.getMockUrlDataResponse(url: url, statusCode: 304)
 
         let expectation = self.expectation(description: "\(#function)")
+        
+        cacheSaverMock.stubbedProccessResult = .emit(data: Json())
 
-        // Act
+        // when
 
         var numberOfCalls = 0
 
-        testedNode.process(response).onCompleted { _ in
+        sut.process(response).onCompleted { _ in
             numberOfCalls += 1
             expectation.fulfill()
             }.onError { _ in
@@ -97,11 +97,59 @@ public class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
 
         self.waitForExpectations(timeout: 1, handler: nil)
 
-        // Assert
+        // then
 
         XCTAssertEqual(numberOfCalls, 1)
-        XCTAssertEqual(transportMock.numberOfCalls, 0)
-        XCTAssertEqual(cacheSaverMock.numberOfCalls, 1)
+        XCTAssertFalse(transportNodeMock.invokedAsyncProcess)
+        XCTAssertEqual(cacheSaverMock.invokedProcessCount, 1)
     }
+    
+    func testAsyncProcess_whenDataIsNotModified_thenNextCalled() async throws {
+        // given
+        
+        let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCalledIfDataIsNotNotModified")!
+        let response = Utils.getMockUrlDataResponse(url: url)
+        let expectedNextResult = ["Test": "Value"]
+        
+        transportNodeMock.stubbedAsyncProccessResult = .success(expectedNextResult)
 
+        // when
+
+        let result = await sut.process(response, logContext: logContextMock)
+
+        // then
+
+        let unwrappedResult = try XCTUnwrap(try result.get() as? [String: String])
+        
+        XCTAssertEqual(transportNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(transportNodeMock.invokedAsyncProcessParameter, response)
+        XCTAssertFalse(cacheSaverMock.invokedProcess)
+        XCTAssertEqual(unwrappedResult, expectedNextResult)
+    }
+    
+    func testAsyncProcess_whenStatus304_thenCacheNodeCalled() async throws {
+        // given
+
+        let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCAlledIfDataIsNotNotModified")!
+        let response = Utils.getMockUrlDataResponse(url: url, statusCode: 304)
+        let expectedCacheResult = ["Test": "Value"]
+        
+        cacheSaverMock.stubbedAsyncProccessResult = .success(expectedCacheResult)
+
+        // when
+
+        let result = await sut.process(response, logContext: logContextMock)
+
+        // then
+
+        let unwrappedResult = try XCTUnwrap(try result.get() as? [String: String])
+
+        XCTAssertFalse(transportNodeMock.invokedAsyncProcess)
+        XCTAssertEqual(cacheSaverMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(
+            cacheSaverMock.invokedAsyncProcessParameter?.urlRequest,
+            response.request
+        )
+        XCTAssertEqual(unwrappedResult, expectedCacheResult)
+    }
 }

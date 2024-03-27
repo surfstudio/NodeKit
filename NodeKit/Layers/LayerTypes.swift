@@ -9,10 +9,10 @@
 import Foundation
 
 /// Явный тип для слоя транспорта.
-public typealias TransportLayerNode = Node<TransportUrlRequest, Json>
+public typealias TransportLayerNode = AsyncNode<TransportUrlRequest, Json>
 /// Явный тип для слоя обработки запроса.
-public typealias RequestProcessingLayerNode = Node<URLRequest, Json>
+public typealias RequestProcessingLayerNode = AsyncNode<URLRequest, Json>
 /// Явный тип для слоя обработки ответа `JSON`
-public typealias ResponseProcessingLayerNode = Node<UrlDataResponse, Json>
+public typealias ResponseProcessingLayerNode = AsyncNode<UrlDataResponse, Json>
 /// Явный тип для слоя постобработки ответа с `JSON`
-public typealias ResponsePostprocessorLayerNode = Node<UrlProcessedResponse, Void>
+public typealias ResponsePostprocessorLayerNode = AsyncNode<UrlProcessedResponse, Void>

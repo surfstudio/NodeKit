@@ -18,6 +18,14 @@
 		502F9D972BAA36CF00151A8D /* LoggingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D962BAA36CF00151A8D /* LoggingContext.swift */; };
 		502F9D9A2BAA389500151A8D /* LoggingContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D992BAA389500151A8D /* LoggingContextTests.swift */; };
 		502F9D9D2BAA39F400151A8D /* Log+Equatalbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */; };
+		502F9DA92BAB0CF000151A8D /* TokenRefresherActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9DA82BAB0CF000151A8D /* TokenRefresherActor.swift */; };
+		50528E272BADF64F00E86CB6 /* NodeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50528E262BADF64F00E86CB6 /* NodeResult.swift */; };
+		50528E292BAE162600E86CB6 /* LoggerStreamNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50528E282BAE162600E86CB6 /* LoggerStreamNode.swift */; };
+		50528E2C2BAE18F400E86CB6 /* AsyncNodeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50528E2B2BAE18F400E86CB6 /* AsyncNodeMock.swift */; };
+		50528E312BAE1F9800E86CB6 /* LoggingContextMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50528E302BAE1F9800E86CB6 /* LoggingContextMock.swift */; };
+		50528E332BAE295D00E86CB6 /* TokenRefresherActorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50528E322BAE295D00E86CB6 /* TokenRefresherActorMock.swift */; };
+		50528E372BAE34A400E86CB6 /* TokenRefresherActorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50528E362BAE34A400E86CB6 /* TokenRefresherActorTests.swift */; };
+		50528E392BAE39AE00E86CB6 /* AborterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50528E382BAE39AE00E86CB6 /* AborterMock.swift */; };
 		90B608D4283E1110006F4309 /* NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B608CB283E1110006F4309 /* NodeKit.framework */; };
 		90B608DA283E1110006F4309 /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B608CE283E1110006F4309 /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90B6090E283E1268006F4309 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608E4283E1268006F4309 /* UrlCacheReaderNode.swift */; };
@@ -165,6 +173,14 @@
 		502F9D962BAA36CF00151A8D /* LoggingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContext.swift; sourceTree = "<group>"; };
 		502F9D992BAA389500151A8D /* LoggingContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContextTests.swift; sourceTree = "<group>"; };
 		502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+Equatalbe.swift"; sourceTree = "<group>"; };
+		502F9DA82BAB0CF000151A8D /* TokenRefresherActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherActor.swift; sourceTree = "<group>"; };
+		50528E262BADF64F00E86CB6 /* NodeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeResult.swift; sourceTree = "<group>"; };
+		50528E282BAE162600E86CB6 /* LoggerStreamNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerStreamNode.swift; sourceTree = "<group>"; };
+		50528E2B2BAE18F400E86CB6 /* AsyncNodeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncNodeMock.swift; sourceTree = "<group>"; };
+		50528E302BAE1F9800E86CB6 /* LoggingContextMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContextMock.swift; sourceTree = "<group>"; };
+		50528E322BAE295D00E86CB6 /* TokenRefresherActorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherActorMock.swift; sourceTree = "<group>"; };
+		50528E362BAE34A400E86CB6 /* TokenRefresherActorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresherActorTests.swift; sourceTree = "<group>"; };
+		50528E382BAE39AE00E86CB6 /* AborterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AborterMock.swift; sourceTree = "<group>"; };
 		90B608CB283E1110006F4309 /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90B608CE283E1110006F4309 /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		90B608D3283E1110006F4309 /* NodeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -354,6 +370,7 @@
 			children = (
 				502F9D9B2BAA39E700151A8D /* Equatable */,
 				502F9D992BAA389500151A8D /* LoggingContextTests.swift */,
+				50528E302BAE1F9800E86CB6 /* LoggingContextMock.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -364,6 +381,14 @@
 				502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */,
 			);
 			path = Equatable;
+			sourceTree = "<group>";
+		};
+		50528E2A2BAE18DD00E86CB6 /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				50528E2B2BAE18F400E86CB6 /* AsyncNodeMock.swift */,
+			);
+			path = Node;
 			sourceTree = "<group>";
 		};
 		90B608C1283E1110006F4309 = {
@@ -495,6 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				90B60900283E1268006F4309 /* Node.swift */,
+				50528E262BADF64F00E86CB6 /* NodeResult.swift */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -628,6 +654,7 @@
 			children = (
 				90B6094E283E1287006F4309 /* TokenRefresherNode.swift */,
 				90B6094F283E1287006F4309 /* AccessSafeNode.swift */,
+				502F9DA82BAB0CF000151A8D /* TokenRefresherActor.swift */,
 			);
 			path = AccessSafe;
 			sourceTree = "<group>";
@@ -781,6 +808,7 @@
 				90B60981283E1287006F4309 /* LoggerExtensions.swift */,
 				90B60982283E1287006F4309 /* Log.swift */,
 				502F9D962BAA36CF00151A8D /* LoggingContext.swift */,
+				50528E282BAE162600E86CB6 /* LoggerStreamNode.swift */,
 			);
 			path = Logging;
 			sourceTree = "<group>";
@@ -796,6 +824,7 @@
 		90B609C3283E16DC006F4309 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				50528E2A2BAE18DD00E86CB6 /* Node */,
 				90B609C4283E16DC006F4309 /* DTO */,
 				90B609ED283E16DC006F4309 /* AborterNode */,
 				90B609C6283E16DC006F4309 /* AsyncIterator */,
@@ -865,6 +894,8 @@
 			isa = PBXGroup;
 			children = (
 				90B609D3283E16DC006F4309 /* TokenRefresherNodeTests.swift */,
+				50528E322BAE295D00E86CB6 /* TokenRefresherActorMock.swift */,
+				50528E362BAE34A400E86CB6 /* TokenRefresherActorTests.swift */,
 			);
 			path = TokenRefresher;
 			sourceTree = "<group>";
@@ -950,6 +981,7 @@
 			isa = PBXGroup;
 			children = (
 				90B609EE283E16DC006F4309 /* AbortingTests.swift */,
+				50528E382BAE39AE00E86CB6 /* AborterMock.swift */,
 			);
 			path = AborterNode;
 			sourceTree = "<group>";
@@ -1140,6 +1172,7 @@
 				90B60995283E1287006F4309 /* DTOEncoderNode.swift in Sources */,
 				390E69722A136586007F2304 /* UrlJsonRequestEncodingNode.swift in Sources */,
 				90B60914283E1268006F4309 /* ETagConstants.swift in Sources */,
+				50528E292BAE162600E86CB6 /* LoggerStreamNode.swift in Sources */,
 				90B609A2283E1287006F4309 /* ResponseDataParserNode.swift in Sources */,
 				90B609A8283E1287006F4309 /* TechnicaErrorMapperNode.swift in Sources */,
 				90B60998283E1287006F4309 /* ModelInputNode.swift in Sources */,
@@ -1149,6 +1182,7 @@
 				90B6091A283E1268006F4309 /* RawMappable+Dictionary.swift in Sources */,
 				90B609A7283E1287006F4309 /* RawEncoderNode.swift in Sources */,
 				90B609B9283E1287006F4309 /* OffsetAsyncPager.swift in Sources */,
+				50528E272BADF64F00E86CB6 /* NodeResult.swift in Sources */,
 				390E697D2A13660C007F2304 /* HTTPHeaders.swift in Sources */,
 				90B60929283E1268006F4309 /* Context.swift in Sources */,
 				390E697B2A13660C007F2304 /* MultipartFormData.swift in Sources */,
@@ -1173,6 +1207,7 @@
 				90B60915283E1268006F4309 /* UrlETagReaderNode.swift in Sources */,
 				90B60985283E1287006F4309 /* UrlRequestTrasformatorNode.swift in Sources */,
 				390E69702A136586007F2304 /* NodeParameterEncoding.swift in Sources */,
+				502F9DA92BAB0CF000151A8D /* TokenRefresherActor.swift in Sources */,
 				90B60928283E1268006F4309 /* CancelableContext.swift in Sources */,
 				90B609C1283E1287006F4309 /* Log.swift in Sources */,
 				90B60924283E1268006F4309 /* Throttler.swift in Sources */,
@@ -1194,13 +1229,16 @@
 				90B60A06283E16DC006F4309 /* AuthModel.swift in Sources */,
 				90B60A04283E16DC006F4309 /* AuthModelEntry.swift in Sources */,
 				90B60A01283E16DC006F4309 /* LoggingTests.swift in Sources */,
+				50528E312BAE1F9800E86CB6 /* LoggingContextMock.swift in Sources */,
 				90B609FC283E16DC006F4309 /* UrlETagSaverNodeTests.swift in Sources */,
 				90B609FF283E16DC006F4309 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */,
 				90B60A02283E16DC006F4309 /* Infrastructure.swift in Sources */,
+				50528E332BAE295D00E86CB6 /* TokenRefresherActorMock.swift in Sources */,
 				90B609F3283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift in Sources */,
 				90B609F8283E16DC006F4309 /* EncodingTests.swift in Sources */,
 				90B609F1283E16DC006F4309 /* ChainConfiguratorNodeTests.swift in Sources */,
 				90B609F6283E16DC006F4309 /* URLQueryInjectorNodeTests.swift in Sources */,
+				50528E2C2BAE18F400E86CB6 /* AsyncNodeMock.swift in Sources */,
 				502F9D9A2BAA389500151A8D /* LoggingContextTests.swift in Sources */,
 				90B609FD283E16DC006F4309 /* UrlETagReaderNodeTests.swift in Sources */,
 				90B609F7283E16DC006F4309 /* TokenRefresherNodeTests.swift in Sources */,
@@ -1212,9 +1250,11 @@
 				90B60A08283E16DC006F4309 /* Credentials.swift in Sources */,
 				90B609F0283E16DC006F4309 /* OffsetAsyncPagerTests.swift in Sources */,
 				90B60A00283E16DC006F4309 /* IfConnectionFailedFromCacheNodeTests.swift in Sources */,
+				50528E372BAE34A400E86CB6 /* TokenRefresherActorTests.swift in Sources */,
 				90B60A03283E16DC006F4309 /* CredentialsEntry.swift in Sources */,
 				90B609F2283E16DC006F4309 /* MockerProxyConfigNodeTests.swift in Sources */,
 				90B609FA283E16DC006F4309 /* FirstCachePolicyTests.swift in Sources */,
+				50528E392BAE39AE00E86CB6 /* AborterMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

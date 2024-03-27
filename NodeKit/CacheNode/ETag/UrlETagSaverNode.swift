@@ -20,7 +20,7 @@ extension UserDefaults {
 
 /// Этот узел сохраняет пришедшие eTag-токены.
 /// В качестве ключа используется абсолютный URL до endpoint-a.
-open class UrlETagSaverNode: Node {
+open class UrlETagSaverNode: AsyncNode {
 
     /// Следующий узел для обработки.
     public var next: (any ResponsePostprocessorLayerNode)?
@@ -52,6 +52,24 @@ open class UrlETagSaverNode: Node {
         UserDefaults.etagStorage?.set(tag, forKey: urlAsKey)
 
         return next?.process(data) ?? .emit(data: ())
+    }
+
+    /// Пытается получить eTag-токен по ключу `UrlETagSaverNode.eTagHeaderKey`.
+    /// В любом случае передает управление дальше.
+    open func process(
+        _ data: UrlProcessedResponse,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Void> {
+        guard let tag = data.response.allHeaderFields[self.eTagHeaderKey] as? String,
+            let url = data.request.url,
+            let urlAsKey = url.withOrderedQuery()
+        else {
+            return .success(())
+        }
+
+        UserDefaults.etagStorage?.set(tag, forKey: urlAsKey)
+
+        return await next?.process(data, logContext: logContext) ?? .success(())
     }
 }
 

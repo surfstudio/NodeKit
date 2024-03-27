@@ -8,12 +8,12 @@
 
 import Foundation
 
-open class EntryinputDtoOutputNode<Input, Output>: Node
+open class EntryinputDtoOutputNode<Input, Output>: AsyncNode
                                                     where Input: RawEncodable, Output: DTODecodable {
 
-    open var next: any Node<Input.Raw, Output.DTO.Raw>
+    open var next: any AsyncNode<Input.Raw, Output.DTO.Raw>
 
-    init(next: any Node<Input.Raw, Output.DTO.Raw>) {
+    init(next: any AsyncNode<Input.Raw, Output.DTO.Raw>) {
         self.next = next
     }
 
@@ -23,6 +23,19 @@ open class EntryinputDtoOutputNode<Input, Output>: Node
             return self.next.process(raw).map { try Output.from(dto: Output.DTO.from(raw: $0) ) }
         } catch {
             return .emit(error: error)
+        }
+    }
+
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Output> {
+        return await .withMappedExceptions {
+            let raw = try data.toRaw()
+            return try await next.process(raw, logContext: logContext).map {
+                let dto = try Output.DTO.from(raw: $0)
+                return try Output.from(dto: dto)
+            }
         }
     }
 

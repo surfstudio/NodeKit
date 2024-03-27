@@ -8,11 +8,11 @@
 
 import Foundation
 
-open class VoidOutputNode<Input>: Node where Input: DTOEncodable, Input.DTO.Raw == Json {
+open class VoidOutputNode<Input>: AsyncNode where Input: DTOEncodable, Input.DTO.Raw == Json {
 
-    let next: any Node<Json, Json>
+    let next: any AsyncNode<Json, Json>
 
-    init(next: some Node<Json, Json>) {
+    init(next: some AsyncNode<Json, Json>) {
         self.next = next
     }
 
@@ -35,6 +35,25 @@ open class VoidOutputNode<Input>: Node where Input: DTOEncodable, Input.DTO.Raw 
                 result.log(log)
             }
             return result.emit(data: ())
+        }
+    }
+
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Void> {
+        return await .withMappedExceptions {
+            let newData = try data.toDTO().toRaw()
+            return await next.process(newData, logContext: logContext).asyncFlatMap { json in
+                if !json.isEmpty {
+                    var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidOutputNode)
+                    log += "VoidOutputNode used but request have not empty response"
+                    log += .lineTabDeilimeter
+                    log += "\(json)"
+                    await logContext.add(log)
+                }
+                return .success(())
+            }
         }
     }
 }

@@ -140,7 +140,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     /// Создает цепочку узлов, описывающих слой построения запроса.
     ///
     /// - Parameter config: Конфигурация для запроса
-    open func requestBuildingChain() ->  some Node<Json, Json> {
+    open func requestBuildingChain() ->  some AsyncNode<Json, Json> {
         let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, responseQueue: responseDispatchQueue, session: session)
 
         let urlRequestEncodingNode = UrlJsonRequestEncodingNode(next: transportChain)
@@ -155,7 +155,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     }
 
     /// Создает цепочку для отправки DTO моделей данных.
-    open func defaultInput<Input, Output>() -> some Node<Input, Output>
+    open func defaultInput<Input, Output>() -> some AsyncNode<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let buildingChain = self.requestBuildingChain()
@@ -163,14 +163,14 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
             return ModelInputNode(next: dtoConverter)
     }
 
-    func supportNodes<Input, Output>() -> some Node<Input, Output>
+    func supportNodes<Input, Output>() -> some AsyncNode<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let loadIndicator = LoadIndicatableNode<Input, Output>(next: self.defaultInput())
             return loadIndicator
     }
 
-    open func requestRouterNode<Raw, Output>(next: some Node<RoutableRequestModel<UrlRouteProvider, Raw>, Output>) -> RequestRouterNode<Raw, UrlRouteProvider, Output> {
+    open func requestRouterNode<Raw, Output>(next: some AsyncNode<RoutableRequestModel<UrlRouteProvider, Raw>, Output>) -> RequestRouterNode<Raw, UrlRouteProvider, Output> {
 
         guard let url = self.route else {
             preconditionFailure("\(self.self) URLRoute is nil")
@@ -180,25 +180,25 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     }
 
     /// Создает цепочку по-умолчанию. Подразумеается работа с DTO-моделями.
-    open func build<Input, Output>() -> some Node<Input, Output>
+    open func build<Input, Output>() -> some AsyncNode<Input, Output>
         where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
-            let input: some Node<Input, Output> = self.supportNodes()
+            let input: some AsyncNode<Input, Output> = self.supportNodes()
             let config =  ChainConfiguratorNode<Input, Output>(next: input)
             return LoggerNode(next: config, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
-    open func build<Output>() -> some Node<Void, Output>
+    open func build<Output>() -> some AsyncNode<Void, Output>
         where Output: DTODecodable, Output.DTO.Raw == Json {
-            let input: some Node<Json, Output> = self.supportNodes()
+            let input: some AsyncNode<Json, Output> = self.supportNodes()
             let configNode = ChainConfiguratorNode<Json, Output>(next: input)
             let voidNode =  VoidInputNode(next: configNode)
             return LoggerNode(next: voidNode, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
-    open func build<Input>() -> some Node<Input, Void>
+    open func build<Input>() -> some AsyncNode<Input, Void>
         where Input: DTOEncodable, Input.DTO.Raw == Json {
             let input = self.requestBuildingChain()
             let indicator = LoadIndicatableNode(next: input)
@@ -208,7 +208,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     }
 
     /// Создает обычную цепочку, только в качестве входных и вызодных данных имеет `Void`
-    open func build() -> some Node<Void, Void> {
+    open func build() -> some AsyncNode<Void, Void> {
         let input = self.requestBuildingChain()
         let indicator = LoadIndicatableNode(next: input)
         let configNode = ChainConfiguratorNode(next: indicator)

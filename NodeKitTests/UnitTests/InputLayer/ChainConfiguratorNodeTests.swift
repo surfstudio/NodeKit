@@ -23,13 +23,20 @@ extension DispatchQueue {
 public class ChainConfiguratorNodeTests: XCTestCase {
 
 
-    class NextStub: Node {
+    class NextStub: AsyncNode {
 
         var queueLabel = ""
 
         func process(_ data: Void) -> Observer<Void> {
             self.queueLabel = DispatchQueue.currentLabel
             return .emit(data: data)
+        }
+        
+        func process(
+            _ data: Void,
+            logContext: LoggingContextProtocol
+        ) async -> NodeResult<Void> {
+            return .success(())
         }
     }
 

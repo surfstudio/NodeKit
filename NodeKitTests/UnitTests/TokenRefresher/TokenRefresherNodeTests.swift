@@ -13,60 +13,72 @@ import XCTest
 import NodeKit
 
 public class TokenRefresherNodeTests: XCTestCase {
-
-    class NodeStub: Node {
-
-        var countOfCals = 0
-
-        func process(_ data: Void) -> Observer<Void> {
-
-            let result = Context<Void>()
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
-                self.countOfCals += 1
-                result.emit(data: ())
-            }
-
-            return result
-        }
+    
+    // MARK: - Dependencies
+    
+    private var tokenRefresherActorMock: TokenRefresherActorMock!
+    private var logContextMock: LoggingContextMock!
+    private var tokenRefreshChainMock: AsyncNodeMock<Void, Void>!
+    
+    // MARK: - Sut
+    
+    private var sut: TokenRefresherNode!
+    
+    // MARK: - Lifecycle
+    
+    public override func setUp() {
+        super.setUp()
+        tokenRefresherActorMock = TokenRefresherActorMock()
+        logContextMock = LoggingContextMock()
+        tokenRefreshChainMock = AsyncNodeMock()
+        sut = TokenRefresherNode(
+            tokenRefreshChain: tokenRefreshChainMock,
+            tokenRefresherActor: tokenRefresherActorMock
+        )
     }
-
-    func testThatAllResponseEmited() {
-
-        // Arrange
-
-        let testedNode = TokenRefresherNode(tokenRefreshChain: NodeStub())
-        var counter = 0
+    
+    public override func tearDown() {
+        super.tearDown()
+        tokenRefresherActorMock = nil
+        logContextMock = nil
+        tokenRefreshChainMock = nil
+        sut = nil
+    }
+    
+    // MARK: - Tests
+    
+    func testProcess_thenAllResponseEmited() {
+        // given
+        
         let countOfRequests = 9
-
-        // Act
-
+        var counter = 0
+        
+        // when
+        
         let exp = self.expectation(description: "\(#function)")
 
         for _ in 0..<countOfRequests {
-            testedNode.process(()).onCompleted {
+            stubNewContextTotokenRefreshChain()
+            sut.process(()).onCompleted {
                 counter += 1
             }
         }
 
-        testedNode.process(()).onCompleted {
+        stubNewContextTotokenRefreshChain()
+        sut.process(()).onCompleted {
             exp.fulfill()
         }
 
         self.waitForExpectations(timeout: 7, handler: nil)
-
-        // Assert
-
+        
+        // then
+        
         XCTAssertEqual(countOfRequests, counter)
     }
 
-    func testThatTokenUpdateCalledOnce() {
-
-        // Arrange
-
-        let tokenUpdater = NodeStub()
-        let testedNode = TokenRefresherNode(tokenRefreshChain: tokenUpdater)
-
+    func testProcess_thenTokenUpdateCalledOnce() {
+        // given
+        
         let countOfRequests = 9
 
         // Act
@@ -74,10 +86,12 @@ public class TokenRefresherNodeTests: XCTestCase {
         let exp = self.expectation(description: "\(#function)")
 
         for _ in 0..<countOfRequests {
-            _ = testedNode.process(())
+            stubNewContextTotokenRefreshChain()
+            _ = sut.process(())
         }
 
-        testedNode.process(()).onCompleted {
+        stubNewContextTotokenRefreshChain()
+        sut.process(()).onCompleted {
             exp.fulfill()
         }
 
@@ -85,6 +99,32 @@ public class TokenRefresherNodeTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(tokenUpdater.countOfCals, 1)
+        XCTAssertEqual(tokenRefreshChainMock.invokedProcessCount, 1)
+    }
+    
+    func testAsyncProcess_thenTokenRefresherActorCalled() async {
+        // given
+        
+        let countOfRequests = 9
+        await tokenRefresherActorMock.stub(result: .success(()))
+        
+        // when
+
+        for _ in 0..<countOfRequests {
+            _ = await sut.process((), logContext: logContextMock)
+        }
+        
+        // then
+        
+        let refreshCount = await tokenRefresherActorMock.invokedRefreshCount
+        XCTAssertEqual(refreshCount, countOfRequests)
+    }
+    
+    private func stubNewContextTotokenRefreshChain() {
+        let context = Context<Void>()
+        tokenRefreshChainMock.stubbedProccessResult = context
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
+            context.emit(data: ())
+        }
     }
 }

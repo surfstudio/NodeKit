@@ -11,10 +11,17 @@ import Foundation
 /// Узел для обновления токена и заморозки запросов.
 /// Внутри себя работает на приватных очередях.
 /// Ответ возращает в той очереди, из которой узел был вызыван.
-open class TokenRefresherNode: Node {
+open class TokenRefresherNode: AsyncNode {
 
     /// Цепочка для обновления токена.
-    public var tokenRefreshChain: any Node<Void, Void>
+    public var tokenRefreshChain: any AsyncNode<Void, Void> {
+        didSet {
+            Task {
+                await tokenRefresherActor.update(tokenRefreshChain: tokenRefreshChain)
+            }
+        }
+    }
+    private var tokenRefresherActor: TokenRefresherActorProtocol
 
     private var isRequestSended = false
     private var observers: [Context<Void>]
@@ -22,17 +29,26 @@ open class TokenRefresherNode: Node {
     private let arrayQueue = DispatchQueue(label: "TokenRefresherNode.observers")
     private let flagQueue = DispatchQueue(label: "TokenRefresherNode.flag")
 
-    /// Иницицаллизирует
+    /// Инициаллизирует
     ///
     /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
-    public init(tokenRefreshChain: any Node<Void, Void>) {
+    /// - Parameter tokenRefresherActor: Актор для обновления токена.
+    public init(tokenRefreshChain: any AsyncNode<Void, Void>, tokenRefresherActor: TokenRefresherActorProtocol) {
         self.tokenRefreshChain = tokenRefreshChain
+        self.tokenRefresherActor = tokenRefresherActor
         self.observers = []
+    }
+    
+    /// Инициаллизирует
+    ///
+    /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
+    public convenience init(tokenRefreshChain: any AsyncNode<Void, Void>) {
+        self.init(tokenRefreshChain: tokenRefreshChain, tokenRefresherActor: TokenRefresherActor(tokenRefreshChain: tokenRefreshChain))
     }
 
     /// Проверяет, был ли отправлен запрос на обновление токена
     /// Если запрос был отправлен, то создает `Observer`, сохраняет его у себя и возвращает предыдущему узлу.
-    /// Если нет - отплавляет запрос и сохраняет `Observer`
+    /// Если нет - отправляет запрос и сохраняет `Observer`
     /// После того как запрос на обновление токена был выполнен успешно - эмитит данные во все сохраненные Observer'ы и удаляет их из памяти
     open func process(_ data: Void) -> Observer<Void> {
 
@@ -80,5 +96,16 @@ open class TokenRefresherNode: Node {
 
             return error
         }
+    }
+
+    /// Проверяет, был ли отправлен запрос на обновление токена
+    /// Если запрос был отправлен, то создает `Observer`, сохраняет его у себя и возвращает предыдущему узлу.
+    /// Если нет - отправляет запрос и сохраняет `Observer`
+    /// После того как запрос на обновление токена был выполнен успешно - эмитит данные во все сохраненные Observer'ы и удаляет их из памяти
+    open func process(
+        _ data: Void,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Void> {
+        return await tokenRefresherActor.refresh(logContext: logContext)
     }
 }

@@ -7,7 +7,7 @@ open class UrlServiceChainBuilder {
     public init() { }
 
     /// Создает цепочку для слоя обработки ответа.
-    open func urlResponseProcessingLayerChain() -> any Node<NodeDataResponse, Json> {
+    open func urlResponseProcessingLayerChain() -> any AsyncNode<NodeDataResponse, Json> {
         let responseDataParserNode = ResponseDataParserNode()
         let responseDataPreprocessorNode = ResponseDataPreprocessorNode(next: responseDataParserNode)
         let responseHttpErrorProcessorNode = ResponseHttpErrorProcessorNode(next: responseDataPreprocessorNode)

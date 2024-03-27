@@ -24,18 +24,18 @@ public struct MultipartUrlRequest {
 }
 
 /// Узел, умеющий создавать multipart-запрос.
-open class MultipartRequestCreatorNode<Output>: Node {
+open class MultipartRequestCreatorNode<Output>: AsyncNode {
     /// Следующий узел для обработки.
-    public var next: any Node<URLRequest, Output>
+    public var next: any AsyncNode<URLRequest, Output>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: any Node<URLRequest, Output>) {
+    public init(next: any AsyncNode<URLRequest, Output>) {
         self.next = next
     }
 
-    /// Конфигурирует низкоуровненвый запрос.
+    /// Конфигурирует низкоуровневый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open func process(_ data: MultipartUrlRequest) -> Observer<Output> {
@@ -56,6 +56,32 @@ open class MultipartRequestCreatorNode<Output>: Node {
             return self.next.process(request).log(self.getLogMessage(data))
         } catch {
             return .emit(error: error)
+        }
+    }
+
+    /// Конфигурирует низкоуровневый запрос.
+    ///
+    /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
+    open func process(
+        _ data: MultipartUrlRequest,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Output> {
+        return await .withMappedExceptions {
+            var request = URLRequest(url: data.url)
+            request.httpMethod = data.method.rawValue
+
+            // Add Headers
+            data.headers.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
+
+            // Form Data
+            let formData = MultipartFormData(fileManager: FileManager.default)
+            append(multipartForm: formData, with: data)
+            request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
+            let encodedFormData = try formData.encode()
+            request.httpBody = encodedFormData
+
+            await logContext.add(getLogMessage(data))
+            return await next.process(request, logContext: logContext)
         }
     }
 
