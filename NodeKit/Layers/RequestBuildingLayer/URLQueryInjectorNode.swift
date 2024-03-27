@@ -46,7 +46,7 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
 
     /// Добавляет URL-query если может и передает управление следующему узлу.
     /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateUrlComponentsFromUrlString`
-    /// - SeeAlso: `URLQueryInjectorNodeError`
+    /// - SeeAlso: ``URLQueryInjectorNodeError``
     open func process(_ data: RoutableRequestModel<UrlRouteProvider, Raw>) -> Observer<Output> {
 
         guard !self.config.query.isEmpty else {
@@ -83,14 +83,16 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
 
     /// Добавляет URL-query если может и передает управление следующему узлу.
     /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateUrlComponentsFromUrlString`
-    /// - SeeAlso: `URLQueryInjectorNodeError`
+    /// - SeeAlso: ``URLQueryInjectorNodeError``
     open func process(
         _ data: RoutableRequestModel<UrlRouteProvider, Raw>,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
         return await .withMappedExceptions {
-            async let model = try transform(from: data)
-            return await next.process(data, logContext: logContext)
+            return try await transform(from: data)
+                .asyncFlatMap { result in
+                    return await next.process(result, logContext: logContext)
+                }
         }
     }
 

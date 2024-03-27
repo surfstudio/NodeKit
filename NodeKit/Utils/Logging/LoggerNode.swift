@@ -20,7 +20,7 @@ open class LoggerNode<Input, Output>: AsyncNode {
 
     /// Сразу же передает управление следующему узлу и подписывается на выполнение операций.
     ///
-    /// - Parameter data: Данные для обработки. Этот узел их не импользует.
+    /// - Parameter data: Данные для обработки. Этот узел их не использует.
     open func process(_ data: Input) -> Observer<Output> {
         let result = Context<Output>()
 
@@ -53,7 +53,7 @@ open class LoggerNode<Input, Output>: AsyncNode {
 
     /// Сразу же передает управление следующему узлу и подписывается на выполнение операций.
     ///
-    /// - Parameter data: Данные для обработки. Этот узел их не импользует.
+    /// - Parameter data: Данные для обработки. Этот узел их не использует.
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol

@@ -29,7 +29,7 @@ open class TokenRefresherNode: AsyncNode {
     private let arrayQueue = DispatchQueue(label: "TokenRefresherNode.observers")
     private let flagQueue = DispatchQueue(label: "TokenRefresherNode.flag")
 
-    /// Иницицаллизирует
+    /// Инициаллизирует
     ///
     /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
     /// - Parameter tokenRefresherActor: Актор для обновления токена.
@@ -39,7 +39,7 @@ open class TokenRefresherNode: AsyncNode {
         self.observers = []
     }
     
-    /// Иницицаллизирует
+    /// Инициаллизирует
     ///
     /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
     public convenience init(tokenRefreshChain: any AsyncNode<Void, Void>) {
@@ -48,7 +48,7 @@ open class TokenRefresherNode: AsyncNode {
 
     /// Проверяет, был ли отправлен запрос на обновление токена
     /// Если запрос был отправлен, то создает `Observer`, сохраняет его у себя и возвращает предыдущему узлу.
-    /// Если нет - отплавляет запрос и сохраняет `Observer`
+    /// Если нет - отправляет запрос и сохраняет `Observer`
     /// После того как запрос на обновление токена был выполнен успешно - эмитит данные во все сохраненные Observer'ы и удаляет их из памяти
     open func process(_ data: Void) -> Observer<Void> {
 
@@ -100,7 +100,7 @@ open class TokenRefresherNode: AsyncNode {
 
     /// Проверяет, был ли отправлен запрос на обновление токена
     /// Если запрос был отправлен, то создает `Observer`, сохраняет его у себя и возвращает предыдущему узлу.
-    /// Если нет - отплавляет запрос и сохраняет `Observer`
+    /// Если нет - отправляет запрос и сохраняет `Observer`
     /// После того как запрос на обновление токена был выполнен успешно - эмитит данные во все сохраненные Observer'ы и удаляет их из памяти
     open func process(
         _ data: Void,

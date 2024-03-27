@@ -50,12 +50,14 @@ final class MockerProxyConfigNodeTests: XCTestCase {
         // then
         
         let result = try XCTUnwrap(nextNodeMock.invokedProcessParameter)
+        let nextNodeUnwrappedResult = try XCTUnwrap(nextNodeResult)
+        
         XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
         XCTAssertEqual(result.metadata[MockerProxyConfigKey.isProxyingOn], "\(isProxyingOn)")
         XCTAssertEqual(result.metadata[MockerProxyConfigKey.proxyingHost], host)
         XCTAssertEqual(result.metadata[MockerProxyConfigKey.proxyingScheme], scheme)
-        XCTAssertEqual(nextNodeResult?.metadata, expectedNextNodeResult.metadata)
-        XCTAssertEqual(nextNodeResult?.raw, expectedNextNodeResult.raw)
+        XCTAssertEqual(nextNodeUnwrappedResult.metadata, expectedNextNodeResult.metadata)
+        XCTAssertEqual(nextNodeUnwrappedResult.raw, expectedNextNodeResult.raw)
     }
     
     func testProcess_whenProxyIsOff_thenNodeAddRightKeys_andNextCalled() throws {
@@ -79,12 +81,14 @@ final class MockerProxyConfigNodeTests: XCTestCase {
         // then
         
         let result = try XCTUnwrap(nextNodeMock.invokedProcessParameter)
+        let nextNodeUnwrappedResult = try XCTUnwrap(nextNodeResult)
+        
         XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
         XCTAssertNil(result.metadata[MockerProxyConfigKey.isProxyingOn])
         XCTAssertNil(result.metadata[MockerProxyConfigKey.proxyingHost])
         XCTAssertNil(result.metadata[MockerProxyConfigKey.proxyingScheme])
-        XCTAssertEqual(nextNodeResult?.metadata, expectedNextNodeResult.metadata)
-        XCTAssertEqual(nextNodeResult?.raw, expectedNextNodeResult.raw)
+        XCTAssertEqual(nextNodeUnwrappedResult.metadata, expectedNextNodeResult.metadata)
+        XCTAssertEqual(nextNodeUnwrappedResult.raw, expectedNextNodeResult.raw)
     }
     
     func testAsyncProcess_whenProxyIsOn_thenNodeAddRightKeys_andNextCalled() async throws {

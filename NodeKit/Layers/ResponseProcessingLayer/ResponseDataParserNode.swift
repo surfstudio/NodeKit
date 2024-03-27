@@ -33,7 +33,7 @@ open class ResponseDataParserNode: AsyncNode {
 
     /// Парсит ответ и в случае успеха передает управление следующему узлу.
     ///
-    /// - Parameter data: Модель овтета сервера.
+    /// - Parameter data: Модель ответа сервера.
     open func process(_ data: UrlDataResponse) -> Observer<Json> {
 
         let context = Context<Json>()
@@ -71,7 +71,7 @@ open class ResponseDataParserNode: AsyncNode {
 
     /// Парсит ответ и в случае успеха передает управление следующему узлу.
     ///
-    /// - Parameter data: Модель овтета сервера.
+    /// - Parameter data: Модель ответа сервера.
     open func process(
         _ data: UrlDataResponse,
         logContext: LoggingContextProtocol
