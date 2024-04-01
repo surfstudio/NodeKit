@@ -55,7 +55,7 @@ final class CombineCompatibleNodeTests: XCTestCase {
         // when
         
         Task {
-            sut.process(data: expectedInput)
+            sut.process(expectedInput)
         }
         
         await fulfillment(of: [expectation], timeout: 0.1)
@@ -80,7 +80,7 @@ final class CombineCompatibleNodeTests: XCTestCase {
         // when
         
         Task {
-            sut.process(data: expectedInput, logContext: logContext)
+            sut.process(expectedInput, logContext: logContext)
         }
         
         await fulfillment(of: [expectation], timeout: 0.1)

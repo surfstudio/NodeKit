@@ -21,7 +21,7 @@ public protocol CombineNode<Input, Output>: AnyObject {
     ///    - logContext: Контекст логов.
     /// - Returns: Self ноды.
     @discardableResult
-    func process(data: Input, logContext: LoggingContextProtocol) -> Self
+    func process(_ data: Input, logContext: LoggingContextProtocol) -> Self
     
     /// Метод получения Publisher, для подписки на результат обработки данных в главном потоке.
     ///
@@ -35,15 +35,24 @@ public protocol CombineNode<Input, Output>: AnyObject {
     func eraseToAnyPublisher(queue: DispatchQueue) -> AnyPublisher<NodeResult<Output>, Never>
 }
 
-extension CombineNode {
+public extension CombineNode {
     
     /// Метод запускающий процесс обработки данных и создающий новый контекст логов.
     /// 
     /// - Parameter data: Входные данные ноды.
     /// - Returns: Self ноды.
     @discardableResult
-    func process(data: Input) -> Self {
-        return process(data: data, logContext: LoggingContext())
+    func process(_ data: Input) -> Self {
+        return process(data, logContext: LoggingContext())
+    }
+}
+
+/// Содержит иснтаксический сахар для работы с узлами, у которых входящий тип = `Void`
+public extension CombineNode where Input == Void {
+    
+    /// Вызывает `process(_:)`
+    func process() -> Self {
+        return process(Void())
     }
 }
 
@@ -70,7 +79,7 @@ public class CombineCompatibleNode<Input, Output>: CombineNode, NodeAdapterOutpu
     ///    - logContext: Контекст логов.
     /// - Returns: Self ноды.
     @discardableResult
-    public func process(data: Input, logContext: LoggingContextProtocol) -> Self {
+    public func process(_ data: Input, logContext: LoggingContextProtocol) -> Self {
         Task {
             await adapter.process(data: data, logContext: logContext, output: self)
         }

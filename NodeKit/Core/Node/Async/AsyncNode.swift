@@ -22,8 +22,22 @@ public protocol AsyncNode<Input, Output>: CombineConvertibleNode {
 
 public extension AsyncNode {
     
+    /// Метод process с созданием нового лог контекста.
+    func process(_ data: Input) async -> NodeResult<Output> {
+        return await process(data, logContext: LoggingContext())
+    }
+    
     /// Базовая реализация конвертации узла в ``CombineNode``.
     func combineNode() -> any CombineNode<Input, Output> {
         return CombineCompatibleNode(adapter: AsyncNodeAdapter(node: self))
+    }
+}
+
+/// Содержит иснтаксический сахар для работы с узлами, у которых входящий тип = `Void`
+public extension AsyncNode where Input == Void {
+    
+    /// Вызывает `process(_:)`
+    func process() async -> NodeResult<Output> {
+        return await process(Void())
     }
 }

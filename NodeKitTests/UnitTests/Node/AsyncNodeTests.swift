@@ -50,7 +50,7 @@ final class AsyncNodeTests: XCTestCase {
         // when
         
         let sut = nodeMock.combineNode()
-        sut.process(data: expectedInput, logContext: logContextMock)
+        sut.process(expectedInput, logContext: logContextMock)
             .eraseToAnyPublisher()
             .sink(receiveValue: { value in
                 result = value
@@ -100,7 +100,7 @@ final class AsyncNodeTests: XCTestCase {
             })
             .store(in: &cancellable)
         
-        sut.process(data: expectedInput, logContext: logContextMock)
+        sut.process(expectedInput, logContext: logContextMock)
         
         await fulfillment(of: [expectation1, expectation2], timeout: 0.1)
         
