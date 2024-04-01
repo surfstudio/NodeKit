@@ -7,6 +7,7 @@
 //
 
 import Combine
+import Foundation
 
 /// Протокол ноды, поддерживающего обработку результата с помощью Combine.
 public protocol CombineNode<Input, Output>: AnyObject {
