@@ -25,9 +25,9 @@ open class DTOEncoderNode<Input, Output>: AsyncNode where Input: DTOEncodable {
     /// Если при конвертировании произошла ошибка - прерывает выполнение цепочки.
     ///
     /// - Parameter data: Входящая модель.
-    open func process(_ data: Input) -> Observer<Output> {
+    open func processLegacy(_ data: Input) -> Observer<Output> {
         do {
-            return rawEncodable.process(try data.toDTO())
+            return rawEncodable.processLegacy(try data.toDTO())
         } catch {
             return .emit(error: error)
         }

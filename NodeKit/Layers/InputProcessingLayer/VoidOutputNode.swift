@@ -16,7 +16,7 @@ open class VoidOutputNode<Input>: AsyncNode where Input: DTOEncodable, Input.DTO
         self.next = next
     }
 
-    open func process(_ data: Input) -> Observer<Void> {
+    open func processLegacy(_ data: Input) -> Observer<Void> {
 
         var newData: Json
 
@@ -26,7 +26,7 @@ open class VoidOutputNode<Input>: AsyncNode where Input: DTOEncodable, Input.DTO
             return .emit(error: error)
         }
 
-        return self.next.process(newData).map { json in
+        return self.next.processLegacy(newData).map { json in
             let result = Context<Void>()
             var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.voidOutputNode)
             if !json.isEmpty {

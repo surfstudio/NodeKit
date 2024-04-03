@@ -23,7 +23,7 @@ open class MultipartUrlRequestTrasformatorNode<Type>: AsyncNode {
     /// Конструирует модель для для работы на транспортном уровне цепочки.
     ///
     /// - Parameter data: Данные для дальнейшей обработки.
-    open func process(
+    open func processLegacy(
         _ data: RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>
     ) -> Observer<Type> {
 
@@ -41,7 +41,7 @@ open class MultipartUrlRequestTrasformatorNode<Type>: AsyncNode {
                                           headers: data.metadata,
                                           data: data.raw)
 
-        return next.process(request)
+        return next.processLegacy(request)
     }
 
     /// Конструирует модель для для работы на транспортном уровне цепочки.

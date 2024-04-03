@@ -37,22 +37,22 @@ final class MockerProxyConfigNodeTests: XCTestCase {
         let isProxyingOn = true
         let expectedNextNodeResult = RequestModel<Int>(metadata: ["test1":"value1"], raw: 15)
         
-        nextNodeMock.stubbedProccessResult = .emit(data: expectedNextNodeResult)
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: expectedNextNodeResult)
         makeSut(isProxyingOn: isProxyingOn, proxyingHost: host, proxyingScheme: scheme)
         
         // when
         
         var nextNodeResult: RequestModel<Int>?
-        sut.process(.init(metadata: [:], raw: 0)).onCompleted { value in
+        sut.processLegacy(.init(metadata: [:], raw: 0)).onCompleted { value in
             nextNodeResult = value
         }
         
         // then
         
-        let result = try XCTUnwrap(nextNodeMock.invokedProcessParameter)
+        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter)
         let nextNodeUnwrappedResult = try XCTUnwrap(nextNodeResult)
         
-        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(nextNodeMock.invokedProcessLegacyCount, 1)
         XCTAssertEqual(result.metadata[MockerProxyConfigKey.isProxyingOn], "\(isProxyingOn)")
         XCTAssertEqual(result.metadata[MockerProxyConfigKey.proxyingHost], host)
         XCTAssertEqual(result.metadata[MockerProxyConfigKey.proxyingScheme], scheme)
@@ -68,22 +68,22 @@ final class MockerProxyConfigNodeTests: XCTestCase {
         let isProxyingOn = false
         let expectedNextNodeResult = RequestModel<Int>(metadata: ["test2":"value2"], raw: 16)
         
-        nextNodeMock.stubbedProccessResult = .emit(data: expectedNextNodeResult)
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: expectedNextNodeResult)
         makeSut(isProxyingOn: isProxyingOn, proxyingHost: host, proxyingScheme: scheme)
         
         // when
         
         var nextNodeResult: RequestModel<Int>?
-        sut.process(.init(metadata: [:], raw: 0)).onCompleted { value in
+        sut.processLegacy(.init(metadata: [:], raw: 0)).onCompleted { value in
             nextNodeResult = value
         }
         
         // then
         
-        let result = try XCTUnwrap(nextNodeMock.invokedProcessParameter)
+        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter)
         let nextNodeUnwrappedResult = try XCTUnwrap(nextNodeResult)
         
-        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(nextNodeMock.invokedProcessLegacyCount, 1)
         XCTAssertNil(result.metadata[MockerProxyConfigKey.isProxyingOn])
         XCTAssertNil(result.metadata[MockerProxyConfigKey.proxyingHost])
         XCTAssertNil(result.metadata[MockerProxyConfigKey.proxyingScheme])
@@ -108,7 +108,7 @@ final class MockerProxyConfigNodeTests: XCTestCase {
         
         // then
         
-        let result = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter)
+        let result = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0)
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
         XCTAssertEqual(result.metadata[MockerProxyConfigKey.isProxyingOn], "\(isProxyingOn)")
         XCTAssertEqual(result.metadata[MockerProxyConfigKey.proxyingHost], host)
@@ -134,7 +134,7 @@ final class MockerProxyConfigNodeTests: XCTestCase {
         
         // then
         
-        let result = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter)
+        let result = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0)
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
         XCTAssertNil(result.metadata[MockerProxyConfigKey.isProxyingOn])
         XCTAssertNil(result.metadata[MockerProxyConfigKey.proxyingHost])

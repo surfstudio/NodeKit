@@ -24,7 +24,7 @@ class DTOMapperNodeTests: XCTestCase {
         }
         
         @discardableResult
-        public func process(_ data: Json) -> Observer<Json> {
+        public func processLegacy(_ data: Json) -> Observer<Json> {
             if let error = resultError {
                 var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.dtoMapperNode)
                 log += "\(error)"
@@ -54,7 +54,7 @@ class DTOMapperNodeTests: XCTestCase {
         
         let exp = self.expectation(description: "\(#function)")
         
-        let result = mapperNode.process([:]).onError { error in
+        let result = mapperNode.processLegacy([:]).onError { error in
             resultError = error
             exp.fulfill()
         }
@@ -86,7 +86,7 @@ class DTOMapperNodeTests: XCTestCase {
         
         let exp = self.expectation(description: "\(#function)")
         
-        let result = mapperNode.process([:]).onCompleted { user in
+        let result = mapperNode.processLegacy([:]).onCompleted { user in
             resultUser = user
             exp.fulfill()
         }.onError { error in
@@ -110,7 +110,7 @@ class DTOMapperNodeTests: XCTestCase {
         
         let exp = self.expectation(description: "\(#function)")
         
-        let result = mapperNode.process([:]).onError { error in
+        let result = mapperNode.processLegacy([:]).onError { error in
             resultError = error
             exp.fulfill()
         }

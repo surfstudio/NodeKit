@@ -55,16 +55,16 @@ open class FirstCachePolicyNode: AsyncStreamNode {
     /// а затем, передает управление следующему узлу.
     /// В случае, если получить `URLRequest` не удалось,
     /// то управление просто передается следующему узлу
-    open func process(_ data: RawUrlRequest) -> Observer<Json> {
+    open func processLegacy(_ data: RawUrlRequest) -> Observer<Json> {
         let result = Context<Json>()
 
         if let request = data.toUrlRequest() {
-            cacheReaderNode.process(request)
+            cacheReaderNode.processLegacy(request)
                 .onCompleted { result.emit(data: $0) }
                 .onError { result.emit(error: $0)}
         }
 
-        next.process(data)
+        next.processLegacy(data)
             .onCompleted { result.emit(data: $0)}
             .onError { result.emit(error: $0) }
 

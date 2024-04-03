@@ -7,35 +7,36 @@
 //
 
 @testable import NodeKit
+import Combine
 
-final class AsyncNodeMock<Input, Output>: AsyncNode {
+class AsyncNodeMock<Input, Output>: AsyncNode {
     
-    var invokedProcess = false
-    var invokedProcessCount = 0
-    var invokedProcessParameter: Input?
-    var invokedProcessParameterList: [Input] = []
-    var stubbedProccessResult: Observer<Output>!
+    var invokedProcessLegacy = false
+    var invokedProcessLegacyCount = 0
+    var invokedProcessLegacyParameter: Input?
+    var invokedProcessLegacyParameterList: [Input] = []
+    var stubbedProccessLegacyResult: Observer<Output>!
     
-    func process(_ data: Input) -> Observer<Output> {
-        invokedProcess = true
-        invokedProcessCount += 1
-        invokedProcessParameter = data
-        invokedProcessParameterList.append(data)
-        return stubbedProccessResult
+    func processLegacy(_ data: Input) -> Observer<Output> {
+        invokedProcessLegacy = true
+        invokedProcessLegacyCount += 1
+        invokedProcessLegacyParameter = data
+        invokedProcessLegacyParameterList.append(data)
+        return stubbedProccessLegacyResult
     }
     
     var invokedAsyncProcess = false
     var invokedAsyncProcessCount = 0
-    var invokedAsyncProcessParameter: Input?
-    var invokedAsyncProcessParameterList: [Input] = []
+    var invokedAsyncProcessParameter: (Input, LoggingContextProtocol)?
+    var invokedAsyncProcessParameterList: [(Input, LoggingContextProtocol)] = []
     var stubbedAsyncProccessResult: NodeResult<Output>!
     var stubbedAsyncProcessRunFunction: (() async -> Void)?
     
-    func process(_ data: Input, logContext: any LoggingContextProtocol) async -> NodeResult<Output> {
+    func process(_ data: Input, logContext: LoggingContextProtocol) async -> NodeResult<Output> {
         invokedAsyncProcess = true
         invokedAsyncProcessCount += 1
-        invokedAsyncProcessParameter = data
-        invokedAsyncProcessParameterList.append(data)
+        invokedAsyncProcessParameter = (data, logContext)
+        invokedAsyncProcessParameterList.append((data, logContext))
         if let function = stubbedAsyncProcessRunFunction {
             await function()
         }

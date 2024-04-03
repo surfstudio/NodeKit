@@ -8,37 +8,37 @@
 
 @testable import NodeKit
 
-final class AsyncStreamNodeMock<Input, Output>: AsyncStreamNode {
+class AsyncStreamNodeMock<Input, Output>: AsyncStreamNode {
 
-    var invokedProcess = false
-    var invokedProcessCount = 0
-    var invokedProcessParameter: Input?
-    var invokedProcessParameterList: [Input] = []
-    var stubbedProccessResult: Observer<Output>!
+    var invokedProcessLegacy = false
+    var invokedProcessLegacyCount = 0
+    var invokedProcessLegacyParameter: Input?
+    var invokedProcessLegacyParameterList: [Input] = []
+    var stubbedProccessLegacyResult: Observer<Output>!
     
-    func process(_ data: Input) -> Observer<Output> {
-        invokedProcess = true
-        invokedProcessCount += 1
-        invokedProcessParameter = data
-        invokedProcessParameterList.append(data)
-        return stubbedProccessResult
+    func processLegacy(_ data: Input) -> Observer<Output> {
+        invokedProcessLegacy = true
+        invokedProcessLegacyCount += 1
+        invokedProcessLegacyParameter = data
+        invokedProcessLegacyParameterList.append(data)
+        return stubbedProccessLegacyResult
     }
     
     var invokedAsyncStreamProcess = false
     var invokedAsyncStreamProcessCount = 0
-    var invokedAsyncStreamProcessParameter: Input?
-    var invokedAsyncStreamProcessParameterList: [Input] = []
-    var stubbedAsyncStreamProccessResult: AsyncStream<NodeResult<Output>>!
+    var invokedAsyncStreamProcessParameter: (Input, LoggingContextProtocol)?
+    var invokedAsyncStreamProcessParameterList: [(Input, LoggingContextProtocol)] = []
+    var stubbedAsyncStreamProccessResult: (() -> AsyncStream<NodeResult<Output>>)!
     var stubbedAsyncStreamProcessRunFunction: (() -> Void)?
     
     func process(_ data: Input, logContext: LoggingContextProtocol) -> AsyncStream<NodeResult<Output>> {
         invokedAsyncStreamProcess = true
         invokedAsyncStreamProcessCount += 1
-        invokedAsyncStreamProcessParameter = data
-        invokedAsyncStreamProcessParameterList.append(data)
+        invokedAsyncStreamProcessParameter = (data, logContext)
+        invokedAsyncStreamProcessParameterList.append((data, logContext))
         if let function = stubbedAsyncStreamProcessRunFunction {
             function()
         }
-        return stubbedAsyncStreamProccessResult
+        return stubbedAsyncStreamProccessResult()
     }
 }

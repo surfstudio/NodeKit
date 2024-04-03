@@ -30,7 +30,7 @@ open class UrlCacheReaderNode: AsyncNode {
     }
 
     /// Посылает запрос в кэш и пытается сериализовать данные в JSON.
-    open func process(_ data: UrlNetworkRequest) -> Observer<Json> {
+    open func processLegacy(_ data: UrlNetworkRequest) -> Observer<Json> {
 
         guard let cachedResponse = self.extractCachedUrlResponse(data.urlRequest) else {
             return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantLoadDataFromCache) : Context<Json>()

@@ -51,7 +51,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
         let params = TransportUrlParameters(method: .get, url: url)
         let request = TransportUrlRequest(with:params , raw: Data())
         
-        nextNodeMock.stubbedProccessResult = .emit(data: Json())
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: Json())
         
         var expectedHeader = request.headers
         expectedHeader[ETagConstants.eTagRequestHeaderKey] = tag
@@ -68,7 +68,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
 
         var callCount = 0
 
-        sut.process(request).onCompleted { _ in
+        sut.processLegacy(request).onCompleted { _ in
             callCount += 1
             expectation.fulfill()
         }.onError { _ in
@@ -80,9 +80,9 @@ final class UrlETagReaderNodeTests: XCTestCase {
 
         // then
         
-        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedProcessParameter)
+        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter)
 
-        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(nextNodeMock.invokedProcessLegacyCount, 1)
         XCTAssertEqual(callCount, 1)
         XCTAssertEqual(nextNodeParameter.method, request.method)
         XCTAssertEqual(nextNodeParameter.url, request.url)
@@ -99,7 +99,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
         let params = TransportUrlParameters(method: .get, url: url)
         let request = TransportUrlRequest(with:params , raw: Data())
         
-        nextNodeMock.stubbedProccessResult = .emit(data: Json())
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: Json())
 
         let expectation = self.expectation(description: "\(#function)")
 
@@ -109,7 +109,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
 
         var callCount = 0
 
-        sut.process(request).onCompleted { _ in
+        sut.processLegacy(request).onCompleted { _ in
             callCount += 1
             expectation.fulfill()
             }.onError { _ in
@@ -121,10 +121,10 @@ final class UrlETagReaderNodeTests: XCTestCase {
 
         // then
         
-        let nextProcessInvokedParameter = try XCTUnwrap(nextNodeMock.invokedProcessParameter)
+        let nextProcessInvokedParameter = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter)
 
         XCTAssertEqual(callCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(nextNodeMock.invokedProcessLegacyCount, 1)
         XCTAssertEqual(request.headers, nextProcessInvokedParameter.headers)
         XCTAssertEqual(request.url, nextProcessInvokedParameter.url)
         XCTAssertEqual(request.method, nextProcessInvokedParameter.method)
@@ -143,7 +143,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
         let params = TransportUrlParameters(method: .get, url: url)
         let request = TransportUrlRequest(with:params , raw: Data())
         
-        nextNodeMock.stubbedProccessResult = .emit(data: Json())
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: Json())
         
         var expectedHeader = request.headers
         expectedHeader[key] = tag
@@ -160,7 +160,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
 
         var callCount = 0
 
-        sut.process(request).onCompleted { _ in
+        sut.processLegacy(request).onCompleted { _ in
             callCount += 1
             expectation.fulfill()
             }.onError { _ in
@@ -172,9 +172,9 @@ final class UrlETagReaderNodeTests: XCTestCase {
 
         // then
 
-        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedProcessParameter)
+        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter)
 
-        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(nextNodeMock.invokedProcessLegacyCount, 1)
         XCTAssertEqual(callCount, 1)
         XCTAssertEqual(nextNodeParameter.method, request.method)
         XCTAssertEqual(nextNodeParameter.url, request.url)
@@ -210,7 +210,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
 
         // then
         
-        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter)
+        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0)
 
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
         XCTAssertEqual(nextNodeParameter.method, request.method)
@@ -237,7 +237,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
         // then
         
         let nextProcessInvokedParameter = try XCTUnwrap(
-            nextNodeMock.invokedAsyncProcessParameter
+            nextNodeMock.invokedAsyncProcessParameter?.0
         )
 
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
@@ -277,7 +277,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
         // then
 
         let nextNodeParameter = try XCTUnwrap(
-            nextNodeMock.invokedAsyncProcessParameter
+            nextNodeMock.invokedAsyncProcessParameter?.0
         )
 
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)

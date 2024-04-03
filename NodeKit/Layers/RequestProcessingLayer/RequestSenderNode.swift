@@ -50,7 +50,7 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
     /// Выполняет запрос,ожидает ответ и передает его следующему узлу.
     ///
     /// - Parameter request: Данные для исполнения запроса.
-    open func process(_ request: URLRequest) -> Observer<Type> {
+    open func processLegacy(_ request: URLRequest) -> Observer<Type> {
 
         let context = Context<NodeDataResponse>()
         self.context = context
@@ -75,7 +75,7 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
         }
         log += "Request sended!"
         task?.resume()
-        return context.map { self.rawResponseProcessor.process($0) }
+        return context.map { self.rawResponseProcessor.processLegacy($0) }
     }
 
     /// Выполняет запрос,ожидает ответ и передает его следующему узлу.

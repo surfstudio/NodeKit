@@ -50,7 +50,7 @@ open class TokenRefresherNode: AsyncNode {
     /// Если запрос был отправлен, то создает `Observer`, сохраняет его у себя и возвращает предыдущему узлу.
     /// Если нет - отправляет запрос и сохраняет `Observer`
     /// После того как запрос на обновление токена был выполнен успешно - эмитит данные во все сохраненные Observer'ы и удаляет их из памяти
-    open func process(_ data: Void) -> Observer<Void> {
+    open func processLegacy(_ data: Void) -> Observer<Void> {
 
         let shouldSaveContext: Bool = self.flagQueue.sync {
             if self.isRequestSended {
@@ -71,7 +71,7 @@ open class TokenRefresherNode: AsyncNode {
             }
         }
 
-        return self.tokenRefreshChain.process(()).map { [weak self] model -> Void in
+        return self.tokenRefreshChain.processLegacy(()).map { [weak self] model -> Void in
 
             guard let `self` = self else { return () }
 

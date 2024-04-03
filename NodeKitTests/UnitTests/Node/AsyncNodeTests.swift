@@ -12,10 +12,9 @@ import XCTest
 
 final class AsyncNodeTests: XCTestCase {
     
-    // MARK: - Sut
+    // MARK: - Dependencies
     
     private var logContextMock: LoggingContextMock!
-    private var nodeMock: AsyncNodeMock<Int, Int>!
     private var cancellable: Set<AnyCancellable>!
     
     // MARK: - Lifecycle
@@ -23,35 +22,79 @@ final class AsyncNodeTests: XCTestCase {
     override func setUp() {
         super.setUp()
         logContextMock = LoggingContextMock()
-        nodeMock = AsyncNodeMock()
         cancellable = Set()
     }
     
     override func tearDown() {
         super.tearDown()
         logContextMock = nil
-        nodeMock = nil
         cancellable = nil
     }
     
     // MARK: - Tests
     
-    func testCombineNode_thenCombineNodeCreated() async throws {
+    func testAsyncProcess_whenDataIsVoid_thenMainMethodCalled() async throws {
         // given
         
-        let expectation = expectation(description: "result")
-        let expectedInput = 4
-        let expectedResult: NodeResult<Int> = .success(15)
+        let sut = AsyncNodeMock<Void, Int>()
+        let expectedResult: NodeResult<Int> = .success(2)
         
-        var result: NodeResult<Int>?
-        
-        nodeMock.stubbedAsyncProccessResult = expectedResult
+        sut.stubbedAsyncProccessResult = expectedResult
         
         // when
         
-        let sut = nodeMock.combineNode()
-        sut.process(expectedInput, logContext: logContextMock)
-            .eraseToAnyPublisher()
+        let result = await sut.process()
+        
+        // then
+        
+        let unwrappedResult = try XCTUnwrap(result)
+        
+        XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
+        XCTAssertFalse(sut.invokedAsyncProcessParameter?.1 === logContextMock)
+        XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
+    }
+    
+    func testAsyncProcess_withData_thenNewLogContextCreated() async throws {
+        // given
+        
+        let sut = AsyncNodeMock<Int, Int>()
+        let expectedInput = 1
+        let expectedResult: NodeResult<Int> = .success(2)
+        
+        sut.stubbedAsyncProccessResult = expectedResult
+        
+        // when
+        
+        let result = await sut.process(expectedInput)
+        
+        // then
+        
+        let unwrappedResult = try XCTUnwrap(result)
+        
+        XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(sut.invokedAsyncProcessParameter?.0, expectedInput)
+        XCTAssertFalse(sut.invokedAsyncProcessParameter?.1 === logContextMock)
+        XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
+    }
+    
+    func testCombineNode_thenAsyncCombineNodeBasedOnSutReceived() async {
+        // given
+        
+        let sut = AsyncNodeMock<Int, Int>()
+        let expectation = expectation(description: "result")
+        let expectedInput = 15
+        let expectedResult: NodeResult<Int> = .success(21)
+        let logContext = LoggingContextMock()
+        
+        sut.stubbedAsyncProccessResult = expectedResult
+        
+        var result: NodeResult<Int>?
+        
+        // when
+        
+        let node = sut.combineNode()
+        
+        node.nodeResultPublisher(for: expectedInput, on: DispatchQueue.main, logContext: logContext)
             .sink(receiveValue: { value in
                 result = value
                 expectation.fulfill()
@@ -62,56 +105,10 @@ final class AsyncNodeTests: XCTestCase {
         
         // then
         
-        let unwrappedResult = try XCTUnwrap(result)
-        
-        XCTAssertEqual(nodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncProcessParameter, expectedInput)
-        XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
-    }
-    
-    func testCombineNode_withMultipleSubsciptions_thenCombineNodeCreated() async throws {
-        // given
-        
-        let expectation1 = expectation(description: "result1")
-        let expectation2 = expectation(description: "result2")
-        let expectedInput = 4
-        let expectedResult: NodeResult<Int> = .success(13)
-        
-        var result1: NodeResult<Int>?
-        var result2: NodeResult<Int>?
-        
-        nodeMock.stubbedAsyncProccessResult = expectedResult
-        
-        // when
-        
-        let sut = nodeMock.combineNode()
-        
-        sut.eraseToAnyPublisher()
-            .sink(receiveValue: { value in
-                result1 = value
-                expectation1.fulfill()
-            })
-            .store(in: &cancellable)
-        
-        sut.eraseToAnyPublisher()
-            .sink(receiveValue: { value in
-                result2 = value
-                expectation2.fulfill()
-            })
-            .store(in: &cancellable)
-        
-        sut.process(expectedInput, logContext: logContextMock)
-        
-        await fulfillment(of: [expectation1, expectation2], timeout: 0.1)
-        
-        // then
-        
-        let unwrappedResult1 = try XCTUnwrap(result1)
-        let unwrappedResult2 = try XCTUnwrap(result2)
-        
-        XCTAssertEqual(nodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncProcessParameter, expectedInput)
-        XCTAssertEqual(unwrappedResult1.castToMockError(), expectedResult.castToMockError())
-        XCTAssertEqual(unwrappedResult2.castToMockError(), expectedResult.castToMockError())
+        XCTAssertTrue(node is AsyncCombineNode<Int, Int>)
+        XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(sut.invokedAsyncProcessParameter?.0, expectedInput)
+        XCTAssertTrue(sut.invokedAsyncProcessParameter?.1 === logContext)
+        XCTAssertEqual(result?.castToMockError(), expectedResult.castToMockError())
     }
 }

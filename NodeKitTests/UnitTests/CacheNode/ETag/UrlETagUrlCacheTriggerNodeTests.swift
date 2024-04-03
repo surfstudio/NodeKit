@@ -50,13 +50,13 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
 
         let expectation = self.expectation(description: "\(#function)")
         
-        transportNodeMock.stubbedProccessResult = .emit(data: Json())
+        transportNodeMock.stubbedProccessLegacyResult = .emit(data: Json())
 
         // when
 
         var numberOfCalls = 0
 
-        sut.process(response).onCompleted { _ in
+        sut.processLegacy(response).onCompleted { _ in
             numberOfCalls += 1
             expectation.fulfill()
         }.onError { _ in
@@ -69,8 +69,8 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         // then
 
         XCTAssertEqual(numberOfCalls, 1)
-        XCTAssertEqual(transportNodeMock.invokedProcessCount, 1)
-        XCTAssertFalse(cacheSaverMock.invokedProcess)
+        XCTAssertEqual(transportNodeMock.invokedProcessLegacyCount, 1)
+        XCTAssertFalse(cacheSaverMock.invokedProcessLegacy)
     }
     
     func testProcess_whenStatus304_thenCacheNodeCalled() {
@@ -81,13 +81,13 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
 
         let expectation = self.expectation(description: "\(#function)")
         
-        cacheSaverMock.stubbedProccessResult = .emit(data: Json())
+        cacheSaverMock.stubbedProccessLegacyResult = .emit(data: Json())
 
         // when
 
         var numberOfCalls = 0
 
-        sut.process(response).onCompleted { _ in
+        sut.processLegacy(response).onCompleted { _ in
             numberOfCalls += 1
             expectation.fulfill()
             }.onError { _ in
@@ -100,8 +100,8 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         // then
 
         XCTAssertEqual(numberOfCalls, 1)
-        XCTAssertFalse(transportNodeMock.invokedAsyncProcess)
-        XCTAssertEqual(cacheSaverMock.invokedProcessCount, 1)
+        XCTAssertFalse(transportNodeMock.invokedProcessLegacy)
+        XCTAssertEqual(cacheSaverMock.invokedProcessLegacyCount, 1)
     }
     
     func testAsyncProcess_whenDataIsNotModified_thenNextCalled() async throws {
@@ -122,8 +122,8 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         let unwrappedResult = try XCTUnwrap(try result.get() as? [String: String])
         
         XCTAssertEqual(transportNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(transportNodeMock.invokedAsyncProcessParameter, response)
-        XCTAssertFalse(cacheSaverMock.invokedProcess)
+        XCTAssertEqual(transportNodeMock.invokedAsyncProcessParameter?.0, response)
+        XCTAssertFalse(cacheSaverMock.invokedAsyncProcess)
         XCTAssertEqual(unwrappedResult, expectedNextResult)
     }
     
@@ -147,7 +147,7 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         XCTAssertFalse(transportNodeMock.invokedAsyncProcess)
         XCTAssertEqual(cacheSaverMock.invokedAsyncProcessCount, 1)
         XCTAssertEqual(
-            cacheSaverMock.invokedAsyncProcessParameter?.urlRequest,
+            cacheSaverMock.invokedAsyncProcessParameter?.0.urlRequest,
             response.request
         )
         XCTAssertEqual(unwrappedResult, expectedCacheResult)

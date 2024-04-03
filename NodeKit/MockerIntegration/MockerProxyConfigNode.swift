@@ -57,7 +57,7 @@ open class MockerProxyConfigNode<Raw, Output>: Node {
     open func process(_ data: RequestModel<Raw>) -> Observer<Output> {
 
         guard self.isProxyingOn else {
-            return self.next.process(data)
+            return self.next.processLegacy(data)
         }
 
         var copy = data
@@ -66,7 +66,7 @@ open class MockerProxyConfigNode<Raw, Output>: Node {
         copy.metadata[Keys.proxyingHost] = self.proxyingHost
         copy.metadata[Keys.proxyingScheme] = self.proxyingScheme
 
-        return self.next.process(copy)
+        return self.next.processLegacy(copy)
     }
 
     // MARK: - Node

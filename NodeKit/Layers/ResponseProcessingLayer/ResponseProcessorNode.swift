@@ -31,7 +31,7 @@ open class ResponseProcessorNode<Type>: AsyncNode {
     /// Проверяет, возникла-ли какая-то ошибка во время работы.
     ///
     /// - Parameter data: Низкоуровневый ответ сервера.
-    open func process(_ data: NodeDataResponse) -> Observer<Type> {
+    open func processLegacy(_ data: NodeDataResponse) -> Observer<Type> {
         var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.responseProcessorNode)
 
         switch data.result {
@@ -53,7 +53,7 @@ open class ResponseProcessorNode<Type>: AsyncNode {
             log += " ~~> \(urlResponse.statusCode)" + .lineTabDeilimeter
             log += "EMPTY"
 
-            return next.process(response).log(log)
+            return next.processLegacy(response).log(log)
         case .success(let value):
             log += "Request success!" + .lineTabDeilimeter
             guard
@@ -75,7 +75,7 @@ open class ResponseProcessorNode<Type>: AsyncNode {
             log += " --> \(urlResponse.statusCode)" + .lineTabDeilimeter
             log += String(data: value, encoding: .utf8) ?? "CURRUPTED"
 
-            return self.next.process(dataResponse).log(log)
+            return self.next.processLegacy(dataResponse).log(log)
         }
     }
 

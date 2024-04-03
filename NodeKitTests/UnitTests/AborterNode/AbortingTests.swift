@@ -48,7 +48,7 @@ final class AbortingTests: XCTestCase {
         // given
         
         let nextContext = Context<Void>()
-        nextNodeMock.stubbedProccessResult = nextContext
+        nextNodeMock.stubbedProccessLegacyResult = nextContext
 
         // when
 
@@ -61,7 +61,7 @@ final class AbortingTests: XCTestCase {
         var deferCalls = 0
 
         let context = sut
-            .process(())
+            .processLegacy(())
             .onCompleted { val in
                 completedCalls += 1
             }.onError { val in
@@ -106,7 +106,7 @@ final class AbortingTests: XCTestCase {
     
         // then
         
-        XCTAssertFalse(nextNodeMock.invokedProcess)
+        XCTAssertFalse(nextNodeMock.invokedProcessLegacy)
         switch result {
         case .success:
             XCTFail("Неожиданный результат")

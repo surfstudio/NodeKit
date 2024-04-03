@@ -59,13 +59,13 @@ public class TokenRefresherNodeTests: XCTestCase {
 
         for _ in 0..<countOfRequests {
             stubNewContextTotokenRefreshChain()
-            sut.process(()).onCompleted {
+            sut.processLegacy(()).onCompleted {
                 counter += 1
             }
         }
 
         stubNewContextTotokenRefreshChain()
-        sut.process(()).onCompleted {
+        sut.processLegacy(()).onCompleted {
             exp.fulfill()
         }
 
@@ -87,11 +87,11 @@ public class TokenRefresherNodeTests: XCTestCase {
 
         for _ in 0..<countOfRequests {
             stubNewContextTotokenRefreshChain()
-            _ = sut.process(())
+            _ = sut.processLegacy(())
         }
 
         stubNewContextTotokenRefreshChain()
-        sut.process(()).onCompleted {
+        sut.processLegacy(()).onCompleted {
             exp.fulfill()
         }
 
@@ -99,7 +99,7 @@ public class TokenRefresherNodeTests: XCTestCase {
 
         // Assert
 
-        XCTAssertEqual(tokenRefreshChainMock.invokedProcessCount, 1)
+        XCTAssertEqual(tokenRefreshChainMock.invokedProcessLegacyCount, 1)
     }
     
     func testAsyncProcess_thenTokenRefresherActorCalled() async {
@@ -122,7 +122,7 @@ public class TokenRefresherNodeTests: XCTestCase {
     
     private func stubNewContextTotokenRefreshChain() {
         let context = Context<Void>()
-        tokenRefreshChainMock.stubbedProccessResult = context
+        tokenRefreshChainMock.stubbedProccessLegacyResult = context
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
             context.emit(data: ())
         }

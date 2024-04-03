@@ -12,10 +12,9 @@ import XCTest
 
 final class AsyncStreamNodeTests: XCTestCase {
     
-    // MARK: - Sut
+    // MARK: - Dependencies
     
     private var logContextMock: LoggingContextMock!
-    private var nodeMock: AsyncStreamNodeMock<Int, Int>!
     private var cancellable: Set<AnyCancellable>!
     
     // MARK: - Lifecycle
@@ -23,22 +22,101 @@ final class AsyncStreamNodeTests: XCTestCase {
     override func setUp() {
         super.setUp()
         logContextMock = LoggingContextMock()
-        nodeMock = AsyncStreamNodeMock()
         cancellable = Set()
     }
     
     override func tearDown() {
         super.tearDown()
         logContextMock = nil
-        nodeMock = nil
+        cancellable.forEach {
+            $0.cancel()
+        }
         cancellable = nil
     }
     
     // MARK: - Tests
     
-    func testCombineNode_thenCombineNodeCreated() async {
+    func testAsyncStreamProcess_whenDataIsVoid_thenMainMethodCalled() async throws {
         // given
         
+        let sut = AsyncStreamNodeMock<Void, Int>()
+        
+        let expectedResults: [Result<Int, Error>] = [
+            .success(100),
+            .failure(MockError.firstError),
+            .failure(MockError.secondError),
+            .success(99),
+            .failure(MockError.thirdError)
+        ]
+        
+        var results: [NodeResult<Int>] = []
+        
+        sut.stubbedAsyncStreamProccessResult = {
+            AsyncStream { continuation in
+                expectedResults.forEach { continuation.yield($0) }
+                continuation.finish()
+            }
+        }
+        
+        // when
+        
+        for await result in sut.process() {
+            results.append(result)
+        }
+        
+        // then
+        
+        XCTAssertEqual(sut.invokedAsyncStreamProcessCount, 1)
+        XCTAssertEqual(
+            results.compactMap { $0.castToMockError() },
+            expectedResults.compactMap { $0.castToMockError() }
+        )
+    }
+    
+    func testAsyncProcess_withData_thenNewLogContextCreated() async throws {
+        // given
+        
+        let sut = AsyncStreamNodeMock<Int, Int>()
+        let expectedInput = 32
+        
+        let expectedResults: [Result<Int, Error>] = [
+            .success(100),
+            .failure(MockError.firstError),
+            .failure(MockError.secondError),
+            .success(99),
+            .failure(MockError.thirdError)
+        ]
+        
+        var results: [NodeResult<Int>] = []
+        
+        sut.stubbedAsyncStreamProccessResult = {
+            AsyncStream { continuation in
+                expectedResults.forEach { continuation.yield($0) }
+                continuation.finish()
+            }
+        }
+        
+        // when
+        
+        for await result in sut.process(expectedInput) {
+            results.append(result)
+        }
+        
+        // then
+        
+        XCTAssertEqual(sut.invokedAsyncStreamProcessCount, 1)
+        XCTAssertEqual(sut.invokedAsyncStreamProcessParameter?.0, expectedInput)
+        XCTAssertFalse(sut.invokedAsyncStreamProcessParameter?.1 === logContextMock)
+        XCTAssertEqual(
+            results.compactMap { $0.castToMockError() },
+            expectedResults.compactMap { $0.castToMockError() }
+        )
+    }
+    
+    func testCombineStreamNode_thenAsyncStreamCombineNodeBasedOnSutReceived() async {
+        // given
+        
+        let sut = AsyncStreamNodeMock<Int, Int>()
         let expectation = expectation(description: "result")
         let expectedInput = 43
         
@@ -49,99 +127,42 @@ final class AsyncStreamNodeTests: XCTestCase {
             .success(99),
             .failure(MockError.thirdError)
         ]
-        let castedResults = expectedResults.compactMap { $0.castToMockError() }
         
-        var index: Int?
         var results: [NodeResult<Int>] = []
         
-        nodeMock.stubbedAsyncStreamProccessResult = AsyncStream { continuation in
-            expectedResults.forEach { continuation.yield($0) }
-            continuation.finish()
+        sut.stubbedAsyncStreamProccessResult = {
+            AsyncStream { continuation in
+                expectedResults.forEach { continuation.yield($0) }
+                continuation.finish()
+            }
         }
         
         // when
         
-        let sut = nodeMock.combineNode()
-        sut.process(expectedInput, logContext: logContextMock)
-            .eraseToAnyPublisher()
+        let node = sut.combineStreamNode()
+        
+        node.nodeResultPublisher(on: DispatchQueue.main)
             .sink(receiveValue: { value in
                 results.append(value)
-                if let valueIndex = index ?? value.findIndex(in: castedResults) {
-                    index = valueIndex
-                    if results.count == expectedResults.count - valueIndex {
-                        expectation.fulfill()
-                    }
+                if results.count == expectedResults.count {
+                    expectation.fulfill()
                 }
             })
             .store(in: &cancellable)
         
-        await fulfillment(of: [expectation], timeout: 1)
+        node.process(expectedInput, logContext: logContextMock)
+        
+        await fulfillment(of: [expectation], timeout: 0.1)
         
         // then
         
-        let allExpectedResults = Array(castedResults.dropFirst(index ?? 0))
-        
-        XCTAssertEqual(nodeMock.invokedAsyncStreamProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncStreamProcessParameter, expectedInput)
-        XCTAssertEqual(results.compactMap { $0.castToMockError() }, allExpectedResults)
-    }
-    
-    func testCombineNode_withMultipleSubsciptions_thenCombineNodeCreated() async {
-        // given
-        
-        let expectation1 = expectation(description: "result1")
-        let expectation2 = expectation(description: "result2")
-        let expectedInput = 42
-        
-        let expectedResults: [Result<Int, MockError>] = [
-            .success(500),
-            .failure(.secondError),
-            .success(1),
-            .failure(.secondError),
-            .failure(.thirdError)
-        ]
-        let nodeResults: [NodeResult<Int>] = expectedResults.map { res in res.mapError { $0 } }
-        
-        var results1: [NodeResult<Int>] = []
-        var results2: [NodeResult<Int>] = []
-        
-        
-        nodeMock.stubbedAsyncStreamProccessResult = AsyncStream { continuation in
-            nodeResults.forEach { continuation.yield($0) }
-            continuation.finish()
-        }
-        
-        // when
-        
-        let sut = nodeMock.combineNode()
-        
-        sut.eraseToAnyPublisher()
-            .sink(receiveValue: { value in
-                results1.append(value)
-                if results1.count == expectedResults.count {
-                    expectation1.fulfill()
-                }
-            })
-            .store(in: &cancellable)
-        
-        sut.eraseToAnyPublisher()
-            .sink(receiveValue: { value in
-                results2.append(value)
-                if results2.count == expectedResults.count {
-                    expectation2.fulfill()
-                }
-            })
-            .store(in: &cancellable)
-        
-        sut.process(expectedInput, logContext: logContextMock)
-        
-        await fulfillment(of: [expectation1, expectation2], timeout: 0.1)
-        
-        // then
-        
-        XCTAssertEqual(nodeMock.invokedAsyncStreamProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncStreamProcessParameter, expectedInput)
-        XCTAssertEqual(results1.compactMap { $0.castToMockError() }, expectedResults)
-        XCTAssertEqual(results2.compactMap { $0.castToMockError() }, expectedResults)
+        XCTAssertEqual(sut.invokedAsyncStreamProcessCount, 1)
+        XCTAssertEqual(sut.invokedAsyncStreamProcessParameter?.0, expectedInput)
+        XCTAssertTrue(sut.invokedAsyncStreamProcessParameter?.1 === logContextMock)
+        XCTAssertTrue(node is AsyncStreamCombineNode<Int, Int>)
+        XCTAssertEqual(
+            results.compactMap { $0.castToMockError() },
+            expectedResults.compactMap { $0.castToMockError() }
+        )
     }
 }

@@ -33,5 +33,6 @@ public protocol Node<Input, Output> {
     ///
     /// - Parameter data: Входные данные
     /// - Returns: Подписка на процесс обработки данных.
-    func process(_ data: Input) -> Observer<Output>
+    @available(*, deprecated, message: "Будет удалено в ближайшее время")
+    func processLegacy(_ data: Input) -> Observer<Output>
 }

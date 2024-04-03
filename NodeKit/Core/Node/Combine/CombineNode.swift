@@ -6,44 +6,64 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
-import Combine
 import Foundation
+import Combine
 
-/// Протокол ноды, поддерживающего обработку результата с помощью Combine.
-public protocol CombineNode<Input, Output>: AnyObject {
-    associatedtype Input
-    associatedtype Output
-    
-    /// Метод запускающий процесс обработки данных.
+/// Протокол ноды, выполняющая обработку данных и возвращающая результат с помощью Combine.
+public protocol CombineNode<Input, Output>: Node {
+
+    /// Метод запускающий процесс обработки данных
+    /// и возвращающий publisher для подписки на результат.
     ///
     /// - Parameters:
     ///    - data: Входные данные ноды.
+    ///    - scheduler: Scheduler для выдачи результаты.
     ///    - logContext: Контекст логов.
-    /// - Returns: Self ноды.
+    /// - Returns: Publisher для подписки на результат.
     @discardableResult
-    func process(_ data: Input, logContext: LoggingContextProtocol) -> Self
-    
-    /// Метод получения Publisher, для подписки на результат обработки данных в главном потоке.
-    ///
-    /// - Returns: Publisher результа обработки данных ноды.
-    func eraseToAnyPublisher() -> AnyPublisher<NodeResult<Output>, Never>
-    
-    /// Метод получения Publisher, для подписки на результат обработки данных.
-    ///
-    /// - Parameter queue: Очередь, на которой будут получены данные.
-    /// - Returns: Publisher результа обработки данных ноды.
-    func eraseToAnyPublisher(queue: DispatchQueue) -> AnyPublisher<NodeResult<Output>, Never>
+    func nodeResultPublisher(
+        for data: Input,
+        on scheduler: some Scheduler,
+        logContext: LoggingContextProtocol
+    ) -> AnyPublisher<NodeResult<Output>, Never>
 }
 
 public extension CombineNode {
     
-    /// Метод запускающий процесс обработки данных и создающий новый контекст логов.
-    /// 
+    /// Метод запускающий процесс обработки данных и возвращаюший результат на главной очереди.
+    ///
+    /// - Parameters:
+    ///    - data: Входные данные ноды.
+    ///    - logContext: Контекст логов.
+    /// - Returns: Publisher для подписки на результат.
+    @discardableResult
+    func nodeResultPublisher(
+        for data: Input,
+        logContext: LoggingContextProtocol
+    ) -> AnyPublisher<NodeResult<Output>, Never> {
+        return nodeResultPublisher(for: data, on: DispatchQueue.main, logContext: logContext)
+    }
+    
+    /// Метод запускающий процесс обработки данных, создающий новый контекст логов
+    /// с использованием Scheduler для выдачи результаты.
+    ///
+    /// - Parameters:
+    ///    - data: Входные данные ноды.
+    ///    - scheduler: Scheduler для выдачи результаты.
+    /// - Returns: Publisher для подписки на результат.
+    @discardableResult
+    func nodeResultPublisher(for data: Input, on scheduler: some Scheduler) -> AnyPublisher<NodeResult<Output>, Never> {
+        return nodeResultPublisher(for: data, on: scheduler, logContext: LoggingContext())
+    }
+    
+    /// Метод запускающий процесс обработки данных, создающий новый контекст логов
+    /// и возвращаюший результат на главной очереди.
+    ///
     /// - Parameter data: Входные данные ноды.
     /// - Returns: Self ноды.
     @discardableResult
-    func process(_ data: Input) -> Self {
-        return process(data, logContext: LoggingContext())
+    func nodeResultPublisher(for data: Input) -> AnyPublisher<NodeResult<Output>, Never> {
+        return nodeResultPublisher(for: data, on: DispatchQueue.main)
     }
 }
 
@@ -51,65 +71,8 @@ public extension CombineNode {
 public extension CombineNode where Input == Void {
     
     /// Вызывает `process(_:)`
-    func process() -> Self {
-        return process(Void())
-    }
-}
-
-/// Реализация ``CombineNode``
-public class CombineCompatibleNode<Input, Output>: CombineNode, NodeAdapterOutput {
-    
-    // MARK: - Private Properties
-
-    private let subject = CurrentValueSubject<NodeResult<Output>?, Never>(nil)
-    private let adapter: any NodeAdapter<Input, Output>
-    
-    // MARK: - Initialization
-
-    public init(adapter: some NodeAdapter<Input, Output>) {
-        self.adapter = adapter
-    }
-    
-    // MARK: - CombineNode
-
-    /// Создает новую задачу, в которой вызывает метод process у адаптера.
-    ///
-    /// - Parameters:
-    ///    - data: Входные данные ноды.
-    ///    - logContext: Контекст логов.
-    /// - Returns: Self ноды.
     @discardableResult
-    public func process(_ data: Input, logContext: LoggingContextProtocol) -> Self {
-        Task {
-            await adapter.process(data: data, logContext: logContext, output: self)
-        }
-        return self
-    }
-
-    /// Метод получения Publisher, для подписки на результат обработки данных в главном потоке.
-    ///
-    /// - Returns: Publisher результа обработки данных ноды.
-    public func eraseToAnyPublisher() -> AnyPublisher<NodeResult<Output>, Never> {
-        return subject
-            .compactMap { $0 }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
-    }
-    
-    /// Метод получения Publisher, для подписки на результат обработки данных.
-    ///
-    /// - Parameter queue: Очередь, на которой будут получены данные.
-    /// - Returns: Publisher результа обработки данных ноды.
-    public func eraseToAnyPublisher(queue: DispatchQueue) -> AnyPublisher<NodeResult<Output>, Never> {
-        return subject
-            .compactMap { $0 }
-            .receive(on: queue)
-            .eraseToAnyPublisher()
-    }
-    
-    // MARK: - NodeAdapterOutput
-    
-    public func send(_ value: NodeResult<Output>) {
-        subject.send(value)
+    func nodeResultPublisher() -> AnyPublisher<NodeResult<Output>, Never> {
+        return nodeResultPublisher(for: Void())
     }
 }

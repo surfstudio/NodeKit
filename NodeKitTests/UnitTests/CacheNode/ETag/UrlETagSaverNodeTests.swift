@@ -34,7 +34,7 @@ public class UrlETagSaverNodeTests: XCTestCase {
 
         // Act
 
-        node.process(data).onCompleted { model in
+        node.processLegacy(data).onCompleted { model in
             callCount += 1
             expectation.fulfill()
         }.onError { error in
@@ -74,7 +74,7 @@ public class UrlETagSaverNodeTests: XCTestCase {
 
         // Act
 
-        node.process(data).onCompleted { model in
+        node.processLegacy(data).onCompleted { model in
             callCount += 1
             expectation.fulfill()
             }.onError { error in
@@ -115,7 +115,7 @@ public class UrlETagSaverNodeTests: XCTestCase {
 
         // Act
 
-        node.process(data).onCompleted { model in
+        node.processLegacy(data).onCompleted { model in
             callCount += 1
             expectation.fulfill()
             }.onError { error in
@@ -165,11 +165,11 @@ public class UrlETagSaverNodeTests: XCTestCase {
 
         // Act
 
-        node.process(data1)
+        node.processLegacy(data1)
             .onCompleted { _ in expectation1.fulfill() }
             .onError { _ in expectation1.fulfill() }
 
-        node.process(data2)
+        node.processLegacy(data2)
             .onCompleted { _ in expectation2.fulfill() }
             .onError { _ in expectation2.fulfill() }
 
