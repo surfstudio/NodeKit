@@ -1,5 +1,5 @@
 //
-//  RequstEncoderNode.swift
+//  RequestEncoderNode.swift
 //  CoreNetKit
 //
 //  Created by Александр Кравченков on 05/03/2019.
@@ -17,7 +17,7 @@ import Foundation
 ///     - `RequestRouterNode`
 ///     - `EncodableRequestModel`
 ///     - `UrlRequestTrasformatorNode`
-open class RequstEncoderNode<Raw, Route, Encoding, Output>: AsyncNode {
+open class RequestEncoderNode<Raw, Route, Encoding, Output>: AsyncNode {
 
     /// Тип для следюущего узла.
     public typealias NextNode = AsyncNode<EncodableRequestModel<Route, Raw, Encoding>, Output>

@@ -29,8 +29,8 @@ class AsyncNodeMock<Input, Output>: AsyncNode {
     
     var invokedAsyncProcess = false
     var invokedAsyncProcessCount = 0
-    var invokedAsyncProcessParameter: (Input, LoggingContextProtocol)?
-    var invokedAsyncProcessParameterList: [(Input, LoggingContextProtocol)] = []
+    var invokedAsyncProcessParameters: (Input, LoggingContextProtocol)?
+    var invokedAsyncProcessParametersList: [(Input, LoggingContextProtocol)] = []
     var stubbedAsyncProccessResult: NodeResult<Output>!
     var stubbedAsyncProcessRunFunction: (() async -> Void)?
     var stubbedAsyncProcessNonAsyncRunFunction: (() -> Void)?
@@ -38,8 +38,8 @@ class AsyncNodeMock<Input, Output>: AsyncNode {
     func process(_ data: Input, logContext: LoggingContextProtocol) async -> NodeResult<Output> {
         invokedAsyncProcess = true
         invokedAsyncProcessCount += 1
-        invokedAsyncProcessParameter = (data, logContext)
-        invokedAsyncProcessParameterList.append((data, logContext))
+        invokedAsyncProcessParameters = (data, logContext)
+        invokedAsyncProcessParametersList.append((data, logContext))
         if let function = stubbedAsyncProcessRunFunction {
             await function()
         }

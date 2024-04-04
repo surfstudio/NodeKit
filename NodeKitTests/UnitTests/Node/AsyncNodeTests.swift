@@ -50,7 +50,7 @@ final class AsyncNodeTests: XCTestCase {
         let unwrappedResult = try XCTUnwrap(result)
         
         XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
-        XCTAssertFalse(sut.invokedAsyncProcessParameter?.1 === logContextMock)
+        XCTAssertFalse(sut.invokedAsyncProcessParameters?.1 === logContextMock)
         XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
     }
     
@@ -72,8 +72,8 @@ final class AsyncNodeTests: XCTestCase {
         let unwrappedResult = try XCTUnwrap(result)
         
         XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(sut.invokedAsyncProcessParameter?.0, expectedInput)
-        XCTAssertFalse(sut.invokedAsyncProcessParameter?.1 === logContextMock)
+        XCTAssertEqual(sut.invokedAsyncProcessParameters?.0, expectedInput)
+        XCTAssertFalse(sut.invokedAsyncProcessParameters?.1 === logContextMock)
         XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
     }
     
@@ -107,8 +107,8 @@ final class AsyncNodeTests: XCTestCase {
         
         XCTAssertTrue(node is AsyncCombineNode<Int, Int>)
         XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(sut.invokedAsyncProcessParameter?.0, expectedInput)
-        XCTAssertTrue(sut.invokedAsyncProcessParameter?.1 === logContext)
+        XCTAssertEqual(sut.invokedAsyncProcessParameters?.0, expectedInput)
+        XCTAssertTrue(sut.invokedAsyncProcessParameters?.1 === logContext)
         XCTAssertEqual(result?.castToMockError(), expectedResult.castToMockError())
     }
 }

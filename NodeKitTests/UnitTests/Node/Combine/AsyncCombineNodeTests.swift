@@ -119,7 +119,7 @@ final class AsyncCombineNodeTests: XCTestCase {
         let unwrappedResult = try XCTUnwrap(result)
         
         XCTAssertEqual(nodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncProcessParameter?.0, expectedInput)
+        XCTAssertEqual(nodeMock.invokedAsyncProcessParameters?.0, expectedInput)
         XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
     }
     
@@ -162,7 +162,7 @@ final class AsyncCombineNodeTests: XCTestCase {
         let unwrappedResult2 = try XCTUnwrap(result2)
         
         XCTAssertEqual(nodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncProcessParameter?.0, expectedInput)
+        XCTAssertEqual(nodeMock.invokedAsyncProcessParameters?.0, expectedInput)
         XCTAssertEqual(unwrappedResult1.castToMockError(), expectedResult.castToMockError())
         XCTAssertEqual(unwrappedResult2.castToMockError(), expectedResult.castToMockError())
     }
@@ -194,7 +194,7 @@ final class AsyncCombineNodeTests: XCTestCase {
         let unwrappedResult = try XCTUnwrap(result)
         
         XCTAssertEqual(nodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncProcessParameter?.0, expectedInput)
+        XCTAssertEqual(nodeMock.invokedAsyncProcessParameters?.0, expectedInput)
         XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
     }
 }

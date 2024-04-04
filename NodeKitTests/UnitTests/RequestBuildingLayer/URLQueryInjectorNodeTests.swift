@@ -260,7 +260,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
 
         // then
         
-        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0.route.url)()
+        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0.route.url)()
 
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
         XCTAssertEqual(url, startUrl)
@@ -281,7 +281,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
 
         // then
         
-        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0)
+        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
         let url = try input.route.url()
         let requestRouteUrl = try request.route.url()
         let normalizedRes = url.query!.split(separator: "&").sorted()
@@ -309,7 +309,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
 
         // then
         
-        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0.route.url)()
+        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0.route.url)()
         let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
         let normalizedExp = "arr[]=a&arr[]=23&arr[]=0".split(separator: "&").sorted()
 
@@ -331,7 +331,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
 
         // then
         
-        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0.route.url)()
+        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0.route.url)()
         let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
         let normalizedExp = "dict[age]=23&dict[name]=bob".split(separator: "&").sorted()
 
@@ -353,7 +353,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
 
         // then
         
-        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0.route.url)()
+        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0.route.url)()
         let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
         let normalizedExp = "dict[age]=23&dict[name]=bob&arr[]=a&arr[]=23&arr[]=0".split(separator: "&").sorted()
 
@@ -375,7 +375,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
 
         // then
         
-        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0.route.url)()
+        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0.route.url)()
         let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
         let normalizedExp = "arr[]=a&arr[]=23&arr[]=0&arr[][]=map".split(separator: "&").sorted()
 

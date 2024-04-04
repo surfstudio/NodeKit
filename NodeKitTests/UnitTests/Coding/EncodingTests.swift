@@ -154,9 +154,9 @@ final class EncodingTests: XCTestCase {
         let unwrappedResult = try XCTUnwrap(try result.get() as? [String: String])
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameter?.0.url!.absoluteString, url)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0.url!.absoluteString, url)
         XCTAssertEqual(
-            nextNodeMock.invokedAsyncProcessParameter?.0.headers.dictionary,
+            nextNodeMock.invokedAsyncProcessParameters?.0.headers.dictionary,
             headersArray
         )
         XCTAssertEqual(unwrappedResult, expectedResult)
@@ -188,7 +188,7 @@ final class EncodingTests: XCTestCase {
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
         XCTAssertEqual(
-            nextNodeMock?.invokedAsyncProcessParameter?.0.url!.absoluteString,
+            nextNodeMock?.invokedAsyncProcessParameters?.0.url!.absoluteString,
             "\(url)?id=12345"
         )
         XCTAssertEqual(unwrappedResult, expectedResult)
@@ -220,9 +220,9 @@ final class EncodingTests: XCTestCase {
         let unwrappedResult = try XCTUnwrap(try result.get() as? [String: String])
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameter?.0.url!.absoluteString, url)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0.url!.absoluteString, url)
         XCTAssertEqual(
-            nextNodeMock.invokedAsyncProcessParameter?.0.headers.dictionary,
+            nextNodeMock.invokedAsyncProcessParameters?.0.headers.dictionary,
             headersArray
         )
         XCTAssertEqual(unwrappedResult, expectedResult)
@@ -254,8 +254,8 @@ final class EncodingTests: XCTestCase {
         let unwrappedResult = try XCTUnwrap(try result.get() as? [String: String])
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameter?.0.url!.absoluteString, expectedUrl)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameter?.0.headers.dictionary.isEmpty, true)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0.url!.absoluteString, expectedUrl)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0.headers.dictionary.isEmpty, true)
         XCTAssertEqual(unwrappedResult, expectedResult)
     }
     

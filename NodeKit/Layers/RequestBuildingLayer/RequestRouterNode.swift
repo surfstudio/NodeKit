@@ -14,7 +14,7 @@ import Foundation
 ///     - `RoutableRequestModel`
 ///     - `Node`
 ///     - `MetadataConnectorNode`
-///     - `RequstEncoderNode`
+///     - `RequestEncoderNode`
 open class RequestRouterNode<Raw, Route, Output>: AsyncNode {
 
     /// Тип для следующего узла.

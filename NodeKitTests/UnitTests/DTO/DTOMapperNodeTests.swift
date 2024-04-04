@@ -185,7 +185,7 @@ final class DTOMapperNodeTests: XCTestCase {
         let log = await logContextMock.invokedAddParameter
         let invokedAddLogCount = await logContextMock.invokedAddCount
         let logMessageId = try XCTUnwrap(log?.id)
-        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0 as? [String: String])
+        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0 as? [String: String])
 
         XCTAssertEqual(invokedAddLogCount, 1)
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
@@ -215,7 +215,7 @@ final class DTOMapperNodeTests: XCTestCase {
         // then
         
         let invokedAddLog = await logContextMock.invokedAdd
-        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0 as? [String: String])
+        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0 as? [String: String])
         let resultUser = try XCTUnwrap(result.value)
 
         XCTAssertFalse(invokedAddLog)
@@ -249,7 +249,7 @@ final class DTOMapperNodeTests: XCTestCase {
         
         let invokedLog = await logContextMock.invokedAddParameter
         let invokedAddLogCount = await logContextMock.invokedAddCount
-        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0 as? [String: String])
+        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0 as? [String: String])
         let error = try XCTUnwrap(result.error as? MockError)
         let logMessageId = try XCTUnwrap(invokedLog?.id)
 
