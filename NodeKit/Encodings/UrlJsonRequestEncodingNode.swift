@@ -39,12 +39,12 @@ open class UrlJsonRequestEncodingNode<Type>: AsyncNode {
             log.message += "type: Json"
         } catch {
             log += "But can't encode data -> terminate with error"
-            return Context<Type>().log(log).emit(error: RequestEncodingError.unsupportedDataType)
+            return Context<Type>().log(log).emit(error: RequestEncodingNodeError.unsupportedDataType)
         }
 
         guard let unwrappedRequest = request else {
             log += "Unsupported data type -> terminate with error"
-            return Context<Type>().log(log).emit(error: RequestEncodingError.unsupportedDataType)
+            return Context<Type>().log(log).emit(error: RequestEncodingNodeError.unsupportedDataType)
         }
 
         return next.processLegacy(unwrappedRequest).log(log)
@@ -69,7 +69,7 @@ open class UrlJsonRequestEncodingNode<Type>: AsyncNode {
         } catch {
             log += "But can't encode data -> terminate with error"
             await logContext.add(log)
-            return .failure(RequestEncodingError.unsupportedDataType)
+            return .failure(RequestEncodingNodeError.unsupportedDataType)
         }
     }
 

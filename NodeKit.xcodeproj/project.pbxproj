@@ -44,6 +44,12 @@
 		50C8EB362BBD9CBF00C5CB93 /* NodeResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8EB352BBD9CBF00C5CB93 /* NodeResultTests.swift */; };
 		50C8EB382BBDBA3B00C5CB93 /* AsyncCombineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8EB372BBDBA3B00C5CB93 /* AsyncCombineNode.swift */; };
 		50C8EB3A2BBDBBD300C5CB93 /* AsyncCombineNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8EB392BBDBBD300C5CB93 /* AsyncCombineNodeTests.swift */; };
+		50C8EB3C2BBEB5E300C5CB93 /* OffsetAsyncPagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8EB3B2BBEB5E300C5CB93 /* OffsetAsyncPagerTests.swift */; };
+		50C8EB3E2BBEC1E700C5CB93 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8EB3D2BBEC1E700C5CB93 /* DispatchQueue+Extension.swift */; };
+		50C8EB3F2BBEF32000C5CB93 /* FormUrlCodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60A0D283E16E4006F4309 /* FormUrlCodingTests.swift */; };
+		50C8EB402BBEFA1500C5CB93 /* SimpleURLChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60A0C283E16E4006F4309 /* SimpleURLChainTests.swift */; };
+		50C8EB412BBEFA1800C5CB93 /* TestEmptyResponseMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60A0E283E16E4006F4309 /* TestEmptyResponseMapping.swift */; };
+		50C8EB422BBEFA7400C5CB93 /* MultipartRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60A0A283E16E4006F4309 /* MultipartRequestTests.swift */; };
 		90B608D4283E1110006F4309 /* NodeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B608CB283E1110006F4309 /* NodeKit.framework */; };
 		90B608DA283E1110006F4309 /* NodeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B608CE283E1110006F4309 /* NodeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90B6090E283E1268006F4309 /* UrlCacheReaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608E4283E1268006F4309 /* UrlCacheReaderNode.swift */; };
@@ -138,7 +144,7 @@
 		90B609C1283E1287006F4309 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60982283E1287006F4309 /* Log.swift */; };
 		90B609C2283E1287006F4309 /* MockerProxyConfigNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60984283E1287006F4309 /* MockerProxyConfigNode.swift */; };
 		90B609EF283E16DC006F4309 /* DTOMapperNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609C5283E16DC006F4309 /* DTOMapperNodeTests.swift */; };
-		90B609F0283E16DC006F4309 /* OffsetAsyncPagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609C7283E16DC006F4309 /* OffsetAsyncPagerTests.swift */; };
+		90B609F0283E16DC006F4309 /* OffsetAsyncPagerLegacyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609C7283E16DC006F4309 /* OffsetAsyncPagerLegacyTests.swift */; };
 		90B609F1283E16DC006F4309 /* ChainConfiguratorNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609C9283E16DC006F4309 /* ChainConfiguratorNodeTests.swift */; };
 		90B609F2283E16DC006F4309 /* MockerProxyConfigNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609CB283E16DC006F4309 /* MockerProxyConfigNodeTests.swift */; };
 		90B609F3283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609CE283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift */; };
@@ -217,6 +223,8 @@
 		50C8EB352BBD9CBF00C5CB93 /* NodeResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeResultTests.swift; sourceTree = "<group>"; };
 		50C8EB372BBDBA3B00C5CB93 /* AsyncCombineNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCombineNode.swift; sourceTree = "<group>"; };
 		50C8EB392BBDBBD300C5CB93 /* AsyncCombineNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncCombineNodeTests.swift; sourceTree = "<group>"; };
+		50C8EB3B2BBEB5E300C5CB93 /* OffsetAsyncPagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAsyncPagerTests.swift; sourceTree = "<group>"; };
+		50C8EB3D2BBEC1E700C5CB93 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		90B608CB283E1110006F4309 /* NodeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NodeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90B608CE283E1110006F4309 /* NodeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NodeKit.h; sourceTree = "<group>"; };
 		90B608D3283E1110006F4309 /* NodeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -312,7 +320,7 @@
 		90B60982283E1287006F4309 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		90B60984283E1287006F4309 /* MockerProxyConfigNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockerProxyConfigNode.swift; sourceTree = "<group>"; };
 		90B609C5283E16DC006F4309 /* DTOMapperNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTOMapperNodeTests.swift; sourceTree = "<group>"; };
-		90B609C7283E16DC006F4309 /* OffsetAsyncPagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffsetAsyncPagerTests.swift; sourceTree = "<group>"; };
+		90B609C7283E16DC006F4309 /* OffsetAsyncPagerLegacyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffsetAsyncPagerLegacyTests.swift; sourceTree = "<group>"; };
 		90B609C9283E16DC006F4309 /* ChainConfiguratorNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainConfiguratorNodeTests.swift; sourceTree = "<group>"; };
 		90B609CB283E16DC006F4309 /* MockerProxyConfigNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockerProxyConfigNodeTests.swift; sourceTree = "<group>"; };
 		90B609CE283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift; sourceTree = "<group>"; };
@@ -395,6 +403,8 @@
 		39EF561B2A0E28C3004B77C0 /* EndToEndTests */ = {
 			isa = PBXGroup;
 			children = (
+				90B60A0A283E16E4006F4309 /* MultipartRequestTests.swift */,
+				90B60A0D283E16E4006F4309 /* FormUrlCodingTests.swift */,
 				90B60A0C283E16E4006F4309 /* SimpleURLChainTests.swift */,
 				90B60A0E283E16E4006F4309 /* TestEmptyResponseMapping.swift */,
 			);
@@ -456,6 +466,7 @@
 				502F9D9B2BAA39E700151A8D /* Equatable */,
 				502F9D992BAA389500151A8D /* LoggingContextTests.swift */,
 				50528E302BAE1F9800E86CB6 /* LoggingContextMock.swift */,
+				50C8EB3D2BBEC1E700C5CB93 /* DispatchQueue+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -534,8 +545,6 @@
 				90B60A1A283E19C5006F4309 /* Resources */,
 				90B609C3283E16DC006F4309 /* UnitTests */,
 				90B60A0B283E16E4006F4309 /* DeferCallingTests.swift */,
-				90B60A0D283E16E4006F4309 /* FormUrlCodingTests.swift */,
-				90B60A0A283E16E4006F4309 /* MultipartRequestTests.swift */,
 			);
 			path = NodeKitTests;
 			sourceTree = "<group>";
@@ -952,7 +961,8 @@
 		90B609C6283E16DC006F4309 /* AsyncIterator */ = {
 			isa = PBXGroup;
 			children = (
-				90B609C7283E16DC006F4309 /* OffsetAsyncPagerTests.swift */,
+				90B609C7283E16DC006F4309 /* OffsetAsyncPagerLegacyTests.swift */,
+				50C8EB3B2BBEB5E300C5CB93 /* OffsetAsyncPagerTests.swift */,
 			);
 			path = AsyncIterator;
 			sourceTree = "<group>";
@@ -1339,6 +1349,7 @@
 				50C8EB342BBD951500C5CB93 /* AsyncStreamCombineNodeTests.swift in Sources */,
 				90B60A06283E16DC006F4309 /* AuthModel.swift in Sources */,
 				90B60A04283E16DC006F4309 /* AuthModelEntry.swift in Sources */,
+				50C8EB412BBEFA1800C5CB93 /* TestEmptyResponseMapping.swift in Sources */,
 				90B60A01283E16DC006F4309 /* LoggingTests.swift in Sources */,
 				50528E312BAE1F9800E86CB6 /* LoggingContextMock.swift in Sources */,
 				50C8EB3A2BBDBBD300C5CB93 /* AsyncCombineNodeTests.swift in Sources */,
@@ -1352,27 +1363,32 @@
 				90B609F3283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift in Sources */,
 				90B609F8283E16DC006F4309 /* EncodingTests.swift in Sources */,
 				50C8EB2E2BBD8FC000C5CB93 /* CombineStreamNodeMock.swift in Sources */,
+				50C8EB402BBEFA1500C5CB93 /* SimpleURLChainTests.swift in Sources */,
 				5005EB3E2BB9B4A300B670CD /* AsyncStreamNodeTests.swift in Sources */,
 				5005EB442BB9BC5B00B670CD /* Result+Extension.swift in Sources */,
 				90B609F1283E16DC006F4309 /* ChainConfiguratorNodeTests.swift in Sources */,
+				50C8EB422BBEFA7400C5CB93 /* MultipartRequestTests.swift in Sources */,
 				5005EB422BB9BC2500B670CD /* MockError.swift in Sources */,
 				90B609F6283E16DC006F4309 /* URLQueryInjectorNodeTests.swift in Sources */,
+				50C8EB3C2BBEB5E300C5CB93 /* OffsetAsyncPagerTests.swift in Sources */,
 				50528E2C2BAE18F400E86CB6 /* AsyncNodeMock.swift in Sources */,
 				502F9D9A2BAA389500151A8D /* LoggingContextTests.swift in Sources */,
 				90B609FD283E16DC006F4309 /* UrlETagReaderNodeTests.swift in Sources */,
 				90B609F7283E16DC006F4309 /* TokenRefresherNodeTests.swift in Sources */,
 				90B609F4283E16DC006F4309 /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift in Sources */,
 				90B609EF283E16DC006F4309 /* DTOMapperNodeTests.swift in Sources */,
+				50C8EB3E2BBEC1E700C5CB93 /* DispatchQueue+Extension.swift in Sources */,
 				502F9D9D2BAA39F400151A8D /* Log+Equatalbe.swift in Sources */,
 				90B60A09283E16DC006F4309 /* AbortingTests.swift in Sources */,
 				90B609FB283E16DC006F4309 /* TestUtls.swift in Sources */,
 				90B60A08283E16DC006F4309 /* Credentials.swift in Sources */,
-				90B609F0283E16DC006F4309 /* OffsetAsyncPagerTests.swift in Sources */,
+				90B609F0283E16DC006F4309 /* OffsetAsyncPagerLegacyTests.swift in Sources */,
 				90B60A00283E16DC006F4309 /* IfConnectionFailedFromCacheNodeTests.swift in Sources */,
 				50528E372BAE34A400E86CB6 /* TokenRefresherActorTests.swift in Sources */,
 				5005EB3C2BB9B1C800B670CD /* AsyncNodeTests.swift in Sources */,
 				90B60A03283E16DC006F4309 /* CredentialsEntry.swift in Sources */,
 				90B609F2283E16DC006F4309 /* MockerProxyConfigNodeTests.swift in Sources */,
+				50C8EB3F2BBEF32000C5CB93 /* FormUrlCodingTests.swift in Sources */,
 				90B609FA283E16DC006F4309 /* FirstCachePolicyTests.swift in Sources */,
 				50528E392BAE39AE00E86CB6 /* AborterMock.swift in Sources */,
 			);

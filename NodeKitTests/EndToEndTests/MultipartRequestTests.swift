@@ -3,7 +3,7 @@ import XCTest
 
 @testable import NodeKit
 
-public class MultipartRequestTests: XCTestCase {
+final class MultipartRequestTests: XCTestCase {
 
     struct TestData: DTOConvertible, RawMappable {
 
@@ -30,7 +30,7 @@ public class MultipartRequestTests: XCTestCase {
         }
     }
 
-    public func testMultipartPing() {
+    func testMultipartPing() {
 
         // Arrange
 
@@ -51,7 +51,7 @@ public class MultipartRequestTests: XCTestCase {
         UrlChainsBuilder()
             .route(.post, Routes.multipartPing)
             .build()
-            .process(model)
+            .processLegacy(model)
             .onCompleted { (json: Json) in
                 isSuccess = json["success"] as! Bool
                 exp.fulfill()
@@ -64,7 +64,7 @@ public class MultipartRequestTests: XCTestCase {
         XCTAssertTrue(isSuccess)
     }
 
-    public func testValuesSendsCorrectly() {
+    func testValuesSendsCorrectly() {
 
         // Arrange
 
@@ -84,7 +84,7 @@ public class MultipartRequestTests: XCTestCase {
         UrlChainsBuilder()
             .route(.post, Routes.multipartCorrect)
             .build()
-            .process(model)
+            .processLegacy(model)
             .onCompleted { (json: Json) in
                 isSuccess = json["success"] as! Bool
                 exp.fulfill()
@@ -97,34 +97,33 @@ public class MultipartRequestTests: XCTestCase {
         XCTAssertTrue(isSuccess)
     }
 
-    // TODO: поправить падающий тест
-//    public func testFileSendsCorrectly() {
-//
-//        // Arrange
-//        let url = Bundle(for: type(of: self)).url(forResource: "LICENSE", withExtension: "txt")!
-//        let model = MultipartModel(payloadModel: TestData(data: [:]) ,files: [
-//            "file": .url(url: url)
-//        ])
-//
-//        // Act
-//
-//        var isSuccess = false
-//
-//        let exp = self.expectation(description: "\(#function)")
-//
-//        UrlChainsBuilder()
-//            .route(.post, Routes.multipartFile)
-//            .build()
-//            .process(model)
-//            .onCompleted { (json: Json) in
-//                isSuccess = json["success"] as! Bool
-//                exp.fulfill()
-//        }
-//
-//        waitForExpectations(timeout: 30, handler: nil)
-//
-//        // Assert
-//
-//        XCTAssertTrue(isSuccess)
-//    }
+    func testFileSendsCorrectly() {
+
+        // Arrange
+        let url = Bundle(for: type(of: self)).url(forResource: "LICENSE", withExtension: "txt")!
+        let model = MultipartModel(payloadModel: TestData(data: [:]) ,files: [
+            "file": .url(url: url)
+        ])
+
+        // Act
+
+        var isSuccess = false
+
+        let exp = self.expectation(description: "\(#function)")
+
+        UrlChainsBuilder()
+            .route(.post, Routes.multipartFile)
+            .build()
+            .processLegacy(model)
+            .onCompleted { (json: Json) in
+                isSuccess = json["success"] as! Bool
+                exp.fulfill()
+        }
+
+        waitForExpectations(timeout: 30, handler: nil)
+
+        // Assert
+
+        XCTAssertTrue(isSuccess)
+    }
 }

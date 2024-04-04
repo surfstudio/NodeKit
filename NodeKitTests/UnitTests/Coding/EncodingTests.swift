@@ -227,4 +227,90 @@ final class EncodingTests: XCTestCase {
         )
         XCTAssertEqual(unwrappedResult, expectedResult)
     }
+    
+    func testAsyncProcess_withGetParameter_thenJsonConvertionWork() async throws {
+        // given
+
+        let url = "http://test.com/usr"
+        let dataRaw: Json = ["id": "12345"]
+        let urlParameters = TransportUrlParameters(method: .get, url: URL(string: url)!)
+        let encodingModel = RequestEncodingModel(
+            urlParameters: urlParameters,
+            raw: dataRaw,
+            encoding: .json
+        )
+        
+        let expectedResult = ["Test2": "Value2"]
+        let expectedUrl = url + "?id=12345"
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
+
+        // when
+        
+        let result = await sut.process(encodingModel, logContext: logContextMock)
+
+        // then
+        
+        let unwrappedResult = try XCTUnwrap(try result.get() as? [String: String])
+        
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameter?.0.url!.absoluteString, expectedUrl)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameter?.0.headers.dictionary.isEmpty, true)
+        XCTAssertEqual(unwrappedResult, expectedResult)
+    }
+    
+    func testAsyncProcess_whenEncodingError_thenErrorReceived() async throws {
+        // given
+        
+        let wrongString = String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!
+        let url = "http://test.com/usr"
+        let dataRaw: Json = ["id": wrongString]
+        let urlParameters = TransportUrlParameters(method: .head, url: URL(string: url)!)
+        let encodingModel = RequestEncodingModel(
+            urlParameters: urlParameters,
+            raw: dataRaw,
+            encoding: .json
+        )
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success([:])
+
+        // when
+        
+        let result = await sut.process(encodingModel, logContext: logContextMock)
+
+        // then
+        
+        let unwrappedResult = try XCTUnwrap(result.error as? RequestEncodingNodeError)
+        
+        XCTAssertFalse(nextNodeMock.invokedAsyncProcess)
+        XCTAssertEqual(unwrappedResult, .unsupportedDataType)
+    }
+    
+    func testAsyncProcess_whenEncodingParametersMissed_thenErrorReceived() async throws {
+        // given
+
+        let url = "http://test.com/usr"
+        let dataRaw: Json = ["id": "12345"]
+        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let encodingModel = RequestEncodingModel(
+            urlParameters: urlParameters,
+            raw: dataRaw,
+            encoding: nil
+        )
+        
+        let expectedResult = ["Test2": "Value2"]
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
+
+        // when
+        
+        let result = await sut.process(encodingModel, logContext: logContextMock)
+
+        // then
+        
+        let unwrappedResult = try XCTUnwrap(result.error as? RequestEncodingNodeError)
+        
+        XCTAssertFalse(nextNodeMock.invokedAsyncProcess)
+        XCTAssertEqual(unwrappedResult, .missedJsonEncodingType)
+    }
 }

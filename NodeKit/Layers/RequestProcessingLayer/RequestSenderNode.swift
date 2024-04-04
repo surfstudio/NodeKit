@@ -138,7 +138,7 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
                     result: result
                 )
                 continuation.resume(with: .success(nodeResponse))
-            }
+            }.resume()
         }
     }
 

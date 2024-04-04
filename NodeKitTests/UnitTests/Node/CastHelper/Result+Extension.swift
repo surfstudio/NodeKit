@@ -20,11 +20,4 @@ extension Result where Success: Equatable {
             return nil
         }
     }
-    
-    func findIndex(in array: [Result<Success, MockError>]) -> Int? {
-        guard let value = castToMockError() else {
-            return nil
-        }
-        return array.firstIndex(of: value)
-    }
 }

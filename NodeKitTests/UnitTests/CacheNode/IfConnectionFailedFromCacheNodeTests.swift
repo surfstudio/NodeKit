@@ -106,6 +106,28 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
         XCTAssertEqual(unwrappedResult, expectedResult)
     }
     
+    public func testAsyncProcess_withCustomError_thenCustomErrorReceived() async throws {
+        // given
+        
+        let request = URLRequest(url: URL(string: "test.ex.temp")!)
+        let expectedResult = ["test": "value"]
+        
+        mapperNextNodeMock.stubbedAsyncProccessResult = .failure(MockError.secondError)
+        cacheReaderNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
+
+        // when
+
+        let result = await sut.process(request, logContext: logContextMock)
+
+        // then
+
+        let error = try XCTUnwrap(result.error as? MockError)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameter?.0, request)
+        XCTAssertFalse(cacheReaderNodeMock.invokedAsyncProcess)
+        XCTAssertEqual(error, .secondError)
+    }
+    
     public func testAsyncProcess_withoutError_thenNodeWorkInCaseOfGoodInternet() async throws {
         // given
         

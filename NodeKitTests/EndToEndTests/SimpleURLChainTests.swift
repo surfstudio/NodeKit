@@ -18,7 +18,7 @@ public class SimpleURLChainTests: XCTestCase {
 
         // Arrange
 
-        let chainRoot: Node<Void, [User]> = UrlChainsBuilder()
+        let chainRoot: any AsyncNode<Void, [User]> = UrlChainsBuilder()
             .set(metadata: ["TestHeader":"testHeaderValue"])
             .route(.get, Routes.users)
             .build()
@@ -34,7 +34,7 @@ public class SimpleURLChainTests: XCTestCase {
 
         let exp = self.expectation(description: "\(#function)")
 
-        chainRoot.process()
+        chainRoot.processLegacy()
             .onCompleted { (user) in
                 result = user
                 exp.fulfill()
@@ -78,7 +78,7 @@ public class SimpleURLChainTests: XCTestCase {
             .set(boolEncodingStartegy: .asBool)
             .route(.get, .users)
             .build()
-            .process()
+            .processLegacy()
                 .onCompleted { (user: [User]) in
                     result = user
                     exp.fulfill()

@@ -5,6 +5,10 @@
 
 import Foundation
 
-public enum PagingError: Error {
+public enum PagingErrorLegacy: Error {
     case dataProviderNotSet
+}
+
+public enum PagingError: Error {
+    case end
 }

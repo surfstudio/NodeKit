@@ -1,9 +1,5 @@
 import Foundation
 
-enum RequestEncodingError: Error {
-     case unsupportedDataType
- }
-
 /// Этот узел переводит Generic запрос в конкретную реализацию.
 /// Данный узел работает с URL-запросами, по HTTP протоколу с JSON
 open class UrlRequestTrasformatorNode<Type>: AsyncNode {
@@ -59,7 +55,7 @@ open class UrlRequestTrasformatorNode<Type>: AsyncNode {
         return await .withMappedExceptions {
             let url = try data.route.url()
             let params = TransportUrlParameters(
-                method: self.method,
+                method: method,
                 url: url,
                 headers: data.metadata
             )

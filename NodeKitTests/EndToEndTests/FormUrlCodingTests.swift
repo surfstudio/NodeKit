@@ -12,12 +12,12 @@ import XCTest
 @testable
 import NodeKit
 
-public class FormUrlCodingTests: XCTestCase {
+final class FormUrlCodingTests: XCTestCase {
 
-    public func testFormUrlEncodedRequestCompleteSuccess() {
+    func testFormUrlEncodedRequestCompleteSuccess() {
         // Arrange
 
-        let chainRoot: Node<AuthModel, Credentials> = UrlChainsBuilder()
+        let chainRoot: any AsyncNode<AuthModel, Credentials> = UrlChainsBuilder()
             .route(.post, Routes.authWithFormUrl)
             .encode(as: .urlQuery)
             .build()
@@ -34,7 +34,7 @@ public class FormUrlCodingTests: XCTestCase {
 
         let exp = self.expectation(description: "\(#function)")
 
-        chainRoot.process(authModel)
+        chainRoot.processLegacy(authModel)
             .onCompleted { (credentials) in
                 result = credentials
                 exp.fulfill()
@@ -53,10 +53,10 @@ public class FormUrlCodingTests: XCTestCase {
         XCTAssertEqual(result!.refreshToken, expectedRefeshToken)
     }
 
-    public func testFormUrlEncodedRequestCompleteFailure() {
+    func testFormUrlEncodedRequestCompleteFailure() {
         // Arrange
 
-        let chainRoot: Node<AuthModel, Credentials> = UrlChainsBuilder()
+        let chainRoot: any AsyncNode<AuthModel, Credentials> = UrlChainsBuilder()
             .route(.post, Routes.authWithFormUrl)
             .build()
         
@@ -69,7 +69,7 @@ public class FormUrlCodingTests: XCTestCase {
 
         let exp = self.expectation(description: "\(#function)")
 
-        chainRoot.process(authModel)
+        chainRoot.processLegacy(authModel)
             .onCompleted { (credentials) in
                 result = credentials
                 exp.fulfill()
@@ -88,6 +88,53 @@ public class FormUrlCodingTests: XCTestCase {
         guard case ResponseHttpErrorProcessorNodeError.badRequest = resultError! else {
             XCTFail()
             return
+        }
+    }
+    
+    func testAsyncProcess_FormUrlEncodedRequestCompleteSuccess() async throws {
+        // given
+        
+        let authModel = AuthModel(type: "type", secret: "secret")
+        let expectedAccessToken = "token"
+        let expectedRefeshToken = "token"
+
+        let chainRoot: any AsyncNode<AuthModel, Credentials> = UrlChainsBuilder()
+            .route(.post, Routes.authWithFormUrl)
+            .encode(as: .urlQuery)
+            .build()
+
+        // when
+
+        let result = await chainRoot.process(authModel, logContext: LoggingContextMock())
+
+        // then
+        
+        let resultValue = try XCTUnwrap(result.value)
+
+        XCTAssertEqual(resultValue.accessToken, expectedAccessToken)
+        XCTAssertEqual(resultValue.refreshToken, expectedRefeshToken)
+    }
+
+    func testAsyncProcess_FormUrlEncodedRequestCompleteFailure() async throws {
+        // given
+
+        let authModel = AuthModel(type: "badType", secret: "BadSecret")
+        let chainRoot: any AsyncNode<AuthModel, Credentials> = UrlChainsBuilder()
+            .route(.post, Routes.authWithFormUrl)
+            .build()
+        
+        // when
+
+        let result = await chainRoot.process(authModel)
+
+        // then
+        
+        let error = try XCTUnwrap(result.error as? ResponseHttpErrorProcessorNodeError)
+
+        if case .badRequest = error {
+            return
+        } else {
+            XCTFail("Не верный результат работы метода")
         }
     }
 }

@@ -98,10 +98,6 @@ final class FirstCachePolicyTests: XCTestCase {
                 expectation.fulfill()
             }
         }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-            expectation.fulfill()
-        }
         
         nextNodeContext.emit(data: Json())
         readerNodeContext.emit(data: Json())
