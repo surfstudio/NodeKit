@@ -41,13 +41,33 @@ final class RawEncoderNodeTests: XCTestCase {
     
     // MARK: - Tests
     
-    func testAsyncProcess_whenSuccessRawEncoding_andSuccessReturns_thenNextCalledWithJsonAndSuccessReceived() async throws {
+    func testAsyncProcess_whenSuccessRawEncoding_thenNextCalled() async throws {
         // given
         
-        let expectedResult = 21
         let expectedInput = ["name": "TestName", "value": "TestValue"]
         
         rawEncodableMock.stubbedToRawResult = .success(expectedInput)
+        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        
+        // when
+        
+        _ = await sut.process(rawEncodableMock, logContext: logContextMock)
+        
+        // then
+        
+        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data as? [String: String])
+        
+        XCTAssertEqual(rawEncodableMock.invokedToRawCount, 1)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(input, expectedInput)
+    }
+    
+    func testAsyncProcess_whenSuccessReturns_thenSuccessReceived() async throws {
+        // given
+    
+        let expectedResult = 21
+        
+        rawEncodableMock.stubbedToRawResult = .success([:])
         nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
         
         // when
@@ -56,22 +76,15 @@ final class RawEncoderNodeTests: XCTestCase {
         
         // then
         
-        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0 as? [String: String])
         let value = try XCTUnwrap(result.value)
-        
-        XCTAssertEqual(rawEncodableMock.invokedToRawCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(input, expectedInput)
         XCTAssertEqual(value, expectedResult)
     }
     
-    func testAsyncProcess_whenSuccessRawEncoding_andFailureReturns_thenNextCalledWithJsonAndFailureReceived() async throws {
+    func testAsyncProcess_whenErrorReturns_thenErrorReceived() async throws {
         // given
-        
-        let expectedInput = ["name": "TestName", "value": "TestValue"]
-        
-        rawEncodableMock.stubbedToRawResult = .success(expectedInput)
-        nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.secondError)
+    
+        rawEncodableMock.stubbedToRawResult = .success([:])
+        nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.firstError)
         
         // when
         
@@ -79,16 +92,26 @@ final class RawEncoderNodeTests: XCTestCase {
         
         // then
         
-        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0 as? [String: String])
         let error = try XCTUnwrap(result.error as? MockError)
-        
-        XCTAssertEqual(rawEncodableMock.invokedToRawCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(input, expectedInput)
-        XCTAssertEqual(error, .secondError)
+        XCTAssertEqual(error, .firstError)
     }
     
-    func testAsyncProcess_whenErrorRawEncoding_thenNextDidNotCallAndErrorReceived() async throws {
+    func testAsyncProcess_withErrorEncoding_thenNextDidNotCall() async {
+        // given
+        
+        rawEncodableMock.stubbedToRawResult = .failure(MockError.firstError)
+        
+        // when
+        
+        _ = await sut.process(rawEncodableMock, logContext: logContextMock)
+        
+        // then
+        
+        XCTAssertEqual(rawEncodableMock.invokedToRawCount, 1)
+        XCTAssertFalse(nextNodeMock.invokedAsyncProcess)
+    }
+    
+    func testAsyncProcess_whenErrorRawEncoding_thenErrorReceived() async throws {
         // given
         
         rawEncodableMock.stubbedToRawResult = .failure(MockError.firstError)
@@ -100,9 +123,6 @@ final class RawEncoderNodeTests: XCTestCase {
         // then
         
         let error = try XCTUnwrap(result.error as? MockError)
-        
-        XCTAssertEqual(rawEncodableMock.invokedToRawCount, 1)
-        XCTAssertFalse(nextNodeMock.invokedAsyncProcess)
         XCTAssertEqual(error, .firstError)
     }
 }

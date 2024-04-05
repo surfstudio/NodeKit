@@ -34,6 +34,8 @@
 		5019CCF42BC02B490050B6DF /* MultipartFormDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCF32BC02B490050B6DF /* MultipartFormDataMock.swift */; };
 		5019CCF62BC02E100050B6DF /* MultipartFormDataFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCF52BC02E100050B6DF /* MultipartFormDataFactoryMock.swift */; };
 		5019CCF82BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCF72BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift */; };
+		5019CCFA2BC05D360050B6DF /* DTOEncoderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCF92BC05D360050B6DF /* DTOEncoderNodeTests.swift */; };
+		5019CCFC2BC05D800050B6DF /* DTOEncodableMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCFB2BC05D800050B6DF /* DTOEncodableMock.swift */; };
 		502F9D972BAA36CF00151A8D /* LoggingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D962BAA36CF00151A8D /* LoggingContext.swift */; };
 		502F9D9A2BAA389500151A8D /* LoggingContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D992BAA389500151A8D /* LoggingContextTests.swift */; };
 		502F9D9D2BAA39F400151A8D /* Log+Equatalbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */; };
@@ -228,6 +230,8 @@
 		5019CCF32BC02B490050B6DF /* MultipartFormDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataMock.swift; sourceTree = "<group>"; };
 		5019CCF52BC02E100050B6DF /* MultipartFormDataFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataFactoryMock.swift; sourceTree = "<group>"; };
 		5019CCF72BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireMultipartFormDataFactoryTests.swift; sourceTree = "<group>"; };
+		5019CCF92BC05D360050B6DF /* DTOEncoderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOEncoderNodeTests.swift; sourceTree = "<group>"; };
+		5019CCFB2BC05D800050B6DF /* DTOEncodableMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTOEncodableMock.swift; sourceTree = "<group>"; };
 		502F9D962BAA36CF00151A8D /* LoggingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContext.swift; sourceTree = "<group>"; };
 		502F9D992BAA389500151A8D /* LoggingContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContextTests.swift; sourceTree = "<group>"; };
 		502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+Equatalbe.swift"; sourceTree = "<group>"; };
@@ -451,18 +455,6 @@
 			path = Async;
 			sourceTree = "<group>";
 		};
-		5005EB2F2BB9917E00B670CD /* Mocks */ = {
-			isa = PBXGroup;
-			children = (
-				50528E2B2BAE18F400E86CB6 /* AsyncNodeMock.swift */,
-				5005EB322BB9935400B670CD /* AsyncStreamNodeMock.swift */,
-				5005EB412BB9BC2500B670CD /* MockError.swift */,
-				50C8EB2B2BBD8EBE00C5CB93 /* CombineNodeMock.swift */,
-				50C8EB2D2BBD8FC000C5CB93 /* CombineStreamNodeMock.swift */,
-			);
-			path = Mocks;
-			sourceTree = "<group>";
-		};
 		5005EB3A2BB9B1BE00B670CD /* Async */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,12 +464,12 @@
 			name = Async;
 			sourceTree = "<group>";
 		};
-		5005EB3F2BB9BBFD00B670CD /* CastHelper */ = {
+		5019CCFD2BC0619D0050B6DF /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				5005EB432BB9BC5B00B670CD /* Result+Extension.swift */,
 			);
-			path = CastHelper;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		502F9D982BAA385E00151A8D /* Utils */ = {
@@ -503,9 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				506150AE2BBC24AE00EBBE96 /* Combine */,
-				5005EB3F2BB9BBFD00B670CD /* CastHelper */,
 				5005EB3A2BB9B1BE00B670CD /* Async */,
-				5005EB2F2BB9917E00B670CD /* Mocks */,
 				50C8EB352BBD9CBF00C5CB93 /* NodeResultTests.swift */,
 			);
 			path = Node;
@@ -533,11 +523,19 @@
 		50C8EB4A2BBF1C0500C5CB93 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				50528E322BAE295D00E86CB6 /* TokenRefresherActorMock.swift */,
+				50528E2B2BAE18F400E86CB6 /* AsyncNodeMock.swift */,
+				5005EB322BB9935400B670CD /* AsyncStreamNodeMock.swift */,
+				5005EB412BB9BC2500B670CD /* MockError.swift */,
+				50C8EB2B2BBD8EBE00C5CB93 /* CombineNodeMock.swift */,
+				50C8EB2D2BBD8FC000C5CB93 /* CombineStreamNodeMock.swift */,
+				50528E382BAE39AE00E86CB6 /* AborterMock.swift */,
 				50C8EB4B2BBF1C1000C5CB93 /* MetadataProviderMock.swift */,
 				5019CCE52BC00F9E0050B6DF /* RawEncodableMock.swift */,
 				5019CCE92BC019D60050B6DF /* UrlRouteProviderMock.swift */,
 				5019CCF32BC02B490050B6DF /* MultipartFormDataMock.swift */,
 				5019CCF52BC02E100050B6DF /* MultipartFormDataFactoryMock.swift */,
+				5019CCFB2BC05D800050B6DF /* DTOEncodableMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -974,6 +972,7 @@
 		90B609C3283E16DC006F4309 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				5019CCFD2BC0619D0050B6DF /* Helpers */,
 				50B683902BBF380B001F7EA3 /* Equatable */,
 				50C8EB4A2BBF1C0500C5CB93 /* Mocks */,
 				90B60A0B283E16E4006F4309 /* DeferCallingTests.swift */,
@@ -999,6 +998,7 @@
 				5019CCEB2BC01DDB0050B6DF /* RequestEncoderNodeTests.swift */,
 				5019CCED2BC020DC0050B6DF /* MultipartRequestCreatorNodeTests.swift */,
 				5019CCF72BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift */,
+				5019CCF92BC05D360050B6DF /* DTOEncoderNodeTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1059,7 +1059,6 @@
 			isa = PBXGroup;
 			children = (
 				90B609D3283E16DC006F4309 /* TokenRefresherNodeTests.swift */,
-				50528E322BAE295D00E86CB6 /* TokenRefresherActorMock.swift */,
 				50528E362BAE34A400E86CB6 /* TokenRefresherActorTests.swift */,
 			);
 			path = TokenRefresher;
@@ -1146,7 +1145,6 @@
 			isa = PBXGroup;
 			children = (
 				90B609EE283E16DC006F4309 /* AbortingTests.swift */,
-				50528E382BAE39AE00E86CB6 /* AborterMock.swift */,
 			);
 			path = AborterNode;
 			sourceTree = "<group>";
@@ -1400,6 +1398,7 @@
 				50C8EB362BBD9CBF00C5CB93 /* NodeResultTests.swift in Sources */,
 				5019CCE62BC00F9E0050B6DF /* RawEncodableMock.swift in Sources */,
 				50B683922BBF3816001F7EA3 /* TransportUrlRequest+Equatable.swift in Sources */,
+				5019CCFC2BC05D800050B6DF /* DTOEncodableMock.swift in Sources */,
 				90B60A10283E16E4006F4309 /* DeferCallingTests.swift in Sources */,
 				90B609F9283E16DC006F4309 /* CacheReaderNodeTests.swift in Sources */,
 				90B60A05283E16DC006F4309 /* UserEntry.swift in Sources */,
@@ -1432,6 +1431,7 @@
 				50C8EB472BBF14CC00C5CB93 /* TechnicaErrorMapperNodeTests.swift in Sources */,
 				90B609F1283E16DC006F4309 /* ChainConfiguratorNodeTests.swift in Sources */,
 				5005EB422BB9BC2500B670CD /* MockError.swift in Sources */,
+				5019CCFA2BC05D360050B6DF /* DTOEncoderNodeTests.swift in Sources */,
 				90B609F6283E16DC006F4309 /* URLQueryInjectorNodeTests.swift in Sources */,
 				50C8EB4E2BBF1E9700C5CB93 /* HeaderInjectorNodeTests.swift in Sources */,
 				50C8EB3C2BBEB5E300C5CB93 /* OffsetAsyncPagerTests.swift in Sources */,

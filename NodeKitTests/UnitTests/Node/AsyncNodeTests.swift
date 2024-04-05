@@ -37,9 +37,9 @@ final class AsyncNodeTests: XCTestCase {
         // given
         
         let sut = AsyncNodeMock<Void, Int>()
-        let expectedResult: NodeResult<Int> = .success(2)
+        let expectedResult = 2
         
-        sut.stubbedAsyncProccessResult = expectedResult
+        sut.stubbedAsyncProccessResult = .success(expectedResult)
         
         // when
         
@@ -47,11 +47,12 @@ final class AsyncNodeTests: XCTestCase {
         
         // then
         
-        let unwrappedResult = try XCTUnwrap(result)
+        let input = try XCTUnwrap(sut.invokedAsyncProcessParameters)
+        let value = try XCTUnwrap(result.value)
         
         XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
-        XCTAssertFalse(sut.invokedAsyncProcessParameters?.1 === logContextMock)
-        XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
+        XCTAssertFalse(input.logContext === logContextMock)
+        XCTAssertEqual(value, expectedResult)
     }
     
     func testAsyncProcess_withData_thenNewLogContextCreated() async throws {
@@ -59,9 +60,9 @@ final class AsyncNodeTests: XCTestCase {
         
         let sut = AsyncNodeMock<Int, Int>()
         let expectedInput = 1
-        let expectedResult: NodeResult<Int> = .success(2)
+        let expectedResult = 3
         
-        sut.stubbedAsyncProccessResult = expectedResult
+        sut.stubbedAsyncProccessResult = .success(expectedResult)
         
         // when
         
@@ -69,24 +70,25 @@ final class AsyncNodeTests: XCTestCase {
         
         // then
         
-        let unwrappedResult = try XCTUnwrap(result)
+        let input = try XCTUnwrap(sut.invokedAsyncProcessParameters)
+        let value = try XCTUnwrap(result.value)
         
         XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(sut.invokedAsyncProcessParameters?.0, expectedInput)
-        XCTAssertFalse(sut.invokedAsyncProcessParameters?.1 === logContextMock)
-        XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
+        XCTAssertEqual(input.data, expectedInput)
+        XCTAssertFalse(input.logContext === logContextMock)
+        XCTAssertEqual(value, expectedResult)
     }
     
-    func testCombineNode_thenAsyncCombineNodeBasedOnSutReceived() async {
+    func testCombineNode_thenAsyncCombineNodeBasedOnSutReceived() async throws {
         // given
         
         let sut = AsyncNodeMock<Int, Int>()
         let expectation = expectation(description: "result")
         let expectedInput = 15
-        let expectedResult: NodeResult<Int> = .success(21)
+        let expectedResult = 21
         let logContext = LoggingContextMock()
         
-        sut.stubbedAsyncProccessResult = expectedResult
+        sut.stubbedAsyncProccessResult = .success(expectedResult)
         
         var result: NodeResult<Int>?
         
@@ -105,10 +107,13 @@ final class AsyncNodeTests: XCTestCase {
         
         // then
         
+        let input = try XCTUnwrap(sut.invokedAsyncProcessParameters)
+        let value = try XCTUnwrap(result?.value)
+        
         XCTAssertTrue(node is AsyncCombineNode<Int, Int>)
         XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(sut.invokedAsyncProcessParameters?.0, expectedInput)
-        XCTAssertTrue(sut.invokedAsyncProcessParameters?.1 === logContext)
-        XCTAssertEqual(result?.castToMockError(), expectedResult.castToMockError())
+        XCTAssertEqual(input.data, expectedInput)
+        XCTAssertTrue(input.logContext === logContext)
+        XCTAssertEqual(value, expectedResult)
     }
 }

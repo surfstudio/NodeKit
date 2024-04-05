@@ -116,7 +116,7 @@ final class ResponseDataPreprocessorNodeTests: XCTestCase {
         let value = try XCTUnwrap(result.value as? [String: String])
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0, expectedInput)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data, expectedInput)
         XCTAssertEqual(value, expectedResult)
     }
     
@@ -125,7 +125,6 @@ final class ResponseDataPreprocessorNodeTests: XCTestCase {
         
         let url = URL(string: "www.test.com")!
         let request = URLRequest(url: url)
-        let expectedResult = ["TestKey": "TestValue"]
         let response = HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: nil)!
         let expectedInput = UrlDataResponse(
             request: request,
@@ -146,7 +145,7 @@ final class ResponseDataPreprocessorNodeTests: XCTestCase {
         let error = try XCTUnwrap(result.error as? MockError)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0, expectedInput)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data, expectedInput)
         XCTAssertEqual(error, .thirdError)
     }
 }

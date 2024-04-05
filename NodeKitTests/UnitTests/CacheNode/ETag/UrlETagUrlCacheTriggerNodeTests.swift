@@ -122,7 +122,7 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         let unwrappedResult = try XCTUnwrap(try result.get() as? [String: String])
         
         XCTAssertEqual(transportNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(transportNodeMock.invokedAsyncProcessParameters?.0, response)
+        XCTAssertEqual(transportNodeMock.invokedAsyncProcessParameters?.data, response)
         XCTAssertFalse(cacheSaverMock.invokedAsyncProcess)
         XCTAssertEqual(unwrappedResult, expectedNextResult)
     }
@@ -147,7 +147,7 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         XCTAssertFalse(transportNodeMock.invokedAsyncProcess)
         XCTAssertEqual(cacheSaverMock.invokedAsyncProcessCount, 1)
         XCTAssertEqual(
-            cacheSaverMock.invokedAsyncProcessParameters?.0.urlRequest,
+            cacheSaverMock.invokedAsyncProcessParameters?.data.urlRequest,
             response.request
         )
         XCTAssertEqual(unwrappedResult, expectedCacheResult)

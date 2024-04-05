@@ -100,9 +100,9 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
 
         let unwrappedResult = try XCTUnwrap(result.get() as? [String: String])
         XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameters?.0, request)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessParameters?.0.urlRequest, request)
+        XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessParameters?.data.urlRequest, request)
         XCTAssertEqual(unwrappedResult, expectedResult)
     }
     
@@ -123,7 +123,7 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
 
         let error = try XCTUnwrap(result.error as? MockError)
         XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameters?.0, request)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertFalse(cacheReaderNodeMock.invokedAsyncProcess)
         XCTAssertEqual(error, .secondError)
     }
@@ -145,7 +145,7 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
 
         let unwrappedResult = try XCTUnwrap(result.get() as? [String: String])
         XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameters?.0, request)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertFalse(cacheReaderNodeMock.invokedAsyncProcess)
         XCTAssertEqual(unwrappedResult, expectedResult)
     }

@@ -32,7 +32,7 @@ final class RequestEncoderNodeTests: XCTestCase {
     
     // MARK: - Tests
     
-    func testAsyncProcess_withSuccessResult_thenCorrectModelBuilded_andSuccessResultReceived() async throws {
+    func testAsyncProcess_withSuccessResult_thenCorrectModelBuilded() async throws {
         // given
         
         let expectedEncoding = 49
@@ -40,11 +40,38 @@ final class RequestEncoderNodeTests: XCTestCase {
         let expectedRaw = 42
         let expectedRoute = 90
         let sut = RequestEncoderNode(next: nextNodeMock, encoding: expectedEncoding)
-        let expectedResult = 100
         let model = RoutableRequestModel<Int, Int>(
             metadata: expectedMetadata,
             raw: expectedRaw,
             route: expectedRoute
+        )
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        
+        // then
+        
+        _ = await sut.process(model, logContext: logContextMock)
+        
+        // then
+        
+        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
+        
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(input.encoding, expectedEncoding)
+        XCTAssertEqual(input.metadata, expectedMetadata)
+        XCTAssertEqual(input.raw, expectedRaw)
+        XCTAssertEqual(input.route, expectedRoute)
+    }
+    
+    func testAsyncProcess_withSuccessResult_thenSuccessReceived() async throws {
+        // given
+        
+        let sut = RequestEncoderNode(next: nextNodeMock, encoding: 1)
+        let expectedResult = 100
+        let model = RoutableRequestModel<Int, Int>(
+            metadata: [:],
+            raw: 1,
+            route: 1
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
@@ -56,17 +83,10 @@ final class RequestEncoderNodeTests: XCTestCase {
         // then
         
         let value = try XCTUnwrap(result.value)
-        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
-        
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(input.encoding, expectedEncoding)
-        XCTAssertEqual(input.metadata, expectedMetadata)
-        XCTAssertEqual(input.raw, expectedRaw)
-        XCTAssertEqual(input.route, expectedRoute)
         XCTAssertEqual(value, expectedResult)
     }
     
-    func testAsyncProcess_withFailureResult_thenCorrectModelBuilded_andFailureResultReceived() async throws {
+    func testAsyncProcess_withFailureResult_thenCorrectModelBuilded() async throws {
         // given
         
         let expectedEncoding = 49
@@ -74,14 +94,40 @@ final class RequestEncoderNodeTests: XCTestCase {
         let expectedRaw = 42
         let expectedRoute = 90
         let sut = RequestEncoderNode(next: nextNodeMock, encoding: expectedEncoding)
-        let expectedResult = 100
         let model = RoutableRequestModel<Int, Int>(
             metadata: expectedMetadata,
             raw: expectedRaw,
             route: expectedRoute
         )
         
-        nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.secondError)
+        nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.firstError)
+        
+        // then
+        
+        _ = await sut.process(model, logContext: logContextMock)
+        
+        // then
+        
+        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
+        
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(input.encoding, expectedEncoding)
+        XCTAssertEqual(input.metadata, expectedMetadata)
+        XCTAssertEqual(input.raw, expectedRaw)
+        XCTAssertEqual(input.route, expectedRoute)
+    }
+    
+    func testAsyncProcess_withFailureResult_thenFailureReceived() async throws {
+        // given
+        
+        let sut = RequestEncoderNode(next: nextNodeMock, encoding: 1)
+        let model = RoutableRequestModel<Int, Int>(
+            metadata: [:],
+            raw: 1,
+            route: 1
+        )
+        
+        nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.thirdError)
         
         // then
         
@@ -90,13 +136,6 @@ final class RequestEncoderNodeTests: XCTestCase {
         // then
         
         let error = try XCTUnwrap(result.error as? MockError)
-        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
-        
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(input.encoding, expectedEncoding)
-        XCTAssertEqual(input.metadata, expectedMetadata)
-        XCTAssertEqual(input.raw, expectedRaw)
-        XCTAssertEqual(input.route, expectedRoute)
-        XCTAssertEqual(error, .secondError)
+        XCTAssertEqual(error, .thirdError)
     }
 }

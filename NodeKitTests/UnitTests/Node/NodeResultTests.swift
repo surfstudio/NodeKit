@@ -119,7 +119,7 @@ final class NodeResultTests: XCTestCase {
         let sut: NodeResult<Int> = .success(15)
         let expectedResult = 200
         
-        var transform = { (value: Int) throws -> Int in
+        let transform = { (value: Int) throws -> Int in
             return expectedResult
         }
         
@@ -138,7 +138,7 @@ final class NodeResultTests: XCTestCase {
         let sut: NodeResult<Int> = .success(15)
         let expectedResult = MockError.secondError
         
-        var transform = { (value: Int) throws -> Int in
+        let transform = { (value: Int) throws -> Int in
             throw expectedResult
         }
         
@@ -164,7 +164,7 @@ final class NodeResultTests: XCTestCase {
         
         let sut: NodeResult<Int> = .failure(MockError.thirdError)
         
-        var transform = { (value: Int) throws -> Int in
+        let transform = { (value: Int) throws -> Int in
             return 221
         }
         
@@ -213,7 +213,7 @@ final class NodeResultTests: XCTestCase {
         
         let expectedError = MockError.firstError
         
-        var function = { () throws -> NodeResult<Int> in
+        let function = { () throws -> NodeResult<Int> in
             throw expectedError
         }
         
@@ -231,7 +231,7 @@ final class NodeResultTests: XCTestCase {
         
         let expectedError = MockError.thirdError
         
-        var function = { () throws -> NodeResult<Int> in
+        let function = { () throws -> NodeResult<Int> in
             throw MockError.secondError
         }
         

@@ -10,19 +10,19 @@
 
 final class MultipartFormDataMock: MultipartFormDataProtocol {
     
-    struct ShortFileUrl {
+    struct AppendURLParameters {
         let fileUrl: URL
         let name: String
     }
     
-    struct FullFileUrl {
+    struct AppendCustomURLParameters {
         let fileUrl: URL
         let name: String
         let fileName: String
         let mimeType: String
     }
     
-    struct FullData {
+    struct AppendDataParameters {
         let data: Data
         let name: String
         let fileName: String?
@@ -48,43 +48,43 @@ final class MultipartFormDataMock: MultipartFormDataProtocol {
         }
     }
     
-    var invokedAppendWithShortFileUrl = false
-    var invokedAppendWithShortFileUrlCount = 0
-    var invokedAppendWithShortFileUrlParameters: ShortFileUrl?
-    var invokedAppendWithShortFileUrlParametersList: [ShortFileUrl] = []
+    var invokedAppendURL = false
+    var invokedAppendURLCount = 0
+    var invokedAppendURLParameters: AppendURLParameters?
+    var invokedAppendURLParametersList: [AppendURLParameters] = []
     
     func append(_ fileURL: URL, withName name: String) {
-        let parameters = ShortFileUrl(fileUrl: fileURL, name: name)
-        invokedAppendWithShortFileUrl = true
-        invokedAppendWithShortFileUrlCount += 1
-        invokedAppendWithShortFileUrlParameters = parameters
-        invokedAppendWithShortFileUrlParametersList.append(parameters)
+        let parameters = AppendURLParameters(fileUrl: fileURL, name: name)
+        invokedAppendURL = true
+        invokedAppendURLCount += 1
+        invokedAppendURLParameters = parameters
+        invokedAppendURLParametersList.append(parameters)
     }
     
-    var invokedAppendWithFullFileUrl = false
-    var invokedAppendWithFullFileUrlCount = 0
-    var invokedAppendWithFullFileUrlParameters: FullFileUrl?
-    var invokedAppendWithFullFileUrlParametersList: [FullFileUrl] = []
+    var invokedAppendCustomURL = false
+    var invokedAppendCustomURLCount = 0
+    var invokedAppendCustomURLParameters: AppendCustomURLParameters?
+    var invokedAppendCustomURLParametersList: [AppendCustomURLParameters] = []
     
     func append(_ fileURL: URL, withName name: String, fileName: String, mimeType: String) {
-        let parameters = FullFileUrl(fileUrl: fileURL, name: name, fileName: fileName, mimeType: mimeType)
-        invokedAppendWithFullFileUrl = true
-        invokedAppendWithFullFileUrlCount += 1
-        invokedAppendWithFullFileUrlParameters = parameters
-        invokedAppendWithFullFileUrlParametersList.append(parameters)
+        let parameters = AppendCustomURLParameters(fileUrl: fileURL, name: name, fileName: fileName, mimeType: mimeType)
+        invokedAppendCustomURL = true
+        invokedAppendCustomURLCount += 1
+        invokedAppendCustomURLParameters = parameters
+        invokedAppendCustomURLParametersList.append(parameters)
     }
     
-    var invokedAppendWithFullData = false
-    var invokedAppendWithFullDataCount = 0
-    var invokedAppendWithFullDataParameters: FullData?
-    var invokedAppendWithFullDataParametersList: [FullData] = []
+    var invokedAppendData = false
+    var invokedAppendDataCount = 0
+    var invokedAppendDataParameters: AppendDataParameters?
+    var invokedAppendDataParametersList: [AppendDataParameters] = []
     
     func append(_ data: Data, withName name: String, fileName: String?, mimeType: String?) {
-        let parameters = FullData(data: data, name: name, fileName: fileName, mimeType: mimeType)
-        invokedAppendWithFullData = true
-        invokedAppendWithFullDataCount += 1
-        invokedAppendWithFullDataParameters = parameters
-        invokedAppendWithFullDataParametersList.append(parameters)
+        let parameters = AppendDataParameters(data: data, name: name, fileName: fileName, mimeType: mimeType)
+        invokedAppendData = true
+        invokedAppendDataCount += 1
+        invokedAppendDataParameters = parameters
+        invokedAppendDataParametersList.append(parameters)
     }
     
     var invokedEncode = false

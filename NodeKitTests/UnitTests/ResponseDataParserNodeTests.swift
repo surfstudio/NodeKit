@@ -57,7 +57,7 @@ final class ResponseDataParserNodeTests: XCTestCase {
         
         // then
         
-        let parameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
+        let parameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
         let value = try XCTUnwrap(result.value)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
@@ -168,7 +168,7 @@ final class ResponseDataParserNodeTests: XCTestCase {
         
         // then
         
-        let parameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
+        let parameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
         let inputJson = try XCTUnwrap(parameter.json as? [String: String])
         let value = try XCTUnwrap(result.value as? [String: String])
         
@@ -240,7 +240,7 @@ final class ResponseDataParserNodeTests: XCTestCase {
         
         // then
         
-        let parameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
+        let parameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
         let inputJson = try XCTUnwrap(parameter.json[MappingUtils.arrayJsonKey] as? [[String: String]])
         let value = try XCTUnwrap(result.value?[MappingUtils.arrayJsonKey] as? [[String: String]])
         

@@ -27,8 +27,8 @@ final class CombineStreamNodeMock<Input, Output>: CombineStreamNode {
     
     var invokedProcess = false
     var invokedProcessCount = 0
-    var invokedProcessParameters: (Input, LoggingContextProtocol)?
-    var invokedProcessParameterList: [(Input, LoggingContextProtocol)] = []
+    var invokedProcessParameters: (data: Input, logContext: LoggingContextProtocol)?
+    var invokedProcessParameterList: [(data: Input, logContext: LoggingContextProtocol)] = []
     
     func process(_ data: Input, logContext: LoggingContextProtocol) {
         invokedProcess = true

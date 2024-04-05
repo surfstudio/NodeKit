@@ -40,7 +40,7 @@ final class CombineStreamNodeTests: XCTestCase {
         // then
         
         XCTAssertEqual(sut.invokedProcessCount, 1)
-        XCTAssertEqual(sut.invokedProcessParameters?.0, expectedInput)
+        XCTAssertEqual(sut.invokedProcessParameters?.data, expectedInput)
     }
     
     func testNodeResultPublisher_thenMainMethodCalled() throws {

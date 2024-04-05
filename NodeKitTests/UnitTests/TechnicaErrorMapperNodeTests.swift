@@ -53,7 +53,7 @@ final class TechnicaErrorMapperNodeTests: XCTestCase {
         let error = try XCTUnwrap(result.error as? BaseTechnicalError)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0, request)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertEqual(error, .dataNotAllowed)
     }
     
@@ -72,7 +72,7 @@ final class TechnicaErrorMapperNodeTests: XCTestCase {
         let error = try XCTUnwrap(result.error as? BaseTechnicalError)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0, request)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertEqual(error, .noInternetConnection)
     }
     
@@ -91,7 +91,7 @@ final class TechnicaErrorMapperNodeTests: XCTestCase {
         let error = try XCTUnwrap(result.error as? BaseTechnicalError)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0, request)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertEqual(error, .timeout)
     }
     
@@ -110,7 +110,7 @@ final class TechnicaErrorMapperNodeTests: XCTestCase {
         let error = try XCTUnwrap(result.error as? BaseTechnicalError)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0, request)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertEqual(error, .cantConnectToHost)
     }
     
@@ -130,7 +130,7 @@ final class TechnicaErrorMapperNodeTests: XCTestCase {
         let error = try XCTUnwrap(result.error as? NSError)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0, request)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertEqual(error, expectedError)
     }
     
@@ -150,7 +150,7 @@ final class TechnicaErrorMapperNodeTests: XCTestCase {
         let value = try XCTUnwrap(result.value as? [String: String])
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.0, request)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertEqual(value, expectedResult)
     }
 }

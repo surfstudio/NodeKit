@@ -35,17 +35,34 @@ final class MultipartUrlRequestTrasformatorNodeTests: XCTestCase {
     
     // MARK: - Tests
     
+    func testAsyncProcess_withoutUrl_thenNextDidNotCall() async {
+        // given
+        
+        let sut = MultipartUrlRequestTrasformatorNode(next: nextNodeMock, method: .trace)
+        let model = RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>(
+            metadata: [:],
+            raw: MultipartModel<[String : Data]>(payloadModel: [:]),
+            route: urlRouteProviderMock
+        )
+        
+        urlRouteProviderMock.stubbedUrlResult = .failure(MockError.thirdError)
+        
+        // when
+        
+        _ = await sut.process(model, logContext: logContextMock)
+        
+        // then
+        
+        XCTAssertFalse(nextNodeMock.invokedAsyncProcess)
+    }
+    
     func testAsyncProcess_withoutUrl_thenErrorReceived() async throws {
         // given
         
         let sut = MultipartUrlRequestTrasformatorNode(next: nextNodeMock, method: .trace)
-        let multipartModel = MultipartModel<[String : Data]>(payloadModel: [
-            "TestMultipartKey": "TestMultipartValue".data(using: .utf8)!
-        ])
-        let metadata = ["TestMetadataKey": "TestMetadataValue"]
         let model = RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>(
-            metadata: metadata,
-            raw: multipartModel,
+            metadata: [:],
+            raw: MultipartModel<[String : Data]>(payloadModel: [:]),
             route: urlRouteProviderMock
         )
         
@@ -58,13 +75,33 @@ final class MultipartUrlRequestTrasformatorNodeTests: XCTestCase {
         // then
         
         let error = try XCTUnwrap(result.error as? MockError)
-        
-        XCTAssertEqual(urlRouteProviderMock.invokedUrlCount, 1)
         XCTAssertEqual(error, .thirdError)
-        XCTAssertFalse(nextNodeMock.invokedAsyncProcess)
     }
     
-    func testAsyncProcess_withUrl_withSuccessResponse_thenMultipartRequestCreated_andSuccessReceived() async throws {
+    func testAsyncProcess_withCorrentURL_thenNextCalled() async {
+        // given
+        
+        let sut = MultipartUrlRequestTrasformatorNode(next: nextNodeMock, method: .options)
+        let model = RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>(
+            metadata: [:],
+            raw: MultipartModel<[String : Data]>(payloadModel: [:]),
+            route: urlRouteProviderMock
+        )
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        urlRouteProviderMock.stubbedUrlResult = .success(URL(string: "www.test.com")!)
+        
+        // when
+        
+        _ = await sut.process(model, logContext: logContextMock)
+        
+        // then
+        
+        XCTAssertEqual(urlRouteProviderMock.invokedUrlCount, 1)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+    }
+    
+    func testAsyncProcess_withSuccessResponse_thenMultipartRequestCreated() async throws {
         // given
         
         let sut = MultipartUrlRequestTrasformatorNode(next: nextNodeMock, method: .options)
@@ -85,39 +122,31 @@ final class MultipartUrlRequestTrasformatorNodeTests: XCTestCase {
         
         // when
         
-        let result = await sut.process(model, logContext: logContextMock)
+        _ = await sut.process(model, logContext: logContextMock)
         
         // then
         
-        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
-        let value = try XCTUnwrap(result.value)
+        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
         
-        XCTAssertEqual(urlRouteProviderMock.invokedUrlCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
         XCTAssertEqual(input.headers , metadata)
         XCTAssertEqual(input.method, .options)
         XCTAssertEqual(input.url, expectedUrl)
         XCTAssertEqual(input.data.payloadModel, multipartModel.payloadModel)
-        XCTAssertEqual(value, expectedResult)
     }
     
-    func testAsyncProcess_withUrl_withFailureResponse_thenMultipartRequestCreated_andFailureReceived() async throws {
+    func testAsyncProcess_withSuccessResponse_thenSuccessReceived() async throws {
         // given
         
-        let sut = MultipartUrlRequestTrasformatorNode(next: nextNodeMock, method: .get)
-        let expectedUrl = URL(string: "www.test.com")!
-        let multipartModel = MultipartModel<[String : Data]>(payloadModel: [
-            "TestMultipartKey1": "TestMultipartValue1".data(using: .utf8)!
-        ])
-        let metadata = ["TestMetadataKey2": "TestMetadataValue2"]
+        let sut = MultipartUrlRequestTrasformatorNode(next: nextNodeMock, method: .options)
+        let expectedResult = 99
         let model = RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>(
-            metadata: metadata,
-            raw: multipartModel,
+            metadata: [:],
+            raw: MultipartModel<[String : Data]>(payloadModel: [:]),
             route: urlRouteProviderMock
         )
         
-        nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.secondError)
-        urlRouteProviderMock.stubbedUrlResult = .success(expectedUrl)
+        nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
+        urlRouteProviderMock.stubbedUrlResult = .success(URL(string: "www.test.com")!)
         
         // when
         
@@ -125,15 +154,30 @@ final class MultipartUrlRequestTrasformatorNodeTests: XCTestCase {
         
         // then
         
-        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
-        let error = try XCTUnwrap(result.error as? MockError)
+        let value = try XCTUnwrap(result.value)
+        XCTAssertEqual(value, expectedResult)
+    }
+    
+    func testAsyncProcess_withFailureResponse_thenFailureReceived() async throws {
+        // given
         
-        XCTAssertEqual(urlRouteProviderMock.invokedUrlCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(input.headers , metadata)
-        XCTAssertEqual(input.method, .get)
-        XCTAssertEqual(input.url, expectedUrl)
-        XCTAssertEqual(input.data.payloadModel, multipartModel.payloadModel)
+        let sut = MultipartUrlRequestTrasformatorNode(next: nextNodeMock, method: .options)
+        let model = RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>(
+            metadata: [:],
+            raw: MultipartModel<[String : Data]>(payloadModel: [:]),
+            route: urlRouteProviderMock
+        )
+        
+        nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.secondError)
+        urlRouteProviderMock.stubbedUrlResult = .success(URL(string: "www.test.com")!)
+        
+        // when
+        
+        let result = await sut.process(model, logContext: logContextMock)
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error as? MockError)
         XCTAssertEqual(error, .secondError)
     }
 }

@@ -29,8 +29,8 @@ class AsyncNodeMock<Input, Output>: AsyncNode {
     
     var invokedAsyncProcess = false
     var invokedAsyncProcessCount = 0
-    var invokedAsyncProcessParameters: (Input, LoggingContextProtocol)?
-    var invokedAsyncProcessParametersList: [(Input, LoggingContextProtocol)] = []
+    var invokedAsyncProcessParameters: (data: Input, logContext: LoggingContextProtocol)?
+    var invokedAsyncProcessParametersList: [(data: Input, logContext: LoggingContextProtocol)] = []
     var stubbedAsyncProccessResult: NodeResult<Output>!
     var stubbedAsyncProcessRunFunction: (() async -> Void)?
     var stubbedAsyncProcessNonAsyncRunFunction: (() -> Void)?

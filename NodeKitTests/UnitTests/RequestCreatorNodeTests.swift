@@ -53,7 +53,7 @@ final class RequestCreatorNodeTests: XCTestCase {
         
         // then
         
-        let parameters = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
+        let parameters = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
         let value = try XCTUnwrap(result.value)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
@@ -102,7 +102,7 @@ final class RequestCreatorNodeTests: XCTestCase {
         
         // then
         
-        let parameters = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
+        let parameters = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
         let value = try XCTUnwrap(result.value)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
@@ -150,7 +150,7 @@ final class RequestCreatorNodeTests: XCTestCase {
         
         // then
         
-        let parameters = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.0)
+        let parameters = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
         let value = try XCTUnwrap(result.value)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
