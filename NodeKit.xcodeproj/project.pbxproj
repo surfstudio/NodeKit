@@ -23,6 +23,17 @@
 		5005EB3E2BB9B4A300B670CD /* AsyncStreamNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5005EB3D2BB9B4A300B670CD /* AsyncStreamNodeTests.swift */; };
 		5005EB422BB9BC2500B670CD /* MockError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5005EB412BB9BC2500B670CD /* MockError.swift */; };
 		5005EB442BB9BC5B00B670CD /* Result+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5005EB432BB9BC5B00B670CD /* Result+Extension.swift */; };
+		5019CCE42BC00CDC0050B6DF /* RawEncoderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCE32BC00CDC0050B6DF /* RawEncoderNodeTests.swift */; };
+		5019CCE62BC00F9E0050B6DF /* RawEncodableMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCE52BC00F9E0050B6DF /* RawEncodableMock.swift */; };
+		5019CCE82BC018630050B6DF /* MultipartUrlRequestTrasformatorNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCE72BC018630050B6DF /* MultipartUrlRequestTrasformatorNodeTests.swift */; };
+		5019CCEA2BC019D60050B6DF /* UrlRouteProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCE92BC019D60050B6DF /* UrlRouteProviderMock.swift */; };
+		5019CCEC2BC01DDB0050B6DF /* RequestEncoderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCEB2BC01DDB0050B6DF /* RequestEncoderNodeTests.swift */; };
+		5019CCEE2BC020DC0050B6DF /* MultipartRequestCreatorNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCED2BC020DC0050B6DF /* MultipartRequestCreatorNodeTests.swift */; };
+		5019CCF02BC024D60050B6DF /* MultipartFormDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCEF2BC024D60050B6DF /* MultipartFormDataFactory.swift */; };
+		5019CCF22BC024F60050B6DF /* MultipartFormDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCF12BC024F60050B6DF /* MultipartFormDataProtocol.swift */; };
+		5019CCF42BC02B490050B6DF /* MultipartFormDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCF32BC02B490050B6DF /* MultipartFormDataMock.swift */; };
+		5019CCF62BC02E100050B6DF /* MultipartFormDataFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCF52BC02E100050B6DF /* MultipartFormDataFactoryMock.swift */; };
+		5019CCF82BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5019CCF72BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift */; };
 		502F9D972BAA36CF00151A8D /* LoggingContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D962BAA36CF00151A8D /* LoggingContext.swift */; };
 		502F9D9A2BAA389500151A8D /* LoggingContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D992BAA389500151A8D /* LoggingContextTests.swift */; };
 		502F9D9D2BAA39F400151A8D /* Log+Equatalbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */; };
@@ -206,6 +217,17 @@
 		5005EB3D2BB9B4A300B670CD /* AsyncStreamNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStreamNodeTests.swift; sourceTree = "<group>"; };
 		5005EB412BB9BC2500B670CD /* MockError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockError.swift; sourceTree = "<group>"; };
 		5005EB432BB9BC5B00B670CD /* Result+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extension.swift"; sourceTree = "<group>"; };
+		5019CCE32BC00CDC0050B6DF /* RawEncoderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawEncoderNodeTests.swift; sourceTree = "<group>"; };
+		5019CCE52BC00F9E0050B6DF /* RawEncodableMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawEncodableMock.swift; sourceTree = "<group>"; };
+		5019CCE72BC018630050B6DF /* MultipartUrlRequestTrasformatorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartUrlRequestTrasformatorNodeTests.swift; sourceTree = "<group>"; };
+		5019CCE92BC019D60050B6DF /* UrlRouteProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRouteProviderMock.swift; sourceTree = "<group>"; };
+		5019CCEB2BC01DDB0050B6DF /* RequestEncoderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEncoderNodeTests.swift; sourceTree = "<group>"; };
+		5019CCED2BC020DC0050B6DF /* MultipartRequestCreatorNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequestCreatorNodeTests.swift; sourceTree = "<group>"; };
+		5019CCEF2BC024D60050B6DF /* MultipartFormDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataFactory.swift; sourceTree = "<group>"; };
+		5019CCF12BC024F60050B6DF /* MultipartFormDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataProtocol.swift; sourceTree = "<group>"; };
+		5019CCF32BC02B490050B6DF /* MultipartFormDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataMock.swift; sourceTree = "<group>"; };
+		5019CCF52BC02E100050B6DF /* MultipartFormDataFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataFactoryMock.swift; sourceTree = "<group>"; };
+		5019CCF72BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireMultipartFormDataFactoryTests.swift; sourceTree = "<group>"; };
 		502F9D962BAA36CF00151A8D /* LoggingContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContext.swift; sourceTree = "<group>"; };
 		502F9D992BAA389500151A8D /* LoggingContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingContextTests.swift; sourceTree = "<group>"; };
 		502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Log+Equatalbe.swift"; sourceTree = "<group>"; };
@@ -404,6 +426,7 @@
 				390E69782A13660C007F2304 /* MultipartFormData.swift */,
 				390E69792A13660C007F2304 /* AFError.swift */,
 				390E697A2A13660C007F2304 /* HTTPHeaders.swift */,
+				5019CCF12BC024F60050B6DF /* MultipartFormDataProtocol.swift */,
 			);
 			path = Alamofire;
 			sourceTree = "<group>";
@@ -511,6 +534,10 @@
 			isa = PBXGroup;
 			children = (
 				50C8EB4B2BBF1C1000C5CB93 /* MetadataProviderMock.swift */,
+				5019CCE52BC00F9E0050B6DF /* RawEncodableMock.swift */,
+				5019CCE92BC019D60050B6DF /* UrlRouteProviderMock.swift */,
+				5019CCF32BC02B490050B6DF /* MultipartFormDataMock.swift */,
+				5019CCF52BC02E100050B6DF /* MultipartFormDataFactoryMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -868,6 +895,7 @@
 				90B6096A283E1287006F4309 /* RequestCreatorNode.swift */,
 				90B6096C283E1287006F4309 /* MultipartRequestCreatorNode.swift */,
 				90B6096D283E1287006F4309 /* Support */,
+				5019CCEF2BC024D60050B6DF /* MultipartFormDataFactory.swift */,
 			);
 			path = RequestProcessingLayer;
 			sourceTree = "<group>";
@@ -966,6 +994,11 @@
 				50C8EB4F2BBF216C00C5CB93 /* ResponseDataParserNodeTests.swift */,
 				50C8EB512BBF302E00C5CB93 /* ResponseDataPreprocessorNodeTests.swift */,
 				50B6838E2BBF3615001F7EA3 /* AccessSafeNodeTests.swift */,
+				5019CCE32BC00CDC0050B6DF /* RawEncoderNodeTests.swift */,
+				5019CCE72BC018630050B6DF /* MultipartUrlRequestTrasformatorNodeTests.swift */,
+				5019CCEB2BC01DDB0050B6DF /* RequestEncoderNodeTests.swift */,
+				5019CCED2BC020DC0050B6DF /* MultipartRequestCreatorNodeTests.swift */,
+				5019CCF72BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -1265,6 +1298,7 @@
 				90B6092A283E1268006F4309 /* MulticastContext.swift in Sources */,
 				90B6098E283E1287006F4309 /* RoutableRequestModel.swift in Sources */,
 				90B6098B283E1287006F4309 /* URLQueryConfigModel.swift in Sources */,
+				5019CCF22BC024F60050B6DF /* MultipartFormDataProtocol.swift in Sources */,
 				90B60999283E1287006F4309 /* EntryinputDtoOutputNode.swift in Sources */,
 				90B60921283E1268006F4309 /* MultipartModel.swift in Sources */,
 				90B609A9283E1287006F4309 /* TransportUrlRequest.swift in Sources */,
@@ -1285,6 +1319,7 @@
 				90B6099A283E1287006F4309 /* VoidInputNode.swift in Sources */,
 				90B609C0283E1287006F4309 /* LoggerExtensions.swift in Sources */,
 				90B60989283E1287006F4309 /* URLQueryBoolEncodingStartegy.swift in Sources */,
+				5019CCF02BC024D60050B6DF /* MultipartFormDataFactory.swift in Sources */,
 				390E696C2A13654A007F2304 /* RequestSenderNode.swift in Sources */,
 				90B609BE283E1287006F4309 /* LoggerNode.swift in Sources */,
 				90B609B4283E1287006F4309 /* ServerRequestsManager.swift in Sources */,
@@ -1363,19 +1398,25 @@
 				50C8EB322BBD932D00C5CB93 /* CombineStreamNodeTests.swift in Sources */,
 				90B609FE283E16DC006F4309 /* UrlWithOrderedQuery.swift in Sources */,
 				50C8EB362BBD9CBF00C5CB93 /* NodeResultTests.swift in Sources */,
+				5019CCE62BC00F9E0050B6DF /* RawEncodableMock.swift in Sources */,
 				50B683922BBF3816001F7EA3 /* TransportUrlRequest+Equatable.swift in Sources */,
 				90B60A10283E16E4006F4309 /* DeferCallingTests.swift in Sources */,
 				90B609F9283E16DC006F4309 /* CacheReaderNodeTests.swift in Sources */,
 				90B60A05283E16DC006F4309 /* UserEntry.swift in Sources */,
+				5019CCF82BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift in Sources */,
 				50C8EB342BBD951500C5CB93 /* AsyncStreamCombineNodeTests.swift in Sources */,
 				90B60A06283E16DC006F4309 /* AuthModel.swift in Sources */,
+				5019CCEC2BC01DDB0050B6DF /* RequestEncoderNodeTests.swift in Sources */,
 				90B60A04283E16DC006F4309 /* AuthModelEntry.swift in Sources */,
 				90B60A01283E16DC006F4309 /* LoggingTests.swift in Sources */,
 				50528E312BAE1F9800E86CB6 /* LoggingContextMock.swift in Sources */,
+				5019CCF42BC02B490050B6DF /* MultipartFormDataMock.swift in Sources */,
 				50C8EB3A2BBDBBD300C5CB93 /* AsyncCombineNodeTests.swift in Sources */,
 				50B6838F2BBF3615001F7EA3 /* AccessSafeNodeTests.swift in Sources */,
 				90B609FC283E16DC006F4309 /* UrlETagSaverNodeTests.swift in Sources */,
 				50C8EB302BBD90DE00C5CB93 /* CombineNodeTests.swift in Sources */,
+				5019CCEE2BC020DC0050B6DF /* MultipartRequestCreatorNodeTests.swift in Sources */,
+				5019CCF62BC02E100050B6DF /* MultipartFormDataFactoryMock.swift in Sources */,
 				90B609FF283E16DC006F4309 /* UrlETagUrlCacheTriggerNodeTests.swift in Sources */,
 				5005EB332BB9935400B670CD /* AsyncStreamNodeMock.swift in Sources */,
 				90B60A02283E16DC006F4309 /* Infrastructure.swift in Sources */,
@@ -1383,6 +1424,7 @@
 				50528E332BAE295D00E86CB6 /* TokenRefresherActorMock.swift in Sources */,
 				90B609F3283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift in Sources */,
 				90B609F8283E16DC006F4309 /* EncodingTests.swift in Sources */,
+				5019CCE42BC00CDC0050B6DF /* RawEncoderNodeTests.swift in Sources */,
 				50C8EB2E2BBD8FC000C5CB93 /* CombineStreamNodeMock.swift in Sources */,
 				5005EB3E2BB9B4A300B670CD /* AsyncStreamNodeTests.swift in Sources */,
 				5005EB442BB9BC5B00B670CD /* Result+Extension.swift in Sources */,
@@ -1398,8 +1440,10 @@
 				90B609FD283E16DC006F4309 /* UrlETagReaderNodeTests.swift in Sources */,
 				90B609F7283E16DC006F4309 /* TokenRefresherNodeTests.swift in Sources */,
 				90B609F4283E16DC006F4309 /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift in Sources */,
+				5019CCEA2BC019D60050B6DF /* UrlRouteProviderMock.swift in Sources */,
 				90B609EF283E16DC006F4309 /* DTOMapperNodeTests.swift in Sources */,
 				50C8EB3E2BBEC1E700C5CB93 /* DispatchQueue+Extension.swift in Sources */,
+				5019CCE82BC018630050B6DF /* MultipartUrlRequestTrasformatorNodeTests.swift in Sources */,
 				502F9D9D2BAA39F400151A8D /* Log+Equatalbe.swift in Sources */,
 				50C8EB502BBF216C00C5CB93 /* ResponseDataParserNodeTests.swift in Sources */,
 				90B60A09283E16DC006F4309 /* AbortingTests.swift in Sources */,

@@ -25,14 +25,25 @@ public struct MultipartUrlRequest {
 
 /// Узел, умеющий создавать multipart-запрос.
 open class MultipartRequestCreatorNode<Output>: AsyncNode {
+    
+    // MARK: - Public Properties
+    
     /// Следующий узел для обработки.
     public var next: any AsyncNode<URLRequest, Output>
+    
+    // MARK: - Private Properties
+    
+    private let multipartFormDataFactory: MultipartFormDataFactory
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: any AsyncNode<URLRequest, Output>) {
+    public init(
+        next: any AsyncNode<URLRequest, Output>,
+        multipartFormDataFactory: MultipartFormDataFactory = AlamofireMultipartFormDataFactory()
+    ) {
         self.next = next
+        self.multipartFormDataFactory = multipartFormDataFactory
     }
 
     /// Конфигурирует низкоуровневый запрос.
@@ -44,10 +55,10 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
             request.httpMethod = data.method.rawValue
 
             // Add Headers
-            data.headers.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
+            data.headers.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
 
             // Form Data
-            let formData = MultipartFormData(fileManager: FileManager.default)
+            let formData = multipartFormDataFactory.produce()
             append(multipartForm: formData, with: data)
             request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
             let encodedFormData = try formData.encode()
@@ -71,10 +82,10 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
             request.httpMethod = data.method.rawValue
 
             // Add Headers
-            data.headers.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
+            data.headers.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
 
             // Form Data
-            let formData = MultipartFormData(fileManager: FileManager.default)
+            let formData = multipartFormDataFactory.produce()
             append(multipartForm: formData, with: data)
             request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
             let encodedFormData = try formData.encode()
@@ -96,7 +107,7 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
         return Log(message, id: self.objectName, order: LogOrder.requestCreatorNode)
     }
 
-    open func append(multipartForm: MultipartFormData, with request: MultipartUrlRequest) {
+    open func append(multipartForm: MultipartFormDataProtocol, with request: MultipartUrlRequest) {
         request.data.payloadModel.forEach { key, value in
             multipartForm.append(value, withName: key)
         }
