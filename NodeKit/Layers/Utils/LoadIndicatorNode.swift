@@ -11,7 +11,7 @@ import UIKit
 #endif
 import Dispatch
 
-private enum LoadIndicatableNodeStatic {
+enum LoadIndicatableNodeStatic {
     static var requestConter: Int = 0 {
         didSet {
             #if canImport(UIKit)
