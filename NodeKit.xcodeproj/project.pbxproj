@@ -71,6 +71,7 @@
 		5060A4902BC43A4A004E84E2 /* VoidOutputNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5060A48F2BC43A4A004E84E2 /* VoidOutputNodeTests.swift */; };
 		5060A4922BC43D71004E84E2 /* LoggerStreamNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5060A4912BC43D71004E84E2 /* LoggerStreamNodeTests.swift */; };
 		5060A4942BC43FBD004E84E2 /* LoggerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5060A4932BC43FBD004E84E2 /* LoggerNodeTests.swift */; };
+		5060A4962BC44225004E84E2 /* EntryInputDtoOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5060A4952BC44225004E84E2 /* EntryInputDtoOutputNode.swift */; };
 		50B6838F2BBF3615001F7EA3 /* AccessSafeNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6838E2BBF3615001F7EA3 /* AccessSafeNodeTests.swift */; };
 		50B683922BBF3816001F7EA3 /* TransportUrlRequest+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B683912BBF3816001F7EA3 /* TransportUrlRequest+Equatable.swift */; };
 		50C8EB282BBD7A2200C5CB93 /* AsyncStreamCombineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8EB272BBD7A2200C5CB93 /* AsyncStreamCombineNode.swift */; };
@@ -144,7 +145,6 @@
 		90B60996283E1287006F4309 /* VoidIONode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60945283E1287006F4309 /* VoidIONode.swift */; };
 		90B60997283E1287006F4309 /* VoidOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60946283E1287006F4309 /* VoidOutputNode.swift */; };
 		90B60998283E1287006F4309 /* ModelInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60947283E1287006F4309 /* ModelInputNode.swift */; };
-		90B60999283E1287006F4309 /* EntryInputDtoOutputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60948283E1287006F4309 /* EntryInputDtoOutputNode.swift */; };
 		90B6099A283E1287006F4309 /* VoidInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60949283E1287006F4309 /* VoidInputNode.swift */; };
 		90B6099B283E1287006F4309 /* RequestAborterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B6094B283E1287006F4309 /* RequestAborterNode.swift */; };
 		90B6099C283E1287006F4309 /* LoadIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B6094C283E1287006F4309 /* LoadIndicatorNode.swift */; };
@@ -291,6 +291,7 @@
 		5060A48F2BC43A4A004E84E2 /* VoidOutputNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidOutputNodeTests.swift; sourceTree = "<group>"; };
 		5060A4912BC43D71004E84E2 /* LoggerStreamNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerStreamNodeTests.swift; sourceTree = "<group>"; };
 		5060A4932BC43FBD004E84E2 /* LoggerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerNodeTests.swift; sourceTree = "<group>"; };
+		5060A4952BC44225004E84E2 /* EntryInputDtoOutputNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryInputDtoOutputNode.swift; sourceTree = "<group>"; };
 		50B6838E2BBF3615001F7EA3 /* AccessSafeNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessSafeNodeTests.swift; sourceTree = "<group>"; };
 		50B683912BBF3816001F7EA3 /* TransportUrlRequest+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportUrlRequest+Equatable.swift"; sourceTree = "<group>"; };
 		50C8EB272BBD7A2200C5CB93 /* AsyncStreamCombineNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStreamCombineNode.swift; sourceTree = "<group>"; };
@@ -365,7 +366,6 @@
 		90B60945283E1287006F4309 /* VoidIONode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidIONode.swift; sourceTree = "<group>"; };
 		90B60946283E1287006F4309 /* VoidOutputNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidOutputNode.swift; sourceTree = "<group>"; };
 		90B60947283E1287006F4309 /* ModelInputNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelInputNode.swift; sourceTree = "<group>"; };
-		90B60948283E1287006F4309 /* EntryInputDtoOutputNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryInputDtoOutputNode.swift; sourceTree = "<group>"; };
 		90B60949283E1287006F4309 /* VoidInputNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoidInputNode.swift; sourceTree = "<group>"; };
 		90B6094B283E1287006F4309 /* RequestAborterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestAborterNode.swift; sourceTree = "<group>"; };
 		90B6094C283E1287006F4309 /* LoadIndicatorNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadIndicatorNode.swift; sourceTree = "<group>"; };
@@ -842,8 +842,8 @@
 				90B60945283E1287006F4309 /* VoidIONode.swift */,
 				90B60946283E1287006F4309 /* VoidOutputNode.swift */,
 				90B60947283E1287006F4309 /* ModelInputNode.swift */,
-				90B60948283E1287006F4309 /* EntryInputDtoOutputNode.swift */,
 				90B60949283E1287006F4309 /* VoidInputNode.swift */,
+				5060A4952BC44225004E84E2 /* EntryInputDtoOutputNode.swift */,
 			);
 			path = InputProcessingLayer;
 			sourceTree = "<group>";
@@ -1377,7 +1377,6 @@
 				90B6098E283E1287006F4309 /* RoutableRequestModel.swift in Sources */,
 				90B6098B283E1287006F4309 /* URLQueryConfigModel.swift in Sources */,
 				5019CCF22BC024F60050B6DF /* MultipartFormDataProtocol.swift in Sources */,
-				90B60999283E1287006F4309 /* EntryInputDtoOutputNode.swift in Sources */,
 				90B60921283E1268006F4309 /* MultipartModel.swift in Sources */,
 				90B609A9283E1287006F4309 /* TransportUrlRequest.swift in Sources */,
 				390E69712A136586007F2304 /* RequestEncodingNodeError.swift in Sources */,
@@ -1458,6 +1457,7 @@
 				90B60917283E1268006F4309 /* UrlChainsBuilder.swift in Sources */,
 				90B60915283E1268006F4309 /* UrlETagReaderNode.swift in Sources */,
 				90B60985283E1287006F4309 /* UrlRequestTrasformatorNode.swift in Sources */,
+				5060A4962BC44225004E84E2 /* EntryInputDtoOutputNode.swift in Sources */,
 				390E69702A136586007F2304 /* NodeParameterEncoding.swift in Sources */,
 				502F9DA92BAB0CF000151A8D /* TokenRefresherActor.swift in Sources */,
 				90B60928283E1268006F4309 /* CancelableContext.swift in Sources */,
