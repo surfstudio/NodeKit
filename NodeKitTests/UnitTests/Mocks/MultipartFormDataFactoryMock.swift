@@ -7,6 +7,7 @@
 //
 
 @testable import NodeKit
+@testable import ThirdParty
 
 final class MultipartFormDataFactoryMock: MultipartFormDataFactory {
     

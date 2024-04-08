@@ -13,13 +13,13 @@ let package = Package(
             targets: ["NodeKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/surfstudio/CoreEvents", exact: "2.0.2")
+        .package(url: "./ThirdParty")
     ],
     targets: [
         .target(
             name: "NodeKit",
             dependencies: [
-                "CoreEvents"
+                "ThirdParty"
             ],
             path: "NodeKit",
             exclude: [
@@ -29,8 +29,7 @@ let package = Package(
         .testTarget(
             name: "NodeKitTests",
             dependencies: [
-                "NodeKit",
-                "CoreEvents"
+                "NodeKit"
             ],
             path: "NodeKitTests",
             exclude: [

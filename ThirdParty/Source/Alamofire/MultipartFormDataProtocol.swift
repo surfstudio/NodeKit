@@ -77,7 +77,7 @@ public protocol MultipartFormDataProtocol {
     func encode() throws -> Data
 }
 
-extension MultipartFormDataProtocol {
+public extension MultipartFormDataProtocol {
     func append(_ data: Data, withName name: String) {
         append(data, withName: name, fileName: nil, mimeType: nil)
     }

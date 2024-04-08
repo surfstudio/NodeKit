@@ -1,4 +1,5 @@
 import Foundation
+import ThirdParty
 
 /// Модель для внутреннего представления multipart запроса.
 public struct MultipartUrlRequest {
