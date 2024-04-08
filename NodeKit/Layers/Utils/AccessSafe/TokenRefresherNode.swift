@@ -21,19 +21,9 @@ open class TokenRefresherNode: AsyncNode {
     ///
     /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
     /// - Parameter tokenRefresherActor: Актор для обновления токена.
-    public init(tokenRefreshChain: any AsyncNode<Void, Void>, tokenRefresherActor: TokenRefresherActorProtocol) {
+    public init(tokenRefreshChain: any AsyncNode<Void, Void>, tokenRefresherActor: TokenRefresherActorProtocol? = nil) {
         self.tokenRefreshChain = tokenRefreshChain
-        self.tokenRefresherActor = tokenRefresherActor
-    }
-    
-    /// Инициаллизирует
-    ///
-    /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
-    public convenience init(tokenRefreshChain: any AsyncNode<Void, Void>) {
-        self.init(
-            tokenRefreshChain: tokenRefreshChain,
-            tokenRefresherActor: TokenRefresherActor(tokenRefreshChain: tokenRefreshChain)
-        )
+        self.tokenRefresherActor = tokenRefresherActor ?? TokenRefresherActor(tokenRefreshChain: tokenRefreshChain)
     }
 
     /// Проверяет, был ли отправлен запрос на обновление токена

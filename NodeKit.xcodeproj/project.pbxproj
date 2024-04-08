@@ -111,7 +111,6 @@
 		90B6091C283E1268006F4309 /* Array+DtoConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608F7283E1268006F4309 /* Array+DtoConvertible.swift */; };
 		90B6091D283E1268006F4309 /* DTOConvertible+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608F8283E1268006F4309 /* DTOConvertible+Dictionary.swift */; };
 		90B6091E283E1268006F4309 /* MultipartModel + Convertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608FA283E1268006F4309 /* MultipartModel + Convertion.swift */; };
-		90B6091F283E1268006F4309 /* StubEmptyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608FB283E1268006F4309 /* StubEmptyModel.swift */; };
 		90B60920283E1268006F4309 /* MultipartFileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608FC283E1268006F4309 /* MultipartFileProvider.swift */; };
 		90B60921283E1268006F4309 /* MultipartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608FD283E1268006F4309 /* MultipartModel.swift */; };
 		90B60922283E1268006F4309 /* DTOConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B608FE283E1268006F4309 /* DTOConvertible.swift */; };
@@ -316,7 +315,6 @@
 		90B608F7283E1268006F4309 /* Array+DtoConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+DtoConvertible.swift"; sourceTree = "<group>"; };
 		90B608F8283E1268006F4309 /* DTOConvertible+Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DTOConvertible+Dictionary.swift"; sourceTree = "<group>"; };
 		90B608FA283E1268006F4309 /* MultipartModel + Convertion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MultipartModel + Convertion.swift"; sourceTree = "<group>"; };
-		90B608FB283E1268006F4309 /* StubEmptyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubEmptyModel.swift; sourceTree = "<group>"; };
 		90B608FC283E1268006F4309 /* MultipartFileProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFileProvider.swift; sourceTree = "<group>"; };
 		90B608FD283E1268006F4309 /* MultipartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartModel.swift; sourceTree = "<group>"; };
 		90B608FE283E1268006F4309 /* DTOConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTOConvertible.swift; sourceTree = "<group>"; };
@@ -684,7 +682,6 @@
 			isa = PBXGroup;
 			children = (
 				90B608FA283E1268006F4309 /* MultipartModel + Convertion.swift */,
-				90B608FB283E1268006F4309 /* StubEmptyModel.swift */,
 				90B608FC283E1268006F4309 /* MultipartFileProvider.swift */,
 				90B608FD283E1268006F4309 /* MultipartModel.swift */,
 			);
@@ -1291,7 +1288,6 @@
 				390E69712A136586007F2304 /* RequestEncodingNodeError.swift in Sources */,
 				90B609B1283E1287006F4309 /* MultipartRequestCreatorNode.swift in Sources */,
 				90B60918283E1268006F4309 /* UrlChainConfigModel.swift in Sources */,
-				90B6091F283E1268006F4309 /* StubEmptyModel.swift in Sources */,
 				90B6098A283E1287006F4309 /* ParametersEncoding.swift in Sources */,
 				90B60913283E1268006F4309 /* UrlETagSaverNode.swift in Sources */,
 				90B609BF283E1287006F4309 /* Logable.swift in Sources */,
