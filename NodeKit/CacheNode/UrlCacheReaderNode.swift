@@ -30,27 +30,6 @@ open class UrlCacheReaderNode: AsyncNode {
     }
 
     /// Посылает запрос в кэш и пытается сериализовать данные в JSON.
-    open func processLegacy(_ data: UrlNetworkRequest) -> Observer<Json> {
-
-        guard let cachedResponse = self.extractCachedUrlResponse(data.urlRequest) else {
-            return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantLoadDataFromCache) : Context<Json>()
-        }
-
-        guard let jsonObjsect = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: .allowFragments) else {
-            return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantSerializeJson) : Context<Json>()
-        }
-
-        guard let json = jsonObjsect as? Json else {
-            guard let json = jsonObjsect as? [Json] else {
-                return self.needsToThrowError ? .emit(error: BaseUrlCacheReaderError.cantCastToJson) : Context<Json>()
-            }
-            return .emit(data: [MappingUtils.arrayJsonKey: json])
-        }
-
-        return .emit(data: json)
-    }
-
-    /// Посылает запрос в кэш и пытается сериализовать данные в JSON.
     open func process(
         _ data: UrlNetworkRequest,
         logContext: LoggingContextProtocol

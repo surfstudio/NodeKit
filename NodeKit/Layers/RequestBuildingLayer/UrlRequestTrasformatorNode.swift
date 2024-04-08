@@ -23,31 +23,6 @@ open class UrlRequestTrasformatorNode<Type>: AsyncNode {
     /// Конструирует модель для для работы на транспортном уровне цепочки.
     ///
     /// - Parameter data: Данные для дальнейшей обработки.
-    open func processLegacy(
-        _ data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding?>
-    ) -> Observer<Type> {
-
-        var url: URL
-
-        do {
-            url = try data.route.url()
-        } catch {
-            return .emit(error: error)
-        }
-
-        let params = TransportUrlParameters(method: self.method,
-                                            url: url,
-                                            headers: data.metadata)
-
-        let encodingModel = RequestEncodingModel(urlParameters: params,
-                                                 raw: data.raw,
-                                                 encoding: data.encoding ?? nil)
-        return next.processLegacy(encodingModel)
-    }
-
-    /// Конструирует модель для для работы на транспортном уровне цепочки.
-    ///
-    /// - Parameter data: Данные для дальнейшей обработки.
     open func process(
         _ data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding?>,
         logContext: LoggingContextProtocol

@@ -26,13 +26,7 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
 
     /// Менеджер сессий
     private(set) var manager: URLSession
-
-    private var responseQueue: DispatchQueue
-    
     private let dataTaskActor: URLSessionDataTaskActorProtocol
-
-    private weak var task: URLSessionDataTask?
-    private weak var context: Observer<NodeDataResponse>?
 
     /// Инициаллизирует узел.
     ///
@@ -41,45 +35,12 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
     /// - Parameter manager: URLSession менеджер, по умолчанию задается сессия из ServerRequestsManager
     public init(
         rawResponseProcessor: some RawResponseProcessor,
-        responseQueue: DispatchQueue,
         dataTaskActor: URLSessionDataTaskActorProtocol? = nil,
         manager: URLSession? = nil
     ) {
         self.rawResponseProcessor = rawResponseProcessor
-        self.responseQueue = responseQueue
         self.dataTaskActor = dataTaskActor ?? URLSessionDataTaskActor()
         self.manager = manager ?? ServerRequestsManager.shared.manager
-    }
-
-    /// Выполняет запрос,ожидает ответ и передает его следующему узлу.
-    ///
-    /// - Parameter request: Данные для исполнения запроса.
-    open func processLegacy(_ request: URLRequest) -> Observer<Type> {
-
-        let context = Context<NodeDataResponse>()
-        self.context = context
-
-        var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.requestSenderNode)
-        self.task = manager.dataTask(with: request) { [weak self] data, response, error in
-            self?.responseQueue.async {
-                log += "Get response!)"
-                let result: Result<Data, Error>
-
-                if let error = error {
-                    result = .failure(error)
-                } else {
-                    result = .success(data ?? Data())
-                }
-
-                let nodeResponse = NodeDataResponse(urlResponse: response as? HTTPURLResponse,
-                                                    urlRequest: request,
-                                                    result: result)
-                context.log(log).emit(data: nodeResponse)
-            }
-        }
-        log += "Request sended!"
-        task?.resume()
-        return context.map { self.rawResponseProcessor.processLegacy($0) }
     }
 
     /// Выполняет запрос,ожидает ответ и передает его следующему узлу.
@@ -103,13 +64,6 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
 
         await logContext.add(log)
         return result
-    }
-
-    /// Отменяет запрос.
-    open func cancel() {
-        self.context?.log?.add(message: "Request was cancelled!")
-        self.task?.cancel()
-        self.context?.cancel()
     }
 
     open func cancel(logContext: LoggingContextProtocol) {

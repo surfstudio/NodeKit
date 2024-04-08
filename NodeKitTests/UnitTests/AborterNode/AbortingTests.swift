@@ -43,55 +43,6 @@ final class AbortingTests: XCTestCase {
     }
     
     // MARK: - Tests
-
-    func testAbort_thenPassedSuccess() {
-        // given
-        
-        let nextContext = Context<Void>()
-        nextNodeMock.stubbedProccessLegacyResult = nextContext
-
-        // when
-
-        let exp = self.expectation(description: "\(#function)")
-
-
-        var completedCalls = 0
-        var errorCalls = 0
-        var canceledCalls = 0
-        var deferCalls = 0
-
-        let context = sut
-            .processLegacy(())
-            .onCompleted { val in
-                completedCalls += 1
-            }.onError { val in
-                errorCalls += 1
-            }.onCanceled {
-                canceledCalls += 1
-                exp.fulfill()
-            }.defer {
-                deferCalls += 1
-            }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4)) {
-            nextContext.emit(data: ())
-        }
-
-        DispatchQueue.main.async {
-            context.cancel()
-        }
-
-        waitForExpectations(timeout: 10, handler: nil)
-
-        // then
-
-        XCTAssertEqual(canceledCalls, 1)
-        XCTAssertEqual(aborterMock.invokedCancelCount, 1)
-
-        XCTAssertEqual(completedCalls, 0)
-        XCTAssertEqual(errorCalls, 0)
-        XCTAssertEqual(errorCalls, 0)
-    }
     
     func testAsyncAbort_whenTaskCancelBeforeProcess_thenProcessNotCalled() async {
         // when
@@ -106,7 +57,7 @@ final class AbortingTests: XCTestCase {
     
         // then
         
-        XCTAssertFalse(nextNodeMock.invokedProcessLegacy)
+        XCTAssertFalse(nextNodeMock.invokedAsyncProcess)
         switch result {
         case .success:
             XCTFail("Неожиданный результат")

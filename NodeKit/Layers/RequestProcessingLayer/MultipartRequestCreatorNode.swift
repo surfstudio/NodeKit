@@ -49,30 +49,6 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
     /// Конфигурирует низкоуровневый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
-    open func processLegacy(_ data: MultipartUrlRequest) -> Observer<Output> {
-        do {
-            var request = URLRequest(url: data.url)
-            request.httpMethod = data.method.rawValue
-
-            // Add Headers
-            data.headers.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
-
-            // Form Data
-            let formData = multipartFormDataFactory.produce()
-            append(multipartForm: formData, with: data)
-            request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
-            let encodedFormData = try formData.encode()
-            request.httpBody = encodedFormData
-
-            return self.next.processLegacy(request).log(self.getLogMessage(data))
-        } catch {
-            return .emit(error: error)
-        }
-    }
-
-    /// Конфигурирует низкоуровневый запрос.
-    ///
-    /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open func process(
         _ data: MultipartUrlRequest,
         logContext: LoggingContextProtocol

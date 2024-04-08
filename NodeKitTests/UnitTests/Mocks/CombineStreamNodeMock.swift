@@ -36,18 +36,4 @@ final class CombineStreamNodeMock<Input, Output>: CombineStreamNode {
         invokedProcessParameters = (data, logContext)
         invokedProcessParameterList.append((data, logContext))
     }
-    
-    var invokedProcessLegacy = false
-    var invokedProcessLegacyCount = 0
-    var invokedProcessLegacyParameter: Input?
-    var invokedProcessLegacyParameterList: [Input] = []
-    var stubbedProccessLegacyResult: Observer<Output>!
-    
-    func processLegacy(_ data: Input) -> Observer<Output> {
-        invokedProcessLegacy = true
-        invokedProcessLegacyCount += 1
-        invokedProcessLegacyParameter = data
-        invokedProcessLegacyParameterList.append(data)
-        return stubbedProccessLegacyResult
-    }
 }

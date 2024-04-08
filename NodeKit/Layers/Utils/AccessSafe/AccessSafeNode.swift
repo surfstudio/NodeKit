@@ -69,21 +69,6 @@ open class AccessSafeNode: AsyncNode {
 
     /// Просто передает управление следующему узлу.
     /// В случае если вернулась доступа, то обноляет токен и повторяет запрос.
-    open func processLegacy(_ data: TransportUrlRequest) -> Observer<Json> {
-        return self.next.processLegacy(data).mapError { error -> Observer<Json> in
-            switch error {
-            case ResponseHttpErrorProcessorNodeError.forbidden, ResponseHttpErrorProcessorNodeError.unauthorized:
-                return self.updateTokenChain.processLegacy(()).map { _ in
-                    return self.next.processLegacy(data)
-                }
-            default:
-                return .emit(error: error)
-            }
-        }
-    }
-
-    /// Просто передает управление следующему узлу.
-    /// В случае если вернулась доступа, то обноляет токен и повторяет запрос.
     open func process(
         _ data: TransportUrlRequest,
         logContext: LoggingContextProtocol

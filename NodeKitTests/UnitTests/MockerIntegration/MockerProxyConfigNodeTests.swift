@@ -29,68 +29,6 @@ final class MockerProxyConfigNodeTests: XCTestCase {
     
     // MARK: - Tests
     
-    func testProcess_whenProxyIsOn_thenNodeAddRightKeys_andNextCalled() throws {
-        // given
-        
-        let host = "host.addr1"
-        let scheme = "http1"
-        let isProxyingOn = true
-        let expectedNextNodeResult = RequestModel<Int>(metadata: ["test1":"value1"], raw: 15)
-        
-        nextNodeMock.stubbedProccessLegacyResult = .emit(data: expectedNextNodeResult)
-        makeSut(isProxyingOn: isProxyingOn, proxyingHost: host, proxyingScheme: scheme)
-        
-        // when
-        
-        var nextNodeResult: RequestModel<Int>?
-        sut.processLegacy(.init(metadata: [:], raw: 0)).onCompleted { value in
-            nextNodeResult = value
-        }
-        
-        // then
-        
-        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter)
-        let nextNodeUnwrappedResult = try XCTUnwrap(nextNodeResult)
-        
-        XCTAssertEqual(nextNodeMock.invokedProcessLegacyCount, 1)
-        XCTAssertEqual(result.metadata[MockerProxyConfigKey.isProxyingOn], "\(isProxyingOn)")
-        XCTAssertEqual(result.metadata[MockerProxyConfigKey.proxyingHost], host)
-        XCTAssertEqual(result.metadata[MockerProxyConfigKey.proxyingScheme], scheme)
-        XCTAssertEqual(nextNodeUnwrappedResult.metadata, expectedNextNodeResult.metadata)
-        XCTAssertEqual(nextNodeUnwrappedResult.raw, expectedNextNodeResult.raw)
-    }
-    
-    func testProcess_whenProxyIsOff_thenNodeAddRightKeys_andNextCalled() throws {
-        // given
-        
-        let host = "host.addr2"
-        let scheme = "http2"
-        let isProxyingOn = false
-        let expectedNextNodeResult = RequestModel<Int>(metadata: ["test2":"value2"], raw: 16)
-        
-        nextNodeMock.stubbedProccessLegacyResult = .emit(data: expectedNextNodeResult)
-        makeSut(isProxyingOn: isProxyingOn, proxyingHost: host, proxyingScheme: scheme)
-        
-        // when
-        
-        var nextNodeResult: RequestModel<Int>?
-        sut.processLegacy(.init(metadata: [:], raw: 0)).onCompleted { value in
-            nextNodeResult = value
-        }
-        
-        // then
-        
-        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter)
-        let nextNodeUnwrappedResult = try XCTUnwrap(nextNodeResult)
-        
-        XCTAssertEqual(nextNodeMock.invokedProcessLegacyCount, 1)
-        XCTAssertNil(result.metadata[MockerProxyConfigKey.isProxyingOn])
-        XCTAssertNil(result.metadata[MockerProxyConfigKey.proxyingHost])
-        XCTAssertNil(result.metadata[MockerProxyConfigKey.proxyingScheme])
-        XCTAssertEqual(nextNodeUnwrappedResult.metadata, expectedNextNodeResult.metadata)
-        XCTAssertEqual(nextNodeUnwrappedResult.raw, expectedNextNodeResult.raw)
-    }
-    
     func testAsyncProcess_whenProxyIsOn_thenNodeAddRightKeys_andNextCalled() async throws {
         // given
         

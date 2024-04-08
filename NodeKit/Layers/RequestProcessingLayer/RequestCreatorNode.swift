@@ -20,24 +20,6 @@ open class RequestCreatorNode<Output>: AsyncNode {
     /// Конфигурирует низкоуровневый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
-    open func processLegacy(_ data: TransportUrlRequest) -> Observer<Output> {
-        var mergedHeaders = data.headers
-
-        self.providers.map { $0.metadata() }.forEach { dict in
-            mergedHeaders.merge(dict, uniquingKeysWith: { $1 })
-        }
-
-        var request = URLRequest(url: data.url)
-        request.httpMethod = data.method.rawValue
-        request.httpBody = data.raw
-        mergedHeaders.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
-
-        return self.next.processLegacy(request).log(self.getLogMessage(data))
-    }
-
-    /// Конфигурирует низкоуровневый запрос.
-    ///
-    /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open func process(
         _ data: TransportUrlRequest,
         logContext: LoggingContextProtocol

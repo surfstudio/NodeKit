@@ -47,43 +47,6 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
     /// Добавляет URL-query если может и передает управление следующему узлу.
     /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateUrlComponentsFromUrlString`
     /// - SeeAlso: ``URLQueryInjectorNodeError``
-    open func processLegacy(_ data: RoutableRequestModel<UrlRouteProvider, Raw>) -> Observer<Output> {
-
-        guard !self.config.query.isEmpty else {
-            return self.next.processLegacy(data)
-        }
-
-        var url: URL
-
-        do {
-            url = try data.route.url()
-        } catch {
-            return .emit(error: error)
-        }
-
-        guard var urlComponents = URLComponents(string: url.absoluteString) else {
-            return .emit(error: NodeError.cantCreateUrlComponentsFromUrlString)
-        }
-
-        urlComponents.queryItems = self.config.query
-            .map { self.makeQueryComponents(from: $1, by: $0) }
-            .reduce([], { $0 + $1 })
-            .sorted(by: { $0.name < $1.name })
-
-        guard let newUrl = urlComponents.url else {
-            return .emit(error: NodeError.cantCreateUrlFromUrlComponents)
-        }
-
-        let newModel = RoutableRequestModel<UrlRouteProvider, Raw>(metadata: data.metadata,
-                                                                   raw: data.raw,
-                                                                   route: newUrl)
-
-        return self.next.processLegacy(newModel)
-    }
-
-    /// Добавляет URL-query если может и передает управление следующему узлу.
-    /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateUrlComponentsFromUrlString`
-    /// - SeeAlso: ``URLQueryInjectorNodeError``
     open func process(
         _ data: RoutableRequestModel<UrlRouteProvider, Raw>,
         logContext: LoggingContextProtocol

@@ -31,25 +31,6 @@ open class UrlETagReaderNode: AsyncNode {
 
     /// Пытается прочесть eTag-токен из хранилища и добавить его к запросу.
     /// В случае, если прочесть токен не удалось, то управление просто передается дальше.
-    open func processLegacy(_ data: TransportUrlRequest) -> Observer<Json> {
-        guard let tag = UserDefaults.etagStorage?.value(forKey: data.url.absoluteString) as? String else {
-            return next.processLegacy(data)
-        }
-
-        var headers = data.headers
-        headers[self.etagHeaderKey] = tag
-
-        let params = TransportUrlParameters(method: data.method,
-                                            url: data.url,
-                                            headers: headers)
-
-        let newData = TransportUrlRequest(with: params, raw: data.raw)
-
-        return next.processLegacy(newData)
-    }
-
-    /// Пытается прочесть eTag-токен из хранилища и добавить его к запросу.
-    /// В случае, если прочесть токен не удалось, то управление просто передается дальше.
     open func process(
         _ data: TransportUrlRequest, 
         logContext: LoggingContextProtocol

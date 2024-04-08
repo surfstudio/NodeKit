@@ -11,8 +11,6 @@ import Foundation
 
 /// Протокол для сущности, которая может отменить операцию.
 public protocol Aborter {
-    /// Отменяет операцию.
-    func cancel()
 
     /// Отменяет асинхронную операцию.
     func cancel(logContext: LoggingContextProtocol)
@@ -40,16 +38,6 @@ open class AborterNode<Input, Output>: AsyncNode {
     public init(next: any AsyncNode<Input, Output>, aborter: Aborter) {
         self.next = next
         self.aborter = aborter
-    }
-
-    /// Просто передает поток следующему узлу
-    /// и если пришло сообщение об отмене запроса, то посылает Aborter'у `cancel()`
-    open func processLegacy(_ data: Input) -> Observer<Output> {
-        return self.next.processLegacy(data)
-            .multicast()
-            .onCanceled { [weak self] in
-                self?.aborter.cancel()
-            }
     }
 
     /// Если в момент вызова process задача уже отменена, то вернет CancellationError

@@ -11,22 +11,6 @@ import Combine
 
 class AsyncNodeMock<Input, Output>: AsyncNode {
     
-    var invokedProcessLegacy = false
-    var invokedProcessLegacyCount = 0
-    var invokedProcessLegacyParameter: Input?
-    var invokedProcessLegacyParameterList: [Input] = []
-    var stubbedProcessLegacyRunFunction: (() -> Void)?
-    var stubbedProccessLegacyResult: Observer<Output>!
-    
-    func processLegacy(_ data: Input) -> Observer<Output> {
-        invokedProcessLegacy = true
-        invokedProcessLegacyCount += 1
-        invokedProcessLegacyParameter = data
-        invokedProcessLegacyParameterList.append(data)
-        stubbedProcessLegacyRunFunction?()
-        return stubbedProccessLegacyResult
-    }
-    
     var invokedAsyncProcess = false
     var invokedAsyncProcessCount = 0
     var invokedAsyncProcessParameters: (data: Input, logContext: LoggingContextProtocol)?

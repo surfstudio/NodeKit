@@ -27,24 +27,6 @@ public class ModelInputNode<Input, Output>: AsyncNode where Input: DTOEncodable,
     /// Если при маппинге произошла ошибка, то она будет проброшена выше.
     ///
     /// - Parameter data: Данные для запроса.
-    open func processLegacy(_ data: Input) -> Observer<Output> {
-
-        let context = Context<Output>()
-
-        do {
-            let data = try data.toDTO()
-            return next.processLegacy(data)
-                .map { try Output.from(dto: $0) }
-        } catch {
-            return context.emit(error: error)
-        }
-    }
-
-    /// Передает управление следующему узлу,
-    /// а по получении ответа пытается замапить нижний DTO-слой на верхний.
-    /// Если при маппинге произошла ошибка, то она будет проброшена выше.
-    ///
-    /// - Parameter data: Данные для запроса.
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol

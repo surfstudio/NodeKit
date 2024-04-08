@@ -30,7 +30,6 @@ final class RequestSenderNodeTests: XCTestCase {
         logContextMock = LoggingContextMock()
         sut = RequestSenderNode(
             rawResponseProcessor: nextNodeMock,
-            responseQueue: .main,
             dataTaskActor: urlSessionDataTaskActorMock,
             manager: NetworkMock().urlSession
         )

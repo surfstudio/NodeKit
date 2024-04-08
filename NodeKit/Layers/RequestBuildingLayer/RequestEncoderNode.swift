@@ -40,13 +40,6 @@ open class RequestEncoderNode<Raw, Route, Encoding, Output>: AsyncNode {
 
     /// Преобразует `RoutableRequestModel` в `EncodableRequestModel`
     /// и передает управление следующему узлу.
-    open func processLegacy(_ data: RoutableRequestModel<Route, Raw>) -> Observer<Output> {
-        let model = EncodableRequestModel(metadata: data.metadata, raw: data.raw, route: data.route, encoding: self.encoding)
-        return self.next.processLegacy(model)
-    }
-
-    /// Преобразует `RoutableRequestModel` в `EncodableRequestModel`
-    /// и передает управление следующему узлу.
     open func process(
         _ data: RoutableRequestModel<Route, Raw>,
         logContext: LoggingContextProtocol

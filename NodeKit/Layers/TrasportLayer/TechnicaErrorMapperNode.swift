@@ -39,27 +39,6 @@ open class TechnicaErrorMapperNode: AsyncNode {
     /// Передает управление следующему узлу, и в случае ошибки маппит ее.
     ///
     /// - Parameter data: Данные для обработки.
-    open func processLegacy(_ data: URLRequest) -> Observer<Json> {
-        return self.next.processLegacy(data)
-            .mapError { error -> Error in
-                switch (error as NSError).code {
-                case -1020:
-                    return BaseTechnicalError.dataNotAllowed
-                case -1009:
-                    return BaseTechnicalError.noInternetConnection
-                case -1001:
-                    return BaseTechnicalError.timeout
-                case -1004:
-                    return BaseTechnicalError.cantConnectToHost
-                default:
-                    return error
-                }
-            }
-    }
-
-    /// Передает управление следующему узлу, и в случае ошибки маппит ее.
-    ///
-    /// - Parameter data: Данные для обработки.
     open func process(
         _ data: URLRequest,
         logContext: LoggingContextProtocol

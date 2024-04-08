@@ -16,28 +16,6 @@ open class VoidOutputNode<Input>: AsyncNode where Input: DTOEncodable, Input.DTO
         self.next = next
     }
 
-    open func processLegacy(_ data: Input) -> Observer<Void> {
-
-        var newData: Json
-
-        do {
-            newData = try data.toDTO().toRaw()
-        } catch {
-            return .emit(error: error)
-        }
-
-        return self.next.processLegacy(newData).map { json in
-            let result = Context<Void>()
-            var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.voidOutputNode)
-            if !json.isEmpty {
-                log += "VoidOutputNode used but request have not empty response" + .lineTabDeilimeter
-                log += "\(json)"
-                result.log(log)
-            }
-            return result.emit(data: ())
-        }
-    }
-
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol

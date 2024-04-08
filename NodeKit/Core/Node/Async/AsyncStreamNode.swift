@@ -12,6 +12,8 @@ import Foundation
 /// Протокол, наследованный от Node, добавляющий подход преобразования входных данных в поток результатов с помощью SwiftConcurrency
 /// Применим для узлов, которые могут вернуть несколько результатов
 public protocol AsyncStreamNode<Input, Output>: Node {
+    associatedtype Input
+    associatedtype Output
 
     /// Ассинхронный метод, который содержит логику для обработки данных
     ///

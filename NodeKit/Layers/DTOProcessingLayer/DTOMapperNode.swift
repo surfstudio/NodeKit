@@ -24,33 +24,6 @@ open class DTOMapperNode<Input, Output>: AsyncNode where Input: RawEncodable, Ou
     /// Маппит данные в RawMappable, передает управление следующей цепочке, а затем маппит ответ в DTOConvertible
     ///
     /// - Parameter data: Данные для обработки.
-    open func processLegacy(_ data: Input) -> Observer<Output> {
-        let context = Context<Output>()
-
-        var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.dtoMapperNode)
-                
-        do {
-            let data = try data.toRaw()
-            
-            let nextProcessResult = next.processLegacy(data)
-            
-            return nextProcessResult.map { [weak nextProcessResult] result in
-                do {
-                    let model = try Output.from(raw: result)
-                    return Context<Output>().log(nextProcessResult?.log).emit(data: model)
-                } catch {
-                    log += "\(error)"
-                    return Context<Output>().log(nextProcessResult?.log).log(log).emit(error: error)
-                }
-            }
-        } catch {
-            return context.log(log).emit(error: error)
-        }
-    }
-
-    /// Маппит данные в RawMappable, передает управление следующей цепочке, а затем маппит ответ в DTOConvertible
-    ///
-    /// - Parameter data: Данные для обработки.
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol

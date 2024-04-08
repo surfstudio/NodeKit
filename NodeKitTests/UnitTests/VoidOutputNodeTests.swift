@@ -162,6 +162,7 @@ final class VoidOutputNodeTests: XCTestCase {
         let parameter = await logContextMock.invokedAddParameter
         let log = try XCTUnwrap(parameter)
         
+        XCTAssertEqual(invokedAddCount, 1)
         XCTAssertEqual(log.description, expectedLog.description)
     }
 }

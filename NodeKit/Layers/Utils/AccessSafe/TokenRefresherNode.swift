@@ -14,20 +14,8 @@ import Foundation
 open class TokenRefresherNode: AsyncNode {
 
     /// Цепочка для обновления токена.
-    public var tokenRefreshChain: any AsyncNode<Void, Void> {
-        didSet {
-            Task {
-                await tokenRefresherActor.update(tokenRefreshChain: tokenRefreshChain)
-            }
-        }
-    }
-    private var tokenRefresherActor: TokenRefresherActorProtocol
-
-    private var isRequestSended = false
-    private var observers: [Context<Void>]
-
-    private let arrayQueue = DispatchQueue(label: "TokenRefresherNode.observers")
-    private let flagQueue = DispatchQueue(label: "TokenRefresherNode.flag")
+    public let tokenRefreshChain: any AsyncNode<Void, Void>
+    private let tokenRefresherActor: TokenRefresherActorProtocol
 
     /// Инициаллизирует
     ///
@@ -36,66 +24,16 @@ open class TokenRefresherNode: AsyncNode {
     public init(tokenRefreshChain: any AsyncNode<Void, Void>, tokenRefresherActor: TokenRefresherActorProtocol) {
         self.tokenRefreshChain = tokenRefreshChain
         self.tokenRefresherActor = tokenRefresherActor
-        self.observers = []
     }
     
     /// Инициаллизирует
     ///
     /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
     public convenience init(tokenRefreshChain: any AsyncNode<Void, Void>) {
-        self.init(tokenRefreshChain: tokenRefreshChain, tokenRefresherActor: TokenRefresherActor(tokenRefreshChain: tokenRefreshChain))
-    }
-
-    /// Проверяет, был ли отправлен запрос на обновление токена
-    /// Если запрос был отправлен, то создает `Observer`, сохраняет его у себя и возвращает предыдущему узлу.
-    /// Если нет - отправляет запрос и сохраняет `Observer`
-    /// После того как запрос на обновление токена был выполнен успешно - эмитит данные во все сохраненные Observer'ы и удаляет их из памяти
-    open func processLegacy(_ data: Void) -> Observer<Void> {
-
-        let shouldSaveContext: Bool = self.flagQueue.sync {
-            if self.isRequestSended {
-                return true
-            } else {
-                self.isRequestSended = true
-            }
-            return false
-        }
-
-        if shouldSaveContext {
-            var log = Log(self.logViewObjectName, id: self.objectName)
-            return self.arrayQueue.sync {
-                log += "Save context to queue"
-                let result = Context<Void>()
-                self.observers.append(result)
-                return result.log(log) 
-            }
-        }
-
-        return self.tokenRefreshChain.processLegacy(()).map { [weak self] model -> Void in
-
-            guard let `self` = self else { return () }
-
-            self.flagQueue.sync { self.isRequestSended = false }
-
-            let observers = self.arrayQueue.sync(execute: { return self.observers })
-            observers.forEach { $0.emit(data: ()) }
-            self.arrayQueue.async { [weak self] in
-                self?.observers.removeAll()
-            }
-            return ()
-        }.mapError { [weak self] error -> Error in
-            guard let `self` = self else { return error }
-
-            self.flagQueue.sync { self.isRequestSended = false }
-
-            let observers = self.arrayQueue.sync(execute: { return self.observers })
-            observers.forEach { $0.emit(error: error) }
-            self.arrayQueue.async { [weak self] in
-                self?.observers.removeAll()
-            }
-
-            return error
-        }
+        self.init(
+            tokenRefreshChain: tokenRefreshChain,
+            tokenRefresherActor: TokenRefresherActor(tokenRefreshChain: tokenRefreshChain)
+        )
     }
 
     /// Проверяет, был ли отправлен запрос на обновление токена

@@ -41,68 +41,8 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         logContextMock = nil
         sut = nil
     }
-    
-    func testProcess_whenDataIsNotModified_thenNextCalled() {
-        // given
-        
-        let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCalledIfDataIsNotNotModified")!
-        let response = Utils.getMockUrlDataResponse(url: url)
 
-        let expectation = self.expectation(description: "\(#function)")
-        
-        transportNodeMock.stubbedProccessLegacyResult = .emit(data: Json())
-
-        // when
-
-        var numberOfCalls = 0
-
-        sut.processLegacy(response).onCompleted { _ in
-            numberOfCalls += 1
-            expectation.fulfill()
-        }.onError { _ in
-            numberOfCalls += 1
-            expectation.fulfill()
-        }
-
-        self.waitForExpectations(timeout: 1, handler: nil)
-
-        // then
-
-        XCTAssertEqual(numberOfCalls, 1)
-        XCTAssertEqual(transportNodeMock.invokedProcessLegacyCount, 1)
-        XCTAssertFalse(cacheSaverMock.invokedProcessLegacy)
-    }
-    
-    func testProcess_whenStatus304_thenCacheNodeCalled() {
-        // given
-
-        let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCAlledIfDataIsNotNotModified")!
-        let response = Utils.getMockUrlDataResponse(url: url, statusCode: 304)
-
-        let expectation = self.expectation(description: "\(#function)")
-        
-        cacheSaverMock.stubbedProccessLegacyResult = .emit(data: Json())
-
-        // when
-
-        var numberOfCalls = 0
-
-        sut.processLegacy(response).onCompleted { _ in
-            numberOfCalls += 1
-            expectation.fulfill()
-            }.onError { _ in
-                numberOfCalls += 1
-                expectation.fulfill()
-        }
-
-        self.waitForExpectations(timeout: 1, handler: nil)
-
-        // then
-
-        XCTAssertEqual(numberOfCalls, 1)
-        XCTAssertFalse(transportNodeMock.invokedProcessLegacy)
-        XCTAssertEqual(cacheSaverMock.invokedProcessLegacyCount, 1)
-    }
+    // MARK: - Tests
     
     func testAsyncProcess_whenDataIsNotModified_thenNextCalled() async throws {
         // given

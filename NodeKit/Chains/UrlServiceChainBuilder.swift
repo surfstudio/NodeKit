@@ -15,10 +15,11 @@ open class UrlServiceChainBuilder {
     }
 
     /// Создает цепочку узлов, описывающих транспортный слой обработки.
-    open func requestTrasportChain(providers: [MetadataProvider], responseQueue: DispatchQueue, session: URLSession?) -> any TransportLayerNode {
-        let requestSenderNode = RequestSenderNode(rawResponseProcessor: self.urlResponseProcessingLayerChain(),
-                                                  responseQueue: responseQueue,
-                                                  manager: session)
+    open func requestTrasportChain(providers: [MetadataProvider], session: URLSession?) -> any TransportLayerNode {
+        let requestSenderNode = RequestSenderNode(
+            rawResponseProcessor: self.urlResponseProcessingLayerChain(),
+            manager: session
+        )
         let technicalErrorMapperNode = TechnicaErrorMapperNode(next: requestSenderNode)
         return RequestCreatorNode(next: technicalErrorMapperNode, providers: providers)
     }

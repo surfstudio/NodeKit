@@ -54,25 +54,7 @@ open class MockerProxyConfigNode<Raw, Output>: AsyncNode {
     // MARK: - Node
 
     /// Добавляет хедеры в `data`
-    open func processLegacy(_ data: RequestModel<Raw>) -> Observer<Output> {
-
-        guard self.isProxyingOn else {
-            return self.next.processLegacy(data)
-        }
-
-        var copy = data
-
-        copy.metadata[Keys.isProxyingOn] = String(self.isProxyingOn)
-        copy.metadata[Keys.proxyingHost] = self.proxyingHost
-        copy.metadata[Keys.proxyingScheme] = self.proxyingScheme
-
-        return self.next.processLegacy(copy)
-    }
-
-    // MARK: - Node
-
-    /// Добавляет хедеры в `data`
-    open func process(
+    public func process(
         _ data: RequestModel<Raw>,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {

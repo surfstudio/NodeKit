@@ -9,20 +9,6 @@
 @testable import NodeKit
 
 class AsyncStreamNodeMock<Input, Output>: AsyncStreamNode {
-
-    var invokedProcessLegacy = false
-    var invokedProcessLegacyCount = 0
-    var invokedProcessLegacyParameter: Input?
-    var invokedProcessLegacyParameterList: [Input] = []
-    var stubbedProccessLegacyResult: Observer<Output>!
-    
-    func processLegacy(_ data: Input) -> Observer<Output> {
-        invokedProcessLegacy = true
-        invokedProcessLegacyCount += 1
-        invokedProcessLegacyParameter = data
-        invokedProcessLegacyParameterList.append(data)
-        return stubbedProccessLegacyResult
-    }
     
     var invokedAsyncStreamProcess = false
     var invokedAsyncStreamProcessCount = 0

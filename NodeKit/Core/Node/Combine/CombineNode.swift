@@ -11,6 +11,8 @@ import Combine
 
 /// Протокол ноды, выполняющая обработку данных и возвращающая результат с помощью Combine.
 public protocol CombineNode<Input, Output>: Node {
+    associatedtype Input
+    associatedtype Output
 
     /// Метод запускающий процесс обработки данных
     /// и возвращающий publisher для подписки на результат.

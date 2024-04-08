@@ -30,26 +30,6 @@ open class IfConnectionFailedFromCacheNode: AsyncNode {
     /// Проверяет, произошла ли ошибка связи в ответ на запрос.
     /// Если ошибка произошла, то возвращает успешный ответ из кэша.
     /// В противном случае передает управление следующему узлу.
-    open func processLegacy(_ data: URLRequest) -> Observer<Json> {
-
-        return self.next.processLegacy(data).mapError { error -> Observer<Json> in
-            var logMessage = self.logViewObjectName
-            logMessage += "Catching \(error)" + .lineTabDeilimeter
-            let request = UrlNetworkRequest(urlRequest: data)
-            if error is BaseTechnicalError {
-                logMessage += "Start read cache" + .lineTabDeilimeter
-                return self.cacheReaderNode.processLegacy(request)
-            }
-            logMessage += "Error is \(type(of: error))"
-            logMessage += "and request = \(String(describing: request))" + .lineTabDeilimeter
-            logMessage += "-> throw error"
-            return .emit(error: error)
-        }
-    }
-
-    /// Проверяет, произошла ли ошибка связи в ответ на запрос.
-    /// Если ошибка произошла, то возвращает успешный ответ из кэша.
-    /// В противном случае передает управление следующему узлу.
     open func process(
         _ data: URLRequest,
         logContext: LoggingContextProtocol
