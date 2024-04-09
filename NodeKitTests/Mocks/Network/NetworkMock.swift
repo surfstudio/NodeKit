@@ -8,18 +8,6 @@
 
 import Foundation
 
-protocol URLSessionDataTaskProtocol {
-  func resume()
-  func cancel()
-}
-
-protocol URLSessionProtocol {
-    func dataTask(
-        with request: URLRequest,
-        completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void
-    ) -> URLSessionDataTask
-}
-
 final class NetworkMock {
     
     var urlSession: URLSession {

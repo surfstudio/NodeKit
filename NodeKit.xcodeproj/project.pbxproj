@@ -82,6 +82,12 @@
 		508169EB2BC588D300A43F3D /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508169EA2BC588D300A43F3D /* Array+Extension.swift */; };
 		508169ED2BC5891700A43F3D /* URLRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508169EC2BC5891700A43F3D /* URLRoutingTests.swift */; };
 		508169EF2BC58B9E00A43F3D /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508169EE2BC58B9E00A43F3D /* ParameterEncoding.swift */; };
+		508169F52BC58E7B00A43F3D /* FromURLCodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508169F42BC58E7B00A43F3D /* FromURLCodingTests.swift */; };
+		508169F72BC58F3100A43F3D /* UrlServiceChainBuilderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508169F62BC58F3100A43F3D /* UrlServiceChainBuilderMock.swift */; };
+		508169F92BC5AFD600A43F3D /* URLResponsesStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508169F82BC5AFD600A43F3D /* URLResponsesStub.swift */; };
+		508169FB2BC5C01B00A43F3D /* MultipartRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508169FA2BC5C01B00A43F3D /* MultipartRequestTests.swift */; };
+		508169FD2BC5D0ED00A43F3D /* SimpleURLChainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508169FC2BC5D0ED00A43F3D /* SimpleURLChainTests.swift */; };
+		508169FF2BC5D68A00A43F3D /* EmptyResponseMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508169FE2BC5D68A00A43F3D /* EmptyResponseMappingTests.swift */; };
 		509135932BC44EF400EC17D2 /* ThirdParty in Frameworks */ = {isa = PBXBuildFile; productRef = 509135922BC44EF400EC17D2 /* ThirdParty */; };
 		509135962BC44F9300EC17D2 /* ThirdParty in Frameworks */ = {isa = PBXBuildFile; productRef = 509135952BC44F9300EC17D2 /* ThirdParty */; };
 		50B6838F2BBF3615001F7EA3 /* AccessSafeNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6838E2BBF3615001F7EA3 /* AccessSafeNodeTests.swift */; };
@@ -296,6 +302,12 @@
 		508169EA2BC588D300A43F3D /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		508169EC2BC5891700A43F3D /* URLRoutingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRoutingTests.swift; sourceTree = "<group>"; };
 		508169EE2BC58B9E00A43F3D /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		508169F42BC58E7B00A43F3D /* FromURLCodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromURLCodingTests.swift; sourceTree = "<group>"; };
+		508169F62BC58F3100A43F3D /* UrlServiceChainBuilderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlServiceChainBuilderMock.swift; sourceTree = "<group>"; };
+		508169F82BC5AFD600A43F3D /* URLResponsesStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLResponsesStub.swift; sourceTree = "<group>"; };
+		508169FA2BC5C01B00A43F3D /* MultipartRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequestTests.swift; sourceTree = "<group>"; };
+		508169FC2BC5D0ED00A43F3D /* SimpleURLChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleURLChainTests.swift; sourceTree = "<group>"; };
+		508169FE2BC5D68A00A43F3D /* EmptyResponseMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponseMappingTests.swift; sourceTree = "<group>"; };
 		50B6838E2BBF3615001F7EA3 /* AccessSafeNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessSafeNodeTests.swift; sourceTree = "<group>"; };
 		50B683912BBF3816001F7EA3 /* TransportUrlRequest+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransportUrlRequest+Equatable.swift"; sourceTree = "<group>"; };
 		50C8EB272BBD7A2200C5CB93 /* AsyncStreamCombineNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStreamCombineNode.swift; sourceTree = "<group>"; };
@@ -504,24 +516,26 @@
 		502F9D9B2BAA39E700151A8D /* Equatable */ = {
 			isa = PBXGroup;
 			children = (
+				50B683912BBF3816001F7EA3 /* TransportUrlRequest+Equatable.swift */,
 				502F9D9C2BAA39F400151A8D /* Log+Equatalbe.swift */,
 			);
 			path = Equatable;
 			sourceTree = "<group>";
 		};
-		50528E2A2BAE18DD00E86CB6 /* Node */ = {
+		50528E2A2BAE18DD00E86CB6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				506150AE2BBC24AE00EBBE96 /* Combine */,
 				5005EB3A2BB9B1BE00B670CD /* Async */,
 				50C8EB352BBD9CBF00C5CB93 /* NodeResultTests.swift */,
 			);
-			path = Node;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		5060A46F2BC3ED2C004E84E2 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				508169F82BC5AFD600A43F3D /* URLResponsesStub.swift */,
 				5060A4702BC3ED44004E84E2 /* URLProtocolMock.swift */,
 				5060A4742BC3FA02004E84E2 /* URLSessionDataTaskMock.swift */,
 				5060A4762BC3FDB2004E84E2 /* NetworkMock.swift */,
@@ -541,19 +555,88 @@
 			path = Combine;
 			sourceTree = "<group>";
 		};
+		508169F02BC58D3000A43F3D /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				90B609DE283E16DC006F4309 /* UrlETagUrlCacheTriggerNodeTests.swift */,
+				90B609DB283E16DC006F4309 /* UrlETagSaverNodeTests.swift */,
+				90B609DC283E16DC006F4309 /* UrlETagReaderNodeTests.swift */,
+				90B609DF283E16DC006F4309 /* IfConnectionFailedFromCacheNodeTests.swift */,
+				90B609D7283E16DC006F4309 /* CacheReaderNodeTests.swift */,
+				90B609D3283E16DC006F4309 /* TokenRefresherNodeTests.swift */,
+				90B609C5283E16DC006F4309 /* DTOMapperNodeTests.swift */,
+				90B609D1283E16DC006F4309 /* URLQueryInjectorNodeTests.swift */,
+				90B609CB283E16DC006F4309 /* MockerProxyConfigNodeTests.swift */,
+				90B609EE283E16DC006F4309 /* AbortingTests.swift */,
+				50C8EB462BBF14CC00C5CB93 /* TechnicaErrorMapperNodeTests.swift */,
+				50C8EB482BBF185300C5CB93 /* RequestCreatorNodeTests.swift */,
+				50C8EB4D2BBF1E9700C5CB93 /* HeaderInjectorNodeTests.swift */,
+				50C8EB4F2BBF216C00C5CB93 /* ResponseDataParserNodeTests.swift */,
+				50C8EB512BBF302E00C5CB93 /* ResponseDataPreprocessorNodeTests.swift */,
+				50B6838E2BBF3615001F7EA3 /* AccessSafeNodeTests.swift */,
+				5019CCE32BC00CDC0050B6DF /* RawEncoderNodeTests.swift */,
+				5019CCE72BC018630050B6DF /* MultipartUrlRequestTrasformatorNodeTests.swift */,
+				5019CCEB2BC01DDB0050B6DF /* RequestEncoderNodeTests.swift */,
+				5019CCED2BC020DC0050B6DF /* MultipartRequestCreatorNodeTests.swift */,
+				5019CCF92BC05D360050B6DF /* DTOEncoderNodeTests.swift */,
+				5060A45B2BC3D8D2004E84E2 /* EntryinputDtoOutputNodeTests.swift */,
+				5060A4612BC3E386004E84E2 /* UrlCacheWriterNodeTests.swift */,
+				5060A4632BC3E660004E84E2 /* RequestSenderNodeTests.swift */,
+				5060A47C2BC41343004E84E2 /* MetadataConnectorNodeTests.swift */,
+				5060A47F2BC4164E004E84E2 /* RequestRouterNodeTests.swift */,
+				5060A4812BC4184F004E84E2 /* ResponseProcessorNodeTests.swift */,
+				5060A4832BC41C89004E84E2 /* VoidIONodeTests.swift */,
+				5060A4852BC4213E004E84E2 /* LoadIndicatableNodeTests.swift */,
+				5060A4872BC42538004E84E2 /* ModelInputNodeTests.swift */,
+				5060A4892BC42A0A004E84E2 /* ResponseHttpErrorProcessorNodeTests.swift */,
+				5060A48B2BC42FD3004E84E2 /* VoidInputNodeTests.swift */,
+				5060A48D2BC43116004E84E2 /* UrlRequestTrasformatorNodeTests.swift */,
+				5060A48F2BC43A4A004E84E2 /* VoidOutputNodeTests.swift */,
+				5060A4912BC43D71004E84E2 /* LoggerStreamNodeTests.swift */,
+				5060A4932BC43FBD004E84E2 /* LoggerNodeTests.swift */,
+				5060A4972BC44B61004E84E2 /* DataLoadingResponseProcessorTests.swift */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		508169F12BC58DB000A43F3D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				5019CCF72BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift */,
+				5060A4782BC402C0004E84E2 /* URLSessionDataTaskActorTests.swift */,
+				508169D82BC56F5C00A43F3D /* ServerRequestsManagerTests.swift */,
+				508169DA2BC5707100A43F3D /* MultipartModelTests.swift */,
+				508169E02BC57CDF00A43F3D /* UrlChainConfigModelTests.swift */,
+				508169EC2BC5891700A43F3D /* URLRoutingTests.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		508169F22BC58DD500A43F3D /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				508169E82BC5861500A43F3D /* LogableTests.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		508169F32BC58E4200A43F3D /* IntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				508169F42BC58E7B00A43F3D /* FromURLCodingTests.swift */,
+				508169F62BC58F3100A43F3D /* UrlServiceChainBuilderMock.swift */,
+				508169FA2BC5C01B00A43F3D /* MultipartRequestTests.swift */,
+				508169FC2BC5D0ED00A43F3D /* SimpleURLChainTests.swift */,
+				508169FE2BC5D68A00A43F3D /* EmptyResponseMappingTests.swift */,
+			);
+			path = IntegrationTests;
+			sourceTree = "<group>";
+		};
 		509135942BC44F9300EC17D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		50B683902BBF380B001F7EA3 /* Equatable */ = {
-			isa = PBXGroup;
-			children = (
-				50B683912BBF3816001F7EA3 /* TransportUrlRequest+Equatable.swift */,
-			);
-			path = Equatable;
 			sourceTree = "<group>";
 		};
 		50C8EB4A2BBF1C0500C5CB93 /* Mocks */ = {
@@ -619,6 +702,9 @@
 		90B608D7283E1110006F4309 /* NodeKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				508169F32BC58E4200A43F3D /* IntegrationTests */,
+				5019CCFD2BC0619D0050B6DF /* Helpers */,
+				50C8EB4A2BBF1C0500C5CB93 /* Mocks */,
 				502F9D982BAA385E00151A8D /* Utils */,
 				90B609E2283E16DC006F4309 /* Infrastructure */,
 				90B60A1A283E19C5006F4309 /* Resources */,
@@ -978,67 +1064,17 @@
 		90B609C3283E16DC006F4309 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				5019CCFD2BC0619D0050B6DF /* Helpers */,
-				50B683902BBF380B001F7EA3 /* Equatable */,
-				50C8EB4A2BBF1C0500C5CB93 /* Mocks */,
-				50528E2A2BAE18DD00E86CB6 /* Node */,
-				90B609C4283E16DC006F4309 /* DTO */,
-				90B609ED283E16DC006F4309 /* AborterNode */,
+				508169F22BC58DD500A43F3D /* Logging */,
+				508169F12BC58DB000A43F3D /* Network */,
+				508169F02BC58D3000A43F3D /* Nodes */,
+				50528E2A2BAE18DD00E86CB6 /* Core */,
 				90B609C6283E16DC006F4309 /* AsyncIterator */,
-				90B609CA283E16DC006F4309 /* MockerIntegration */,
 				90B609CC283E16DC006F4309 /* RequestBuildingLayer */,
 				90B609D4283E16DC006F4309 /* Coding */,
-				90B609D6283E16DC006F4309 /* CacheNode */,
+				90B609D6283E16DC006F4309 /* Cache */,
 				90B609D2283E16DC006F4309 /* TokenRefresher */,
-				50C8EB462BBF14CC00C5CB93 /* TechnicaErrorMapperNodeTests.swift */,
-				50C8EB482BBF185300C5CB93 /* RequestCreatorNodeTests.swift */,
-				50C8EB4D2BBF1E9700C5CB93 /* HeaderInjectorNodeTests.swift */,
-				50C8EB4F2BBF216C00C5CB93 /* ResponseDataParserNodeTests.swift */,
-				50C8EB512BBF302E00C5CB93 /* ResponseDataPreprocessorNodeTests.swift */,
-				50B6838E2BBF3615001F7EA3 /* AccessSafeNodeTests.swift */,
-				5019CCE32BC00CDC0050B6DF /* RawEncoderNodeTests.swift */,
-				5019CCE72BC018630050B6DF /* MultipartUrlRequestTrasformatorNodeTests.swift */,
-				5019CCEB2BC01DDB0050B6DF /* RequestEncoderNodeTests.swift */,
-				5019CCED2BC020DC0050B6DF /* MultipartRequestCreatorNodeTests.swift */,
-				5019CCF72BC03EF90050B6DF /* AlamofireMultipartFormDataFactoryTests.swift */,
-				5019CCF92BC05D360050B6DF /* DTOEncoderNodeTests.swift */,
-				5060A45B2BC3D8D2004E84E2 /* EntryinputDtoOutputNodeTests.swift */,
-				5060A4612BC3E386004E84E2 /* UrlCacheWriterNodeTests.swift */,
-				5060A4632BC3E660004E84E2 /* RequestSenderNodeTests.swift */,
-				5060A4782BC402C0004E84E2 /* URLSessionDataTaskActorTests.swift */,
-				5060A47C2BC41343004E84E2 /* MetadataConnectorNodeTests.swift */,
-				5060A47F2BC4164E004E84E2 /* RequestRouterNodeTests.swift */,
-				5060A4812BC4184F004E84E2 /* ResponseProcessorNodeTests.swift */,
-				5060A4832BC41C89004E84E2 /* VoidIONodeTests.swift */,
-				5060A4852BC4213E004E84E2 /* LoadIndicatableNodeTests.swift */,
-				5060A4872BC42538004E84E2 /* ModelInputNodeTests.swift */,
-				5060A4892BC42A0A004E84E2 /* ResponseHttpErrorProcessorNodeTests.swift */,
-				5060A48B2BC42FD3004E84E2 /* VoidInputNodeTests.swift */,
-				5060A48D2BC43116004E84E2 /* UrlRequestTrasformatorNodeTests.swift */,
-				5060A48F2BC43A4A004E84E2 /* VoidOutputNodeTests.swift */,
-				5060A4912BC43D71004E84E2 /* LoggerStreamNodeTests.swift */,
-				5060A4932BC43FBD004E84E2 /* LoggerNodeTests.swift */,
-				5060A4972BC44B61004E84E2 /* DataLoadingResponseProcessorTests.swift */,
-				508169D42BC566D000A43F3D /* ArrayDTODecodableTests.swift */,
-				508169D62BC56B9200A43F3D /* RawDecodableTests.swift */,
-				508169D82BC56F5C00A43F3D /* ServerRequestsManagerTests.swift */,
-				508169DA2BC5707100A43F3D /* MultipartModelTests.swift */,
-				508169E02BC57CDF00A43F3D /* UrlChainConfigModelTests.swift */,
-				508169E22BC57E4800A43F3D /* ArrayRawMappableTests.swift */,
-				508169E42BC582EA00A43F3D /* DictionaryDTOConvertibleTests.swift */,
-				508169E62BC584B300A43F3D /* DTODecodableTests.swift */,
-				508169E82BC5861500A43F3D /* LogableTests.swift */,
-				508169EC2BC5891700A43F3D /* URLRoutingTests.swift */,
 			);
 			path = UnitTests;
-			sourceTree = "<group>";
-		};
-		90B609C4283E16DC006F4309 /* DTO */ = {
-			isa = PBXGroup;
-			children = (
-				90B609C5283E16DC006F4309 /* DTOMapperNodeTests.swift */,
-			);
-			path = DTO;
 			sourceTree = "<group>";
 		};
 		90B609C6283E16DC006F4309 /* AsyncIterator */ = {
@@ -1049,37 +1085,19 @@
 			path = AsyncIterator;
 			sourceTree = "<group>";
 		};
-		90B609CA283E16DC006F4309 /* MockerIntegration */ = {
-			isa = PBXGroup;
-			children = (
-				90B609CB283E16DC006F4309 /* MockerProxyConfigNodeTests.swift */,
-			);
-			path = MockerIntegration;
-			sourceTree = "<group>";
-		};
 		90B609CC283E16DC006F4309 /* RequestBuildingLayer */ = {
-			isa = PBXGroup;
-			children = (
-				90B609CD283E16DC006F4309 /* URLQueryEncoding */,
-				90B609D1283E16DC006F4309 /* URLQueryInjectorNodeTests.swift */,
-			);
-			path = RequestBuildingLayer;
-			sourceTree = "<group>";
-		};
-		90B609CD283E16DC006F4309 /* URLQueryEncoding */ = {
 			isa = PBXGroup;
 			children = (
 				90B609CE283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift */,
 				90B609CF283E16DC006F4309 /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift */,
 				90B609D0283E16DC006F4309 /* URLQueryBoolEncodingDefaultStartegyTests.swift */,
 			);
-			path = URLQueryEncoding;
+			path = RequestBuildingLayer;
 			sourceTree = "<group>";
 		};
 		90B609D2283E16DC006F4309 /* TokenRefresher */ = {
 			isa = PBXGroup;
 			children = (
-				90B609D3283E16DC006F4309 /* TokenRefresherNodeTests.swift */,
 				50528E362BAE34A400E86CB6 /* TokenRefresherActorTests.swift */,
 			);
 			path = TokenRefresher;
@@ -1088,30 +1106,30 @@
 		90B609D4283E16DC006F4309 /* Coding */ = {
 			isa = PBXGroup;
 			children = (
+				508169D42BC566D000A43F3D /* ArrayDTODecodableTests.swift */,
+				508169D62BC56B9200A43F3D /* RawDecodableTests.swift */,
+				508169E22BC57E4800A43F3D /* ArrayRawMappableTests.swift */,
+				508169E42BC582EA00A43F3D /* DictionaryDTOConvertibleTests.swift */,
+				508169E62BC584B300A43F3D /* DTODecodableTests.swift */,
 				90B609D5283E16DC006F4309 /* EncodingTests.swift */,
 			);
 			path = Coding;
 			sourceTree = "<group>";
 		};
-		90B609D6283E16DC006F4309 /* CacheNode */ = {
+		90B609D6283E16DC006F4309 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
-				90B609D7283E16DC006F4309 /* CacheReaderNodeTests.swift */,
 				90B609D8283E16DC006F4309 /* FirstCachePolicyTests.swift */,
 				90B609D9283E16DC006F4309 /* ETag */,
-				90B609DF283E16DC006F4309 /* IfConnectionFailedFromCacheNodeTests.swift */,
 			);
-			path = CacheNode;
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		90B609D9283E16DC006F4309 /* ETag */ = {
 			isa = PBXGroup;
 			children = (
 				90B609DA283E16DC006F4309 /* TestUtls.swift */,
-				90B609DB283E16DC006F4309 /* UrlETagSaverNodeTests.swift */,
-				90B609DC283E16DC006F4309 /* UrlETagReaderNodeTests.swift */,
 				90B609DD283E16DC006F4309 /* UrlWithOrderedQuery.swift */,
-				90B609DE283E16DC006F4309 /* UrlETagUrlCacheTriggerNodeTests.swift */,
 			);
 			path = ETag;
 			sourceTree = "<group>";
@@ -1152,14 +1170,6 @@
 				90B609EC283E16DC006F4309 /* Credentials.swift */,
 			);
 			path = Entity;
-			sourceTree = "<group>";
-		};
-		90B609ED283E16DC006F4309 /* AborterNode */ = {
-			isa = PBXGroup;
-			children = (
-				90B609EE283E16DC006F4309 /* AbortingTests.swift */,
-			);
-			path = AborterNode;
 			sourceTree = "<group>";
 		};
 		90B60A1A283E19C5006F4309 /* Resources */ = {
@@ -1419,6 +1429,8 @@
 				90B60A06283E16DC006F4309 /* AuthModel.swift in Sources */,
 				5019CCEC2BC01DDB0050B6DF /* RequestEncoderNodeTests.swift in Sources */,
 				90B60A04283E16DC006F4309 /* AuthModelEntry.swift in Sources */,
+				508169FF2BC5D68A00A43F3D /* EmptyResponseMappingTests.swift in Sources */,
+				508169F92BC5AFD600A43F3D /* URLResponsesStub.swift in Sources */,
 				50528E312BAE1F9800E86CB6 /* LoggingContextMock.swift in Sources */,
 				5019CCF42BC02B490050B6DF /* MultipartFormDataMock.swift in Sources */,
 				50C8EB3A2BBDBBD300C5CB93 /* AsyncCombineNodeTests.swift in Sources */,
@@ -1427,6 +1439,7 @@
 				50B6838F2BBF3615001F7EA3 /* AccessSafeNodeTests.swift in Sources */,
 				90B609FC283E16DC006F4309 /* UrlETagSaverNodeTests.swift in Sources */,
 				50C8EB302BBD90DE00C5CB93 /* CombineNodeTests.swift in Sources */,
+				508169F72BC58F3100A43F3D /* UrlServiceChainBuilderMock.swift in Sources */,
 				5019CCEE2BC020DC0050B6DF /* MultipartRequestCreatorNodeTests.swift in Sources */,
 				5019CCF62BC02E100050B6DF /* MultipartFormDataFactoryMock.swift in Sources */,
 				508169D72BC56B9200A43F3D /* RawDecodableTests.swift in Sources */,
@@ -1438,10 +1451,12 @@
 				50528E332BAE295D00E86CB6 /* TokenRefresherActorMock.swift in Sources */,
 				508169D92BC56F5C00A43F3D /* ServerRequestsManagerTests.swift in Sources */,
 				5060A4752BC3FA02004E84E2 /* URLSessionDataTaskMock.swift in Sources */,
+				508169F52BC58E7B00A43F3D /* FromURLCodingTests.swift in Sources */,
 				5060A4602BC3DB99004E84E2 /* DTODecodableMock.swift in Sources */,
 				90B609F3283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift in Sources */,
 				508169ED2BC5891700A43F3D /* URLRoutingTests.swift in Sources */,
 				5060A4822BC4184F004E84E2 /* ResponseProcessorNodeTests.swift in Sources */,
+				508169FB2BC5C01B00A43F3D /* MultipartRequestTests.swift in Sources */,
 				5060A48E2BC43116004E84E2 /* UrlRequestTrasformatorNodeTests.swift in Sources */,
 				90B609F8283E16DC006F4309 /* EncodingTests.swift in Sources */,
 				5019CCE42BC00CDC0050B6DF /* RawEncoderNodeTests.swift in Sources */,
@@ -1462,6 +1477,7 @@
 				502F9D9A2BAA389500151A8D /* LoggingContextTests.swift in Sources */,
 				90B609FD283E16DC006F4309 /* UrlETagReaderNodeTests.swift in Sources */,
 				90B609F7283E16DC006F4309 /* TokenRefresherNodeTests.swift in Sources */,
+				508169FD2BC5D0ED00A43F3D /* SimpleURLChainTests.swift in Sources */,
 				5060A4642BC3E660004E84E2 /* RequestSenderNodeTests.swift in Sources */,
 				90B609F4283E16DC006F4309 /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift in Sources */,
 				5060A48C2BC42FD3004E84E2 /* VoidInputNodeTests.swift in Sources */,
