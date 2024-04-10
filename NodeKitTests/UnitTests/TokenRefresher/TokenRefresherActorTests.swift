@@ -6,8 +6,10 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
-import XCTest
 @testable import NodeKit
+@testable import NodeKitMock
+
+import XCTest
 
 final class TokenRefresherActorTests: XCTestCase {
     

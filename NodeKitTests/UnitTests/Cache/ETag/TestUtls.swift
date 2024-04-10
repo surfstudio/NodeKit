@@ -8,8 +8,7 @@
 
 import Foundation
 
-@testable
-import NodeKit
+@testable import NodeKit
 
 enum Utils {
     static func getMockUrlProcessedResponse(url: URL,

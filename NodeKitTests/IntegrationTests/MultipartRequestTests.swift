@@ -6,10 +6,11 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
+@testable import NodeKit
+@testable import NodeKitMock
+
 import Foundation
 import XCTest
-
-@testable import NodeKit
 
 final class MultipartRequestTests: XCTestCase {
     

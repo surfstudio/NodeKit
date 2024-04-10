@@ -5,11 +5,12 @@
 //  Created by Александр Кравченков on 31/03/2019.
 //  Copyright © 2019 Кравченков Александр. All rights reserved.
 //
+
+@testable import NodeKit
+@testable import NodeKitMock
+
 import Foundation
 import XCTest
-
-@testable
-import NodeKit
 
 final class EncodingTests: XCTestCase {
 

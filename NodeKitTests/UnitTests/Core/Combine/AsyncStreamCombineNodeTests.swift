@@ -7,6 +7,8 @@
 //
 
 @testable import NodeKit
+@testable import NodeKitMock
+
 import Combine
 import XCTest
 

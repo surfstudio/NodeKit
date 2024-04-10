@@ -6,6 +6,9 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
+@testable import NodeKit
+@testable import NodeKitMock
+
 import Combine
 import XCTest
 
