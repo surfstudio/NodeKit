@@ -16,10 +16,7 @@ let package = Package(
     targets: [
         .target(
             name: "NodeKitThirdParty",
-            path: "Source",
-            cSettings: [
-                .define("BUILD_LIBRARY_FOR_DISTRIBUTION", to: "YES")
-            ]
+            path: "Source"
         )
     ]
 )
