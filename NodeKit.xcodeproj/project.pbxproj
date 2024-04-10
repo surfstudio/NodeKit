@@ -535,6 +535,7 @@
 		5060A46F2BC3ED2C004E84E2 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				508169F62BC58F3100A43F3D /* UrlServiceChainBuilderMock.swift */,
 				508169F82BC5AFD600A43F3D /* URLResponsesStub.swift */,
 				5060A4702BC3ED44004E84E2 /* URLProtocolMock.swift */,
 				5060A4742BC3FA02004E84E2 /* URLSessionDataTaskMock.swift */,
@@ -624,7 +625,6 @@
 			isa = PBXGroup;
 			children = (
 				508169F42BC58E7B00A43F3D /* FromURLCodingTests.swift */,
-				508169F62BC58F3100A43F3D /* UrlServiceChainBuilderMock.swift */,
 				508169FA2BC5C01B00A43F3D /* MultipartRequestTests.swift */,
 				508169FC2BC5D0ED00A43F3D /* SimpleURLChainTests.swift */,
 				508169FE2BC5D68A00A43F3D /* EmptyResponseMappingTests.swift */,
