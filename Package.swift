@@ -35,11 +35,6 @@ let package = Package(
             path: "NodeKitTests",
             exclude: [
                 "Resources/LICENSE.txt",
-                // TODO: - Переписать тесты на блекбокс - убрать завязку на сервер
-                "FormUrlCodingTests.swift",
-                "MultipartRequestTests.swift",
-                "EndToEndTests/SimpleURLChainTests.swift",
-                "EndToEndTests/TestEmptyResponseMapping.swift"
             ]
         ),
     ]

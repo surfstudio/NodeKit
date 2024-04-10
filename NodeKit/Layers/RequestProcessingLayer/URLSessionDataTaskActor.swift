@@ -6,6 +6,8 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
+import Foundation
+
 public protocol CancellableTask {
     func cancel()
 }
