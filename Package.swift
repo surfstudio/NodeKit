@@ -13,7 +13,7 @@ let package = Package(
             targets: ["NodeKit"]),
     ],
     dependencies: [
-        .package(url: "./ThirdParty")
+        .package(path: "./ThirdParty")
     ],
     targets: [
         .target(
