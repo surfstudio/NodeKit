@@ -8,6 +8,7 @@
 build/
 DerivedData/
 Docs/swift_output/
+CoverageReports/
 
 ## Various settings
 *.pbxuser
