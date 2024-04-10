@@ -86,7 +86,7 @@ final class EntryInputDtoOutputNodeTests: XCTestCase {
         let expectedInput = 66
         
         rawEncodableMock.stubbedToRawResult = .success(expectedInput)
-        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        nextNodeMock.stubbedAsyncProccessResult = .success([:])
         
         RawDecodableMock.stubbedFromResult = .success(rawDecodableMock)
         DTODecodableMock.stubbedFromResult = .success(dtoDecodableMock)
@@ -107,7 +107,7 @@ final class EntryInputDtoOutputNodeTests: XCTestCase {
     func testAsyncProcess_withToRawConvertionSuccess_thenDTOFromCalled() async throws {
         // given
         
-        let expectedInput = 99
+        let expectedInput = ["TestKey": "TestValue"]
         
         rawEncodableMock.stubbedToRawResult = .success(1)
         nextNodeMock.stubbedAsyncProccessResult = .success(expectedInput)
@@ -121,7 +121,7 @@ final class EntryInputDtoOutputNodeTests: XCTestCase {
         
         // then
         
-        let input = try XCTUnwrap(RawDecodableMock.invokedFromParameter)
+        let input = try XCTUnwrap(RawDecodableMock.invokedFromParameter as? [String: String])
         
         XCTAssertEqual(RawDecodableMock.invokedFromCount, 1)
         XCTAssertEqual(input, expectedInput)
@@ -131,7 +131,7 @@ final class EntryInputDtoOutputNodeTests: XCTestCase {
         // given
         
         rawEncodableMock.stubbedToRawResult = .success(1)
-        nextNodeMock.stubbedAsyncProccessResult = .success(15)
+        nextNodeMock.stubbedAsyncProccessResult = .success([:])
         
         RawDecodableMock.stubbedFromResult = .failure(MockError.secondError)
         DTODecodableMock.stubbedFromResult = .success(dtoDecodableMock)
@@ -150,7 +150,7 @@ final class EntryInputDtoOutputNodeTests: XCTestCase {
         // given
         
         rawEncodableMock.stubbedToRawResult = .success(1)
-        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        nextNodeMock.stubbedAsyncProccessResult = .success([:])
 
         RawDecodableMock.stubbedFromResult = .failure(MockError.secondError)
         DTODecodableMock.stubbedFromResult = .success(dtoDecodableMock)
@@ -170,7 +170,7 @@ final class EntryInputDtoOutputNodeTests: XCTestCase {
         // given
         
         rawEncodableMock.stubbedToRawResult = .success(1)
-        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        nextNodeMock.stubbedAsyncProccessResult = .success([:])
         
         RawDecodableMock.stubbedFromResult = .success(rawDecodableMock)
         DTODecodableMock.stubbedFromResult = .success(dtoDecodableMock)
@@ -191,7 +191,7 @@ final class EntryInputDtoOutputNodeTests: XCTestCase {
         // given
         
         rawEncodableMock.stubbedToRawResult = .success(1)
-        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        nextNodeMock.stubbedAsyncProccessResult = .success([:])
         
         RawDecodableMock.stubbedFromResult = .success(rawDecodableMock)
         DTODecodableMock.stubbedFromResult = .failure(MockError.thirdError)
@@ -211,7 +211,7 @@ final class EntryInputDtoOutputNodeTests: XCTestCase {
         // given
         
         rawEncodableMock.stubbedToRawResult = .success(1)
-        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        nextNodeMock.stubbedAsyncProccessResult = .success([:])
         
         RawDecodableMock.stubbedFromResult = .success(rawDecodableMock)
         DTODecodableMock.stubbedFromResult = .success(dtoDecodableMock)
