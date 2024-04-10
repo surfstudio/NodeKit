@@ -6,6 +6,7 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
+import Foundation
 import NodeKit
 
 public class UrlRouteProviderMock: UrlRouteProvider {
