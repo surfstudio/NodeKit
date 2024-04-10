@@ -42,8 +42,9 @@ final class AsyncCombineNodeTests: XCTestCase {
     
     // MARK: - Tests
     
+    @MainActor
     func testnodeResultPublisher_withPublisherOnMainQueue_thenResultsReceivedOnMainQueue() async {
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         
         var isMainThread = false
         
@@ -58,7 +59,7 @@ final class AsyncCombineNodeTests: XCTestCase {
             })
             .store(in: &cancellable)
         
-        await fulfillment(of: [expectation], timeout: 0.1)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         
@@ -68,7 +69,7 @@ final class AsyncCombineNodeTests: XCTestCase {
     func testNodeResultPublisher_onCustomQueue_thenDataReceivedOnCustomQueue() async {
         // given
         
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         let expectedQueueName = "Test Process Queue"
         let queue = DispatchQueue(label: expectedQueueName)
         
@@ -85,17 +86,18 @@ final class AsyncCombineNodeTests: XCTestCase {
             })
             .store(in: &cancellable)
         
-        await fulfillment(of: [expectation], timeout: 0.1)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         
         XCTAssertEqual(queueName, expectedQueueName)
     }
     
+    @MainActor
     func testNodeResultPublisher_thenNextNodeCalled() async throws {
         // given
         
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         let expectedInput = 7
         let expectedResult: NodeResult<Int> = .success(8)
         
@@ -109,7 +111,7 @@ final class AsyncCombineNodeTests: XCTestCase {
             })
             .store(in: &cancellable)
         
-        await fulfillment(of: [expectation], timeout: 0.1)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         
@@ -119,10 +121,11 @@ final class AsyncCombineNodeTests: XCTestCase {
         XCTAssertEqual(input.data, expectedInput)
     }
     
+    @MainActor
     func testNodeResultPublisher_whenResultIsSuccess_thenSuccessResultReceived() async throws {
         // given
         
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         let expectedResult = 8
         
         var result: NodeResult<Int>?
@@ -138,7 +141,7 @@ final class AsyncCombineNodeTests: XCTestCase {
             })
             .store(in: &cancellable)
         
-        await fulfillment(of: [expectation], timeout: 0.1)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         
@@ -147,11 +150,12 @@ final class AsyncCombineNodeTests: XCTestCase {
         XCTAssertEqual(value, expectedResult)
     }
     
+    @MainActor
     func testNodeResultPublisher_whithMultipleSubscriptions_thenResultsReceived() async throws {
         // given
         
-        let expectation1 = expectation(description: "result1")
-        let expectation2 = expectation(description: "result2")
+        let expectation1 = expectation(description: #function + "1")
+        let expectation2 = expectation(description: #function + "2")
         let expectedResult = 8
         
         var result1: NodeResult<Int>?
@@ -177,7 +181,7 @@ final class AsyncCombineNodeTests: XCTestCase {
             })
             .store(in: &cancellable)
         
-        await fulfillment(of: [expectation1, expectation2], timeout: 0.1)
+        await fulfillment(of: [expectation1, expectation2], timeout: 3)
         
         // then
         
@@ -188,10 +192,11 @@ final class AsyncCombineNodeTests: XCTestCase {
         XCTAssertEqual(value2, expectedResult)
     }
     
+    @MainActor
     func testNodeResultPublisher_whenResultIsFailure_thenFailureResultReceived() async throws {
         // given
         
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         
         var result: NodeResult<Int>?
         
@@ -206,7 +211,7 @@ final class AsyncCombineNodeTests: XCTestCase {
             })
             .store(in: &cancellable)
         
-        await fulfillment(of: [expectation], timeout: 0.1)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         

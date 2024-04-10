@@ -48,23 +48,16 @@ final class RequestSenderNodeTests: XCTestCase {
     
     func testAsynProcess_thenLoadingStarted() async {
         // given
-        
-        let expectation = expectation(description: "result")
 
         URLProtocolMock.stubbedError = MockError.firstError
         nextNodeMock.stubbedAsyncProccessResult = .success(15)
         
         // when
         
-        Task {
-            _ = await sut.process(
-                URLRequest(url: URL(string: "www.testprocess.com")!),
-                logContext: logContextMock
-            )
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 0.1)
+        _ = await sut.process(
+            URLRequest(url: URL(string: "www.testprocess.com")!),
+            logContext: logContextMock
+        )
         
         // then
         
@@ -74,7 +67,6 @@ final class RequestSenderNodeTests: XCTestCase {
     func testAsyncProcess_whenResponseFailure_thenNextCalled() async throws {
         // given
         
-        let expectation = expectation(description: "result")
         let url = URL(string: "www.testprocess.com")!
         let expectedRequest = URLRequest(url: url)
         
@@ -83,12 +75,7 @@ final class RequestSenderNodeTests: XCTestCase {
         
         // when
         
-        Task {
-            _ = await sut.process(expectedRequest, logContext: logContextMock)
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 0.1)
+        _ = await sut.process(expectedRequest, logContext: logContextMock)
         
         // then
         
@@ -104,22 +91,15 @@ final class RequestSenderNodeTests: XCTestCase {
     func testAsyncProcess_whenFailure_thenDataTaskSaved() async throws {
         // given
         
-        let expectation = expectation(description: "result")
-        
         URLProtocolMock.stubbedError = MockError.firstError
         nextNodeMock.stubbedAsyncProccessResult = .success(15)
         
         // when
         
-        Task {
-            _ = await sut.process(
-                URLRequest(url: URL(string: "www.testprocess.com")!),
-                logContext: logContextMock
-            )
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 0.1)
+        _ = await sut.process(
+            URLRequest(url: URL(string: "www.testprocess.com")!),
+            logContext: logContextMock
+        )
         
         // then
         
@@ -130,8 +110,6 @@ final class RequestSenderNodeTests: XCTestCase {
     func testAsyncProcess_whenSuccess_thenDataTaskSaved() async throws {
         // given
         
-        let expectation = expectation(description: "result")
-        
         URLProtocolMock.stubbedRequestHandler = { _ in
             return (HTTPURLResponse(), Data())
         }
@@ -139,15 +117,10 @@ final class RequestSenderNodeTests: XCTestCase {
         
         // when
         
-        Task {
-            _ = await sut.process(
-                URLRequest(url: URL(string: "www.testprocess.com")!),
-                logContext: logContextMock
-            )
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 0.1)
+        _ = await sut.process(
+            URLRequest(url: URL(string: "www.testprocess.com")!),
+            logContext: logContextMock
+        )
         
         // then
         
@@ -162,7 +135,6 @@ final class RequestSenderNodeTests: XCTestCase {
     func testAsyncProcess_whenResponseSuccess_thenNextCalled() async throws {
         // given
         
-        let expectation = expectation(description: "result")
         let url = URL(string: "www.testprocess.com")!
         let expectedData = "TestData".data(using: .utf8)!
         let expectedRequest = URLRequest(url: url)
@@ -181,12 +153,7 @@ final class RequestSenderNodeTests: XCTestCase {
         
         // when
         
-        Task {
-            _ = await sut.process(expectedRequest, logContext: logContextMock)
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 0.1)
+        _ = await sut.process(expectedRequest, logContext: logContextMock)
         
         // then
         
@@ -202,16 +169,12 @@ final class RequestSenderNodeTests: XCTestCase {
         XCTAssertEqual(inputValue, expectedData)
     }
     
-    @MainActor
     func testAsyncProcess_nextReturnsSuccess_thenSuccessReceived() async throws {
         // given
         
-        let expectation = expectation(description: "result")
         let expectedResult = 55
         let url = URL(string: "www.testprocess.com")!
         let expectedRequest = URLRequest(url: url)
-        
-        var result: NodeResult<Int>?
         
         URLProtocolMock.stubbedError = MockError.secondError
         
@@ -219,26 +182,16 @@ final class RequestSenderNodeTests: XCTestCase {
         
         // when
         
-        Task {
-            result = await sut.process(expectedRequest, logContext: logContextMock)
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 0.1)
+        let result = await sut.process(expectedRequest, logContext: logContextMock)
         
         // then
         
-        let value = try XCTUnwrap(result?.value)
+        let value = try XCTUnwrap(result.value)
         XCTAssertEqual(value, expectedResult)
     }
     
-    @MainActor
     func testAsyncProcess_nextReturnsFailure_thenFailureReceived() async throws {
         // given
-        
-        let expectation = expectation(description: "result")
-        
-        var result: NodeResult<Int>?
         
         URLProtocolMock.stubbedRequestHandler = { _ in
             return (HTTPURLResponse(), Data())
@@ -248,19 +201,14 @@ final class RequestSenderNodeTests: XCTestCase {
         
         // when
         
-        Task {
-            result = await sut.process(
-                URLRequest(url: URL(string: "www.testprocess.com")!),
-                logContext: logContextMock
-            )
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 0.1)
+        let result = await sut.process(
+            URLRequest(url: URL(string: "www.testprocess.com")!),
+            logContext: logContextMock
+        )
         
         // then
         
-        let error = try XCTUnwrap(result?.error as? MockError)
+        let error = try XCTUnwrap(result.error as? MockError)
         XCTAssertEqual(error, .secondError)
     }
     

@@ -13,6 +13,7 @@ final class CombineNodeTests: XCTestCase {
     
     // MARK: - Tests
     
+    @MainActor
     func testNodeResultPublisher_withVoid_thenMainMethodCalled() throws {
         // given
         
@@ -33,6 +34,7 @@ final class CombineNodeTests: XCTestCase {
         XCTAssertEqual(scheduler, .main)
     }
     
+    @MainActor
     func testNodeResultPublisher_withData_thenMainMethodCalled() throws {
         // given
         
@@ -80,6 +82,7 @@ final class CombineNodeTests: XCTestCase {
         XCTAssertEqual(scheduler, queue)
     }
     
+    @MainActor
     func testNodeResultPublisher_withData_andLogContext_thenMainMethodCalled() throws {
         // given
         

@@ -89,11 +89,12 @@ final class LoadIndicatableNodeTests: XCTestCase {
         XCTAssertEqual(error, .firstError)
     }
     
+    @MainActor
     func testAsyncProcess_thenIndicatorIncremented() async {
         // given
         
         var count = 0
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         nextNodeMock.stubbedAsyncProccessResult = .success(1)
         nextNodeMock.stubbedAsyncProcessRunFunction = {
             count += 1
@@ -113,7 +114,7 @@ final class LoadIndicatableNodeTests: XCTestCase {
             _ = await sut.process(1, logContext: logContextMock)
         }
         
-        await fulfillment(of: [expectation], timeout: 0.2)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         

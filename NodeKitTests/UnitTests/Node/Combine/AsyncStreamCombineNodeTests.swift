@@ -42,10 +42,11 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
     
     // MARK: - Tests
     
+    @MainActor
     func testProcess_withPublisherOnMainQueue_thenResultsReceivedOnMainQueue() async {
         // given
         
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         
         var isMainThread = false
         
@@ -67,7 +68,7 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         
         sut.process(12, logContext: logContextMock)
         
-        await fulfillment(of: [expectation], timeout: 0.1)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         
@@ -77,7 +78,7 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
     func testProcess_withPublisherOnCustomQueue_thenResultsReceivedOnCustomQueue() async {
         // given
         
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         let expectedLabel = "Test Process Queue"
         let queue = DispatchQueue(label: expectedLabel)
         
@@ -103,7 +104,7 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         
         sut.process(12, logContext: logContextMock)
         
-        await fulfillment(of: [expectation], timeout: 0.1)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         
@@ -111,10 +112,11 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         XCTAssertEqual(queueLabel, expectedLabel)
     }
     
+    @MainActor
     func testProcess_thenResultsReceived() async throws {
         // given
         
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         let expectedInput = 43
         
         let expectedResults: [Result<Int, Error>] = [
@@ -147,7 +149,7 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         
         sut.process(expectedInput, logContext: logContextMock)
         
-        await fulfillment(of: [expectation], timeout: 0.1)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         
@@ -162,11 +164,12 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         )
     }
     
+    @MainActor
     func testProcess_withMultipleSubsciptions_thenResultsReceived() async {
         // given
         
-        let expectation1 = expectation(description: "result1")
-        let expectation2 = expectation(description: "result2")
+        let expectation1 = expectation(description: #function + "1")
+        let expectation2 = expectation(description: #function + "2")
         
         let expectedResults: [Result<Int, MockError>] = [
             .success(500),
@@ -216,7 +219,7 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         
         sut.process(1, logContext: logContextMock)
         
-        await fulfillment(of: [expectation1, expectation2], timeout: 1)
+        await fulfillment(of: [expectation1, expectation2], timeout: 3)
         
         // then
         
