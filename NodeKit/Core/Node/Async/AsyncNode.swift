@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-/// Протокол наследованный от CombineNode, добавляющий подход преобразования входных данных в результат с помощью SwiftConcurrency.
+/// Протокол, наследованный от Node, добавляющий подход преобразования входных данных в результат с помощью SwiftConcurrency.
 /// Применим для узлов, которые возвращают один результат.
 public protocol AsyncNode<Input, Output>: Node {
 
