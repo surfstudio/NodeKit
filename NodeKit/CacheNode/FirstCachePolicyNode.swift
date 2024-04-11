@@ -43,8 +43,8 @@ open class FirstCachePolicyNode: Node {
     /// Инициаллизирует узел.
     ///
     /// - Parameters:
-    ///   - cacheReaderNode: Следующий узел для обработки.
-    ///   - next: Узел для чтения из кэша.
+    ///   - cacheReaderNode: Узел для чтения из кэша.
+    ///   - next: Следующий узел для обработки.
     public init(cacheReaderNode: any CacheReaderNode, next: any NextProcessorNode) {
         self.cacheReaderNode = cacheReaderNode
         self.next = next

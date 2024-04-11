@@ -29,20 +29,20 @@ actor LoggingContext: LoggingContextProtocol {
     ///
     /// - Parameter log: лог-сообщение.
     public func add(_ log: Logable?) {
-        guard var selfLog = self.log else {
+        guard var currentLog = self.log else {
             self.log = log
             return
         }
 
-        if selfLog.next == nil {
-            selfLog.next = log
+        if currentLog.next == nil {
+            currentLog.next = log
         } else {
             var temp = log
-            temp?.next = selfLog.next
-            selfLog.next = temp
+            temp?.next = currentLog.next
+            currentLog.next = temp
         }
 
-        self.log = selfLog
+        self.log = currentLog
         return
     }
 

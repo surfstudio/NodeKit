@@ -39,7 +39,7 @@ final class LoggingContextTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    func testLog_whenOneItemAppending_therResultIsAppendedItem() async throws {
+    func testLog_whenOneItemAppending_thenResultIsAppendedItem() async throws {
         // given
 
         let testLog = Log("Test message", id: "Test id")
