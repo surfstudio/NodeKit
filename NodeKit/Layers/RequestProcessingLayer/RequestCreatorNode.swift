@@ -17,7 +17,7 @@ open class RequestCreatorNode<Output>: AsyncNode {
         self.providers = providers
     }
 
-    /// Конфигурирует низкоуровненвый запрос.
+    /// Конфигурирует низкоуровневый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open func process(_ data: TransportUrlRequest) -> Observer<Output> {
@@ -35,7 +35,7 @@ open class RequestCreatorNode<Output>: AsyncNode {
         return self.next.process(request).log(self.getLogMessage(data))
     }
 
-    /// Конфигурирует низкоуровненвый запрос.
+    /// Конфигурирует низкоуровневый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open func process(
