@@ -18,7 +18,7 @@ struct GroupViewModel {
 }
 
 @MainActor
-protocol GroupViewInput: AnyObject {
+protocol GroupViewInput: AnyObject, ErrorRepresentable {
     func update(with model: GroupViewModel)
     func showLoader()
     func hideLoader()

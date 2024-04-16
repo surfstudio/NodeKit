@@ -55,17 +55,6 @@ public extension NodeResult {
             return .failure(error)
         }
     }
-    
-    func mapWithThrowingError<NewSuccess>(
-        _ transform: (Success) throws -> NewSuccess
-    ) throws -> NewSuccess {
-        switch self {
-        case .success(let data):
-            return try transform(data)
-        case .failure(let error):
-            throw error
-        }
-    }
 
     /// Метод вызывает ассинхронную функцию и оборачивает пойманные Exceptions в failure(error)
     ///

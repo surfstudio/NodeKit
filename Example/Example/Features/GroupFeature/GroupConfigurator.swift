@@ -20,7 +20,10 @@ struct GroupConfigurator {
             fatalError("Can't load FeatureListViewController from storyboard")
         }
         
-        let presenter = GroupPresenter(input: viewController, service: GroupViewModelService(service: GroupService()))
+        let presenter = GroupPresenter(
+            input: viewController,
+            viewModelProvider: GroupViewModelProvider(groupService: GroupService())
+        )
         
         viewController.output = presenter
         return viewController

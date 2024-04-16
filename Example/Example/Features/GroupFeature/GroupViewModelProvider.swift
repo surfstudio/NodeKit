@@ -1,5 +1,5 @@
 //
-//  GroupTaskService.swift
+//  GroupViewModelProvider.swift
 //  Example
 //
 //  Created by Andrei Frolov on 16.04.24.
@@ -11,26 +11,26 @@ import Models
 import NodeKit
 import Services
 
-protocol GroupViewModelServiceProtocol: Actor {
-    func viewModel() async throws -> GroupViewModel
+protocol GroupViewModelProviderProtocol: Actor {
+    func provide() async throws -> GroupViewModel
 }
 
-actor GroupViewModelService: GroupViewModelServiceProtocol {
+actor GroupViewModelProvider: GroupViewModelProviderProtocol {
     
     // MARK: - Private Properties
     
     private var tasks: [CancellableTask] = []
-    private let service: GroupServiceProtocol
+    private let groupService: GroupServiceProtocol
     
     // MARK: - Initialization
     
-    init(service: GroupServiceProtocol) {
-        self.service = service
+    init(groupService: GroupServiceProtocol) {
+        self.groupService = groupService
     }
     
     // MARK: - GroupViewModelServiceProtocol
     
-    func viewModel() async throws -> GroupViewModel {
+    func provide() async throws -> GroupViewModel {
         cancelAllTasks()
         
         let headerTask = storedTask { await $0.header() }
@@ -54,11 +54,11 @@ actor GroupViewModelService: GroupViewModelServiceProtocol {
 
 // MARK: - Private Methods
 
-private extension GroupViewModelService {
+private extension GroupViewModelProvider {
     
     func storedTask<T>(_ nodeResult: @escaping (GroupServiceProtocol) async -> NodeResult<T>) -> Task<T, Error> {
         let task = Task {
-            try await nodeResult(service)
+            try await nodeResult(groupService)
                 .mapError {
                     cancelAllTasks()
                     return $0

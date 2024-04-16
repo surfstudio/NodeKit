@@ -16,28 +16,18 @@ protocol GroupViewOutput {
     func viewDidLoad()
 }
 
-final class GroupPresenter: ErrorRepresentable {
-    
-    // MARK: - Nested Types
-    
-    private enum GroupTaskResult {
-        case header(GroupHeaderResponseEntity)
-        case body(GroupBodyResponseEntity)
-        case footer(GroupFooterResponseEntity)
-    }
+final class GroupPresenter {
     
     // MARK: - Private Properties
     
     private weak var input: GroupViewInput?
-    private let service: GroupViewModelServiceProtocol
-    
-    private var cancellables: [CancellableTask] = []
+    private let viewModelProvider: GroupViewModelProviderProtocol
     
     // MARK: - Initialization
     
-    init(input: GroupViewInput, service: GroupViewModelServiceProtocol) {
+    init(input: GroupViewInput, viewModelProvider: GroupViewModelProviderProtocol) {
         self.input = input
-        self.service = service
+        self.viewModelProvider = viewModelProvider
     }
 }
 
@@ -59,11 +49,11 @@ private extension GroupPresenter {
     func start() {
         Task {
             do {
-                let result = try await service.viewModel()
+                let viewModel = try await viewModelProvider.provide()
                 await input?.hideLoader()
-                await input?.update(with: result)
+                await input?.update(with: viewModel)
             } catch {
-                await show(error: error)
+                await input?.show(error: error)
             }
         }
     }

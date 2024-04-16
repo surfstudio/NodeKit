@@ -18,14 +18,6 @@ public protocol GroupServiceProtocol {
 
 public final class GroupService: GroupServiceProtocol {
     
-    struct TokenProvider: MetadataProvider {
-        func metadata() -> [String : String] {
-            return [
-                "token": "123123123123123"
-            ]
-        }
-    }
-    
     public init() { }
     
     public func header() async -> NodeResult<GroupHeaderResponseEntity> {
@@ -45,7 +37,6 @@ public final class GroupService: GroupServiceProtocol {
     ) async -> NodeResult<T> where T.DTO.Raw == Json {
         return await UrlChainsBuilder<GroupURLProvider>()
             .set(session: NetworkMock().urlSession)
-            .add(provider: TokenProvider())
             .route(.get, route)
             .build()
             .process()
