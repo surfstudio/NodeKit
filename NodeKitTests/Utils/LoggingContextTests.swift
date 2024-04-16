@@ -81,6 +81,8 @@ final class LoggingContextTests: XCTestCase {
         XCTAssertNil(resultNext.next)
     }
 
+    /// Элементы в лог вставляются не в конец, а в начало списка, при этом первый лог не меняется.
+    /// При добавлении Log3 в список Log1 -> Log2, получается новый список Log1 -> Log3 -> Log2
     func testLog_whenThreeItemsAppending_thenResultIsFirstItemAndNextIsTree() async throws {
         // given
 
