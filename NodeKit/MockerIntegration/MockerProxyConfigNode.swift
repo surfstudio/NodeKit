@@ -16,8 +16,8 @@ public enum MockerProxyConfigKey {
 /// - SeeAlso:
 ///     - `MetadataConnectorNode`
 ///     - `RequestRouterNode`
-open class MockerProxyConfigNode<Raw, Output>: Node {
-
+open class MockerProxyConfigNode<Raw, Output>: AsyncNode {
+    
     private typealias Keys = MockerProxyConfigKey
 
     // MARK: - Public Properties
@@ -54,7 +54,7 @@ open class MockerProxyConfigNode<Raw, Output>: Node {
     // MARK: - Node
 
     /// Добавляет хедеры в `data`
-    open func process(_ data: RequestModel<Raw>) -> Observer<Output> {
+    open func processLegacy(_ data: RequestModel<Raw>) -> Observer<Output> {
 
         guard self.isProxyingOn else {
             return self.next.processLegacy(data)

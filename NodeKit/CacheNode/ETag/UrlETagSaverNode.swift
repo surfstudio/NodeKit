@@ -46,7 +46,7 @@ open class UrlETagSaverNode: AsyncNode {
             let url = data.request.url,
             let urlAsKey = url.withOrderedQuery()
         else {
-            return next?.process(data) ?? .emit(data: ())
+            return next?.processLegacy(data) ?? .emit(data: ())
         }
 
         UserDefaults.etagStorage?.set(tag, forKey: urlAsKey)
