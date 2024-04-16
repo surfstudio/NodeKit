@@ -1,0 +1,15 @@
+{
+  "originHash" : "1d2e6911b0388532b33f83466feee8deadacbc6241719180eb45fd871a5091ac",
+  "pins" : [
+    {
+      "identity" : "coreevents",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/surfstudio/CoreEvents",
+      "state" : {
+        "revision" : "35ea2dac82e61d7fa1fab1b10e0038d31ff3fd53",
+        "version" : "2.0.2"
+      }
+    }
+  ],
+  "version" : 3
+}
