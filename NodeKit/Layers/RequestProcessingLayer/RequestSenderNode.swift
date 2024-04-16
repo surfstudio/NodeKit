@@ -31,7 +31,6 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
     /// Инициаллизирует узел.
     ///
     /// - Parameter rawResponseProcessor: Узел для обработки ответа.
-    /// - Parameter responseQueue: Очередь, на которой будет выполнен ответ
     /// - Parameter manager: URLSession менеджер, по умолчанию задается сессия из ServerRequestsManager
     public init(
         rawResponseProcessor: some RawResponseProcessor,
