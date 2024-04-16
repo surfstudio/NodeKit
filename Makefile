@@ -24,7 +24,7 @@ test:
 
 ## Created documentation by comments from code
 doc:
-	bundle exec jazzy --clean --build-tool-arguments -scheme,NodeKit,-sdk,iphonesimulator --output "docs"
+	bundle exec jazzy --clean --build-tool-arguments -project,./NodeKit/NodeKit.xcodeproj,-scheme,NodeKit,-sdk,iphonesimulator --output "docs"
 
 # COLORS
 GREEN  := $(shell tput -Txterm setaf 2)
