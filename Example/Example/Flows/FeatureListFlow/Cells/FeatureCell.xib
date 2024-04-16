@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="101" id="yBt-lf-BBA" customClass="FeatureCell" customModule="Example" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="101"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yBt-lf-BBA" id="Usf-ae-vIf">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="101"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="90J-GN-Vyc">
+                        <rect key="frame" x="16" y="16" width="361" height="75"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="B9j-JN-gra">
+                                <rect key="frame" x="325" y="30.666666666666664" width="20" height="14.333333333333336"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="Vri-nu-HZS"/>
+                                    <constraint firstAttribute="height" constant="20" id="Wpk-o3-Vnk"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXM-nC-dGg">
+                                <rect key="frame" x="16" y="16" width="293" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="B9j-JN-gra" secondAttribute="trailing" constant="16" id="0sI-Me-RLm"/>
+                            <constraint firstItem="B9j-JN-gra" firstAttribute="leading" secondItem="gXM-nC-dGg" secondAttribute="trailing" constant="16" id="Khn-db-9k2"/>
+                            <constraint firstItem="B9j-JN-gra" firstAttribute="centerY" secondItem="90J-GN-Vyc" secondAttribute="centerY" id="Qmz-zR-qt6"/>
+                            <constraint firstItem="gXM-nC-dGg" firstAttribute="leading" secondItem="90J-GN-Vyc" secondAttribute="leading" constant="16" id="RuI-Pv-ZyA"/>
+                            <constraint firstAttribute="bottom" secondItem="gXM-nC-dGg" secondAttribute="bottom" constant="16" id="VSG-xD-FTk"/>
+                            <constraint firstItem="gXM-nC-dGg" firstAttribute="top" secondItem="90J-GN-Vyc" secondAttribute="top" constant="16" id="jdd-Fg-Iom"/>
+                            <constraint firstAttribute="height" constant="75" id="kTY-Ed-CEj"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <gestureRecognizers/>
+                <constraints>
+                    <constraint firstItem="90J-GN-Vyc" firstAttribute="top" secondItem="Usf-ae-vIf" secondAttribute="top" constant="16" id="2XU-iU-xwc"/>
+                    <constraint firstAttribute="bottom" secondItem="90J-GN-Vyc" secondAttribute="bottom" constant="16" id="RlH-Ui-UUe"/>
+                    <constraint firstItem="90J-GN-Vyc" firstAttribute="leading" secondItem="Usf-ae-vIf" secondAttribute="leading" constant="16" id="mDS-Oc-hBj"/>
+                    <constraint firstAttribute="trailing" secondItem="90J-GN-Vyc" secondAttribute="trailing" constant="16" id="z8Y-jc-VvT"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="contentContainerView" destination="90J-GN-Vyc" id="f6E-0j-6KK"/>
+                <outlet property="titleLabel" destination="gXM-nC-dGg" id="cI4-mW-3wb"/>
+            </connections>
+            <point key="canvasLocation" x="130.53435114503816" y="-212.32394366197184"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrow.right" catalog="system" width="128" height="95"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
