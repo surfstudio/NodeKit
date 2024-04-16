@@ -6,10 +6,10 @@ import Foundation
 ///     - `RequestModel`
 ///     - `Node`
 ///     - `RequestRouterNode`
-open class MetadataConnectorNode<Raw, Output>: Node<Raw, Output> {
+open class MetadataConnectorNode<Raw, Output>: Node {
 
     /// Следующий в цепочке узел.
-    public var next: Node<RequestModel<Raw>, Output>
+    public var next: any Node<RequestModel<Raw>, Output>
 
     /// Метаданные для запроса
     public var metadata: [String: String]
@@ -19,7 +19,7 @@ open class MetadataConnectorNode<Raw, Output>: Node<Raw, Output> {
     /// - Parameters:
     ///   - next: Следующий в цепочке узел.
     ///   - metadata: Метаданные для запроса.
-    public init(next: Node<RequestModel<Raw>, Output>, metadata: [String: String]) {
+    public init(next: some Node<RequestModel<Raw>, Output>, metadata: [String: String]) {
         self.next = next
         self.metadata = metadata
     }
@@ -27,7 +27,7 @@ open class MetadataConnectorNode<Raw, Output>: Node<Raw, Output> {
     /// формирует модель `RequestModel` и передает ее на дальнейшую обработку.
     ///
     /// - Parameter data: данные в Raw формате. (после маппинга из Entry)
-    open override func process(_ data: Raw) -> Observer<Output> {
+    open func process(_ data: Raw) -> Observer<Output> {
         return next.process(RequestModel(metadata: self.metadata, raw: data))
     }
 }

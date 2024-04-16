@@ -14,11 +14,11 @@ import NodeKit
 
 public class FirstCachePolicyTests: XCTestCase {
 
-    private class NextStub: Node<RawUrlRequest, Json> {
+    private class NextStub: Node {
 
         var numberOfCalls = 0
 
-        override func process(_ data: RawUrlRequest) -> Observer<Json> {
+        func process(_ data: RawUrlRequest) -> Observer<Json> {
             self.numberOfCalls += 1
 
             let result = Context<Json>()
@@ -29,11 +29,11 @@ public class FirstCachePolicyTests: XCTestCase {
         }
     }
 
-    class ReaderStub: Node<UrlNetworkRequest, Json> {
+    class ReaderStub: Node {
 
         var numberOfCalls = 0
 
-        override func process(_ data: UrlNetworkRequest) -> Observer<Json> {
+        func process(_ data: UrlNetworkRequest) -> Observer<Json> {
 
             self.numberOfCalls += 1
 

@@ -19,22 +19,22 @@ public enum ResponseDataParserNodeError: Error {
 
 /// Выполняет преобразование преобразование "сырых" данных в `Json`
 /// - SeeAlso: `MappingUtils`
-open class ResponseDataParserNode: Node<UrlDataResponse, Json> {
+open class ResponseDataParserNode: Node {
 
     /// Следующий узел для обработки.
-    public var next: ResponsePostprocessorLayerNode?
+    public var next: (any ResponsePostprocessorLayerNode)?
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: ResponsePostprocessorLayerNode? = nil) {
+    public init(next: (any ResponsePostprocessorLayerNode)? = nil) {
         self.next = next
     }
 
     /// Парсит ответ и в случае успеха передает управление следующему узлу.
     ///
     /// - Parameter data: Модель овтета сервера.
-    open override func process(_ data: UrlDataResponse) -> Observer<Json> {
+    open func process(_ data: UrlDataResponse) -> Observer<Json> {
 
         let context = Context<Json>()
         var json = Json()

@@ -9,20 +9,20 @@
 import Foundation
 
 /// Узел, который позволяет передать на вход `Void`.
-open class VoidInputNode<Output>: Node<Void, Output> {
+open class VoidInputNode<Output>: Node {
 
     /// Следующий узел для обработки.
-    public var next: Node<Json, Output>
+    public var next: any Node<Json, Output>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: Node<Json, Output>) {
+    public init(next: any Node<Json, Output>) {
         self.next = next
     }
 
     /// Передает управление следующему узлу,в качестве параметра передает пустой `Json`
-    open override func process(_ data: Void) -> Observer<Output> {
+    open func process(_ data: Void) -> Observer<Output> {
         return next.process(Json())
     }
 }
@@ -32,7 +32,7 @@ open class VoidInputNode<Output>: Node<Void, Output> {
 /// Содержит иснтаксический сахар для работы с узлами, у которых входящий тип = `Void`
 extension Node where Input == Void {
     /// Вызывает `process(_:)`
-    open func process() -> Observer<Output> {
+    func process() -> Observer<Output> {
         return self.process(Void())
     }
 }

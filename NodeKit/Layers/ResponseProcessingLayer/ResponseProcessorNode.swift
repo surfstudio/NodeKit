@@ -16,22 +16,22 @@ public enum ResponseProcessorNodeError: Error {
 }
 
 /// Этот узел занимается первичной обработкой ответа сервера.
-open class ResponseProcessorNode<Type>: Node<NodeDataResponse, Type> {
+open class ResponseProcessorNode<Type>: Node {
 
     /// Следующий узел для обратки.
-    public let next: Node<UrlDataResponse, Type>
+    public let next: any Node<UrlDataResponse, Type>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обратки.
-    public init(next: Node<UrlDataResponse, Type>) {
+    public init(next: some Node<UrlDataResponse, Type>) {
         self.next = next
     }
 
     /// Проверяет, возникла-ли какая-то ошибка во время работы.
     ///
     /// - Parameter data: Низкоуровневый ответ сервера.
-    open override func process(_ data: NodeDataResponse) -> Observer<Type> {
+    open func process(_ data: NodeDataResponse) -> Observer<Type> {
         var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.responseProcessorNode)
 
         switch data.result {

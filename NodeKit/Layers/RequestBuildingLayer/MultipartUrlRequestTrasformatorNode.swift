@@ -2,10 +2,10 @@ import Foundation
 
 /// Этот узел переводит Generic запрос в конкретную реализацию.
 /// Данный узел работает с URL-запросами, по HTTP протоколу с JSON
-open class MultipartUrlRequestTrasformatorNode<Type>: Node<RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>, Type> {
+open class MultipartUrlRequestTrasformatorNode<Type>: Node {
 
     /// Следйющий узел для обработки.
-    open var next: Node<MultipartUrlRequest, Type>
+    open var next: any Node<MultipartUrlRequest, Type>
 
     /// HTTP метод для запроса.
     open var method: Method
@@ -15,7 +15,7 @@ open class MultipartUrlRequestTrasformatorNode<Type>: Node<RoutableRequestModel<
     /// - Parameters:
     ///   - next: Следйющий узел для обработки.
     ///   - method: HTTP метод для запроса.
-    public init(next: Node<MultipartUrlRequest, Type>, method: Method) {
+    public init(next: any Node<MultipartUrlRequest, Type>, method: Method) {
         self.next = next
         self.method = method
     }
@@ -23,7 +23,9 @@ open class MultipartUrlRequestTrasformatorNode<Type>: Node<RoutableRequestModel<
     /// Конструирует модель для для работы на транспортном уровне цепочки.
     ///
     /// - Parameter data: Данные для дальнейшей обработки.
-    open override func process(_ data: RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>) -> Observer<Type> {
+    open func process(
+        _ data: RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>
+    ) -> Observer<Type> {
 
         var url: URL
 

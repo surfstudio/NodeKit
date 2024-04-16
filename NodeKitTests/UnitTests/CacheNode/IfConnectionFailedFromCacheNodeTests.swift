@@ -14,7 +14,7 @@ import NodeKit
 
 public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
 
-    private class NextStub: Node<URLRequest, Json> {
+    private class NextStub: Node {
 
         var numberOfCalls: Int
         var lambda: () -> Observer<Json>
@@ -24,18 +24,18 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
             self.numberOfCalls = 0
         }
 
-        override func process(_ data: URLRequest) -> Observer<Json> {
+        func process(_ data: URLRequest) -> Observer<Json> {
             self.numberOfCalls += 1
 
             return self.lambda()
         }
     }
 
-    class ReaderStub: Node<UrlNetworkRequest, Json> {
+    class ReaderStub: Node {
 
         var numberOfCalls = 0
 
-        override func process(_ data: UrlNetworkRequest) -> Observer<Json> {
+        func process(_ data: UrlNetworkRequest) -> Observer<Json> {
 
             self.numberOfCalls += 1
 

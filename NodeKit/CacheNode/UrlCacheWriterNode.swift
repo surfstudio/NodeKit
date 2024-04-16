@@ -12,11 +12,11 @@ import Foundation
 /// - Important: это "глупая" реализация,
 /// в которой не учитываются server-side политики и прочее.
 /// Подразумечается, что этот узел не входит в цепочку, а является листом одного из узлов.
-open class UrlCacheWriterNode: Node<UrlProcessedResponse, Void> {
+open class UrlCacheWriterNode: Node {
 
     /// Формирует `CachedURLResponse` с политикой `.allowed`, сохраняет его в кэш,
     /// а затем возвращает сообщение об успешной операции.
-    open override func process(_ data: UrlProcessedResponse) -> Context<Void> {
+    open func process(_ data: UrlProcessedResponse) -> Observer<Void> {
         let cahced = CachedURLResponse(response: data.response, data: data.data, storagePolicy: .allowed)
         URLCache.shared.storeCachedResponse(cahced, for: data.request)
         return Context<Void>().emit(data: ())
