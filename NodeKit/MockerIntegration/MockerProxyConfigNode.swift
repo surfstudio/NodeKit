@@ -23,7 +23,7 @@ open class MockerProxyConfigNode<Raw, Output>: Node {
     // MARK: - Public Properties
 
     /// Следующий в цепочке узел.
-    open var next: any Node<RequestModel<Raw>, Output>
+    open var next: any AsyncNode<RequestModel<Raw>, Output>
 
     /// Указывает, включено ли проексирование.
     open var isProxyingOn: Bool
@@ -41,7 +41,7 @@ open class MockerProxyConfigNode<Raw, Output>: Node {
     ///   - isProxyingOn: Указывает, включено ли проексирование.
     ///   - proxyingHost: Адрес хоста (опционально с портом) которому будет переадресован запрос.
     ///   - proxyingSchema: Схема (http/https etc).
-    public init(next: any AsyncNode<RequestModel<Raw>, Output>,
+    public init(next: some AsyncNode<RequestModel<Raw>, Output>,
                 isProxyingOn: Bool,
                 proxyingHost: String = "",
                 proxyingScheme: String = "") {
