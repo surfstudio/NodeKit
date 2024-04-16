@@ -62,10 +62,10 @@ public extension NodeResult {
     ///   - customError: Ошибка, которая будет передаваться в failure вместо Exeception
     ///   - function: Ассинхронная функция, способная выкинуть Exception
     /// - Returns: Результат с преобразованными Exceptions в failure.
-    static func withMappedExceptions<T>(
+    @inlinable static func withMappedExceptions<T>(
         _ customError: Error? = nil,
         _ function: () async throws -> NodeResult<T>
-    ) async -> Result<T, Error> {
+    ) async -> NodeResult<T> {
         do {
             return try await function()
         } catch {

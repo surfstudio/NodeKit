@@ -34,7 +34,6 @@ open class VoidIONode: AsyncNode {
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Void> {
         return await next.process(Json(), logContext: logContext).asyncFlatMap { json in
-            let result = Context<Void>()
             if !json.isEmpty {
                 var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidIONode)
                 log += "VoidIOtNode used but request have not empty response"

@@ -86,13 +86,16 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Type> {
         var log = Log(logViewObjectName, id: objectName, order: LogOrder.requestSenderNode)
+        
         async let nodeResponse = nodeResponse(request, logContext: logContext)
-
-        log += "Get response!)"
-
-        let result = await rawResponseProcessor.process(nodeResponse, logContext: logContext)
-
+        
         log += "Request sended!"
+        
+        let response = await nodeResponse
+        
+        log += "Get response!)"
+        
+        let result = await rawResponseProcessor.process(response, logContext: logContext)
 
         await logContext.add(log)
         return result

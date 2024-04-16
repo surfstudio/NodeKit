@@ -76,10 +76,11 @@ open class UrlJsonRequestEncodingNode<Type>: AsyncNode {
     // MARK: - Private Methods
 
     private func parameterEncoding(from data: RequestEncodingModel) -> ParameterEncoding? {
-        guard data.urlParameters.method == .get else {
-            return data.encoding?.raw
+        if data.urlParameters.method == .get {
+            return URLEncoding.default
         }
-        return URLEncoding.default
+        return data.encoding?.raw
+        
     }
 
     private func getLogMessage(_ data: RequestEncodingModel) -> Log {

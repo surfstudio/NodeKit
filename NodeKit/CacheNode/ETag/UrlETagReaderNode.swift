@@ -55,7 +55,8 @@ open class UrlETagReaderNode: AsyncNode {
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
         guard
-            let tag = UserDefaults.etagStorage?.value(forKey: data.url.absoluteString) as? String
+            let key = data.url.withOrderedQuery(),
+            let tag = UserDefaults.etagStorage?.value(forKey: key) as? String
         else {
             return await next.process(data, logContext: logContext)
         }

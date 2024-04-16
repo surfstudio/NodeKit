@@ -76,7 +76,7 @@ open class UrlCacheReaderNode: AsyncNode {
         return .success(json)
     }
 
-   private func extractCachedUrlResponse(_ request: URLRequest) -> CachedURLResponse? {
+    private func extractCachedUrlResponse(_ request: URLRequest) -> CachedURLResponse? {
         if let response = URLCache.shared.cachedResponse(for: request) {
             return response
         }
