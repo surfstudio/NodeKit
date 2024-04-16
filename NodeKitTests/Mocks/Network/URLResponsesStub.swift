@@ -29,8 +29,8 @@ enum URLResponsesStub {
             switch urlComponents.path.split(separator: "/")[1] {
             case "users":
                 return try makeUsersResponse(request: request)
-            case "userAmptyArr":
-                return try makeUserAmptyArrResponse(request: request)
+            case "userEmptyArr":
+                return try makeUserEmptyArrResponse(request: request)
             case "Get204UserArr":
                 return try makeGet204UserArrResponse(request: request)
             case "authWithFormUrl":
@@ -46,6 +46,11 @@ enum URLResponsesStub {
     static func flush() {
         URLProtocolMock.flush()
     }
+}
+
+// MARK: - Private Methods
+
+private extension URLResponsesStub {
     
     private static func makeUsersResponse(request: URLRequest) throws -> (HTTPURLResponse, Data) {
         guard
@@ -96,7 +101,7 @@ enum URLResponsesStub {
         )
     }
     
-    private static func makeUserAmptyArrResponse(request: URLRequest) throws -> (HTTPURLResponse, Data) {
+    private static func makeUserEmptyArrResponse(request: URLRequest) throws -> (HTTPURLResponse, Data) {
         guard
             let url = request.url,
             request.httpMethod == Method.get.rawValue,

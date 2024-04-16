@@ -43,7 +43,7 @@ extension Routes: UrlRouteProvider {
         case .users:
             return try? Routes.base + "/users"
         case .emptyUsers:
-            return try? Routes.base + "/userAmptyArr"
+            return try? Routes.base + "/userEmptyArr"
         case .emptyUsersWith204:
             return try? Routes.base + "/Get204UserArr"
         case .authWithFormUrl:
