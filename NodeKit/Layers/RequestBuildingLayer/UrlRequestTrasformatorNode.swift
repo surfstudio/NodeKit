@@ -6,10 +6,10 @@ enum RequestEncodingError: Error {
 
 /// Этот узел переводит Generic запрос в конкретную реализацию.
 /// Данный узел работает с URL-запросами, по HTTP протоколу с JSON
-open class UrlRequestTrasformatorNode<Type>: Node {
+open class UrlRequestTrasformatorNode<Type>: AsyncNode {
 
     /// Следйющий узел для обработки.
-    public var next: any Node<RequestEncodingModel, Type>
+    public var next: any AsyncNode<RequestEncodingModel, Type>
 
     /// HTTP метод для запроса.
     public var method: Method
@@ -19,7 +19,7 @@ open class UrlRequestTrasformatorNode<Type>: Node {
     /// - Parameters:
     ///   - next: Следйющий узел для обработки.
     ///   - method: HTTP метод для запроса.
-    public init(next: some Node<RequestEncodingModel, Type>, method: Method) {
+    public init(next: some AsyncNode<RequestEncodingModel, Type>, method: Method) {
         self.next = next
         self.method = method
     }
@@ -49,4 +49,26 @@ open class UrlRequestTrasformatorNode<Type>: Node {
         return next.process(encodingModel)
     }
 
+    /// Конструирует модель для для работы на транспортном уровне цепочки.
+    ///
+    /// - Parameter data: Данные для дальнейшей обработки.
+    open func process(
+        _ data: EncodableRequestModel<UrlRouteProvider, Json, ParametersEncoding?>,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Type> {
+        return await .withMappedExceptions {
+            let url = try data.route.url()
+            let params = TransportUrlParameters(
+                method: self.method,
+                url: url,
+                headers: data.metadata
+            )
+            let encodingModel = RequestEncodingModel(
+                urlParameters: params,
+                raw: data.raw,
+                encoding: data.encoding ?? nil
+            )
+            return await next.process(encodingModel, logContext: logContext)
+        }
+    }
 }

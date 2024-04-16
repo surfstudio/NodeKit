@@ -8,16 +8,16 @@
 
 import Foundation
 
-open class UrlJsonRequestEncodingNode<Type>: Node {
+open class UrlJsonRequestEncodingNode<Type>: AsyncNode {
 
     /// Следующий узел для обработки.
-    public var next: any Node<TransportUrlRequest, Type>
+    public var next: any AsyncNode<TransportUrlRequest, Type>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameters:
     ///   - next: Следйющий узел для обработки.
-    public init(next: some Node<TransportUrlRequest, Type>) {
+    public init(next: some AsyncNode<TransportUrlRequest, Type>) {
         self.next = next
     }
 
@@ -50,18 +50,44 @@ open class UrlJsonRequestEncodingNode<Type>: Node {
         return next.process(unwrappedRequest).log(log)
     }
 
-}
+    open func process(
+        _ data: RequestEncodingModel,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Type> {
+        var log = getLogMessage(data)
+        let paramEncoding = parameterEncoding(from: data)
 
-// MARK: - Help Methods
-
-private extension UrlJsonRequestEncodingNode {
-
-    func getLogMessage(_ data: RequestEncodingModel) -> Log {
-        var message = "<<<===\(self.objectName)===>>>\n"
-        message += "input: \(type(of: data))"
-        message += "encoding: \(String(describing: data.encoding))"
-        message += "raw: \(String(describing: data.raw))"
-        return Log(message, id: self.objectName, order: LogOrder.requestEncodingNode)
+        guard let encoding = paramEncoding else {
+            log += "Missed encoding type -> terminate with error"
+            await logContext.add(log)
+            return .failure(RequestEncodingNodeError.missedJsonEncodingType)
+        }
+        do {
+            let request = try encoding.encode(urlParameters: data.urlParameters, parameters: data.raw)
+            log += "type: Json"
+            return await next.process(request, logContext: logContext)
+        } catch {
+            log += "But can't encode data -> terminate with error"
+            await logContext.add(log)
+            return .failure(RequestEncodingError.unsupportedDataType)
+        }
     }
 
+    // MARK: - Private Methods
+
+    private func parameterEncoding(from data: RequestEncodingModel) -> ParameterEncoding? {
+        if data.urlParameters.method == .get {
+            return URLEncoding.default
+        }
+        return data.encoding?.raw
+        
+    }
+
+    private func getLogMessage(_ data: RequestEncodingModel) -> Log {
+        let message = "<<<===\(self.objectName)===>>>\n" +
+            "input: \(type(of: data))" +
+            "encoding: \(String(describing: data.encoding))" +
+            "raw: \(String(describing: data.raw))"
+        return Log(message, id: self.objectName, order: LogOrder.requestEncodingNode)
+    }
 }

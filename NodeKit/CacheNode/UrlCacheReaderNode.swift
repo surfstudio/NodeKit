@@ -21,7 +21,7 @@ public enum BaseUrlCacheReaderError: Error {
 
 /// Этот узел отвечает за чтение данных из URL кэша.
 /// Сам по себе узел является листом и не может быть встроен в сквозную цепочку.
-open class UrlCacheReaderNode: Node {
+open class UrlCacheReaderNode: AsyncNode {
 
     public var needsToThrowError: Bool
 
@@ -50,7 +50,33 @@ open class UrlCacheReaderNode: Node {
         return .emit(data: json)
     }
 
-   private func extractCachedUrlResponse(_ request: URLRequest) -> CachedURLResponse? {
+    /// Посылает запрос в кэш и пытается сериализовать данные в JSON.
+    open func process(
+        _ data: UrlNetworkRequest,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Json> {
+        guard let cachedResponse = extractCachedUrlResponse(data.urlRequest) else {
+            return .failure(BaseUrlCacheReaderError.cantLoadDataFromCache)
+        }
+
+        guard let jsonObjsect = try? JSONSerialization.jsonObject(
+            with: cachedResponse.data,
+            options: .allowFragments
+        ) else {
+            return .failure(BaseUrlCacheReaderError.cantSerializeJson)
+        }
+
+        guard let json = jsonObjsect as? Json else {
+            guard let json = jsonObjsect as? [Json] else {
+                return .failure(BaseUrlCacheReaderError.cantCastToJson)
+            }
+            return .success([MappingUtils.arrayJsonKey: json])
+        }
+
+        return .success(json)
+    }
+
+    private func extractCachedUrlResponse(_ request: URLRequest) -> CachedURLResponse? {
         if let response = URLCache.shared.cachedResponse(for: request) {
             return response
         }

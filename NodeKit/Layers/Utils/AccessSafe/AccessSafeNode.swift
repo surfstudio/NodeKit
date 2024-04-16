@@ -47,7 +47,7 @@ public enum AccessSafeNodeError: Error {
 /// - SeeAlso:
 ///     - `TransportLayerNode`
 ///     - `TokenRefresherNode`
-open class AccessSafeNode: Node {
+open class AccessSafeNode: AsyncNode {
 
     /// Следующий в цепочке узел.
     public var next: any TransportLayerNode
@@ -55,14 +55,14 @@ open class AccessSafeNode: Node {
     /// Цепочка для обновления токена.
     /// Эта цепочкаа в самом начале должна выключать узел, который имплементирует заморозку запросов и их возобновление.
     /// Из-коробки это реализует узел `TokenRefresherNode`
-    public var updateTokenChain: any Node<Void, Void>
+    public var updateTokenChain: any AsyncNode<Void, Void>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameters:
     ///   - next: Следующий в цепочке узел.
     ///   - updateTokenChain: Цепочка для обновления токена.
-    public init(next: some TransportLayerNode, updateTokenChain: some Node<Void, Void>) {
+    public init(next: some TransportLayerNode, updateTokenChain: some AsyncNode<Void, Void>) {
         self.next = next
         self.updateTokenChain = updateTokenChain
     }
@@ -80,5 +80,30 @@ open class AccessSafeNode: Node {
                 return .emit(error: error)
             }
         }
+    }
+
+    /// Просто передает управление следующему узлу.
+    /// В случае если вернулась доступа, то обноляет токен и повторяет запрос.
+    open func process(
+        _ data: TransportUrlRequest,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Json> {
+        return await next.process(data, logContext: logContext)
+            .asyncFlatMapError { error in
+                guard case ResponseHttpErrorProcessorNodeError.forbidden = error else {
+                    return .failure(error)
+                }
+                return await processWithTokenUpdate(data, logContext: logContext)
+            }
+    }
+
+    // MARK: - Private Methods
+
+    private func processWithTokenUpdate(
+        _ data: TransportUrlRequest,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Json> {
+        return await updateTokenChain.process((), logContext: logContext)
+            .asyncFlatMap { await next.process(data, logContext: logContext) }
     }
 }

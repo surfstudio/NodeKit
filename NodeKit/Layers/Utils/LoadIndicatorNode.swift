@@ -24,15 +24,15 @@ private enum LoadIndicatableNodeStatic {
 }
 
 /// Показыает спиннер загрзки в статус-баре.
-open class LoadIndicatableNode<Input, Output>: Node {
+open class LoadIndicatableNode<Input, Output>: AsyncNode {
 
     /// Следующий узел в цепочке.
-    open var next: any Node<Input, Output>
+    open var next: any AsyncNode<Input, Output>
 
     /// Инциаллизирует узел.
     ///
     /// - Parameter next: Следующий узел в цепочке.
-    public init(next: some Node<Input, Output> ) {
+    public init(next: some AsyncNode<Input, Output> ) {
         self.next = next
     }
 
@@ -57,5 +57,26 @@ open class LoadIndicatableNode<Input, Output>: Node {
                 decrementRequestCounter()
                 return error
             }
+    }
+
+    /// Показывает индикатор и передает управление дальше.
+    /// По окнчании работы цепочки скрывает индикатор.
+    open func process(
+        _ data: Input,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Output> {
+        DispatchQueue.global().async(flags: .barrier) {
+            LoadIndicatableNodeStatic.requestConter += 1
+        }
+
+        let decrementRequestCounter: (() -> Void) = {
+            DispatchQueue.global().async(flags: .barrier) {
+                LoadIndicatableNodeStatic.requestConter -= 1
+            }
+        }
+
+        let result = await next.process(data, logContext: logContext)
+        decrementRequestCounter()
+        return result
     }
 }

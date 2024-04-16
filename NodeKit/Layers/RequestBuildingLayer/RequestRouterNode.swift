@@ -15,10 +15,10 @@ import Foundation
 ///     - `Node`
 ///     - `MetadataConnectorNode`
 ///     - `RequstEncoderNode`
-open class RequestRouterNode<Raw, Route, Output>: Node {
+open class RequestRouterNode<Raw, Route, Output>: AsyncNode {
 
     /// Тип для следующего узла.
-    public typealias NextNode = Node<RoutableRequestModel<Route, Raw>, Output>
+    public typealias NextNode = AsyncNode<RoutableRequestModel<Route, Raw>, Output>
 
     /// Следующий узел для обработки.
     public var next: any NextNode
@@ -39,5 +39,16 @@ open class RequestRouterNode<Raw, Route, Output>: Node {
     /// Преобразует `RequestModel` в `RoutableRequestModel` и передает управление следующему узлу
     open func process(_ data: RequestModel<Raw>) -> Observer<Output> {
         return self.next.process(RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: self.route))
+    }
+
+    /// Преобразует `RequestModel` в `RoutableRequestModel` и передает управление следующему узлу
+    open func process(
+        _ data: RequestModel<Raw>,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Output> {
+        return await next.process(
+            RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: route),
+            logContext: logContext
+        )
     }
 }

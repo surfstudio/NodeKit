@@ -20,7 +20,7 @@ extension UserDefaults {
 
 /// Этот узел сохраняет пришедшие eTag-токены.
 /// В качестве ключа используется абсолютный URL до endpoint-a.
-open class UrlETagSaverNode: Node {
+open class UrlETagSaverNode: AsyncNode {
 
     /// Следующий узел для обработки.
     public var next: (any ResponsePostprocessorLayerNode)?
@@ -39,19 +39,37 @@ open class UrlETagSaverNode: Node {
         self.eTagHeaderKey = eTagHeaderKey
     }
 
-    /// Пытается получить eTag-токен по ключу `UrlETagSaverNode.eTagHeaderKey`.
+    /// Пытается получить eTag-токен по ключу.
     /// В любом случае передает управление дальше.
     open func process(_ data: UrlProcessedResponse) -> Observer<Void> {
         guard let tag = data.response.allHeaderFields[self.eTagHeaderKey] as? String,
             let url = data.request.url,
             let urlAsKey = url.withOrderedQuery()
         else {
-            return .emit(data: ())
+            return next?.process(data) ?? .emit(data: ())
         }
 
         UserDefaults.etagStorage?.set(tag, forKey: urlAsKey)
 
         return next?.process(data) ?? .emit(data: ())
+    }
+
+    /// Пытается получить eTag-токен по ключу.
+    /// В любом случае передает управление дальше.
+    open func process(
+        _ data: UrlProcessedResponse,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Void> {
+        guard let tag = data.response.allHeaderFields[self.eTagHeaderKey] as? String,
+            let url = data.request.url,
+            let urlAsKey = url.withOrderedQuery()
+        else {
+            return await next?.process(data, logContext: logContext) ?? .success(())
+        }
+
+        UserDefaults.etagStorage?.set(tag, forKey: urlAsKey)
+
+        return await next?.process(data, logContext: logContext) ?? .success(())
     }
 }
 
@@ -62,7 +80,7 @@ public extension URL {
     /// Если параметров нет - возвращает `self.absoluteString`
     /// Если параметры есть - сортирует их соединяет в одну строку
     /// Удаляет query параметры из исходного URL
-    /// Склеивает строкое представление URL без парамтеров со сторокой параметров
+    /// Склеивает строковое представление URL без парамтеров со сторокой параметров
     ///
     /// **ВАЖНО**
     ///

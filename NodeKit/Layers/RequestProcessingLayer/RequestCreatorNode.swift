@@ -1,10 +1,10 @@
 import Foundation
 
 /// Этот узел инициаллизирует URL запрос.
-open class RequestCreatorNode<Output>: Node {
+open class RequestCreatorNode<Output>: AsyncNode {
 
     /// Следующий узел для обработки.
-    public var next: any Node<URLRequest, Output>
+    public var next: any AsyncNode<URLRequest, Output>
 
     /// Провайдеры мета-данных
     public var providers: [MetadataProvider]
@@ -12,12 +12,12 @@ open class RequestCreatorNode<Output>: Node {
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: some Node<URLRequest, Output>, providers: [MetadataProvider] = []) {
+    public init(next: some AsyncNode<URLRequest, Output>, providers: [MetadataProvider] = []) {
         self.next = next
         self.providers = providers
     }
 
-    /// Конфигурирует низкоуровненвый запрос.
+    /// Конфигурирует низкоуровневый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open func process(_ data: TransportUrlRequest) -> Observer<Output> {
@@ -33,6 +33,28 @@ open class RequestCreatorNode<Output>: Node {
         mergedHeaders.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
 
         return self.next.process(request).log(self.getLogMessage(data))
+    }
+
+    /// Конфигурирует низкоуровневый запрос.
+    ///
+    /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
+    open func process(
+        _ data: TransportUrlRequest,
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Output> {
+        var mergedHeaders = data.headers
+
+        providers.map { $0.metadata() }.forEach { dict in
+            mergedHeaders.merge(dict, uniquingKeysWith: { $1 })
+        }
+
+        var request = URLRequest(url: data.url)
+        request.httpMethod = data.method.rawValue
+        request.httpBody = data.raw
+        mergedHeaders.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
+
+        await logContext.add(getLogMessage(data))
+        return await next.process(request, logContext: logContext)
     }
 
     private func getLogMessage(_ data: TransportUrlRequest) -> Log {

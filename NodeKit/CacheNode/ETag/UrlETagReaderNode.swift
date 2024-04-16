@@ -9,7 +9,7 @@
 import Foundation
 
 /// Этот узел читает eTag-токен из хранилища и добавляет его к запросу.
-open class UrlETagReaderNode: Node {
+open class UrlETagReaderNode: AsyncNode {
 
     // Следующий узел для обработки.
     public var next: any TransportLayerNode
@@ -46,6 +46,31 @@ open class UrlETagReaderNode: Node {
         let newData = TransportUrlRequest(with: params, raw: data.raw)
 
         return next.process(newData)
+    }
+
+    /// Пытается прочесть eTag-токен из хранилища и добавить его к запросу.
+    /// В случае, если прочесть токен не удалось, то управление просто передается дальше.
+    open func process(
+        _ data: TransportUrlRequest, 
+        logContext: LoggingContextProtocol
+    ) async -> NodeResult<Json> {
+        guard
+            let key = data.url.withOrderedQuery(),
+            let tag = UserDefaults.etagStorage?.value(forKey: key) as? String
+        else {
+            return await next.process(data, logContext: logContext)
+        }
+
+        var headers = data.headers
+        headers[self.etagHeaderKey] = tag
+
+        let params = TransportUrlParameters(method: data.method,
+                                            url: data.url,
+                                            headers: headers)
+
+        let newData = TransportUrlRequest(with: params, raw: data.raw)
+
+        return await next.process(newData, logContext: logContext)
     }
 
 }

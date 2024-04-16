@@ -14,7 +14,7 @@ import NodeKit
 
 class DTOMapperNodeTests: XCTestCase {
     
-    class StubNode: Node {
+    class StubNode: AsyncNode {
         let json: Json
         let resultError: Error?
         
@@ -31,6 +31,13 @@ class DTOMapperNodeTests: XCTestCase {
                 return Context<Json>().log(log).emit(error: error)
             }
             return .emit(data: json)
+        }
+        
+        func process(
+            _ data: Json,
+            logContext: LoggingContextProtocol
+        ) async -> NodeResult<Json> {
+            return .success(json)
         }
     }
 

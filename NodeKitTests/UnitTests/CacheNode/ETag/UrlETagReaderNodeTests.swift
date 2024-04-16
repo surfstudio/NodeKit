@@ -12,32 +12,49 @@ import XCTest
 @testable
 import NodeKit
 
-public class UrlETagReaderNodeTests: XCTestCase {
-
-    class MockNode: Node {
-
-        var tag: String? = nil
-
-        var key = ETagConstants.eTagRequestHeaderKey
-
-        func process(_ data: TransportUrlRequest) -> Observer<Json> {
-            tag = data.headers[self.key]
-
-            return .emit(data: Json())
-        }
+final class UrlETagReaderNodeTests: XCTestCase {
+    
+    // MARK: - Dependencies
+    
+    private var nextNodeMock: AsyncNodeMock<TransportUrlRequest, Json>!
+    private var logContextMock: LoggingContextMock!
+    
+    // MARK: - Sut
+    
+    private var sut: UrlETagReaderNode!
+    
+    // MARK: - Lifecycle
+    
+    override func setUp() {
+        super.setUp()
+        nextNodeMock = AsyncNodeMock()
+        logContextMock = LoggingContextMock()
     }
-
-    public func testReadSuccess() {
-
-        // Arrange
-
-        let mock = MockNode()
-        let node = UrlETagReaderNode(next: mock)
+    
+    override func tearDown() {
+        super.tearDown()
+        nextNodeMock = nil
+        logContextMock = nil
+        sut = nil
+    }
+    
+    // MARK: - Tests
+    
+    func testProcess_whenSuccess() throws {
+        
+        // given
+        
+        buildSut()
+        
         let tag = "\(NSObject().hash)"
-
         let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccess")!
         let params = TransportUrlParameters(method: .get, url: url)
         let request = TransportUrlRequest(with:params , raw: Data())
+        
+        nextNodeMock.stubbedProccessResult = .emit(data: Json())
+        
+        var expectedHeader = request.headers
+        expectedHeader[ETagConstants.eTagRequestHeaderKey] = tag
 
         let expectation = self.expectation(description: "\(#function)")
 
@@ -45,13 +62,13 @@ public class UrlETagReaderNodeTests: XCTestCase {
             UserDefaults.etagStorage?.removeObject(forKey: url.absoluteString)
         }
 
-        // Act
+        // when
 
         UserDefaults.etagStorage?.set(tag, forKey: url.absoluteString)
 
         var callCount = 0
 
-        node.process(request).onCompleted { _ in
+        sut.process(request).onCompleted { _ in
             callCount += 1
             expectation.fulfill()
         }.onError { _ in
@@ -61,32 +78,38 @@ public class UrlETagReaderNodeTests: XCTestCase {
 
         self.waitForExpectations(timeout: 1, handler: nil)
 
-        // Assert
+        // then
+        
+        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedProcessParameter)
 
+        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
         XCTAssertEqual(callCount, 1)
-        XCTAssertEqual(mock.tag, tag)
+        XCTAssertEqual(nextNodeParameter.method, request.method)
+        XCTAssertEqual(nextNodeParameter.url, request.url)
+        XCTAssertEqual(nextNodeParameter.raw, request.raw)
+        XCTAssertEqual(nextNodeParameter.headers, expectedHeader)
     }
-
-    public func testNotReadIfTagNotExist() {
-
-        // Arrange
-
-        let mock = MockNode()
-        let node = UrlETagReaderNode(next: mock)
+    
+    func testProcess_whenTagNotExist() throws {
+        // given
+        
+        buildSut()
 
         let url = URL(string: "http://UrlETagReaderNodeTests/testNotReadIfTagNotExist")!
         let params = TransportUrlParameters(method: .get, url: url)
         let request = TransportUrlRequest(with:params , raw: Data())
+        
+        nextNodeMock.stubbedProccessResult = .emit(data: Json())
 
         let expectation = self.expectation(description: "\(#function)")
 
-        // Act
+        // when
 
         UserDefaults.etagStorage?.removeObject(forKey: url.absoluteString)
 
         var callCount = 0
 
-        node.process(request).onCompleted { _ in
+        sut.process(request).onCompleted { _ in
             callCount += 1
             expectation.fulfill()
             }.onError { _ in
@@ -96,26 +119,34 @@ public class UrlETagReaderNodeTests: XCTestCase {
 
         self.waitForExpectations(timeout: 1, handler: nil)
 
-        // Assert
+        // then
+        
+        let nextProcessInvokedParameter = try XCTUnwrap(nextNodeMock.invokedProcessParameter)
 
         XCTAssertEqual(callCount, 1)
-        XCTAssertNil(mock.tag)
+        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(request.headers, nextProcessInvokedParameter.headers)
+        XCTAssertEqual(request.url, nextProcessInvokedParameter.url)
+        XCTAssertEqual(request.method, nextProcessInvokedParameter.method)
+        XCTAssertEqual(request.raw, nextProcessInvokedParameter.raw)
     }
-
-    public func testReadSuccessWithCustomKey() {
-
-        // Arrange
+    
+    func testProcess_whithCustomTag() throws {
+        // given
 
         let key = "My-Custom-ETag-Key"
-        let mock = MockNode()
-        mock.key = key
-        let node = UrlETagReaderNode(next: mock, etagHeaderKey: key)
         let tag = "\(NSObject().hash)"
-
+        
+        buildSut(with: key)
 
         let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccessWithCustomKey")!
         let params = TransportUrlParameters(method: .get, url: url)
         let request = TransportUrlRequest(with:params , raw: Data())
+        
+        nextNodeMock.stubbedProccessResult = .emit(data: Json())
+        
+        var expectedHeader = request.headers
+        expectedHeader[key] = tag
 
         let expectation = self.expectation(description: "\(#function)")
 
@@ -123,13 +154,13 @@ public class UrlETagReaderNodeTests: XCTestCase {
             UserDefaults.etagStorage?.removeObject(forKey: url.absoluteString)
         }
 
-        // Act
+        // when
 
         UserDefaults.etagStorage?.set(tag, forKey: url.absoluteString)
 
         var callCount = 0
 
-        node.process(request).onCompleted { _ in
+        sut.process(request).onCompleted { _ in
             callCount += 1
             expectation.fulfill()
             }.onError { _ in
@@ -139,9 +170,128 @@ public class UrlETagReaderNodeTests: XCTestCase {
 
         self.waitForExpectations(timeout: 1, handler: nil)
 
-        // Assert
+        // then
 
+        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedProcessParameter)
+
+        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
         XCTAssertEqual(callCount, 1)
-        XCTAssertEqual(mock.tag, tag)
+        XCTAssertEqual(nextNodeParameter.method, request.method)
+        XCTAssertEqual(nextNodeParameter.url, request.url)
+        XCTAssertEqual(nextNodeParameter.raw, request.raw)
+        XCTAssertEqual(nextNodeParameter.headers, expectedHeader)
+    }
+    
+    func testAsyncProcess_whenSuccess() async throws {
+        
+        // given
+        
+        buildSut()
+        
+        let tag = "\(NSObject().hash)"
+        let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccess")!
+        let params = TransportUrlParameters(method: .get, url: url)
+        let request = TransportUrlRequest(with:params , raw: Data())
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(Json())
+        
+        var expectedHeader = request.headers
+        expectedHeader[ETagConstants.eTagRequestHeaderKey] = tag
+
+        defer {
+            UserDefaults.etagStorage?.removeObject(forKey: url.absoluteString)
+        }
+
+        // when
+
+        UserDefaults.etagStorage?.set(tag, forKey: url.absoluteString)
+
+        _ = await sut.process(request, logContext: logContextMock)
+
+        // then
+        
+        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter)
+
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(nextNodeParameter.method, request.method)
+        XCTAssertEqual(nextNodeParameter.url, request.url)
+        XCTAssertEqual(nextNodeParameter.raw, request.raw)
+        XCTAssertEqual(nextNodeParameter.headers, expectedHeader)
+    }
+    
+    func testAsyncProcess_whenTagNotExist() async throws {
+        // given
+        
+        buildSut()
+
+        let url = URL(string: "http://UrlETagReaderNodeTests/testNotReadIfTagNotExist")!
+        let params = TransportUrlParameters(method: .get, url: url)
+        let request = TransportUrlRequest(with:params , raw: Data())
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(Json())
+
+        // when
+
+        _ = await sut.process(request, logContext: logContextMock)
+
+        // then
+        
+        let nextProcessInvokedParameter = try XCTUnwrap(
+            nextNodeMock.invokedAsyncProcessParameter
+        )
+
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(request.headers, nextProcessInvokedParameter.headers)
+        XCTAssertEqual(request.url, nextProcessInvokedParameter.url)
+        XCTAssertEqual(request.method, nextProcessInvokedParameter.method)
+        XCTAssertEqual(request.raw, nextProcessInvokedParameter.raw)
+    }
+    
+    func testAsyncProcess_whithCustomTag() async throws {
+        // given
+
+        let key = "My-Custom-ETag-Key"
+        let tag = "\(NSObject().hash)"
+        
+        buildSut(with: key)
+
+        let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccessWithCustomKey")!
+        let params = TransportUrlParameters(method: .get, url: url)
+        let request = TransportUrlRequest(with:params , raw: Data())
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(Json())
+        
+        var expectedHeader = request.headers
+        expectedHeader[key] = tag
+
+        defer {
+            UserDefaults.etagStorage?.removeObject(forKey: url.absoluteString)
+        }
+
+        // when
+
+        UserDefaults.etagStorage?.set(tag, forKey: url.absoluteString)
+
+        _ = await sut.process(request, logContext: logContextMock)
+
+        // then
+
+        let nextNodeParameter = try XCTUnwrap(
+            nextNodeMock.invokedAsyncProcessParameter
+        )
+
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(nextNodeParameter.method, request.method)
+        XCTAssertEqual(nextNodeParameter.url, request.url)
+        XCTAssertEqual(nextNodeParameter.raw, request.raw)
+        XCTAssertEqual(nextNodeParameter.headers, expectedHeader)
+    }
+    
+    private func buildSut(with tag: String? = nil) {
+        guard let tag = tag else {
+            sut = UrlETagReaderNode(next: nextNodeMock)
+            return
+        }
+        sut = UrlETagReaderNode(next: nextNodeMock, etagHeaderKey: tag)
     }
 }
