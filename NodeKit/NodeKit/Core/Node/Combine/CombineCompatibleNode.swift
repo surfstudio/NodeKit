@@ -6,6 +6,7 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
+import Foundation
 import Combine
 
 /// Протокол ноды, описывающий подход преобразования входных данных в результат с помощью Combine.
