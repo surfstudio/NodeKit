@@ -8,7 +8,7 @@
 
 import Combine
 
-/// Абстрактная реализация подписки для любой ``CombineCompatibleNode``.
+/// Абстрактная реализация подписки для ``CombineCompatibleNode``.
 /// При запросе данных создает новую таску и сохраняет ее.
 /// При отмене подписки вызывает cancel у таски.
 class BaseSubscription<Parent: NodeResultPublisher, S: NodeSubscriber<Parent.Node>>: Subscription {
@@ -67,8 +67,8 @@ class BaseSubscription<Parent: NodeResultPublisher, S: NodeSubscriber<Parent.Nod
     /// Метод создания таски для выполенения обработки данных.
     ///
     /// - Parameters:
-    ///    - node: Нода, у которая будет отвечать за обработку данных.
-    ///    - input: Воходные данные ноды
+    ///    - node: Нода, которая будет отвечать за обработку данных.
+    ///    - input: Входные данные ноды
     ///    - logContext: Контекст логов.
     ///    - subscriber: Подписчик, который будет получать результат ноды.
     /// - Returns: Созданая таска, выполняющая обработку данных.

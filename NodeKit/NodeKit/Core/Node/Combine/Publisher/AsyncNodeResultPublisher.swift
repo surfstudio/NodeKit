@@ -32,7 +32,7 @@ struct AsyncNodeResultPublisher<Node: AsyncNode>: NodeResultPublisher {
     
     // MARK: - Publisher
     
-    /// Метод получения подписчика и создания новой подписки.
+    /// Метод создания подписки для подписчика.
     func receive<S: NodeSubscriber<Node>>(subscriber: S) {
         let subscription = AsyncNodeSubscription<Node, S>(parent: self, subscriber: subscriber)
         subscriber.receive(subscription: subscription)

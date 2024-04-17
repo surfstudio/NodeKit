@@ -16,8 +16,8 @@ final class AsyncNodeSubscription<Node: AsyncNode, S: NodeSubscriber<Node>>:
     /// Метод создания таски для выполенения обработки данных.
     ///
     /// - Parameters:
-    ///    - node: Нода, у которая будет отвечать за обработку данных.
-    ///    - input: Воходные данные ноды
+    ///    - node: Нода, которая будет отвечать за обработку данных.
+    ///    - input: Входные данные ноды
     ///    - logContext: Контекст логов.
     ///    - subscriber: Подписчик, который будет получать результат ноды.
     /// - Returns: SwiftConcurrency Task.

@@ -8,7 +8,7 @@
 
 import Combine
 
-/// Протокол ноды, выполняющая обработку данных и возвращающая результат с помощью Combine.
+/// Протокол ноды, описывающий подход преобразования входных данных в результат с помощью Combine.
 public protocol CombineCompatibleNode<I, O> {
     associatedtype I
     associatedtype O
