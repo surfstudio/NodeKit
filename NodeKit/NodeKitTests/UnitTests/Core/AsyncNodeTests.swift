@@ -81,24 +81,103 @@ final class AsyncNodeTests: XCTestCase {
         XCTAssertEqual(value, expectedResult)
     }
     
-    func testCombineNode_thenAsyncCombineNodeBasedOnSutReceived() async throws {
+    @MainActor
+    func testnodeResultPublisher_withPublisherOnMainQueue_thenResultsReceivedOnMainQueue() async {
+        let sut = AsyncNodeMock<Int, Int>()
+        let expectation = expectation(description: #function)
+        
+        var isMainThread = false
+        
+        sut.stubbedAsyncProccessResult = .success(1)
+        
+        // when
+        
+        sut.nodeResultPublisher(for: 1, on: DispatchQueue.main, logContext: logContextMock)
+            .sink(receiveValue: { _ in
+                isMainThread = Thread.isMainThread
+                expectation.fulfill()
+            })
+            .store(in: &cancellable)
+        
+        await fulfillment(of: [expectation], timeout: 3)
+        
+        // then
+        
+        XCTAssertTrue(isMainThread)
+    }
+    
+    func testNodeResultPublisher_onCustomQueue_thenDataReceivedOnCustomQueue() async {
         // given
         
         let sut = AsyncNodeMock<Int, Int>()
         let expectation = expectation(description: #function)
-        let expectedInput = 15
-        let expectedResult = 21
-        let logContext = LoggingContextMock()
+        let expectedQueueName = "Test Process Queue"
+        let queue = DispatchQueue(label: expectedQueueName)
         
-        sut.stubbedAsyncProccessResult = .success(expectedResult)
+        var queueName: String?
         
-        var result: NodeResult<Int>?
+        sut.stubbedAsyncProccessResult = .success(1)
         
         // when
         
-        let node = sut.combineNode()
+        sut.nodeResultPublisher(for: 1, on: queue, logContext: logContextMock)
+            .sink(receiveValue: { _ in
+                queueName = DispatchQueue.currentLabel
+                expectation.fulfill()
+            })
+            .store(in: &cancellable)
         
-        node.nodeResultPublisher(for: expectedInput, on: DispatchQueue.main, logContext: logContext)
+        await fulfillment(of: [expectation], timeout: 3)
+        
+        // then
+        
+        XCTAssertEqual(queueName, expectedQueueName)
+    }
+    
+    @MainActor
+    func testNodeResultPublisher_thenProcessNodeCalled() async throws {
+        // given
+        
+        let sut = AsyncNodeMock<Int, Int>()
+        let expectation = expectation(description: #function)
+        let expectedInput = 7
+        let expectedResult: NodeResult<Int> = .success(8)
+        
+        sut.stubbedAsyncProccessResult = expectedResult
+        
+        // when
+        
+        sut.nodeResultPublisher(for: expectedInput, on: DispatchQueue.main, logContext: logContextMock)
+            .sink(receiveValue: { value in
+                expectation.fulfill()
+            })
+            .store(in: &cancellable)
+        
+        await fulfillment(of: [expectation], timeout: 3)
+        
+        // then
+        
+        let input = try XCTUnwrap(sut.invokedAsyncProcessParameters)
+        
+        XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(input.data, expectedInput)
+    }
+    
+    @MainActor
+    func testNodeResultPublisher_whenResultIsSuccess_thenSuccessResultReceived() async throws {
+        // given
+        
+        let sut = AsyncNodeMock<Int, Int>()
+        let expectation = expectation(description: #function)
+        let expectedResult = 8
+        
+        var result: NodeResult<Int>?
+        
+        sut.stubbedAsyncProccessResult = .success(expectedResult)
+        
+        // when
+        
+        sut.nodeResultPublisher(for: 1, on: DispatchQueue.main, logContext: logContextMock)
             .sink(receiveValue: { value in
                 result = value
                 expectation.fulfill()
@@ -109,13 +188,8 @@ final class AsyncNodeTests: XCTestCase {
         
         // then
         
-        let input = try XCTUnwrap(sut.invokedAsyncProcessParameters)
         let value = try XCTUnwrap(result?.value)
         
-        XCTAssertTrue(node is AsyncCombineNode<Int, Int>)
-        XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(input.data, expectedInput)
-        XCTAssertTrue(input.logContext === logContext)
         XCTAssertEqual(value, expectedResult)
     }
     

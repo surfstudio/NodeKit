@@ -1,5 +1,5 @@
 //
-//  CombineNodeMock.swift
+//  CombineCompatibleNodeMock.swift
 //  NodeKitTests
 //
 //  Created by Andrei Frolov on 03.04.24.
@@ -9,7 +9,7 @@
 import Combine
 import NodeKit
 
-public class CombineNodeMock<Input, Output>: CombineNode {
+public class CombineCompatibleNodeMock<Input, Output>: CombineCompatibleNode {
     
     public struct NodeResultPublisherParameters {
         public let input: Input

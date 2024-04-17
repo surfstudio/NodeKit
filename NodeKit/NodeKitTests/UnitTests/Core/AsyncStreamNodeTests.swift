@@ -117,7 +117,76 @@ final class AsyncStreamNodeTests: XCTestCase {
         )
     }
     
-    func testCombineStreamNode_thenAsyncStreamCombineNodeBasedOnSutReceived() async throws {
+    @MainActor
+    func testProcess_withPublisherOnMainQueue_thenResultsReceivedOnMainQueue() async {
+        // given
+        
+        let sut = AsyncStreamNodeMock<Int, Int>()
+        let expectation = expectation(description: #function)
+        
+        var isMainThread = false
+        
+        sut.stubbedAsyncStreamProccessResult = {
+            AsyncStream { continuation in
+                continuation.yield(.success(100))
+                continuation.finish()
+            }
+        }
+        
+        // when
+        
+        sut.nodeResultPublisher(for: 12, on: DispatchQueue.main, logContext: logContextMock)
+            .sink(receiveValue: { value in
+                isMainThread = Thread.isMainThread
+                expectation.fulfill()
+            })
+            .store(in: &cancellable)
+        
+        await fulfillment(of: [expectation], timeout: 3)
+        
+        // then
+        
+        XCTAssertTrue(isMainThread)
+    }
+    
+    func testProcess_withPublisherOnCustomQueue_thenResultsReceivedOnCustomQueue() async {
+        // given
+        
+        let sut = AsyncStreamNodeMock<Int, Int>()
+        let expectation = expectation(description: #function)
+        let expectedLabel = "Test Process Queue"
+        let queue = DispatchQueue(label: expectedLabel)
+        
+        var isMainThread = false
+        var queueLabel: String?
+        
+        sut.stubbedAsyncStreamProccessResult = {
+            AsyncStream { continuation in
+                continuation.yield(.success(100))
+                continuation.finish()
+            }
+        }
+        
+        // when
+        
+        sut.nodeResultPublisher(for: 12, on: queue, logContext: logContextMock)
+            .sink(receiveValue: { value in
+                isMainThread = Thread.isMainThread
+                queueLabel = DispatchQueue.currentLabel
+                expectation.fulfill()
+            })
+            .store(in: &cancellable)
+        
+        await fulfillment(of: [expectation], timeout: 3)
+        
+        // then
+        
+        XCTAssertFalse(isMainThread)
+        XCTAssertEqual(queueLabel, expectedLabel)
+    }
+    
+    @MainActor
+    func testProcess_thenResultsReceived() async throws {
         // given
         
         let sut = AsyncStreamNodeMock<Int, Int>()
@@ -143,9 +212,7 @@ final class AsyncStreamNodeTests: XCTestCase {
         
         // when
         
-        let node = sut.combineStreamNode()
-        
-        node.nodeResultPublisher(on: DispatchQueue.main)
+        sut.nodeResultPublisher(for: expectedInput, on: DispatchQueue.main, logContext: logContextMock)
             .sink(receiveValue: { value in
                 results.append(value)
                 if results.count == expectedResults.count {
@@ -153,8 +220,6 @@ final class AsyncStreamNodeTests: XCTestCase {
                 }
             })
             .store(in: &cancellable)
-        
-        node.process(expectedInput, logContext: logContextMock)
         
         await fulfillment(of: [expectation], timeout: 3)
         
@@ -165,7 +230,6 @@ final class AsyncStreamNodeTests: XCTestCase {
         XCTAssertEqual(sut.invokedAsyncStreamProcessCount, 1)
         XCTAssertEqual(input.data, expectedInput)
         XCTAssertTrue(input.logContext === logContextMock)
-        XCTAssertTrue(node is AsyncStreamCombineNode<Int, Int>)
         XCTAssertEqual(
             results.compactMap { $0.castToMockError() },
             expectedResults.compactMap { $0.castToMockError() }
