@@ -16,7 +16,7 @@ import Foundation
 public protocol AsyncStreamNode<Input, Output>: LoggableNode, CombineCompatibleNode<Self.Input, Self.Output> {
     associatedtype Input
     associatedtype Output
-    
+
     /// Ассинхронный метод, который содержит логику для обработки данных
     ///
     /// - Parameter data: Входные данные
