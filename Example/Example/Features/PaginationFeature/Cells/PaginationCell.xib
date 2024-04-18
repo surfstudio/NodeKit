@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,32 +29,36 @@
                             <constraint firstAttribute="height" constant="200" id="VII-i6-12K"/>
                         </constraints>
                     </imageView>
-                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="e5b-aw-69J">
-                        <rect key="frame" x="186.5" y="134" width="20" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="1lk-cA-giP"/>
-                            <constraint firstAttribute="width" constant="20" id="s9M-mT-xgZ"/>
-                        </constraints>
-                    </activityIndicatorView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zdI-aF-Ahj" customClass="BaseLoadingView" customModule="Utils">
+                        <rect key="frame" x="32" y="61" width="329" height="200"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="zdI-aF-Ahj" firstAttribute="top" secondItem="gPv-jV-Jn8" secondAttribute="top" id="7TH-m0-mB1"/>
                     <constraint firstAttribute="trailing" secondItem="uWW-fN-vCA" secondAttribute="trailing" constant="16" id="FCK-O9-alr"/>
                     <constraint firstAttribute="bottomMargin" secondItem="gPv-jV-Jn8" secondAttribute="bottom" constant="16" id="KvH-4Z-0Ip"/>
                     <constraint firstItem="uWW-fN-vCA" firstAttribute="leading" secondItem="vVt-RD-khk" secondAttribute="leading" constant="16" id="L5p-HY-q6w"/>
                     <constraint firstItem="uWW-fN-vCA" firstAttribute="top" secondItem="vVt-RD-khk" secondAttribute="top" constant="16" id="NnF-AR-D28"/>
                     <constraint firstItem="gPv-jV-Jn8" firstAttribute="leading" secondItem="vVt-RD-khk" secondAttribute="leadingMargin" constant="16" id="RzO-X4-VIX"/>
+                    <constraint firstItem="zdI-aF-Ahj" firstAttribute="bottom" secondItem="gPv-jV-Jn8" secondAttribute="bottom" id="WVc-SN-SfF"/>
                     <constraint firstAttribute="trailingMargin" secondItem="gPv-jV-Jn8" secondAttribute="trailing" constant="16" id="Z3J-Gw-8lQ"/>
-                    <constraint firstItem="e5b-aw-69J" firstAttribute="centerX" secondItem="vVt-RD-khk" secondAttribute="centerX" id="oIi-pD-vdO"/>
+                    <constraint firstItem="zdI-aF-Ahj" firstAttribute="trailing" secondItem="gPv-jV-Jn8" secondAttribute="trailing" id="gaV-R7-Bmc"/>
                     <constraint firstItem="gPv-jV-Jn8" firstAttribute="top" secondItem="uWW-fN-vCA" secondAttribute="bottom" constant="16" id="t7Z-nQ-Ji7"/>
-                    <constraint firstItem="e5b-aw-69J" firstAttribute="centerY" secondItem="vVt-RD-khk" secondAttribute="centerY" id="zxs-0Z-mCR"/>
+                    <constraint firstItem="zdI-aF-Ahj" firstAttribute="leading" secondItem="gPv-jV-Jn8" secondAttribute="leading" id="xQa-O7-EpZ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="activityIndicator" destination="e5b-aw-69J" id="IaL-W6-QBa"/>
                 <outlet property="icon" destination="gPv-jV-Jn8" id="5Ic-iI-FaR"/>
+                <outlet property="shimmerView" destination="zdI-aF-Ahj" id="vaK-rq-47L"/>
                 <outlet property="titleLabel" destination="uWW-fN-vCA" id="eLr-gG-csM"/>
             </connections>
             <point key="canvasLocation" x="-42.399999999999999" y="61.169415292353825"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

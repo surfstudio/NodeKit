@@ -30,6 +30,7 @@ public actor AsyncPagerIterator<Value>: AsyncIterator, StateStorable {
     // MARK: - AsyncIterator
     
     /// Запрашивает данные у провайдера и при успешном результате обновляет состояние.
+    @discardableResult
     public func next() async -> Result<Value, Error> {
         return await dataProvider.provide(for: currentState.index, with: currentState.pageSize)
             .flatMap { data in

@@ -16,7 +16,7 @@ enum PaginationResponseProvider {
         static let indexKey = "index"
         static let pageSizeKey = "pageSize"
         static let title = "Pagination Item"
-        static let image = "https://picsum.photos/"
+        static let image = "https://loremflickr.com/200/300"
         static let statusCode = 200
         static let itemsCount = 100
     }
@@ -28,7 +28,7 @@ enum PaginationResponseProvider {
         let height = 200 + $0
         return PaginationResponseEntity(
             name: Constants.title + " \($0)",
-            image: Constants.image + "\(width)/\(height)"
+            image: Constants.image + "?random\($0 + 1)"
         )
     }
     

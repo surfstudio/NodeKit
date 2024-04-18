@@ -9,7 +9,7 @@
 import ReactiveDataDisplayManager
 import UIKit
 
-final class FeatureCell: UITableViewCell {
+final class FeatureCell: UITableViewCell, ConfigurableItem {
     
     // MARK: - Constants
     
@@ -26,9 +26,9 @@ final class FeatureCell: UITableViewCell {
     @IBOutlet private weak var contentContainerView: UIView!
     @IBOutlet private weak var titleLabel: UILabel!
     
-    // MARK: - Properties
+    // MARK: - Private Properties
     
-    var didTap: (@MainActor () -> Void)?
+    private var model: FeatureCellViewModel?
     
     // MARK: - Lifecycle
     
@@ -63,8 +63,9 @@ final class FeatureCell: UITableViewCell {
     
     // MARK: - Methods
     
-    func configure(with title: String) {
-        titleLabel.text = title
+    func configure(with model: FeatureCellViewModel) {
+        titleLabel.text = model.title
+        self.model = model
     }
 }
 
@@ -96,6 +97,6 @@ private extension FeatureCell {
     
     @objc
     func tapAction(_ sender: UITapGestureRecognizer) {
-        didTap?()
+        model?.didTap?()
     }
 }

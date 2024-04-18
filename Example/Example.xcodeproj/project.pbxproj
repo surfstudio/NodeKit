@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F175019207B26B20063C67D /* PaginationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F175018207B26B20063C67D /* PaginationCell.xib */; };
 		4F17501B207B276E0063C67D /* PaginationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17501A207B276E0063C67D /* PaginationCell.swift */; };
-		4F17501D207B27B90063C67D /* PaginationCellGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17501C207B27B90063C67D /* PaginationCellGenerator.swift */; };
+		4F17501D207B27B90063C67D /* PaginationCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F17501C207B27B90063C67D /* PaginationCellViewModel.swift */; };
 		4F1DDBD3207B2D2500E0CEB4 /* PaginationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1DDBD2207B2D2500E0CEB4 /* PaginationPresenter.swift */; };
 		4FA424222075D346004AEDF6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA424202075D346004AEDF6 /* Message.swift */; };
 		4FA424232075D346004AEDF6 /* Message.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FA424212075D346004AEDF6 /* Message.xib */; };
@@ -31,7 +30,7 @@
 		5097DF642BCD6E3300D422EE /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5097DF632BCD6E3300D422EE /* LoginViewController.storyboard */; };
 		5097DF662BCD73D700D422EE /* FeatureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DF652BCD73D700D422EE /* FeatureCell.swift */; };
 		5097DF682BCD73E100D422EE /* FeatureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5097DF672BCD73E100D422EE /* FeatureCell.xib */; };
-		5097DF6E2BCD79C300D422EE /* FeatureCellGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DF6D2BCD79C300D422EE /* FeatureCellGenerator.swift */; };
+		5097DF6E2BCD79C300D422EE /* FeatureCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DF6D2BCD79C300D422EE /* FeatureCellViewModel.swift */; };
 		5097DF702BCD7B0500D422EE /* FeatureListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DF6F2BCD7B0500D422EE /* FeatureListPresenter.swift */; };
 		5097DF722BCD7B7400D422EE /* FeatureListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DF712BCD7B7300D422EE /* FeatureListRouter.swift */; };
 		5097DF762BCD8AE400D422EE /* PaginationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DF752BCD8AE400D422EE /* PaginationViewController.swift */; };
@@ -47,10 +46,15 @@
 		5097DFA32BCDADAB00D422EE /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DFA22BCDADAB00D422EE /* Services */; };
 		5097DFA62BCDB0BE00D422EE /* MockServer in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DFA52BCDB0BE00D422EE /* MockServer */; };
 		5097DFB22BCE00AB00D422EE /* GroupViewModelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DFB12BCE00AB00D422EE /* GroupViewModelProvider.swift */; };
+		50B569802BD183F00054DC09 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 50B5697F2BD183F00054DC09 /* Utils */; };
+		50B569832BD184150054DC09 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 50B569822BD184150054DC09 /* Nuke */; };
+		50B569852BD184AD0054DC09 /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 50B569842BD184AD0054DC09 /* NukeExtensions */; };
+		50B569872BD186BB0054DC09 /* PaginationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50B569862BD186BB0054DC09 /* PaginationCell.xib */; };
+		50B569892BD188D80054DC09 /* BaseLoadingSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B569882BD188D80054DC09 /* BaseLoadingSubview.swift */; };
+		50B5698C2BD18F040054DC09 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50B5698B2BD18F040054DC09 /* SnapKit */; };
 		50C445A22BC81FB300C515E6 /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 50C445A12BC81FB300C515E6 /* SwiftMessages */; };
 		50C445A82BC8202700C515E6 /* ReactiveDataDisplayManager in Frameworks */ = {isa = PBXBuildFile; productRef = 50C445A72BC8202700C515E6 /* ReactiveDataDisplayManager */; };
-		50C445AB2BC8212200C515E6 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 50C445AA2BC8212200C515E6 /* AlamofireImage */; };
-		50C445CE2BC8736B00C515E6 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C445CD2BC8736B00C515E6 /* LoadingView.swift */; };
+		50C445CE2BC8736B00C515E6 /* PaginationLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C445CD2BC8736B00C515E6 /* PaginationLoadingView.swift */; };
 		B96CD44D1FDC5B1600F5A107 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CD44C1FDC5B1600F5A107 /* AppDelegate.swift */; };
 		B96CD44F1FDC5B1600F5A107 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96CD44E1FDC5B1600F5A107 /* LoginViewController.swift */; };
 		B96CD4541FDC5B1600F5A107 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B96CD4531FDC5B1600F5A107 /* Assets.xcassets */; };
@@ -59,9 +63,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4F175018207B26B20063C67D /* PaginationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaginationCell.xib; sourceTree = "<group>"; };
 		4F17501A207B276E0063C67D /* PaginationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCell.swift; sourceTree = "<group>"; };
-		4F17501C207B27B90063C67D /* PaginationCellGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCellGenerator.swift; sourceTree = "<group>"; };
+		4F17501C207B27B90063C67D /* PaginationCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCellViewModel.swift; sourceTree = "<group>"; };
 		4F1DDBD2207B2D2500E0CEB4 /* PaginationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationPresenter.swift; sourceTree = "<group>"; };
 		4FA424202075D346004AEDF6 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4FA424212075D346004AEDF6 /* Message.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Message.xib; sourceTree = "<group>"; };
@@ -76,7 +79,7 @@
 		5097DF632BCD6E3300D422EE /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		5097DF652BCD73D700D422EE /* FeatureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCell.swift; sourceTree = "<group>"; };
 		5097DF672BCD73E100D422EE /* FeatureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeatureCell.xib; sourceTree = "<group>"; };
-		5097DF6D2BCD79C300D422EE /* FeatureCellGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCellGenerator.swift; sourceTree = "<group>"; };
+		5097DF6D2BCD79C300D422EE /* FeatureCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCellViewModel.swift; sourceTree = "<group>"; };
 		5097DF6F2BCD7B0500D422EE /* FeatureListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureListPresenter.swift; sourceTree = "<group>"; };
 		5097DF712BCD7B7300D422EE /* FeatureListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureListRouter.swift; sourceTree = "<group>"; };
 		5097DF752BCD8AE400D422EE /* PaginationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationViewController.swift; sourceTree = "<group>"; };
@@ -88,7 +91,9 @@
 		5097DF862BCDA5A300D422EE /* GroupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPresenter.swift; sourceTree = "<group>"; };
 		5097DF882BCDA5B900D422EE /* GroupConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupConfigurator.swift; sourceTree = "<group>"; };
 		5097DFB12BCE00AB00D422EE /* GroupViewModelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModelProvider.swift; sourceTree = "<group>"; };
-		50C445CD2BC8736B00C515E6 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		50B569862BD186BB0054DC09 /* PaginationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaginationCell.xib; sourceTree = "<group>"; };
+		50B569882BD188D80054DC09 /* BaseLoadingSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLoadingSubview.swift; sourceTree = "<group>"; };
+		50C445CD2BC8736B00C515E6 /* PaginationLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationLoadingView.swift; sourceTree = "<group>"; };
 		B96CD4491FDC5B1600F5A107 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B96CD44C1FDC5B1600F5A107 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B96CD44E1FDC5B1600F5A107 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -104,17 +109,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				5097DFA02BCDAD9500D422EE /* Services in Frameworks */,
+				50B569852BD184AD0054DC09 /* NukeExtensions in Frameworks */,
 				5097DF9D2BCDAB2500D422EE /* Models in Frameworks */,
 				50816B2B2BC70ACB00A43F3D /* NodeKit in Frameworks */,
 				5097DFA62BCDB0BE00D422EE /* MockServer in Frameworks */,
 				50C445A82BC8202700C515E6 /* ReactiveDataDisplayManager in Frameworks */,
-				50C445AB2BC8212200C515E6 /* AlamofireImage in Frameworks */,
 				5097DF492BCD62AA00D422EE /* NodeKit in Frameworks */,
 				5097DF442BCD624700D422EE /* NodeKitMock in Frameworks */,
 				5097DF3F2BCD614A00D422EE /* NodeKit in Frameworks */,
 				50C445A22BC81FB300C515E6 /* SwiftMessages in Frameworks */,
+				50B569832BD184150054DC09 /* Nuke in Frameworks */,
+				50B5698C2BD18F040054DC09 /* SnapKit in Frameworks */,
 				50816A1D2BC6E6DE00A43F3D /* NodeKit in Frameworks */,
 				5097DF422BCD624700D422EE /* NodeKit in Frameworks */,
+				50B569802BD183F00054DC09 /* Utils in Frameworks */,
 				5097DFA32BCDADAB00D422EE /* Services in Frameworks */,
 				5097DF4B2BCD62AA00D422EE /* NodeKitMock in Frameworks */,
 			);
@@ -163,7 +171,7 @@
 			children = (
 				5097DF652BCD73D700D422EE /* FeatureCell.swift */,
 				5097DF672BCD73E100D422EE /* FeatureCell.xib */,
-				5097DF6D2BCD79C300D422EE /* FeatureCellGenerator.swift */,
+				5097DF6D2BCD79C300D422EE /* FeatureCellViewModel.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -202,9 +210,10 @@
 		5097DF7B2BCD8B3700D422EE /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				4F17501C207B27B90063C67D /* PaginationCellGenerator.swift */,
-				4F175018207B26B20063C67D /* PaginationCell.xib */,
+				50B569862BD186BB0054DC09 /* PaginationCell.xib */,
+				4F17501C207B27B90063C67D /* PaginationCellViewModel.swift */,
 				4F17501A207B276E0063C67D /* PaginationCell.swift */,
+				50B569882BD188D80054DC09 /* BaseLoadingSubview.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -212,7 +221,7 @@
 		5097DF7C2BCD8BAA00D422EE /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				50C445CD2BC8736B00C515E6 /* LoadingView.swift */,
+				50C445CD2BC8736B00C515E6 /* PaginationLoadingView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -299,7 +308,6 @@
 				50816B2A2BC70ACB00A43F3D /* NodeKit */,
 				50C445A12BC81FB300C515E6 /* SwiftMessages */,
 				50C445A72BC8202700C515E6 /* ReactiveDataDisplayManager */,
-				50C445AA2BC8212200C515E6 /* AlamofireImage */,
 				5097DF3E2BCD614A00D422EE /* NodeKit */,
 				5097DF412BCD624700D422EE /* NodeKit */,
 				5097DF432BCD624700D422EE /* NodeKitMock */,
@@ -309,6 +317,10 @@
 				5097DF9F2BCDAD9500D422EE /* Services */,
 				5097DFA22BCDADAB00D422EE /* Services */,
 				5097DFA52BCDB0BE00D422EE /* MockServer */,
+				50B5697F2BD183F00054DC09 /* Utils */,
+				50B569822BD184150054DC09 /* Nuke */,
+				50B569842BD184AD0054DC09 /* NukeExtensions */,
+				50B5698B2BD18F040054DC09 /* SnapKit */,
 			);
 			productName = Example;
 			productReference = B96CD4491FDC5B1600F5A107 /* Example.app */;
@@ -342,11 +354,13 @@
 			packageReferences = (
 				50C445A02BC81FB300C515E6 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 				50C445A62BC8202600C515E6 /* XCRemoteSwiftPackageReference "ReactiveDataDisplayManager" */,
-				50C445A92BC8212200C515E6 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 				5097DF472BCD62AA00D422EE /* XCLocalSwiftPackageReference "../NodeKit" */,
 				5097DF9B2BCDAB2500D422EE /* XCLocalSwiftPackageReference "Models" */,
 				5097DFA12BCDADAB00D422EE /* XCLocalSwiftPackageReference "Services" */,
 				5097DFA42BCDB0BE00D422EE /* XCLocalSwiftPackageReference "MockServer" */,
+				50B5697E2BD183F00054DC09 /* XCRemoteSwiftPackageReference "iOS-Utils" */,
+				50B569812BD184150054DC09 /* XCRemoteSwiftPackageReference "Nuke" */,
+				50B5698A2BD18F040054DC09 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = B96CD44A1FDC5B1600F5A107 /* Products */;
 			projectDirPath = "";
@@ -364,13 +378,13 @@
 			files = (
 				B96CD4571FDC5B1600F5A107 /* LaunchScreen.storyboard in Resources */,
 				4FA424232075D346004AEDF6 /* Message.xib in Resources */,
+				50B569872BD186BB0054DC09 /* PaginationCell.xib in Resources */,
 				5097DF562BCD666000D422EE /* FeatureListViewController.storyboard in Resources */,
 				5097DF7A2BCD8B1300D422EE /* PaginationViewController.storyboard in Resources */,
 				5097DF852BCDA58C00D422EE /* GroupViewController.storyboard in Resources */,
 				B96CD4541FDC5B1600F5A107 /* Assets.xcassets in Resources */,
 				5097DF682BCD73E100D422EE /* FeatureCell.xib in Resources */,
 				5097DF642BCD6E3300D422EE /* LoginViewController.storyboard in Resources */,
-				4F175019207B26B20063C67D /* PaginationCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,10 +395,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50B569892BD188D80054DC09 /* BaseLoadingSubview.swift in Sources */,
 				B97D3E5C1FDC83950039DB92 /* LoginPresenter.swift in Sources */,
-				5097DF6E2BCD79C300D422EE /* FeatureCellGenerator.swift in Sources */,
+				5097DF6E2BCD79C300D422EE /* FeatureCellViewModel.swift in Sources */,
 				B96CD44F1FDC5B1600F5A107 /* LoginViewController.swift in Sources */,
-				50C445CE2BC8736B00C515E6 /* LoadingView.swift in Sources */,
+				50C445CE2BC8736B00C515E6 /* PaginationLoadingView.swift in Sources */,
 				4FA424222075D346004AEDF6 /* Message.swift in Sources */,
 				5097DF722BCD7B7400D422EE /* FeatureListRouter.swift in Sources */,
 				5097DF502BCD641D00D422EE /* LoginRouter.swift in Sources */,
@@ -406,7 +421,7 @@
 				4F17501B207B276E0063C67D /* PaginationCell.swift in Sources */,
 				5097DFB22BCE00AB00D422EE /* GroupViewModelProvider.swift in Sources */,
 				5097DF522BCD65E600D422EE /* FeatureListConfigurator.swift in Sources */,
-				4F17501D207B27B90063C67D /* PaginationCellGenerator.swift in Sources */,
+				4F17501D207B27B90063C67D /* PaginationCellViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,6 +630,30 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		50B5697E2BD183F00054DC09 /* XCRemoteSwiftPackageReference "iOS-Utils" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/surfstudio/iOS-Utils";
+			requirement = {
+				kind = exactVersion;
+				version = 13.2.0;
+			};
+		};
+		50B569812BD184150054DC09 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = exactVersion;
+				version = 12.5.0;
+			};
+		};
+		50B5698A2BD18F040054DC09 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = exactVersion;
+				version = 5.7.1;
+			};
+		};
 		50C445A02BC81FB300C515E6 /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages";
@@ -629,14 +668,6 @@
 			requirement = {
 				kind = exactVersion;
 				version = 7.4.0;
-			};
-		};
-		50C445A92BC8212200C515E6 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
-			requirement = {
-				kind = exactVersion;
-				version = 4.3.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -686,6 +717,26 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = MockServer;
 		};
+		50B5697F2BD183F00054DC09 /* Utils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50B5697E2BD183F00054DC09 /* XCRemoteSwiftPackageReference "iOS-Utils" */;
+			productName = Utils;
+		};
+		50B569822BD184150054DC09 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50B569812BD184150054DC09 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		50B569842BD184AD0054DC09 /* NukeExtensions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50B569812BD184150054DC09 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeExtensions;
+		};
+		50B5698B2BD18F040054DC09 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50B5698A2BD18F040054DC09 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		50C445A12BC81FB300C515E6 /* SwiftMessages */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 50C445A02BC81FB300C515E6 /* XCRemoteSwiftPackageReference "SwiftMessages" */;
@@ -695,11 +746,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 50C445A62BC8202600C515E6 /* XCRemoteSwiftPackageReference "ReactiveDataDisplayManager" */;
 			productName = ReactiveDataDisplayManager;
-		};
-		50C445AA2BC8212200C515E6 /* AlamofireImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 50C445A92BC8212200C515E6 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
-			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

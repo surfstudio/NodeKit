@@ -44,28 +44,22 @@ private extension FeatureListPresenter {
     
     func makeGenerators() -> [TableCellGenerator] {
         return [
-            makePaginationGenerator(),
-            makeRequestsChainGenerator()
-        ]
+            makePaginationViewModel(),
+            makeGroupOfRequestsViewModel()
+        ].map {
+            FeatureCell.rddm.baseGenerator(with: $00)
+        }
     }
     
-    func makePaginationGenerator() -> TableCellGenerator {
-        let generator = FeatureCellGenerator("Pagination")
-        
-        generator.didTap = { [weak self] in
-            self?.router.showPagination()
-        }
-        
-        return generator
+    func makePaginationViewModel() -> FeatureCellViewModel {
+        let viewModel = FeatureCellViewModel("Pagination")
+        viewModel.didTap = { [weak self] in self?.router.showPagination() }
+        return viewModel
     }
     
-    func makeRequestsChainGenerator() -> TableCellGenerator {
-        let generator = FeatureCellGenerator("Group of requests")
-        
-        generator.didTap = { [weak self] in
-            self?.router.showGroup()
-        }
-        
-        return generator
+    func makeGroupOfRequestsViewModel() -> FeatureCellViewModel {
+        let viewModel = FeatureCellViewModel("Group of requests")
+        viewModel.didTap = { [weak self] in self?.router.showGroup() }
+        return viewModel
     }
 }

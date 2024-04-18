@@ -6,11 +6,13 @@
 //  Copyright © 2018 Кравченков Александр. All rights reserved.
 //
 
-import AlamofireImage
 import Foundation
+import NukeExtensions
+import ReactiveDataDisplayManager
 import UIKit
+import Utils
 
-final class PaginationCell: UITableViewCell {
+final class PaginationCell: UITableViewCell, ConfigurableItem {
     
     // MARK: - Constants
     
@@ -22,7 +24,7 @@ final class PaginationCell: UITableViewCell {
     // MARK: - Subviews
     
     @IBOutlet private weak var icon: UIImageView!
-    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var shimmerView: BaseLoadingView!
     @IBOutlet private weak var titleLabel: UILabel!
     
     // MARK: - Lifecycle
@@ -30,25 +32,56 @@ final class PaginationCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         icon.layer.cornerRadius = Constants.cornerRadius
+        shimmerView.layer.cornerRadius = Constants.cornerRadius
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         icon.image = nil
-        activityIndicator.startAnimating()
-        activityIndicator?.isHidden = false
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        configureShimmerView()
     }
     
     // MARK: - Methods
     
-    func configure(name: String, url: String) {
-        titleLabel.text = name
-        icon.af.setImage(
-            withURL: URL(string: url)!,
-            imageTransition: .crossDissolve(Constants.imageTransitionDuration)
-        ) { [weak self] _ in
-            self?.activityIndicator?.stopAnimating()
-            self?.activityIndicator?.isHidden = true
-        }
+    func configure(with model: PaginationCellViewModel) {
+        startShimmer()
+        titleLabel.text = model.name
+        loadImage(with: URL(string: model.url)!, into: icon, completion: { [weak self] _ in
+            self?.stopShimmer()
+        })
+    }
+}
+
+// MARK: - Private Methods
+
+private extension PaginationCell {
+    
+    func configureShimmerView() {
+        shimmerView.configure(blocks: makeShimmerBlocks(), config: makeShimmerConfig())
+    }
+    
+    func makeShimmerBlocks() -> [LoadingViewBlock] {
+        let model = BaseLoadingSubviewModel(height: icon.frame.height, cornerRadius: Constants.cornerRadius)
+        return [
+            BaseLoadingViewBlock<BaseLoadingSubview>(model: model)
+        ]
+    }
+    
+    func makeShimmerConfig() -> LoadingViewConfig {
+        return LoadingViewConfig (placeholderColor: .gray.withAlphaComponent(0.2))
+    }
+    
+    func startShimmer() {
+        shimmerView.setNeedAnimating(true)
+        shimmerView.isHidden = false
+    }
+    
+    func stopShimmer() {
+        shimmerView.setNeedAnimating(false)
+        shimmerView.isHidden = true
     }
 }

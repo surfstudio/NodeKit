@@ -14,11 +14,11 @@ enum GroupResponseProvider {
     
     private enum Constants {
         static let headerText = "Header"
-        static let headerImage = "https://picsum.photos/400/400"
+        static let headerImage = "https://loremflickr.com/500/500?random1"
         static let bodyText = "Body"
-        static let bodyImage = "https://picsum.photos/450/450"
+        static let bodyImage = "https://loremflickr.com/500/500?random2"
         static let footerText = "Footer"
-        static let footerImage = "https://picsum.photos/500/500"
+        static let footerImage = "https://loremflickr.com/500/500?random3"
         static let statusCode = 200
     }
     

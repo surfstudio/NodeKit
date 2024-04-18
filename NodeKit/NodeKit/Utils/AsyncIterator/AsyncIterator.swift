@@ -9,6 +9,7 @@ public protocol AsyncIterator<Value>: Actor {
     associatedtype Value
     
     /// Запрос следующих данных
+    @discardableResult
     func next() async -> Result<Value, Error>
     
     /// Показывает есть ли еще данные

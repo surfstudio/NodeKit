@@ -15,6 +15,8 @@ protocol PaginationViewInput: AnyObject {
     func add(generators: [TableCellGenerator])
     func disablePagination()
     func enablePagination()
+    func showPaginationLoading()
+    func hidePaginationLoading()
 }
 
 final class PaginationViewController: UIViewController {
@@ -23,7 +25,7 @@ final class PaginationViewController: UIViewController {
     
     @IBOutlet private weak var tableView: UITableView!
     
-    private let loadingView = LoadingView()
+    private let loadingView = PaginationLoadingView()
     private let refreshControl = UIRefreshControl()
     
     // MARK: - Private Properties
@@ -94,6 +96,14 @@ extension PaginationViewController: PaginationViewInput {
     
     func enablePagination() {
         paginationPlugin.updatePagination(canIterate: true)
+    }
+    
+    func showPaginationLoading() {
+        paginationPlugin.updateProgress(isLoading: true)
+    }
+    
+    func hidePaginationLoading() {
+        paginationPlugin.updateProgress(isLoading: false)
     }
 }
 

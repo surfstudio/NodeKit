@@ -47,7 +47,7 @@ final class AsyncPagerIteratorTests: XCTestCase {
 
         // when
         
-        _ = await sut.next()
+        await sut.next()
 
         // then
         
@@ -67,8 +67,8 @@ final class AsyncPagerIteratorTests: XCTestCase {
 
         // when
         
-        _ = await sut.next()
-        _ = await sut.next()
+        await sut.next()
+        await sut.next()
 
         // then
         
@@ -126,7 +126,7 @@ final class AsyncPagerIteratorTests: XCTestCase {
 
         // when
         
-        _ = await sut.next()
+        await sut.next()
         let hasNext = await sut.hasNext()
 
         // then
@@ -144,7 +144,7 @@ final class AsyncPagerIteratorTests: XCTestCase {
 
         // when
         
-        _ = await sut.next()
+        await sut.next()
         let hasNext = await sut.hasNext()
 
         // then
@@ -162,7 +162,7 @@ final class AsyncPagerIteratorTests: XCTestCase {
 
         // when
         
-        _ = await sut.next()
+        await sut.next()
         let hasNext = await sut.hasNext()
 
         // then
@@ -177,7 +177,7 @@ final class AsyncPagerIteratorTests: XCTestCase {
 
         // when
         
-        _ = await sut.next()
+        await sut.next()
         let hasNext = await sut.hasNext()
 
         // then
@@ -194,12 +194,10 @@ final class AsyncPagerIteratorTests: XCTestCase {
 
         // when
         
-        _ = await sut.next()
-        _ = await sut.next()
-        
+        await sut.next()
+        await sut.next()
         await sut.renew()
-        
-        _ = await sut.next()
+        await sut.next()
 
         // then
         
@@ -220,13 +218,10 @@ final class AsyncPagerIteratorTests: XCTestCase {
         // when
         
         await sut.saveState()
-        
-        _ = await sut.next()
-        _ = await sut.next()
-        
+        await sut.next()
+        await sut.next()
         await sut.restoreState()
-        
-        _ = await sut.next()
+        await sut.next()
 
         // then
         
@@ -247,20 +242,13 @@ final class AsyncPagerIteratorTests: XCTestCase {
         // when
         
         await sut.saveState()
-        
-        _ = await sut.next()
-        
+        await sut.next()
         await sut.saveState()
-        
-        _ = await sut.next()
-
+        await sut.next()
         await sut.restoreState()
-        
-        _ = await sut.next()
-        
+        await sut.next()
         await sut.restoreState()
-        
-        _ = await sut.next()
+        await sut.next()
 
         // then
         
@@ -281,14 +269,11 @@ final class AsyncPagerIteratorTests: XCTestCase {
         // when
         
         await sut.saveState()
-        
-        _ = await sut.next()
-        _ = await sut.next()
-        
+        await sut.next()
+        await sut.next()
         await sut.clearStates()
         await sut.restoreState()
-        
-        _ = await sut.next()
+        await sut.next()
 
         // then
         

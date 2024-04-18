@@ -48,9 +48,11 @@ extension PaginationPresenter: PaginationViewOutput {
     
     func nextPageRequested() {
         Task {
+            await input?.showPaginationLoading()
             if let generators = await next()?.value {
                 await input?.add(generators: generators)
             }
+            await input?.hidePaginationLoading()
         }
     }
     
@@ -85,7 +87,8 @@ private extension PaginationPresenter {
         return await iterator.next()
             .map { models in
                 return models.map {
-                    return PaginationCellGenerator(name: $0.name, url: $0.image)
+                    let viewModel = PaginationCellViewModel(name: $0.name, url: $0.image)
+                    return PaginationCell.rddm.baseGenerator(with: viewModel)
                 }
             }
             .asyncFlatMapError {

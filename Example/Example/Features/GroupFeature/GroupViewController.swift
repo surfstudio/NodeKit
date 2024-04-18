@@ -6,6 +6,7 @@
 //  Copyright © 2024 Кравченков Александр. All rights reserved.
 //
 
+import NukeExtensions
 import UIKit
 
 struct GroupViewModel {
@@ -57,9 +58,9 @@ extension GroupViewController: GroupViewInput {
         headerTitleLabel.text = model.headerTitle
         bodyTitleLabel.text = model.bodyTitle
         footerTitleLabel.text = model.footerTitle
-        headerImageView.af.setImage(withURL: URL(string: model.headerImage)!)
-        bodyImageView.af.setImage(withURL: URL(string: model.bodyImage)!)
-        footerImageView.af.setImage(withURL: URL(string: model.footerImage)!)
+        loadImage(with: URL(string: model.headerImage)!, into: headerImageView)
+        loadImage(with: URL(string: model.bodyImage)!, into: bodyImageView)
+        loadImage(with: URL(string: model.footerImage)!, into: footerImageView)
     }
     
     func showLoader() {
