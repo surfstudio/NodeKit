@@ -51,11 +51,13 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
         _ data: RoutableRequestModel<URLRouteProvider, Raw>,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        return await .withMappedExceptions {
-            return try await transform(from: data)
-                .asyncFlatMap { result in
-                    return await next.process(result, logContext: logContext)
-                }
+        await .withMappedExceptions {
+            try await transform(from: data)
+        }
+        .asyncFlatMap { result in
+            await .withCheckedCancellation {
+                await next.process(result, logContext: logContext)
+            }
         }
     }
 

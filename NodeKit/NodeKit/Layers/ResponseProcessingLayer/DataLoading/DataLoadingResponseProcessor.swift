@@ -29,7 +29,9 @@ open class DataLoadingResponseProcessor: AsyncNode {
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Data> {
-        return await next?.process(data, logContext: logContext)
-            .map { data.data } ?? .success(data.data)
+        await .withCheckedCancellation {
+            await next?.process(data, logContext: logContext)
+                .map { data.data } ?? .success(data.data)
+        }
     }
 }

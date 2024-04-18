@@ -53,7 +53,9 @@ private extension GroupPresenter {
                 await input?.hideLoader()
                 await input?.update(with: viewModel)
             } catch {
-                await input?.show(error: error)
+                if !(error is CancellationError) {
+                    await input?.show(error: error)
+                }
             }
         }
     }

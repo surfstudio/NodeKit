@@ -27,15 +27,19 @@ open class MultipartURLRequestTrasformatorNode<Type>: AsyncNode {
         _ data: RoutableRequestModel<URLRouteProvider, MultipartModel<[String : Data]>>,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Type> {
-        return await .withMappedExceptions {
-            let url = try data.route.url()
-            let request = MultipartURLRequest(
-                method: method,
-                url: url,
-                headers: data.metadata,
-                data: data.raw
-            )
-            return await next.process(request, logContext: logContext)
+        await .withMappedExceptions {
+            .success(try data.route.url())
+        }
+        .asyncFlatMap { url in
+            await .withCheckedCancellation {
+                let request = MultipartURLRequest(
+                    method: method,
+                    url: url,
+                    headers: data.metadata,
+                    data: data.raw
+                )
+                return await next.process(request, logContext: logContext)
+            }
         }
     }
 }

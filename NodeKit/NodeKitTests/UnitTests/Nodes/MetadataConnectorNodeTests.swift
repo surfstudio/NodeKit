@@ -113,4 +113,56 @@ final class MetadataConnectorNodeTests: XCTestCase {
         
         XCTAssertEqual(error, .firstError)
     }
+    
+    func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let sut = MetadataConnectorNode(next: nextNodeMock, metadata: [:])
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        
+        // when
+        
+        let task = Task {
+            try? await Task.sleep(nanoseconds: 100 * 1000)
+            return await sut.process(1,logContext: logContextMock)
+        }
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
+    
+    func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let sut = MetadataConnectorNode(next: nextNodeMock, metadata: [:])
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        nextNodeMock.stubbedAsyncProcessRunFunction = {
+            try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)
+        }
+        
+        // when
+        
+        let task = Task {
+            await sut.process(1,logContext: logContextMock)
+        }
+        
+        try? await Task.sleep(nanoseconds: 100 * 1000)
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
 }

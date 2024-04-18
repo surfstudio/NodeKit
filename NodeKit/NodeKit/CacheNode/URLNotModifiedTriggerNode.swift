@@ -41,17 +41,19 @@ open class URLNotModifiedTriggerNode: AsyncNode {
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
-        guard data.response.statusCode == 304 else {
-            await logContext.add(makeErrorLog(code: data.response.statusCode))
-            return await next.process(data, logContext: logContext)
+        await .withCheckedCancellation {
+            guard data.response.statusCode == 304 else {
+                await logContext.add(makeErrorLog(code: data.response.statusCode))
+                return await next.process(data, logContext: logContext)
+            }
+
+            await logContext.add(makeSuccessLog())
+
+            return await cacheReader.process(
+                URLNetworkRequest(urlRequest: data.request),
+                logContext: logContext
+            )
         }
-
-        await logContext.add(makeSuccessLog())
-
-        return await cacheReader.process(
-            URLNetworkRequest(urlRequest: data.request),
-            logContext: logContext
-        )
     }
 
     // MARK: - Private Methods

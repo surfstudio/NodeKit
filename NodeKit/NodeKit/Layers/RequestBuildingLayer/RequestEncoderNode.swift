@@ -44,13 +44,14 @@ open class RequestEncoderNode<Raw, Route, Encoding, Output>: AsyncNode {
         _ data: RoutableRequestModel<Route, Raw>,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        let model = EncodableRequestModel(
-            metadata: data.metadata,
-            raw: data.raw,
-            route: data.route,
-            encoding: encoding
-        )
-        return await next.process(model, logContext: logContext)
+        await .withCheckedCancellation {
+            let model = EncodableRequestModel(
+                metadata: data.metadata,
+                raw: data.raw,
+                route: data.route,
+                encoding: encoding
+            )
+            return await next.process(model, logContext: logContext)
+        }
     }
-
 }

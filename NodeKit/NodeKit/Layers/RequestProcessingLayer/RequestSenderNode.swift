@@ -49,20 +49,22 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
         _ request: URLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Type> {
-        var log = Log(logViewObjectName, id: objectName, order: LogOrder.requestSenderNode)
-        
-        async let nodeResponse = nodeResponse(request, logContext: logContext)
-        
-        log += "Request sended!"
-        
-        let response = await nodeResponse
-        
-        log += "Get response!)"
-        
-        let result = await rawResponseProcessor.process(response, logContext: logContext)
+        await .withCheckedCancellation {
+            var log = Log(logViewObjectName, id: objectName, order: LogOrder.requestSenderNode)
+            
+            async let nodeResponse = nodeResponse(request, logContext: logContext)
+            
+            log += "Request sended!"
+            
+            let response = await nodeResponse
+            
+            log += "Get response!)"
+            
+            let result = await rawResponseProcessor.process(response, logContext: logContext)
 
-        await logContext.add(log)
-        return result
+            await logContext.add(log)
+            return result
+        }
     }
 
     open func cancel(logContext: LoggingContextProtocol) {

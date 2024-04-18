@@ -31,10 +31,18 @@ public class ModelInputNode<Input, Output>: AsyncNode where Input: DTOEncodable,
         _ data: Input,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        return await .withMappedExceptions {
-            let data = try data.toDTO()
-            return try await next.process(data, logContext: logContext)
-                .map { try Output.from(dto: $0) }
+        await .withMappedExceptions {
+            .success(try data.toDTO())
+        }
+        .asyncFlatMap { dto in
+            await .withCheckedCancellation {
+                await next.process(dto, logContext: logContext)
+            }
+        }
+        .asyncFlatMap { dto in
+            await .withMappedExceptions {
+                .success(try Output.from(dto: dto))
+            }
         }
     }
 }

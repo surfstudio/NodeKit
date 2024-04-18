@@ -46,21 +46,13 @@ open class AborterNode<Input, Output>: AsyncNode {
         _ data: Input,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        return await .withMappedExceptions {
-            try Task.checkCancellation()
-            return .success(())
-        }
-        .asyncFlatMap {
-            return await withTaskCancellationHandler(
-                operation: {
-                    return await .withMappedExceptions {
-                        let result = await next.process(data, logContext: logContext)
-                        try Task.checkCancellation()
-                        return result
-                    }
-                },
-                onCancel: { aborter.cancel(logContext: logContext) }
-            )
-        }
+        await withTaskCancellationHandler(
+            operation: {
+                await .withCheckedCancellation {
+                    await next.process(data, logContext: logContext)
+                }
+            },
+            onCancel: { aborter.cancel(logContext: logContext) }
+        )
     }
 }

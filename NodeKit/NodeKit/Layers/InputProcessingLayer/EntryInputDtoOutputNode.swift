@@ -21,13 +21,19 @@ open class EntryInputDtoOutputNode<Input, Output>: AsyncNode
         _ data: Input,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        return await .withMappedExceptions {
-            let raw = try data.toRaw()
-            return try await next.process(raw, logContext: logContext).map {
-                let dto = try Output.DTO.from(raw: $0)
-                return try Output.from(dto: dto)
+        await .withMappedExceptions {
+            .success(try data.toRaw())
+        }
+        .asyncFlatMap { raw in
+            await .withCheckedCancellation {
+                await next.process(raw, logContext: logContext)
+            }
+        }
+        .asyncFlatMap { raw in
+            await .withMappedExceptions {
+                let dto = try Output.DTO.from(raw: raw)
+                return .success(try Output.from(dto: dto))
             }
         }
     }
-
 }

@@ -71,4 +71,36 @@ final class URLCacheWriterNodeTest: XCTestCase {
         XCTAssertEqual(cachedResponse.storagePolicy, .allowed)
         XCTAssertNotNil(result.value)
     }
+    
+    func testAsyncProcess_withCancelTask_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let url = URL(string: "http://example.test")!
+        let request = URLRequest(url: url)
+        let urlResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!
+        let urlDataResponse = UrlDataResponse(
+            request: request,
+            response: urlResponse,
+            data: Data(),
+            metrics: nil,
+            serializationDuration: 1
+        )
+        let input = UrlProcessedResponse(dataResponse: urlDataResponse, json: [:])
+        
+        // when
+        
+        let task = Task {
+            try? await Task.sleep(nanoseconds: 100 * 1000)
+            return await sut.process(input, logContext: LoggingContextMock())
+        }
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
 }

@@ -175,4 +175,28 @@ final class CacheReaderNodeTests: XCTestCase {
 
         XCTAssertEqual(error, .cantCastToJson)
     }
+    
+    func testAsyncProcess_withCancelTask_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let url = URL(string: "http://example.test")!
+        let request = URLRequest(url: url)
+        let model = UrlNetworkRequest(urlRequest: request)
+        
+        // when
+        
+        let task = Task {
+            try? await Task.sleep(nanoseconds: 100 * 1000)
+            return await sut.process(model, logContext: LoggingContextMock())
+        }
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
 }

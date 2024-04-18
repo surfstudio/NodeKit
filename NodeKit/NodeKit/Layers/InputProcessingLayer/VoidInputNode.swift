@@ -26,6 +26,8 @@ open class VoidInputNode<Output>: AsyncNode {
         _ data: Void,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        return await next.process(Json(), logContext: logContext)
+        await .withCheckedCancellation {
+            await next.process(Json(), logContext: logContext)
+        }
     }
 }

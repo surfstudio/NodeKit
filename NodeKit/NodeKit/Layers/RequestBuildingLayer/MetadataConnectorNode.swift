@@ -31,9 +31,11 @@ open class MetadataConnectorNode<Raw, Output>: AsyncNode {
         _ data: Raw,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        return await next.process(
-            RequestModel(metadata: metadata, raw: data),
-            logContext: logContext
-        )
+        await .withCheckedCancellation {
+            await next.process(
+                RequestModel(metadata: metadata, raw: data),
+                logContext: logContext
+            )
+        }
     }
 }

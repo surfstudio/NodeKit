@@ -43,20 +43,22 @@ open class TechnicaErrorMapperNode: AsyncNode {
         _ data: URLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
-        return await next.process(data, logContext: logContext)
-            .mapError { error in
-                switch (error as NSError).code {
-                case -1020:
-                    return BaseTechnicalError.dataNotAllowed
-                case -1009:
-                    return BaseTechnicalError.noInternetConnection
-                case -1001:
-                    return BaseTechnicalError.timeout
-                case -1004:
-                    return BaseTechnicalError.cantConnectToHost
-                default:
-                    return error
+        await .withCheckedCancellation {
+            await next.process(data, logContext: logContext)
+                .mapError { error in
+                    switch (error as NSError).code {
+                    case -1020:
+                        return BaseTechnicalError.dataNotAllowed
+                    case -1009:
+                        return BaseTechnicalError.noInternetConnection
+                    case -1001:
+                        return BaseTechnicalError.timeout
+                    case -1004:
+                        return BaseTechnicalError.cantConnectToHost
+                    default:
+                        return error
+                    }
                 }
-            }
+        }
     }
 }

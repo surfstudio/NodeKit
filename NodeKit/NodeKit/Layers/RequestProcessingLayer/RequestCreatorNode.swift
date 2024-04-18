@@ -24,19 +24,21 @@ open class RequestCreatorNode<Output>: AsyncNode {
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        var mergedHeaders = data.headers
+        await .withCheckedCancellation {
+            var mergedHeaders = data.headers
 
-        providers.map { $0.metadata() }.forEach { dict in
-            mergedHeaders.merge(dict, uniquingKeysWith: { $1 })
+            providers.map { $0.metadata() }.forEach { dict in
+                mergedHeaders.merge(dict, uniquingKeysWith: { $1 })
+            }
+
+            var request = URLRequest(url: data.url)
+            request.httpMethod = data.method.rawValue
+            request.httpBody = data.raw
+            mergedHeaders.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
+
+            await logContext.add(getLogMessage(data))
+            return await next.process(request, logContext: logContext)
         }
-
-        var request = URLRequest(url: data.url)
-        request.httpMethod = data.method.rawValue
-        request.httpBody = data.raw
-        mergedHeaders.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
-
-        await logContext.add(getLogMessage(data))
-        return await next.process(request, logContext: logContext)
     }
 
     private func getLogMessage(_ data: TransportURLRequest) -> Log {

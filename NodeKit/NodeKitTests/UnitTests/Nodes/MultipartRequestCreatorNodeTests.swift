@@ -341,4 +341,71 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
         let error = try XCTUnwrap(result.error as? MockError)
         XCTAssertEqual(error, .thirdError)
     }
+    
+    func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let model = MultipartUrlRequest(
+            method: .get,
+            url: URL(string: "www.testprocess.com")!,
+            headers: [:],
+            data: MultipartModel<[String: Data]>(payloadModel: [:])
+        )
+        
+        multipartFormDataMock.stubbedContentTypeResult = ""
+        multipartFormDataMock.stubbedEncodeResult = .success(Data())
+        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        
+        // when
+        
+        let task = Task {
+            try? await Task.sleep(nanoseconds: 100 * 1000)
+            return await sut.process(model, logContext: LoggingContextMock())
+        }
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
+    
+    func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let model = MultipartUrlRequest(
+            method: .get,
+            url: URL(string: "www.testprocess.com")!,
+            headers: [:],
+            data: MultipartModel<[String: Data]>(payloadModel: [:])
+        )
+        
+        multipartFormDataMock.stubbedContentTypeResult = ""
+        multipartFormDataMock.stubbedEncodeResult = .success(Data())
+        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+        
+        nextNodeMock.stubbedAsyncProcessRunFunction = {
+            try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)
+        }
+        
+        // when
+        
+        let task = Task {
+            await sut.process(model, logContext: LoggingContextMock())
+        }
+        
+        try? await Task.sleep(nanoseconds: 100 * 1000)
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
 }

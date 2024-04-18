@@ -29,8 +29,13 @@ open class RawEncoderNode<Input, Output>: AsyncNode where Input: RawEncodable {
         _ data: Input,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        return await .withMappedExceptions {
-            return await next.process(try data.toRaw(), logContext: logContext)
+        await .withMappedExceptions {
+            .success(try data.toRaw())
+        }
+        .asyncFlatMap { raw in
+            await .withCheckedCancellation {
+                await next.process(raw, logContext: logContext)
+            }
         }
     }
 }
