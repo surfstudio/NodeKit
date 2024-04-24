@@ -14,11 +14,6 @@ public protocol TokenRefresherActorProtocol: Actor {
     /// - Parameter logContext: контекст для записи логов
     /// - Returns результат обновления токена
     func refresh(logContext: LoggingContextProtocol) async -> NodeResult<Void>
-    
-    /// Обновлят цепочку обновления токена
-    ///
-    /// - Parameter tokenRefreshChain: цепочка обновления токена
-    func update(tokenRefreshChain: some AsyncNode<Void, Void>)
 }
 
 /// Релизация протокола актора для создания таски обновления токена
@@ -50,13 +45,6 @@ actor TokenRefresherActor: TokenRefresherActorProtocol {
             return await resultFromNewTask(logContext: logContext)
         }
         return await task.value
-    }
-
-    /// Обновлят цепочку обновления токена
-    ///
-    /// - Parameter tokenRefreshChain: цепочка обновления токена
-    func update(tokenRefreshChain: some AsyncNode<Void, Void>) {
-        self.tokenRefreshChain = tokenRefreshChain
     }
     
     private func resultFromNewTask(logContext: LoggingContextProtocol) async -> NodeResult<Void> {

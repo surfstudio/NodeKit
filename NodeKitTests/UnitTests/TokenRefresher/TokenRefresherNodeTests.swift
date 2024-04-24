@@ -32,7 +32,6 @@ public class TokenRefresherNodeTests: XCTestCase {
         logContextMock = LoggingContextMock()
         tokenRefreshChainMock = AsyncNodeMock()
         sut = TokenRefresherNode(
-            tokenRefreshChain: tokenRefreshChainMock,
             tokenRefresherActor: tokenRefresherActorMock
         )
     }

@@ -13,17 +13,21 @@ import Foundation
 /// Ответ возращает в той очереди, из которой узел был вызыван.
 open class TokenRefresherNode: AsyncNode {
 
-    /// Цепочка для обновления токена.
-    public let tokenRefreshChain: any AsyncNode<Void, Void>
+    /// Актор для обновления токена.
     private let tokenRefresherActor: TokenRefresherActorProtocol
 
     /// Инициаллизирует
     ///
     /// - Parameter tokenRefreshChain: Цепочка для обновления токена.
+    public init(tokenRefreshChain: any AsyncNode<Void, Void>) {
+        self.tokenRefresherActor = TokenRefresherActor(tokenRefreshChain: tokenRefreshChain)
+    }
+    
+    /// Инициаллизирует
+    ///
     /// - Parameter tokenRefresherActor: Актор для обновления токена.
-    public init(tokenRefreshChain: any AsyncNode<Void, Void>, tokenRefresherActor: TokenRefresherActorProtocol? = nil) {
-        self.tokenRefreshChain = tokenRefreshChain
-        self.tokenRefresherActor = tokenRefresherActor ?? TokenRefresherActor(tokenRefreshChain: tokenRefreshChain)
+    public init(tokenRefresherActor: TokenRefresherActorProtocol) {
+        self.tokenRefresherActor = tokenRefresherActor
     }
 
     /// Проверяет, был ли отправлен запрос на обновление токена
