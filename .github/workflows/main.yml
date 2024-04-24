@@ -16,13 +16,15 @@ jobs:
     runs-on: macos-14
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Init
       run: |
         make init
-    - name: Force select xcode 15
+    - name: Force select xcode 15.3
       run: |
-        sudo xcode-select -switch /Applications/Xcode_15.2.app
+        sudo xcode-select -switch /Applications/Xcode_15.3.app
     - name: Build
       run: |
         make build
@@ -33,7 +35,14 @@ jobs:
       run: |
         make test
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1.2.1
+      uses: codecov/codecov-action@v4
+      with:
+        fail_ci_if_error: true
+        flags: tests
+        directory: ./CoverageReports
+        file: ./coverage.xml
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true
     - name: documentation
       if: github.ref == 'refs/heads/master'
       run: |

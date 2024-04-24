@@ -92,20 +92,46 @@ final class AsyncCombineNodeTests: XCTestCase {
         XCTAssertEqual(queueName, expectedQueueName)
     }
     
-    func testNodeResultPublisher_whenResultIsSuccess_thenSuccessResultReceived() async throws {
+    func testNodeResultPublisher_thenNextNodeCalled() async throws {
         // given
         
         let expectation = expectation(description: "result")
         let expectedInput = 7
         let expectedResult: NodeResult<Int> = .success(8)
         
-        var result: NodeResult<Int>?
-        
         nodeMock.stubbedAsyncProccessResult = expectedResult
         
         // when
         
         sut.nodeResultPublisher(for: expectedInput, on: DispatchQueue.main, logContext: logContextMock)
+            .sink(receiveValue: { value in
+                expectation.fulfill()
+            })
+            .store(in: &cancellable)
+        
+        await fulfillment(of: [expectation], timeout: 0.1)
+        
+        // then
+        
+        let input = try XCTUnwrap(nodeMock.invokedAsyncProcessParameters)
+        
+        XCTAssertEqual(nodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(input.data, expectedInput)
+    }
+    
+    func testNodeResultPublisher_whenResultIsSuccess_thenSuccessResultReceived() async throws {
+        // given
+        
+        let expectation = expectation(description: "result")
+        let expectedResult = 8
+        
+        var result: NodeResult<Int>?
+        
+        nodeMock.stubbedAsyncProccessResult = .success(expectedResult)
+        
+        // when
+        
+        sut.nodeResultPublisher(for: 1, on: DispatchQueue.main, logContext: logContextMock)
             .sink(receiveValue: { value in
                 result = value
                 expectation.fulfill()
@@ -116,11 +142,9 @@ final class AsyncCombineNodeTests: XCTestCase {
         
         // then
         
-        let unwrappedResult = try XCTUnwrap(result)
+        let value = try XCTUnwrap(result?.value)
         
-        XCTAssertEqual(nodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncProcessParameter?.0, expectedInput)
-        XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
+        XCTAssertEqual(value, expectedResult)
     }
     
     func testNodeResultPublisher_whithMultipleSubscriptions_thenResultsReceived() async throws {
@@ -128,17 +152,16 @@ final class AsyncCombineNodeTests: XCTestCase {
         
         let expectation1 = expectation(description: "result1")
         let expectation2 = expectation(description: "result2")
-        let expectedInput = 7
-        let expectedResult: NodeResult<Int> = .success(8)
+        let expectedResult = 8
         
         var result1: NodeResult<Int>?
         var result2: NodeResult<Int>?
         
-        nodeMock.stubbedAsyncProccessResult = expectedResult
+        nodeMock.stubbedAsyncProccessResult = .success(expectedResult)
         
         // when
         
-        let publisher = sut.nodeResultPublisher(for: expectedInput, on: DispatchQueue.main, logContext: logContextMock)
+        let publisher = sut.nodeResultPublisher(for: 2, on: DispatchQueue.main, logContext: logContextMock)
         
         publisher
             .sink(receiveValue: { value in
@@ -158,29 +181,25 @@ final class AsyncCombineNodeTests: XCTestCase {
         
         // then
         
-        let unwrappedResult1 = try XCTUnwrap(result1)
-        let unwrappedResult2 = try XCTUnwrap(result2)
+        let value1 = try XCTUnwrap(result1?.value)
+        let value2 = try XCTUnwrap(result2?.value)
         
-        XCTAssertEqual(nodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncProcessParameter?.0, expectedInput)
-        XCTAssertEqual(unwrappedResult1.castToMockError(), expectedResult.castToMockError())
-        XCTAssertEqual(unwrappedResult2.castToMockError(), expectedResult.castToMockError())
+        XCTAssertEqual(value1, expectedResult)
+        XCTAssertEqual(value2, expectedResult)
     }
     
     func testNodeResultPublisher_whenResultIsFailure_thenFailureResultReceived() async throws {
         // given
         
         let expectation = expectation(description: "result")
-        let expectedInput = 9
-        let expectedResult: NodeResult<Int> = .failure(MockError.firstError)
         
         var result: NodeResult<Int>?
         
-        nodeMock.stubbedAsyncProccessResult = expectedResult
+        nodeMock.stubbedAsyncProccessResult = .failure(MockError.firstError)
         
         // when
         
-        sut.nodeResultPublisher(for: expectedInput, on: DispatchQueue.main, logContext: logContextMock)
+        sut.nodeResultPublisher(for: 5, on: DispatchQueue.main, logContext: logContextMock)
             .sink(receiveValue: { value in
                 result = value
                 expectation.fulfill()
@@ -191,10 +210,8 @@ final class AsyncCombineNodeTests: XCTestCase {
         
         // then
         
-        let unwrappedResult = try XCTUnwrap(result)
+        let error = try XCTUnwrap(result?.error as? MockError)
         
-        XCTAssertEqual(nodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncProcessParameter?.0, expectedInput)
-        XCTAssertEqual(unwrappedResult.castToMockError(), expectedResult.castToMockError())
+        XCTAssertEqual(error, .firstError)
     }
 }

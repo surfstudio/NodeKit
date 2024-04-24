@@ -22,7 +22,7 @@
 /// }
 ///
 /// ```
-struct AnyAsyncIterator<Value>: AsyncIterator {
+struct AnyAsyncIterator<Value>: AsyncIteratorLegacy {
 
     // MARK: - Private Properties
 
@@ -30,7 +30,7 @@ struct AnyAsyncIterator<Value>: AsyncIterator {
 
     // MARK: - Initialization
 
-    init<Nested>(nested: Nested) where Nested: AsyncIterator, Nested.Value == Value {
+    init<Nested>(nested: Nested) where Nested: AsyncIteratorLegacy, Nested.Value == Value {
         self.nested = AsyncPagerBox(nested: nested)
     }
 
@@ -52,7 +52,7 @@ struct AnyAsyncIterator<Value>: AsyncIterator {
 
 // MARK: - Private Helpers
 
-private class AsyncPagerBox<Value, Nested>: BaseAsyncPager<Value> where Nested: AsyncIterator, Nested.Value == Value {
+private class AsyncPagerBox<Value, Nested>: BaseAsyncPager<Value> where Nested: AsyncIteratorLegacy, Nested.Value == Value {
 
     let nested: Nested
 
@@ -74,7 +74,7 @@ private class AsyncPagerBox<Value, Nested>: BaseAsyncPager<Value> where Nested: 
 
 }
 
-private class BaseAsyncPager<Value>: AsyncIterator {
+private class BaseAsyncPager<Value>: AsyncIteratorLegacy {
 
     func next() -> Observer<Value> {
         preconditionFailure("\(self.self) \(#function) not implemented")

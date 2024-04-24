@@ -3,28 +3,34 @@ import XCTest
 
 @testable import NodeKit
 
-public class URLQueryInjectorNodeTests: XCTestCase {
-
+final class URLQueryInjectorNodeTests: XCTestCase {
+    
     // MARK: - Nested
 
     typealias Model = RoutableRequestModel<UrlRouteProvider, Json>
-
-    class StubNode: AsyncNode {
-        func processLegacy(_ data: Model) -> Observer<Model> {
-            return .emit(data: data)
-        }
-        
-        func process(
-            _ data: RoutableRequestModel<UrlRouteProvider, Json>,
-            logContext: LoggingContextProtocol
-        ) async -> NodeResult<RoutableRequestModel<UrlRouteProvider, Json>> {
-            return .success(data)
-        }
+    
+    // MARK: - Dependencies
+    
+    private var nextNodeMock: AsyncNodeMock<Model, Model>!
+    private var logContext: LoggingContextMock!
+    
+    // MARK: - Lifecycle
+    
+    override func setUp() {
+        super.setUp()
+        nextNodeMock = AsyncNodeMock()
+        logContext = LoggingContextMock()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        nextNodeMock = nil
+        logContext = nil
     }
 
     // MARK: - Tests
 
-    func testDefaultNodeWorkSuccessForEmptyQuery() {
+    func testDefaultNodeWorkSuccessForEmptyQuery() throws {
 
         // Arrange
 
@@ -32,20 +38,23 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         let request = Model(metadata: [:], raw: Json(), route: startUrl)
 
-        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: [:]))
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: [:]))
+        
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: request)
 
         // Act
 
-        var result: URL!
-
-        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
+        _ = sut.processLegacy(request)
 
         // Assert
+        
+        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter?.route.url)
+        let url = try result()
 
-        XCTAssertEqual(result, startUrl)
+        XCTAssertEqual(url, startUrl)
     }
 
-    func testDefaultNodeWorkSuccessForSimpleQuery() {
+    func testDefaultNodeWorkSuccessForSimpleQuery() throws {
 
         // Arrange
 
@@ -53,23 +62,26 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         let query: [String : Any] = ["name": "bob", "age": 23]
 
-        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: request)
 
         // Act
 
-        var result: URL!
-
-        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
+        _ = sut.processLegacy(request)
 
         // Assert
+        
+        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter?.route.url)
+        let url = try result()
 
-        let normalizedRes = result.query!.split(separator: "&").sorted()
+        let normalizedRes = url.query!.split(separator: "&").sorted()
         let normalizedExp = "age=23&name=bob".split(separator: "&").sorted()
 
         XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
-    func testDefaultNodeSaveUrlAndOnlyAddQuery() {
+    func testDefaultNodeSaveUrlAndOnlyAddQuery() throws {
 
         // Arrange
 
@@ -77,25 +89,28 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         let query: [String : Any] = ["name": "bob", "age": 23]
 
-        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: request)
 
         // Act
 
-        var result: URL!
-
-        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
+        _ = sut.processLegacy(request)
 
         // Assert
+        
+        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter?.route.url)
+        let url = try result()
 
-        let normalizedRes = result.query!.split(separator: "&").sorted()
+        let normalizedRes = url.query!.split(separator: "&").sorted()
         let normalizedExp = "age=23&name=bob".split(separator: "&").sorted()
 
         XCTAssertEqual(normalizedRes, normalizedExp)
 
-        XCTAssertEqual(result.absoluteString.replacingOccurrences(of: result.query!, with: ""), "http://host.dom/path?")
+        XCTAssertEqual(url.absoluteString.replacingOccurrences(of: url.query!, with: ""), "http://host.dom/path?")
     }
 
-    func testDefaultNodeMutateOnlyUrlParameter() {
+    func testDefaultNodeMutateOnlyUrlParameter() throws {
 
         // Arrange
 
@@ -103,22 +118,24 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         let query: [String : Any] = ["name": "bob", "age": 23]
 
-        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: request)
 
         // Act
 
-        var result: Model!
-
-        node.processLegacy(request).onCompleted { result = $0 }
+        _ = sut.processLegacy(request)
 
         // Assert
+        
+        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter)
 
         XCTAssertEqual(request.metadata, result.metadata)
 
-        XCTAssertNotEqual(try! request.route.url(), try! result.route.url())
+        XCTAssertNotEqual(try request.route.url(), try result.route.url())
     }
 
-    func testDefaultNodeWorkSuccessForArrayQuery() {
+    func testDefaultNodeWorkSuccessForArrayQuery() throws {
 
         // Arrange
 
@@ -126,23 +143,26 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         let query: [String : Any] = ["arr": ["a", 23, false]]
 
-        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: request)
 
         // Act
 
-        var result: URL!
-
-        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
+        _ = sut.processLegacy(request)
 
         // Assert
+        
+        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter?.route.url)
+        let url = try result()
 
-        let normalizedRes = result.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
         let normalizedExp = "arr[]=a&arr[]=23&arr[]=0".split(separator: "&").sorted()
 
         XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
-    func testDefaultNodeWorkSuccessForDictQuery() {
+    func testDefaultNodeWorkSuccessForDictQuery() throws {
 
         // Arrange
 
@@ -150,23 +170,26 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         let query: [String : Any] = ["dict": ["name": "bob", "age": 23]]
 
-        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: request)
 
         // Act
 
-        var result: URL!
-
-        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
+        _ = sut.processLegacy(request)
 
         // Assert
+        
+        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter?.route.url)
+        let url = try result()
 
-        let normalizedRes = result.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
         let normalizedExp = "dict[age]=23&dict[name]=bob".split(separator: "&").sorted()
 
         XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
-    func testDefaultNodeWorkSuccessForDictAndArrQuery() {
+    func testDefaultNodeWorkSuccessForDictAndArrQuery() throws {
 
         // Arrange
 
@@ -174,23 +197,26 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         let query: [String : Any] = ["dict": ["name": "bob", "age": 23], "arr": ["a", 23, false]]
 
-        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: request)
 
         // Act
 
-        var result: URL!
-
-        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
+        _ = sut.processLegacy(request)
 
         // Assert
+        
+        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter?.route.url)
+        let url = try result()
 
-        let normalizedRes = result.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
         let normalizedExp = "dict[age]=23&dict[name]=bob&arr[]=a&arr[]=23&arr[]=0".split(separator: "&").sorted()
 
         XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
-    func testDefaultNodeWorkSuccessFor2DArrQuery() {
+    func testDefaultNodeWorkSuccessFor2DArrQuery() throws {
 
         // Arrange
 
@@ -198,20 +224,161 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         let query: [String : Any] = ["arr": ["a", 23, false, ["map"]]]
 
-        let node = URLQueryInjectorNode(next: StubNode(), config: .init(query: query))
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: request)
 
         // Act
 
-        var result: URL!
-
-        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
+        _ = sut.processLegacy(request)
 
         // Assert
+        
+        let result = try XCTUnwrap(nextNodeMock.invokedProcessLegacyParameter?.route.url)
+        let url = try result()
 
-        let normalizedRes = result.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
         let normalizedExp = "arr[]=a&arr[]=23&arr[]=0&arr[][]=map".split(separator: "&").sorted()
 
         XCTAssertEqual(normalizedRes, normalizedExp)
     }
+    
+    func testAsyncProcess_withEmptyQuery_thenStartUrlReceived() async throws {
+        // given
 
+        let startUrl = URL(string: "http://host.dom/path")!
+
+        let request = Model(metadata: [:], raw: Json(), route: startUrl)
+
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: [:]))
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(request)
+
+        // when
+
+        _ = await sut.process(request, logContext: logContext)
+
+        // then
+        
+        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data.route.url)()
+
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(url, startUrl)
+    }
+
+    func testAsyncProcess_withSimpleQeury_thenCurrectUrlReceived() async throws {
+        // given
+
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
+        let query: [String : Any] = ["name": "bob", "age": 23]
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(request)
+
+        // when
+
+        _ = await sut.process(request, logContext: logContext)
+
+        // then
+        
+        let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
+        let url = try input.route.url()
+        let requestRouteUrl = try request.route.url()
+        let normalizedRes = url.query!.split(separator: "&").sorted()
+        let normalizedExp = "age=23&name=bob".split(separator: "&").sorted()
+
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(normalizedRes, normalizedExp)
+        XCTAssertEqual(url.absoluteString.replacingOccurrences(of: url.query!, with: ""), "http://host.dom/path?")
+        XCTAssertEqual(request.metadata, input.metadata)
+        XCTAssertNotEqual(requestRouteUrl, url)
+    }
+
+    func testAsyncProcess_withArrayQeury_thenCorrectUrlReceived() async throws {
+        // given
+
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
+        let query: [String : Any] = ["arr": ["a", 23, false]]
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(request)
+
+        // when
+
+        _ = await sut.process(request, logContext: logContext)
+
+        // then
+        
+        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data.route.url)()
+        let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedExp = "arr[]=a&arr[]=23&arr[]=0".split(separator: "&").sorted()
+
+        XCTAssertEqual(normalizedRes, normalizedExp)
+    }
+
+    func testAsyncProcess_withDictionaryQeury_thenCorrectUrlReceived() async throws {
+        // given
+
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
+        let query: [String : Any] = ["dict": ["name": "bob", "age": 23]]
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(request)
+
+        // when
+
+        _ = await sut.process(request, logContext: logContext)
+
+        // then
+        
+        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data.route.url)()
+        let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedExp = "dict[age]=23&dict[name]=bob".split(separator: "&").sorted()
+
+        XCTAssertEqual(normalizedRes, normalizedExp)
+    }
+
+    func testAsyncProcess_withArrayAndDictionaryQuery_thenCorrectUrlReceived() async throws {
+        // given
+
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
+        let query: [String : Any] = ["dict": ["name": "bob", "age": 23], "arr": ["a", 23, false]]
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(request)
+
+        // when
+
+        _ = await sut.process(request, logContext: logContext)
+
+        // then
+        
+        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data.route.url)()
+        let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedExp = "dict[age]=23&dict[name]=bob&arr[]=a&arr[]=23&arr[]=0".split(separator: "&").sorted()
+
+        XCTAssertEqual(normalizedRes, normalizedExp)
+    }
+
+    func testAsyncProcess_with2DArray_thenCorrectUrlReceived() async throws {
+        // given
+
+        let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
+        let query: [String : Any] = ["arr": ["a", 23, false, ["map"]]]
+        let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: query))
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(request)
+
+        // when
+
+        _ = await sut.process(request, logContext: logContext)
+
+        // then
+        
+        let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data.route.url)()
+        let normalizedRes = url.query!.removingPercentEncoding!.split(separator: "&").sorted()
+        let normalizedExp = "arr[]=a&arr[]=23&arr[]=0&arr[][]=map".split(separator: "&").sorted()
+
+        XCTAssertEqual(normalizedRes, normalizedExp)
+    }
 }

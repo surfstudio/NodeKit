@@ -74,7 +74,7 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         XCTAssertTrue(isMainThread)
     }
     
-    func testProcess_withPublisherOnCustom_thenResultsReceivedOnCustomQueue() async {
+    func testProcess_withPublisherOnCustomQueue_thenResultsReceivedOnCustomQueue() async {
         // given
         
         let expectation = expectation(description: "result")
@@ -111,7 +111,7 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         XCTAssertEqual(queueLabel, expectedLabel)
     }
     
-    func testProcess_thenResultsReceived() async {
+    func testProcess_thenResultsReceived() async throws {
         // given
         
         let expectation = expectation(description: "result")
@@ -151,9 +151,11 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         
         // then
         
+        let input = try XCTUnwrap(nodeMock.invokedAsyncStreamProcessParameter)
+        
         XCTAssertEqual(nodeMock.invokedAsyncStreamProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncStreamProcessParameter?.0, expectedInput)
-        XCTAssertTrue(nodeMock.invokedAsyncStreamProcessParameter?.1 === logContextMock)
+        XCTAssertEqual(input.data, expectedInput)
+        XCTAssertTrue(input.logContext === logContextMock)
         XCTAssertEqual(
             results.compactMap { $0.castToMockError() },
             expectedResults.compactMap { $0.castToMockError() }
@@ -165,7 +167,6 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         
         let expectation1 = expectation(description: "result1")
         let expectation2 = expectation(description: "result2")
-        let expectedInput = 42
         
         let expectedResults: [Result<Int, MockError>] = [
             .success(500),
@@ -213,15 +214,12 @@ final class AsyncStreamCombineNodeTests: XCTestCase {
         
         multicast.connect().store(in: &cancellable)
         
-        sut.process(expectedInput, logContext: logContextMock)
+        sut.process(1, logContext: logContextMock)
         
         await fulfillment(of: [expectation1, expectation2], timeout: 1)
         
         // then
         
-        XCTAssertEqual(nodeMock.invokedAsyncStreamProcessCount, 1)
-        XCTAssertEqual(nodeMock.invokedAsyncStreamProcessParameter?.0, expectedInput)
-        XCTAssertTrue(nodeMock.invokedAsyncStreamProcessParameter?.1 === logContextMock)
         XCTAssertEqual(results1.compactMap { $0.castToMockError() }, expectedResults)
         XCTAssertEqual(results2.compactMap { $0.castToMockError() }, expectedResults)
     }

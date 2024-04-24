@@ -1,128 +1,243 @@
 //
 //  OffsetAsyncPagerTests.swift
-//  IntegrationTests
+//  NodeKitTests
+//
+//  Created by Andrei Frolov on 04.04.24.
+//  Copyright © 2024 Surf. All rights reserved.
 //
 
-import Foundation
+@testable import NodeKit
 import XCTest
 
-@testable import NodeKit
-
 final class OffsetAsyncPagerTests: XCTestCase {
-    func testOffsetIteratorReturnsValue() {
+    
+    // MARK: - Tests
+    
+    func testNext_withArray_thenArrayWithNoEndReceived() async throws {
         // given
 
-        let data = ["1", "2", "3", "4", "5"]
-        let iterator = OffsetAsyncPager<[String]>(dataPrivider: { index, offset in
-            return .emit(data: (data, data.count))
+        let expectedArr = ["1", "2", "3", "4", "5"]
+        
+        let iterator = OffsetAsyncPager<[String]>(dataProvider: { index, offset in
+            return .success((expectedArr, expectedArr.count))
         }, pageSize: 5)
 
-        var accept = [String]()
-
         // when
-
-        iterator.next().onCompleted { accept = $0 }
+        
+        let result = await iterator.next()
 
         // then
+        
+        let unwrappedResult = try XCTUnwrap(result.value)
 
-        XCTAssertEqual(accept, data)
+        XCTAssertEqual(unwrappedResult.data, expectedArr)
+        XCTAssertFalse(unwrappedResult.end)
     }
 
-    func testOffsetIteratorOnEndCalledInCaseOfZeroOutput() {
+    func testNext_withEmptySecondArray_thenEndReceivedOnlyLastTime() async throws {
         // given
 
-        let arr = ["1", "2", "3", "4", "5"]
-        let iterator = OffsetAsyncPager<[String]>(dataPrivider: { index, offset in
-
+        let expectedArr = ["1", "2", "3", "4", "5"]
+        let iterator = OffsetAsyncPager<[String]>(dataProvider: { index, offset in
             if index >= 5 {
-                return .emit(data: ([], 0))
+                return .success(([], 0))
             }
 
-            return .emit(data: (arr, arr.count))
+            return .success((expectedArr, expectedArr.count))
         }, pageSize: 5)
-
-
-        var wasEnded = false
-        var completedCount = 0
+        
+        var firstResult: Result<(data: [String], end: Bool), Error>?
+        var secondResult: Result<(data: [String], end: Bool), Error>?
 
         // when
 
-        iterator.onEnd { wasEnded = true }
-
-        for _ in 0...1 {
-            iterator.next().onCompleted { _ in completedCount += 1 }
-        }
+        firstResult = await iterator.next()
+        secondResult = await iterator.next()
 
         // then
-
-        XCTAssertTrue(wasEnded)
-        XCTAssertEqual(completedCount, 2)
+        
+        let unwrapedFirstValue = try XCTUnwrap(firstResult?.value)
+        let unwrappedSecondValue = try XCTUnwrap(secondResult?.value)
+        
+        XCTAssertEqual(unwrapedFirstValue.data, expectedArr)
+        XCTAssertFalse(unwrapedFirstValue.end)
+        XCTAssertEqual(unwrappedSecondValue.data, [])
+        XCTAssertTrue(unwrappedSecondValue.end)
     }
 
-    func testOffsetIteratorOnEndCalledInCaseOfNonZeroOutput() {
+    func testNext_withNonEmptySecondArray_thenEndReceivedOnlyLastTime() async throws {
         // given
 
-        let arr = ["1", "2", "3", "4", "5"]
-        let last = ["1"]
-        let iterator = OffsetAsyncPager<[String]>(dataPrivider: { index, offset in
-
+        let expectedFirstArr = ["1", "2", "3", "4", "5"]
+        let expectedSecondArr = ["1"]
+        let iterator = OffsetAsyncPager<[String]>(dataProvider: { index, offset in
             if index >= 5 {
-                return .emit(data: (last, last.count))
+                return .success((expectedSecondArr, expectedSecondArr.count))
             }
 
-            return .emit(data: (arr, arr.count))
+            return .success((expectedFirstArr, expectedFirstArr.count))
         }, pageSize: 5)
 
 
-        var wasEnded = false
-        var lastItem = [String]()
+        var firstResult: Result<(data: [String], end: Bool), Error>?
+        var secondResult: Result<(data: [String], end: Bool), Error>?
 
         // when
 
-        iterator.onEnd { wasEnded = true }
-
-        for _ in 0...1 {
-            iterator.next().onCompleted { lastItem = $0 }
-        }
+        firstResult = await iterator.next()
+        secondResult = await iterator.next()
 
         // then
+        
+        let unwrapedFirstValue = try XCTUnwrap(firstResult?.value)
+        let unwrappedSecondValue = try XCTUnwrap(secondResult?.value)
 
-        XCTAssertTrue(wasEnded)
-        XCTAssertEqual(lastItem, last)
+        XCTAssertEqual(unwrapedFirstValue.data, expectedFirstArr)
+        XCTAssertFalse(unwrapedFirstValue.end)
+        XCTAssertEqual(unwrappedSecondValue.data, expectedSecondArr)
+        XCTAssertTrue(unwrappedSecondValue.end)
     }
 
-    func testOffsetIteratorOnErrorReturnsDataProviderError() {
+    func testNext_withError_thenErrorReceived() async throws {
         // given
 
-        let err = NSError(domain: "test.dom", code: 1000, userInfo: nil)
-        let iterator = OffsetAsyncPager<[String]>(dataPrivider: { index, offset in
-            return .emit(error: err)
+        let expectedError = MockError.firstError
+        let iterator = OffsetAsyncPager<[String]>(dataProvider: { index, offset in
+            return .failure(expectedError)
         }, pageSize: 5)
 
-        var recived: NSError!
 
         // when
 
-        iterator.next().onError { recived = $0 as NSError }
+        let result = await iterator.next()
 
         // then
+        
+        let error = try XCTUnwrap(result.error as? MockError)
 
-        XCTAssertTrue(recived === err)
+        XCTAssertEqual(error, expectedError)
     }
-
-    func testOffsetIteratorInCaseIfEmptyDataProviderReturnsErr() {
+    
+    func testRenew_thenZeroIndexReceived() async throws {
         // given
 
-        let iterator = OffsetAsyncPager<[String]>(dataPrivider: nil, pageSize: 5)
-
-        var recived: PagingError?
+        let expectedArr = ["1", "2", "3", "4", "5"]
+        var indexes: [Int] = []
+        
+        let iterator = OffsetAsyncPager<[String]>(dataProvider: { index, offset in
+            indexes.append(index)
+            return .success((expectedArr, expectedArr.count))
+        }, pageSize: 5)
 
         // when
-
-        iterator.next().onError { recived = $0 as? PagingError }
+        
+        _ = await iterator.next()
+        _ = await iterator.next()
+        
+        await iterator.renew()
+        
+        _ = await iterator.next()
 
         // then
 
-        XCTAssertEqual(recived!, PagingError.dataProviderNotSet)
+        XCTAssertEqual(indexes, [0, 5, 0])
+    }
+    
+    func testSaveState_thenIteratorStartFromSavedState() async throws {
+        // given
+
+        let expectedArr = ["1", "2", "3", "4", "5"]
+        var indexes: [Int] = []
+        var offsets: [Int] = []
+        
+        let iterator = OffsetAsyncPager<[String]>(dataProvider: { index, offset in
+            indexes.append(index)
+            offsets.append(offset)
+            return .success((expectedArr, expectedArr.count))
+        }, pageSize: 5)
+
+        // when
+        
+        await iterator.saveState()
+        
+        _ = await iterator.next()
+        _ = await iterator.next()
+        
+        await iterator.restoreState()
+        
+        let _ = await iterator.next()
+
+        // then
+
+        XCTAssertEqual(indexes, [0, 5, 0])
+        XCTAssertEqual(offsets, [5, 5, 5])
+    }
+    
+    func testSaveState_whenSaveTwoStates_thenIteratorStartFromSavedState() async throws {
+        // given
+
+        let expectedArr = ["1", "2", "3", "4", "5"]
+        var indexes: [Int] = []
+        var offsets: [Int] = []
+        
+        let iterator = OffsetAsyncPager<[String]>(dataProvider: { index, offset in
+            indexes.append(index)
+            offsets.append(offset)
+            return .success((expectedArr, expectedArr.count))
+        }, pageSize: 5)
+
+        // when
+        
+        await iterator.saveState()
+        
+        _ = await iterator.next()
+        
+        await iterator.saveState()
+        
+        _ = await iterator.next()
+
+        await iterator.restoreState()
+        
+        let _ = await iterator.next()
+        
+        await iterator.restoreState()
+        
+        let _ = await iterator.next()
+
+        // then
+
+        XCTAssertEqual(indexes, [0, 5, 5, 0])
+        XCTAssertEqual(offsets, [5, 5, 5, 5])
+    }
+    
+    func testClearState_thenSavedStateCleared() async throws {
+        // given
+
+        let expectedArr = ["1", "2", "3", "4", "5"]
+        var indexes: [Int] = []
+        var offsets: [Int] = []
+        
+        let iterator = OffsetAsyncPager<[String]>(dataProvider: { index, offset in
+            indexes.append(index)
+            offsets.append(offset)
+            return .success((expectedArr, expectedArr.count))
+        }, pageSize: 5)
+
+        // when
+        
+        await iterator.saveState()
+        
+        _ = await iterator.next()
+        _ = await iterator.next()
+        
+        await iterator.clearStates()
+        await iterator.restoreState()
+        
+        _ = await iterator.next()
+
+        // then
+
+        XCTAssertEqual(indexes, [0, 5, 10])
+        XCTAssertEqual(offsets, [5, 5, 5])
     }
 }

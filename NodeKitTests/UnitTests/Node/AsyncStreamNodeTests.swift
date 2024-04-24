@@ -104,16 +104,18 @@ final class AsyncStreamNodeTests: XCTestCase {
         
         // then
         
+        let input = try XCTUnwrap(sut.invokedAsyncStreamProcessParameter)
+        
         XCTAssertEqual(sut.invokedAsyncStreamProcessCount, 1)
-        XCTAssertEqual(sut.invokedAsyncStreamProcessParameter?.0, expectedInput)
-        XCTAssertFalse(sut.invokedAsyncStreamProcessParameter?.1 === logContextMock)
+        XCTAssertEqual(input.data, expectedInput)
+        XCTAssertFalse(input.logContext === logContextMock)
         XCTAssertEqual(
             results.compactMap { $0.castToMockError() },
             expectedResults.compactMap { $0.castToMockError() }
         )
     }
     
-    func testCombineStreamNode_thenAsyncStreamCombineNodeBasedOnSutReceived() async {
+    func testCombineStreamNode_thenAsyncStreamCombineNodeBasedOnSutReceived() async throws {
         // given
         
         let sut = AsyncStreamNodeMock<Int, Int>()
@@ -156,9 +158,11 @@ final class AsyncStreamNodeTests: XCTestCase {
         
         // then
         
+        let input = try XCTUnwrap(sut.invokedAsyncStreamProcessParameter)
+        
         XCTAssertEqual(sut.invokedAsyncStreamProcessCount, 1)
-        XCTAssertEqual(sut.invokedAsyncStreamProcessParameter?.0, expectedInput)
-        XCTAssertTrue(sut.invokedAsyncStreamProcessParameter?.1 === logContextMock)
+        XCTAssertEqual(input.data, expectedInput)
+        XCTAssertTrue(input.logContext === logContextMock)
         XCTAssertTrue(node is AsyncStreamCombineNode<Int, Int>)
         XCTAssertEqual(
             results.compactMap { $0.castToMockError() },

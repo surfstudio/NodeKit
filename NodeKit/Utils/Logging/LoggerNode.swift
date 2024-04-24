@@ -63,7 +63,9 @@ open class LoggerNode<Input, Output>: AsyncNode {
         await logContext.log?.flatMap()
             .filter { !filters.contains($0.id) }
             .sorted(by: { $0.order < $1.order })
-            .forEach { print($0.description) }
+            .forEach {
+                print($0.description)
+            }
 
         return result
     }

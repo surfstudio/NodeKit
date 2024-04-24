@@ -90,10 +90,12 @@ open class AccessSafeNode: AsyncNode {
     ) async -> NodeResult<Json> {
         return await next.process(data, logContext: logContext)
             .asyncFlatMapError { error in
-                guard case ResponseHttpErrorProcessorNodeError.forbidden = error else {
+                switch error {
+                case ResponseHttpErrorProcessorNodeError.forbidden, ResponseHttpErrorProcessorNodeError.unauthorized:
+                    return await processWithTokenUpdate(data, logContext: logContext)
+                default:
                     return .failure(error)
                 }
-                return await processWithTokenUpdate(data, logContext: logContext)
             }
     }
 

@@ -145,9 +145,9 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let urlRequestEncodingNode = UrlJsonRequestEncodingNode(next: transportChain)
         let urlRequestTrasformatorNode = UrlRequestTrasformatorNode(next: urlRequestEncodingNode, method: self.method)
-        let requstEncoderNode = RequstEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
+        let requestEncoderNode = RequestEncoderNode(next: urlRequestTrasformatorNode, encoding: self.encoding)
 
-        let queryInjector = URLQueryInjectorNode(next: requstEncoderNode, config: self.urlQueryConfig)
+        let queryInjector = URLQueryInjectorNode(next: requestEncoderNode, config: self.urlQueryConfig)
 
         let requestRouterNode = self.requestRouterNode(next: queryInjector)
 
@@ -256,7 +256,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let encoding = UrlJsonRequestEncodingNode(next: creator)
         let tranformator = UrlRequestTrasformatorNode(next: encoding, method: self.method)
-        let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
+        let encoder = RequestEncoderNode(next: tranformator, encoding: self.encoding)
 
         let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)
 
@@ -284,7 +284,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let encoding = UrlJsonRequestEncodingNode(next: creator)
         let tranformator = UrlRequestTrasformatorNode(next: encoding, method: self.method)
-        let encoder = RequstEncoderNode(next: tranformator, encoding: self.encoding)
+        let encoder = RequestEncoderNode(next: tranformator, encoding: self.encoding)
 
         let queryInjector = URLQueryInjectorNode(next: encoder, config: self.urlQueryConfig)
 

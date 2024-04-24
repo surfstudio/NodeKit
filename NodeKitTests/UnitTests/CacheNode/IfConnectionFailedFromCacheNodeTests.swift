@@ -100,10 +100,32 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
 
         let unwrappedResult = try XCTUnwrap(result.get() as? [String: String])
         XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameter?.0, request)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessParameter?.0.urlRequest, request)
+        XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessParameters?.data.urlRequest, request)
         XCTAssertEqual(unwrappedResult, expectedResult)
+    }
+    
+    public func testAsyncProcess_withCustomError_thenCustomErrorReceived() async throws {
+        // given
+        
+        let request = URLRequest(url: URL(string: "test.ex.temp")!)
+        let expectedResult = ["test": "value"]
+        
+        mapperNextNodeMock.stubbedAsyncProccessResult = .failure(MockError.secondError)
+        cacheReaderNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
+
+        // when
+
+        let result = await sut.process(request, logContext: logContextMock)
+
+        // then
+
+        let error = try XCTUnwrap(result.error as? MockError)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameters?.data, request)
+        XCTAssertFalse(cacheReaderNodeMock.invokedAsyncProcess)
+        XCTAssertEqual(error, .secondError)
     }
     
     public func testAsyncProcess_withoutError_thenNodeWorkInCaseOfGoodInternet() async throws {
@@ -123,7 +145,7 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
 
         let unwrappedResult = try XCTUnwrap(result.get() as? [String: String])
         XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameter?.0, request)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameters?.data, request)
         XCTAssertFalse(cacheReaderNodeMock.invokedAsyncProcess)
         XCTAssertEqual(unwrappedResult, expectedResult)
     }

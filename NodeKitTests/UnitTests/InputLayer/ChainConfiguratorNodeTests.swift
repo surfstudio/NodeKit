@@ -12,70 +12,72 @@ import XCTest
 @testable
 import NodeKit
 
+final class ChainConfiguratorNodeTests: XCTestCase {
+    
+    // MARK: - Dependencies
+    
+    private var nextNodeMock: AsyncNodeMock<Void, Void>!
+    private var logContextMock: LoggingContextMock!
 
-extension DispatchQueue {
-    static var currentLabel: String {
-        return String(validatingUTF8: __dispatch_queue_get_label(nil)) ?? ""
+    // MARK: - Sut
+    
+    private var sut: ChainConfiguratorNode<Void, Void>!
+    
+    // MARK: - Lifecycle
+    
+    override func setUp() {
+        super.setUp()
+        nextNodeMock = AsyncNodeMock()
+        logContextMock = LoggingContextMock()
+        sut = ChainConfiguratorNode(next: nextNodeMock)
     }
-}
-
-
-public class ChainConfiguratorNodeTests: XCTestCase {
-
-
-    class NextStub: AsyncNode {
-
-        var queueLabel = ""
-
-        func processLegacy(_ data: Void) -> Observer<Void> {
-            self.queueLabel = DispatchQueue.currentLabel
-            return .emit(data: data)
-        }
-        
-        func process(
-            _ data: Void,
-            logContext: LoggingContextProtocol
-        ) async -> NodeResult<Void> {
-            return .success(())
-        }
+    
+    override func tearDown() {
+        super.tearDown()
+        nextNodeMock = nil
+        logContextMock = nil
+        sut = nil
     }
 
 
     public func testNextNodeDispatchedInBackground() {
+        // given
+        
+        var queueLabel: String?
+        
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: ())
+        nextNodeMock.stubbedProcessLegacyRunFunction = {
+            queueLabel = DispatchQueue.currentLabel
+        }
 
-        // Arrange
-
-        let next = NextStub()
-
-        let testedNode = ChainConfiguratorNode(next: next)
-
-        // Act
+        // when
 
         let exp = self.expectation(description: "\(#function)")
 
-        _ = testedNode.processLegacy(()).onCompleted {
+        _ = sut.processLegacy(()).onCompleted {
             exp.fulfill()
         }
 
         self.waitForExpectations(timeout: 2, handler: nil)
 
-        // Assert
+        // then
 
-        XCTAssertEqual(next.queueLabel, "com.apple.root.user-initiated-qos")
+        XCTAssertEqual(queueLabel, "com.apple.root.user-initiated-qos")
     }
 
     public func testNextNodeDispatchedInMain() {
 
-        // Arrange
+        // given
 
-        let testedNode = ChainConfiguratorNode(next: NextStub())
         var currentQueueLabel = ""
+        
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: ())
 
         // Act
 
         let exp = self.expectation(description: "\(#function)")
 
-        _ = testedNode.processLegacy(()).onCompleted {
+        _ = sut.processLegacy(()).onCompleted {
             currentQueueLabel = DispatchQueue.currentLabel
             exp.fulfill()
         }
@@ -86,5 +88,18 @@ public class ChainConfiguratorNodeTests: XCTestCase {
 
         XCTAssertEqual(currentQueueLabel, "com.apple.main-thread")
     }
-
+    
+    func testAsyncProcess_withMainBeginQueue_thenTaskStartedOnMainThread() async throws {
+        // given
+    
+        nextNodeMock.stubbedAsyncProccessResult = .success(())
+        
+        // when
+        
+        _ = await sut.process((), logContext: logContextMock)
+        
+        // then
+        
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+    }
 }

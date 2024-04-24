@@ -15,9 +15,12 @@ spm_build:
 	swift package clean
 	swift build --sdk "`xcrun -sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios17.4-simulator" -Xswiftc "-lswiftUIKit"
 
-## Run tests
+## Run tests and create coverage report
 test:
-	xcodebuild test -scheme NodeKit -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.4' | bundle exec xcpretty -c
+	rm -rf DerivedData
+	mkdir CoverageReports
+	xcodebuild test -scheme NodeKit -derivedDataPath DerivedData -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.4' | bundle exec xcpretty -c
+	./xcresultparser/xcresultparser --output-format cobertura DerivedData/Logs/Test/*.xcresult > ./CoverageReports/coverage.xml
 
 ## Created documentation by comments from code
 doc:

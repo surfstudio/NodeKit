@@ -108,7 +108,7 @@ final class MockerProxyConfigNodeTests: XCTestCase {
         
         // then
         
-        let result = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0)
+        let result = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
         XCTAssertEqual(result.metadata[MockerProxyConfigKey.isProxyingOn], "\(isProxyingOn)")
         XCTAssertEqual(result.metadata[MockerProxyConfigKey.proxyingHost], host)
@@ -134,7 +134,7 @@ final class MockerProxyConfigNodeTests: XCTestCase {
         
         // then
         
-        let result = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0)
+        let result = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
         XCTAssertNil(result.metadata[MockerProxyConfigKey.isProxyingOn])
         XCTAssertNil(result.metadata[MockerProxyConfigKey.proxyingHost])

@@ -210,7 +210,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
 
         // then
         
-        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameter?.0)
+        let nextNodeParameter = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
 
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
         XCTAssertEqual(nextNodeParameter.method, request.method)
@@ -237,7 +237,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
         // then
         
         let nextProcessInvokedParameter = try XCTUnwrap(
-            nextNodeMock.invokedAsyncProcessParameter?.0
+            nextNodeMock.invokedAsyncProcessParameters?.data
         )
 
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
@@ -277,7 +277,7 @@ final class UrlETagReaderNodeTests: XCTestCase {
         // then
 
         let nextNodeParameter = try XCTUnwrap(
-            nextNodeMock.invokedAsyncProcessParameter?.0
+            nextNodeMock.invokedAsyncProcessParameters?.data
         )
 
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)

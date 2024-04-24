@@ -155,7 +155,8 @@ open class ResponseDataParserNode: AsyncNode {
         } catch {
             var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseDataParserNode)
             switch error {
-            case ResponseDataParserNodeError.cantCastDesirializedDataToJson(let logMsg), ResponseDataParserNodeError.cantDeserializeJson(let logMsg):
+            case ResponseDataParserNodeError.cantCastDesirializedDataToJson(let logMsg), 
+                ResponseDataParserNodeError.cantDeserializeJson(let logMsg):
                 log += logMsg
             default:
                 log += "Catch \(error)"
