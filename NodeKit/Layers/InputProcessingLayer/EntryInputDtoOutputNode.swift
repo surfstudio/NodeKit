@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class EntryinputDtoOutputNode<Input, Output>: AsyncNode
+open class EntryInputDtoOutputNode<Input, Output>: AsyncNode
                                                     where Input: RawEncodable, Output: DTODecodable {
 
     open var next: any AsyncNode<Input.Raw, Output.DTO.Raw>

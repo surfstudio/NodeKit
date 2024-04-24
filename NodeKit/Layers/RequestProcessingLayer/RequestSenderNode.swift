@@ -28,6 +28,8 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
     private(set) var manager: URLSession
 
     private var responseQueue: DispatchQueue
+    
+    private let dataTaskActor: URLSessionDataTaskActorProtocol
 
     private weak var task: URLSessionDataTask?
     private weak var context: Observer<NodeDataResponse>?
@@ -40,10 +42,12 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
     public init(
         rawResponseProcessor: some RawResponseProcessor,
         responseQueue: DispatchQueue,
+        dataTaskActor: URLSessionDataTaskActorProtocol? = nil,
         manager: URLSession? = nil
     ) {
         self.rawResponseProcessor = rawResponseProcessor
         self.responseQueue = responseQueue
+        self.dataTaskActor = dataTaskActor ?? URLSessionDataTaskActor()
         self.manager = manager ?? ServerRequestsManager.shared.manager
     }
 
@@ -114,8 +118,10 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
             id: objectName,
             order: LogOrder.requestSenderNode
         )
-        Task.detached { await logContext.add(log) }
-        task?.cancel()
+        Task.detached { [weak self] in
+            await logContext.add(log)
+            await self?.dataTaskActor.cancelTask()
+        }
     }
 
     // MARK: - Private Methods
@@ -125,7 +131,7 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
         logContext: LoggingContextProtocol
     ) async -> NodeDataResponse {
         return await withCheckedContinuation { continuation in
-            manager.dataTask(with: request) { data, response, error in
+            let task = manager.dataTask(with: request) { data, response, error in
                 let result: Result<Data, Error>
                 if let error = error {
                     result = .failure(error)
@@ -138,7 +144,11 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
                     result: result
                 )
                 continuation.resume(with: .success(nodeResponse))
-            }.resume()
+            }
+            task.resume()
+            Task {
+                await dataTaskActor.store(task: task)
+            }
         }
     }
 

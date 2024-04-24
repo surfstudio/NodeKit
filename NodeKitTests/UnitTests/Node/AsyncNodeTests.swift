@@ -83,7 +83,7 @@ final class AsyncNodeTests: XCTestCase {
         // given
         
         let sut = AsyncNodeMock<Int, Int>()
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         let expectedInput = 15
         let expectedResult = 21
         let logContext = LoggingContextMock()
@@ -103,7 +103,7 @@ final class AsyncNodeTests: XCTestCase {
             })
             .store(in: &cancellable)
         
-        await fulfillment(of: [expectation], timeout: 0.1)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         

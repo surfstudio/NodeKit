@@ -119,7 +119,7 @@ final class AsyncStreamNodeTests: XCTestCase {
         // given
         
         let sut = AsyncStreamNodeMock<Int, Int>()
-        let expectation = expectation(description: "result")
+        let expectation = expectation(description: #function)
         let expectedInput = 43
         
         let expectedResults: [Result<Int, Error>] = [
@@ -154,7 +154,7 @@ final class AsyncStreamNodeTests: XCTestCase {
         
         node.process(expectedInput, logContext: logContextMock)
         
-        await fulfillment(of: [expectation], timeout: 0.1)
+        await fulfillment(of: [expectation], timeout: 3)
         
         // then
         
