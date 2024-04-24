@@ -19,11 +19,9 @@ public enum Routes {
 
     case users
     case emptyUsers
-    case emptyUsersWith402
+    case emptyUsersWith204
     case authWithFormUrl
     case multipartPing
-    case multipartCorrect
-    case multipartFile
 }
 
 extension Routes: UrlRouteProvider {
@@ -45,17 +43,13 @@ extension Routes: UrlRouteProvider {
         case .users:
             return try? Routes.base + "/users"
         case .emptyUsers:
-            return try? Routes.base + "/userAmptyArr"
-        case .emptyUsersWith402:
-            return try? Routes.base + "/Get402UserArr"
+            return try? Routes.base + "/userEmptyArr"
+        case .emptyUsersWith204:
+            return try? Routes.base + "/Get204UserArr"
         case .authWithFormUrl:
             return try? Routes.base + "/authWithFormUrl"
         case .multipartPing:
             return try? Routes.base + "/multipartPing"
-        case .multipartCorrect:
-            return try? Routes.base + "/multipartCorrect"
-        case .multipartFile:
-            return try? Routes.base + "/multipartFile"
         }
     }
 }
