@@ -7,6 +7,7 @@
 //
 
 @testable import NodeKit
+@testable import ThirdParty
 import XCTest
 
 final class AlamofireMultipartFormDataFactoryTests: XCTestCase {

@@ -30,21 +30,6 @@ open class HeaderInjectorNode: AsyncNode {
     }
 
     /// Добавляет хедеры к запросу и отправляет его слудующему в цепочке узлу.
-    open func processLegacy(_ data: TransportUrlRequest) -> Observer<Json> {
-        var resultHeaders = self.headers
-        var log = self.logViewObjectName
-        log += "Add headers \(self.headers)" + .lineTabDeilimeter
-        log += "To headers \(data.headers)" + .lineTabDeilimeter
-        data.headers.forEach { resultHeaders[$0.key] = $0.value }
-        let newData = TransportUrlRequest(method: data.method,
-                                          url: data.url,
-                                          headers: resultHeaders,
-                                          raw: data.raw)
-        log += "Result headers: \(resultHeaders)"
-        return next.processLegacy(newData)
-    }
-
-    /// Добавляет хедеры к запросу и отправляет его слудующему в цепочке узлу.
     open func process(
         _ data: TransportUrlRequest,
         logContext: LoggingContextProtocol

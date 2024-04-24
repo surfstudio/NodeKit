@@ -37,11 +37,6 @@ open class RequestRouterNode<Raw, Route, Output>: AsyncNode {
     }
 
     /// Преобразует `RequestModel` в `RoutableRequestModel` и передает управление следующему узлу
-    open func processLegacy(_ data: RequestModel<Raw>) -> Observer<Output> {
-        return self.next.processLegacy(RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: self.route))
-    }
-
-    /// Преобразует `RequestModel` в `RoutableRequestModel` и передает управление следующему узлу
     open func process(
         _ data: RequestModel<Raw>,
         logContext: LoggingContextProtocol

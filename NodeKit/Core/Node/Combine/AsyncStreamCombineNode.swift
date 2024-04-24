@@ -33,11 +33,6 @@ public struct AsyncStreamCombineNode<Input, Output>: CombineStreamNode {
             .eraseToAnyPublisher()
     }
     
-    /// Метод обработки данных протокола ``Node``. Будет удален в ближайшее время.
-    public func processLegacy(_ data: Input) -> Observer<Output> {
-        return node.processLegacy(data)
-    }
-    
     /// Метод запускающий процесс обработки данных.
     ///
     /// - Parameters:

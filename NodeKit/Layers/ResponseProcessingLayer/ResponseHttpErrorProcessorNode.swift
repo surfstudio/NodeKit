@@ -44,32 +44,6 @@ open class ResponseHttpErrorProcessorNode<Type>: AsyncNode {
     /// В противном случае возвращает `HttpError`
     ///
     /// - Parameter data: Модель ответа сервера.
-    open func processLegacy(_ data: UrlDataResponse) -> Observer<Type> {
-
-        let context = Context<Type>()
-
-        switch data.response.statusCode {
-        case 400:
-            return context.emit(error: HttpError.badRequest(data.data))
-        case 401:
-            return context.emit(error: HttpError.unauthorized(data.data))
-        case 403:
-            return context.emit(error: HttpError.forbidden(data.data))
-        case 404:
-            return context.emit(error: HttpError.notFound)
-        case 500:
-            return context.emit(error: HttpError.internalServerError(data.data))
-        default:
-            break
-        }
-        let log = self.logViewObjectName + "Cant match status code -> call next"
-        return self.next.processLegacy(data).log(Log(log, id: self.objectName, order: LogOrder.responseHttpErrorProcessorNode))
-    }
-
-    /// Сопоставляет HTTP-коды с заданными и в случае их несовпадения передает управление дальше.
-    /// В противном случае возвращает `HttpError`
-    ///
-    /// - Parameter data: Модель ответа сервера.
     open func process(
         _ data: UrlDataResponse,
         logContext: LoggingContextProtocol

@@ -26,14 +26,3 @@ open class MultipartModel<T> {
         self.init(payloadModel: payloadModel, files: [String: MultipartFileProvider]())
     }
 }
-
-
-public extension MultipartModel where T == StubEmptyModel<[String: Data]> {
-
-    /// Дополнительный конструктор. Позволяет инициаллизировать модель только одними файлами.
-    ///
-    /// - Parameter files: Набор файлов для запроса.
-    convenience init(files: [String: MultipartFileProvider]) {
-        self.init(payloadModel: StubEmptyModel<[String: Data]>(), files: files)
-    }
-}

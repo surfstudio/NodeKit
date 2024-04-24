@@ -104,7 +104,7 @@ final class VoidIONodeTest: XCTestCase {
         let log = try XCTUnwrap(input)
         
         XCTAssertEqual(invokedAddCount, 1)
-        XCTAssertEqual(input?.description, expectedLog.description)
+        XCTAssertEqual(log.description, expectedLog.description)
     }
     
     func testAsyncProcess_nonEmptyResponse_thenNextCalled() async throws {

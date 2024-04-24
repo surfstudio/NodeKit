@@ -25,15 +25,6 @@ open class DataLoadingResponseProcessor: AsyncNode {
     }
 
     /// В случае, если узел для постобработки существует, то вызывает его, если нет - возвращает данные.
-    open func processLegacy(_ data: UrlDataResponse) -> Observer<Data> {
-        guard let next = self.next else {
-            return .emit(data: data.data)
-        }
-
-        return next.processLegacy(data).map { data.data }
-    }
-
-    /// В случае, если узел для постобработки существует, то вызывает его, если нет - возвращает данные.
     open func process(
         _ data: UrlDataResponse,
         logContext: LoggingContextProtocol

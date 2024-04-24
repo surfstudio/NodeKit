@@ -34,44 +34,6 @@ open class ResponseDataParserNode: AsyncNode {
     /// Парсит ответ и в случае успеха передает управление следующему узлу.
     ///
     /// - Parameter data: Модель ответа сервера.
-    open func processLegacy(_ data: UrlDataResponse) -> Observer<Json> {
-
-        let context = Context<Json>()
-        var json = Json()
-        var log = self.logViewObjectName
-
-        do {
-            let (raw, logMsg) = try self.json(from: data)
-            json = raw
-            log += logMsg + .lineTabDeilimeter
-        } catch {
-            switch error {
-            case ResponseDataParserNodeError.cantCastDesirializedDataToJson(let logMsg), ResponseDataParserNodeError.cantDeserializeJson(let logMsg):
-                log += logMsg
-            default:
-                log += "Catch \(error)"
-            }
-
-            context.log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).emit(error: error)
-            return context
-        }
-
-        guard let nextNode = next else {
-
-            log += "Next node is nil -> terminate chain process"
-            return context.log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).emit(data: json)
-        }
-
-        log += "Have next node \(nextNode.objectName) -> call `process`"
-
-        let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
-
-        return nextNode.processLegacy(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).map { json }
-    }
-
-    /// Парсит ответ и в случае успеха передает управление следующему узлу.
-    ///
-    /// - Parameter data: Модель ответа сервера.
     open func process(
         _ data: UrlDataResponse,
         logContext: LoggingContextProtocol

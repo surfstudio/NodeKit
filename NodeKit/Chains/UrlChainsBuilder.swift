@@ -37,9 +37,6 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     /// Массив с ID логов, которые нужно исключить из выдачи.
     public var logFilter: [String]
 
-    /// Очередь, на которой response вашего запроса должен будет быть обработан. По дефолту `Global` с приоритетом `.userInitiated`
-    public var responseDispatchQueue: DispatchQueue = DispatchQueue.global(qos: .userInitiated)
-
     // MARK: - Init
 
     /// Инициаллизирует объект.
@@ -123,11 +120,6 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         return self
     }
 
-    open func setResponseQueue(_ queue: DispatchQueue) -> Self {
-        self.responseDispatchQueue = queue
-        return self
-    }
-
     // MARK: - Infrastructure Config
 
     open func log(exclude: [String]) -> Self {
@@ -141,7 +133,10 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     ///
     /// - Parameter config: Конфигурация для запроса
     open func requestBuildingChain() ->  some AsyncNode<Json, Json> {
-        let transportChain = self.serviceChain.requestTrasportChain(providers: self.headersProviders, responseQueue: responseDispatchQueue, session: session)
+        let transportChain = self.serviceChain.requestTrasportChain(
+            providers: self.headersProviders,
+            session: session
+        )
 
         let urlRequestEncodingNode = UrlJsonRequestEncodingNode(next: transportChain)
         let urlRequestTrasformatorNode = UrlRequestTrasformatorNode(next: urlRequestEncodingNode, method: self.method)
@@ -184,16 +179,14 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         where Input: DTOEncodable, Output: DTODecodable,
         Input.DTO.Raw == Json, Output.DTO.Raw == Json {
             let input: some AsyncNode<Input, Output> = self.supportNodes()
-            let config =  ChainConfiguratorNode<Input, Output>(next: input)
-            return LoggerNode(next: config, filters: self.logFilter)
+            return LoggerNode(next: input, filters: self.logFilter)
     }
 
     /// Создает обычную цепочку, только в качестве входных данных принимает `Void`
     open func build<Output>() -> some AsyncNode<Void, Output>
         where Output: DTODecodable, Output.DTO.Raw == Json {
             let input: some AsyncNode<Json, Output> = self.supportNodes()
-            let configNode = ChainConfiguratorNode<Json, Output>(next: input)
-            let voidNode =  VoidInputNode(next: configNode)
+            let voidNode =  VoidInputNode(next: input)
             return LoggerNode(next: voidNode, filters: self.logFilter)
     }
 
@@ -202,8 +195,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         where Input: DTOEncodable, Input.DTO.Raw == Json {
             let input = self.requestBuildingChain()
             let indicator = LoadIndicatableNode(next: input)
-            let configNode = ChainConfiguratorNode(next: indicator)
-            let voidOutput = VoidOutputNode<Input>(next: configNode)
+            let voidOutput = VoidOutputNode<Input>(next: indicator)
             return LoggerNode(next: voidOutput, filters: self.logFilter)
     }
 
@@ -211,8 +203,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     open func build() -> some AsyncNode<Void, Void> {
         let input = self.requestBuildingChain()
         let indicator = LoadIndicatableNode(next: input)
-        let configNode = ChainConfiguratorNode(next: indicator)
-        let voidOutput = VoidIONode(next: configNode)
+        let voidOutput = VoidIONode(next: indicator)
         return LoggerNode(next: voidOutput, filters: self.logFilter)
     }
 
@@ -224,7 +215,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
         let reponseProcessor = self.serviceChain.urlResponseProcessingLayerChain()
 
-        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor, responseQueue: responseDispatchQueue, manager: session)
+        let requestSenderNode = RequestSenderNode(rawResponseProcessor: reponseProcessor, manager: session)
 
         let creator = MultipartRequestCreatorNode(next: requestSenderNode)
 
@@ -239,9 +230,8 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let dtoEncoder = ModelInputNode<I, O>(next: rawEncoder)
 
         let indicator = LoadIndicatableNode(next: dtoEncoder)
-        let configNode = ChainConfiguratorNode(next: indicator)
 
-        return LoggerNode(next: configNode, filters: self.logFilter)
+        return LoggerNode(next: indicator, filters: self.logFilter)
     }
 
     /// Позволяет загрузить бинарные данные (файл) с сервера без отправки какой-то модели на сервер.
@@ -250,7 +240,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
-        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, responseQueue: responseDispatchQueue, manager: session)
+        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, manager: session)
 
         let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
@@ -264,9 +254,8 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let connector = MetadataConnectorNode(next: router, metadata: self.metadata)
 
         let indicator = LoadIndicatableNode(next: connector)
-        let configNode = ChainConfiguratorNode(next: indicator)
 
-        let voidInput = VoidInputNode(next: configNode)
+        let voidInput = VoidInputNode(next: indicator)
 
         return LoggerNode(next: voidInput, filters: self.logFilter)
     }
@@ -278,7 +267,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
-        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, responseQueue: responseDispatchQueue, manager: session)
+        let sender = RequestSenderNode(rawResponseProcessor: responseProcessor, manager: session)
 
         let creator = RequestCreatorNode(next: sender, providers: headersProviders)
 
@@ -295,9 +284,8 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
         let dtoEncoder = DTOEncoderNode<Input, Data>(rawEncodable: rawEncoder)
 
         let indicator = LoadIndicatableNode(next: dtoEncoder)
-        let configNode = ChainConfiguratorNode(next: indicator)
 
-        return LoggerNode(next: configNode, filters: self.logFilter)
+        return LoggerNode(next: indicator, filters: self.logFilter)
     }
 
 }

@@ -12,6 +12,8 @@ import Foundation
 /// Протокол ноды, хранящий в себе publisher результатов обработки данных.
 /// Используется для потока данных, когда необходимо выполнить подписку до начала обработки.
 public protocol CombineStreamNode<Input, Output>: Node {
+    associatedtype Input
+    associatedtype Output
 
     /// Publisher результата обработки данных.
     /// - Parameter scheduler: Scheduler для выдачи результаты..

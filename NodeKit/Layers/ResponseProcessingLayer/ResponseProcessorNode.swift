@@ -31,57 +31,6 @@ open class ResponseProcessorNode<Type>: AsyncNode {
     /// Проверяет, возникла-ли какая-то ошибка во время работы.
     ///
     /// - Parameter data: Низкоуровневый ответ сервера.
-    open func processLegacy(_ data: NodeDataResponse) -> Observer<Type> {
-        var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.responseProcessorNode)
-
-        switch data.result {
-        case .failure(let error):
-            log += "Catch URLSeesions error: \(error)" + .lineTabDeilimeter
-
-            guard let urlResponse = data.urlResponse, let urlRequest = data.urlRequest else {
-                return Context<Type>().log(log).emit(error: error)
-            }
-
-            log += "Skip cause can extract parameters -> continue processing"
-
-            let response = UrlDataResponse(request: urlRequest,
-                                           response: urlResponse,
-                                           data: Data(),
-                                           metrics: nil,
-                                           serializationDuration: -1)
-            log += "🌍 " + (urlRequest.httpMethod ?? "UNDEF") + " " + (urlRequest.url?.absoluteString ?? "UNDEF")
-            log += " ~~> \(urlResponse.statusCode)" + .lineTabDeilimeter
-            log += "EMPTY"
-
-            return next.processLegacy(response).log(log)
-        case .success(let value):
-            log += "Request success!" + .lineTabDeilimeter
-            guard
-                let urlResponse = data.urlResponse,
-                let urlRequest = data.urlRequest
-            else {
-                log += "But cant extract parameters -> terminate with error"
-                return Context<Type>()
-                    .log(log)
-                    .emit(error: ResponseProcessorNodeError.rawResponseNotHaveMetaData)
-            }
-
-            let dataResponse = UrlDataResponse(request: urlRequest,
-                                               response: urlResponse,
-                                               data: value,
-                                               metrics: nil, // ?? почему nil
-                                               serializationDuration: -1) // почему -1?
-
-            log += " --> \(urlResponse.statusCode)" + .lineTabDeilimeter
-            log += String(data: value, encoding: .utf8) ?? "CURRUPTED"
-
-            return self.next.processLegacy(dataResponse).log(log)
-        }
-    }
-
-    /// Проверяет, возникла-ли какая-то ошибка во время работы.
-    ///
-    /// - Parameter data: Низкоуровневый ответ сервера.
     open func process(
         _ data: NodeDataResponse,
         logContext: LoggingContextProtocol

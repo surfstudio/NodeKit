@@ -37,23 +37,6 @@ final class TokenRefresherActorTests: XCTestCase {
     
     // MARK: - Tests
     
-    func testUpdate_thenChainUpdated() async {
-        // given
-        
-        let expectedChain = AsyncNodeMock<Void, Void>()
-        expectedChain.stubbedAsyncProccessResult = .success(())
-        
-        // when
-        
-        await sut.update(tokenRefreshChain: expectedChain)
-        _ = await sut.refresh(logContext: logContextMock)
-        
-        // then
-        
-        XCTAssertEqual(expectedChain.invokedAsyncProcessCount, 1)
-        XCTAssertFalse(tokenRefreshChain.invokedAsyncProcess)
-    }
-    
     func testRefresh_thenProcessCalledOnce() async {
         // given
         

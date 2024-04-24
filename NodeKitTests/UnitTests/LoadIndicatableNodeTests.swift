@@ -114,7 +114,7 @@ final class LoadIndicatableNodeTests: XCTestCase {
             _ = await sut.process(1, logContext: logContextMock)
         }
         
-        await fulfillment(of: [expectation], timeout: 3)
+        await fulfillment(of: [expectation], timeout: 1)
         
         // then
         

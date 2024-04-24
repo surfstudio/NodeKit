@@ -31,18 +31,4 @@ final class CombineNodeMock<Input, Output>: CombineNode {
         invokedNodeResultPublisherParametersList.append(results)
         return stubbedNodeResultPublisherResult
     }
-    
-    var invokedProcessLegacy = false
-    var invokedProcessLegacyCount = 0
-    var invokedProcessLegacyParameter: Input?
-    var invokedProcessLegacyParameterList: [Input] = []
-    var stubbedProccessLegacyResult: Observer<Output>!
-    
-    func processLegacy(_ data: Input) -> Observer<Output> {
-        invokedProcessLegacy = true
-        invokedProcessLegacyCount += 1
-        invokedProcessLegacyParameter = data
-        invokedProcessLegacyParameterList.append(data)
-        return stubbedProccessLegacyResult
-    }
 }

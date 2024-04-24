@@ -16,19 +16,6 @@ open class VoidIONode: AsyncNode {
         self.next = next
     }
 
-    open func processLegacy(_ data: Void) -> Observer<Void> {
-        return self.next.processLegacy(Json()).map { json in
-            let result = Context<Void>()
-            var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.voidIONode)
-            if !json.isEmpty {
-                log += "VoidIOtNode used but request have not empty response" + .lineTabDeilimeter
-                log += "\(json)"
-                result.log(log)
-            }
-            return result.emit(data: ())
-        }
-    }
-
     open func process(
         _ data: Void,
         logContext: LoggingContextProtocol

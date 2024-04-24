@@ -41,8 +41,4 @@ public struct AsyncCombineNode<Input, Output>: CombineNode {
         .receive(on: scheduler)
         .eraseToAnyPublisher()
     }
-    
-    public func processLegacy(_ data: Input) -> Observer<Output> {
-        return node.processLegacy(data)
-    }
 }

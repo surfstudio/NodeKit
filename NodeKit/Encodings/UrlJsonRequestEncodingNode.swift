@@ -21,35 +21,6 @@ open class UrlJsonRequestEncodingNode<Type>: AsyncNode {
         self.next = next
     }
 
-    open func processLegacy(_ data: RequestEncodingModel) -> Observer<Type> {
-        var log = getLogMessage(data)
-        let request: TransportUrlRequest?
-        let paramEncoding = { () -> ParameterEncoding? in
-            guard data.urlParameters.method == .get else {
-                return data.encoding?.raw
-            }
-            return URLEncoding.default
-        }()
-        guard let encoding = paramEncoding else {
-            log += "Missed encoding type -> terminate with error"
-            return Context<Type>().log(log).emit(error: RequestEncodingNodeError.missedJsonEncodingType)
-        }
-        do {
-            request = try encoding.encode(urlParameters: data.urlParameters, parameters: data.raw)
-            log.message += "type: Json"
-        } catch {
-            log += "But can't encode data -> terminate with error"
-            return Context<Type>().log(log).emit(error: RequestEncodingNodeError.unsupportedDataType)
-        }
-
-        guard let unwrappedRequest = request else {
-            log += "Unsupported data type -> terminate with error"
-            return Context<Type>().log(log).emit(error: RequestEncodingNodeError.unsupportedDataType)
-        }
-
-        return next.processLegacy(unwrappedRequest).log(log)
-    }
-
     open func process(
         _ data: RequestEncodingModel,
         logContext: LoggingContextProtocol

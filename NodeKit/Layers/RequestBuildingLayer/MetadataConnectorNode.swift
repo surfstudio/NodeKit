@@ -27,13 +27,6 @@ open class MetadataConnectorNode<Raw, Output>: AsyncNode {
     /// формирует модель `RequestModel` и передает ее на дальнейшую обработку.
     ///
     /// - Parameter data: данные в Raw формате. (после маппинга из Entry)
-    open func processLegacy(_ data: Raw) -> Observer<Output> {
-        return next.processLegacy(RequestModel(metadata: self.metadata, raw: data))
-    }
-
-    /// формирует модель `RequestModel` и передает ее на дальнейшую обработку.
-    ///
-    /// - Parameter data: данные в Raw формате. (после маппинга из Entry)
     open func process(
         _ data: Raw,
         logContext: LoggingContextProtocol

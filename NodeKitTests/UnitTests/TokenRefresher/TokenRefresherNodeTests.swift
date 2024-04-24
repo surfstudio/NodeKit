@@ -32,7 +32,6 @@ public class TokenRefresherNodeTests: XCTestCase {
         logContextMock = LoggingContextMock()
         tokenRefreshChainMock = AsyncNodeMock()
         sut = TokenRefresherNode(
-            tokenRefreshChain: tokenRefreshChainMock,
             tokenRefresherActor: tokenRefresherActorMock
         )
     }
@@ -46,61 +45,6 @@ public class TokenRefresherNodeTests: XCTestCase {
     }
     
     // MARK: - Tests
-    
-    func testProcess_thenAllResponseEmited() {
-        // given
-        
-        let countOfRequests = 9
-        var counter = 0
-        
-        // when
-        
-        let exp = self.expectation(description: "\(#function)")
-
-        for _ in 0..<countOfRequests {
-            stubNewContextTotokenRefreshChain()
-            sut.processLegacy(()).onCompleted {
-                counter += 1
-            }
-        }
-
-        stubNewContextTotokenRefreshChain()
-        sut.processLegacy(()).onCompleted {
-            exp.fulfill()
-        }
-
-        self.waitForExpectations(timeout: 7, handler: nil)
-        
-        // then
-        
-        XCTAssertEqual(countOfRequests, counter)
-    }
-
-    func testProcess_thenTokenUpdateCalledOnce() {
-        // given
-        
-        let countOfRequests = 9
-
-        // Act
-
-        let exp = self.expectation(description: "\(#function)")
-
-        for _ in 0..<countOfRequests {
-            stubNewContextTotokenRefreshChain()
-            _ = sut.processLegacy(())
-        }
-
-        stubNewContextTotokenRefreshChain()
-        sut.processLegacy(()).onCompleted {
-            exp.fulfill()
-        }
-
-        self.waitForExpectations(timeout: 3, handler: nil)
-
-        // Assert
-
-        XCTAssertEqual(tokenRefreshChainMock.invokedProcessLegacyCount, 1)
-    }
     
     func testAsyncProcess_thenTokenRefresherActorCalled() async {
         // given
@@ -118,13 +62,5 @@ public class TokenRefresherNodeTests: XCTestCase {
         
         let refreshCount = await tokenRefresherActorMock.invokedRefreshCount
         XCTAssertEqual(refreshCount, countOfRequests)
-    }
-    
-    private func stubNewContextTotokenRefreshChain() {
-        let context = Context<Void>()
-        tokenRefreshChainMock.stubbedProccessLegacyResult = context
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1)) {
-            context.emit(data: ())
-        }
     }
 }
