@@ -1,23 +1,23 @@
 //
-//  RawDecodableMock.swift
+//  RawMappableMock.swift
 //  NodeKitTests
 //
-//  Created by Andrei Frolov on 08.04.24.
+//  Created by Andrei Frolov on 09.04.24.
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
 @testable import NodeKit
 
-final class RawDecodableMock: RawDecodable {
+final class RawMappableMock: RawMappable {
     typealias Raw = Json
     
     static var invokedFrom = false
     static var invokedFromCount = 0
-    static var invokedFromParameter: Raw?
-    static var invokedFromParameterList: [Raw] = []
-    static var stubbedFromResult: Result<RawDecodableMock, Error>!
+    static var invokedFromParameter: Json?
+    static var invokedFromParameterList: [Json] = []
+    static var stubbedFromResult: Result<RawMappableMock, Error>!
     
-    static func from(raw: Raw) throws -> RawDecodableMock {
+    static func from(raw: Json) throws -> RawMappableMock {
         invokedFrom = true
         invokedFromCount += 1
         invokedFromParameter = raw
@@ -27,6 +27,21 @@ final class RawDecodableMock: RawDecodable {
             return success
         case .failure(let failure):
             throw failure
+        }
+    }
+    
+    var invokedToRaw = false
+    var invokedToRawCount = 0
+    var stubbedToRawResult: Result<Json, Error>!
+    
+    func toRaw() throws -> Json {
+        invokedToRaw = true
+        invokedToRawCount += 1
+        switch stubbedToRawResult! {
+        case .success(let raw):
+            return raw
+        case .failure(let error):
+            throw error
         }
     }
     
