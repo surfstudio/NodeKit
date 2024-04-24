@@ -6,7 +6,7 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
-import ThirdParty
+import NodeKitThirdParty
 
 /// Протокол фабрики для создания объекта, позволяющего собирать multipart/form-data.
 public protocol MultipartFormDataFactory {

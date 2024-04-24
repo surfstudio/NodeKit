@@ -10,26 +10,39 @@ let package = Package(
     products: [
         .library(
             name: "NodeKit",
-            targets: ["NodeKit"]),
+            targets: ["NodeKit"]
+        ),
+        .library(
+            name: "NodeKitMock",
+            targets: ["NodeKitMock"]
+        ),
     ],
     dependencies: [
-        .package(path: "./ThirdParty")
+        .package(path: "./NodeKitThirdParty")
     ],
     targets: [
         .target(
             name: "NodeKit",
             dependencies: [
-                "ThirdParty"
+                "NodeKitThirdParty"
             ],
             path: "NodeKit",
             exclude: [
                 "Info.plist"
             ]
         ),
+        .target(
+            name: "NodeKitMock",
+            dependencies: [
+                "NodeKit"
+            ],
+            path: "NodeKitMock"
+        ),
         .testTarget(
             name: "NodeKitTests",
             dependencies: [
-                "NodeKit"
+                "NodeKit",
+                "NodeKitMock"
             ],
             path: "NodeKitTests",
             exclude: [

@@ -1,5 +1,7 @@
-import XCTest
 @testable import NodeKit
+@testable import NodeKitMock
+
+import XCTest
 
 final class MockerProxyConfigNodeTests: XCTestCase {
     

@@ -1,5 +1,5 @@
 import Foundation
-import ThirdParty
+import NodeKitThirdParty
 
 /// Модель для внутреннего представления multipart запроса.
 public struct MultipartUrlRequest {

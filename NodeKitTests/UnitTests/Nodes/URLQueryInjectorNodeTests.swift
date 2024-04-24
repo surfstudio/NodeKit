@@ -1,7 +1,8 @@
+@testable import NodeKit
+@testable import NodeKitMock
+
 import Foundation
 import XCTest
-
-@testable import NodeKit
 
 final class URLQueryInjectorNodeTests: XCTestCase {
     

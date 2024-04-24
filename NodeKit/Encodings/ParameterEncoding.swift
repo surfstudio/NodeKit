@@ -23,7 +23,7 @@
 //
 
 import Foundation
-import ThirdParty
+import NodeKitThirdParty
 
 /// A dictionary of parameters to apply to a `URLRequest`.
 public typealias Parameters = [String: Any]

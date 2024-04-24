@@ -7,6 +7,8 @@
 //
 
 @testable import NodeKit
+@testable import NodeKitMock
+
 import XCTest
 
 final class RequestSenderNodeTests: XCTestCase {
@@ -84,7 +86,7 @@ final class RequestSenderNodeTests: XCTestCase {
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
         XCTAssertNil(input.urlResponse)
         XCTAssertEqual(input.urlRequest, expectedRequest)
-        XCTAssertEqual(error.domain, "NodeKitTests.MockError")
+        XCTAssertEqual(error.domain, "NodeKitMock.MockError")
     }
     
     func testAsyncProcess_whenFailure_thenDataTaskSaved() async throws {

@@ -7,6 +7,7 @@
 //
 
 @testable import NodeKit
+
 import XCTest
 
 final class LogableTests: XCTestCase {
