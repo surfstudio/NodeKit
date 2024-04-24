@@ -38,7 +38,7 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
     /// Конфигурирует низкоуровневый запрос.
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
-    open func process(_ data: MultipartUrlRequest) -> Observer<Output> {
+    open func processLegacy(_ data: MultipartUrlRequest) -> Observer<Output> {
         do {
             var request = URLRequest(url: data.url)
             request.httpMethod = data.method.rawValue
@@ -53,7 +53,7 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
             let encodedFormData = try formData.encode()
             request.httpBody = encodedFormData
 
-            return self.next.process(request).log(self.getLogMessage(data))
+            return self.next.processLegacy(request).log(self.getLogMessage(data))
         } catch {
             return .emit(error: error)
         }

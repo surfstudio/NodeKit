@@ -21,10 +21,10 @@ open class LoggerNode<Input, Output>: AsyncNode {
     /// Сразу же передает управление следующему узлу и подписывается на выполнение операций.
     ///
     /// - Parameter data: Данные для обработки. Этот узел их не использует.
-    open func process(_ data: Input) -> Observer<Output> {
+    open func processLegacy(_ data: Input) -> Observer<Output> {
         let result = Context<Output>()
 
-        let context = self.next.process(data)
+        let context = self.next.processLegacy(data)
 
         let filter = self.filters
 

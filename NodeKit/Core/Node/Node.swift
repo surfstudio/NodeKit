@@ -33,28 +33,6 @@ public protocol Node<Input, Output> {
     ///
     /// - Parameter data: Входные данные
     /// - Returns: Подписка на процесс обработки данных.
-    func process(_ data: Input) -> Observer<Output>
-}
-
-/// Протокол наследованный от Node, добавляющий подход преобразования входных данных в результат с помощью SwiftConcurrency
-/// Применим для узлов, которые возвращают один результат
-public protocol AsyncNode<Input, Output>: Node {
-    
-    /// Ассинхронный метод, который содержит логику для обработки данных
-    ///
-    /// - Parameter data: Входные данные
-    /// - Returns: Результат обработки данных.
-    @discardableResult
-    func process(_ data: Input, logContext: LoggingContextProtocol) async -> NodeResult<Output>
-}
-
-/// Протокол наследованный от Node, добавляющий подход преобразования входных данных в поток результатов с помощью SwiftConcurrency
-/// Применим для узлов, которые могут вернуть несколько результатов
-public protocol AsyncStreamNode<Input, Output>: Node {
-    
-    /// Ассинхронный метод, который содержит логику для обработки данных
-    ///
-    /// - Parameter data: Входные данные
-    /// - Returns: Поток результатов обработки данных.
-    func process(_ data: Input, logContext: LoggingContextProtocol) -> AsyncStream<NodeResult<Output>>
+    @available(*, deprecated, message: "Будет удалено в ближайшее время")
+    func processLegacy(_ data: Input) -> Observer<Output>
 }

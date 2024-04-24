@@ -220,7 +220,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
     /// Для работы с этой цепочкой в качестве модели необходимо использовать `MultipartModel`
     ///
     /// - Returns: Корневой узел цепочки .
-    open func build<I, O>() -> some Node<I, O> where O: DTODecodable, O.DTO.Raw == Json, I: DTOEncodable, I.DTO.Raw == MultipartModel<[String : Data]> {
+    open func build<I, O>() -> some AsyncNode<I, O> where O: DTODecodable, O.DTO.Raw == Json, I: DTOEncodable, I.DTO.Raw == MultipartModel<[String : Data]> {
 
         let reponseProcessor = self.serviceChain.urlResponseProcessingLayerChain()
 
@@ -246,7 +246,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     /// Позволяет загрузить бинарные данные (файл) с сервера без отправки какой-то модели на сервер.
     /// - Returns: Корневой узел цепочки.
-    open func loadData() -> some Node<Void, Data> {
+    open func loadData() -> some AsyncNode<Void, Data> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         let responseProcessor = ResponseProcessorNode(next: errorProcessor)
@@ -273,7 +273,7 @@ open class UrlChainsBuilder<Route: UrlRouteProvider> {
 
     /// Позволяет загрузить бинарные данные (файл) с сервера.
     /// - Returns: Корневой узел цепочки.
-    open func loadData<Input>() -> some Node<Input, Data> where Input: DTOEncodable, Input.DTO.Raw == Json {
+    open func loadData<Input>() -> some AsyncNode<Input, Data> where Input: DTOEncodable, Input.DTO.Raw == Json {
 
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)

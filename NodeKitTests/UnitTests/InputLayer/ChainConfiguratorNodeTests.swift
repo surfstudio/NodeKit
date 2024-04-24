@@ -27,7 +27,7 @@ public class ChainConfiguratorNodeTests: XCTestCase {
 
         var queueLabel = ""
 
-        func process(_ data: Void) -> Observer<Void> {
+        func processLegacy(_ data: Void) -> Observer<Void> {
             self.queueLabel = DispatchQueue.currentLabel
             return .emit(data: data)
         }
@@ -53,7 +53,7 @@ public class ChainConfiguratorNodeTests: XCTestCase {
 
         let exp = self.expectation(description: "\(#function)")
 
-        _ = testedNode.process(()).onCompleted {
+        _ = testedNode.processLegacy(()).onCompleted {
             exp.fulfill()
         }
 
@@ -75,7 +75,7 @@ public class ChainConfiguratorNodeTests: XCTestCase {
 
         let exp = self.expectation(description: "\(#function)")
 
-        _ = testedNode.process(()).onCompleted {
+        _ = testedNode.processLegacy(()).onCompleted {
             currentQueueLabel = DispatchQueue.currentLabel
             exp.fulfill()
         }

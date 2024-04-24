@@ -17,10 +17,10 @@ open class EntryinputDtoOutputNode<Input, Output>: AsyncNode
         self.next = next
     }
 
-    open func process(_ data: Input) -> Observer<Output> {
+    open func processLegacy(_ data: Input) -> Observer<Output> {
         do {
             let raw = try data.toRaw()
-            return self.next.process(raw).map { try Output.from(dto: Output.DTO.from(raw: $0) ) }
+            return self.next.processLegacy(raw).map { try Output.from(dto: Output.DTO.from(raw: $0) ) }
         } catch {
             return .emit(error: error)
         }

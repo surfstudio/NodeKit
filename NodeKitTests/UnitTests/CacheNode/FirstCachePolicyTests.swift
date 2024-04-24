@@ -52,11 +52,11 @@ final class FirstCachePolicyTests: XCTestCase {
         
         var completedCalls = 0
         
-        nextNodeMock.stubbedProccessResult = .emit(data: Json())
+        nextNodeMock.stubbedProccessLegacyResult = .emit(data: Json())
 
         // when
 
-        sut.process(request).onCompleted { data in
+        sut.processLegacy(request).onCompleted { data in
             completedCalls += 1
             expectation.fulfill()
         }
@@ -72,8 +72,8 @@ final class FirstCachePolicyTests: XCTestCase {
         // then
         
         XCTAssertEqual(completedCalls, 1)
-        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
-        XCTAssertFalse(readerNodeMock.invokedProcess)
+        XCTAssertEqual(nextNodeMock.invokedProcessLegacyCount, 1)
+        XCTAssertFalse(readerNodeMock.invokedProcessLegacy)
     }
     
     func testProcess_whenGoodInput_thenReaderCalled() {
@@ -87,12 +87,12 @@ final class FirstCachePolicyTests: XCTestCase {
         let nextNodeContext = Context<Json>()
         let readerNodeContext = Context<Json>()
         
-        nextNodeMock.stubbedProccessResult = nextNodeContext
-        readerNodeMock.stubbedProccessResult = readerNodeContext
+        nextNodeMock.stubbedProccessLegacyResult = nextNodeContext
+        readerNodeMock.stubbedProccessLegacyResult = readerNodeContext
         
         // when
 
-        sut.process(request).onCompleted { data in
+        sut.processLegacy(request).onCompleted { data in
             completedCalls += 1
             if completedCalls == 2 {
                 expectation.fulfill()
@@ -111,8 +111,8 @@ final class FirstCachePolicyTests: XCTestCase {
         // then
 
         XCTAssertEqual(completedCalls, 2)
-        XCTAssertEqual(nextNodeMock.invokedProcessCount, 1)
-        XCTAssertEqual(readerNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(nextNodeMock.invokedProcessLegacyCount, 1)
+        XCTAssertEqual(readerNodeMock.invokedProcessLegacyCount, 1)
     }
     
     func testAsyncProcess_whenBadInput_thenNextCalled() async throws {

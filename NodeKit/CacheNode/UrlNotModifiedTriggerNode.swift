@@ -37,12 +37,12 @@ open class UrlNotModifiedTriggerNode: AsyncNode {
 
     /// Проверяет http status-code. Если код соовуетствует NotModified, то возвращает запрос из кэша.
     /// В протвином случае передает управление дальше.
-    open func process(_ data: UrlDataResponse) -> Observer<Json> {
+    open func processLegacy(_ data: UrlDataResponse) -> Observer<Json> {
         guard data.response.statusCode == 304 else {
             let log = makeErrorLog(code: data.response.statusCode)
-            return next.process(data).log(log)
+            return next.processLegacy(data).log(log)
         }
-        return cacheReader.process(UrlNetworkRequest(urlRequest: data.request))
+        return cacheReader.processLegacy(UrlNetworkRequest(urlRequest: data.request))
     }
 
     /// Проверяет http status-code. Если код соовуетствует NotModified, то возвращает запрос из кэша.

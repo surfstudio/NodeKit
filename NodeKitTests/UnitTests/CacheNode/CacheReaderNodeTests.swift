@@ -40,7 +40,7 @@ public class CacheReaderNodeTests: XCTestCase {
 
         var json: Json?
 
-        testNode.process(model).onCompleted { data in
+        testNode.processLegacy(model).onCompleted { data in
             json = data
         }.onError { error in
             XCTFail("\(error)")
@@ -84,7 +84,7 @@ public class CacheReaderNodeTests: XCTestCase {
 
         var expected: Error?
 
-        testNode.process(model).onCompleted { data in
+        testNode.processLegacy(model).onCompleted { data in
             XCTFail("\(data)")
         }.onError { error in
             expected = error
@@ -123,7 +123,7 @@ public class CacheReaderNodeTests: XCTestCase {
 
         var expected: Error?
 
-        testNode.process(model).onCompleted { data in
+        testNode.processLegacy(model).onCompleted { data in
             XCTFail("\(data)")
         }.onError { error in
             expected = error
@@ -162,7 +162,7 @@ public class CacheReaderNodeTests: XCTestCase {
 
         var expected: Error?
 
-        testNode.process(model).onCompleted { data in
+        testNode.processLegacy(model).onCompleted { data in
             XCTFail("\(data)")
             }.onError { error in
                 expected = error

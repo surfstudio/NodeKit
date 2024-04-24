@@ -25,7 +25,7 @@ open class ResponseDataPreprocessorNode: AsyncNode {
     /// Сериализует "сырые" данные в `Json`
     ///
     /// - Parameter data: Представление ответа.
-    open func process(_ data: UrlDataResponse) -> Observer<Json> {
+    open func processLegacy(_ data: UrlDataResponse) -> Observer<Json> {
         var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.responseDataPreprocessorNode)
 
         guard data.response.statusCode != 204 else {
@@ -38,7 +38,7 @@ open class ResponseDataPreprocessorNode: AsyncNode {
             return Context<Json>().emit(data: Json()).log(log)
         }
 
-        return self.next.process(data)
+        return self.next.processLegacy(data)
     }
 
     /// Сериализует "сырые" данные в `Json`

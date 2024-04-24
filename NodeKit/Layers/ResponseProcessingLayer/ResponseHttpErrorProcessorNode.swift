@@ -44,7 +44,7 @@ open class ResponseHttpErrorProcessorNode<Type>: AsyncNode {
     /// В противном случае возвращает `HttpError`
     ///
     /// - Parameter data: Модель ответа сервера.
-    open func process(_ data: UrlDataResponse) -> Observer<Type> {
+    open func processLegacy(_ data: UrlDataResponse) -> Observer<Type> {
 
         let context = Context<Type>()
 
@@ -63,7 +63,7 @@ open class ResponseHttpErrorProcessorNode<Type>: AsyncNode {
             break
         }
         let log = self.logViewObjectName + "Cant match status code -> call next"
-        return self.next.process(data).log(Log(log, id: self.objectName, order: LogOrder.responseHttpErrorProcessorNode))
+        return self.next.processLegacy(data).log(Log(log, id: self.objectName, order: LogOrder.responseHttpErrorProcessorNode))
     }
 
     /// Сопоставляет HTTP-коды с заданными и в случае их несовпадения передает управление дальше.

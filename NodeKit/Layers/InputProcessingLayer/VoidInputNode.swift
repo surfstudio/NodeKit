@@ -22,8 +22,8 @@ open class VoidInputNode<Output>: AsyncNode {
     }
 
     /// Передает управление следующему узлу,в качестве параметра передает пустой `Json`
-    open func process(_ data: Void) -> Observer<Output> {
-        return next.process(Json())
+    open func processLegacy(_ data: Void) -> Observer<Output> {
+        return next.processLegacy(Json())
     }
 
     /// Передает управление следующему узлу,в качестве параметра передает пустой `Json`
@@ -40,7 +40,7 @@ open class VoidInputNode<Output>: AsyncNode {
 /// Содержит иснтаксический сахар для работы с узлами, у которых входящий тип = `Void`
 extension Node where Input == Void {
     /// Вызывает `process(_:)`
-    func process() -> Observer<Output> {
-        return self.process(Void())
+    func processLegacy() -> Observer<Output> {
+        return self.processLegacy(Void())
     }
 }

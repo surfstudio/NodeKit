@@ -10,7 +10,7 @@ public class URLQueryInjectorNodeTests: XCTestCase {
     typealias Model = RoutableRequestModel<UrlRouteProvider, Json>
 
     class StubNode: AsyncNode {
-        func process(_ data: Model) -> Observer<Model> {
+        func processLegacy(_ data: Model) -> Observer<Model> {
             return .emit(data: data)
         }
         
@@ -38,7 +38,7 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         var result: URL!
 
-        node.process(request).onCompleted { result = try! $0.route.url() }
+        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -59,7 +59,7 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         var result: URL!
 
-        node.process(request).onCompleted { result = try! $0.route.url() }
+        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -83,7 +83,7 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         var result: URL!
 
-        node.process(request).onCompleted { result = try! $0.route.url() }
+        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -109,7 +109,7 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         var result: Model!
 
-        node.process(request).onCompleted { result = $0 }
+        node.processLegacy(request).onCompleted { result = $0 }
 
         // Assert
 
@@ -132,7 +132,7 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         var result: URL!
 
-        node.process(request).onCompleted { result = try! $0.route.url() }
+        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -156,7 +156,7 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         var result: URL!
 
-        node.process(request).onCompleted { result = try! $0.route.url() }
+        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -180,7 +180,7 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         var result: URL!
 
-        node.process(request).onCompleted { result = try! $0.route.url() }
+        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 
@@ -204,7 +204,7 @@ public class URLQueryInjectorNodeTests: XCTestCase {
 
         var result: URL!
 
-        node.process(request).onCompleted { result = try! $0.route.url() }
+        node.processLegacy(request).onCompleted { result = try! $0.route.url() }
 
         // Assert
 

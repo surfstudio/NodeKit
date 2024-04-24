@@ -38,7 +38,7 @@ open class LoadIndicatableNode<Input, Output>: AsyncNode {
 
     /// Показывает индикатор и передает управление дальше.
     /// По окнчании работы цепочки скрывает индикатор.
-    open func process(_ data: Input) -> Observer<Output> {
+    open func processLegacy(_ data: Input) -> Observer<Output> {
         DispatchQueue.global().async(flags: .barrier) {
             LoadIndicatableNodeStatic.requestConter += 1
         }
@@ -49,7 +49,7 @@ open class LoadIndicatableNode<Input, Output>: AsyncNode {
             }
         }
 
-        return self.next.process(data)
+        return self.next.processLegacy(data)
             .map { (item: Output) -> Output in
                 decrementRequestCounter()
                 return item

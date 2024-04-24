@@ -16,8 +16,8 @@ open class VoidIONode: AsyncNode {
         self.next = next
     }
 
-    open func process(_ data: Void) -> Observer<Void> {
-        return self.next.process(Json()).map { json in
+    open func processLegacy(_ data: Void) -> Observer<Void> {
+        return self.next.processLegacy(Json()).map { json in
             let result = Context<Void>()
             var log = Log(self.logViewObjectName, id: self.objectName, order: LogOrder.voidIONode)
             if !json.isEmpty {

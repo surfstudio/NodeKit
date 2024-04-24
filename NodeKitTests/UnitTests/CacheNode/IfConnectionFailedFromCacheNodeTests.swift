@@ -52,17 +52,17 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
         
         let request = URLRequest(url: URL(string: "test.ex.temp")!)
         
-        mapperNextNodeMock.stubbedProccessResult = .emit(error: NSError(domain: "app.network", code: -1009, userInfo: nil))
-        cacheReaderNodeMock.stubbedProccessResult = .emit(data: Json())
+        mapperNextNodeMock.stubbedProccessLegacyResult = .emit(error: NSError(domain: "app.network", code: -1009, userInfo: nil))
+        cacheReaderNodeMock.stubbedProccessLegacyResult = .emit(data: Json())
 
         // when
 
-        _ = sut.process(request)
+        _ = sut.processLegacy(request)
 
         // then
 
-        XCTAssertEqual(mapperNextNodeMock.invokedProcessCount, 1)
-        XCTAssertEqual(cacheReaderNodeMock.invokedProcessCount, 1)
+        XCTAssertEqual(mapperNextNodeMock.invokedProcessLegacyCount, 1)
+        XCTAssertEqual(cacheReaderNodeMock.invokedProcessLegacyCount, 1)
     }
     
     public func testProcess_withoutError_thenNodeWorkInCaseOfGoodInternet() {
@@ -70,17 +70,17 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
         
         let request = URLRequest(url: URL(string: "test.ex.temp")!)
         
-        mapperNextNodeMock.stubbedProccessResult = .emit(data: Json())
-        cacheReaderNodeMock.stubbedProccessResult = .emit(data: Json())
+        mapperNextNodeMock.stubbedProccessLegacyResult = .emit(data: Json())
+        cacheReaderNodeMock.stubbedProccessLegacyResult = .emit(data: Json())
 
         // when
 
-        _ = sut.process(request)
+        _ = sut.processLegacy(request)
 
         // then
 
-        XCTAssertEqual(mapperNextNodeMock.invokedProcessCount, 1)
-        XCTAssertEqual(cacheReaderNodeMock.invokedProcessCount, 0)
+        XCTAssertEqual(mapperNextNodeMock.invokedProcessLegacyCount, 1)
+        XCTAssertEqual(cacheReaderNodeMock.invokedProcessLegacyCount, 0)
     }
     
     public func testAsyncProcess_whenErrorReceived_thenNodeWorkInCaseOfBadInternet() async throws {
@@ -100,9 +100,9 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
 
         let unwrappedResult = try XCTUnwrap(result.get() as? [String: String])
         XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameter, request)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameter?.0, request)
         XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessParameter?.urlRequest, request)
+        XCTAssertEqual(cacheReaderNodeMock.invokedAsyncProcessParameter?.0.urlRequest, request)
         XCTAssertEqual(unwrappedResult, expectedResult)
     }
     
@@ -123,7 +123,7 @@ public class IfConnectionFailedFromCacheNodeTests: XCTestCase {
 
         let unwrappedResult = try XCTUnwrap(result.get() as? [String: String])
         XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameter, request)
+        XCTAssertEqual(mapperNextNodeMock.invokedAsyncProcessParameter?.0, request)
         XCTAssertFalse(cacheReaderNodeMock.invokedAsyncProcess)
         XCTAssertEqual(unwrappedResult, expectedResult)
     }

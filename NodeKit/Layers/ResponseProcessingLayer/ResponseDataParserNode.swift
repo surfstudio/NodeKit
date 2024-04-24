@@ -34,7 +34,7 @@ open class ResponseDataParserNode: AsyncNode {
     /// Парсит ответ и в случае успеха передает управление следующему узлу.
     ///
     /// - Parameter data: Модель ответа сервера.
-    open func process(_ data: UrlDataResponse) -> Observer<Json> {
+    open func processLegacy(_ data: UrlDataResponse) -> Observer<Json> {
 
         let context = Context<Json>()
         var json = Json()
@@ -66,7 +66,7 @@ open class ResponseDataParserNode: AsyncNode {
 
         let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
 
-        return nextNode.process(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).map { json }
+        return nextNode.processLegacy(networkResponse).log(Log(log, id: self.objectName, order: LogOrder.responseDataParserNode)).map { json }
     }
 
     /// Парсит ответ и в случае успеха передает управление следующему узлу.

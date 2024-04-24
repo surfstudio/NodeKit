@@ -44,8 +44,8 @@ open class AborterNode<Input, Output>: AsyncNode {
 
     /// Просто передает поток следующему узлу
     /// и если пришло сообщение об отмене запроса, то посылает Aborter'у `cancel()`
-    open func process(_ data: Input) -> Observer<Output> {
-        return self.next.process(data)
+    open func processLegacy(_ data: Input) -> Observer<Output> {
+        return self.next.processLegacy(data)
             .multicast()
             .onCanceled { [weak self] in
                 self?.aborter.cancel()

@@ -47,10 +47,10 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
     /// Добавляет URL-query если может и передает управление следующему узлу.
     /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateUrlComponentsFromUrlString`
     /// - SeeAlso: ``URLQueryInjectorNodeError``
-    open func process(_ data: RoutableRequestModel<UrlRouteProvider, Raw>) -> Observer<Output> {
+    open func processLegacy(_ data: RoutableRequestModel<UrlRouteProvider, Raw>) -> Observer<Output> {
 
         guard !self.config.query.isEmpty else {
-            return self.next.process(data)
+            return self.next.processLegacy(data)
         }
 
         var url: URL
@@ -78,7 +78,7 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
                                                                    raw: data.raw,
                                                                    route: newUrl)
 
-        return self.next.process(newModel)
+        return self.next.processLegacy(newModel)
     }
 
     /// Добавляет URL-query если может и передает управление следующему узлу.

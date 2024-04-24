@@ -41,17 +41,17 @@ open class UrlETagSaverNode: AsyncNode {
 
     /// Пытается получить eTag-токен по ключу.
     /// В любом случае передает управление дальше.
-    open func process(_ data: UrlProcessedResponse) -> Observer<Void> {
+    open func processLegacy(_ data: UrlProcessedResponse) -> Observer<Void> {
         guard let tag = data.response.allHeaderFields[self.eTagHeaderKey] as? String,
             let url = data.request.url,
             let urlAsKey = url.withOrderedQuery()
         else {
-            return next?.process(data) ?? .emit(data: ())
+            return next?.processLegacy(data) ?? .emit(data: ())
         }
 
         UserDefaults.etagStorage?.set(tag, forKey: urlAsKey)
 
-        return next?.process(data) ?? .emit(data: ())
+        return next?.processLegacy(data) ?? .emit(data: ())
     }
 
     /// Пытается получить eTag-токен по ключу.

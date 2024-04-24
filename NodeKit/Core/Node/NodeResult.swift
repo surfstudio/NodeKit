@@ -72,4 +72,24 @@ public extension NodeResult {
             return .failure(customError ?? error)
         }
     }
+    
+    /// Возвращает занчение успешного результата или nil если Failure.
+    var value: Success? {
+        switch self {
+        case .success(let value):
+            return value
+        case .failure:
+            return nil
+        }
+    }
+    
+    /// Возвращает Error, если Failure или nil если Success.
+    var error: Error? {
+        switch self {
+        case .success:
+            return nil
+        case .failure(let error):
+            return error
+        }
+    }
 }

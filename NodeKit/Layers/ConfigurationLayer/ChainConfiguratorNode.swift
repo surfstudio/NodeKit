@@ -40,10 +40,10 @@ open class ChainConfiguratorNode<I, O>: AsyncNode {
     /// затем выполняет всю цепочку операций и диспатчит ответ на `endQueue`
     ///
     /// - Parameter data: Данные для обработки
-    open func process(_ data: I) -> Observer<O> {
+    open func processLegacy(_ data: I) -> Observer<O> {
         return Context<Void>.emit(data: ())
             .dispatchOn(self.beginQueue)
-            .map { return self.next.process(data) }
+            .map { return self.next.processLegacy(data) }
             .dispatchOn(self.endQueue)
     }
 

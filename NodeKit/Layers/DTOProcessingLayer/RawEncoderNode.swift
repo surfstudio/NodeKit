@@ -25,9 +25,9 @@ open class RawEncoderNode<Input, Output>: AsyncNode where Input: RawEncodable {
     /// Если при конвертировании произошла ошибка - прерывает выполнение цепочки.
     ///
     /// - Parameter data: Входящая модель.
-    open func process(_ data: Input) -> Observer<Output> {
+    open func processLegacy(_ data: Input) -> Observer<Output> {
         do {
-            return next.process(try data.toRaw())
+            return next.processLegacy(try data.toRaw())
         } catch {
             return .emit(error: error)
         }

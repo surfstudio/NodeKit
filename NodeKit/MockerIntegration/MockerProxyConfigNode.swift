@@ -16,8 +16,8 @@ public enum MockerProxyConfigKey {
 /// - SeeAlso:
 ///     - `MetadataConnectorNode`
 ///     - `RequestRouterNode`
-open class MockerProxyConfigNode<Raw, Output>: Node {
-
+open class MockerProxyConfigNode<Raw, Output>: AsyncNode {
+    
     private typealias Keys = MockerProxyConfigKey
 
     // MARK: - Public Properties
@@ -54,10 +54,10 @@ open class MockerProxyConfigNode<Raw, Output>: Node {
     // MARK: - Node
 
     /// Добавляет хедеры в `data`
-    open func process(_ data: RequestModel<Raw>) -> Observer<Output> {
+    open func processLegacy(_ data: RequestModel<Raw>) -> Observer<Output> {
 
         guard self.isProxyingOn else {
-            return self.next.process(data)
+            return self.next.processLegacy(data)
         }
 
         var copy = data
@@ -66,7 +66,7 @@ open class MockerProxyConfigNode<Raw, Output>: Node {
         copy.metadata[Keys.proxyingHost] = self.proxyingHost
         copy.metadata[Keys.proxyingScheme] = self.proxyingScheme
 
-        return self.next.process(copy)
+        return self.next.processLegacy(copy)
     }
 
     // MARK: - Node
