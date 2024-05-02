@@ -12,13 +12,11 @@
 		4F1DDBD3207B2D2500E0CEB4 /* PaginationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1DDBD2207B2D2500E0CEB4 /* PaginationPresenter.swift */; };
 		4FA424222075D346004AEDF6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA424202075D346004AEDF6 /* Message.swift */; };
 		4FA424232075D346004AEDF6 /* Message.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FA424212075D346004AEDF6 /* Message.xib */; };
+		504E74BC2BE37EA400CFEB2E /* MockServer in Frameworks */ = {isa = PBXBuildFile; productRef = 504E74BB2BE37EA400CFEB2E /* MockServer */; };
+		504E74BE2BE37EA800CFEB2E /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 504E74BD2BE37EA800CFEB2E /* Models */; };
+		504E74C02BE37EAB00CFEB2E /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 504E74BF2BE37EAB00CFEB2E /* Services */; };
 		50816A1D2BC6E6DE00A43F3D /* NodeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50816A1C2BC6E6DE00A43F3D /* NodeKit */; };
-		50816B2B2BC70ACB00A43F3D /* NodeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50816B2A2BC70ACB00A43F3D /* NodeKit */; };
-		5097DF3F2BCD614A00D422EE /* NodeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DF3E2BCD614A00D422EE /* NodeKit */; };
-		5097DF422BCD624700D422EE /* NodeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DF412BCD624700D422EE /* NodeKit */; };
 		5097DF442BCD624700D422EE /* NodeKitMock in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DF432BCD624700D422EE /* NodeKitMock */; };
-		5097DF492BCD62AA00D422EE /* NodeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DF482BCD62AA00D422EE /* NodeKit */; };
-		5097DF4B2BCD62AA00D422EE /* NodeKitMock in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DF4A2BCD62AA00D422EE /* NodeKitMock */; };
 		5097DF502BCD641D00D422EE /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DF4F2BCD641D00D422EE /* LoginRouter.swift */; };
 		5097DF522BCD65E600D422EE /* FeatureListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DF512BCD65E600D422EE /* FeatureListConfigurator.swift */; };
 		5097DF562BCD666000D422EE /* FeatureListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5097DF552BCD666000D422EE /* FeatureListViewController.storyboard */; };
@@ -41,10 +39,6 @@
 		5097DF852BCDA58C00D422EE /* GroupViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5097DF842BCDA58C00D422EE /* GroupViewController.storyboard */; };
 		5097DF872BCDA5A300D422EE /* GroupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DF862BCDA5A300D422EE /* GroupPresenter.swift */; };
 		5097DF892BCDA5B900D422EE /* GroupConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DF882BCDA5B900D422EE /* GroupConfigurator.swift */; };
-		5097DF9D2BCDAB2500D422EE /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DF9C2BCDAB2500D422EE /* Models */; };
-		5097DFA02BCDAD9500D422EE /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DF9F2BCDAD9500D422EE /* Services */; };
-		5097DFA32BCDADAB00D422EE /* Services in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DFA22BCDADAB00D422EE /* Services */; };
-		5097DFA62BCDB0BE00D422EE /* MockServer in Frameworks */ = {isa = PBXBuildFile; productRef = 5097DFA52BCDB0BE00D422EE /* MockServer */; };
 		5097DFB22BCE00AB00D422EE /* GroupViewModelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5097DFB12BCE00AB00D422EE /* GroupViewModelProvider.swift */; };
 		50B569802BD183F00054DC09 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 50B5697F2BD183F00054DC09 /* Utils */; };
 		50B569832BD184150054DC09 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 50B569822BD184150054DC09 /* Nuke */; };
@@ -68,6 +62,9 @@
 		4F1DDBD2207B2D2500E0CEB4 /* PaginationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationPresenter.swift; sourceTree = "<group>"; };
 		4FA424202075D346004AEDF6 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4FA424212075D346004AEDF6 /* Message.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Message.xib; sourceTree = "<group>"; };
+		509656A72BE37DD700808890 /* Services */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Services; path = Modules/Services; sourceTree = "<group>"; };
+		509656A82BE37DD700808890 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Models; path = Modules/Models; sourceTree = "<group>"; };
+		509656A92BE37DD700808890 /* MockServer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MockServer; path = Modules/MockServer; sourceTree = "<group>"; };
 		5097DF4F2BCD641D00D422EE /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		5097DF512BCD65E600D422EE /* FeatureListConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureListConfigurator.swift; sourceTree = "<group>"; };
 		5097DF552BCD666000D422EE /* FeatureListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeatureListViewController.storyboard; sourceTree = "<group>"; };
@@ -108,29 +105,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5097DFA02BCDAD9500D422EE /* Services in Frameworks */,
+				504E74BE2BE37EA800CFEB2E /* Models in Frameworks */,
+				504E74BC2BE37EA400CFEB2E /* MockServer in Frameworks */,
 				50B569852BD184AD0054DC09 /* NukeExtensions in Frameworks */,
-				5097DF9D2BCDAB2500D422EE /* Models in Frameworks */,
-				50816B2B2BC70ACB00A43F3D /* NodeKit in Frameworks */,
-				5097DFA62BCDB0BE00D422EE /* MockServer in Frameworks */,
 				50C445A82BC8202700C515E6 /* ReactiveDataDisplayManager in Frameworks */,
-				5097DF492BCD62AA00D422EE /* NodeKit in Frameworks */,
 				5097DF442BCD624700D422EE /* NodeKitMock in Frameworks */,
-				5097DF3F2BCD614A00D422EE /* NodeKit in Frameworks */,
 				50C445A22BC81FB300C515E6 /* SwiftMessages in Frameworks */,
 				50B569832BD184150054DC09 /* Nuke in Frameworks */,
 				50B5698C2BD18F040054DC09 /* SnapKit in Frameworks */,
 				50816A1D2BC6E6DE00A43F3D /* NodeKit in Frameworks */,
-				5097DF422BCD624700D422EE /* NodeKit in Frameworks */,
+				504E74C02BE37EAB00CFEB2E /* Services in Frameworks */,
 				50B569802BD183F00054DC09 /* Utils in Frameworks */,
-				5097DFA32BCDADAB00D422EE /* Services in Frameworks */,
-				5097DF4B2BCD62AA00D422EE /* NodeKitMock in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		509656A62BE37DCC00808890 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				509656A92BE37DD700808890 /* MockServer */,
+				509656A82BE37DD700808890 /* Models */,
+				509656A72BE37DD700808890 /* Services */,
+			);
+			name = Modules;
+			sourceTree = "<group>";
+		};
 		5097DF4C2BCD63AA00D422EE /* Flows */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +249,7 @@
 		B96CD4401FDC5B1600F5A107 = {
 			isa = PBXGroup;
 			children = (
+				509656A62BE37DCC00808890 /* Modules */,
 				B96CD44B1FDC5B1600F5A107 /* Example */,
 				B96CD44A1FDC5B1600F5A107 /* Products */,
 				50C445B52BC8363F00C515E6 /* Frameworks */,
@@ -305,22 +307,16 @@
 			name = Example;
 			packageProductDependencies = (
 				50816A1C2BC6E6DE00A43F3D /* NodeKit */,
-				50816B2A2BC70ACB00A43F3D /* NodeKit */,
 				50C445A12BC81FB300C515E6 /* SwiftMessages */,
 				50C445A72BC8202700C515E6 /* ReactiveDataDisplayManager */,
-				5097DF3E2BCD614A00D422EE /* NodeKit */,
-				5097DF412BCD624700D422EE /* NodeKit */,
 				5097DF432BCD624700D422EE /* NodeKitMock */,
-				5097DF482BCD62AA00D422EE /* NodeKit */,
-				5097DF4A2BCD62AA00D422EE /* NodeKitMock */,
-				5097DF9C2BCDAB2500D422EE /* Models */,
-				5097DF9F2BCDAD9500D422EE /* Services */,
-				5097DFA22BCDADAB00D422EE /* Services */,
-				5097DFA52BCDB0BE00D422EE /* MockServer */,
 				50B5697F2BD183F00054DC09 /* Utils */,
 				50B569822BD184150054DC09 /* Nuke */,
 				50B569842BD184AD0054DC09 /* NukeExtensions */,
 				50B5698B2BD18F040054DC09 /* SnapKit */,
+				504E74BB2BE37EA400CFEB2E /* MockServer */,
+				504E74BD2BE37EA800CFEB2E /* Models */,
+				504E74BF2BE37EAB00CFEB2E /* Services */,
 			);
 			productName = Example;
 			productReference = B96CD4491FDC5B1600F5A107 /* Example.app */;
@@ -355,9 +351,6 @@
 				50C445A02BC81FB300C515E6 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 				50C445A62BC8202600C515E6 /* XCRemoteSwiftPackageReference "ReactiveDataDisplayManager" */,
 				5097DF472BCD62AA00D422EE /* XCLocalSwiftPackageReference "../NodeKit" */,
-				5097DF9B2BCDAB2500D422EE /* XCLocalSwiftPackageReference "Models" */,
-				5097DFA12BCDADAB00D422EE /* XCLocalSwiftPackageReference "Services" */,
-				5097DFA42BCDB0BE00D422EE /* XCLocalSwiftPackageReference "MockServer" */,
 				50B5697E2BD183F00054DC09 /* XCRemoteSwiftPackageReference "iOS-Utils" */,
 				50B569812BD184150054DC09 /* XCRemoteSwiftPackageReference "Nuke" */,
 				50B5698A2BD18F040054DC09 /* XCRemoteSwiftPackageReference "SnapKit" */,
@@ -615,18 +608,6 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../NodeKit;
 		};
-		5097DF9B2BCDAB2500D422EE /* XCLocalSwiftPackageReference "Models" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Models;
-		};
-		5097DFA12BCDADAB00D422EE /* XCLocalSwiftPackageReference "Services" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Services;
-		};
-		5097DFA42BCDB0BE00D422EE /* XCLocalSwiftPackageReference "MockServer" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = MockServer;
-		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -673,49 +654,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		504E74BB2BE37EA400CFEB2E /* MockServer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MockServer;
+		};
+		504E74BD2BE37EA800CFEB2E /* Models */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Models;
+		};
+		504E74BF2BE37EAB00CFEB2E /* Services */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Services;
+		};
 		50816A1C2BC6E6DE00A43F3D /* NodeKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = NodeKit;
-		};
-		50816B2A2BC70ACB00A43F3D /* NodeKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = NodeKit;
-		};
-		5097DF3E2BCD614A00D422EE /* NodeKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = NodeKit;
-		};
-		5097DF412BCD624700D422EE /* NodeKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NodeKit;
 		};
 		5097DF432BCD624700D422EE /* NodeKitMock */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NodeKitMock;
-		};
-		5097DF482BCD62AA00D422EE /* NodeKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = NodeKit;
-		};
-		5097DF4A2BCD62AA00D422EE /* NodeKitMock */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = NodeKitMock;
-		};
-		5097DF9C2BCDAB2500D422EE /* Models */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Models;
-		};
-		5097DF9F2BCDAD9500D422EE /* Services */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Services;
-		};
-		5097DFA22BCDADAB00D422EE /* Services */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Services;
-		};
-		5097DFA52BCDB0BE00D422EE /* MockServer */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MockServer;
 		};
 		50B5697F2BD183F00054DC09 /* Utils */ = {
 			isa = XCSwiftPackageProductDependency;

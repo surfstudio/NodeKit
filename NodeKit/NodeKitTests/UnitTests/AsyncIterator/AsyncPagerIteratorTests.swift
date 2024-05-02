@@ -170,7 +170,7 @@ final class AsyncPagerIteratorTests: XCTestCase {
         XCTAssertFalse(hasNext)
     }
     
-    func testHasNext_whenFailure_thenHasNotNext() async throws {
+    func testHasNext_whenFailure_thenHasNext() async throws {
         // given
 
         dataProviderMock.stubbedProvideResult = .failure(MockError.firstError)
@@ -182,7 +182,7 @@ final class AsyncPagerIteratorTests: XCTestCase {
 
         // then
         
-        XCTAssertFalse(hasNext)
+        XCTAssertTrue(hasNext)
     }
     
     func testRenew_thenZeroIndexReceived() async throws {

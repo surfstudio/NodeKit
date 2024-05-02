@@ -2,29 +2,27 @@
 import PackageDescription
 
 let package = Package(
-    name: "Services",
+    name: "Models",
     platforms: [
         .macOS(.v11),
         .iOS(.v13),
     ],
     products: [
         .library(
-            name: "Services",
-            targets: ["Services"]
+            name: "Models",
+            targets: ["Models"]
         )
     ],
     dependencies: [
-        .package(path: "../Models"),
-        .package(path: "../../NodeKit")
+        .package(path: "../../../NodeKit")
     ],
     targets: [
         .target(
-            name: "Services",
+            name: "Models",
             dependencies: [
-                "Models",
                 "NodeKit"
             ],
-            path: "Services"
+            path: "Models"
         )
     ]
 )

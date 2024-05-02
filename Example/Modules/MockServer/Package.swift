@@ -2,27 +2,29 @@
 import PackageDescription
 
 let package = Package(
-    name: "Models",
+    name: "MockServer",
     platforms: [
         .macOS(.v11),
         .iOS(.v13),
     ],
     products: [
         .library(
-            name: "Models",
-            targets: ["Models"]
+            name: "MockServer",
+            targets: ["MockServer"]
         )
     ],
     dependencies: [
-        .package(path: "../../NodeKit")
+        .package(path: "../../../NodeKit"),
+        .package(path: "../Models")
     ],
     targets: [
         .target(
-            name: "Models",
+            name: "MockServer",
             dependencies: [
-                "NodeKit"
+                "NodeKit",
+                "Models"
             ],
-            path: "Models"
+            path: "MockServer"
         )
     ]
 )

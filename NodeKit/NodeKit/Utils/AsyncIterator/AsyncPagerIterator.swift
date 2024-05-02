@@ -38,10 +38,6 @@ public actor AsyncPagerIterator<Value>: AsyncIterator, StateStorable {
                 currentState.hasNext = data.len != 0 && data.len >= currentState.pageSize
                 return .success(data.value)
             }
-            .mapError {
-                currentState.hasNext = false
-                return $0
-            }
     }
     
     /// Возвращает есть ли еще данные для текущего состояния.
