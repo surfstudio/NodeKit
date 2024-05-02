@@ -118,4 +118,26 @@ final class AsyncNodeTests: XCTestCase {
         XCTAssertTrue(input.logContext === logContext)
         XCTAssertEqual(value, expectedResult)
     }
+    
+    func testEraseToAnyNode_thenAnyNodeBasedOnSelfCreated() async throws {
+        // given
+        
+        let sut = AsyncNodeMock<Void, Int>()
+        let expectedResult = 2
+        
+        sut.stubbedAsyncProccessResult = .success(expectedResult)
+        
+        // when
+        
+        let result = await sut.eraseToAnyNode().process()
+        
+        // then
+        
+        let input = try XCTUnwrap(sut.invokedAsyncProcessParameters)
+        let value = try XCTUnwrap(result.value)
+        
+        XCTAssertEqual(sut.invokedAsyncProcessCount, 1)
+        XCTAssertFalse(input.logContext === logContextMock)
+        XCTAssertEqual(value, expectedResult)
+    }
 }

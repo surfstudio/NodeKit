@@ -70,7 +70,7 @@ final class SimpleURLChainTests: XCTestCase {
         let builder = URLChainBuilder<Routes>(serviceChainProvider: URLServiceChainProviderMock())
         let result: NodeResult<[User]> = await builder
             .set(query: ["stack": "left", "sort": false])
-            .set(boolEncodingStartegy: .asBool)
+            .set(boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy.asBool)
             .route(.get, .users)
             .build()
             .process()

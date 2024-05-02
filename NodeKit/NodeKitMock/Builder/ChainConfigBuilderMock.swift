@@ -63,30 +63,4 @@ open class ChainConfigBuilderMock: ChainConfigBuilder {
         invokedSetDictEncodindStrategyParameterList.append(dictEncodindStrategy)
         return self
     }
-    
-    public var invokedSetBoolEncodingDefaultStartegy = false
-    public var invokedSetBoolEncodingDefaultStartegyCount = 0
-    public var invokedSetBoolEncodingDefaultStartegyParameter: URLQueryBoolEncodingDefaultStartegy?
-    public var invokedSetBoolEncodingDefaultStartegyParameterList: [URLQueryBoolEncodingDefaultStartegy] = []
-    
-    open func set(boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy) -> Self {
-        invokedSetBoolEncodingDefaultStartegy = true
-        invokedSetBoolEncodingDefaultStartegyCount += 1
-        invokedSetBoolEncodingDefaultStartegyParameter = boolEncodingStartegy
-        invokedSetBoolEncodingDefaultStartegyParameterList.append(boolEncodingStartegy)
-        return self
-    }
-    
-    public var invokedSetArrayEncodingBracketsStrategy = false
-    public var invokedSetArrayEncodingBracketsStrategyCount = 0
-    public var invokedSetArrayEncodingBracketsStrategyParameter: URLQueryArrayKeyEncodingBracketsStartegy?
-    public var invokedSetArrayEncodingBracketsStrategyParameterList: [URLQueryArrayKeyEncodingBracketsStartegy] = []
-    
-    open func set(arrayEncodingStrategy: URLQueryArrayKeyEncodingBracketsStartegy) -> Self {
-        invokedSetArrayEncodingBracketsStrategy = true
-        invokedSetArrayEncodingBracketsStrategyCount += 1
-        invokedSetArrayEncodingBracketsStrategyParameter = arrayEncodingStrategy
-        invokedSetArrayEncodingBracketsStrategyParameterList.append(arrayEncodingStrategy)
-        return self
-    }
 }

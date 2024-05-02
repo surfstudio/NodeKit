@@ -13,8 +13,6 @@ public protocol ChainConfigBuilder {
     func set(boolEncodingStartegy: URLQueryBoolEncodingStartegy) -> Self
     func set(arrayEncodingStrategy: URLQueryArrayKeyEncodingStartegy) -> Self
     func set(dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy) -> Self
-    func set(boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy) -> Self
-    func set(arrayEncodingStrategy: URLQueryArrayKeyEncodingBracketsStartegy) -> Self
 }
 
 public protocol ChainBuilder<Route> {
@@ -150,16 +148,6 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
 
     open func set(dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy) -> Self {
         config.dictEncodindStrategy = dictEncodindStrategy
-        return self
-    }
-
-    open func set(boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy) -> Self {
-        config.boolEncodingStartegy = boolEncodingStartegy
-        return self
-    }
-
-    open func set(arrayEncodingStrategy: URLQueryArrayKeyEncodingBracketsStartegy) -> Self {
-        config.arrayEncodingStrategy = arrayEncodingStrategy
         return self
     }
     
