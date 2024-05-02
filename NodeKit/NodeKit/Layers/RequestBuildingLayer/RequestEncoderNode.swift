@@ -16,7 +16,7 @@ import Foundation
 ///     - `Node`
 ///     - `RequestRouterNode`
 ///     - `EncodableRequestModel`
-///     - `UrlRequestTrasformatorNode`
+///     - `URLRequestTrasformatorNode`
 open class RequestEncoderNode<Raw, Route, Encoding, Output>: AsyncNode {
 
     /// Тип для следюущего узла.

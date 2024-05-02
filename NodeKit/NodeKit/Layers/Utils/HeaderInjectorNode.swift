@@ -31,7 +31,7 @@ open class HeaderInjectorNode: AsyncNode {
 
     /// Добавляет хедеры к запросу и отправляет его слудующему в цепочке узлу.
     open func process(
-        _ data: TransportUrlRequest,
+        _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
         var resultHeaders = headers
@@ -39,7 +39,7 @@ open class HeaderInjectorNode: AsyncNode {
         log += "Add headers \(headers)" + .lineTabDeilimeter
         log += "To headers \(data.headers)" + .lineTabDeilimeter
         data.headers.forEach { resultHeaders[$0.key] = $0.value }
-        let newData = TransportUrlRequest(
+        let newData = TransportURLRequest(
             method: data.method,
             url: data.url,
             headers: resultHeaders,

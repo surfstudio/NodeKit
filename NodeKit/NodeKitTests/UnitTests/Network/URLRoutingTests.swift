@@ -33,10 +33,10 @@ final class URLRoutingTests: XCTestCase {
         
         // then
         
-        let error = try XCTUnwrap(receivedError as? UrlRouteError)
+        let error = try XCTUnwrap(receivedError as? URLRouteError)
         
         XCTAssertNil(result)
-        XCTAssertEqual(error, .cantBuildUrl)
+        XCTAssertEqual(error, .cantBuildURL)
     }
     
     func testAppend_whenURLIsNotNil_thenNewURLReceived() throws {

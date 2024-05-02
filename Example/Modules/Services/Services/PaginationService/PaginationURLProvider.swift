@@ -8,8 +8,8 @@
 import Foundation
 import NodeKit
 
-enum PaginationURLProvider: UrlRouteProvider {
-    private static var base: UrlRouteProvider = NavigationURLProvider.pagination
+enum PaginationURLProvider: URLRouteProvider {
+    private static var base: URLRouteProvider = NavigationURLProvider.pagination
     
     case list
     

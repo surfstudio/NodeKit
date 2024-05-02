@@ -11,40 +11,36 @@ import Foundation
 @testable import NodeKit
 
 enum Utils {
-    static func getMockUrlProcessedResponse(url: URL,
+    static func getMockURLProcessedResponse(url: URL,
                                             statusCode: Int = 200,
                                             httpVersion: String = "1.1",
                                             headers: [String: String] = [:],
                                             data: Data = Data(),
-                                            json: Json = Json()) -> UrlProcessedResponse {
+                                            json: Json = Json()) -> URLProcessedResponse {
         let httpResponse = HTTPURLResponse(url: url,
                                            statusCode: statusCode,
                                            httpVersion: httpVersion,
                                            headerFields: headers)!
 
-        let dataResponse = UrlDataResponse(request: URLRequest(url: url),
+        let dataResponse = URLDataResponse(request: URLRequest(url: url),
                                            response: httpResponse,
-                                           data: Data(),
-                                           metrics: nil,
-                                           serializationDuration: 0)
+                                           data: Data())
 
-        return UrlProcessedResponse(dataResponse: dataResponse, json: json)
+        return URLProcessedResponse(dataResponse: dataResponse, json: json)
     }
 
-    static func getMockUrlDataResponse(url: URL,
+    static func getMockURLDataResponse(url: URL,
                                        statusCode: Int = 200,
                                        httpVersion: String = "1.1",
                                        headers: [String: String] = [:],
-                                       data: Data = Data()) -> UrlDataResponse{
+                                       data: Data = Data()) -> URLDataResponse{
         let httpResponse = HTTPURLResponse(url: url,
                                            statusCode: statusCode,
                                            httpVersion: httpVersion,
                                            headerFields: headers)!
 
-        return UrlDataResponse(request: URLRequest(url: url),
+        return URLDataResponse(request: URLRequest(url: url),
                                            response: httpResponse,
-                                           data: Data(),
-                                           metrics: nil,
-                                           serializationDuration: 0)
+                                           data: Data())
     }
 }

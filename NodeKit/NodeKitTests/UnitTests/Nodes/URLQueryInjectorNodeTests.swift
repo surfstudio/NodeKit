@@ -8,7 +8,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
     
     // MARK: - Nested
 
-    typealias Model = RoutableRequestModel<UrlRouteProvider, Json>
+    typealias Model = RoutableRequestModel<URLRouteProvider, Json>
     
     // MARK: - Dependencies
     
@@ -31,12 +31,12 @@ final class URLQueryInjectorNodeTests: XCTestCase {
 
     // MARK: - Tests
     
-    func testAsyncProcess_withEmptyQuery_thenStartUrlReceived() async throws {
+    func testAsyncProcess_withEmptyQuery_thenStartURLReceived() async throws {
         // given
 
-        let startUrl = URL(string: "http://host.dom/path")!
+        let startURL = URL(string: "http://host.dom/path")!
 
-        let request = Model(metadata: [:], raw: Json(), route: startUrl)
+        let request = Model(metadata: [:], raw: Json(), route: startURL)
 
         let sut = URLQueryInjectorNode(next: nextNodeMock, config: .init(query: [:]))
         
@@ -51,10 +51,10 @@ final class URLQueryInjectorNodeTests: XCTestCase {
         let url = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data.route.url)()
 
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(url, startUrl)
+        XCTAssertEqual(url, startURL)
     }
 
-    func testAsyncProcess_withSimpleQeury_thenCurrectUrlReceived() async throws {
+    func testAsyncProcess_withSimpleQeury_thenCurrectURLReceived() async throws {
         // given
 
         let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
@@ -71,7 +71,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
         
         let input = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
         let url = try input.route.url()
-        let requestRouteUrl = try request.route.url()
+        let requestRouteURL = try request.route.url()
         let normalizedRes = url.query!.split(separator: "&").sorted()
         let normalizedExp = "age=23&name=bob".split(separator: "&").sorted()
 
@@ -79,10 +79,10 @@ final class URLQueryInjectorNodeTests: XCTestCase {
         XCTAssertEqual(normalizedRes, normalizedExp)
         XCTAssertEqual(url.absoluteString.replacingOccurrences(of: url.query!, with: ""), "http://host.dom/path?")
         XCTAssertEqual(request.metadata, input.metadata)
-        XCTAssertNotEqual(requestRouteUrl, url)
+        XCTAssertNotEqual(requestRouteURL, url)
     }
 
-    func testAsyncProcess_withArrayQeury_thenCorrectUrlReceived() async throws {
+    func testAsyncProcess_withArrayQeury_thenCorrectURLReceived() async throws {
         // given
 
         let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
@@ -104,7 +104,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
         XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
-    func testAsyncProcess_withDictionaryQeury_thenCorrectUrlReceived() async throws {
+    func testAsyncProcess_withDictionaryQeury_thenCorrectURLReceived() async throws {
         // given
 
         let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
@@ -126,7 +126,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
         XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
-    func testAsyncProcess_withArrayAndDictionaryQuery_thenCorrectUrlReceived() async throws {
+    func testAsyncProcess_withArrayAndDictionaryQuery_thenCorrectURLReceived() async throws {
         // given
 
         let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)
@@ -148,7 +148,7 @@ final class URLQueryInjectorNodeTests: XCTestCase {
         XCTAssertEqual(normalizedRes, normalizedExp)
     }
 
-    func testAsyncProcess_with2DArray_thenCorrectUrlReceived() async throws {
+    func testAsyncProcess_with2DArray_thenCorrectURLReceived() async throws {
         // given
 
         let request = Model(metadata: [:], raw: Json(), route: URL(string: "http://host.dom/path")!)

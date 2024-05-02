@@ -1,5 +1,5 @@
 //
-//  UrlETagUrlCacheTriggerNodeTests.swift
+//  URLNotModifiedTriggerNodeTests.swift
 //  CoreNetKitUnitTests
 //
 //  Created by Александр Кравченков on 05/03/2019.
@@ -12,17 +12,17 @@
 import Foundation
 import XCTest
 
-final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
+final class URLNotModifiedTriggerNodeTests: XCTestCase {
     
     // MARK: - Dependencies
     
-    private var transportNodeMock: AsyncNodeMock<UrlDataResponse, Json>!
-    private var cacheSaverMock: AsyncNodeMock<UrlNetworkRequest, Json>!
+    private var transportNodeMock: AsyncNodeMock<URLDataResponse, Json>!
+    private var cacheSaverMock: AsyncNodeMock<URLNetworkRequest, Json>!
     private var logContextMock: LoggingContextMock!
     
     // MARK: - Sut
     
-    private var sut: UrlNotModifiedTriggerNode!
+    private var sut: URLNotModifiedTriggerNode!
     
     // MARK: - Lifecycle
     
@@ -31,7 +31,7 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         transportNodeMock = AsyncNodeMock()
         cacheSaverMock = AsyncNodeMock()
         logContextMock = LoggingContextMock()
-        sut = UrlNotModifiedTriggerNode(next: transportNodeMock, cacheReader: cacheSaverMock)
+        sut = URLNotModifiedTriggerNode(next: transportNodeMock, cacheReader: cacheSaverMock)
     }
     
     override func tearDown() {
@@ -48,7 +48,7 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCalledIfDataIsNotNotModified")!
-        let response = Utils.getMockUrlDataResponse(url: url)
+        let response = Utils.getMockURLDataResponse(url: url)
         let expectedNextResult = ["Test": "Value"]
         
         transportNodeMock.stubbedAsyncProccessResult = .success(expectedNextResult)
@@ -71,7 +71,7 @@ final class UrlETagUrlCacheTriggerNodeTests: XCTestCase {
         // given
 
         let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCAlledIfDataIsNotNotModified")!
-        let response = Utils.getMockUrlDataResponse(url: url, statusCode: 304)
+        let response = Utils.getMockURLDataResponse(url: url, statusCode: 304)
         let expectedCacheResult = ["Test": "Value"]
         
         cacheSaverMock.stubbedAsyncProccessResult = .success(expectedCacheResult)

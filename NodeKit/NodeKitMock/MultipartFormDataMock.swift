@@ -13,12 +13,12 @@ import NodeKitThirdParty
 public class MultipartFormDataMock: MultipartFormDataProtocol {
     
     public struct AppendURLParameters {
-        public let fileUrl: URL
+        public let fileURL: URL
         public let name: String
     }
     
     public struct AppendCustomURLParameters {
-        public let fileUrl: URL
+        public let fileURL: URL
         public let name: String
         public let fileName: String
         public let mimeType: String
@@ -58,7 +58,7 @@ public class MultipartFormDataMock: MultipartFormDataProtocol {
     public var invokedAppendURLParametersList: [AppendURLParameters] = []
     
     public func append(_ fileURL: URL, withName name: String) {
-        let parameters = AppendURLParameters(fileUrl: fileURL, name: name)
+        let parameters = AppendURLParameters(fileURL: fileURL, name: name)
         invokedAppendURL = true
         invokedAppendURLCount += 1
         invokedAppendURLParameters = parameters
@@ -71,7 +71,7 @@ public class MultipartFormDataMock: MultipartFormDataProtocol {
     public var invokedAppendCustomURLParametersList: [AppendCustomURLParameters] = []
     
     public func append(_ fileURL: URL, withName name: String, fileName: String, mimeType: String) {
-        let parameters = AppendCustomURLParameters(fileUrl: fileURL, name: name, fileName: fileName, mimeType: mimeType)
+        let parameters = AppendCustomURLParameters(fileURL: fileURL, name: name, fileName: fileName, mimeType: mimeType)
         invokedAppendCustomURL = true
         invokedAppendCustomURLCount += 1
         invokedAppendCustomURLParameters = parameters

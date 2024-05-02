@@ -20,14 +20,14 @@ final class CacheReaderNodeTests: XCTestCase {
     
     // MARK: - Sut
     
-    private var sut: UrlCacheReaderNode!
+    private var sut: URLCacheReaderNode!
     
     // MARK: - Lifecycle
     
     override func setUp() {
         super.setUp()
         logContextMock = LoggingContextMock()
-        sut = UrlCacheReaderNode()
+        sut = URLCacheReaderNode(needsToThrowError: true)
     }
     
     override func tearDown() {
@@ -44,7 +44,7 @@ final class CacheReaderNodeTests: XCTestCase {
 
         let url = URL(string: "http://example.test")!
         let request = URLRequest(url: url)
-        let model = UrlNetworkRequest(urlRequest: request)
+        let model = URLNetworkRequest(urlRequest: request)
         let responseKey = "name"
         let responseValue = "test"
         let response = [responseKey: responseValue]
@@ -73,7 +73,7 @@ final class CacheReaderNodeTests: XCTestCase {
 
         let url = URL(string: "http://example.test")!
         let request = URLRequest(url: url)
-        let model = UrlNetworkRequest(urlRequest: request)
+        let model = URLNetworkRequest(urlRequest: request)
         let responseKey = "name"
         let responseValue = "test"
         let response = [[responseKey: responseValue], [responseKey: responseValue]]
@@ -115,7 +115,7 @@ final class CacheReaderNodeTests: XCTestCase {
         )!
         let cachedRequest = CachedURLResponse(response: urlResponse, data: responseData)
         let notOwnRequest = URLRequest(url: URL(string: "http://example.test/usr?ud=321")!)
-        let model = UrlNetworkRequest(urlRequest: notOwnRequest)
+        let model = URLNetworkRequest(urlRequest: notOwnRequest)
         
         URLCache.shared.storeCachedResponse(cachedRequest, for: request)
 
@@ -125,7 +125,7 @@ final class CacheReaderNodeTests: XCTestCase {
 
         // ghen
         
-        let error = try XCTUnwrap(result.error as? BaseUrlCacheReaderError)
+        let error = try XCTUnwrap(result.error as? BaseURLCacheReaderError)
 
         XCTAssertEqual(error, .cantLoadDataFromCache)
     }
@@ -135,7 +135,7 @@ final class CacheReaderNodeTests: XCTestCase {
 
         let url = URL(string: "http://example.test")!
         let request = URLRequest(url: url)
-        let model = UrlNetworkRequest(urlRequest: request)
+        let model = URLNetworkRequest(urlRequest: request)
         let responseData = "{1:1}".data(using: .utf8)!
         let urlResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!
         let cachedRequest = CachedURLResponse(response: urlResponse, data: responseData)
@@ -148,7 +148,7 @@ final class CacheReaderNodeTests: XCTestCase {
 
         // ghen
         
-        let error = try XCTUnwrap(result.error as? BaseUrlCacheReaderError)
+        let error = try XCTUnwrap(result.error as? BaseURLCacheReaderError)
 
         XCTAssertEqual(error, .cantSerializeJson)
     }
@@ -158,7 +158,7 @@ final class CacheReaderNodeTests: XCTestCase {
 
         let url = URL(string: "http://example.test")!
         let request = URLRequest(url: url)
-        let model = UrlNetworkRequest(urlRequest: request)
+        let model = URLNetworkRequest(urlRequest: request)
         let responseData = "12345".data(using: .utf8)!
         let urlResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!
         let cachedRequest = CachedURLResponse(response: urlResponse, data: responseData)
@@ -171,7 +171,7 @@ final class CacheReaderNodeTests: XCTestCase {
 
         // ghen
         
-        let error = try XCTUnwrap(result.error as? BaseUrlCacheReaderError)
+        let error = try XCTUnwrap(result.error as? BaseURLCacheReaderError)
 
         XCTAssertEqual(error, .cantCastToJson)
     }

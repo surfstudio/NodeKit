@@ -2,7 +2,7 @@ import Foundation
 import NodeKitThirdParty
 
 /// Модель для внутреннего представления multipart запроса.
-public struct MultipartUrlRequest {
+public struct MultipartURLRequest {
 
     /// HTTP метод.
     public let method: Method
@@ -51,7 +51,7 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open func process(
-        _ data: MultipartUrlRequest,
+        _ data: MultipartURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
         return await .withMappedExceptions {
@@ -73,7 +73,7 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
         }
     }
 
-    private func getLogMessage(_ data: MultipartUrlRequest) -> Log {
+    private func getLogMessage(_ data: MultipartURLRequest) -> Log {
         var message = "<<<===\(self.objectName)===>>>\n"
         message += "input: \(type(of: data))\n\t"
         message += "method: \(data.method.rawValue)\n\t"
@@ -84,7 +84,7 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
         return Log(message, id: self.objectName, order: LogOrder.requestCreatorNode)
     }
 
-    open func append(multipartForm: MultipartFormDataProtocol, with request: MultipartUrlRequest) {
+    open func append(multipartForm: MultipartFormDataProtocol, with request: MultipartURLRequest) {
         request.data.payloadModel.forEach { key, value in
             multipartForm.append(value, withName: key)
         }
@@ -94,7 +94,7 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
                 multipartForm.append(data, withName: key, fileName: filename, mimeType: mimetype)
             case .url(url: let url):
                 multipartForm.append(url, withName: key)
-            case .customWithUrl(url: let url, filename: let filename, mimetype: let mimetype):
+            case .customWithURL(url: let url, filename: let filename, mimetype: let mimetype):
                 multipartForm.append(url, withName: key, fileName: filename, mimeType: mimetype)
             }
         }

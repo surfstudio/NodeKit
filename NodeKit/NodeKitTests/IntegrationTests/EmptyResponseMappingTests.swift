@@ -33,13 +33,14 @@ final class EmptyResponseMappingTests: XCTestCase {
     func testDefaultChainArrSucessParseResponseInCaseOfEmptyArray() async throws {
         // given
 
-        let chainRoot: any AsyncNode<Void, [User]> = UrlChainsBuilder(serviceChain: UrlServiceChainBuilderMock())
-            .route(.get, Routes.emptyUsers)
+        let builder = URLChainBuilder<Routes>(serviceChainProvider: URLServiceChainProviderMock())
+        let chainRoot: AnyAsyncNode<Void, [User]> = builder
+            .route(.get, .emptyUsers)
             .build()
 
         // when
 
-        let result = await chainRoot.process()
+        let result: NodeResult<[User]> = await chainRoot.process()
 
         // then
         
@@ -51,13 +52,14 @@ final class EmptyResponseMappingTests: XCTestCase {
     func testArraySuccessMappingWithNoContentResponse() async throws {
         // given
         
-        let chainRoot: any AsyncNode<Void, [User]> = UrlChainsBuilder(serviceChain: UrlServiceChainBuilderMock())
+        let builder = URLChainBuilder<Routes>(serviceChainProvider: URLServiceChainProviderMock())
+        let chainRoot: AnyAsyncNode<Void, [User]> = builder
             .route(.get, Routes.emptyUsersWith204)
             .build()
 
         // when
 
-        let result = await chainRoot.process()
+        let result: NodeResult<[User]> = await chainRoot.process()
 
         // then
 

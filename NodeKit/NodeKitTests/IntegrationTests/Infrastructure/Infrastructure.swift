@@ -13,31 +13,31 @@ import Foundation
 public enum Routes {
 
     public enum Exception: Error {
-        case badUrl
+        case badURL
     }
 
     case users
     case emptyUsers
     case emptyUsersWith204
-    case authWithFormUrl
+    case authWithFormURL
     case multipartPing
 }
 
-extension Routes: UrlRouteProvider {
+extension Routes: URLRouteProvider {
 
     private static var base: URL? {
         return URL(string: "http://localhost:8118/nkt")
     }
 
     public func url() throws -> URL {
-        guard let url = self.tryToGetUrl() else {
-            throw Exception.badUrl
+        guard let url = self.tryToGetURL() else {
+            throw Exception.badURL
         }
 
         return url
     }
 
-    private func tryToGetUrl() -> URL? {
+    private func tryToGetURL() -> URL? {
         switch self {
         case .users:
             return try? Routes.base + "/users"
@@ -45,8 +45,8 @@ extension Routes: UrlRouteProvider {
             return try? Routes.base + "/userEmptyArr"
         case .emptyUsersWith204:
             return try? Routes.base + "/Get204UserArr"
-        case .authWithFormUrl:
-            return try? Routes.base + "/authWithFormUrl"
+        case .authWithFormURL:
+            return try? Routes.base + "/authWithFormURL"
         case .multipartPing:
             return try? Routes.base + "/multipartPing"
         }

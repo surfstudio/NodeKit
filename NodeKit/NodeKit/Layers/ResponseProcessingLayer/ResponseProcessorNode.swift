@@ -19,12 +19,12 @@ public enum ResponseProcessorNodeError: Error {
 open class ResponseProcessorNode<Type>: AsyncNode {
 
     /// Следующий узел для обратки.
-    public let next: any AsyncNode<UrlDataResponse, Type>
+    public let next: any AsyncNode<URLDataResponse, Type>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Следующий узел для обратки.
-    public init(next: some AsyncNode<UrlDataResponse, Type>) {
+    public init(next: some AsyncNode<URLDataResponse, Type>) {
         self.next = next
     }
 
@@ -48,12 +48,10 @@ open class ResponseProcessorNode<Type>: AsyncNode {
 
             log += "Skip cause can extract parameters -> continue processing"
 
-            let response = UrlDataResponse(
+            let response = URLDataResponse(
                 request: urlRequest,
                 response: urlResponse,
-                data: Data(),
-                metrics: nil,
-                serializationDuration: -1
+                data: Data()
             )
 
             log += "🌍 " + (urlRequest.httpMethod ?? "UNDEF") + " "
@@ -75,13 +73,11 @@ open class ResponseProcessorNode<Type>: AsyncNode {
                 return .failure(ResponseProcessorNodeError.rawResponseNotHaveMetaData)
             }
 
-            let dataResponse = UrlDataResponse(
+            let dataResponse = URLDataResponse(
                 request: urlRequest,
                 response: urlResponse,
-                data: value,
-                metrics: nil, // ?? почему nil
-                serializationDuration: -1
-            ) // почему -1?
+                data: value
+            )
 
             log += " --> \(urlResponse.statusCode)" + .lineTabDeilimeter
             log += String(data: value, encoding: .utf8) ?? "CURRUPTED"

@@ -65,14 +65,12 @@ final class MultipartRequestTests: XCTestCase {
         ])
         
         let model = MultipartModel(payloadModel: data)
-        let chainsBuilder = UrlChainsBuilder()
-            .route(.post, Routes.multipartPing)
-        
-        chainsBuilder.session = NetworkMock().urlSession
+        let chainsBuilder = URLChainBuilder<Routes>(serviceChainProvider: URLServiceChainProviderMock())
 
         // when
 
         let result: NodeResult<Json> = await chainsBuilder
+            .route(.post, .multipartPing)
             .build()
             .process(model)
 
@@ -92,14 +90,12 @@ final class MultipartRequestTests: XCTestCase {
         ])
         
         let model = MultipartModel(payloadModel: data)
-        let chainsBuilder = UrlChainsBuilder()
-            .route(.post, Routes.multipartPing)
+        let chainsBuilder = URLChainBuilder<Routes>(serviceChainProvider: URLServiceChainProviderMock())
         
-        chainsBuilder.session = NetworkMock().urlSession
-
         // when
 
         let result: NodeResult<Json> = await chainsBuilder
+            .route(.post, .multipartPing)
             .build()
             .process(model)
 
@@ -117,14 +113,12 @@ final class MultipartRequestTests: XCTestCase {
         let model = MultipartModel(payloadModel: TestData(data: [:]) ,files: [
             "file": .url(url: url)
         ])
-        let chainsBuilder = UrlChainsBuilder()
-            .route(.post, Routes.multipartPing)
-        
-        chainsBuilder.session = NetworkMock().urlSession
+        let chainsBuilder = URLChainBuilder<Routes>(serviceChainProvider: URLServiceChainProviderMock())
 
         // when
 
         let result: NodeResult<Json> = await chainsBuilder
+            .route(.post, .multipartPing)
             .build()
             .process(model)
 

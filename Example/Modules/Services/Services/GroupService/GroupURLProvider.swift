@@ -8,8 +8,8 @@
 import Foundation
 import NodeKit
 
-enum GroupURLProvider: UrlRouteProvider {
-    private static var base: UrlRouteProvider = NavigationURLProvider.group
+enum GroupURLProvider: URLRouteProvider {
+    private static var base: URLRouteProvider = NavigationURLProvider.group
     
     case header
     case body

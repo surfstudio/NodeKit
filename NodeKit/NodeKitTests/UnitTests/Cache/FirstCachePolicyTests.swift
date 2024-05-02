@@ -16,8 +16,8 @@ final class FirstCachePolicyTests: XCTestCase {
     
     // MARK: - Dependencies
     
-    private var nextNodeMock: AsyncNodeMock<RawUrlRequest, Json>!
-    private var readerNodeMock: AsyncNodeMock<UrlNetworkRequest, Json>!
+    private var nextNodeMock: AsyncNodeMock<RawURLRequest, Json>!
+    private var readerNodeMock: AsyncNodeMock<URLNetworkRequest, Json>!
     private var logContextMock: LoggingContextMock!
     
     // MARK: - Sut
@@ -48,7 +48,7 @@ final class FirstCachePolicyTests: XCTestCase {
         // given
         
         let exepctedNextResult = ["test0": "value0"]
-        let request = RawUrlRequest(dataRequest: nil)
+        let request = RawURLRequest(dataRequest: nil)
         
         var results: [NodeResult<Json>] = []
         
@@ -75,7 +75,7 @@ final class FirstCachePolicyTests: XCTestCase {
         
         let exepctedNextResult = ["test": "value"]
         let expectedReaderResult = ["test1": "value1"]
-        let request = RawUrlRequest(dataRequest: URLRequest(url: URL(string: "test.ex.temp")!))
+        let request = RawURLRequest(dataRequest: URLRequest(url: URL(string: "test.ex.temp")!))
         
         var results: [NodeResult<Json>] = []
         

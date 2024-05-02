@@ -1,5 +1,5 @@
 //
-//  FormUrlEncodingTests.swift
+//  FormURLEncodingTests.swift
 //  CoreNetKit
 //
 //  Created by Александр Кравченков on 31/03/2019.
@@ -22,7 +22,7 @@ final class EncodingTests: XCTestCase {
     
     // MARK: - Sut
     
-    private var sut: UrlJsonRequestEncodingNode<Json>!
+    private var sut: URLJsonRequestEncodingNode<Json>!
     
     // MARK: - Lifecycle
     
@@ -31,7 +31,7 @@ final class EncodingTests: XCTestCase {
         nextNodeMock = AsyncNodeMock()
         logContextMock = LoggingContextMock()
         requestCreatorNode = RequestCreatorNode(next: nextNodeMock)
-        sut = UrlJsonRequestEncodingNode(next: requestCreatorNode)
+        sut = URLJsonRequestEncodingNode(next: requestCreatorNode)
     }
     
     public override func tearDown() {
@@ -44,7 +44,7 @@ final class EncodingTests: XCTestCase {
     
     // MARK: - Tests
     
-    func testAsyncProcess_thenFormUrlConvertinWork() async throws {
+    func testAsyncProcess_thenFormURLConvertinWork() async throws {
         // given
         
         let url = "http://test.com/usr"
@@ -52,11 +52,11 @@ final class EncodingTests: XCTestCase {
             "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
         ]
         let dataRaw: Json = ["id": "123455"]
-        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let urlParameters = TransportURLParameters(method: .post, url: URL(string: url)!)
         let encodingModel = RequestEncodingModel(
             urlParameters: urlParameters,
             raw: dataRaw,
-            encoding: .formUrl
+            encoding: .formURL
         )
         let expectedResult = ["Test": "Value"]
         
@@ -79,12 +79,12 @@ final class EncodingTests: XCTestCase {
         XCTAssertEqual(unwrappedResult, expectedResult)
     }
     
-    public func testAsyncProcess_thenUrlQueryConvertionWork() async throws {
+    public func testAsyncProcess_thenURLQueryConvertionWork() async throws {
         // given
 
         let url = "http://test.com/usr"
         let dataRaw: Json = ["id": "12345"]
-        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let urlParameters = TransportURLParameters(method: .post, url: URL(string: url)!)
         let encodingModel = RequestEncodingModel(
             urlParameters: urlParameters,
             raw: dataRaw,
@@ -117,7 +117,7 @@ final class EncodingTests: XCTestCase {
         let url = "http://test.com/usr"
         let headersArray: [String: String] = ["Content-Type": "application/json"]
         let dataRaw: Json = ["id": "12345"]
-        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let urlParameters = TransportURLParameters(method: .post, url: URL(string: url)!)
         let encodingModel = RequestEncodingModel(
             urlParameters: urlParameters,
             raw: dataRaw,
@@ -150,7 +150,7 @@ final class EncodingTests: XCTestCase {
 
         let url = "http://test.com/usr"
         let dataRaw: Json = ["id": "12345"]
-        let urlParameters = TransportUrlParameters(method: .get, url: URL(string: url)!)
+        let urlParameters = TransportURLParameters(method: .get, url: URL(string: url)!)
         let encodingModel = RequestEncodingModel(
             urlParameters: urlParameters,
             raw: dataRaw,
@@ -158,7 +158,7 @@ final class EncodingTests: XCTestCase {
         )
         
         let expectedResult = ["Test2": "Value2"]
-        let expectedUrl = url + "?id=12345"
+        let expectedURL = url + "?id=12345"
         
         nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
 
@@ -171,7 +171,7 @@ final class EncodingTests: XCTestCase {
         let unwrappedResult = try XCTUnwrap(try result.get() as? [String: String])
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data.url!.absoluteString, expectedUrl)
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data.url!.absoluteString, expectedURL)
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessParameters?.data.headers.dictionary.isEmpty, true)
         XCTAssertEqual(unwrappedResult, expectedResult)
     }
@@ -182,7 +182,7 @@ final class EncodingTests: XCTestCase {
         let wrongString = String(bytes: [0xD8, 0x00] as [UInt8], encoding: String.Encoding.utf16BigEndian)!
         let url = "http://test.com/usr"
         let dataRaw: Json = ["id": wrongString]
-        let urlParameters = TransportUrlParameters(method: .head, url: URL(string: url)!)
+        let urlParameters = TransportURLParameters(method: .head, url: URL(string: url)!)
         let encodingModel = RequestEncodingModel(
             urlParameters: urlParameters,
             raw: dataRaw,
@@ -208,7 +208,7 @@ final class EncodingTests: XCTestCase {
 
         let url = "http://test.com/usr"
         let dataRaw: Json = ["id": "12345"]
-        let urlParameters = TransportUrlParameters(method: .post, url: URL(string: url)!)
+        let urlParameters = TransportURLParameters(method: .post, url: URL(string: url)!)
         let encodingModel = RequestEncodingModel(
             urlParameters: urlParameters,
             raw: dataRaw,

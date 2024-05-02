@@ -28,19 +28,19 @@ final class FromURLCodingTests: XCTestCase {
     
     // MARK: - Tests
 
-    func testChain_withFormUrlEncoded_thenSuccessReceived() async throws {
+    func testChain_withFormURLEncoded_thenSuccessReceived() async throws {
         // given
 
-        let sut: any AsyncNode<AuthModel, Credentials> = UrlChainsBuilder(serviceChain: UrlServiceChainBuilderMock())
-            .route(.post, Routes.authWithFormUrl)
+        let builder = URLChainBuilder<Routes>(serviceChainProvider: URLServiceChainProviderMock())
+        let authModel = AuthModel(type: "type", secret: "secret")
+        
+        // when
+        
+        let result: NodeResult<Credentials> = await builder
+            .route(.post, .authWithFormURL)
             .encode(as: .urlQuery)
             .build()
-        
-        let authModel = AuthModel(type: "type", secret: "secret")
-
-        // when
-
-        let result = await sut.process(authModel)
+            .process(authModel)
 
         // then
         
@@ -50,18 +50,18 @@ final class FromURLCodingTests: XCTestCase {
         XCTAssertEqual(value.refreshToken, "stubbedRefreshToken")
     }
 
-    func testChain_withFormUrlEncodedBadRequest_thenFailureReceived() async throws {
+    func testChain_withFormURLEncodedBadRequest_thenFailureReceived() async throws {
         // given
 
-        let sut: any AsyncNode<AuthModel, Credentials> = UrlChainsBuilder(serviceChain: UrlServiceChainBuilderMock())
-            .route(.post, Routes.authWithFormUrl)
-            .build()
-        
+        let builder = URLChainBuilder<Routes>(serviceChainProvider: URLServiceChainProviderMock())
         let authModel = AuthModel(type: "badType", secret: "BadSecret")
         
         // when
 
-        let result = await sut.process(authModel)
+        let result: NodeResult<Credentials> = await builder
+            .route(.post, .authWithFormURL)
+            .build()
+            .process(authModel)
 
         // then
         
