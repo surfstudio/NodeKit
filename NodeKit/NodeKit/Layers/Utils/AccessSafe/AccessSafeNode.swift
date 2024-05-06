@@ -47,10 +47,10 @@ public enum AccessSafeNodeError: Error {
 /// - SeeAlso:
 ///     - `TransportLayerNode`
 ///     - `TokenRefresherNode`
-open class AccessSafeNode: AsyncNode {
+open class AccessSafeNode<Output>: AsyncNode {
 
     /// Следующий в цепочке узел.
-    public var next: any TransportLayerNode
+    public var next: any AsyncNode<TransportURLRequest, Output>
 
     /// Цепочка для обновления токена.
     /// Эта цепочкаа в самом начале должна выключать узел, который имплементирует заморозку запросов и их возобновление.
@@ -62,7 +62,7 @@ open class AccessSafeNode: AsyncNode {
     /// - Parameters:
     ///   - next: Следующий в цепочке узел.
     ///   - updateTokenChain: Цепочка для обновления токена.
-    public init(next: some TransportLayerNode, updateTokenChain: some AsyncNode<Void, Void>) {
+    public init(next: some AsyncNode<TransportURLRequest, Output>, updateTokenChain: some AsyncNode<Void, Void>) {
         self.next = next
         self.updateTokenChain = updateTokenChain
     }
@@ -72,7 +72,7 @@ open class AccessSafeNode: AsyncNode {
     open func process(
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
-    ) async -> NodeResult<Json> {
+    ) async -> NodeResult<Output> {
         await .withCheckedCancellation {
             await next.process(data, logContext: logContext)
         }
@@ -91,7 +91,7 @@ open class AccessSafeNode: AsyncNode {
     private func processWithTokenUpdate(
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
-    ) async -> NodeResult<Json> {
+    ) async -> NodeResult<Output> {
         await .withCheckedCancellation {
             await updateTokenChain.process((), logContext: logContext)
                 .asyncFlatMap { await next.process(data, logContext: logContext) }
