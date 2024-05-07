@@ -10,9 +10,7 @@
 
 import Foundation
 
-open class ChainBuilderMock<Route: URLRouteProvider>: ChainBuilder {
-    
-    public init() { }
+open class ChainBuilderMock<Route: URLRouteProvider>: ChainConfigBuilderMock, ChainBuilder {
     
     public var invokedRoute = false
     public var invokedRouteCount = 0
