@@ -92,41 +92,47 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
     
     // MARK: - Public Methods
     
+    /// Добавляет к цепочке RequestRouterNode на основе заданного Route.
+    /// Если Route не был задан до вызова метода, будет выброшена ошибка.
     open func requestRouterNode<Raw, Output>(
-        next: some AsyncNode<RoutableRequestModel<URLRouteProvider, Raw>, Output>
+        root: some AsyncNode<RoutableRequestModel<URLRouteProvider, Raw>, Output>
     ) -> RequestRouterNode<Raw, URLRouteProvider, Output> {
         guard let route else {
             preconditionFailure("\(self.self) URLRoute is nil")
         }
 
-        return RequestRouterNode(next: next, route: route)
+        return RequestRouterNode(next: root, route: route)
     }
     
-    /// Создает цепочку узлов, описывающих слой построения запроса.
+    /// Добавляет к цепочке root цепочку узлов, описывающих слой построения запроса.
+    /// Используется для запросов, ожидающих Json или Data в ответ.
     ///
-    /// - Parameter config: Конфигурация для запроса
-    open func metadataConnectorNode<O>(
+    /// - Parameter root: Цепочка, к которой будут добавлены узлы
+    open func metadataConnectorChain<O>(
         root: any AsyncNode<TransportURLRequest, O>
     ) -> some AsyncNode<Json, O> {
         let urlRequestEncodingNode = URLJsonRequestEncodingNode(next: root)
         let urlRequestTrasformatorNode = URLRequestTrasformatorNode(next: urlRequestEncodingNode, method: method)
         let requestEncoderNode = RequestEncoderNode(next: urlRequestTrasformatorNode, encoding: encoding)
-        let queryInjector = URLQueryInjectorNode(next: requestEncoderNode, config: config)
-        let requestRouterNode = requestRouterNode(next: queryInjector)
+        let queryInjectorNode = URLQueryInjectorNode(next: requestEncoderNode, config: config)
+        let requestRouterNode = requestRouterNode(root: queryInjectorNode)
         return MetadataConnectorNode(next: requestRouterNode, metadata: metadata)
     }
     
-    /// Создает цепочку узлов, описывающих слой построения запроса.
+    /// Добавляет к цепочке root цепочку узлов, описывающих слой построения запроса.
+    /// Используется для Multipart запросов.
     ///
-    /// - Parameter config: Конфигурация для запроса
-    open func metadataConnectorNode(
-        root: any AsyncNode<URLRequest, Json>
+    /// - Parameter root: Цепочка, к которой будут добавлены узлы
+    open func metadataConnectorChain(
+        root: any AsyncNode<MultipartURLRequest, Json>
     ) -> any AsyncNode<MultipartModel<[String : Data]>, Json> {
-        let creator = MultipartRequestCreatorNode(next: root)
-        let transformator = MultipartURLRequestTrasformatorNode(next: creator, method: method)
-        let queryInjector = URLQueryInjectorNode(next: transformator, config: config)
-        let router = requestRouterNode(next: queryInjector)
-        return MetadataConnectorNode(next: router, metadata: metadata)
+        let requestTransformatorNode = MultipartURLRequestTrasformatorNode(
+            next: root,
+            method: method
+        )
+        let queryInjectorNode = URLQueryInjectorNode(next: requestTransformatorNode, config: config)
+        let routerNode = requestRouterNode(root: queryInjectorNode)
+        return MetadataConnectorNode(next: routerNode, metadata: metadata)
     }
     
     // MARK: - ChainConfigBuilder
@@ -176,65 +182,65 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
     
     open func build<I: DTOEncodable, O: DTODecodable>() -> AnyAsyncNode<I, O>
     where I.DTO.Raw == Json, O.DTO.Raw == Json {
-        let root = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
-        let connector = metadataConnectorNode(root: root)
-        let dtoConverter = DTOMapperNode<I.DTO, O.DTO>(next: connector)
-        let modelInputNode = ModelInputNode<I, O>(next: dtoConverter)
+        let requestChain = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
+        let metadataConnectorChain = metadataConnectorChain(root: requestChain)
+        let dtoConverterNode = DTOMapperNode<I.DTO, O.DTO>(next: metadataConnectorChain)
+        let modelInputNode = ModelInputNode<I, O>(next: dtoConverterNode)
         return LoggerNode(next: modelInputNode, filters: logFilter)
             .eraseToAnyNode()
     }
     
     open func build<O: DTODecodable>() -> AnyAsyncNode<Void, O>
     where O.DTO.Raw == Json {
-        let root = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
-        let metadataConnectorNode = metadataConnectorNode(root: root)
-        let dtoConverter = DTOMapperNode<Json, O.DTO>(next: metadataConnectorNode)
-        let modelInput = ModelInputNode<Json, O>(next: dtoConverter)
-        let voidNode = VoidInputNode(next: modelInput)
+        let requestChain = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
+        let metadataConnectorChain = metadataConnectorChain(root: requestChain)
+        let dtoConverterNode = DTOMapperNode<Json, O.DTO>(next: metadataConnectorChain)
+        let modelInputNode = ModelInputNode<Json, O>(next: dtoConverterNode)
+        let voidNode = VoidInputNode(next: modelInputNode)
         return LoggerNode(next: voidNode, filters: logFilter)
             .eraseToAnyNode()
     }
     
    open func build<I: DTOEncodable>() -> AnyAsyncNode<I, Void> where I.DTO.Raw == Json {
-        let root = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
-        let metadataConnectorNode = metadataConnectorNode(root: root)
-        let voidOutput = VoidOutputNode<I>(next: metadataConnectorNode)
-        return LoggerNode(next: voidOutput, filters: logFilter)
+        let requestChain = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
+        let metadataConnectorChain = metadataConnectorChain(root: requestChain)
+        let voidOutputNode = VoidOutputNode<I>(next: metadataConnectorChain)
+        return LoggerNode(next: voidOutputNode, filters: logFilter)
            .eraseToAnyNode()
     }
     
     open func build() -> AnyAsyncNode<Void, Void> {
-        let root = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
-        let metadataConnectorNode = metadataConnectorNode(root: root)
-        let voidOutput = VoidIONode(next: metadataConnectorNode)
-        return LoggerNode(next: voidOutput, filters: logFilter)
+        let requestChain = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
+        let metadataConnectorChain = metadataConnectorChain(root: requestChain)
+        let voidOutputNode = VoidIONode(next: metadataConnectorChain)
+        return LoggerNode(next: voidOutputNode, filters: logFilter)
             .eraseToAnyNode()
     }
     
     open func build<I: DTOEncodable, O: DTODecodable>() -> AnyAsyncNode<I, O>
     where O.DTO.Raw == Json, I.DTO.Raw == MultipartModel<[String : Data]> {
-        let root = serviceChainProvider.provideRequestMultipartChain()
-        let metadataConnectorNode = metadataConnectorNode(root: root)
-        let rawEncoder = DTOMapperNode<I.DTO,O.DTO>(next: metadataConnectorNode)
-        let dtoEncoder = ModelInputNode<I, O>(next: rawEncoder)
-        return LoggerNode(next: dtoEncoder, filters: logFilter)
+        let requestChain = serviceChainProvider.provideRequestMultipartChain()
+        let metadataConnectorChain = metadataConnectorChain(root: requestChain)
+        let rawEncoderNode = DTOMapperNode<I.DTO,O.DTO>(next: metadataConnectorChain)
+        let dtoEncoderNode = ModelInputNode<I, O>(next: rawEncoderNode)
+        return LoggerNode(next: dtoEncoderNode, filters: logFilter)
             .eraseToAnyNode()
     }
     
     open func buildDataLoading() -> AnyAsyncNode<Void, Data> {
-        let root = serviceChainProvider.provideRequestDataChain(with: headersProviders)
-        let metadataConnectorNode = metadataConnectorNode(root: root)
-        let voidInput = VoidInputNode(next: metadataConnectorNode)
-        return LoggerNode(next: voidInput, filters: logFilter)
+        let requestChain = serviceChainProvider.provideRequestDataChain(with: headersProviders)
+        let metadataConnectorChain = metadataConnectorChain(root: requestChain)
+        let voidInputNode = VoidInputNode(next: metadataConnectorChain)
+        return LoggerNode(next: voidInputNode, filters: logFilter)
             .eraseToAnyNode()
     }
     
     open func buildDataLoading<I: DTOEncodable>() -> AnyAsyncNode<I, Data> where I.DTO.Raw == Json {
-        let root = serviceChainProvider.provideRequestDataChain(with: headersProviders)
-        let metadataConnectorNode = metadataConnectorNode(root: root)
-        let rawEncoder = RawEncoderNode<I.DTO, Data>(next: metadataConnectorNode)
-        let dtoEncoder = DTOEncoderNode<I, Data>(rawEncodable: rawEncoder)
-        return LoggerNode(next: dtoEncoder, filters: logFilter)
+        let requestChain = serviceChainProvider.provideRequestDataChain(with: headersProviders)
+        let metadataConnectorChain = metadataConnectorChain(root: requestChain)
+        let rawEncoderNode = RawEncoderNode<I.DTO, Data>(next: metadataConnectorChain)
+        let dtoEncoderNode = DTOEncoderNode<I, Data>(rawEncodable: rawEncoderNode)
+        return LoggerNode(next: dtoEncoderNode, filters: logFilter)
             .eraseToAnyNode()
     }
 }

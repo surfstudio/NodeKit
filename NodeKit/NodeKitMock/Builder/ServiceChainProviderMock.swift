@@ -48,9 +48,9 @@ open class ServiceChainProviderMock: ServiceChainProvider {
     
     public var invokedProvideRequestMultipartChain = false
     public var invokedProvideRequestMultipartChainCount = 0
-    public var stubbedProvideRequestMultipartChainResult: (any AsyncNode<URLRequest, Json>)!
+    public var stubbedProvideRequestMultipartChainResult: (any AsyncNode<MultipartURLRequest, Json>)!
     
-    open func provideRequestMultipartChain() -> any AsyncNode<URLRequest, Json> {
+    open func provideRequestMultipartChain() -> any AsyncNode<MultipartURLRequest, Json> {
         invokedProvideRequestMultipartChain = true
         invokedProvideRequestMultipartChainCount += 1
         return stubbedProvideRequestMultipartChainResult

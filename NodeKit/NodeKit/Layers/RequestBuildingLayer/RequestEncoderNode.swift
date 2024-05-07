@@ -26,7 +26,7 @@ open class RequestEncoderNode<Raw, Route, Encoding, Output>: AsyncNode {
     public var next: any NextNode
 
     /// Кодировка для запроса.
-    public var encoding: Encoding?
+    public var encoding: Encoding
 
     /// Инициаллизирует узел.
     ///

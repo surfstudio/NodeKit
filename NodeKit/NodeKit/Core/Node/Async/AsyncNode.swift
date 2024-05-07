@@ -32,6 +32,12 @@ public protocol AsyncNode<Input, Output>: Node {
     ///
     /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncNode``.
     func eraseToAnyNode() -> AnyAsyncNode<Input, Output>
+    
+    /// Метод, позволяющий объединить две ноды с одинаковыми Input и Output в AsyncStreamNode.
+    ///
+    /// - Parameter node: Нода, необходимая для объединения.
+    /// - Returns: Нода AsyncStreamNode, включающая текущую и переданную ноду.
+    func merged(with node: any AsyncNode<Input, Output>) -> any AsyncStreamNode<Input, Output>
 }
 
 public extension AsyncNode {
@@ -55,6 +61,14 @@ public extension AsyncNode {
     /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncNode``.
     func eraseToAnyNode() -> AnyAsyncNode<Input, Output> {
         return AnyAsyncNode(node: self)
+    }
+    
+    /// Стандартная реализация объединения двух узлов в AsyncStreamNode.
+    ///
+    /// - Parameter node: Нода, необходимая для объединения.
+    /// - Returns: Нода AsyncStreamNode, включающая текущую и переданную ноду.
+    func merged(with node: any AsyncNode<Input, Output>) -> any AsyncStreamNode<Input, Output> {
+        return MergedAsyncStreamNode(firstNode: self, secondNode: node)
     }
 }
 
