@@ -157,12 +157,12 @@ final class HeaderInjectorNodeTests: XCTestCase {
         // given
         
         let sut = HeaderInjectorNode(next: nextNodeMock, headers: [:])
-        let requestParameters = TransportUrlParameters(
+        let requestParameters = TransportURLParameters(
             method: .options,
             url: URL(string: "www.testprocess.com")!,
             headers: [:]
         )
-        let request = TransportUrlRequest(with: requestParameters, raw: Data())
+        let request = TransportURLRequest(with: requestParameters, raw: Data())
         nextNodeMock.stubbedAsyncProccessResult = .success(Json())
         
         // when
@@ -186,12 +186,12 @@ final class HeaderInjectorNodeTests: XCTestCase {
         // given
         
         let sut = HeaderInjectorNode(next: nextNodeMock, headers: [:])
-        let requestParameters = TransportUrlParameters(
+        let requestParameters = TransportURLParameters(
             method: .options,
             url: URL(string: "www.testprocess.com")!,
             headers: [:]
         )
-        let request = TransportUrlRequest(with: requestParameters, raw: Data())
+        let request = TransportURLRequest(with: requestParameters, raw: Data())
         nextNodeMock.stubbedAsyncProccessResult = .success(Json())
         nextNodeMock.stubbedAsyncProcessRunFunction = {
             try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)

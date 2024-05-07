@@ -137,12 +137,10 @@ final class DataLoadingResponseProcessorTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: [:])!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         nextNodeMock.stubbedAsyncProccessResult = .success(())
         
@@ -167,12 +165,10 @@ final class DataLoadingResponseProcessorTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: [:])!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         nextNodeMock.stubbedAsyncProccessResult = .success(())
         nextNodeMock.stubbedAsyncProcessRunFunction = {

@@ -267,7 +267,7 @@ final class AccessSafeNodeTests: XCTestCase {
     func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
         // given
         
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -297,7 +297,7 @@ final class AccessSafeNodeTests: XCTestCase {
     func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
         // given
         
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],

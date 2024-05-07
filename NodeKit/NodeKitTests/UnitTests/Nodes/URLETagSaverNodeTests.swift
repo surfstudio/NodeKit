@@ -127,9 +127,9 @@ final class URLETagSaverNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "http://urletagsaver.tests/testSaveWorkForCustomKey")!
-        let nextNode = AsyncNodeMock<UrlProcessedResponse, Void>()
-        let sut = UrlETagSaverNode(next: nextNode)
-        let data = Utils.getMockUrlProcessedResponse(url: url, headers: [:])
+        let nextNode = AsyncNodeMock<URLProcessedResponse, Void>()
+        let sut = URLETagSaverNode(next: nextNode)
+        let data = Utils.getMockURLProcessedResponse(url: url, headers: [:])
         
         nextNode.stubbedAsyncProccessResult = .success(())
         
@@ -154,9 +154,9 @@ final class URLETagSaverNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "http://urletagsaver.tests/testSaveWorkForCustomKey")!
-        let nextNode = AsyncNodeMock<UrlProcessedResponse, Void>()
-        let sut = UrlETagSaverNode(next: nextNode)
-        let data = Utils.getMockUrlProcessedResponse(url: url, headers: [:])
+        let nextNode = AsyncNodeMock<URLProcessedResponse, Void>()
+        let sut = URLETagSaverNode(next: nextNode)
+        let data = Utils.getMockURLProcessedResponse(url: url, headers: [:])
         
         nextNode.stubbedAsyncProcessRunFunction = {
             try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)

@@ -151,8 +151,8 @@ final class URLETagReaderNodeTests: XCTestCase {
         buildSut()
 
         let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccessWithCustomKey")!
-        let params = TransportUrlParameters(method: .get, url: url)
-        let request = TransportUrlRequest(with: params , raw: Data())
+        let params = TransportURLParameters(method: .get, url: url)
+        let request = TransportURLRequest(with: params , raw: Data())
         
         nextNodeMock.stubbedAsyncProccessResult = .success(Json())
         
@@ -179,8 +179,8 @@ final class URLETagReaderNodeTests: XCTestCase {
         buildSut()
 
         let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccessWithCustomKey")!
-        let params = TransportUrlParameters(method: .get, url: url)
-        let request = TransportUrlRequest(with: params , raw: Data())
+        let params = TransportURLParameters(method: .get, url: url)
+        let request = TransportURLRequest(with: params , raw: Data())
         
         nextNodeMock.stubbedAsyncProccessResult = .success(Json())
         nextNodeMock.stubbedAsyncProcessRunFunction = {

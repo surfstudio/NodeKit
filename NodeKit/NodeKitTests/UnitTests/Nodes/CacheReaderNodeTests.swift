@@ -181,7 +181,7 @@ final class CacheReaderNodeTests: XCTestCase {
         
         let url = URL(string: "http://example.test")!
         let request = URLRequest(url: url)
-        let model = UrlNetworkRequest(urlRequest: request)
+        let model = URLNetworkRequest(urlRequest: request)
         
         // when
         

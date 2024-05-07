@@ -344,12 +344,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         nextNodeMock.stubbedAsyncProccessResult = .success(1)
         
@@ -374,12 +372,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         nextNodeMock.stubbedAsyncProccessResult = .success(1)
         nextNodeMock.stubbedAsyncProcessRunFunction = {

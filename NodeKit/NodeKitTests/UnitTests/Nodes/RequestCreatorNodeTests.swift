@@ -167,12 +167,12 @@ final class RequestCreatorNodeTests: XCTestCase {
         // given
         
         let sut = RequestCreatorNode<Int>(next: nextNodeMock, providers: [])
-        let requestParameters = TransportUrlParameters(
+        let requestParameters = TransportURLParameters(
             method: .options,
             url: URL(string: "www.testprocess.com")!,
             headers: [:]
         )
-        let request = TransportUrlRequest(with: requestParameters, raw: Data())
+        let request = TransportURLRequest(with: requestParameters, raw: Data())
         nextNodeMock.stubbedAsyncProccessResult = .success(1)
         
         // when
@@ -196,12 +196,12 @@ final class RequestCreatorNodeTests: XCTestCase {
         // given
         
         let sut = RequestCreatorNode<Int>(next: nextNodeMock, providers: [])
-        let requestParameters = TransportUrlParameters(
+        let requestParameters = TransportURLParameters(
             method: .options,
             url: URL(string: "www.testprocess.com")!,
             headers: [:]
         )
-        let request = TransportUrlRequest(with: requestParameters, raw: Data())
+        let request = TransportURLRequest(with: requestParameters, raw: Data())
         nextNodeMock.stubbedAsyncProccessResult = .success(1)
         nextNodeMock.stubbedAsyncProcessRunFunction = {
             try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)

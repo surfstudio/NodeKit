@@ -78,14 +78,12 @@ final class URLCacheWriterNodeTest: XCTestCase {
         let url = URL(string: "http://example.test")!
         let request = URLRequest(url: url)
         let urlResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.1", headerFields: nil)!
-        let urlDataResponse = UrlDataResponse(
+        let urlDataResponse = URLDataResponse(
             request: request,
             response: urlResponse,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
-        let input = UrlProcessedResponse(dataResponse: urlDataResponse, json: [:])
+        let input = URLProcessedResponse(dataResponse: urlDataResponse, json: [:])
         
         // when
         

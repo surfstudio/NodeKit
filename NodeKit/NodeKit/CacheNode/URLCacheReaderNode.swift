@@ -35,7 +35,7 @@ open class URLCacheReaderNode: AsyncNode {
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
         await .withCheckedCancellation {
-            guard let cachedResponse = extractCachedUrlResponse(data.urlRequest) else {
+            guard let cachedResponse = extractCachedURLResponse(data.urlRequest) else {
                 return .failure(BaseURLCacheReaderError.cantLoadDataFromCache)
             }
 

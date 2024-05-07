@@ -186,15 +186,15 @@ final class MultipartURLRequestTrasformatorNodeTests: XCTestCase {
     func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
         // given
         
-        let sut = MultipartUrlRequestTrasformatorNode(next: nextNodeMock, method: .options)
-        let model = RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>(
+        let sut = MultipartURLRequestTrasformatorNode(next: nextNodeMock, method: .options)
+        let model = RoutableRequestModel<URLRouteProvider, MultipartModel<[String : Data]>>(
             metadata: [:],
             raw: MultipartModel<[String : Data]>(payloadModel: [:]),
             route: urlRouteProviderMock
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(1)
-        urlRouteProviderMock.stubbedUrlResult = .success(URL(string: "www.test.com")!)
+        urlRouteProviderMock.stubbedURLResult = .success(URL(string: "www.test.com")!)
         
         // when
         
@@ -216,15 +216,15 @@ final class MultipartURLRequestTrasformatorNodeTests: XCTestCase {
     func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
         // given
         
-        let sut = MultipartUrlRequestTrasformatorNode(next: nextNodeMock, method: .options)
-        let model = RoutableRequestModel<UrlRouteProvider, MultipartModel<[String : Data]>>(
+        let sut = MultipartURLRequestTrasformatorNode(next: nextNodeMock, method: .options)
+        let model = RoutableRequestModel<URLRouteProvider, MultipartModel<[String : Data]>>(
             metadata: [:],
             raw: MultipartModel<[String : Data]>(payloadModel: [:]),
             route: urlRouteProviderMock
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(1)
-        urlRouteProviderMock.stubbedUrlResult = .success(URL(string: "www.test.com")!)
+        urlRouteProviderMock.stubbedURLResult = .success(URL(string: "www.test.com")!)
         
         nextNodeMock.stubbedAsyncProcessRunFunction = {
             try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)

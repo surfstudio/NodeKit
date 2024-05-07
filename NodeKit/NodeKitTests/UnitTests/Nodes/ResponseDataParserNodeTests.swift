@@ -243,12 +243,10 @@ final class ResponseDataParserNodeTests: XCTestCase {
             expectedContentLength: .zero,
             textEncodingName: nil
         )
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: urlResponse,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         nextNodeMock.stubbedAsyncProccessResult = .success(())
         
@@ -280,12 +278,10 @@ final class ResponseDataParserNodeTests: XCTestCase {
             expectedContentLength: .zero,
             textEncodingName: nil
         )
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: urlResponse,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         nextNodeMock.stubbedAsyncProccessResult = .success(())
         nextNodeMock.stubbedAsyncProcessRunFunction = {

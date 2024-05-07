@@ -149,12 +149,10 @@ final class ResponseDataPreprocessorNodeTests: XCTestCase {
         let url = URL(string: "www.test.com")!
         let request = URLRequest(url: url)
         let response = HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: nil)!
-        let input = UrlDataResponse(
+        let input = URLDataResponse(
             request: request,
             response: response,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 0
+            data: Data()
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(Json())
@@ -182,12 +180,10 @@ final class ResponseDataPreprocessorNodeTests: XCTestCase {
         let url = URL(string: "www.test.com")!
         let request = URLRequest(url: url)
         let response = HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: nil)!
-        let input = UrlDataResponse(
+        let input = URLDataResponse(
             request: request,
             response: response,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 0
+            data: Data()
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(Json())

@@ -345,7 +345,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
         // given
         
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .get,
             url: URL(string: "www.testprocess.com")!,
             headers: [:],
@@ -376,7 +376,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
         // given
         
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .get,
             url: URL(string: "www.testprocess.com")!,
             headers: [:],

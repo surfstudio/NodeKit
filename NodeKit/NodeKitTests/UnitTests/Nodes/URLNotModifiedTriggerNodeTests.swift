@@ -97,7 +97,7 @@ final class URLNotModifiedTriggerNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCAlledIfDataIsNotNotModified")!
-        let response = Utils.getMockUrlDataResponse(url: url, statusCode: 304)
+        let response = Utils.getMockURLDataResponse(url: url, statusCode: 304)
         cacheSaverMock.stubbedAsyncProccessResult = .success([:])
         
         // when
@@ -121,7 +121,7 @@ final class URLNotModifiedTriggerNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCAlledIfDataIsNotNotModified")!
-        let response = Utils.getMockUrlDataResponse(url: url, statusCode: 304)
+        let response = Utils.getMockURLDataResponse(url: url, statusCode: 304)
         cacheSaverMock.stubbedAsyncProcessRunFunction = {
             try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)
         }
