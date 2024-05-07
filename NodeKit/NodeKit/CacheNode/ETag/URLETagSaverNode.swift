@@ -13,7 +13,7 @@ import Foundation
 /// Содержит указатель на UserDefaults-хранилище для eTag токенов.
 extension UserDefaults {
     /// Хранилище для eTag-токенов
-    static var etagStorage = UserDefaults(suiteName: "\(String(describing: self.self))")
+    static var etagStorage = UserDefaults(suiteName: "\(String(describing: UserDefaults.self))")
 }
 
 /// Этот узел сохраняет пришедшие eTag-токены.
