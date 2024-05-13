@@ -133,7 +133,6 @@
 		50B569782BCFEF610054DC09 /* AsyncStreamNodeResultPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B569772BCFEF610054DC09 /* AsyncStreamNodeResultPublisher.swift */; };
 		50B5697A2BCFF1A10054DC09 /* CombineCompatibleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B569792BCFF1A10054DC09 /* CombineCompatibleNode.swift */; };
 		50B6838F2BBF3615001F7EA3 /* AccessSafeNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6838E2BBF3615001F7EA3 /* AccessSafeNodeTests.swift */; };
-		50BEF7BE2BE8A713003DCB04 /* MergedAsyncStreamNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEF7BD2BE8A713003DCB04 /* MergedAsyncStreamNode.swift */; };
 		50C57AB72BE3871D004C344E /* ServiceChainProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C57AB62BE3871D004C344E /* ServiceChainProvider.swift */; };
 		50C57AB92BE388C6004C344E /* ChainBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C57AB82BE388C6004C344E /* ChainBuilder.swift */; };
 		50C8EB302BBD90DE00C5CB93 /* CombineNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8EB2F2BBD90DE00C5CB93 /* CombineNodeTests.swift */; };
@@ -365,7 +364,6 @@
 		50B569772BCFEF610054DC09 /* AsyncStreamNodeResultPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStreamNodeResultPublisher.swift; sourceTree = "<group>"; };
 		50B569792BCFF1A10054DC09 /* CombineCompatibleNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineCompatibleNode.swift; sourceTree = "<group>"; };
 		50B6838E2BBF3615001F7EA3 /* AccessSafeNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessSafeNodeTests.swift; sourceTree = "<group>"; };
-		50BEF7BD2BE8A713003DCB04 /* MergedAsyncStreamNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergedAsyncStreamNode.swift; sourceTree = "<group>"; };
 		50C57AB62BE3871D004C344E /* ServiceChainProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceChainProvider.swift; sourceTree = "<group>"; };
 		50C57AB82BE388C6004C344E /* ChainBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainBuilder.swift; sourceTree = "<group>"; };
 		50C8EB272BBD7A2200C5CB93 /* AsyncStreamCombineNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStreamCombineNode.swift; sourceTree = "<group>"; };
@@ -517,7 +515,6 @@
 				501349142BE3E6D2002CC3DA /* AnyAsyncNode.swift */,
 				5005EB222BB8A6D900B670CD /* AsyncStreamNode.swift */,
 				501349162BE3E770002CC3DA /* AnyAsyncStreamNode.swift */,
-				50BEF7BD2BE8A713003DCB04 /* MergedAsyncStreamNode.swift */,
 			);
 			path = Async;
 			sourceTree = "<group>";
@@ -1521,7 +1518,6 @@
 				5005EB212BB8A6D000B670CD /* AsyncNode.swift in Sources */,
 				90B609A5283E1287006F4309 /* ResponseProcessorNode.swift in Sources */,
 				90B60995283E1287006F4309 /* DTOEncoderNode.swift in Sources */,
-				50BEF7BE2BE8A713003DCB04 /* MergedAsyncStreamNode.swift in Sources */,
 				90B60914283E1268006F4309 /* ETagConstants.swift in Sources */,
 				50528E292BAE162600E86CB6 /* LoggerStreamNode.swift in Sources */,
 				90B609A2283E1287006F4309 /* ResponseDataParserNode.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct AnyAsyncStreamNode<Input, Output>: AsyncStreamNode {
+struct AnyAsyncStreamNode<Input, Output>: AsyncStreamNode {
     
     // MARK: - Private Properties
     
@@ -22,7 +22,7 @@ public struct AnyAsyncStreamNode<Input, Output>: AsyncStreamNode {
     
     // MARK: - AsyncNode
     
-    public func process(_ data: Input, logContext: LoggingContextProtocol) -> AsyncStream<NodeResult<Output>> {
+    func process(_ data: Input, logContext: LoggingContextProtocol) -> AsyncStream<NodeResult<Output>> {
         return node.process(data, logContext: logContext)
     }
 }
