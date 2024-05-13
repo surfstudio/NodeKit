@@ -68,7 +68,7 @@ open class ChainBuilderMock<Route: URLRouteProvider>: ChainBuilder {
     
     public var invokedBuildWithInputOutput = false
     public var invokedBuildWithInputOutputCount = 0
-    public var stubbedBuildWithInputOutputResult: AsyncNodeMock<Any, Any>!
+    public var stubbedBuildWithInputOutputResult: Any!
     
     open func build<I: DTOEncodable, O: DTODecodable>() -> AnyAsyncNode<I, O>
     where I.DTO.Raw == Json, O.DTO.Raw == Json {
@@ -79,7 +79,7 @@ open class ChainBuilderMock<Route: URLRouteProvider>: ChainBuilder {
     
     public var invokedBuildWithVoidInput = false
     public var invokedBuildWithVoidInputCount = 0
-    public var stubbedBuildWithVoidInputResult: AsyncNodeMock<Void, Any>!
+    public var stubbedBuildWithVoidInputResult: Any!
     
     open func build<O: DTODecodable>() -> AnyAsyncNode<Void, O>
     where O.DTO.Raw == Json {
@@ -90,7 +90,7 @@ open class ChainBuilderMock<Route: URLRouteProvider>: ChainBuilder {
     
     public var invokedBuildWithVoidOutput = false
     public var invokedBuildWithVoidOutputCount = 0
-    public var stubbedBuildWithVoidOutputResult: AsyncNodeMock<Any, Void>!
+    public var stubbedBuildWithVoidOutputResult: Any!
     
     open func build<I: DTOEncodable>() -> AnyAsyncNode<I, Void> where I.DTO.Raw == Json {
         invokedBuildWithVoidOutput = true
@@ -110,7 +110,7 @@ open class ChainBuilderMock<Route: URLRouteProvider>: ChainBuilder {
     
     public var invokedBuildMultipart = false
     public var invokedBuildMultipartCount = 0
-    public var stubbedBuildMultipartResult: AsyncNodeMock<Any, Any>!
+    public var stubbedBuildMultipartResult: Any!
     
     open func build<I: DTOEncodable, O: DTODecodable>() -> AnyAsyncNode<I, O>
     where O.DTO.Raw == Json, I.DTO.Raw == MultipartModel<[String : Data]> {
@@ -131,7 +131,7 @@ open class ChainBuilderMock<Route: URLRouteProvider>: ChainBuilder {
     
     public var invokedBuildDataLoading = false
     public var invokedBuildDataLoadingCount = 0
-    public var stubbedBuildDataLoadingResult: AsyncNodeMock<Any, Data>!
+    public var stubbedBuildDataLoadingResult: Any!
     
     open func buildDataLoading<I: DTOEncodable>() -> AnyAsyncNode<I, Data> where I.DTO.Raw == Json {
         invokedBuildDataLoading = true
