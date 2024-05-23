@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>NodeDataResponse Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/NodeDataResponse" class="dashAnchor"></a>
+    <a title="NodeDataResponse Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">NodeKit 3.5.0 Docs</a> (73% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">NodeKit Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        NodeDataResponse Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Actors.html">Actors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Actors/AsyncPagerIterator.html">AsyncPagerIterator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Actors/LoggingContext.html">LoggingContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Actors/URLSessionDataTaskActor.html">URLSessionDataTaskActor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AborterNode.html">AborterNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AccessSafeNode.html">AccessSafeNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DTOEncoderNode.html">DTOEncoderNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DTOMapperNode.html">DTOMapperNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DataLoadingResponseProcessor.html">DataLoadingResponseProcessor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EntryInputDtoOutputNode.html">EntryInputDtoOutputNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HeaderInjectorNode.html">HeaderInjectorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IfConnectionFailedFromCacheNode.html">IfConnectionFailedFromCacheNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LoggerNode.html">LoggerNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MetadataConnectorNode.html">MetadataConnectorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MockerProxyConfigNode.html">MockerProxyConfigNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ModelInputNode.html">ModelInputNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MultipartModel.html">MultipartModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MultipartRequestCreatorNode.html">MultipartRequestCreatorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MultipartURLRequestTrasformatorNode.html">MultipartURLRequestTrasformatorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RawEncoderNode.html">RawEncoderNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RequestCreatorNode.html">RequestCreatorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RequestEncoderNode.html">RequestEncoderNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RequestRouterNode.html">RequestRouterNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RequestSenderNode.html">RequestSenderNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResponseDataParserNode.html">ResponseDataParserNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResponseDataPreprocessorNode.html">ResponseDataPreprocessorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResponseHttpErrorProcessorNode.html">ResponseHttpErrorProcessorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResponseProcessorNode.html">ResponseProcessorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ServerRequestsManager.html">ServerRequestsManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TechnicaErrorMapperNode.html">TechnicaErrorMapperNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TokenRefresherNode.html">TokenRefresherNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/URLCacheReaderNode.html">URLCacheReaderNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/URLCacheWriterNode.html">URLCacheWriterNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/URLChainBuilder.html">URLChainBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/URLETagReaderNode.html">URLETagReaderNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/URLETagSaverNode.html">URLETagSaverNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/URLJsonRequestEncodingNode.html">URLJsonRequestEncodingNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/URLNotModifiedTriggerNode.html">URLNotModifiedTriggerNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/URLQueryInjectorNode.html">URLQueryInjectorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/URLRequestTrasformatorNode.html">URLRequestTrasformatorNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/URLServiceChainProvider.html">URLServiceChainProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidIONode.html">VoidIONode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidInputNode.html">VoidInputNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidOutputNode.html">VoidOutputNode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AccessSafeNodeError.html">AccessSafeNodeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BaseTechnicalError.html">BaseTechnicalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BaseURLCacheReaderError.html">BaseURLCacheReaderError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ETagConstants.html">ETagConstants</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ErrorArrayJsonMappiong.html">ErrorArrayJsonMappiong</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/LogOrder.html">LogOrder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MappingUtils.html">MappingUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Method.html">Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MockerProxyConfigKey.html">MockerProxyConfigKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MultipartFileProvider.html">MultipartFileProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ParametersEncoding.html">ParametersEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RawMappableCodableError.html">RawMappableCodableError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseDataParserNodeError.html">ResponseDataParserNodeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseHttpErrorProcessorNodeError.html">ResponseHttpErrorProcessorNodeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseProcessorNodeError.html">ResponseProcessorNodeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/URLQueryArrayKeyEncodingBracketsStartegy.html">URLQueryArrayKeyEncodingBracketsStartegy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/URLQueryBoolEncodingDefaultStartegy.html">URLQueryBoolEncodingDefaultStartegy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/URLQueryInjectorNodeError.html">URLQueryInjectorNodeError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/URLRouteError.html">URLRouteError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CharacterSet.html">CharacterSet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Dictionary.html">Dictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/NodeKit">NodeKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NodeResult.html">NodeResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Optional.html">Optional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:ScT">Task</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URL.html">URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/c:objc(cs)NSURLSessionDataTask">URLSessionDataTask</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Aborter.html">Aborter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AsyncIterator.html">AsyncIterator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AsyncNode.html">AsyncNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AsyncPagerDataProvider.html">AsyncPagerDataProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CancellableTask.html">CancellableTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ChainBuilder.html">ChainBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ChainConfigBuilder.html">ChainConfigBuilder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/CombineCompatibleNode.html">CombineCompatibleNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DTODecodable.html">DTODecodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/DTOEncodable.html">DTOEncodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Logable.html">Logable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/LoggingContextProtocol.html">LoggingContextProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MetadataProvider.html">MetadataProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MultipartFormDataFactory.html">MultipartFormDataFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Node.html">Node</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ParameterEncoding.html">ParameterEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RawDecodable.html">RawDecodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RawEncodable.html">RawEncodable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ServiceChainProvider.html">ServiceChainProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/StateStorable.html">StateStorable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenRefresherActorProtocol.html">TokenRefresherActorProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/URLQueryArrayKeyEncodingStartegy.html">URLQueryArrayKeyEncodingStartegy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/URLQueryBoolEncodingStartegy.html">URLQueryBoolEncodingStartegy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/URLQueryDictionaryKeyEncodingStrategy.html">URLQueryDictionaryKeyEncodingStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/URLRouteProvider.html">URLRouteProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/URLSessionDataTaskActorProtocol.html">URLSessionDataTaskActorProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AlamofireMultipartFormDataFactory.html">AlamofireMultipartFormDataFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AnyAsyncNode.html">AnyAsyncNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AsyncPagerData.html">AsyncPagerData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EncodableRequestModel.html">EncodableRequestModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/JSONEncoding.html">JSONEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Log.html">Log</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MultipartURLRequest.html">MultipartURLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NodeDataResponse.html">NodeDataResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RawURLRequest.html">RawURLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RequestEncodingModel.html">RequestEncodingModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RequestModel.html">RequestModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RoutableRequestModel.html">RoutableRequestModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransportURLParameters.html">TransportURLParameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransportURLRequest.html">TransportURLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLChainConfigModel.html">URLChainConfigModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLDataResponse.html">URLDataResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLEncoding.html">URLEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLEncoding/Destination.html">– Destination</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLEncoding/ArrayEncoding.html">– ArrayEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLEncoding/BoolEncoding.html">– BoolEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLNetworkRequest.html">URLNetworkRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLProcessedResponse.html">URLProcessedResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLQueryConfigModel.html">URLQueryConfigModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLQueryDictionaryKeyEncodingDefaultStrategy.html">URLQueryDictionaryKeyEncodingDefaultStrategy</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:7NodeKit14DTOConvertiblea">DTOConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:7NodeKit4Jsona">Json</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:7NodeKit0A6Resulta">NodeResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:7NodeKit10Parametersa">Parameters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:7NodeKit11RawMappablea">RawMappable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/RequestProcessingLayerNode">RequestProcessingLayerNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/ResponsePostprocessorLayerNode">ResponsePostprocessorLayerNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/ResponseProcessingLayerNode">ResponseProcessingLayerNode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/TransportLayerNode">TransportLayerNode</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>NodeDataResponse</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NodeDataResponse</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7NodeKit0A12DataResponseV03urlD0So17NSHTTPURLResponseCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/urlResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7NodeKit0A12DataResponseV03urlD0So17NSHTTPURLResponseCSgvp">urlResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">urlResponse</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7NodeKit0A12DataResponseV10urlRequest10Foundation10URLRequestVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/urlRequest" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7NodeKit0A12DataResponseV10urlRequest10Foundation10URLRequestVSgvp">urlRequest</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">urlRequest</span><span class="p">:</span> <span class="kt">URLRequest</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7NodeKit0A12DataResponseV6results6ResultOy10Foundation0C0Vs5Error_pGvp"></a>
+                    <a name="//apple_ref/swift/Property/result" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7NodeKit0A12DataResponseV6results6ResultOy10Foundation0C0Vs5Error_pGvp">result</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">result</span><span class="p">:</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Data</span><span class="p">,</span> <span class="kt">Error</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2024 <a class="link" href="https://github.com/surfstudio/NodeKit" target="_blank" rel="external noopener">Alexander Kravchenkov</a>. All rights reserved. (Last updated: 2024-05-23)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

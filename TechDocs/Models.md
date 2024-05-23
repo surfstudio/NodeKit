@@ -1,11 +1,10 @@
 # Models
 
-Content:
 - [Model Layers](#modellayer)
   - [Raw Model Layer (RawMappable)](#rawmodellayer)
   - [Application Model Layer (DTOConvertible)](#aplicationmodellayer)
-  - [Example 1. Replacement of value](#example1)
-  - [Example 2. One-to-many](#example2)
+- [Example 1. Replacement of value](#example1)
+- [Example 2. One-to-many](#example2)
 
 ## Model Layers <a name="modellayer"></a>
 

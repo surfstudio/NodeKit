@@ -139,4 +139,4 @@ URLProtocolMock.stubbedRequestHandler = { request in
 }
 ```
 
-For a more in-depth study, you can refer to the [Example](../Example) project, where the `MockServer` is implemented.
+For a more in-depth study, you can refer to the [Example](../../Example) project, where the `MockServer` is implemented.

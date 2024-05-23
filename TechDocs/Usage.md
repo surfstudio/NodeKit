@@ -1,6 +1,5 @@
 # Usage
 
-Table of contents:
 - [Creating a request](#creatingarequest)
   - [Routing](#routing)
   - [Encoding](#encoding)
