@@ -9,21 +9,20 @@
 - [How to use Combine](#howtousecombine)
 
 Here are the main points and additional information on how to work with this library. 
-The project contains an Example where several query options are written - you can look there as an interactive example.
+The project contains an [Example](../Example) where several queries are written - you can look there as an interactive example.
 
 ## Creating a request <a name="creatingarequest"></a>
-
 
 Sending a network request begins with describing:
 
 1) Route - URI to the desired service
 2) HTTP method - request method (GET, PUT, etc.)
-3) Encoding - where to place the parameters and in what format (JSON in Body, String in Query, etc.)
-4) Metadata - or request headers.
+3) Encoding - where to place the parameters and specify the format (JSON in Body, String in Query, etc.)
+4) Metadata - request headers
 
 ### Routing <a name="routing"></a>
 
-To abstract the way of specifying the route (for example, in gRPC there are no explicit URLs), the route is a generic data type, however, in the case of URL requests, an UrlRouteProvider is expected.
+To abstract the way of specifying the route (for example, in gRPC there are no explicit URLs), the route is a generic data type, however, in the case of URL requests, an URLRouteProvider is expected.
 
 This approach makes working with URL addresses a bit more elegant. For example:
 
@@ -53,16 +52,16 @@ extension RegistrationRoute: UrlRouteProvider {
 
 #### Good to know
 
-For simplifying URL handling in CoreNetKit, there is an [extension](https://surfstudio.github.io/NodeKit/Extensions/Optional.html) for concatenating URL and String.
+For simplifying URL handling in CoreNetKit, there is an [extension](../docs/Extensions/Optional.html) for concatenating URL and String.
 
 ### Encoding <a name="encoding"></a>
 
 NodeKit provides the following encoding types:
 1) `json` - serializes request parameters into JSON and attaches them to the request body. It is the default encoding.
-2) `formUrl` - serializes request parameters into FormUrlEncoding format and attaches them to the request body.
+2) `formUrl` - serializes request parameters into FormURLEncoding format and attaches them to the request body.
 3) `urlQuery` - converts parameters into a string, replacing certain characters with special sequences (forms a URL-encoded string).
 
-These parameters are located in [ParametersEncoding](https://surfstudio.github.io/Enums/ParametersEncoding.html)
+These parameters are located in [ParametersEncoding](../docs/Enums/ParametersEncoding.html)
 
 ## Sending the request <a name="sendingtherequest"></a>
 
@@ -70,7 +69,7 @@ To send the request, you need to call the chain and pass it the parameters descr
 
 ### Service <a name="service"></a>
 
-As an example, let's write a service..
+As an example, let's write a service.
 
 ```Swift
 class ExampleService {
@@ -117,10 +116,10 @@ class ExampleService {
 
 To execute the request, we use [chains](Chains.md).
 
-### Response response <a name="response"></a>
+### Response <a name="response"></a>
 
 For working with the service, it is suggested to use `NodeResult<T>.` Where `NodeResult<T> = Result<T, Error>`.
-You can view the available methods of NodeResult [here]("https://surfstudio.github.io/NodeKit/Extensions/NodeResult.html").
+You can view the available methods of NodeResult [here](../docs/Extensions/NodeResult.html).
 Let's consider how interaction with the service will look like from the presenter (or any other entity that communicates with the server).
 
 ```Swift
@@ -169,11 +168,11 @@ class ExampleService {
 let service = ExampleService()
 
 let subscription1 = service.getUser(by: "1")
-    .sink { user in // <-- New Task is created and process called
+    .sink { user in // <-- New Task is created and process is called
     }
 
 let subscription2 = service.getUser(by: "2")
-    .sink { user in // <-- New Task is created and process called
+    .sink { user in // <-- New Task is created and process is called
     }
 
 // Cancel the first task

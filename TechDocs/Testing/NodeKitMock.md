@@ -27,7 +27,7 @@ class MyService {
     func getUsers() async -> NodeResult<User> {
         return await chainBuilder
             .route(.get, .users)
-            .build<Void, User>()
+            .build()
             .process()
     }
 }

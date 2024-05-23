@@ -52,8 +52,8 @@ func getUser(by id: String) async -> NodeResult<User> {
 }
 ```
 
-We used here static withMappedExceptions method. It allowed us to map all exceptions to `Faulure` of `NodeResult`.
-You can find more details about this and other methods of NodeResult [here](https://surfstudio.github.io/NodeKit/Extensions/NodeResult.html).
+We used here static `withMappedExceptions` method. It allowed us to map all exceptions to `Failure` of `NodeResult`.
+You can find more details about this and other methods of NodeResult [here](../docs/Extensions/NodeResult.html).
 
 What if we want to map database errors to some custom errors?
 Let's write a node for this.

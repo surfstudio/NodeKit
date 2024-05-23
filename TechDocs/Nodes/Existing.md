@@ -6,7 +6,7 @@ Content:
   - [DTOMapperNode](#dtomappernode)
   - [RequestAssembly](#requestassembly)
   - [RequestCreatorNode](#requestcreatornode)
-  - [TechnicaErrorMapperNode](#technicaerrormappernode)
+  - [TechnicalErrorMapperNode](#technicalerrormappernode)
   - [RequestSenderNode](#requestsendernode)
   - [ResponseProcessorNode](#responseprocessornode)
   - [ResponseDataPreprocessorNode](#responsedatapreprocessornode)
@@ -56,7 +56,7 @@ This set consists of the following nodes:
 
 This node creates an HTTP request using URLSession and passes it along for further processing.
 
-## TechnicaErrorMapperNode
+## TechnicalErrorMapperNode
 
 This node does nothing with the input data but transforms the output. In case the further chain ends with an error, it checks if the error is a system error (such as a timeout, lack of internet connection, etc.). If it is, it converts it into its own error and passes it along.
 
