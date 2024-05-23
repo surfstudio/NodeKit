@@ -1,48 +1,36 @@
-# Логирование
+# Logging
 
-Из-коробки библиотека позволяет логировать любую операцию, которая осущеставляется узлом. 
+Out of the box, the library allows logging any operation performed by a node.
 
-Для хранения информации используется проткол [Logable](https://surfstudio.github.io/NodeKit/Protocols/Logable.html)
+## How logging works
 
-По-умолчанию в качестве реализации этого протокола используется [Log](https://surfstudio.github.io/NodeKit/Structs/Log.html)
+The protocol [LoggingContextProtocol](https://surfstudio.github.io/NodeKit/Protocols/LoggingContextProtocol.html), responsible for log storage, is implemented in the actor [LoggingContext](https://surfstudio.github.io/NodeKit/Actors/LoggingContext.html).
 
-Выводом логов в консоль занимается [LoggerNode](https://surfstudio.github.io/NodeKit/Classes/LoggerNode.html)
+`LoggingContext` is created when the `process(_ data: Input)` method of the chain is called and is passed to all nodes in the `process(_ data: Input, logContext: LoggingContextProtocol)` method. Thus, each node has the ability to work with the same `LoggingContext`.
 
-## Как работает логирование
+`LoggingContextProtocol` stores objects of [Logable](https://surfstudio.github.io/NodeKit/Protocols/Logable.html) protocol , implemented in the structure [Log](https://surfstudio.github.io/NodeKit/Structs/Log.html). 
 
-**В этой библиотеке по-умолчанию вывод логов происходит централизованно!**
+To add a new log, you need to create a `Logable` object and pass it to `LoggingContextProtocol` using the `add` method.
 
-Лог сам по себе представляет узел связного списка. Он имеет указатель на следующий лог. 
+The log itself represents a linked list.
 
 ![All text](log_nodes_tree.svg)
 
-Каждый узел записывает некоторую информацию о своей работе в объект типа `Logable`. 
-Далее лог работы "прикрепляется" к предыдущему логу и передается по цепочку наверх при помощи метода [log(:)](https://surfstudio.github.io/NodeKit/Classes/Observer.html#/s:10CoreNetKit8ObserverC3logyACyxGXDAA7Logable_pSgF) у `Observer`.
-
-Логи "собираются" с каждого узла, а затем, после завершения работы цепочки выводится в консоль. 
+This allows us to output logs in the correct order.
 
 ![All text](log_chaining.svg)
 
-Обычно логи записываются в порядке обратном порядку узлов, однако, в общем случае такое поведение не гарантируется, потому что некоторые узлы оканчивают свою работу уже после того, как был возвращен `Observer`.
+## Logging Output
 
-## Вывод логов
+The [LoggerNode](https://surfstudio.github.io/NodeKit/Classes/LoggerNode.html) is responsible for logging output to the screen.
 
-Для того, чтобы выводить лог в консоль используется узел `LoggerNode`. 
+It is placed at the very beginning of the chain and outputs the message only after the entire chain has finished its work.
 
-Он помещается в самое начало цепочки и выводить сообщение только тогда, когда произошло одно из следующих событий:
-1. `onCompleted`
-2. `onError`
-3. `onCancelled`
+This node has a log filtering mode.
 
-В теории можно поместить логирующий узел между всеждым из узлов цепочки, но тогда ее форимирование будет просто огромным.
+It is based on the `id` field of `Logable`. By default, it is equal to the name of the node that created the log. By default, the filter is empty, and all messages are output to the console. To exclude a specific log, you can add the node to the filter, and you can obtain the node's name like this: `CustomNode.objectName`.
 
-У этого узла предусмотрен режим фильтрации логов.
-
-Она выполняется по полю `id` у `Logable`. По-умолчанию он равен имени узла, создавшего лог. 
-По-умолчанию фильтр пуст и в консоль выводятся все сообщения. 
-Для того, чтобы избавиться от какого-то из логов, то можно добавить узел в фильтр, а имя узла можно получить так: `CustomNode.objectName`
-
-По-умолчанию логи выводятся в следующем формате:
+By default, logs are output in the following format:
 ```
 <<<===\(NodeName)===>>>
 
@@ -50,41 +38,30 @@ log message separated by \r\n and \t
 
 ```
 
-Для собственных логов можно кастомизировать формат по собственному желанию.
+Custom formatting for custom logs is possible according to personal preferences.
 
-## Пример
+You can configure logging in the `URLChainsBuilder`. More details about this can be found [here](../Chains.md).
 
-Рассмотрим пример записи лога.
+## Example
+
+Let's consider an example of logging.
 
 ```Swift
 
-func process(_ data: Input) -> Observer<Output> {
-    var log = Log(self.logViewObjectName, id: self.objectName)
+func process(_ data: Input, logContext: LoggingContextProtocol) async -> NodeResult<Output> {
+    var log = Log(logViewObjectName, id: objectName)
 
     // some operation with data
 
     log += "oparetion result"
 
-    return self.next.process(data).log(log)
+    logContext.add(log)
+
+    return await next.process(data)
 }
 
 ```
 
-Здесь мы в начале создаем объект лога, инициаллизируя его сообщением `<<<===\(self.objectName)===>>>` и передавая в качестве id имя этого узла.
+Here, at the beginning, we create a log object, initializing it with the message `<<<===\(self.objectName)===>>>` and passing the name of this node as its id.
 
-Затем добавлем сообщение об операции над данными и после записываем лог.
-
-## Логирующие узлы
-
-Из-коробки логируют свою работу следующие узлы:
-
-1. `RequestCreatorNode`
-2. `RequestSenderNode`
-3. `ResponseProcessorNode`
-4. `ResponseDataPreprocessorNode` 
-5. `ResponseHttpErrorProcessorNode`
-6. `ResponseDataParserNode`
-
-## Как фильтровать
-
-В `UrlChainsBuilder` можно настроить логгирование. Подробнее об этом [тут](../Chains.md)
+Then, we add a message about the data operation, and finally, we write the log.

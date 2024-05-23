@@ -1,154 +1,34 @@
-# Как этим пользоваться
+# Usage
 
-Содержание:
-- [Как этим пользоваться](#%D0%BA%D0%B0%D0%BA-%D1%8D%D1%82%D0%B8%D0%BC-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%D1%81%D1%8F)
-  - [Слой моделей](#%D1%81%D0%BB%D0%BE%D0%B9-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B5%D0%B9)
-    - [Raw Layer Models (RawMappable)](#raw-layer-models-rawmappable)
-    - [Application Layer Models (DTOConvertible)](#application-layer-models-dtoconvertible)
-      - [Полезно знать](#%D0%BF%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D0%BE-%D0%B7%D0%BD%D0%B0%D1%82%D1%8C)
-  - [Создание запроса](#%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0)
-    - [Маршрутизация](#%D0%BC%D0%B0%D1%80%D1%88%D1%80%D1%83%D1%82%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F)
-      - [Полезно знать](#%D0%BF%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D0%BE-%D0%B7%D0%BD%D0%B0%D1%82%D1%8C-1)
-    - [Кодировка](#%D0%BA%D0%BE%D0%B4%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0)
-  - [Отправка запроса](#%D0%BE%D1%82%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B0-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0)
-    - [Сервис](#%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81)
-    - [Ответ](#%D0%BE%D1%82%D0%B2%D0%B5%D1%82)
+Table of contents:
+- [Creating a request](#creatingarequest)
+  - [Routing](#routing)
+  - [Encoding](#encoding)
+- [Sending the request](#sendingtherequest)
+  - [Service](#service)
+  - [Response](#response)
+- [How to use Combine](#howtousecombine)
 
-Здесь перечислены основные моменты и вспомогательная информация о том, каким образом работать с этой бибилиотекой. 
-Проект содержит `Playground` в котором написаны несколько вариантов запросов - можно посмотреть туда в качестве интерактивного примера
+Here are the main points and additional information on how to work with this library. 
+The project contains an Example where several query options are written - you can look there as an interactive example.
 
-## Слой моделей
+## Creating a request <a name="creatingarequest"></a>
 
-Библиотека подразумевает работу с двумя слоями моделей:
 
-1) Application Layer Models - модели прикладного уровня, которые используются по всему приложению
-2) Raw Layer Models (DTO) - модели низкого уровня, на которые (или из которых) мапятся данные для (или от) сервера. 
+Sending a network request begins with describing:
 
-Но допускается возможность использование только одного модельного слоя. 
+1) Route - URI to the desired service
+2) HTTP method - request method (GET, PUT, etc.)
+3) Encoding - where to place the parameters and in what format (JSON in Body, String in Query, etc.)
+4) Metadata - or request headers.
 
-Так же допускается возможность не использовать модели вообще. 
+### Routing <a name="routing"></a>
 
-### Raw Layer Models (RawMappable)
+To abstract the way of specifying the route (for example, in gRPC there are no explicit URLs), the route is a generic data type, however, in the case of URL requests, an UrlRouteProvider is expected.
 
-За определение модели из этого слоя отвечают два протокола:
-
-1) [RawEncodable](https://surfstudio.github.io/NodeKit/Protocols/RawEncodable.html)
-2) [RawDecodable](https://surfstudio.github.io/NodeKit/Protocols/RawDecodable.html)
-
-Существует также алиас [RawMappable](https://surfstudio.github.io/NodeKit/Typealiases.html#/s:10CoreNetKit14RawMappable)
-
-Для сущностей, удовлетворяющих протоколам `Codable` есть реализация маппинга по-умолчанию. 
-
-Например:
+This approach makes working with URL addresses a bit more elegant. For example:
 
 ```Swift
-
-enum Type: Int, Codable {
-    case owner
-    case member
-}
-
-struct PhotoEntry: Codable {
-    let id: String
-    let ref: String
-}
-
-extension PhotoEntry: RawDecodable {
-    public typealias Raw = Json
-}
-
-struct UserEntry: Codable {
-    let name: String
-    let age: Int
-    let type: Type
-    let photos: [PhotoEntry]
-}
-
-extension UserEntry: RawDecodable {
-    public typealias Raw = Json
-}
-```
-
-Этого кода будет достаточно для того, чтобы замапить ответ сервера на сущности `UserEntry` и `PhotoEntry`
-
-**Хорошим тоном считается добавление постфикса Entry к DTO-сущности.**
-
-### Application Layer Models (DTOConvertible)
-
-За определение модели из этого слоя отвечают два протокола:
-
-1) [DTOEncodable](https://surfstudio.github.io/NodeKit/Protocols/DTOEncodable.html)
-2) [DTODecodable](https://surfstudio.github.io/NodeKit/Protocols/DTODecodable.html)
-
-Существует также алиас [DTOConvertible](https://surfstudio.github.io/NodeKit/Typealiases.html#/s:10CoreNetKit14DTOConvertiblea)
-
-Продолжим пример:
-
-```Swift
-
-struct Photo {
-    let id: String
-    let image: String
-}
-
-extension Photo: DTODecodable {
-
-    public typealias DTO = PhotoEntry
-
-    static func from(dto: PhotoEntry) throws -> Photo {
-        return .init(id: dto.id, image: dto.ref)
-    }
-}
-
-struct User {
-    let name: String
-    let age: Int
-    let type: Type
-    let photos: [Photo]
-}
-
-extension User: DTODecodable {
-    public typealias DTO = UserEntry
-
-    static func from(dto: UserEntry) throws -> Photo {
-        return try .init(name: dto.name, 
-                        age: dto.age, 
-                        type: dto.type, 
-                        photos: .from(dto: dto.photos))
-    }
-}
-```
-
-Таким образом мы получаем связку из двух моделей, где:
-1) `UserEntry: RawDecodable` - DTO-слой.
-2) `User: DTODecodable` - App-слой. 
-
-Более подробно об этом можно прочесть [тут](Models.md)
-
-#### Полезно знать
-
-Массивы с элемантами типа `DTOConvertible` и `RawMappable` также удовлетворяют этим протоколам и имеют реализацию по-умолчанию для их методов.
-
-## Создание запроса
-
-Отправка запроса в сеть начинается с того, что мы описываем:
-1) Маршрут - URI до нужного нам сервиса
-2) HTTP-метод - метод запроса (GET, PUT, e.t.c.)
-3) Кодировку - куда необходимо положить параметры и в каком виде (JSON in Body, String In Query, e.t.c)
-4) Метаданные - или хедеры запроса. 
-
-CoreNetKit построен таким образом, что одинаковую модель можно использовать для любого транспортного протокола, исключая или добавляя шаги при необходимости.
-
-Далее я опишу толькко 1 и 3, потому что остальное не нуждается в объяснении.
-
-### Маршрутизация
-
-Для того, чтобы абстрагировать способ задачи маршрута (например в gRPC нет явных URL) маршрут - generic-тип данных, однако в случае URL-запросов ожидается `UrlRouteProvider`
-
-Такой подход делает работу с URL адресами немного элегантнее. Например:
-
-```Swift
-
 enum RegistrationRoute {
     case auth
     case users
@@ -170,39 +50,37 @@ extension RegistrationRoute: UrlRouteProvider {
         }
 }
 ```
-**Хорошией практикой является разбиение маршрутов по сервисам или по отдельным файлам.**
+**It is considered good practice to organize routes by services or separate files.**
 
-#### Полезно знать
+#### Good to know
 
-Для упрощения работы с URL в CoreNetKit есть [расширение](https://surfstudio.github.io/NodeKit/Extensions/Optional.html) для конкатенации `URL` и `String`
+For simplifying URL handling in CoreNetKit, there is an [extension](https://surfstudio.github.io/NodeKit/Extensions/Optional.html) for concatenating URL and String.
 
-### Кодировка
+### Encoding <a name="encoding"></a>
 
-CoreNetKit предоставляет следующие виды кодировок:
-1) `json` - сериализует параметры запроса в JSON и прикрепляет к телу запроса. Является кодировкой по-умолчанию
-2) `formUrl` - сериализует парамтеры запроса в формат FormUrlEncoding иприкрепляет к телу запроса. 
-3) `urlQuery` - конвертирует параметры в строку, зменяя определенные символы на специальные последовательности (образует URL-encoded string)
+NodeKit provides the following encoding types:
+1) `json` - serializes request parameters into JSON and attaches them to the request body. It is the default encoding.
+2) `formUrl` - serializes request parameters into FormUrlEncoding format and attaches them to the request body.
+3) `urlQuery` - converts parameters into a string, replacing certain characters with special sequences (forms a URL-encoded string).
 
-Эти параметры находятся в [ParametersEncoding](https://surfstudio.github.io/Enums/ParametersEncoding.html)
+These parameters are located in [ParametersEncoding](https://surfstudio.github.io/Enums/ParametersEncoding.html)
 
-## Отправка запроса
+## Sending the request <a name="sendingtherequest"></a>
 
-Для отправки запроса нужно вызывать цепочку и передать ей параметры, которые были описаны выше. 
+To send the request, you need to call the chain and pass it the parameters described above. 
 
-### Сервис
+### Service <a name="service"></a>
 
-В качестве примера напишем сервис.
+As an example, let's write a service..
 
 ```Swift
-
 class ExampleService {
-
     var builder: UrlChainsBuilder<RegistrationRoute> {
         return .init()
     }
 
-    func auth(user: User) -> Observer<Void> {
-        return self.builder
+    func auth(user: User) async -> NodeResult<Void> {
+        return await builder
             .route(.post, .auth)
             .build()
             .process(user)
@@ -212,25 +90,25 @@ class ExampleService {
             }
     }
 
-    func getUser(by id: String) -> Observer<User> {
-        return self.builder
+    func getUser(by id: String) async -> NodeResult<User> {
+        return await builder
             .route(.get, .user(id))
             .build()
             .process()
     }
 
-    func getUsers() -> Observer<[User]> {
-        return self.builder
+    func getUsers() async -> NodeResult<[User]> {
+        return await builder
             .route(.get, .users)
             .build()
             .process()
     }
 
-    func updateState(by params:[String], descending: Bool, by map: [String: Any], max: Int, users: [User]) -> Observer<Void> {
-        return self.builder
+    func updateState(by params:[String], descending: Bool, by map: [String: Any], max: Int, users: [User]) async -> NodeResult<Void> {
+        return await builder
             .set(query: ["params": params], "desc": descending, "map": map, "max": maxCount)
-            .set(boolEncodingStartegy: .asBool)
-            .set(arrayEncodingStrategy: .noBrackets)
+            .set(boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy.asBool)
+            .set(arrayEncodingStrategy: URLQueryBoolEncodingDefaultStartegy.noBrackets)
             .route(.post, RegistrationRoute.taskState)
             .build()
             .process(users) 
@@ -238,43 +116,70 @@ class ExampleService {
 }
 ```
 
-Ответ от сервиса приходит в `DispatchQueue.main`, если поведение по-умолчанию не изменялось. 
-Сама цепочка с самого начинает свою работу в `DispatchQueue.global(qos: .userInitiated)` (по-умолчанию)
+To execute the request, we use [chains](Chains.md).
 
-Для выполнения запроса используются [цепочки узлов](Chains.md).
+### Response response <a name="response"></a>
 
-### Ответ
-
-Для работы с сервисом предлагается использовать абстрактную сущность - `Observer<T>`. 
-Это Rx-Like объект, который имеет 4 возможных события:
-1) `onCompleted` - когда запрос выполнился
-2) `onError` - когда произошла ошибка
-3) `defer` - вызывается и в случае ошибки, и в случае успешного выполнения (аналог `finaly` в `try-catch`)
-4) `onCanceled` - вызывается в случае, если операция,за которой наблюдает `Observer` была отменена
-
-На самом деле этот объект повсеместно используется в библиотеке, а в качестве его реализации используется `Context<T>`.
-Документацую можно увидеть [здесь](https://surfstudio.github.io/NodeKit/Classes/Observer.html) и [здесь](https://surfstudio.github.io/NodeKit/Classes/Context.html)
-
-Так же более детальное описание работы контекстов находится [тут](Contexts.md)
-
-Рассмотрим как будет выглядеть работа с сервисом из презентера (или любой другой сущности, которая общается с сервером)
+For working with the service, it is suggested to use `NodeResult<T>.` Where `NodeResult<T> = Result<T, Error>`.
+You can view the available methods of NodeResult [here]("https://surfstudio.github.io/NodeKit/Extensions/NodeResult.html").
+Let's consider how interaction with the service will look like from the presenter (or any other entity that communicates with the server).
 
 ```Swift
-
 private let service = ExampleService()
 
+@MainActor
 func loadUsers() {
-    self.showLoader()
-    self.service.getUsers()
-        .onCompleted { [weak self] model in
-            self?.show(users: model)
-        }.onError { [weak self] error in
-            self?.show(error: error)
-        }.defer { [weak self] in
-            self?.hideLoader()
-        }
+    showLoader()
+    let result = await service.getUsers()
+    hideLoader()
+    
+    switch result {
+    case .success(models):
+        show(users: model)
+    case .failure(error):
+        show(error: error)
+    }
 }
 
 ```
 
-Библиотека предоставляет систему логгирования, которая более детально описана [здесь](Log/Log.md)
+The library provides a logging system, which is described in more detail [here](Log/Log.md)
+
+## How to use Combine <a name="howtousecombine"></a>
+
+The NodeKit library allows you to obtain results using Combine. 
+To get a Publisher, you need to call the method `nodeResultPublisher` instead of `process`.
+
+When calling `sink` on the Publisher, a new Task will be created, inside of which the entire chain will be executed. 
+To cancel the Task, just call the `cancel` method on the `AnyCancellable`.
+
+```Swift
+class ExampleService {
+    var builder: UrlChainsBuilder<RegistrationRoute> {
+        return .init()
+    }
+
+    func getUser(by id: String) -> AnyPublisher<NodeResult<User>, Never> {
+        return await builder
+            .route(.get, .user(id))
+            .build()
+            .nodeResultPublisher()
+    }
+}
+
+let service = ExampleService()
+
+let subscription1 = service.getUser(by: "1")
+    .sink { user in // <-- New Task is created and process called
+    }
+
+let subscription2 = service.getUser(by: "2")
+    .sink { user in // <-- New Task is created and process called
+    }
+
+// Cancel the first task
+subscription1.cancel() 
+
+// Cancel the second task
+subscription2.cancel() 
+```
