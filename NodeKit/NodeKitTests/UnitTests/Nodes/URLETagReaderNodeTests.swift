@@ -145,6 +145,66 @@ final class URLETagReaderNodeTests: XCTestCase {
         XCTAssertEqual(nextNodeParameter.headers, expectedHeader)
     }
     
+    func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        buildSut()
+
+        let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccessWithCustomKey")!
+        let params = TransportURLParameters(method: .get, url: url)
+        let request = TransportURLRequest(with: params , raw: Data())
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(Json())
+        
+        // when
+        
+        let task = Task {
+            try? await Task.sleep(nanoseconds: 100 * 1000)
+            return await sut.process(request, logContext: LoggingContextMock())
+        }
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
+    
+    func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        buildSut()
+
+        let url = URL(string: "http://UrlETagReaderNodeTests/testReadSuccessWithCustomKey")!
+        let params = TransportURLParameters(method: .get, url: url)
+        let request = TransportURLRequest(with: params , raw: Data())
+        
+        nextNodeMock.stubbedAsyncProccessResult = .success(Json())
+        nextNodeMock.stubbedAsyncProcessRunFunction = {
+            try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)
+        }
+        
+        // when
+        
+        let task = Task {
+            await sut.process(request, logContext: LoggingContextMock())
+        }
+        
+        try? await Task.sleep(nanoseconds: 100 * 1000)
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
+    
     private func buildSut(with tag: String? = nil) {
         guard let tag = tag else {
             sut = URLETagReaderNode(next: nextNodeMock)

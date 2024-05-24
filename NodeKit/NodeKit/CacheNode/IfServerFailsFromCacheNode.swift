@@ -34,16 +34,18 @@ open class IfConnectionFailedFromCacheNode: AsyncNode {
         _ data: URLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
-        return await next.process(data, logContext: logContext)
-            .asyncFlatMapError { error in
-                let request = URLNetworkRequest(urlRequest: data)
-                if error is BaseTechnicalError {
-                    await logContext.add(makeBaseTechinalLog(with: error))
-                    return await cacheReaderNode.process(request, logContext: logContext)
+        await .withCheckedCancellation {
+            await next.process(data, logContext: logContext)
+                .asyncFlatMapError { error in
+                    let request = URLNetworkRequest(urlRequest: data)
+                    if error is BaseTechnicalError {
+                        await logContext.add(makeBaseTechinalLog(with: error))
+                        return await cacheReaderNode.process(request, logContext: logContext)
+                    }
+                    await logContext.add(makeLog(with: error, from: request))
+                    return .failure(error)
                 }
-                await logContext.add(makeLog(with: error, from: request))
-                return .failure(error)
-            }
+        }
     }
 
     // MARK: - Private Method

@@ -132,4 +132,64 @@ final class DataLoadingResponseProcessorTests: XCTestCase {
         
         XCTAssertEqual(error, .firstError)
     }
+    
+    func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let url = URL(string: "www.test.com")!
+        let response = URLDataResponse(
+            request: URLRequest(url: url),
+            response: HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: [:])!,
+            data: Data()
+        )
+        nextNodeMock.stubbedAsyncProccessResult = .success(())
+        
+        // when
+        
+        let task = Task {
+            try? await Task.sleep(nanoseconds: 100 * 1000)
+            return await sut.process(response, logContext: logContextMock)
+        }
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
+    
+    func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let url = URL(string: "www.test.com")!
+        let response = URLDataResponse(
+            request: URLRequest(url: url),
+            response: HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: [:])!,
+            data: Data()
+        )
+        nextNodeMock.stubbedAsyncProccessResult = .success(())
+        nextNodeMock.stubbedAsyncProcessRunFunction = {
+            try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)
+        }
+        
+        // when
+        
+        let task = Task {
+            await sut.process(response, logContext: logContextMock)
+        }
+        
+        try? await Task.sleep(nanoseconds: 100 * 1000)
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
 }

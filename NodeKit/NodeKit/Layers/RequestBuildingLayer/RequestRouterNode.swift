@@ -41,9 +41,11 @@ open class RequestRouterNode<Raw, Route, Output>: AsyncNode {
         _ data: RequestModel<Raw>,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        return await next.process(
-            RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: route),
-            logContext: logContext
-        )
+        await .withCheckedCancellation {
+            await next.process(
+                RoutableRequestModel(metadata: data.metadata, raw: data.raw, route: route),
+                logContext: logContext
+            )
+        }
     }
 }

@@ -20,12 +20,14 @@ open class URLCacheWriterNode: AsyncNode {
         _ data: URLProcessedResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Void> {
-        let cached = CachedURLResponse(
-            response: data.response,
-            data: data.data,
-            storagePolicy: .allowed
-        )
-        URLCache.shared.storeCachedResponse(cached, for: data.request)
-        return .success(())
+        await .withCheckedCancellation {
+            let cached = CachedURLResponse(
+                response: data.response,
+                data: data.data,
+                storagePolicy: .allowed
+            )
+            URLCache.shared.storeCachedResponse(cached, for: data.request)
+            return .success(())
+        }
     }
 }

@@ -54,22 +54,25 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
         _ data: MultipartURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
+        let formData = multipartFormDataFactory.produce()
+        append(multipartForm: formData, with: data)
+        
         return await .withMappedExceptions {
+            return .success(try formData.encode())
+        }
+        .asyncFlatMap { encodedData in
             var request = URLRequest(url: data.url)
             request.httpMethod = data.method.rawValue
-
-            // Add Headers
+            
             data.headers.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
-
-            // Form Data
-            let formData = multipartFormDataFactory.produce()
-            append(multipartForm: formData, with: data)
+            
             request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
-            let encodedFormData = try formData.encode()
-            request.httpBody = encodedFormData
-
-            await logContext.add(getLogMessage(data))
-            return await next.process(request, logContext: logContext)
+            request.httpBody = encodedData
+            
+            return await .withCheckedCancellation {
+                await logContext.add(getLogMessage(data))
+                return await next.process(request, logContext: logContext)
+            }
         }
     }
 

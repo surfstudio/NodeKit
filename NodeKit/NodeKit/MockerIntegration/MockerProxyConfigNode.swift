@@ -58,16 +58,18 @@ open class MockerProxyConfigNode<Raw, Output>: AsyncNode {
         _ data: RequestModel<Raw>,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        guard isProxyingOn else {
-            return await next.process(data, logContext: logContext)
+        await .withCheckedCancellation {
+            guard isProxyingOn else {
+                return await next.process(data, logContext: logContext)
+            }
+
+            var copy = data
+
+            copy.metadata[Keys.isProxyingOn] = String(isProxyingOn)
+            copy.metadata[Keys.proxyingHost] = proxyingHost
+            copy.metadata[Keys.proxyingScheme] = proxyingScheme
+
+            return await next.process(copy, logContext: logContext)
         }
-
-        var copy = data
-
-        copy.metadata[Keys.isProxyingOn] = String(isProxyingOn)
-        copy.metadata[Keys.proxyingHost] = proxyingHost
-        copy.metadata[Keys.proxyingScheme] = proxyingScheme
-
-        return await next.process(copy, logContext: logContext)
     }
 }

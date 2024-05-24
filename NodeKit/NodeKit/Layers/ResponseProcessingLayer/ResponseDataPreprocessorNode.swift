@@ -30,25 +30,27 @@ open class ResponseDataPreprocessorNode: AsyncNode {
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
-        var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseDataPreprocessorNode)
+        await .withCheckedCancellation {
+            var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseDataPreprocessorNode)
 
-        guard data.response.statusCode != 204 else {
-            log += "Status code is 204 -> response data is empty -> terminate process with empty json"
-            await logContext.add(log)
-            return .success(Json())
+            guard data.response.statusCode != 204 else {
+                log += "Status code is 204 -> response data is empty -> terminate process with empty json"
+                await logContext.add(log)
+                return .success(Json())
+            }
+
+            if let jsonObject = try? JSONSerialization.jsonObject(
+                    with: data.data,
+                    options: .allowFragments
+                ),
+                jsonObject is NSNull
+            {
+                log += "Json serialization sucess but json is NSNull -> terminate process with empty json"
+                await logContext.add(log)
+                return .success(Json())
+            }
+
+            return await next.process(data, logContext: logContext)
         }
-
-        if let jsonObject = try? JSONSerialization.jsonObject(
-                with: data.data,
-                options: .allowFragments
-            ), 
-            jsonObject is NSNull 
-        {
-            log += "Json serialization sucess but json is NSNull -> terminate process with empty json"
-            await logContext.add(log)
-            return .success(Json())
-        }
-
-        return await next.process(data, logContext: logContext)
     }
 }

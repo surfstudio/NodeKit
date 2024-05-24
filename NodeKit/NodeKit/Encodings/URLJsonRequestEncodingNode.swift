@@ -25,22 +25,24 @@ open class URLJsonRequestEncodingNode<Type>: AsyncNode {
         _ data: RequestEncodingModel,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Type> {
-        var log = getLogMessage(data)
-        let paramEncoding = parameterEncoding(from: data)
+        await .withCheckedCancellation {
+            var log = getLogMessage(data)
+            let paramEncoding = parameterEncoding(from: data)
 
-        guard let encoding = paramEncoding else {
-            log += "Missed encoding type -> terminate with error"
-            await logContext.add(log)
-            return .failure(RequestEncodingNodeError.missedJsonEncodingType)
-        }
-        do {
-            let request = try encoding.encode(urlParameters: data.urlParameters, parameters: data.raw)
-            log += "type: Json"
-            return await next.process(request, logContext: logContext)
-        } catch {
-            log += "But can't encode data -> terminate with error"
-            await logContext.add(log)
-            return .failure(RequestEncodingNodeError.unsupportedDataType)
+            guard let encoding = paramEncoding else {
+                log += "Missed encoding type -> terminate with error"
+                await logContext.add(log)
+                return .failure(RequestEncodingNodeError.missedJsonEncodingType)
+            }
+            do {
+                let request = try encoding.encode(urlParameters: data.urlParameters, parameters: data.raw)
+                log += "type: Json"
+                return await next.process(request, logContext: logContext)
+            } catch {
+                log += "But can't encode data -> terminate with error"
+                await logContext.add(log)
+                return .failure(RequestEncodingNodeError.unsupportedDataType)
+            }
         }
     }
 

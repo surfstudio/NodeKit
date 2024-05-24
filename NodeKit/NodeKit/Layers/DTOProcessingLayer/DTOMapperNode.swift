@@ -28,21 +28,21 @@ open class DTOMapperNode<Input, Output>: AsyncNode where Input: RawEncodable, Ou
         _ data: Input,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        return await .withMappedExceptions {
-            let raw = try data.toRaw()
-            return .success(raw)
+        await .withMappedExceptions {
+            return .success(try data.toRaw())
         }
         .asyncFlatMapError { error in
             await log(error: error, logContext: logContext)
             return .failure(error)
         }
-        .asyncFlatMap { data in
-            await next.process(data, logContext: logContext)
+        .asyncFlatMap { raw in
+            await .withCheckedCancellation {
+                await next.process(raw, logContext: logContext)
+            }
         }
         .asyncFlatMap { result in
             await .withMappedExceptions {
-                let output = try Output.from(raw: result)
-                return .success(output)
+                .success(try Output.from(raw: result))
             }
             .asyncFlatMapError { error in
                 await log(error: error, logContext: logContext)

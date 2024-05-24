@@ -38,26 +38,28 @@ open class ResponseDataParserNode: AsyncNode {
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
-        return await parse(with: data, logContext: logContext)
-            .asyncFlatMap { json, logMessage in
-                let logMsg = logViewObjectName + logMessage + .lineTabDeilimeter
-                var log = Log(logMsg, id: objectName, order: LogOrder.responseDataParserNode)
+        await .withCheckedCancellation {
+            await parse(with: data, logContext: logContext)
+                .asyncFlatMap { json, logMessage in
+                    let logMsg = logViewObjectName + logMessage + .lineTabDeilimeter
+                    var log = Log(logMsg, id: objectName, order: LogOrder.responseDataParserNode)
 
-                guard let next = next else {
-                    log += "Next node is nil -> terminate chain process"
+                    guard let next = next else {
+                        log += "Next node is nil -> terminate chain process"
+                        await logContext.add(log)
+                        return .success(json)
+                    }
+
+                    let networkResponse = URLProcessedResponse(dataResponse: data, json: json)
+
+                    log += "Have next node \(next.objectName) -> call `process`"
+
                     await logContext.add(log)
+                    await next.process(networkResponse, logContext: logContext)
+
                     return .success(json)
                 }
-
-                let networkResponse = URLProcessedResponse(dataResponse: data, json: json)
-
-                log += "Have next node \(next.objectName) -> call `process`"
-
-                await logContext.add(log)
-                await next.process(networkResponse, logContext: logContext)
-
-                return .success(json)
-            }
+        }
     }
 
     /// Получает `json` из модели ответа сервера.

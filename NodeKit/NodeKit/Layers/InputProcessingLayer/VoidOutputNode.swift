@@ -20,17 +20,21 @@ open class VoidOutputNode<Input>: AsyncNode where Input: DTOEncodable, Input.DTO
         _ data: Input,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Void> {
-        return await .withMappedExceptions {
-            let newData = try data.toDTO().toRaw()
-            return await next.process(newData, logContext: logContext).asyncFlatMap { json in
-                if !json.isEmpty {
-                    var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidOutputNode)
-                    log += "VoidOutputNode used but request have not empty response"
-                    log += .lineTabDeilimeter
-                    log += "\(json)"
-                    await logContext.add(log)
+        await .withMappedExceptions {
+            .success(try data.toDTO().toRaw())
+        }
+        .asyncFlatMap { raw in
+            await .withCheckedCancellation {
+                await next.process(raw, logContext: logContext).asyncFlatMap { json in
+                    if !json.isEmpty {
+                        var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidOutputNode)
+                        log += "VoidOutputNode used but request have not empty response"
+                        log += .lineTabDeilimeter
+                        log += "\(json)"
+                        await logContext.add(log)
+                    }
+                    return .success(())
                 }
-                return .success(())
             }
         }
     }

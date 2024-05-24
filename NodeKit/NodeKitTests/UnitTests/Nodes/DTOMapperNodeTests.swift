@@ -175,4 +175,76 @@ final class DTOMapperNodeTests: XCTestCase {
         XCTAssertFalse(logMessageId.contains(nextNodeMock.objectName))
         XCTAssertEqual(error, .secondError)
     }
+    
+    func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        struct TestStruct: RawEncodable {
+            typealias Raw = Json
+            
+            let test1 = 0
+            let test2 = "2"
+            
+            func toRaw() throws -> Raw {
+                return Json()
+            }
+        }
+        
+        let sut = DTOMapperNode<TestStruct, UserEntry>(next: nextNodeMock)
+        nextNodeMock.stubbedAsyncProccessResult = .success([:])
+        
+        // when
+        
+        let task = Task {
+            try? await Task.sleep(nanoseconds: 100 * 1000)
+            return await sut.process(TestStruct(), logContext: LoggingContextMock())
+        }
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
+    
+    func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        struct TestStruct: RawEncodable {
+            typealias Raw = Json
+            
+            let test1 = 0
+            let test2 = "2"
+            
+            func toRaw() throws -> Raw {
+                return Json()
+            }
+        }
+        
+        let sut = DTOMapperNode<TestStruct, UserEntry>(next: nextNodeMock)
+        nextNodeMock.stubbedAsyncProccessResult = .success([:])
+        nextNodeMock.stubbedAsyncProcessRunFunction = {
+            try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)
+        }
+        
+        // when
+        
+        let task = Task {
+            await sut.process(TestStruct(), logContext: LoggingContextMock())
+        }
+        
+        try? await Task.sleep(nanoseconds: 100 * 1000)
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
 }

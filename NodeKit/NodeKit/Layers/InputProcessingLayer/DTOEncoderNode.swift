@@ -29,8 +29,13 @@ open class DTOEncoderNode<Input, Output>: AsyncNode where Input: DTOEncodable {
         _ data: Input,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
-        return await .withMappedExceptions {
-            await rawEncodable.process(try data.toDTO(), logContext: logContext)
+        await .withMappedExceptions {
+            .success(try data.toDTO())
+        }
+        .asyncFlatMap { dto in
+            await .withCheckedCancellation {
+                await rawEncodable.process(dto, logContext: logContext)
+            }
         }
     }
 }

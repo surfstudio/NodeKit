@@ -38,6 +38,8 @@ open class TokenRefresherNode: AsyncNode {
         _ data: Void,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Void> {
-        return await tokenRefresherActor.refresh(logContext: logContext)
+        await .withCheckedCancellation {
+            await tokenRefresherActor.refresh(logContext: logContext)
+        }
     }
 }

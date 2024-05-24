@@ -28,25 +28,27 @@ open class URLCacheReaderNode: AsyncNode {
         _ data: URLNetworkRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
-        guard let cachedResponse = extractCachedURLResponse(data.urlRequest) else {
-            return .failure(BaseURLCacheReaderError.cantLoadDataFromCache)
-        }
-
-        guard let jsonObjsect = try? JSONSerialization.jsonObject(
-            with: cachedResponse.data,
-            options: .allowFragments
-        ) else {
-            return .failure(BaseURLCacheReaderError.cantSerializeJson)
-        }
-
-        guard let json = jsonObjsect as? Json else {
-            guard let json = jsonObjsect as? [Json] else {
-                return .failure(BaseURLCacheReaderError.cantCastToJson)
+        await .withCheckedCancellation {
+            guard let cachedResponse = extractCachedURLResponse(data.urlRequest) else {
+                return .failure(BaseURLCacheReaderError.cantLoadDataFromCache)
             }
-            return .success([MappingUtils.arrayJsonKey: json])
-        }
 
-        return .success(json)
+            guard let jsonObjsect = try? JSONSerialization.jsonObject(
+                with: cachedResponse.data,
+                options: .allowFragments
+            ) else {
+                return .failure(BaseURLCacheReaderError.cantSerializeJson)
+            }
+
+            guard let json = jsonObjsect as? Json else {
+                guard let json = jsonObjsect as? [Json] else {
+                    return .failure(BaseURLCacheReaderError.cantCastToJson)
+                }
+                return .success([MappingUtils.arrayJsonKey: json])
+            }
+
+            return .success(json)
+        }
     }
 
     private func extractCachedURLResponse(_ request: URLRequest) -> CachedURLResponse? {

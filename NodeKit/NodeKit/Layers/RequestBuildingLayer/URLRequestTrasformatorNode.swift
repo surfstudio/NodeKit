@@ -27,19 +27,23 @@ open class URLRequestTrasformatorNode<Type>: AsyncNode {
         _ data: EncodableRequestModel<URLRouteProvider, Json, ParametersEncoding?>,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Type> {
-        return await .withMappedExceptions {
-            let url = try data.route.url()
-            let params = TransportURLParameters(
-                method: method,
-                url: url,
-                headers: data.metadata
-            )
-            let encodingModel = RequestEncodingModel(
-                urlParameters: params,
-                raw: data.raw,
-                encoding: data.encoding ?? nil
-            )
-            return await next.process(encodingModel, logContext: logContext)
+        await .withMappedExceptions {
+            .success(try data.route.url())
+        }
+        .asyncFlatMap { url in
+            await .withCheckedCancellation {
+                let params = TransportURLParameters(
+                    method: method,
+                    url: url,
+                    headers: data.metadata
+                )
+                let encodingModel = RequestEncodingModel(
+                    urlParameters: params,
+                    raw: data.raw,
+                    encoding: data.encoding ?? nil
+                )
+                return await next.process(encodingModel, logContext: logContext)
+            }
         }
     }
 }

@@ -73,15 +73,17 @@ open class AccessSafeNode: AsyncNode {
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
-        return await next.process(data, logContext: logContext)
-            .asyncFlatMapError { error in
-                switch error {
-                case ResponseHttpErrorProcessorNodeError.forbidden, ResponseHttpErrorProcessorNodeError.unauthorized:
-                    return await processWithTokenUpdate(data, logContext: logContext)
-                default:
-                    return .failure(error)
-                }
+        await .withCheckedCancellation {
+            await next.process(data, logContext: logContext)
+        }
+        .asyncFlatMapError { error in
+            switch error {
+            case ResponseHttpErrorProcessorNodeError.forbidden, ResponseHttpErrorProcessorNodeError.unauthorized:
+                return await processWithTokenUpdate(data, logContext: logContext)
+            default:
+                return .failure(error)
             }
+        }
     }
 
     // MARK: - Private Methods
@@ -90,7 +92,9 @@ open class AccessSafeNode: AsyncNode {
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
-        return await updateTokenChain.process((), logContext: logContext)
-            .asyncFlatMap { await next.process(data, logContext: logContext) }
+        await .withCheckedCancellation {
+            await updateTokenChain.process((), logContext: logContext)
+                .asyncFlatMap { await next.process(data, logContext: logContext) }
+        }
     }
 }

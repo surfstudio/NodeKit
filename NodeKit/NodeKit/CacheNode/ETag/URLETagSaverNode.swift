@@ -43,16 +43,18 @@ open class URLETagSaverNode: AsyncNode {
         _ data: URLProcessedResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Void> {
-        guard let tag = data.response.allHeaderFields[self.eTagHeaderKey] as? String,
-            let url = data.request.url,
-            let urlAsKey = url.withOrderedQuery()
-        else {
+        await .withCheckedCancellation {
+            guard let tag = data.response.allHeaderFields[self.eTagHeaderKey] as? String,
+                let url = data.request.url,
+                let urlAsKey = url.withOrderedQuery()
+            else {
+                return await next?.process(data, logContext: logContext) ?? .success(())
+            }
+
+            UserDefaults.etagStorage?.set(tag, forKey: urlAsKey)
+
             return await next?.process(data, logContext: logContext) ?? .success(())
         }
-
-        UserDefaults.etagStorage?.set(tag, forKey: urlAsKey)
-
-        return await next?.process(data, logContext: logContext) ?? .success(())
     }
 }
 

@@ -48,22 +48,24 @@ open class ResponseHttpErrorProcessorNode<Type>: AsyncNode {
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Type> {
-        switch data.response.statusCode {
-        case 400:
-            return .failure(HttpError.badRequest(data.data))
-        case 401:
-            return .failure(HttpError.unauthorized(data.data))
-        case 403:
-            return .failure(HttpError.forbidden(data.data))
-        case 404:
-            return .failure(HttpError.notFound)
-        case 500:
-            return .failure(HttpError.internalServerError(data.data))
-        default:
-            break
+        await .withCheckedCancellation {
+            switch data.response.statusCode {
+            case 400:
+                return .failure(HttpError.badRequest(data.data))
+            case 401:
+                return .failure(HttpError.unauthorized(data.data))
+            case 403:
+                return .failure(HttpError.forbidden(data.data))
+            case 404:
+                return .failure(HttpError.notFound)
+            case 500:
+                return .failure(HttpError.internalServerError(data.data))
+            default:
+                break
+            }
+            let log = Log(logViewObjectName + "Cant match status code -> call next", id: objectName)
+            await logContext.add(log)
+            return await next.process(data, logContext: logContext)
         }
-        let log = Log(logViewObjectName + "Cant match status code -> call next", id: objectName)
-        await logContext.add(log)
-        return await next.process(data, logContext: logContext)
     }
 }

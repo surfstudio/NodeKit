@@ -34,19 +34,21 @@ open class HeaderInjectorNode: AsyncNode {
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
-        var resultHeaders = headers
-        var log = logViewObjectName
-        log += "Add headers \(headers)" + .lineTabDeilimeter
-        log += "To headers \(data.headers)" + .lineTabDeilimeter
-        data.headers.forEach { resultHeaders[$0.key] = $0.value }
-        let newData = TransportURLRequest(
-            method: data.method,
-            url: data.url,
-            headers: resultHeaders,
-            raw: data.raw
-        )
-        log += "Result headers: \(resultHeaders)"
-        await logContext.add(Log(log, id: objectName))
-        return await next.process(newData, logContext: logContext)
+        await .withCheckedCancellation {
+            var resultHeaders = headers
+            var log = logViewObjectName
+            log += "Add headers \(headers)" + .lineTabDeilimeter
+            log += "To headers \(data.headers)" + .lineTabDeilimeter
+            data.headers.forEach { resultHeaders[$0.key] = $0.value }
+            let newData = TransportURLRequest(
+                method: data.method,
+                url: data.url,
+                headers: resultHeaders,
+                raw: data.raw
+            )
+            log += "Result headers: \(resultHeaders)"
+            await logContext.add(Log(log, id: objectName))
+            return await next.process(newData, logContext: logContext)
+        }
     }
 }

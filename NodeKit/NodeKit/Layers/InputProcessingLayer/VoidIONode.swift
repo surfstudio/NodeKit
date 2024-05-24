@@ -20,15 +20,17 @@ open class VoidIONode: AsyncNode {
         _ data: Void,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Void> {
-        return await next.process(Json(), logContext: logContext).asyncFlatMap { json in
-            if !json.isEmpty {
-                var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidIONode)
-                log += "VoidIOtNode used but request have not empty response"
-                log += .lineTabDeilimeter
-                log += "\(json)"
-                await logContext.add(log)
+        await .withCheckedCancellation {
+            await next.process(Json(), logContext: logContext).asyncFlatMap { json in
+                if !json.isEmpty {
+                    var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidIONode)
+                    log += "VoidIOtNode used but request have not empty response"
+                    log += .lineTabDeilimeter
+                    log += "\(json)"
+                    await logContext.add(log)
+                }
+                return .success(())
             }
-            return .success(())
         }
     }
 }

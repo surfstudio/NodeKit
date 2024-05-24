@@ -35,23 +35,24 @@ open class URLETagReaderNode: AsyncNode {
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
-        guard
-            let key = data.url.withOrderedQuery(),
-            let tag = UserDefaults.etagStorage?.value(forKey: key) as? String
-        else {
-            return await next.process(data, logContext: logContext)
+        await .withCheckedCancellation {
+            guard
+                let key = data.url.withOrderedQuery(),
+                let tag = UserDefaults.etagStorage?.value(forKey: key) as? String
+            else {
+                return await next.process(data, logContext: logContext)
+            }
+
+            var headers = data.headers
+            headers[self.etagHeaderKey] = tag
+
+            let params = TransportURLParameters(method: data.method,
+                                                url: data.url,
+                                                headers: headers)
+
+            let newData = TransportURLRequest(with: params, raw: data.raw)
+
+            return await next.process(newData, logContext: logContext)
         }
-
-        var headers = data.headers
-        headers[self.etagHeaderKey] = tag
-
-        let params = TransportURLParameters(method: data.method,
-                                            url: data.url,
-                                            headers: headers)
-
-        let newData = TransportURLRequest(with: params, raw: data.raw)
-
-        return await next.process(newData, logContext: logContext)
     }
-
 }

@@ -33,21 +33,32 @@ actor GroupViewModelProvider: GroupViewModelProviderProtocol {
     func provide() async throws -> GroupViewModel {
         cancelAllTasks()
         
+        /// Создаем таски, которые при ошибке останавливают все сохраненные таски.
+        
         let headerTask = storedTask { await $0.header() }
         let bodyTask = storedTask { await $0.body() }
         let footerTask = storedTask { await $0.footer() }
         
-        async let header = headerTask.value
-        async let body = bodyTask.value
-        async let footer = footerTask.value
+        /// Ждем результаты.
+        /// Так как CancellationError не в приоритете, игнорируем ее на этом этапе.
+        /// По всем остальным ошибка словим Exception.
+
+        let header = try await resultWithCheckedError(from: headerTask)
+        let body = try await resultWithCheckedError(from: bodyTask)
+        let footer = try await resultWithCheckedError(from: footerTask)
         
-        return try await GroupViewModel(
-            headerTitle: header.text,
-            headerImage: header.image,
-            bodyTitle: body.text,
-            bodyImage: body.image,
-            footerTitle: footer.text,
-            footerImage: footer.image
+        /// Собираем модель.
+        /// На этом этапе мы можем словить Exception только c CancellationError.
+        /// Необходимо обработать ее на уровне выше.
+        /// Кейс когда словили CancellationError - все остановленные таски отработали без ошибок.
+    
+        return try GroupViewModel(
+            headerTitle: header.get().text,
+            headerImage: header.get().image,
+            bodyTitle: body.get().text,
+            bodyImage: body.get().image,
+            footerTitle: footer.get().text,
+            footerImage: footer.get().image
         )
     }
 }
@@ -56,17 +67,26 @@ actor GroupViewModelProvider: GroupViewModelProviderProtocol {
 
 private extension GroupViewModelProvider {
     
-    func storedTask<T>(_ nodeResult: @escaping (GroupServiceProtocol) async -> NodeResult<T>) -> Task<T, Error> {
+    func storedTask<T>(_ nodeResult: @escaping (GroupServiceProtocol) async -> NodeResult<T>) -> Task<NodeResult<T>, Never> {
         let task = Task {
-            try await nodeResult(groupService)
+            await nodeResult(groupService)
                 .mapError {
                     cancelAllTasks()
                     return $0
                 }
-                .get()
         }
         tasks.append(task)
         return task
+    }
+    
+    func resultWithCheckedError<T>(from task: Task<NodeResult<T>, Never>) async throws -> NodeResult<T> {
+        let value = await task.value
+        
+        if let error = value.error, !(error is CancellationError) {
+            throw error
+        }
+        
+        return value
     }
     
     func cancelAllTasks() {

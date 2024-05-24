@@ -92,4 +92,56 @@ final class URLNotModifiedTriggerNodeTests: XCTestCase {
         )
         XCTAssertEqual(unwrappedResult, expectedCacheResult)
     }
+    
+    func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCAlledIfDataIsNotNotModified")!
+        let response = Utils.getMockURLDataResponse(url: url, statusCode: 304)
+        cacheSaverMock.stubbedAsyncProccessResult = .success([:])
+        
+        // when
+        
+        let task = Task {
+            try? await Task.sleep(nanoseconds: 100 * 1000)
+            return await sut.process(response, logContext: logContextMock)
+        }
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
+    
+    func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let url = URL(string: "http://UrlETagUrlCacheTriggerNode.test/testNextCAlledIfDataIsNotNotModified")!
+        let response = Utils.getMockURLDataResponse(url: url, statusCode: 304)
+        cacheSaverMock.stubbedAsyncProcessRunFunction = {
+            try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)
+        }
+        cacheSaverMock.stubbedAsyncProccessResult = .success([:])
+        
+        // when
+        
+        let task = Task {
+            await sut.process(response, logContext: logContextMock)
+        }
+        
+        try? await Task.sleep(nanoseconds: 100 * 1000)
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
 }

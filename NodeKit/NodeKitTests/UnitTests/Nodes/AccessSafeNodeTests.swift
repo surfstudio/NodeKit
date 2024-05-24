@@ -263,4 +263,68 @@ final class AccessSafeNodeTests: XCTestCase {
         XCTAssertEqual(firstInvokeData, request)
         XCTAssertEqual(secindInvokeData, request)
     }
+    
+    func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let request = TransportURLRequest(
+            method: .connect,
+            url: URL(string: "www.testprocess.com")!,
+            headers: ["TestHeaderKey": "TestHeaderValue"],
+            raw: "Test".data(using: .utf8)!
+        )
+        
+        updateTokenChainMock.stubbedAsyncProccessResult = .success(())
+        nextNodeMock.stubbedAsyncProccessResult = .success(Json())
+        
+        // when
+        
+        let task = Task {
+            try? await Task.sleep(nanoseconds: 100 * 1000)
+            return await sut.process(request, logContext: LoggingContextMock())
+        }
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
+    
+    func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
+        // given
+        
+        let request = TransportURLRequest(
+            method: .connect,
+            url: URL(string: "www.testprocess.com")!,
+            headers: ["TestHeaderKey": "TestHeaderValue"],
+            raw: "Test".data(using: .utf8)!
+        )
+        
+        updateTokenChainMock.stubbedAsyncProccessResult = .success(())
+        nextNodeMock.stubbedAsyncProccessResult = .success(Json())
+        nextNodeMock.stubbedAsyncProcessRunFunction = {
+            try? await Task.sleep(nanoseconds: 3 * 1000 * 1000)
+        }
+        
+        // when
+        
+        let task = Task {
+            await sut.process(request, logContext: LoggingContextMock())
+        }
+        
+        try? await Task.sleep(nanoseconds: 100 * 1000)
+        
+        task.cancel()
+        
+        let result = await task.value
+        
+        // then
+        
+        let error = try XCTUnwrap(result.error)
+        XCTAssertTrue(error is CancellationError)
+    }
 }

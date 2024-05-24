@@ -73,6 +73,25 @@ public extension NodeResult {
         }
     }
     
+    /// Метод вызывает ассинхронную функцию, проверяя жива ли таска.
+    /// Если таска была отменена, возвращает CancellationError.
+    ///
+    /// - Parameters:
+    ///   - function: Ассинхронная функция.
+    /// - Returns: Результат.
+    @inlinable static func withCheckedCancellation<T>(
+        _ function: () async -> NodeResult<T>
+    ) async -> NodeResult<T> {
+        do {
+            try Task.checkCancellation()
+            let result = await function()
+            try Task.checkCancellation()
+            return result
+        } catch {
+            return .failure(error)
+        }
+    }
+    
     /// Возвращает занчение успешного результата или nil если Failure.
     var value: Success? {
         switch self {
