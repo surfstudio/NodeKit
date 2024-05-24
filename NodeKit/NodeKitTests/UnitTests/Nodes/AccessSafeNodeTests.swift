@@ -21,7 +21,7 @@ final class AccessSafeNodeTests: XCTestCase {
     
     // MARK: - Sut
     
-    private var sut: AccessSafeNode!
+    private var sut: AccessSafeNode<Json>!
     
     // MARK: - Lifecycle
     
