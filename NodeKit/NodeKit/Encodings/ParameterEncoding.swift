@@ -31,15 +31,15 @@ public typealias Parameters = [String: Any]
 /// A type used to define how a set of parameters are applied to a `URLRequest`.
 public protocol ParameterEncoding {
 
-    /// Create a TransportUrlRequest model by encoding parameters and apply them into an exisiting url parameters
+    /// Create a TransportURLRequest model by encoding parameters and apply them into an exisiting url parameters
     ///
     /// - parameter urlParameters: The request parameters that should by applied
     /// - parameter parameters: Raw `Json` parameters to apply
     ///
     /// - throws: An `AFError.parameterEncodingFailed` error if encoding fails.
     ///
-    /// - returns: The encoded TransportUrlRequest.
-    func encode(urlParameters: TransportUrlParameters, parameters: Json?) throws -> TransportUrlRequest
+    /// - returns: The encoded TransportURLRequest.
+    func encode(urlParameters: TransportURLParameters, parameters: Json?) throws -> TransportURLRequest
 }
 
 // MARK: -
@@ -148,9 +148,9 @@ public struct URLEncoding: ParameterEncoding {
     }
 
     // MARK: Encoding
-    public func encode(urlParameters: TransportUrlParameters, parameters: Json?) throws -> TransportUrlRequest {
+    public func encode(urlParameters: TransportURLParameters, parameters: Json?) throws -> TransportURLRequest {
         guard let parameters = parameters else {
-            return TransportUrlRequest(with: urlParameters, raw: nil)
+            return TransportURLRequest(with: urlParameters, raw: nil)
         }
 
         var body: Data? = nil
@@ -161,10 +161,10 @@ public struct URLEncoding: ParameterEncoding {
             if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {
                 let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + query(parameters)
                 urlComponents.percentEncodedQuery = percentEncodedQuery
-                guard let unwrapedUrl = urlComponents.url else {
+                guard let unwrapedURL = urlComponents.url else {
                     throw AFError.parameterEncodingFailed(reason: .missingURL)
                 }
-                url = unwrapedUrl
+                url = unwrapedURL
             }
         } else {
             if headers["Content-Type"] == nil {
@@ -172,7 +172,7 @@ public struct URLEncoding: ParameterEncoding {
             }
             body = Data(query(parameters).utf8)
         }
-        return TransportUrlRequest(method: urlParameters.method,
+        return TransportURLRequest(method: urlParameters.method,
                                    url: url,
                                    headers: headers,
                                    raw: body)
@@ -256,9 +256,9 @@ public struct JSONEncoding: ParameterEncoding {
     }
 
     // MARK: Encoding
-    public func encode(urlParameters: TransportUrlParameters, parameters: Json?) throws -> TransportUrlRequest {
+    public func encode(urlParameters: TransportURLParameters, parameters: Json?) throws -> TransportURLRequest {
         guard let parameters = parameters else {
-            return TransportUrlRequest(with: urlParameters, raw: nil)
+            return TransportURLRequest(with: urlParameters, raw: nil)
         }
 
         let body: Data
@@ -280,7 +280,7 @@ public struct JSONEncoding: ParameterEncoding {
             throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
         }
 
-        return TransportUrlRequest(method: urlParameters.method,
+        return TransportURLRequest(method: urlParameters.method,
                                    url: urlParameters.url,
                                    headers: headers,
                                    raw: body)

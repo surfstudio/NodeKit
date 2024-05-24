@@ -8,11 +8,11 @@
 
 import Foundation
 
-/// Модель слоя `Encoding`, собирает все данные для реквеста. Используется в `UrlRequestEncodingNode`
+/// Модель слоя `Encoding`, собирает все данные для реквеста. Используется в `URLRequestEncodingNode`
 public struct RequestEncodingModel {
 
     /// Параметры для формирования запроса.
-    public let urlParameters: TransportUrlParameters
+    public let urlParameters: TransportURLParameters
     /// Данные в виде `BSON` или `JSON`
     public let raw: Json
     /// Кодировка данных запроса
@@ -22,7 +22,7 @@ public struct RequestEncodingModel {
     /// - Parameter urlParameters: Параметры для формирования запроса.
     /// - Parameter raw: Данные в виде `JSON`
     /// - Parameter encoding: Кодировка данных запроса
-    public init(urlParameters: TransportUrlParameters,
+    public init(urlParameters: TransportURLParameters,
                 raw: Json,
                 encoding: ParametersEncoding?) {
         self.urlParameters = urlParameters

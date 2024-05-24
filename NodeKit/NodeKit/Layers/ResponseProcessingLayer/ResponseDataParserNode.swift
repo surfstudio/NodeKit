@@ -35,7 +35,7 @@ open class ResponseDataParserNode: AsyncNode {
     ///
     /// - Parameter data: Модель ответа сервера.
     open func process(
-        _ data: UrlDataResponse,
+        _ data: URLDataResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
         return await parse(with: data, logContext: logContext)
@@ -49,7 +49,7 @@ open class ResponseDataParserNode: AsyncNode {
                     return .success(json)
                 }
 
-                let networkResponse = UrlProcessedResponse(dataResponse: data, json: json)
+                let networkResponse = URLProcessedResponse(dataResponse: data, json: json)
 
                 log += "Have next node \(next.objectName) -> call `process`"
 
@@ -68,7 +68,7 @@ open class ResponseDataParserNode: AsyncNode {
     /// - Throws:
     ///     - `ResponseDataParserNodeError.cantCastDesirializedDataToJson`
     ///     - `ResponseDataParserNodeError.cantDeserializeJson`
-    open func json(from responseData: UrlDataResponse) throws -> (Json, String) {
+    open func json(from responseData: URLDataResponse) throws -> (Json, String) {
 
         var log = ""
 
@@ -108,7 +108,7 @@ open class ResponseDataParserNode: AsyncNode {
     // MARK: - Private Methods
 
     private func parse(
-        with data: UrlDataResponse,
+        with data: URLDataResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<(Json, String)> {
         do {

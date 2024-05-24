@@ -31,9 +31,10 @@ final class SimpleURLChainTests: XCTestCase {
     func testDefaultURLChainWorkSuccess() async throws {
         // given
 
-        let chainRoot: any AsyncNode<Void, [User]> = UrlChainsBuilder(serviceChain: UrlServiceChainBuilderMock())
+        let builder = URLChainBuilder<Routes>(serviceChainProvider: URLServiceChainProviderMock())
+        let chainRoot: AnyAsyncNode<Void, [User]> = builder
             .set(metadata: ["TestHeader":"testHeaderValue"])
-            .route(.get, Routes.users)
+            .route(.get, .users)
             .build()
 
         let id = "id"
@@ -42,7 +43,7 @@ final class SimpleURLChainTests: XCTestCase {
 
         // when
         
-        let result = await chainRoot.process()
+        let result: NodeResult<[User]> = await chainRoot.process()
 
         // then
         
@@ -66,9 +67,10 @@ final class SimpleURLChainTests: XCTestCase {
 
         // when
 
-        let result: NodeResult<[User]> = await UrlChainsBuilder<Routes>(serviceChain: UrlServiceChainBuilderMock())
+        let builder = URLChainBuilder<Routes>(serviceChainProvider: URLServiceChainProviderMock())
+        let result: NodeResult<[User]> = await builder
             .set(query: ["stack": "left", "sort": false])
-            .set(boolEncodingStartegy: .asBool)
+            .set(boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy.asBool)
             .route(.get, .users)
             .build()
             .process()
@@ -86,4 +88,3 @@ final class SimpleURLChainTests: XCTestCase {
         }
     }
 }
-

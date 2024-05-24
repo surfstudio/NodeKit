@@ -7,8 +7,8 @@
 
 import Foundation
 import NodeKit
-import NodeKitMock
 import Models
+import MockServer
 
 public protocol GroupServiceProtocol {
     func header() async -> NodeResult<GroupHeaderResponseEntity>
@@ -35,8 +35,7 @@ public final class GroupService: GroupServiceProtocol {
     private func result<T: DTODecodable>(
         from route: GroupURLProvider
     ) async -> NodeResult<T> where T.DTO.Raw == Json {
-        return await UrlChainsBuilder<GroupURLProvider>()
-            .set(session: NetworkMock().urlSession)
+        return await FakeChainBuilder<GroupURLProvider>()
             .route(.get, route)
             .build()
             .process()

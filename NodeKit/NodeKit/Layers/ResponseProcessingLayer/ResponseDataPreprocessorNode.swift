@@ -27,7 +27,7 @@ open class ResponseDataPreprocessorNode: AsyncNode {
     ///
     /// - Parameter data: Представление ответа.
     open func process(
-        _ data: UrlDataResponse,
+        _ data: URLDataResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
         var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseDataPreprocessorNode)

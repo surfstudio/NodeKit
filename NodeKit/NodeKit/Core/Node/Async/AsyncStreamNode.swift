@@ -26,6 +26,12 @@ public protocol AsyncStreamNode<Input, Output>: Node {
     ///
     /// - Returns: Узел, поддерживающий обработку результатов с помощью Combine.
     func combineStreamNode() -> any CombineStreamNode<Input, Output>
+    
+    /// Метод, возвращающий структуру-обертку текущей ноды.
+    /// Необходим для избежания проблем, возникающих при использовании any AsyncStreamNode
+    ///
+    /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncStreamNode``.
+    func eraseToAnyNode() -> AnyAsyncStreamNode<Input, Output>
 }
 
 public extension AsyncStreamNode {
@@ -40,6 +46,14 @@ public extension AsyncStreamNode {
     /// - Returns: Узел, поддерживающий обработку результатов с помощью Combine.
     func combineStreamNode() -> any CombineStreamNode<Input, Output> {
         return AsyncStreamCombineNode(node: self)
+    }
+    
+    /// Метод, возвращающий структуру-обертку текущей ноды.
+    /// Необходим для избежания проблем, возникающих при использовании any AsyncStreamNode
+    ///
+    /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncStreamNode``.
+    func eraseToAnyNode() -> AnyAsyncStreamNode<Input, Output> {
+        return AnyAsyncStreamNode(node: self)
     }
 }
 

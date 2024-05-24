@@ -171,4 +171,41 @@ final class AsyncStreamNodeTests: XCTestCase {
             expectedResults.compactMap { $0.castToMockError() }
         )
     }
+    
+    func testEraseToAnyNode_thenAnyNodeBasedOnSelfCreated() async throws {
+        // given
+        
+        let sut = AsyncStreamNodeMock<Void, Int>()
+        
+        let expectedResults: [Result<Int, Error>] = [
+            .success(100),
+            .failure(MockError.firstError),
+            .failure(MockError.secondError),
+            .success(99),
+            .failure(MockError.thirdError)
+        ]
+        
+        var results: [NodeResult<Int>] = []
+        
+        sut.stubbedAsyncStreamProccessResult = {
+            AsyncStream { continuation in
+                expectedResults.forEach { continuation.yield($0) }
+                continuation.finish()
+            }
+        }
+        
+        // when
+        
+        for await result in sut.eraseToAnyNode().process() {
+            results.append(result)
+        }
+        
+        // then
+        
+        XCTAssertEqual(sut.invokedAsyncStreamProcessCount, 1)
+        XCTAssertEqual(
+            results.compactMap { $0.castToMockError() },
+            expectedResults.compactMap { $0.castToMockError() }
+        )
+    }
 }

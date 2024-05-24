@@ -15,7 +15,7 @@ final class DataLoadingResponseProcessorTests: XCTestCase {
     
     // MARK: - Dependencies
     
-    private var nextNodeMock: AsyncNodeMock<UrlDataResponse, Void>!
+    private var nextNodeMock: AsyncNodeMock<URLDataResponse, Void>!
     private var logContextMock: LoggingContextMock!
     
     // MARK: - Sut
@@ -46,12 +46,10 @@ final class DataLoadingResponseProcessorTests: XCTestCase {
         let expectedData = "TestData".data(using: .utf8)!
         let sut = DataLoadingResponseProcessor()
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: [:])!,
-            data: expectedData,
-            metrics: nil,
-            serializationDuration: 1
+            data: expectedData
         )
         
         // when
@@ -70,12 +68,10 @@ final class DataLoadingResponseProcessorTests: XCTestCase {
         
         let url = URL(string: "www.test.com")!
         let headers = ["TestHeaderKey": "TestHeaderValue"]
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: headers)!,
-            data: "TestData".data(using: .utf8)!,
-            metrics: nil,
-            serializationDuration: 1
+            data: "TestData".data(using: .utf8)!
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(())
@@ -97,12 +93,10 @@ final class DataLoadingResponseProcessorTests: XCTestCase {
         
         let expectedData = "TestExpectedData".data(using: .utf8)!
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: [:])!,
-            data: expectedData,
-            metrics: nil,
-            serializationDuration: 1
+            data: expectedData
         )
         nextNodeMock.stubbedAsyncProccessResult = .success(())
         
@@ -121,12 +115,10 @@ final class DataLoadingResponseProcessorTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: [:])!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.firstError)
         

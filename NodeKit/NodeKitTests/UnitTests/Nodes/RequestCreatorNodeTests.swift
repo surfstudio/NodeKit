@@ -42,9 +42,9 @@ final class RequestCreatorNodeTests: XCTestCase {
         let expectedURL = URL(string: "www.testprocess.com")!
         let expectedHeaders = ["TestKey": "TestValue"]
         let expectedMethod: NodeKit.Method = .options
-        let requestParameters = TransportUrlParameters(method: expectedMethod, url: expectedURL, headers: expectedHeaders)
+        let requestParameters = TransportURLParameters(method: expectedMethod, url: expectedURL, headers: expectedHeaders)
         let expectedData = "TestData".data(using: .utf8)!
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             with: requestParameters, raw: expectedData)
         
         nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
@@ -80,12 +80,12 @@ final class RequestCreatorNodeTests: XCTestCase {
         let expectedURL = URL(string: "www.testprocess.com")!
         let expectedMethod: NodeKit.Method = .options
         let expectedData = "TestData".data(using: .utf8)!
-        let requestParameters = TransportUrlParameters(
+        let requestParameters = TransportURLParameters(
             method: expectedMethod,
             url: expectedURL,
             headers: ["TestKey": "TestValue"]
         )
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             with: requestParameters, raw: expectedData)
         
         let expectedHeaders = [
@@ -129,12 +129,12 @@ final class RequestCreatorNodeTests: XCTestCase {
         let expectedURL = URL(string: "www.testprocess.com")!
         let expectedMethod: NodeKit.Method = .options
         let expectedData = "TestData".data(using: .utf8)!
-        let requestParameters = TransportUrlParameters(
+        let requestParameters = TransportURLParameters(
             method: expectedMethod,
             url: expectedURL,
             headers: ["TestKey": "TestValue"]
         )
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             with: requestParameters, raw: expectedData)
         
         let expectedHeaders = [

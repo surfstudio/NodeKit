@@ -15,7 +15,7 @@ final class ResponseDataParserNodeTests: XCTestCase {
     
     // MARK: - Dependencies
     
-    private var nextNodeMock: AsyncNodeMock<UrlProcessedResponse, Void>!
+    private var nextNodeMock: AsyncNodeMock<URLProcessedResponse, Void>!
     private var logContextMock: LoggingContextMock!
     
     // MARK: - Lifecycle
@@ -42,13 +42,10 @@ final class ResponseDataParserNodeTests: XCTestCase {
         let expectedRequest = URLRequest(url: url)
         let expectedData = Data()
         let expectedResponse = HTTPURLResponse(url: url, mimeType: nil, expectedContentLength: .zero, textEncodingName: nil)
-        let expectedSerializationDuration: TimeInterval = 42
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: expectedRequest,
             response: expectedResponse,
-            data: expectedData,
-            metrics: nil,
-            serializationDuration: expectedSerializationDuration
+            data: expectedData
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(())
@@ -66,8 +63,6 @@ final class ResponseDataParserNodeTests: XCTestCase {
         XCTAssertEqual(parameter.request, expectedRequest)
         XCTAssertEqual(parameter.response, expectedResponse)
         XCTAssertEqual(parameter.data, expectedData)
-        XCTAssertEqual(parameter.metrics, nil)
-        XCTAssertEqual(parameter.serializationDuration, expectedSerializationDuration)
         XCTAssertTrue(parameter.json.isEmpty)
         XCTAssertTrue(value.isEmpty)
     }
@@ -80,13 +75,10 @@ final class ResponseDataParserNodeTests: XCTestCase {
         let expectedRequest = URLRequest(url: url)
         let expectedData = "{1:1}".data(using: .utf8)!
         let expectedResponse = HTTPURLResponse(url: url, mimeType: nil, expectedContentLength: .zero, textEncodingName: nil)
-        let expectedSerializationDuration: TimeInterval = 42
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: expectedRequest,
             response: expectedResponse,
-            data: expectedData,
-            metrics: nil,
-            serializationDuration: expectedSerializationDuration
+            data: expectedData
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(())
@@ -116,13 +108,10 @@ final class ResponseDataParserNodeTests: XCTestCase {
         let expectedRequest = URLRequest(url: url)
         let expectedData = "15".data(using: .utf8)!
         let expectedResponse = HTTPURLResponse(url: url, mimeType: nil, expectedContentLength: .zero, textEncodingName: nil)
-        let expectedSerializationDuration: TimeInterval = 42
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: expectedRequest,
             response: expectedResponse,
-            data: expectedData,
-            metrics: nil,
-            serializationDuration: expectedSerializationDuration
+            data: expectedData
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(())
@@ -153,13 +142,10 @@ final class ResponseDataParserNodeTests: XCTestCase {
         let expectedResult = ["TestKey1": "TestValue1", "TestKey2": "TestValue2"]
         let jsonData = try JSONSerialization.data(withJSONObject: expectedResult)
         let expectedResponse = HTTPURLResponse(url: url, mimeType: nil, expectedContentLength: .zero, textEncodingName: nil)
-        let expectedSerializationDuration: TimeInterval = 42
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: expectedRequest,
             response: expectedResponse,
-            data: jsonData,
-            metrics: nil,
-            serializationDuration: expectedSerializationDuration
+            data: jsonData
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(())
@@ -178,8 +164,6 @@ final class ResponseDataParserNodeTests: XCTestCase {
         XCTAssertEqual(parameter.request, expectedRequest)
         XCTAssertEqual(parameter.response, expectedResponse)
         XCTAssertEqual(parameter.data, jsonData)
-        XCTAssertEqual(parameter.metrics, nil)
-        XCTAssertEqual(parameter.serializationDuration, expectedSerializationDuration)
         XCTAssertEqual(inputJson, expectedResult)
         XCTAssertEqual(value, expectedResult)
     }
@@ -193,13 +177,10 @@ final class ResponseDataParserNodeTests: XCTestCase {
         let expectedResult = ["TestKey1": "TestValue1", "TestKey2": "TestValue2"]
         let jsonData = try JSONSerialization.data(withJSONObject: expectedResult)
         let expectedResponse = HTTPURLResponse(url: url, mimeType: nil, expectedContentLength: .zero, textEncodingName: nil)
-        let expectedSerializationDuration: TimeInterval = 42
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: expectedRequest,
             response: expectedResponse,
-            data: jsonData,
-            metrics: nil,
-            serializationDuration: expectedSerializationDuration
+            data: jsonData
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(())
@@ -225,13 +206,10 @@ final class ResponseDataParserNodeTests: XCTestCase {
         let expectedResult = [["TestKey1": "TestValue1"], ["TestKey2": "TestValue2"]]
         let jsonData = try JSONSerialization.data(withJSONObject: expectedResult)
         let expectedResponse = HTTPURLResponse(url: url, mimeType: nil, expectedContentLength: .zero, textEncodingName: nil)
-        let expectedSerializationDuration: TimeInterval = 42
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: expectedRequest,
             response: expectedResponse,
-            data: jsonData,
-            metrics: nil,
-            serializationDuration: expectedSerializationDuration
+            data: jsonData
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(())
@@ -250,8 +228,6 @@ final class ResponseDataParserNodeTests: XCTestCase {
         XCTAssertEqual(parameter.request, expectedRequest)
         XCTAssertEqual(parameter.response, expectedResponse)
         XCTAssertEqual(parameter.data, jsonData)
-        XCTAssertEqual(parameter.metrics, nil)
-        XCTAssertEqual(parameter.serializationDuration, expectedSerializationDuration)
         XCTAssertEqual(inputJson, expectedResult)
         XCTAssertEqual(value, expectedResult)
     }

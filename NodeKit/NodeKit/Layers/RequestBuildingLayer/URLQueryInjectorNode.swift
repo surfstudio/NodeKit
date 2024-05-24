@@ -3,9 +3,9 @@ import Foundation
 /// Ошибки для узла `URLQueryInjectorNode`
 public enum URLQueryInjectorNodeError: Error {
     /// Возникает в случае, если не удалось создать URLComponents из URL
-    case cantCreateUrlComponentsFromUrlString
+    case cantCreateURLComponentsFromURLString
     /// Возникает в случае, если построить URLComponents удалось, а вот получить из него URL - нет.
-    case cantCreateUrlFromUrlComponents
+    case cantCreateURLFromURLComponents
 }
 
 /// Узел, который позволяет добавить данные в URL-Query.
@@ -25,7 +25,7 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
     // MARK: - Properties
 
     /// Следующий по порядку узел.
-    open var next: any AsyncNode<RoutableRequestModel<UrlRouteProvider, Raw>, Output>
+    open var next: any AsyncNode<RoutableRequestModel<URLRouteProvider, Raw>, Output>
 
     open var config: URLQueryConfigModel
 
@@ -35,7 +35,7 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
     /// - Parameter next: Следующий по порядку узел.
     /// - Parameter config: Конфигурация для узла.
     public init(
-        next: any AsyncNode<RoutableRequestModel<UrlRouteProvider, Raw>, Output>,
+        next: any AsyncNode<RoutableRequestModel<URLRouteProvider, Raw>, Output>,
         config: URLQueryConfigModel
     ) {
         self.next = next
@@ -45,10 +45,10 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
     // MARK: - Public methods
 
     /// Добавляет URL-query если может и передает управление следующему узлу.
-    /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateUrlComponentsFromUrlString`
+    /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateURLComponentsFromURLString`
     /// - SeeAlso: ``URLQueryInjectorNodeError``
     open func process(
-        _ data: RoutableRequestModel<UrlRouteProvider, Raw>,
+        _ data: RoutableRequestModel<URLRouteProvider, Raw>,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
         return await .withMappedExceptions {
@@ -88,20 +88,20 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
     }
 
     private func transform(
-        from data: RoutableRequestModel<UrlRouteProvider, Raw>
-    ) async throws -> NodeResult<RoutableRequestModel<UrlRouteProvider, Raw>> {
+        from data: RoutableRequestModel<URLRouteProvider, Raw>
+    ) async throws -> NodeResult<RoutableRequestModel<URLRouteProvider, Raw>> {
         guard !config.query.isEmpty else {
             return .success(data)
         }
         return await urlComponents(try data.route.url())
             .flatMap {
                 guard let url = $0.url else {
-                    return .failure(NodeError.cantCreateUrlFromUrlComponents)
+                    return .failure(NodeError.cantCreateURLFromURLComponents)
                 }
                 return .success(url)
             }
             .map {
-                return RoutableRequestModel<UrlRouteProvider, Raw>(
+                return RoutableRequestModel<URLRouteProvider, Raw>(
                     metadata: data.metadata,
                     raw: data.raw,
                     route: $0
@@ -111,7 +111,7 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
 
     private func urlComponents(_ url: URL) async -> NodeResult<URLComponents> {
         guard var urlComponents = URLComponents(string: url.absoluteString) else {
-            return .failure(NodeError.cantCreateUrlComponentsFromUrlString)
+            return .failure(NodeError.cantCreateURLComponentsFromURLString)
         }
         urlComponents.queryItems = config.query
             .map { makeQueryComponents(from: $1, by: $0) }

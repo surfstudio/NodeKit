@@ -14,7 +14,7 @@ extension NodeKit.ParametersEncoding {
         switch self {
         case .json:
             return JSONEncoding()
-        case .formUrl:
+        case .formURL:
             return URLEncoding.default
         case .urlQuery:
             return URLEncoding.queryString

@@ -31,12 +31,12 @@ open class ResponseHttpErrorProcessorNode<Type>: AsyncNode {
     public typealias HttpError = ResponseHttpErrorProcessorNodeError
 
     /// Следующий узел для обработки.
-    public var next: any AsyncNode<UrlDataResponse, Type>
+    public var next: any AsyncNode<URLDataResponse, Type>
 
     /// Инициаллизирует объект.
     ///
     /// - Parameter next: Следующий узел для обработки.
-    public init(next: some AsyncNode<UrlDataResponse, Type>) {
+    public init(next: some AsyncNode<URLDataResponse, Type>) {
         self.next = next
     }
 
@@ -45,7 +45,7 @@ open class ResponseHttpErrorProcessorNode<Type>: AsyncNode {
     ///
     /// - Parameter data: Модель ответа сервера.
     open func process(
-        _ data: UrlDataResponse,
+        _ data: URLDataResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Type> {
         switch data.response.statusCode {

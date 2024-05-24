@@ -22,10 +22,22 @@ public protocol AsyncNode<Input, Output>: Node {
     @discardableResult
     func process(_ data: Input, logContext: LoggingContextProtocol) async -> NodeResult<Output>
     
-    /// Метод возвращающий объект для обработки результатов с помощью Combine.
+    /// Метод, возвращающий объект для обработки результатов с помощью Combine.
     ///
     /// - Returns: Узел, поддерживающий обработку результатов с помощью Combine.
     func combineNode() -> any CombineNode<Input, Output>
+    
+    /// Метод, возвращающий структуру-обертку текущей ноды.
+    /// Необходим для избежания проблем, возникающих при использовании any AsyncNode
+    ///
+    /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncNode``.
+    func eraseToAnyNode() -> AnyAsyncNode<Input, Output>
+    
+    /// Метод, позволяющий объединить две ноды с одинаковыми Input и Output в AsyncStreamNode.
+    ///
+    /// - Parameter node: Нода, необходимая для объединения.
+    /// - Returns: Нода AsyncStreamNode, включающая текущую и переданную ноду.
+    func merged(with node: any AsyncNode<Input, Output>) -> any AsyncStreamNode<Input, Output>
 }
 
 public extension AsyncNode {
@@ -41,6 +53,22 @@ public extension AsyncNode {
     /// - Returns: Узел, поддерживающий обработку результатов с помощью Combine.
     func combineNode() -> any CombineNode<Input, Output> {
         return AsyncCombineNode(node: self)
+    }
+    
+    /// Метод, возвращающий структуру-обертку текущей ноды.
+    /// Необходим для избежания проблем, возникающих при использовании any AsyncNode
+    ///
+    /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncNode``.
+    func eraseToAnyNode() -> AnyAsyncNode<Input, Output> {
+        return AnyAsyncNode(node: self)
+    }
+    
+    /// Стандартная реализация объединения двух узлов в AsyncStreamNode.
+    ///
+    /// - Parameter node: Нода, необходимая для объединения.
+    /// - Returns: Нода AsyncStreamNode, включающая текущую и переданную ноду.
+    func merged(with node: any AsyncNode<Input, Output>) -> any AsyncStreamNode<Input, Output> {
+        return MergedAsyncStreamNode(firstNode: self, secondNode: node)
     }
 }
 

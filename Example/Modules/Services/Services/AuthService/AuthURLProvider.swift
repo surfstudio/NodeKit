@@ -8,8 +8,8 @@
 import Foundation
 import NodeKit
 
-enum AuthURLProvider: UrlRouteProvider {
-    private static var base: UrlRouteProvider = NavigationURLProvider.auth
+enum AuthURLProvider: URLRouteProvider {
+    private static var base: URLRouteProvider = NavigationURLProvider.auth
     
     case login
     case logout

@@ -15,7 +15,7 @@ final class ResponseDataPreprocessorNodeTests: XCTestCase {
     
     // MARK: - Dependencies
     
-    private var nextNodeMock: AsyncNodeMock<UrlDataResponse, Json>!
+    private var nextNodeMock: AsyncNodeMock<URLDataResponse, Json>!
     private var logContextMock: LoggingContextMock!
     
     // MARK: - Sut
@@ -46,12 +46,10 @@ final class ResponseDataPreprocessorNodeTests: XCTestCase {
         let url = URL(string: "www.test.com")!
         let request = URLRequest(url: url)
         let response = HTTPURLResponse(url: url, statusCode: 204, httpVersion: nil, headerFields: nil)!
-        let input = UrlDataResponse(
+        let input = URLDataResponse(
             request: request,
             response: response,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 0
+            data: Data()
         )
         
         // when
@@ -72,12 +70,10 @@ final class ResponseDataPreprocessorNodeTests: XCTestCase {
         let url = URL(string: "www.test.com")!
         let request = URLRequest(url: url)
         let response = HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: nil)!
-        let input = UrlDataResponse(
+        let input = URLDataResponse(
             request: request,
             response: response,
-            data: "null".data(using: .utf8)!,
-            metrics: nil,
-            serializationDuration: 0
+            data: "null".data(using: .utf8)!
         )
         
         // when
@@ -99,12 +95,10 @@ final class ResponseDataPreprocessorNodeTests: XCTestCase {
         let request = URLRequest(url: url)
         let expectedResult = ["TestKey": "TestValue"]
         let response = HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: nil)!
-        let expectedInput = UrlDataResponse(
+        let expectedInput = URLDataResponse(
             request: request,
             response: response,
-            data: "TestString".data(using: .utf8)!,
-            metrics: nil,
-            serializationDuration: 0
+            data: "TestString".data(using: .utf8)!
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
@@ -128,12 +122,10 @@ final class ResponseDataPreprocessorNodeTests: XCTestCase {
         let url = URL(string: "www.test.com")!
         let request = URLRequest(url: url)
         let response = HTTPURLResponse(url: url, statusCode: 1, httpVersion: nil, headerFields: nil)!
-        let expectedInput = UrlDataResponse(
+        let expectedInput = URLDataResponse(
             request: request,
             response: response,
-            data: "TestString".data(using: .utf8)!,
-            metrics: nil,
-            serializationDuration: 0
+            data: "TestString".data(using: .utf8)!
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.thirdError)

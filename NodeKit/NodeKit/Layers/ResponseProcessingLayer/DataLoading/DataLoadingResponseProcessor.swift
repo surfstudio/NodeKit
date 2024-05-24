@@ -15,18 +15,18 @@ import Foundation
 open class DataLoadingResponseProcessor: AsyncNode {
 
     /// Узел для постобработки загруженных данных.
-    open var next: (any AsyncNode<UrlDataResponse, Void>)?
+    open var next: (any AsyncNode<URLDataResponse, Void>)?
 
     /// Инициаллизирует узел.
     ///
     /// - Parameter next: Узел для постобработки загруженных данных. По-умолчанию nil.
-    public init(next: (any AsyncNode<UrlDataResponse, Void>)? = nil) {
+    public init(next: (any AsyncNode<URLDataResponse, Void>)? = nil) {
         self.next = next
     }
 
     /// В случае, если узел для постобработки существует, то вызывает его, если нет - возвращает данные.
     open func process(
-        _ data: UrlDataResponse,
+        _ data: URLDataResponse,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Data> {
         return await next?.process(data, logContext: logContext)

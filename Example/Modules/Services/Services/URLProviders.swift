@@ -7,7 +7,7 @@
 import Foundation
 import NodeKit
 
-enum RootURLProvider: UrlRouteProvider {
+enum RootURLProvider: URLRouteProvider {
     case root
     
     func url() throws -> URL {
@@ -15,8 +15,8 @@ enum RootURLProvider: UrlRouteProvider {
     }
 }
 
-enum NavigationURLProvider: UrlRouteProvider {
-    private static var base: UrlRouteProvider = RootURLProvider.root
+enum NavigationURLProvider: URLRouteProvider {
+    private static var base: URLRouteProvider = RootURLProvider.root
     
     case auth
     case pagination

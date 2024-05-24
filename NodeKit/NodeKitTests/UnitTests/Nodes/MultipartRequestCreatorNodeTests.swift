@@ -61,7 +61,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
             ]
         )
         
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .delete,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -90,17 +90,17 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
         XCTAssertFalse(multipartFormDataMock.invokedAppendCustomURL)
     }
     
-    func testAsyncProcess_withMultipartFormFileUrl_thenMultipartFormDataAppendCalled() async throws {
+    func testAsyncProcess_withMultipartFormFileURL_thenMultipartFormDataAppendCalled() async throws {
         // given
         
         let fileKey = "TestFileKey1"
-        let fileUrl = URL(string: "www.testfirstfile.com")!
+        let fileURL = URL(string: "www.testfirstfile.com")!
         let multipartModel = MultipartModel<[String: Data]>(
             payloadModel: [:],
-            files: [fileKey: .url(url: fileUrl)]
+            files: [fileKey: .url(url: fileURL)]
         )
         
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .delete,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -122,7 +122,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
         XCTAssertEqual(multipartFormDataFactoryMock.invokedProduceCount, 1)
         XCTAssertEqual(multipartFormDataMock.invokedAppendURLCount, 1)
         XCTAssertEqual(multipartDataInput.name, fileKey)
-        XCTAssertEqual(multipartDataInput.fileUrl, fileUrl)
+        XCTAssertEqual(multipartDataInput.fileURL, fileURL)
         XCTAssertFalse(multipartFormDataMock.invokedAppendData)
         XCTAssertFalse(multipartFormDataMock.invokedAppendCustomURL)
     }
@@ -139,7 +139,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
             files: [fileKey: .data(data: fileData, filename: fileName, mimetype: fileMimeType)]
         )
         
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .delete,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -168,19 +168,19 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
         XCTAssertFalse(multipartFormDataMock.invokedAppendCustomURL)
     }
     
-    func testAsyncProcess_withMultipartFormFileCustomUrl_thenMultipartFormDataAppendCalled() async throws {
+    func testAsyncProcess_withMultipartFormFileCustomURL_thenMultipartFormDataAppendCalled() async throws {
         // given
         
         let fileKey = "TestFileKey3"
-        let fileUrl = URL(string: "www.testthirdfile.com")!
+        let fileURL = URL(string: "www.testthirdfile.com")!
         let fileName = "TestThirdFile.name"
         let fileMimeType = "TestThirdFileMimeType"
         let multipartModel = MultipartModel<[String: Data]>(
             payloadModel: [:],
-            files: [fileKey: .customWithUrl(url: fileUrl, filename: fileName, mimetype: fileMimeType)]
+            files: [fileKey: .customWithURL(url: fileURL, filename: fileName, mimetype: fileMimeType)]
         )
         
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .delete,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -202,7 +202,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
         XCTAssertEqual(multipartFormDataFactoryMock.invokedProduceCount, 1)
         XCTAssertEqual(multipartFormDataMock.invokedAppendCustomURLCount, 1)
         XCTAssertEqual(multipartDataInput.name, fileKey)
-        XCTAssertEqual(multipartDataInput.fileUrl, fileUrl)
+        XCTAssertEqual(multipartDataInput.fileURL, fileURL)
         XCTAssertEqual(multipartDataInput.fileName, fileName)
         XCTAssertEqual(multipartDataInput.mimeType, fileMimeType)
         XCTAssertFalse(multipartFormDataMock.invokedAppendURL)
@@ -212,7 +212,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withEncodingError_thenNextDidNotCall() async throws {
         // given
 
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .delete,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -235,7 +235,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withEncodingError_thenErrorReceived() async throws {
         // given
 
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .delete,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -258,12 +258,12 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withEncodingSuccess_thenNextCalled() async throws {
         // given
 
-        let expectedUrl = URL(string: "www.testprocess.com")!
+        let expectedURL = URL(string: "www.testprocess.com")!
         let stubbedContentType = "TestContentType"
         let headers = ["TestHeaderKey": "TestHeaderValue"]
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .delete,
-            url: expectedUrl,
+            url: expectedURL,
             headers: headers,
             data: MultipartModel<[String: Data]>(payloadModel: [:])
         )
@@ -287,7 +287,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
         let httpHeaders = try XCTUnwrap(nextNodeInput.allHTTPHeaderFields)
         
         XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
-        XCTAssertEqual(nextNodeInput.url, expectedUrl)
+        XCTAssertEqual(nextNodeInput.url, expectedURL)
         XCTAssertEqual(nextNodeInput.httpMethod, NodeKit.Method.delete.rawValue)
         XCTAssertEqual(nextNodeInput.httpBody, multipartData)
         XCTAssertEqual(httpHeaders, expectedHeaders)
@@ -296,7 +296,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withSuccess_thenSuccessReceived() async throws {
         // given
 
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .get,
             url: URL(string: "www.testprocess.com")!,
             headers: [:],
@@ -321,7 +321,7 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withError_thenErrorReceived() async throws {
         // given
 
-        let model = MultipartUrlRequest(
+        let model = MultipartURLRequest(
             method: .get,
             url: URL(string: "www.testprocess.com")!,
             headers: [:],

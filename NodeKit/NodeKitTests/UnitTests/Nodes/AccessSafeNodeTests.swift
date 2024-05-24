@@ -15,7 +15,7 @@ final class AccessSafeNodeTests: XCTestCase {
     
     // MARK: - Dependencies
     
-    private var nextNodeMock: AsyncNodeMock<TransportUrlRequest, Json>!
+    private var nextNodeMock: AsyncNodeMock<TransportURLRequest, Json>!
     private var updateTokenChainMock: AsyncNodeMock<Void, Void>!
     private var logContextMock: LoggingContextMock!
     
@@ -42,7 +42,7 @@ final class AccessSafeNodeTests: XCTestCase {
         let url = URL(string: "www.testprocess.com")!
         let headers = ["TestHeaderKey": "TestHeaderValue"]
         let data = "Test".data(using: .utf8)!
-        let request = TransportUrlRequest(method: .connect, url: url, headers: headers, raw: data)
+        let request = TransportURLRequest(method: .connect, url: url, headers: headers, raw: data)
         
         nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
         
@@ -61,7 +61,7 @@ final class AccessSafeNodeTests: XCTestCase {
     func testAsyncProcess_whenNextReturnsSuccess_thenUpdateTokenDidNotCalled() async {
         // given
         
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -83,7 +83,7 @@ final class AccessSafeNodeTests: XCTestCase {
         // given
         
         let expectedResult = ["TestKey": "TestValue"]
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -105,7 +105,7 @@ final class AccessSafeNodeTests: XCTestCase {
     func testAsyncProcess_whenNextReturnsCustomError_thenErrorReceived() async throws {
         // given
         
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -127,7 +127,7 @@ final class AccessSafeNodeTests: XCTestCase {
     func testAsyncProcess_whenNextReturnsCustomError_thenTokenDidNotUpdate() async {
         // given
         
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -148,7 +148,7 @@ final class AccessSafeNodeTests: XCTestCase {
     func testAsyncProcess_whenForbidenErrorReceived_thenUpdateTokenStarted() async {
         // given
         
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -170,7 +170,7 @@ final class AccessSafeNodeTests: XCTestCase {
     func testAsyncProcess_whenUnauthorizedErrorReceived_thenUpdateTokenStarted() async {
         // given
         
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -194,7 +194,7 @@ final class AccessSafeNodeTests: XCTestCase {
     func testAsyncProcess_whenTokenUpdateReturnsError_thenRequestDidNotRepeat() async {
         // given
         
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -216,7 +216,7 @@ final class AccessSafeNodeTests: XCTestCase {
     func testAsyncProcess_whenTokenUpdateReturnsError_thenErrorReceived() async throws {
         // given
         
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],
@@ -239,7 +239,7 @@ final class AccessSafeNodeTests: XCTestCase {
     func testAsyncProcess_whenTokenUpdateReturnsSuccess_thenRequestRepeated() async throws {
         // given
         
-        let request = TransportUrlRequest(
+        let request = TransportURLRequest(
             method: .connect,
             url: URL(string: "www.testprocess.com")!,
             headers: ["TestHeaderKey": "TestHeaderValue"],

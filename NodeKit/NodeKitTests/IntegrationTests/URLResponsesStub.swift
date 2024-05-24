@@ -35,8 +35,8 @@ public enum URLResponsesStub {
                 return try makeUserEmptyArrResponse(request: request)
             case "Get204UserArr":
                 return try makeGet204UserArrResponse(request: request)
-            case "authWithFormUrl":
-                return try makeAuthWithFormUrlResponse(request: request)
+            case "authWithFormURL":
+                return try makeAuthWithFormURLResponse(request: request)
             case "multipartPing":
                 return try makeMultipartPingResponse(request: request)
             default:
@@ -147,7 +147,7 @@ private extension URLResponsesStub {
         )
     }
     
-    private static func makeAuthWithFormUrlResponse(request: URLRequest) throws -> (HTTPURLResponse, Data) {
+    private static func makeAuthWithFormURLResponse(request: URLRequest) throws -> (HTTPURLResponse, Data) {
         guard
             let url = request.url,
             let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems,

@@ -15,14 +15,14 @@ open class IfConnectionFailedFromCacheNode: AsyncNode {
     /// Следующий узел для обработки.
     public var next: any AsyncNode<URLRequest, Json>
     /// Узел, считывающий данные из URL кэша.
-    public var cacheReaderNode: any AsyncNode<UrlNetworkRequest, Json>
+    public var cacheReaderNode: any AsyncNode<URLNetworkRequest, Json>
 
     /// Инициаллизирует узел.
     ///
     /// - Parameters:
     ///   - next: Следующий узел для обработки.
     ///   - cacheReaderNode: Узел, считывающий данные из URL кэша.
-    public init(next: any AsyncNode<URLRequest, Json>, cacheReaderNode: any AsyncNode<UrlNetworkRequest, Json>) {
+    public init(next: any AsyncNode<URLRequest, Json>, cacheReaderNode: any AsyncNode<URLNetworkRequest, Json>) {
         self.next = next
         self.cacheReaderNode = cacheReaderNode
     }
@@ -36,7 +36,7 @@ open class IfConnectionFailedFromCacheNode: AsyncNode {
     ) async -> NodeResult<Json> {
         return await next.process(data, logContext: logContext)
             .asyncFlatMapError { error in
-                let request = UrlNetworkRequest(urlRequest: data)
+                let request = URLNetworkRequest(urlRequest: data)
                 if error is BaseTechnicalError {
                     await logContext.add(makeBaseTechinalLog(with: error))
                     return await cacheReaderNode.process(request, logContext: logContext)
@@ -57,7 +57,7 @@ open class IfConnectionFailedFromCacheNode: AsyncNode {
         )
     }
 
-    private func makeLog(with error: Error, from request: UrlNetworkRequest) -> Log {
+    private func makeLog(with error: Error, from request: URLNetworkRequest) -> Log {
         return Log(
             logViewObjectName +
                 "Catching \(error)" + .lineTabDeilimeter +

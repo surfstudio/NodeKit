@@ -21,7 +21,7 @@ open class RequestCreatorNode<Output>: AsyncNode {
     ///
     /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
     open func process(
-        _ data: TransportUrlRequest,
+        _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Output> {
         var mergedHeaders = data.headers
@@ -39,7 +39,7 @@ open class RequestCreatorNode<Output>: AsyncNode {
         return await next.process(request, logContext: logContext)
     }
 
-    private func getLogMessage(_ data: TransportUrlRequest) -> Log {
+    private func getLogMessage(_ data: TransportURLRequest) -> Log {
         var message = "<<<===\(self.objectName)===>>>\n"
         message += "input: \(type(of: data))\n\t"
         message += "method: \(data.method.rawValue)\n\t"

@@ -15,7 +15,7 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
     
     // MARK: - Dependencies
     
-    private var nextNodeMock: AsyncNodeMock<UrlDataResponse, Int>!
+    private var nextNodeMock: AsyncNodeMock<URLDataResponse, Int>!
     private var logContextMock: LoggingContextMock!
     
     // MARK: - Sut
@@ -44,12 +44,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 400, httpVersion: nil, headerFields: nil)!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         
         // when
@@ -65,12 +63,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 401, httpVersion: nil, headerFields: nil)!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         
         // when
@@ -86,12 +82,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 403, httpVersion: nil, headerFields: nil)!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         
         // when
@@ -107,12 +101,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 404, httpVersion: nil, headerFields: nil)!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         
         // when
@@ -128,12 +120,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 500, httpVersion: nil, headerFields: nil)!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         
         // when
@@ -150,12 +140,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         
         let expectedData = "TestData".data(using: .utf8)!
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 400, httpVersion: nil, headerFields: nil)!,
-            data: expectedData,
-            metrics: nil,
-            serializationDuration: 1
+            data: expectedData
         )
         
         // when
@@ -178,12 +166,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         
         let expectedData = "TestData".data(using: .utf8)!
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 401, httpVersion: nil, headerFields: nil)!,
-            data: expectedData,
-            metrics: nil,
-            serializationDuration: 1
+            data: expectedData
         )
         
         // when
@@ -206,12 +192,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         
         let expectedData = "TestData".data(using: .utf8)!
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 403, httpVersion: nil, headerFields: nil)!,
-            data: expectedData,
-            metrics: nil,
-            serializationDuration: 1
+            data: expectedData
         )
         
         // when
@@ -233,12 +217,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 404, httpVersion: nil, headerFields: nil)!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         
         // when
@@ -261,12 +243,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         
         let expectedData = "TestData".data(using: .utf8)!
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 500, httpVersion: nil, headerFields: nil)!,
-            data: expectedData,
-            metrics: nil,
-            serializationDuration: 1
+            data: expectedData
         )
         
         // when
@@ -291,12 +271,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         let url = URL(string: "www.test.com")!
         let expectedResponse = HTTPURLResponse(url: url, statusCode: 402, httpVersion: nil, headerFields: nil)!
         let expectedRequest = URLRequest(url: url)
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: expectedRequest,
             response: expectedResponse,
-            data: expectedData,
-            metrics: nil,
-            serializationDuration: 1
+            data: expectedData
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(1)
@@ -313,8 +291,6 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         XCTAssertEqual(input.response, expectedResponse)
         XCTAssertEqual(input.request, expectedRequest)
         XCTAssertEqual(input.data, expectedData)
-        XCTAssertNil(input.metrics)
-        XCTAssertEqual(input.serializationDuration, 1)
     }
     
     func testAsyncProcess_whenNextReturnsSuccess_thenSuccessReceived() async throws {
@@ -322,12 +298,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         
         let expectedResult = 901
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 402, httpVersion: nil, headerFields: nil)!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
@@ -347,12 +321,10 @@ final class ResponseHttpErrorProcessorNodeTests: XCTestCase {
         // given
         
         let url = URL(string: "www.test.com")!
-        let response = UrlDataResponse(
+        let response = URLDataResponse(
             request: URLRequest(url: url),
             response: HTTPURLResponse(url: url, statusCode: 402, httpVersion: nil, headerFields: nil)!,
-            data: Data(),
-            metrics: nil,
-            serializationDuration: 1
+            data: Data()
         )
         
         nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.firstError)

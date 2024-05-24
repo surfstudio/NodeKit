@@ -6,7 +6,7 @@
 
 import Models
 import NodeKit
-import NodeKitMock
+import MockServer
 
 public struct PaginationContentDataProvider: AsyncPagerDataProvider {
     public typealias Value = [PaginationResponseEntity]
@@ -14,8 +14,7 @@ public struct PaginationContentDataProvider: AsyncPagerDataProvider {
     public init() { }
     
     public func provide(for index: Int, with pageSize: Int) async -> NodeResult<AsyncPagerData<[PaginationResponseEntity]>> {
-        return await UrlChainsBuilder<PaginationURLProvider>()
-            .set(session: NetworkMock().urlSession)
+        return await FakeChainBuilder<PaginationURLProvider>()
             .encode(as: .urlQuery)
             .route(.get, .list)
             .build()

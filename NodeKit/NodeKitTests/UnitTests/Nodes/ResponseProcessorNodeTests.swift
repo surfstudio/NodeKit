@@ -15,7 +15,7 @@ final class ResponseProcessorNodeTests: XCTestCase {
     
     // MARK: - Dependencies
     
-    private var nextNodeMock: AsyncNodeMock<UrlDataResponse, Int>!
+    private var nextNodeMock: AsyncNodeMock<URLDataResponse, Int>!
     private var logContextMock: LoggingContextMock!
     
     // MARK: - Sut
@@ -145,8 +145,6 @@ final class ResponseProcessorNodeTests: XCTestCase {
         XCTAssertEqual(input.response, urlResponse)
         XCTAssertEqual(input.request, request)
         XCTAssertTrue(input.data.isEmpty)
-        XCTAssertNil(input.metrics)
-        XCTAssertEqual(input.serializationDuration, -1)
     }
     
     func testAsyncProcess_whenFailure_andNextReturnsSuccess_thenSuccessReceived() async throws {
@@ -300,8 +298,6 @@ final class ResponseProcessorNodeTests: XCTestCase {
         XCTAssertEqual(input.response, urlResponse)
         XCTAssertEqual(input.request, request)
         XCTAssertEqual(input.data, expectedData)
-        XCTAssertNil(input.metrics)
-        XCTAssertEqual(input.serializationDuration, -1)
     }
     
     func testAsyncProcess_whenSuccess_andNextReturnsSuccess_thenSuccessReceived() async throws {

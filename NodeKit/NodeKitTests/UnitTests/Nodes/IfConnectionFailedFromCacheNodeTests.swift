@@ -17,7 +17,7 @@ final class IfConnectionFailedFromCacheNodeTests: XCTestCase {
     // MARK: - Dependencies
     
     private var logContextMock: LoggingContextMock!
-    private var cacheReaderNodeMock: AsyncNodeMock<UrlNetworkRequest, Json>!
+    private var cacheReaderNodeMock: AsyncNodeMock<URLNetworkRequest, Json>!
     private var mapperNode: TechnicaErrorMapperNode!
     private var mapperNextNodeMock: AsyncNodeMock<URLRequest, Json>!
     

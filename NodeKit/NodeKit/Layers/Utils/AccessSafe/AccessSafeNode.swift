@@ -70,7 +70,7 @@ open class AccessSafeNode: AsyncNode {
     /// Просто передает управление следующему узлу.
     /// В случае если вернулась доступа, то обноляет токен и повторяет запрос.
     open func process(
-        _ data: TransportUrlRequest,
+        _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
         return await next.process(data, logContext: logContext)
@@ -87,7 +87,7 @@ open class AccessSafeNode: AsyncNode {
     // MARK: - Private Methods
 
     private func processWithTokenUpdate(
-        _ data: TransportUrlRequest,
+        _ data: TransportURLRequest,
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
         return await updateTokenChain.process((), logContext: logContext)
