@@ -14,7 +14,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(path: "../../../NodeKit"),
+        .package(path: "../../.."),
         .package(path: "../Models")
     ],
     targets: [
