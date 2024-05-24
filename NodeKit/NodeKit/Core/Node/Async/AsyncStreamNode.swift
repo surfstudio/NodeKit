@@ -9,9 +9,11 @@
 import Combine
 import Foundation
 
-/// Протокол, наследованный от Node, добавляющий подход преобразования входных данных в поток результатов с помощью SwiftConcurrency
+/// Протокол ноды, описывающий подход преобразования входных данных в результат с помощью SwiftConcurrency.
+/// Поддерживает обработку результатов с помощью Combine, наследуя протокол ``CombineCompatibleNode``.
+/// Содержит параметры для логов, наследуя протокол ``LoggableNode``.
 /// Применим для узлов, которые могут вернуть несколько результатов
-public protocol AsyncStreamNode<Input, Output>: Node {
+public protocol AsyncStreamNode<Input, Output>: LoggableNode, CombineCompatibleNode<Self.Input, Self.Output> {
     associatedtype Input
     associatedtype Output
 
@@ -21,11 +23,6 @@ public protocol AsyncStreamNode<Input, Output>: Node {
     /// - Returns: Поток результатов обработки данных.
     @discardableResult
     func process(_ data: Input, logContext: LoggingContextProtocol) -> AsyncStream<NodeResult<Output>>
-    
-    /// Метод возвращающий объект для обработки результатов с помощью Combine.
-    ///
-    /// - Returns: Узел, поддерживающий обработку результатов с помощью Combine.
-    func combineStreamNode() -> any CombineStreamNode<Input, Output>
     
     /// Метод, возвращающий структуру-обертку текущей ноды.
     /// Необходим для избежания проблем, возникающих при использовании any AsyncStreamNode
@@ -41,11 +38,26 @@ public extension AsyncStreamNode {
     func process(_ data: Input) -> AsyncStream<NodeResult<Output>> {
         return process(data, logContext: LoggingContext())
     }
-    /// Стандартная реализация конвертации узла в ``CombineStreamNode``.
+
+    /// Метод получения Publisher для подписки на результат.
+    /// Базовая реализация ``CombineCompatibleNode``.
+    /// При каждой подписке вызывает метод process с новой таской.
+    /// При вызове cancel вызывает cancel у таски.
     ///
-    /// - Returns: Узел, поддерживающий обработку результатов с помощью Combine.
-    func combineStreamNode() -> any CombineStreamNode<Input, Output> {
-        return AsyncStreamCombineNode(node: self)
+    /// - Parameters:
+    ///    - data: Входные данные ноды.
+    ///    - scheduler: Scheduler для выдачи результата.
+    ///    - logContext: Контекст логов.
+    /// - Returns: Publisher для подписки на результат.
+    @discardableResult
+    func nodeResultPublisher(
+        for data: Input,
+        on scheduler: some Scheduler,
+        logContext: LoggingContextProtocol
+    ) -> AnyPublisher<NodeResult<Output>, Never> {
+        return AsyncStreamNodeResultPublisher(node: self, input: data, logContext: logContext)
+            .receive(on: scheduler)
+            .eraseToAnyPublisher()
     }
     
     /// Метод, возвращающий структуру-обертку текущей ноды.

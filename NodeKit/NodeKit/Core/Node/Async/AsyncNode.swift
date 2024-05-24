@@ -9,9 +9,11 @@
 import Combine
 import Foundation
 
-/// Протокол, наследованный от Node, добавляющий подход преобразования входных данных в результат с помощью SwiftConcurrency.
+/// Протокол ноды, описывающий подход преобразования входных данных в результат с помощью SwiftConcurrency.
+/// Поддерживает обработку результатов с помощью Combine, наследуя протокол ``CombineCompatibleNode``.
+/// Содержит параметры для логов, наследуя протокол ``LoggableNode``.
 /// Применим для узлов, которые возвращают один результат.
-public protocol AsyncNode<Input, Output>: Node {
+public protocol AsyncNode<Input, Output>: LoggableNode, CombineCompatibleNode<Self.Input, Self.Output> {
     associatedtype Input
     associatedtype Output
 
@@ -21,11 +23,6 @@ public protocol AsyncNode<Input, Output>: Node {
     /// - Returns: Результат обработки данных.
     @discardableResult
     func process(_ data: Input, logContext: LoggingContextProtocol) async -> NodeResult<Output>
-    
-    /// Метод, возвращающий объект для обработки результатов с помощью Combine.
-    ///
-    /// - Returns: Узел, поддерживающий обработку результатов с помощью Combine.
-    func combineNode() -> any CombineNode<Input, Output>
     
     /// Метод, возвращающий структуру-обертку текущей ноды.
     /// Необходим для избежания проблем, возникающих при использовании any AsyncNode
@@ -48,11 +45,25 @@ public extension AsyncNode {
         return await process(data, logContext: LoggingContext())
     }
     
-    /// Стандартная реализация конвертации узла в ``CombineNode``.
+    /// Метод получения Publisher для подписки на результат.
+    /// Базовая реализация ``CombineCompatibleNode``.
+    /// При каждой подписке вызывает метод process с новой таской.
+    /// При вызове cancel вызывает cancel у таски.
     ///
-    /// - Returns: Узел, поддерживающий обработку результатов с помощью Combine.
-    func combineNode() -> any CombineNode<Input, Output> {
-        return AsyncCombineNode(node: self)
+    /// - Parameters:
+    ///    - data: Входные данные ноды.
+    ///    - scheduler: Scheduler для выдачи результата.
+    ///    - logContext: Контекст логов.
+    /// - Returns: Publisher для подписки на результат.
+    @discardableResult
+    func nodeResultPublisher(
+        for data: Input,
+        on scheduler: some Scheduler,
+        logContext: LoggingContextProtocol
+    ) -> AnyPublisher<NodeResult<Output>, Never> {
+        return AsyncNodeResultPublisher(node: self, input: data, logContext: logContext)
+            .receive(on: scheduler)
+            .eraseToAnyPublisher()
     }
     
     /// Метод, возвращающий структуру-обертку текущей ноды.

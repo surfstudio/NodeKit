@@ -17,10 +17,10 @@ final class CombineNodeTests: XCTestCase {
     // MARK: - Tests
     
     @MainActor
-    func testNodeResultPublisher_withVoid_thenMainMethodCalled() throws {
+    func testVoidNodeResultPublisher_thenMainMethodCalled() throws {
         // given
         
-        let sut = CombineNodeMock<Void, Int>()
+        let sut = CombineCompatibleNodeMock<Void, Int>()
         sut.stubbedNodeResultPublisherResult = PassthroughSubject().eraseToAnyPublisher()
         
         // when
@@ -38,10 +38,81 @@ final class CombineNodeTests: XCTestCase {
     }
     
     @MainActor
+    func testVoidNodeResultPublisher_withCustomScheduler_thenMainMethodCalled() throws {
+        // given
+        
+        let queue = DispatchQueue(label: "Test Process Queue")
+        let sut = CombineCompatibleNodeMock<Void, Int>()
+        sut.stubbedNodeResultPublisherResult = PassthroughSubject().eraseToAnyPublisher()
+        
+        // when
+        
+        _ = sut.nodeResultPublisher(on: queue)
+            .sink(receiveValue: { _ in })
+        
+        // then
+        
+        let parameters = try XCTUnwrap(sut.invokedNodeResultPublisherParameters)
+        let scheduler = try XCTUnwrap(parameters.scheduler as? DispatchQueue)
+        
+        XCTAssertEqual(sut.invokedNodeResultPublisherCount, 1)
+        XCTAssertEqual(scheduler, queue)
+    }
+    
+    @MainActor
+    func testVoidNodeResultPublisher_withCustomQueue_andLogContext_thenMainMethodCalled() throws {
+        // given
+        
+        let queue = DispatchQueue(label: "Test Process Queue")
+        let sut = CombineCompatibleNodeMock<Void, Int>()
+        let logContextMock = LoggingContextMock()
+        
+        sut.stubbedNodeResultPublisherResult = PassthroughSubject().eraseToAnyPublisher()
+        
+        // when
+        
+        _ = sut.nodeResultPublisher(on: queue, logContext: logContextMock)
+            .sink(receiveValue: { _ in })
+        
+        // then
+        
+        let parameters = try XCTUnwrap(sut.invokedNodeResultPublisherParameters)
+        let scheduler = try XCTUnwrap(parameters.scheduler as? DispatchQueue)
+        
+        XCTAssertEqual(sut.invokedNodeResultPublisherCount, 1)
+        XCTAssertEqual(scheduler, queue)
+        XCTAssertTrue(parameters.logContext === logContextMock)
+    }
+    
+    @MainActor
+    func testVoidNodeResultPublisher_withCustomLogContext_thenMainMethodCalled() throws {
+        // given
+        
+        let sut = CombineCompatibleNodeMock<Void, Int>()
+        let logContextMock = LoggingContextMock()
+        
+        sut.stubbedNodeResultPublisherResult = PassthroughSubject().eraseToAnyPublisher()
+        
+        // when
+        
+        _ = sut.nodeResultPublisher(logContext: logContextMock)
+            .sink(receiveValue: { _ in })
+        
+        // then
+        
+        let parameters = try XCTUnwrap(sut.invokedNodeResultPublisherParameters)
+        let scheduler = try XCTUnwrap(parameters.scheduler as? DispatchQueue)
+        
+        XCTAssertEqual(sut.invokedNodeResultPublisherCount, 1)
+        XCTAssertEqual(scheduler, .main)
+        XCTAssertTrue(parameters.logContext === logContextMock)
+    }
+    
+    @MainActor
     func testNodeResultPublisher_withData_thenMainMethodCalled() throws {
         // given
         
-        let sut = CombineNodeMock<Int, Int>()
+        let sut = CombineCompatibleNodeMock<Int, Int>()
         let expectedInput = 1
         
         sut.stubbedNodeResultPublisherResult = PassthroughSubject().eraseToAnyPublisher()
@@ -64,7 +135,7 @@ final class CombineNodeTests: XCTestCase {
     func testNodeResultPublisher_withData_onCustomQueue_thenMainMethodCalled() throws {
         // given
         
-        let sut = CombineNodeMock<Int, Int>()
+        let sut = CombineCompatibleNodeMock<Int, Int>()
         let expectedInput = 1
         let queue = DispatchQueue(label: "Test Process Queue")
         
@@ -89,7 +160,7 @@ final class CombineNodeTests: XCTestCase {
     func testNodeResultPublisher_withData_andLogContext_thenMainMethodCalled() throws {
         // given
         
-        let sut = CombineNodeMock<Int, Int>()
+        let sut = CombineCompatibleNodeMock<Int, Int>()
         let logContextMock = LoggingContextMock()
         let expectedInput = 3
         
