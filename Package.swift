@@ -17,16 +17,17 @@ let package = Package(
             targets: ["NodeKitMock"]
         ),
     ],
-    dependencies: [
-        .package(path: "./NodeKitThirdParty")
-    ],
     targets: [
+        .target(
+            name: "NodeKitThirdParty",
+            path: "NodeKit/NodeKitThirdParty/Source"
+        ),
         .target(
             name: "NodeKit",
             dependencies: [
                 "NodeKitThirdParty"
             ],
-            path: "NodeKit",
+            path: "NodeKit/NodeKit",
             exclude: [
                 "Info.plist"
             ]
@@ -36,7 +37,7 @@ let package = Package(
             dependencies: [
                 "NodeKit"
             ],
-            path: "NodeKitMock"
+            path: "NodeKit/NodeKitMock"
         ),
         .testTarget(
             name: "NodeKitTests",
@@ -44,7 +45,7 @@ let package = Package(
                 "NodeKit",
                 "NodeKitMock"
             ],
-            path: "NodeKitTests",
+            path: "NodeKit/NodeKitTests",
             exclude: [
                 "Resources/LICENSE.txt",
             ]
