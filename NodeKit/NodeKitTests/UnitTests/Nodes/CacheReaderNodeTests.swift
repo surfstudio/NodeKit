@@ -27,7 +27,7 @@ final class CacheReaderNodeTests: XCTestCase {
     override func setUp() {
         super.setUp()
         logContextMock = LoggingContextMock()
-        sut = URLCacheReaderNode(needsToThrowError: true)
+        sut = URLCacheReaderNode()
     }
     
     override func tearDown() {

@@ -23,12 +23,6 @@ public enum BaseURLCacheReaderError: Error {
 /// Сам по себе узел является листом и не может быть встроен в сквозную цепочку.
 open class URLCacheReaderNode: AsyncNode {
 
-    public var needsToThrowError: Bool
-
-    public init(needsToThrowError: Bool) {
-        self.needsToThrowError = needsToThrowError
-    }
-
     /// Посылает запрос в кэш и пытается сериализовать данные в JSON.
     open func process(
         _ data: URLNetworkRequest,
