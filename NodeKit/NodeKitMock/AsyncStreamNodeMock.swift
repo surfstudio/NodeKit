@@ -6,20 +6,20 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
-import NodeKit
+@testable import NodeKit
 
-public class AsyncStreamNodeMock<Input, Output>: AsyncStreamNode {
+class AsyncStreamNodeMock<Input, Output>: AsyncStreamNode {
     
-    public init() { }
+    init() { }
     
-    public var invokedAsyncStreamProcess = false
-    public var invokedAsyncStreamProcessCount = 0
-    public var invokedAsyncStreamProcessParameter: (data: Input, logContext: LoggingContextProtocol)?
-    public var invokedAsyncStreamProcessParameterList: [(data: Input, logContext: LoggingContextProtocol)] = []
-    public var stubbedAsyncStreamProccessResult: (() -> AsyncStream<NodeResult<Output>>)!
-    public var stubbedAsyncStreamProcessRunFunction: (() -> Void)?
+    var invokedAsyncStreamProcess = false
+    var invokedAsyncStreamProcessCount = 0
+    var invokedAsyncStreamProcessParameter: (data: Input, logContext: LoggingContextProtocol)?
+    var invokedAsyncStreamProcessParameterList: [(data: Input, logContext: LoggingContextProtocol)] = []
+    var stubbedAsyncStreamProccessResult: (() -> AsyncStream<NodeResult<Output>>)!
+    var stubbedAsyncStreamProcessRunFunction: (() -> Void)?
     
-    public func process(_ data: Input, logContext: LoggingContextProtocol) -> AsyncStream<NodeResult<Output>> {
+    func process(_ data: Input, logContext: LoggingContextProtocol) -> AsyncStream<NodeResult<Output>> {
         invokedAsyncStreamProcess = true
         invokedAsyncStreamProcessCount += 1
         invokedAsyncStreamProcessParameter = (data, logContext)

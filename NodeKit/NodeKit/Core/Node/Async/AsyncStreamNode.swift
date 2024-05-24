@@ -11,9 +11,9 @@ import Foundation
 
 /// Протокол ноды, описывающий подход преобразования входных данных в результат с помощью SwiftConcurrency.
 /// Поддерживает обработку результатов с помощью Combine, наследуя протокол ``CombineCompatibleNode``.
-/// Содержит параметры для логов, наследуя протокол ``LoggableNode``.
+/// Содержит параметры для логов, наследуя протокол ``Node``.
 /// Применим для узлов, которые могут вернуть несколько результатов
-public protocol AsyncStreamNode<Input, Output>: LoggableNode, CombineCompatibleNode<Self.Input, Self.Output> {
+protocol AsyncStreamNode<Input, Output>: Node, CombineCompatibleNode<Self.Input, Self.Output> {
     associatedtype Input
     associatedtype Output
 
@@ -31,7 +31,7 @@ public protocol AsyncStreamNode<Input, Output>: LoggableNode, CombineCompatibleN
     func eraseToAnyNode() -> AnyAsyncStreamNode<Input, Output>
 }
 
-public extension AsyncStreamNode {
+extension AsyncStreamNode {
     
     /// Метод process с созданием нового лог контекста.
     @discardableResult
@@ -70,7 +70,7 @@ public extension AsyncStreamNode {
 }
 
 /// Содержит синтаксический сахар для работы с узлами, у которых входящий тип = `Void`
-public extension AsyncStreamNode where Input == Void {
+extension AsyncStreamNode where Input == Void {
     
     /// Вызывает `process(_:)`
     @discardableResult

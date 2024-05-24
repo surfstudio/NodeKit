@@ -15,14 +15,16 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Models"),
-        .package(path: "../../../NodeKit")
+        .package(path: "../MockServer"),
+        .package(path: "../../..")
     ],
     targets: [
         .target(
             name: "Services",
             dependencies: [
                 "Models",
-                "NodeKit"
+                "NodeKit",
+                "MockServer"
             ],
             path: "Services"
         )

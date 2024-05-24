@@ -11,9 +11,9 @@ import Foundation
 
 /// Протокол ноды, описывающий подход преобразования входных данных в результат с помощью SwiftConcurrency.
 /// Поддерживает обработку результатов с помощью Combine, наследуя протокол ``CombineCompatibleNode``.
-/// Содержит параметры для логов, наследуя протокол ``LoggableNode``.
+/// Содержит параметры для логов, наследуя протокол ``Node``.
 /// Применим для узлов, которые возвращают один результат.
-public protocol AsyncNode<Input, Output>: LoggableNode, CombineCompatibleNode<Self.Input, Self.Output> {
+public protocol AsyncNode<Input, Output>: Node, CombineCompatibleNode<Self.Input, Self.Output> {
     associatedtype Input
     associatedtype Output
 
@@ -29,12 +29,6 @@ public protocol AsyncNode<Input, Output>: LoggableNode, CombineCompatibleNode<Se
     ///
     /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncNode``.
     func eraseToAnyNode() -> AnyAsyncNode<Input, Output>
-    
-    /// Метод, позволяющий объединить две ноды с одинаковыми Input и Output в AsyncStreamNode.
-    ///
-    /// - Parameter node: Нода, необходимая для объединения.
-    /// - Returns: Нода AsyncStreamNode, включающая текущую и переданную ноду.
-    func merged(with node: any AsyncNode<Input, Output>) -> any AsyncStreamNode<Input, Output>
 }
 
 public extension AsyncNode {
@@ -74,13 +68,7 @@ public extension AsyncNode {
         return AnyAsyncNode(node: self)
     }
     
-    /// Стандартная реализация объединения двух узлов в AsyncStreamNode.
-    ///
-    /// - Parameter node: Нода, необходимая для объединения.
-    /// - Returns: Нода AsyncStreamNode, включающая текущую и переданную ноду.
-    func merged(with node: any AsyncNode<Input, Output>) -> any AsyncStreamNode<Input, Output> {
-        return MergedAsyncStreamNode(firstNode: self, secondNode: node)
-    }
+
 }
 
 /// Содержит синтаксический сахар для работы с узлами, у которых входящий тип = `Void`

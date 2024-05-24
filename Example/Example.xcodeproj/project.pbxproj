@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -350,7 +350,6 @@
 			packageReferences = (
 				50C445A02BC81FB300C515E6 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 				50C445A62BC8202600C515E6 /* XCRemoteSwiftPackageReference "ReactiveDataDisplayManager" */,
-				5097DF472BCD62AA00D422EE /* XCLocalSwiftPackageReference "../NodeKit" */,
 				50B5697E2BD183F00054DC09 /* XCRemoteSwiftPackageReference "iOS-Utils" */,
 				50B569812BD184150054DC09 /* XCRemoteSwiftPackageReference "Nuke" */,
 				50B5698A2BD18F040054DC09 /* XCRemoteSwiftPackageReference "SnapKit" */,
@@ -602,13 +601,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		5097DF472BCD62AA00D422EE /* XCLocalSwiftPackageReference "../NodeKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../NodeKit;
-		};
-/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		50B5697E2BD183F00054DC09 /* XCRemoteSwiftPackageReference "iOS-Utils" */ = {
