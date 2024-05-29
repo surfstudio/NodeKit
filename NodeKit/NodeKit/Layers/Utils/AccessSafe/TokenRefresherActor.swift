@@ -6,13 +6,13 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
-/// Протокол актора обновления токена
+/// Token refresh actor protocol.
 public protocol TokenRefresherActorProtocol: Actor {
-    /// Возвращает результат обновления токена.
-    /// Если процесс был запущен, ждет и возвращает результат предыдущего запроса
+    /// Returns the token refresh result.
+    /// If the process was initiated, waits and returns the result of the previous request.
     ///
-    /// - Parameter logContext: контекст для записи логов
-    /// - Returns результат обновления токена
+    /// - Parameter logContext: The context for logging.
+    /// - Returns: The token refresh result.
     func refresh(logContext: LoggingContextProtocol) async -> NodeResult<Void>
 }
 
@@ -21,10 +21,10 @@ actor TokenRefresherActor: TokenRefresherActorProtocol {
 
     // MARK: - Private Properties
     
-    /// Текущая таска обновления токена
+    /// Current token refresh task.
     private var task: Task<NodeResult<Void>, Never>?
     
-    /// Цепочка нод, которые обновляют токен
+    /// Chain of nodes responsible for token refresh
     private var tokenRefreshChain: any AsyncNode<Void, Void>
     
     // MARK: - Initialization
@@ -36,10 +36,10 @@ actor TokenRefresherActor: TokenRefresherActorProtocol {
     // MARK: - Methods
 
     /// Возвращает результат обновления токена.
-    /// Если процесс был запущен, ждет и возвращает результат предыдущего запроса
+    /// Если процесс был запущен, ожидает и возвращает результат предыдущего запроса.
     ///
-    /// - Parameter logContext: контекст для записи логов
-    /// - Returns результат обновления токена
+    /// - Parameter logContext: Контекст для записи логов.
+    /// - Returns: Результат обновления токена.
     func refresh(logContext: LoggingContextProtocol) async -> NodeResult<Void> {
         guard let task = task else {
             return await resultFromNewTask(logContext: logContext)

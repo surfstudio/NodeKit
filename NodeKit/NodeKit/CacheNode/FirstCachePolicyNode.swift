@@ -8,42 +8,42 @@
 
 import Foundation
 
-/// Ошибки для узла `FirstCachePolicyNode`
+/// Errors for the node `FirstCachePolicyNode`
 ///
 /// - SeeAlso: `FirstCachePolicyNode`
 ///
-/// - cantGetURLRequest: Возникает в случае, если запрос отправленный в сеть не содержит `URLRequest`
+/// - cantGetURLRequest: Occurs if the request sent over the network does not contain a `URLRequest`
 enum BaseFirstCachePolicyNodeError: Error {
     case cantGetURLRequest
 }
 
-/// Этот узел реализует политику кэширования
-/// "Сначала читаем из кэша, а затем запрашиваем у сервера"
-/// - Important: В общем случае слушатель может быть оповещен дважды. Первый раз, когда ответ прочитан из кэша, а второй раз, когда он был получен с сервера.
+/// This node implements the caching policy
+/// "Read from cache first, then request from server"
+/// - Important: In general, the listener may be notified twice. The first time when the response is read from the cache, and the second time when it is received from the server.
 class FirstCachePolicyNode: AsyncStreamNode {
     // MARK: - Nested
 
-    /// Тип для читающего из URL кэша узла
+    /// Type for the node reading from URL cache
     typealias CacheReaderNode = AsyncNode<URLNetworkRequest, Json>
 
-    /// Тип для следующего узла
+    /// Type for the next node
     typealias NextProcessorNode = AsyncNode<RawURLRequest, Json>
 
     // MARK: - Properties
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     var next: any NextProcessorNode
 
-    /// Узел для чтения из кэша.
+    /// Node for reading from cache.
     var cacheReaderNode: any CacheReaderNode
 
     // MARK: - Init and Deinit
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
     /// - Parameters:
-    ///   - cacheReaderNode: Узел для чтения из кэша.
-    ///   - next: Следующий узел для обработки.
+    ///   - cacheReaderNode: Node for reading from cache.
+    ///   - next: The next node for processing.
     init(cacheReaderNode: any CacheReaderNode, next: any NextProcessorNode) {
         self.cacheReaderNode = cacheReaderNode
         self.next = next
@@ -51,10 +51,10 @@ class FirstCachePolicyNode: AsyncStreamNode {
 
     // MARK: - Node
     
-    /// Пытается получить `URLRequest` и если удается, то обращается в кэш
-    /// а затем, передает управление следующему узлу.
-    /// В случае, если получить `URLRequest` не удалось,
-    /// то управление просто передается следующему узлу
+    /// Tries to get the `URLRequest` and if successful, accesses the cache
+    /// and then passes control to the next node.
+    /// If obtaining the `URLRequest` fails,
+    /// control is passed to the next node.
     func process(
         _ data: RawURLRequest,
         logContext: LoggingContextProtocol

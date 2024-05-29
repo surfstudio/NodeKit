@@ -8,16 +8,16 @@
 
 import NodeKitThirdParty
 
-/// Протокол фабрики для создания объекта, позволяющего собирать multipart/form-data.
+/// Protocol for the factory to create an object capable of assembling multipart/form-data.
 public protocol MultipartFormDataFactory {
     
-    /// Метод создания объекта.
+    /// Method for creating the object.
     ///
-    /// - Returns: Объекта для сборки multipart/form-data.
+    /// - Returns: Object for assembling multipart/form-data.
     func produce() -> MultipartFormDataProtocol
 }
 
-/// Фабрика для создания MultipartFormData - реализации Alamofire.
+/// Factory for creating MultipartFormData - Alamofire implementation.
 public struct AlamofireMultipartFormDataFactory: MultipartFormDataFactory {
     
     // MARK: - Initialization
@@ -26,9 +26,9 @@ public struct AlamofireMultipartFormDataFactory: MultipartFormDataFactory {
     
     // MARK: - MultipartFormDataFactory
     
-    /// Метод создания объекта.
+    /// Method for creating the object.
     ///
-    /// - Returns: Реализация протокола ``MultipartFormDataProtocol`` от Alamofire.
+    /// - Returns: Implementation of the `MultipartFormDataProtocol` protocol from Alamofire.
     public func produce() -> MultipartFormDataProtocol {
         return MultipartFormData()
     }

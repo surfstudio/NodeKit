@@ -8,11 +8,11 @@
 
 import Foundation
 
-/// Содержит константы для работы с eTag
-/// Эти кнстанты описаны в соответствии с RFC и AppleDeveloper
+/// Constants for working with eTags
+/// These constants are described in accordance with RFC and AppleDeveloper.
 public enum ETagConstants {
 
-    /// В хедерах **ответа** от сервера под **этим** ключем должен лежать eTag-токен
+    /// In the **response** headers, the eTag token should be placed under **this** key.
     ///
     /// - SeeAlso:
     ///     - [AppleDeveloper](https://developer.apple.com/documentation/foundation/httpurlresponse/1417930-allheaderfields)
@@ -21,7 +21,7 @@ public enum ETagConstants {
         return "Etag"
     }
 
-    /// В хедерах **запроса** к серверу под этим ключем должен лежать eTag-токен
+    /// In the **request** headers, the eTag token should be placed under **this** key.
     ///
     /// - SeeAlso: [RFC-7232](https://tools.ietf.org/html/rfc7232#section-3.2)
     ///

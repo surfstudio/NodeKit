@@ -8,67 +8,63 @@
 
 import Foundation
 
-/// Ошибка для узла сохранения доступа
+/// Error for the access-saving node.
 ///
-/// - nodeWasRelease: Возникает в случае, если узел релизнулся из памяти.
+/// - nodeWasReleased: Occurs when the node is released from memory.
 public enum AccessSafeNodeError: Error {
     case nodeWasRelease
 }
 
-/// ## Описание
-/// Узел имплементриующий логику для сохранения доступа к удаленному ресурсу.
-/// Например можно рассмотреть схему для AOuth 2.0
+/// ## Description
+/// Node implementing logic for maintaining access to a remote resource.
+/// For example, you can consider a scheme for OAuth 2.0.
 ///
-/// ## Пример
-/// После авторизации пользователь получает:
-/// - AccessToken - для получения доступа к ресурсу. Токен имеет время жизни.
-/// - RefreshToken - токен, для обновления AccessToken'а без прохождения процедуры аутентификации
+/// ## Example
+/// After authorization, the user receives:
+/// - AccessToken - to access the resource. The token has a lifetime.
+/// - RefreshToken - a token to refresh the AccessToken without going through the authentication procedure.
 ///
-/// Рассмотрим ситуацию с "протухшим" токеном:
-/// 1. Отправляем запрос с "протухшим" токеном.
-/// 2. Сервер возвращает ошибку с кодом 403 (либо 401)
-/// 3. Узел запускает цепочку для обновления токена, а сам запрос сохраняет
-/// 4. Цепочка вернула результат
-///     1. Успех - продолжаем работу
-///     2. Ошибка - пробрасываем ее выше. Работа цепочек завершается.
-/// 5. Повторяем запрос с новым токеном.
+/// Let's consider a situation with an "expired" token:
+/// 1. Send a request with the "expired" token.
+/// 2. The server returns an error with code 403 (or 401).
+/// 3. The node initiates a chain to refresh the token, while saving the request itself.
+/// 4. The chain returns a result:
+///     1. Success - continue working.
+///     2. Error - chain execution ends.
+/// 5. Retry the request with the new token.
 ///
-/// ## Нужно знать
-/// - Important: Очевидно, что этот узел должен находится **перед** узлом, который подставляет токен в запрос.
+/// ## Need to Know
+/// - Important: It is obvious that this node should be placed **before** the node that inserts the token into the request.
 ///
-/// Узел также потокобезопасно умеет работать с несколькими запросами.
-/// То есть, если мы "одновременно" посылаем несколько запросов и первый запрос завершился с ошибкой доступа, то все остальные запросы будут заморожены.
-/// Когда токен обновится, то все замороженные запросы будут повторно отправлены в сеть.
+/// The node also handles multiple requests in a thread-safe manner.
+/// That is, if we send multiple requests "simultaneously" and the first request fails due to access error, all other requests will be frozen.
+/// When the token is refreshed, all frozen requests will be resent to the network.
 ///
-/// Очевидно, что если во время ожидания обновления токена придет новый запрос, то он так же будет заморожен и позже отправлен заново.
+/// Obviously, if a new request comes in during the token refresh wait, it will also be frozen and later resent.
 ///
-/// - Warning: Есть веротяность того, что запрос не отправится, если он был послан в тот самый момент, когда токен обновился и мы начали отправлять запросы повторно, но верооятность этого события ничтожно мала. Нужно отправлять сотни запросов в секунду, чтобы такого добиться. Причем скорее всего эта ситуация не возможна, потому что после обновления токена запрос не заморозится.
-///
-/// - SeeAlso:
-///     - `TransportLayerNode`
-///     - `TokenRefresherNode`
+/// - Warning: There is a possibility that a request will not be sent if it was sent at the exact moment when the token was refreshed and we started sending requests again, but the probability of this event is extremely low. You would need to send hundreds of requests per second to achieve this. Moreover, this situation is most likely impossible because after token refresh, the request won't be frozen.
 open class AccessSafeNode<Output>: AsyncNode {
 
-    /// Следующий в цепочке узел.
+    /// The next node for processing.
     public var next: any AsyncNode<TransportURLRequest, Output>
 
-    /// Цепочка для обновления токена.
-    /// Эта цепочкаа в самом начале должна выключать узел, который имплементирует заморозку запросов и их возобновление.
-    /// Из-коробки это реализует узел `TokenRefresherNode`
+    /// Token refresh chain.
+    /// This chain should initially disable the node that implements request freezing and resumption.
+    /// Out of the box, this is implemented by the ``TokenRefresherNode`` node.
     public var updateTokenChain: any AsyncNode<Void, Void>
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
     /// - Parameters:
-    ///   - next: Следующий в цепочке узел.
-    ///   - updateTokenChain: Цепочка для обновления токена.
+    ///   - next: The next node in the chain.
+    ///   - updateTokenChain: The token update chain.
     public init(next: some AsyncNode<TransportURLRequest, Output>, updateTokenChain: some AsyncNode<Void, Void>) {
         self.next = next
         self.updateTokenChain = updateTokenChain
     }
 
-    /// Просто передает управление следующему узлу.
-    /// В случае если вернулась доступа, то обноляет токен и повторяет запрос.
+    /// Passes control to the next node.
+    /// If access is returned, it updates the token and retries the request.
     open func process(
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol

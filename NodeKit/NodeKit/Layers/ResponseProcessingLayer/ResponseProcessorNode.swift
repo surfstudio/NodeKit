@@ -8,29 +8,29 @@
 
 import Foundation
 
-/// Ошибки для `ResponseProcessorNode`
+/// Errors for ``ResponseProcessorNode``
 ///
-/// - rawResponseNotHaveMetaData: Возникает в случае, если запрос неконсистентен.
+/// - rawResponseNotHaveMetaData: Occurs if the request is inconsistent.
 public enum ResponseProcessorNodeError: Error {
     case rawResponseNotHaveMetaData
 }
 
-/// Этот узел занимается первичной обработкой ответа сервера.
+/// This node is responsible for the initial processing of the server response.
 open class ResponseProcessorNode<Type>: AsyncNode {
 
-    /// Следующий узел для обратки.
+    /// The next node for processing.
     public let next: any AsyncNode<URLDataResponse, Type>
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
-    /// - Parameter next: Следующий узел для обратки.
+    /// - Parameter next: The next node for processing.
     public init(next: some AsyncNode<URLDataResponse, Type>) {
         self.next = next
     }
 
-    /// Проверяет, возникла-ли какая-то ошибка во время работы.
+    /// Checks if there was any error during operation.
     ///
-    /// - Parameter data: Низкоуровневый ответ сервера.
+    /// - Parameter data: The low-level server response.
     open func process(
         _ data: NodeDataResponse,
         logContext: LoggingContextProtocol

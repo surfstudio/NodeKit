@@ -9,25 +9,25 @@
 import Foundation
 
 public protocol LoggingContextProtocol: Actor {
-    // Лог контекста
+    /// Root log.
     var log: Logable? { get }
 
-    /// Добавляет лог-сообщение к контексту.
-    /// - Parameter log: лог-сообщение.
+    /// Adds a log message to the context.
+    /// - Parameter log: Log message.
     func add(_ log: Logable?)
 }
 
 public actor LoggingContext: LoggingContextProtocol {
 
-    // Лог контекста
+    /// Root log.
     public private(set) var log: Logable?
 
-    /// Добавляет лог-сообщение к контексту.
-    /// В случае, если у контекста не было лога, то он появится.
-    /// В случае, если у контекста был лог, но у него не было следующего, то этот добавится в качестве следующего лога.
-    /// В случае, если лог был, а у него был следующий лог, то этот будет вставлен между ними.
+    /// Adds a log message to the context.
+    /// If the context did not have a root log, the passed log will become the root.
+    /// If the context had a root log but it did not have a next one, then the passed log will be added as the next log.
+    /// If there was a root log and it had a next log, then the passed log will be inserted between them.
     ///
-    /// - Parameter log: лог-сообщение.
+    /// - Parameter log: Log message.
     public func add(_ log: Logable?) {
         guard var currentLog = self.log else {
             self.log = log

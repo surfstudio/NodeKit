@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Результат запроса ``AsyncPagerDataProvider``.
+/// Result of the request ``AsyncPagerDataProvider``.
 public struct AsyncPagerData<Value> {
     public let value: Value
     public let len: Int
@@ -19,15 +19,15 @@ public struct AsyncPagerData<Value> {
     }
 }
 
-/// Протокол описывающий провайдера данных, который возвращает результат работы цепочки или узла.
+/// Protocol describing a data provider that returns the result of the chain or node operation.
 public protocol AsyncPagerDataProvider<Value> {
     associatedtype Value
     
-    /// Метод запроса данных.
+    /// Data request method.
     ///
     /// - Parameters:
-    ///  - index: Индекс с которого будут запрошены данные.
-    ///  - pageSize: Количество элементов на странице.
-    /// - Returns: Результат работыу цепочки или узла.
+    ///   - index: The index from which data will be requested.
+    ///   - pageSize: Number of items per page.
+    /// - Returns: Result of the chain or node operation.
     func provide(for index: Int, with pageSize: Int) async -> NodeResult<AsyncPagerData<Value>>
 }

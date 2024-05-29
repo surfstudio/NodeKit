@@ -8,9 +8,9 @@
 
 import Foundation
 
-/// Содержит вычисляемые константы
+/// Contains computed constants
 public extension String {
-    /// Возвращает последовательность "\n\t"
+    /// Returns the sequence "\r\n"
     static var lineTabDeilimeter: String {
         return "\r\n"
     }

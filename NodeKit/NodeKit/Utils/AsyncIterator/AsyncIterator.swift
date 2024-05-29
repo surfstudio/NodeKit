@@ -8,13 +8,13 @@
 public protocol AsyncIterator<Value>: Actor {
     associatedtype Value
     
-    /// Запрос следующих данных
+    /// Requests next data.
     @discardableResult
     func next() async -> Result<Value, Error>
     
-    /// Показывает есть ли еще данные
+    /// Returns whether there is more data.
     func hasNext() -> Bool
 
-    /// Сброс свойств итератора
+    /// Resets the iterator.
     func renew()
 }

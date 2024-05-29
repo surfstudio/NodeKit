@@ -14,24 +14,24 @@ public struct NodeDataResponse {
      public let result: Result<Data, Error>
  }
 
-/// Этот узел отправляет запрос на сервер и ожидает ответ.
-/// - Important: этот узел имеет состояние (statefull)
+/// This node sends a request to the server and waits for a response.
+/// - Important: This node is statefull.
 open class RequestSenderNode<Type>: AsyncNode, Aborter {
 
-    /// Тип для узла, который будет обрабатывать ответ от сервера.
+    /// Type for the node that will handle the server response.
     public typealias RawResponseProcessor = AsyncNode<NodeDataResponse, Type>
 
-    /// Узел для обработки ответа.
+    /// Node for processing the response.
     public var rawResponseProcessor: any RawResponseProcessor
 
-    /// Менеджер сессий
+    /// Session manager
     private(set) var manager: URLSession
     private let dataTaskActor: URLSessionDataTaskActorProtocol
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
-    /// - Parameter rawResponseProcessor: Узел для обработки ответа.
-    /// - Parameter manager: URLSession менеджер, по умолчанию задается сессия из ServerRequestsManager
+    /// - Parameter rawResponseProcessor: The node for processing the response.
+    /// - Parameter manager: URLSession manager, by default set to the session from ServerRequestsManager.
     public init(
         rawResponseProcessor: some RawResponseProcessor,
         dataTaskActor: URLSessionDataTaskActorProtocol? = nil,
@@ -42,9 +42,9 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
         self.manager = manager ?? ServerRequestsManager.shared.manager
     }
 
-    /// Выполняет запрос,ожидает ответ и передает его следующему узлу.
+    /// Executes the request, waits for the response, and passes it to the next node.
     ///
-    /// - Parameter request: Данные для исполнения запроса.
+    /// - Parameter request: The data for executing the request.
     open func process(
         _ request: URLRequest,
         logContext: LoggingContextProtocol

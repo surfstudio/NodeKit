@@ -1,27 +1,27 @@
 import Foundation
 
-/// Модель для отправки multipart запросов.
-/// Позволяет передавать как файлы, так и просто данные.
+/// Model for sending multipart requests.
+/// Allows transmitting both files and simple data.
 open class MultipartModel<T> {
 
-    /// Обычные данные для запроса.
+    /// Regular data for the request.
     public let payloadModel: T
-    /// Набор файлов для запроса.
+    /// Files for the request.
     public let files: [String: MultipartFileProvider]
 
-    /// Основной конструктор.
+    /// Main constructor.
     ///
     /// - Parameters:
-    ///   - payloadModel: Обычные данные для запроса.
-    ///   - files: Набор файлов для запроса.
+    ///   - payloadModel: Regular data for the request.
+    ///   - files: Files for the request.
     public required init(payloadModel: T, files: [String: MultipartFileProvider]) {
         self.payloadModel = payloadModel
         self.files = files
     }
 
-    /// Дополнительный конструктор. Инициаллизирует объект пустым набором файлов.
+    /// Additional constructor. Initializes the object with an empty set of files.
     ///
-    /// - Parameter payloadModel: Обычные данные для запроса.
+    /// - Parameter payloadModel: Regular data for the request.
     public convenience init(payloadModel: T) {
         self.init(payloadModel: payloadModel, files: [String: MultipartFileProvider]())
     }

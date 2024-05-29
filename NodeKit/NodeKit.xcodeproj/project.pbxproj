@@ -203,9 +203,7 @@
 		90B609BF283E1287006F4309 /* Logable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60980283E1287006F4309 /* Logable.swift */; };
 		90B609C0283E1287006F4309 /* LoggerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60981283E1287006F4309 /* LoggerExtensions.swift */; };
 		90B609C1283E1287006F4309 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60982283E1287006F4309 /* Log.swift */; };
-		90B609C2283E1287006F4309 /* MockerProxyConfigNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B60984283E1287006F4309 /* MockerProxyConfigNode.swift */; };
 		90B609EF283E16DC006F4309 /* DTOMapperNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609C5283E16DC006F4309 /* DTOMapperNodeTests.swift */; };
-		90B609F2283E16DC006F4309 /* MockerProxyConfigNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609CB283E16DC006F4309 /* MockerProxyConfigNodeTests.swift */; };
 		90B609F3283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609CE283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift */; };
 		90B609F4283E16DC006F4309 /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609CF283E16DC006F4309 /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift */; };
 		90B609F5283E16DC006F4309 /* URLQueryBoolEncodingDefaultStartegyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B609D0283E16DC006F4309 /* URLQueryBoolEncodingDefaultStartegyTests.swift */; };
@@ -438,9 +436,7 @@
 		90B60980283E1287006F4309 /* Logable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logable.swift; sourceTree = "<group>"; };
 		90B60981283E1287006F4309 /* LoggerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerExtensions.swift; sourceTree = "<group>"; };
 		90B60982283E1287006F4309 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		90B60984283E1287006F4309 /* MockerProxyConfigNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockerProxyConfigNode.swift; sourceTree = "<group>"; };
 		90B609C5283E16DC006F4309 /* DTOMapperNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTOMapperNodeTests.swift; sourceTree = "<group>"; };
-		90B609CB283E16DC006F4309 /* MockerProxyConfigNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockerProxyConfigNodeTests.swift; sourceTree = "<group>"; };
 		90B609CE283E16DC006F4309 /* URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLQueryDictionaryKeyEncodingDefaultStrategyTests.swift; sourceTree = "<group>"; };
 		90B609CF283E16DC006F4309 /* URLQueryArrayKeyEncodingBracketsStartegyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLQueryArrayKeyEncodingBracketsStartegyTests.swift; sourceTree = "<group>"; };
 		90B609D0283E16DC006F4309 /* URLQueryBoolEncodingDefaultStartegyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLQueryBoolEncodingDefaultStartegyTests.swift; sourceTree = "<group>"; };
@@ -614,7 +610,6 @@
 				90B609D3283E16DC006F4309 /* TokenRefresherNodeTests.swift */,
 				90B609C5283E16DC006F4309 /* DTOMapperNodeTests.swift */,
 				90B609D1283E16DC006F4309 /* URLQueryInjectorNodeTests.swift */,
-				90B609CB283E16DC006F4309 /* MockerProxyConfigNodeTests.swift */,
 				90B609EE283E16DC006F4309 /* AbortingTests.swift */,
 				50C8EB462BBF14CC00C5CB93 /* TechnicaErrorMapperNodeTests.swift */,
 				50C8EB482BBF185300C5CB93 /* RequestCreatorNodeTests.swift */,
@@ -809,7 +804,6 @@
 				90B608F1283E1268006F4309 /* Core */,
 				90B6090C283E1268006F4309 /* Encodings */,
 				90B6092E283E1287006F4309 /* Layers */,
-				90B60983283E1287006F4309 /* MockerIntegration */,
 				90B60972283E1287006F4309 /* Utils */,
 				90B608CE283E1110006F4309 /* NodeKit.h */,
 			);
@@ -1124,14 +1118,6 @@
 				50528E282BAE162600E86CB6 /* LoggerStreamNode.swift */,
 			);
 			path = Logging;
-			sourceTree = "<group>";
-		};
-		90B60983283E1287006F4309 /* MockerIntegration */ = {
-			isa = PBXGroup;
-			children = (
-				90B60984283E1287006F4309 /* MockerProxyConfigNode.swift */,
-			);
-			path = MockerIntegration;
 			sourceTree = "<group>";
 		};
 		90B609C3283E16DC006F4309 /* UnitTests */ = {
@@ -1535,7 +1521,6 @@
 				90B6091B283E1268006F4309 /* Array+RawMappable.swift in Sources */,
 				5060A4662BC3E6E8004E84E2 /* URLSessionDataTaskActor.swift in Sources */,
 				90B6098D283E1287006F4309 /* Method.swift in Sources */,
-				90B609C2283E1287006F4309 /* MockerProxyConfigNode.swift in Sources */,
 				502F9D972BAA36CF00151A8D /* LoggingContext.swift in Sources */,
 				90B60988283E1287006F4309 /* URLQueryArrayKeyEncodingStartegy.swift in Sources */,
 				50B569762BCFEF470054DC09 /* NodeResultPublisher.swift in Sources */,
@@ -1628,7 +1613,6 @@
 				5060A4842BC41C89004E84E2 /* VoidIONodeTests.swift in Sources */,
 				501349482BE3F8D6002CC3DA /* URLWithOrderedQuery.swift in Sources */,
 				50C8EB522BBF302E00C5CB93 /* ResponseDataPreprocessorNodeTests.swift in Sources */,
-				90B609F2283E16DC006F4309 /* MockerProxyConfigNodeTests.swift in Sources */,
 				5060A4802BC4164E004E84E2 /* RequestRouterNodeTests.swift in Sources */,
 				90B609FA283E16DC006F4309 /* FirstCachePolicyTests.swift in Sources */,
 				5060A4982BC44B61004E84E2 /* DataLoadingResponseProcessorTests.swift in Sources */,

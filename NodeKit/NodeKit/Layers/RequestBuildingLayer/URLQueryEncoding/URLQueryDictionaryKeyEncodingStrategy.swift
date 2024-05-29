@@ -1,18 +1,18 @@
 import Foundation
 
-/// Протокол для любого кодировщика URL-Query ключа для словаря.
+/// Protocol for any URL query key encoder for a dictionary.
 public protocol URLQueryDictionaryKeyEncodingStrategy {
-    /// Кодирует ключ словаря, который затем используется в URL-Query как ключ элемента.
+    /// Encodes the dictionary key, which is then used in the URL query as the key of the element.
     ///
     /// - Warning:
-    /// Использование по-умолчанию не требует специально кодировать значение в string-url.
-    /// Достаточно просто вернуть нужное строковое представление
+    /// Using the default implementation does not require specially encoding the value into a string-url.
+    /// It is sufficient to return the required string representation.
     ///
-    /// - Parameter value: Значение, которое нужно закодировать
+    /// - Parameter value: The value to encode.
     func encode(queryItemName: String, dictionaryKey: String) -> String
 }
 
-/// Реализация кодировщика `URLQueryDictionaryKeyEncodingStrategy` по-умолчанию.
+/// Default implementation of the ``URLQueryDictionaryKeyEncodingStrategy``.
 ///
 /// - Example:
 ///
@@ -26,9 +26,9 @@ public protocol URLQueryDictionaryKeyEncodingStrategy {
 /// ```
 public struct URLQueryDictionaryKeyEncodingDefaultStrategy: URLQueryDictionaryKeyEncodingStrategy {
 
-    /// Кодирует ключ словаря в ключ для URL-query.
+    /// Encodes the dictionary key into a key for the URL query.
     ///
-    /// - Parameter value: Значение, которое нужно закодировать
+    /// - Parameter value: The value to encode.
     public func encode(queryItemName: String, dictionaryKey: String) -> String {
         return "\(queryItemName)[\(dictionaryKey)]"
     }

@@ -1,21 +1,21 @@
 import Foundation
 
-/// Протокол для любого кодировщика URL-Query ключа для массива.
+/// Protocol for any URL query key encoder for an array.
 public protocol URLQueryArrayKeyEncodingStartegy {
-    /// Кодирует ключ массива, который затем используется в URL-Query как ключ элемента.
+    /// Encodes the array key, which is then used in the URL query as the key of the element.
     ///
     /// - Warning:
-    /// Использование по-умолчанию не требует специально кодировать значение в string-url.
-    /// Достаточно просто вернуть нужное строковое представление
+    /// Using the default implementation does not require specially encoding the value into a string-url.
+    /// It is sufficient to return the required string representation.
     ///
-    /// - Parameter value: Значение, которое нужно закодировать
+    /// - Parameter value: The value to encode.
     func encode(value: String) -> String
 }
 
-/// Реализация кодировщика `URLQueryArrayKeyEncodingStartegy` по-умолчанию.
-/// Поддерживает две стратегии:
-/// - brackets: ключ запишется как `key[]`
-/// - noBrackets: ключ запишется как `key`
+/// Default implementation of the `URLQueryArrayKeyEncodingStartegy`.
+/// Supports two strategies:
+/// - brackets: the key will be written as `key[]`
+/// - noBrackets: the key will be written as `key`
 ///
 /// - Examples:
 ///
@@ -24,20 +24,20 @@ public protocol URLQueryArrayKeyEncodingStartegy {
 /// URLQueryArrayKeyEncodingBracketsStartegy.brackets.encode(value: "sortKeys")
 ///
 /// ```
-/// Выведет: `sortKeys[]` и URL-Query в итоге должен будет выглядеть так: `sortKeys[]=value&sortKeys[]=date&sortKeys[]=price`
+/// - Output: `sortKeys[]=value&sortKeys[]=date&sortKeys[]=price`
 ///
 /// ```
 /// let query = ["sortKeys": ["value", "date", "price"]]
 /// URLQueryArrayKeyEncodingBracketsStartegy.noBrackets.encode(value: "sortKeys")
 /// ```
-/// Выведет: `sortKeys` и URL-Query в итоге должен будет выглядеть так: `sortKeys=value&sortKeys=date&sortKeys=price`
+/// - Output: `sortKeys=value&sortKeys=date&sortKeys=price`
 public enum URLQueryArrayKeyEncodingBracketsStartegy: URLQueryArrayKeyEncodingStartegy {
     case brackets
     case noBrackets
 
-    /// Кодирует ключ массива в ключ для URL-query в зависимости от выбранной стратегии.
+    /// Encodes the array key into a key for the URL query depending on the selected strategy.
     ///
-    /// - Parameter value: Значение, которое нужно закодировать
+    /// - Parameter value: The value to encode.
     public func encode(value: String) -> String {
         switch self {
         case .brackets:

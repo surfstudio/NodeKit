@@ -10,13 +10,13 @@ import Foundation
 
 open class URLJsonRequestEncodingNode<Type>: AsyncNode {
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: any AsyncNode<TransportURLRequest, Type>
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
     /// - Parameters:
-    ///   - next: Следйющий узел для обработки.
+    ///   - next: The next node for processing.
     public init(next: some AsyncNode<TransportURLRequest, Type>) {
         self.next = next
     }

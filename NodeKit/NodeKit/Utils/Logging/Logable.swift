@@ -8,30 +8,30 @@
 
 import Foundation
 
-/// Описывает сущность, которая содержит описание для лога работы.
+/// Describes an entity that contains a description for the work log.
 public protocol Logable {
 
-    /// Порядок лога в цепочке. Необходим для сортировки.
+    /// The order of the log in the chain. Necessary for sorting.
     var order: Double { get }
 
-    /// Следующая лог-запись.
+    /// Next log.
     var next: Logable? { get set }
 
-    //// Идентификатор лог-сообщения.
+    /// Log identifier.
     var id: String { get }
 
-    /// Выводит всю цепоку логов с заданным форматированием.
+    /// Entire chain of logs with the specified formatting.
     var description: String { get }
 
-    /// Добавляет сообщение к логу.
+    /// Adds a message to the log.
     ///
-    /// - Parameter message: Лог-сообщение.
+    /// - Parameter message: Log message.
     mutating func add(message: String)
 }
 
 extension Logable {
-    /// Преобразет древовидную структуру записи логов в массив
-    /// посредством нерекурсивного обхода вглубину
+    /// Converts a tree-like structure of log entries into an array
+    /// using non-recursive depth-first traversal.
     func flatMap() -> [Logable] {
         var currentLogable: Logable? = self
         var result = [Logable]()

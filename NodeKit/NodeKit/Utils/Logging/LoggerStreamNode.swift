@@ -6,28 +6,28 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
-/// Этот узел выполняет выведение лога в консоль.
-/// Сразу же передает управление следующему узлу и подписывается на выполнение операций.
+/// This node performs logging to the console.
+/// Immediately passes control to the next node and subscribes to perform operations.
 class LoggerStreamNode<Input, Output>: AsyncStreamNode {
     
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     var next: any AsyncStreamNode<Input, Output>
-    /// Содержит список ключей, по которым будет отфлитрован лог.
+    ///List of keys by which the log will be filtered.
     var filters: [String]
 
-    /// Инициаллизирует объект.
+    /// Initializes the node.
     ///
     /// - Parameters:
-    ///   - next: Следующий узел для обработки.
-    ///   - filters: Содержит список ключей, по которым будет отфлитрован лог.
+    ///   - next: The next node for processing.
+    ///   - filters: List of keys by which the log will be filtered.
     init(next: any AsyncStreamNode<Input, Output>, filters: [String] = []) {
         self.next = next
         self.filters = filters
     }
 
-    /// Сразу же передает управление следующему узлу и подписывается на выполнение операций.
+    /// Immediately passes control to the next node and subscribes to perform operations.
     ///
-    /// - Parameter data: Данные для обработки. Этот узел их не импользует.
+    /// - Parameter data: Data for processing. This node does not use them.
     func process(_ data: Input, logContext: LoggingContextProtocol) -> AsyncStream<NodeResult<Output>> {
         return AsyncStream { continuation in
             let task = Task {

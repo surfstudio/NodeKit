@@ -8,34 +8,34 @@
 
 import Foundation
 
-/// Используется для передачи данных внутри слоя постпроцессинга запроса.
+/// Used to transfer data within the request post-processing layer.
 public struct URLProcessedResponse {
 
     private let _dataResponse: URLDataResponse
 
-    /// URL запрос, отправленный серверу.
+    /// URL request sent to the server.
     public var request: URLRequest {
         return self._dataResponse.request
     }
 
-    /// Ответ, полученный от сервера.
+    /// Response received from the server.
     public var response: HTTPURLResponse {
         return self._dataResponse.response
     }
 
-    /// Ответ, возвращенный сервером.
+    /// Data, received from the server.
     public var data: Data {
         return self._dataResponse.data
     }
 
-    /// JSON сериализованный после обработки ответа.
+    /// ``Json`` serialized after processing the response.
     public let json: Json
 
-    /// Инициаллизирует объект.
+    /// Initializes the object.
     ///
     /// - Parameters:
-    ///   - dataResponse: Модель полученная после обрабокти ответа.
-    ///   - json: Сериализованный JSON
+    ///   - dataResponse: Model ``URLDataResponse`` received after processing the response.
+    ///   - json: Serialized ``Json``.
     public init(dataResponse: URLDataResponse, json: Json) {
         self._dataResponse = dataResponse
         self.json = json

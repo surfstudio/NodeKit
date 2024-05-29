@@ -8,12 +8,12 @@
 
 import Foundation
 
-/// Кодировка параметров запроса.
+/// Request parameter encoding.
 ///
-/// - json: Потыается закодировать данные в формате JSON и кладет их в тело запроса.
-/// - jsonArray: Для кодировки массивов в Json. ИСпользуется если нужно получить Json вида `[ {}, {}, ...]`
-/// - formURL: Пытается закодировать данные в формате FormURL и кладет из в тело запроса.
-/// - urlQuery: Получает из данных строку,кодирует в URL-строку и добавляет к URL запроса.
+/// - json: Attempts to encode the data in JSON format and puts it in the request body.
+/// - jsonArray: For encoding arrays in JSON. Used if you need to get JSON like `[ {}, {}, ...]`
+/// - formURL: Attempts to encode the data in FormURL format and puts it in the request body.
+/// - urlQuery: Gets a string from the data, encodes it into a URL string, and adds it to the request URL.
 public enum ParametersEncoding {
     case json
     case formURL

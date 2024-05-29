@@ -10,35 +10,35 @@ import Foundation
 
 // MARK: - UserDefaults eTag storage
 
-/// Содержит указатель на UserDefaults-хранилище для eTag токенов.
+/// Reference to the UserDefaults storage for eTag tokens.
 extension UserDefaults {
-    /// Хранилище для eTag-токенов
+    /// Storage for eTag tokens
     static var etagStorage = UserDefaults(suiteName: "\(String(describing: UserDefaults.self))")
 }
 
-/// Этот узел сохраняет пришедшие eTag-токены.
-/// В качестве ключа используется абсолютный URL до endpoint-a.
+/// This node stores received eTag tokens.
+/// The absolute URL to the endpoint is used as the key.
 open class URLETagSaverNode: AsyncNode {
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: (any ResponsePostprocessorLayerNode)?
 
-    /// Ключ, по которому необходимо получить eTag-токен из хедеров.
-    /// По-молчанию имеет значение `ETagConstants.eTagResponseHeaderKey`
+    /// The key to retrieve the eTag token from the headers.
+    /// By default, it has the value `ETagConstants.eTagResponseHeaderKey`.
     public var eTagHeaderKey: String
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
     /// - Parameters:
-    ///   - next: Следующий узел для обработки.
-    ///   - eTagHeaderKey: Ключ, по которому необходимо получить eTag-токен из хедеров.
+    ///   - next: The next node for processing.
+    ///   - eTagHeaderKey: The key to retrieve the eTag token from the headers.
     public init(next: (any ResponsePostprocessorLayerNode)?, eTagHeaderKey: String = ETagConstants.eTagResponseHeaderKey) {
         self.next = next
         self.eTagHeaderKey = eTagHeaderKey
     }
 
-    /// Пытается получить eTag-токен по ключу.
-    /// В любом случае передает управление дальше.
+    /// Tries to retrieve the eTag token by the key.
+    /// In any case, passes control further.
     open func process(
         _ data: URLProcessedResponse,
         logContext: LoggingContextProtocol
@@ -60,23 +60,23 @@ open class URLETagSaverNode: AsyncNode {
 
 public extension URL {
 
-    /// Берет исходный URL
-    /// Получает словарь параметров query
-    /// Если параметров нет - возвращает `self.absoluteString`
-    /// Если параметры есть - сортирует их соединяет в одну строку
-    /// Удаляет query параметры из исходного URL
-    /// Склеивает строковое представление URL без парамтеров со сторокой параметров
+    /// Takes the original URL
+    /// Gets the dictionary of query parameters
+    /// If there are no parameters - returns `self.absoluteString`
+    /// If parameters exist - sorts them, joins into one string
+    /// Removes query parameters from the original URL
+    /// Concatenates the string representation of the URL without parameters with the parameter string
     ///
-    /// **ВАЖНО**
+    /// **IMPORTANT**
     ///
-    /// Полученная строка может быть невалидным URL - т.к. задача этого метода - получить уникальный идентификатор из URL
-    /// Причем так, чтобы порядок перечисления query парамтеров был не важен.
+    /// The resulting string may be an invalid URL - since the task of this method is to obtain a unique identifier from the URL
+    /// Moreover, the order of query parameters is not important.
     func withOrderedQuery() -> String? {
         guard var comp = URLComponents(string: self.absoluteString) else {
             return nil
         }
 
-        // ели нет query параметров, то просто возвращаем этот url т.к. ничего сортировать не надо
+        // If there are no query parameters, return this URL because there is nothing to sort.
         if comp.queryItems == nil || comp.queryItems?.isEmpty == true {
             return self.absoluteString
         }
@@ -86,7 +86,7 @@ public extension URL {
             .sorted()
             .reduce("", { $1 + $0 })
 
-        // если в компонентах сбросить query в nil, то в итоговом URL не будет query
+        // If you reset the query component to nil, then the resulting URL will not have a query component.
         comp.query = nil
 
         guard let url = comp.url else {

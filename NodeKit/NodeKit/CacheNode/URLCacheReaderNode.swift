@@ -8,22 +8,22 @@
 
 import Foundation
 
-/// Ошибки для узла `URLCacheReaderNode`
+/// Errors for the ``URLCacheReaderNode``
 ///
-/// - cantLoadDataFromCache: Случается, если запрос в кэш завершился с ошибкой
-/// - cantSerializeJson: Случается, если запрос в кэш завершился успешно, но не удалось сериализовать ответ в JSON
-/// - cantCastToJson: Случается, если сериализовать ответ удалось, но каст к `Json` или к `[Json]` завершился с ошибкой
+/// - cantLoadDataFromCache: Occurs if the request to the cache failed
+/// - cantSerializeJson: Occurs if the request to the cache succeeded, but failed to serialize the response into JSON
+/// - cantCastToJson: Occurs if serialization of the response succeeded, but casting to ``Json`` or [``Json``] failed
 public enum BaseURLCacheReaderError: Error {
     case cantLoadDataFromCache
     case cantSerializeJson
     case cantCastToJson
 }
 
-/// Этот узел отвечает за чтение данных из URL кэша.
-/// Сам по себе узел является листом и не может быть встроен в сквозную цепочку.
+/// This node is responsible for reading data from the URL cache.
+/// The node itself is a leaf and cannot be embedded in a pass-through chain.
 open class URLCacheReaderNode: AsyncNode {
 
-    /// Посылает запрос в кэш и пытается сериализовать данные в JSON.
+    /// Sends a request to the cache and tries to serialize the data into JSON.
     open func process(
         _ data: URLNetworkRequest,
         logContext: LoggingContextProtocol

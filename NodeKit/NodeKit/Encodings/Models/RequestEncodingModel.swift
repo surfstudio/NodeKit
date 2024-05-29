@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Модель слоя `Encoding`, собирает все данные для реквеста. Используется в `URLRequestEncodingNode`
+/// Model of the `Encoding` layer, gathers all data for the request. Used in ``URLJsonRequestEncodingNode``.
 public struct RequestEncodingModel {
 
     /// Параметры для формирования запроса.

@@ -1,16 +1,16 @@
 import Foundation
 import NodeKitThirdParty
 
-/// Модель для внутреннего представления multipart запроса.
+/// Model for internal representation of a multipart request.
 public struct MultipartURLRequest {
 
-    /// HTTP метод.
+    /// HTTP method.
     public let method: Method
-    /// URL эндпоинта.
+    /// URL endpoint.
     public let url: URL
-    /// Хедеры запроса.
+    /// Request headers.
     public let headers: [String: String]
-    /// Данные для запроса.
+    /// Request data.
     public let data: MultipartModel<[String: Data]>
 
     public init(method: Method,
@@ -24,21 +24,21 @@ public struct MultipartURLRequest {
     }
 }
 
-/// Узел, умеющий создавать multipart-запрос.
+/// Node capable of creating a multipart request.
 open class MultipartRequestCreatorNode<Output>: AsyncNode {
     
     // MARK: - Public Properties
     
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: any AsyncNode<URLRequest, Output>
     
     // MARK: - Private Properties
     
     private let multipartFormDataFactory: MultipartFormDataFactory
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
-    /// - Parameter next: Следующий узел для обработки.
+    /// - Parameter next: The next node for processing.
     public init(
         next: any AsyncNode<URLRequest, Output>,
         multipartFormDataFactory: MultipartFormDataFactory = AlamofireMultipartFormDataFactory()
@@ -47,9 +47,9 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
         self.multipartFormDataFactory = multipartFormDataFactory
     }
 
-    /// Конфигурирует низкоуровневый запрос.
+    /// Configures the low-level request.
     ///
-    /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
+    /// - Parameter data: Data for configuring and subsequently sending the request.
     open func process(
         _ data: MultipartURLRequest,
         logContext: LoggingContextProtocol

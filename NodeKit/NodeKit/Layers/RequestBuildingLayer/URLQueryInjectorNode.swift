@@ -1,39 +1,39 @@
 import Foundation
 
-/// Ошибки для узла `URLQueryInjectorNode`
+/// Errors for ``URLQueryInjectorNode``
 public enum URLQueryInjectorNodeError: Error {
-    /// Возникает в случае, если не удалось создать URLComponents из URL
+    /// Occurs if URLComponents couldn't be created from the URL.
     case cantCreateURLComponentsFromURLString
-    /// Возникает в случае, если построить URLComponents удалось, а вот получить из него URL - нет.
+    /// Occurs if building URLComponents succeeded but obtaining the URL from it failed.
     case cantCreateURLFromURLComponents
 }
 
-/// Узел, который позволяет добавить данные в URL-Query.
+/// Node that allows adding data to the URL-Query.
 ///
-/// То есть этот узел позволяет добавить данные для запроса в любой http-запрос.
-/// Вне зависимости от его метода.
+/// This node enables adding data for the request in any HTTP request, regardless of its method.
 ///
 /// - Info:
-/// Использовать можно после `RequestRouterNode`.
+/// Can be used after ``RequestRouterNode``.
 open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
 
     // MARK: - Nested
 
-    /// Тип ошибки для этого узла.
+    /// Error type for this node.
     public typealias NodeError = URLQueryInjectorNodeError
 
     // MARK: - Properties
 
-    /// Следующий по порядку узел.
+    /// The next node for processing.
     open var next: any AsyncNode<RoutableRequestModel<URLRouteProvider, Raw>, Output>
 
+    /// Configuration for the node.
     open var config: URLQueryConfigModel
 
     // MARK: - Init
 
-    /// Инцииаллизирует объект.
-    /// - Parameter next: Следующий по порядку узел.
-    /// - Parameter config: Конфигурация для узла.
+    /// Initializes the object.
+    /// - Parameter next: The next node in the sequence.
+    /// - Parameter config: Configuration for the node.
     public init(
         next: any AsyncNode<RoutableRequestModel<URLRouteProvider, Raw>, Output>,
         config: URLQueryConfigModel
@@ -44,9 +44,8 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
 
     // MARK: - Public methods
 
-    /// Добавляет URL-query если может и передает управление следующему узлу.
-    /// В случае, если не удалось обработать URL, то возвращает ошибку `cantCreateURLComponentsFromURLString`
-    /// - SeeAlso: ``URLQueryInjectorNodeError``
+    /// Adds a URL query if possible and passes control to the next node.
+    /// If it fails to process the URL, it returns the error `cantCreateURLComponentsFromURLString`.
     open func process(
         _ data: RoutableRequestModel<URLRouteProvider, Raw>,
         logContext: LoggingContextProtocol
@@ -61,9 +60,9 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
         }
     }
 
-    /// Позволяет получить список компонент URL-query, по ключу и значению.
-    /// - Parameter object: Значение параметра URL-query.
-    /// - Parameter key: Ключ параметра URL-query.
+    /// Allows you to obtain a list of URL query components by key and value.
+    /// - Parameter object: The value of the URL query parameter.
+    /// - Parameter key: The key of the URL query parameter.
     open func makeQueryComponents(from object: Any, by key: String) -> [URLQueryItem] {
 
         var items = [URLQueryItem]()

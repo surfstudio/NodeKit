@@ -8,32 +8,31 @@
 
 import Foundation
 
-/// Ошибки для узлы `ResponseDataParserNode`
+/// Errors for the ``ResponseDataParserNode``.
 ///
-/// - cantDeserializeJson: Возникает в случае, если не удалось получить `Json` из ответа сервера.
-/// - cantCastDesirializedDataToJson: Возникает в случае, если из `Data` не удалось сериализовать `JSON`
+/// - cantDeserializeJson: Occurs if `Json` cannot be obtained from the server response.
+/// - cantCastDesirializedDataToJson: Occurs if `JSON` cannot be serialized from `Data`.
 public enum ResponseDataParserNodeError: Error {
     case cantDeserializeJson(String)
     case cantCastDesirializedDataToJson(String)
 }
 
-/// Выполняет преобразование преобразование "сырых" данных в `Json`
-/// - SeeAlso: `MappingUtils`
+/// Performs the transformation of "raw" data into `Json`.
 open class ResponseDataParserNode: AsyncNode {
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: (any ResponsePostprocessorLayerNode)?
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
-    /// - Parameter next: Следующий узел для обработки.
+    /// - Parameter next: The next node for processing.
     public init(next: (any ResponsePostprocessorLayerNode)? = nil) {
         self.next = next
     }
 
-    /// Парсит ответ и в случае успеха передает управление следующему узлу.
+    /// Parses the response and passes control to the next node in case of success.
     ///
-    /// - Parameter data: Модель ответа сервера.
+    /// - Parameter data: The server response model.
     open func process(
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol
@@ -62,11 +61,11 @@ open class ResponseDataParserNode: AsyncNode {
         }
     }
 
-    /// Получает `json` из модели ответа сервера.
-    /// Содержит всю логику парсинга.
+    /// Retrieves `json` from the server response model.
+    /// Contains all the parsing logic.
     ///
-    /// - Parameter responseData: Модель ответа сервера.
-    /// - Returns: Json, которй удалось распарсить.
+    /// - Parameter responseData: The server response model.
+    /// - Returns: The Json that was successfully parsed.
     /// - Throws:
     ///     - `ResponseDataParserNodeError.cantCastDesirializedDataToJson`
     ///     - `ResponseDataParserNodeError.cantDeserializeJson`

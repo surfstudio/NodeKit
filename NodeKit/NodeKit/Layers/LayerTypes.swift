@@ -8,11 +8,11 @@
 
 import Foundation
 
-/// Явный тип для слоя транспорта.
+/// Explicit type for the transport layer.
 public typealias TransportLayerNode = AsyncNode<TransportURLRequest, Json>
-/// Явный тип для слоя обработки запроса.
+/// Explicit type for the request processing layer.
 public typealias RequestProcessingLayerNode = AsyncNode<URLRequest, Json>
-/// Явный тип для слоя обработки ответа `JSON`
+/// Explicit type for the `JSON` response processing layer.
 public typealias ResponseProcessingLayerNode = AsyncNode<URLDataResponse, Json>
-/// Явный тип для слоя постобработки ответа с `JSON`
+/// Explicit type for the post-processing layer for `JSON` response.
 public typealias ResponsePostprocessorLayerNode = AsyncNode<URLProcessedResponse, Void>

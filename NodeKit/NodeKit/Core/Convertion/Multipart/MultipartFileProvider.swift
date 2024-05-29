@@ -1,11 +1,10 @@
 import Foundation
 
-/// Провайдер файлов для multipart-запросов.
+/// File provider for multipart requests.
 ///
-///
-/// - data: Поставляет файл как бинарные данные, включая имя и тип.
-/// - url: Поставляет файл как путь до файла. В дальнейшем он будет загружен. Для запроса будут использованы оригинальные имя и тип.
-/// - customWithURL: Как и в `url` за тем исколючением, что имя файла и тип файла можно указать самостоятельно.
+/// - data: Provides a file as binary data, including name and type.
+/// - url: Provides a file as a file path. It will be uploaded later. The original name and type will be used for the request.
+/// - customWithURL: Similar to `url`, except that you can specify the file name and file type yourself.
 public enum MultipartFileProvider {
     case data(data: Data, filename: String, mimetype: String)
     case url(url: URL)

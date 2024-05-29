@@ -8,28 +8,28 @@
 
 import Foundation
 
-/// Узел реализует политику кэширования "Если интернета нет, то запросить данные из кэша"
-/// Этот узел работает с URL кэшом.
+/// Node implements the caching policy "If there is no internet, request data from cache"
+/// This node works with the URL cache.
 open class IfConnectionFailedFromCacheNode: AsyncNode {
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: any AsyncNode<URLRequest, Json>
-    /// Узел, считывающий данные из URL кэша.
+    /// Node that reads data from the URL cache.
     public var cacheReaderNode: any AsyncNode<URLNetworkRequest, Json>
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
     /// - Parameters:
-    ///   - next: Следующий узел для обработки.
-    ///   - cacheReaderNode: Узел, считывающий данные из URL кэша.
+    ///   - next: The next node for processing.
+    ///   - cacheReaderNode: Node that reads data from the URL cache.
     public init(next: any AsyncNode<URLRequest, Json>, cacheReaderNode: any AsyncNode<URLNetworkRequest, Json>) {
         self.next = next
         self.cacheReaderNode = cacheReaderNode
     }
 
-    /// Проверяет, произошла ли ошибка связи в ответ на запрос.
-    /// Если ошибка произошла, то возвращает успешный ответ из кэша.
-    /// В противном случае передает управление следующему узлу.
+    /// Checks if there was a ``BaseTechnicalError``  in response to the request.
+    /// If an error occurred, returns a successful response from the cache.
+    /// Otherwise, passes control to the next node.
     open func process(
         _ data: URLRequest,
         logContext: LoggingContextProtocol

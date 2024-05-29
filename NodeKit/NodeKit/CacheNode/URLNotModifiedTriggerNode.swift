@@ -8,25 +8,25 @@
 
 import Foundation
 
-/// Этот узел проверяет код ответа от сервера и в случае, если код равен 304 (NotModified)
-/// Узел посылает запрос в URL кэш.
+/// This node checks the server response code and if the code is `304 (Not Modified)`,
+/// the node sends a request to the URL cache.
 open class URLNotModifiedTriggerNode: AsyncNode {
 
     // MARK: - Properties
 
-    /// Следующий узел для обратки.
+    /// The next node for processing.
     public var next: any ResponseProcessingLayerNode
 
-    /// Узел для чтения данных из кэша.
+    /// Node for reading data from the cache.
     public var cacheReader: any AsyncNode<URLNetworkRequest, Json>
 
     // MARK: - Init and deinit
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
     /// - Parameters:
-    ///   - next: Следующий узел для обратки.
-    ///   - cacheReader: Узел для чтения данных из кэша.
+    ///   - next: The next node for processing.
+    ///   - cacheReader: Node for reading data from the cache.
     public init(next: some ResponseProcessingLayerNode,
                 cacheReader: some AsyncNode<URLNetworkRequest, Json>) {
         self.next = next
@@ -35,8 +35,8 @@ open class URLNotModifiedTriggerNode: AsyncNode {
 
     // MARK: - Node
 
-    /// Проверяет http status-code. Если код соовуетствует NotModified, то возвращает запрос из кэша.
-    /// В протвином случае передает управление дальше.
+    /// Checks the HTTP status code. If the code corresponds to NotModified, returns the request from the cache.
+    /// Otherwise, passes control further.
     open func process(
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol

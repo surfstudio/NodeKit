@@ -1,6 +1,6 @@
 import Foundation
 
-/// Позволяетп редставлять массив с элементами `DTODecodable` как `DTODecodable` в случае, если `Raw == Json`
+/// Allows representing an array with elements of ``DTODecodable`` as ``DTODecodable`` if Raw == ``Json``.
 extension Array: DTODecodable where Element: DTODecodable, Element.DTO.Raw == Json {
 
     public typealias DTO = Array<Element.DTO>
@@ -10,7 +10,7 @@ extension Array: DTODecodable where Element: DTODecodable, Element.DTO.Raw == Js
     }
 }
 
-/// Позволяетп редставлять массив с элементами `DTOEncodable` как `DTOEncodable` в случае, если `Raw == Json`
+/// Allows representing an array with elements of ``DTOEncodable`` as ``DTOEncodable`` if Raw == ``Json``.
 extension Array: DTOEncodable where Element: DTOEncodable, Element.DTO.Raw == Json {
     public func toDTO() throws -> Array<Element.DTO> {
         return try self.map { try $0.toDTO() }

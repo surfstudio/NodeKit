@@ -9,39 +9,35 @@
 import Foundation
 
 
-/// Протокол для сущности, которая может отменить операцию.
+/// Protocol for an entity that can cancel an operation.
 public protocol Aborter {
 
-    /// Отменяет асинхронную операцию.
+    /// Cancels an asynchronous operation.
     func cancel(logContext: LoggingContextProtocol)
 }
 
-/// Узел, который позволяет отменить цепочку операций.
-/// В качестве примера Aborter'а для запроса в сеть может выступать класс `RequestSenderNode`
-///
-/// - SeeAlso:
-///     - `Aborter`
-///     - `Node`
+/// Node that allows aborting a chain of operations.
+/// For example, a RequestSenderNode class can act as an aborter for network requests.
 open class AborterNode<Input, Output>: AsyncNode {
 
-    /// Следюущий в цепочке узел
+    /// The next node for processing.
     public var next: any AsyncNode<Input, Output>
 
-    /// Сущность, отменяющая преобразование
+    /// Entity canceling transformation.
     public var aborter: Aborter
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
     /// - Parameters:
-    ///   - next: Следюущий в цепочке узел
-    ///   - aborter: Сущность, отменяющая преобразование
+    ///   - next: The next node in the chain.
+    ///   - aborter: Entity canceling transformation.
     public init(next: any AsyncNode<Input, Output>, aborter: Aborter) {
         self.next = next
         self.aborter = aborter
     }
 
-    /// Если в момент вызова process задача уже отменена, то вернет CancellationError
-    /// Если process был вызван и получили событие отмены задачи, то посылает Aborter'у `cancel()`
+    /// If the task is already canceled at the time of calling process, it returns CancellationError.
+    /// If process was called and a task cancellation event is received, it sends `cancel()` to the Aborter.
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol

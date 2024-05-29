@@ -8,11 +8,9 @@
 
 import Foundation
 
-/// Модель для запроса в сеть.
-/// Является промежуточным представленияем для передачи данных внутри цепочки.
-/// В дальнейшем конвертируется в `RoutableRequestModel`
-///
-/// - SeeAlso: `RoutableRequestModel`
+/// Model for network request.
+/// It serves as an intermediate representation for passing data within the chain.
+/// It is later converted into ``RoutableRequestModel``.
 public struct RequestModel<Raw> {
     /// Метаданные
     public var metadata: [String: String]

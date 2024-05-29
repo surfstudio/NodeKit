@@ -8,5 +8,5 @@
 
 import Combine
 
-/// Short Name для Subscriber, ожидающего NodeResult
+/// Short name for a Subscriber expecting NodeResult
 typealias NodeSubscriber<Node: CombineCompatibleNode> = Subscriber<NodeResult<Node.O>, Never>

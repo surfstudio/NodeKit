@@ -9,46 +9,46 @@
 import Combine
 import Foundation
 
-/// Протокол ноды, описывающий подход преобразования входных данных в результат с помощью SwiftConcurrency.
-/// Поддерживает обработку результатов с помощью Combine, наследуя протокол ``CombineCompatibleNode``.
-/// Содержит параметры для логов, наследуя протокол ``Node``.
-/// Применим для узлов, которые возвращают один результат.
+/// Protocol for a node describing the approach of transforming input data into a result using Swift Concurrency.
+/// Supports result processing with Combine by inheriting the ``CombineCompatibleNode`` protocol.
+/// Contains parameters for logging, inheriting the ``Node`` protocol.
+/// Applicable for nodes that return a single result.
 public protocol AsyncNode<Input, Output>: Node, CombineCompatibleNode<Self.Input, Self.Output> {
     associatedtype Input
     associatedtype Output
 
-    /// Ассинхронный метод, который содержит логику для обработки данных
+    /// Asynchronous method containing logic for data processing.
     ///
-    /// - Parameter data: Входные данные
-    /// - Returns: Результат обработки данных.
+    /// - Parameter data: Input data.
+    /// - Returns: Result of data processing.
     @discardableResult
     func process(_ data: Input, logContext: LoggingContextProtocol) async -> NodeResult<Output>
     
-    /// Метод, возвращающий структуру-обертку текущей ноды.
-    /// Необходим для избежания проблем, возникающих при использовании any AsyncNode
+    /// Method returning the wrapper structure of the current node.
+    /// Necessary to avoid problems arising from the use of any AsyncNode.
     ///
-    /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncNode``.
+    /// - Returns: Wrapper structure of the current node ``AnyAsyncNode``.
     func eraseToAnyNode() -> AnyAsyncNode<Input, Output>
 }
 
 public extension AsyncNode {
     
-    /// Метод process с созданием нового лог контекста.
+    /// Method  `process`  with the creation of a new log context.
     @discardableResult
     func process(_ data: Input) async -> NodeResult<Output> {
         return await process(data, logContext: LoggingContext())
     }
     
-    /// Метод получения Publisher для подписки на результат.
-    /// Базовая реализация ``CombineCompatibleNode``.
-    /// При каждой подписке вызывает метод process с новой таской.
-    /// При вызове cancel вызывает cancel у таски.
+    /// Method for obtaining a Publisher to subscribe to the result.
+    /// Base implementation of ``CombineCompatibleNode``.
+    /// Calls the `process` method with a new task upon each subscription.
+    /// Calls `cancel` on the task when c`ancel` is invoked in `AnyCancellable` object.
     ///
     /// - Parameters:
-    ///    - data: Входные данные ноды.
-    ///    - scheduler: Scheduler для выдачи результата.
-    ///    - logContext: Контекст логов.
-    /// - Returns: Publisher для подписки на результат.
+    ///    - data: Input data for the node.
+    ///    - scheduler: Scheduler for emitting the result.
+    ///    - logContext: Log context.
+    /// - Returns: Publisher to subscribe to the result.
     @discardableResult
     func nodeResultPublisher(
         for data: Input,
@@ -60,10 +60,10 @@ public extension AsyncNode {
             .eraseToAnyPublisher()
     }
     
-    /// Метод, возвращающий структуру-обертку текущей ноды.
-    /// Необходим для избежания проблем, возникающих при использовании any AsyncNode
+    /// Method returning the wrapper structure of the current node.
+    /// Necessary to avoid problems arising from the use of  any AsyncNode.
     ///
-    /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncNode``.
+    /// - Returns: Wrapper structure of the current node ``AnyAsyncNode``.
     func eraseToAnyNode() -> AnyAsyncNode<Input, Output> {
         return AnyAsyncNode(node: self)
     }
@@ -71,10 +71,10 @@ public extension AsyncNode {
 
 }
 
-/// Содержит синтаксический сахар для работы с узлами, у которых входящий тип = `Void`
+/// Contains syntactic sugar for working with nodes where the input type is `Void`.
 public extension AsyncNode where Input == Void {
     
-    /// Вызывает `process(_:)`
+    /// Calls `process(Void())`.
     @discardableResult
     func process() async -> NodeResult<Output> {
         return await process(Void())

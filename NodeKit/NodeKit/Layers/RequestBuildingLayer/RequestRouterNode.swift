@@ -8,35 +8,29 @@
 
 import Foundation
 
-/// Этот узел добавляет маршрут к создаваемому запросу.
-/// - SeeAlso:
-///     - `RequestModel`
-///     - `RoutableRequestModel`
-///     - `Node`
-///     - `MetadataConnectorNode`
-///     - `RequestEncoderNode`
+/// This node adds a route to the request.
 open class RequestRouterNode<Raw, Route, Output>: AsyncNode {
 
-    /// Тип для следующего узла.
+    /// Type for the next node.
     public typealias NextNode = AsyncNode<RoutableRequestModel<Route, Raw>, Output>
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: any NextNode
 
-    /// Маршрут для запроса.
+    /// Route for the request.
     public var route: Route
 
-    /// Инициаллизирует узел
+    /// Initializes the node
     ///
     /// - Parameters:
-    ///   - next: Следующий узел для обработки.
-    ///   - route: Маршрут для запроса.
+    ///   - next: The next node for processing.
+    ///   - route: The route for the request.
     public init(next: any NextNode, route: Route) {
         self.next = next
         self.route = route
     }
 
-    /// Преобразует `RequestModel` в `RoutableRequestModel` и передает управление следующему узлу
+    /// Converts ``RequestModel`` to ``RoutableRequestModel`` and passes control to the next node
     open func process(
         _ data: RequestModel<Raw>,
         logContext: LoggingContextProtocol

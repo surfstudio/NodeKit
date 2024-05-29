@@ -8,12 +8,13 @@
 
 import Foundation
 
-/// Ошибки для узла `TechnicaErrorMapperNode`
+/// Errors for the ``TechnicaErrorMapperNode``.
 ///
-/// - noInternetConnection: Возникает в случае, если вернулась системная ошибка об отсутствии соединения.
-/// - dataNotAllowed: Возникает в случае, если вернулась системная ошибка 'kCFURLErrorDataNotAllowed' (предположительная причина - wifi нет, мобильный интернет в целом мог бы быть использован, но выключен. Доки apple крайне скудны в таких объяснениях)
-/// - timeout: Возникает в случае, если превышен лимит ожидания ответа от сервера.
-/// - cantConnectToHost: Возникает в случае, если не удалось установить соединение по конкретному адресу.
+/// - noInternetConnection: Occurs if a system error about the absence of a connection is returned.
+/// - dataNotAllowed: Occurs if a system error 'kCFURLErrorDataNotAllowed' is returned 
+/// (possible reason - no wifi, mobile internet could potentially be used but is turned off. Apple docs are extremely scarce in such explanations).
+/// - timeout: Occurs if the server response waiting limit is exceeded.
+/// - cantConnectToHost: Occurs if a connection to a specific address could not be established.
 public enum BaseTechnicalError: Error {
     case noInternetConnection
     case dataNotAllowed
@@ -21,24 +22,23 @@ public enum BaseTechnicalError: Error {
     case cantConnectToHost
 }
 
-/// Этот узел заниматеся маппингом технических ошибок
-/// (ошибок уровня ОС)
-/// - SeeAlso: `BaseTechnicalError`
+/// This node handles the mapping of technical errors.
 open class TechnicaErrorMapperNode: AsyncNode {
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     open var next: any AsyncNode<URLRequest, Json>
 
-    /// Инициаллизирует узел.
+
+    /// Initializes the node.
     ///
-    /// - Parameter next: Следующий узел для обработки.
+    /// - Parameter next: The next node for processing.
     public init(next: any AsyncNode<URLRequest, Json>) {
         self.next = next
     }
 
-    /// Передает управление следующему узлу, и в случае ошибки маппит ее.
+    /// Passes control to the next node, and in case of an error, maps it.
     ///
-    /// - Parameter data: Данные для обработки.
+    /// - Parameter data: The data for processing.
     open func process(
         _ data: URLRequest,
         logContext: LoggingContextProtocol

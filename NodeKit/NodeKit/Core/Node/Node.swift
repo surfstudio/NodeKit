@@ -8,18 +8,18 @@
 
 import Foundation
 
-/// Протокол, описывающий любой узел или цепочку узлов.
-/// Необходим для объединения всех типов узлов и добавления общих методов.
+/// Protocol describing any node or chain of nodes.
+/// Necessary for combining all types of nodes and adding common methods.
 public protocol Node { }
 
-/// Содержит вычисляемые константы
+/// Contains computed constants
 public extension Node {
-    /// Возвращает имя типа строкой
+    /// Returns the name of the type as a string
     var objectName: String {
         return "\(type(of: self))"
     }
 
-    /// Имея объекта в формате:
+    /// Name of the object in format:
     /// <<<===\(self.objectName)===>>>" + `String.lineTabDeilimeter`
     var logViewObjectName: String {
         return "<<<===\(self.objectName)===>>>" + .lineTabDeilimeter

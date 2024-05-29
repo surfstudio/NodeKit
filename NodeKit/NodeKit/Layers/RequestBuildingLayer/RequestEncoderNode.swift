@@ -8,38 +8,30 @@
 
 import Foundation
 
-/// Этот узел добавляет кодировку к создаваемому запросу.
-/// - SeeAlso:
-///     - ``
-///     - `RequestModel`
-///     - `RoutableRequestModel`
-///     - `Node`
-///     - `RequestRouterNode`
-///     - `EncodableRequestModel`
-///     - `URLRequestTrasformatorNode`
+/// This node adds encoding to the request being created.
 open class RequestEncoderNode<Raw, Route, Encoding, Output>: AsyncNode {
 
-    /// Тип для следюущего узла.
+    /// Type for the next node.
     public typealias NextNode = AsyncNode<EncodableRequestModel<Route, Raw, Encoding>, Output>
 
-    /// Следюущий узел для обработки.
+    /// The next node for processing.
     public var next: any NextNode
 
-    /// Кодировка для запроса.
+    /// Encoding for the request.
     public var encoding: Encoding
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
     /// - Parameters:
-    ///   - next: Следюущий узел для обработки.
-    ///   - encoding: Кодировка для запроса.
+    ///   - next: The next node for processing.
+    ///   - encoding: Encoding for the request.
     public init(next: some NextNode, encoding: Encoding) {
         self.next = next
         self.encoding = encoding
     }
 
-    /// Преобразует `RoutableRequestModel` в `EncodableRequestModel`
-    /// и передает управление следующему узлу.
+    /// Converts ``RoutableRequestModel`` into ``EncodableRequestModel``
+    /// and passes control to the next node.
     open func process(
         _ data: RoutableRequestModel<Route, Raw>,
         logContext: LoggingContextProtocol

@@ -8,20 +8,20 @@
 
 import Foundation
 
-/// Узел, который позволяет передать на вход `Void`.
+/// Node that allows passing `Void` as input.
 open class VoidInputNode<Output>: AsyncNode {
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: any AsyncNode<Json, Output>
 
-    /// Инициаллизирует узел.
+    /// Initializes the node.
     ///
-    /// - Parameter next: Следующий узел для обработки.
+    /// - Parameter next: The next node for processing.
     public init(next: any AsyncNode<Json, Output>) {
         self.next = next
     }
 
-    /// Передает управление следующему узлу,в качестве параметра передает пустой `Json`
+    /// Passes control to the next node, passing an empty `Json` as a parameter.
     open func process(
         _ data: Void,
         logContext: LoggingContextProtocol
