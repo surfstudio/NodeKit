@@ -3,26 +3,26 @@
 <!--WillInclude_umdx-->
 <path d="M 167.86 192.70 C 160.95 192.70 155.36 187.11 155.36 180.20 L 155.36 155.20 C 155.36 148.30 160.95 142.70 167.86 142.70 L 298.73 142.70 C 305.63 142.70 311.23 148.30 311.23 155.20 L 311.23 180.20 C 311.23 187.11 305.63 192.70 298.73 192.70 Z M 167.86 192.70" stroke-width="1.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="#4f6fff"  />
 
-<text x="186.11" y="172.44" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Маппинг модели</text>
+<text x="191.11" y="172.44" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Model mapping</text>
 <path d="M 369.42 192.70 C 362.51 192.70 356.92 187.11 356.92 180.20 L 356.92 155.20 C 356.92 148.30 362.51 142.70 369.42 142.70 L 500.29 142.70 C 507.19 142.70 512.79 148.30 512.79 155.20 L 512.79 180.20 C 512.79 187.11 507.19 192.70 500.29 192.70 Z M 369.42 192.70" stroke-width="1.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="#4f6fff"  />
 
-<text x="376.64" y="172.44" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Построение запроса</text>
+<text x="396.64" y="172.44" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Query building</text>
 <path d="M 573.57 192.70 C 566.66 192.70 561.07 187.11 561.07 180.20 L 561.07 155.20 C 561.07 148.30 566.66 142.70 573.57 142.70 L 704.44 142.70 C 711.34 142.70 716.94 148.30 716.94 155.20 L 716.94 180.20 C 716.94 187.11 711.34 192.70 704.44 192.70 Z M 573.57 192.70" stroke-width="1.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="#4f6fff"  />
 
-<text x="587.06" y="172.44" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Обработка ответа</text>
+<text x="587.06" y="172.44" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Response handling</text>
 <path d="M 716.94 155.20 C 778.06 112.02 787.30 223.25 716.94 180.20" stroke-width="2.00" stroke="#270000" stroke-linecap="round" stroke-linejoin="round" fill="none"  />
 
 <path d="M 723.20 182.42 L 716.94 180.20 L 721.76 184.77" stroke-width="2.00" stroke="#270000" stroke-linecap="round" stroke-linejoin="round" fill="none"  />
 
 <path d="M 376.05 35.87 C 387.88 47.23 387.88 65.64 376.05 77.00 C 364.21 88.36 345.03 88.36 333.19 77.00 C 321.36 65.64 321.36 47.23 333.19 35.87 C 345.03 24.51 364.21 24.51 376.05 35.87" stroke-width="1.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="#00aa11"  />
 
-<text x="332.87" y="61.18" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Модель</text>
+<text x="336.87" y="61.18" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Model</text>
 <path d="M 451.77 81.44 C 444.87 81.44 439.27 75.84 439.27 68.94 L 439.27 43.94 C 439.27 37.03 444.87 31.44 451.77 31.44 L 556.29 31.44 C 563.20 31.44 568.79 37.03 568.79 43.94 L 568.79 68.94 C 568.79 75.84 563.20 81.44 556.29 81.44 Z M 451.77 81.44" stroke-width="1.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="#00aa11"  />
 
-<text x="452.73" y="61.18" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Первый слой DTO</text>
+<text x="462.73" y="61.18" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >First layer DTO</text>
 <path d="M 610.75 81.44 C 603.84 81.44 598.25 75.84 598.25 68.94 L 598.25 43.94 C 598.25 37.03 603.84 31.44 610.75 31.44 L 715.27 31.44 C 722.17 31.44 727.77 37.03 727.77 43.94 L 727.77 68.94 C 727.77 75.84 722.17 81.44 715.27 81.44 Z M 610.75 81.44" stroke-width="1.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="#00aa11"  />
 
-<text x="613.32" y="61.18" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Второй слой DTO</text>
+<text x="614.32" y="61.18" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Second layer DTO</text>
 <path d="M 568.79 43.94 L 583.52 43.94" stroke-width="2.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="none"  />
 
 <path d="M 583.52 43.94 L 598.25 43.94 M 591.75 45.32 L 598.25 43.94 L 591.75 42.55" stroke-width="2.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="none"  />
@@ -57,7 +57,7 @@
 
 <path d="M 182.66 81.44 C 175.76 81.44 170.16 75.84 170.16 68.94 L 170.16 43.94 C 170.16 37.03 175.76 31.44 182.66 31.44 L 270.79 31.44 C 277.70 31.44 283.29 37.03 283.29 43.94 L 283.29 68.94 C 283.29 75.84 277.70 81.44 270.79 81.44 Z M 182.66 81.44" stroke-width="1.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="#de7500"  />
 
-<text x="205.93" y="61.18" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Сервис</text>
+<text x="205.93" y="61.18" font-family="Helvetica" font-size="12.00px" fill="#f7f7f7" opacity="1.00" >Service</text>
 <path d="M 324.32 56.44 L 301.89 56.44" stroke-width="2.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="none"  />
 
 <path d="M 301.89 56.44 L 283.29 56.44 M 289.79 55.05 L 283.29 56.44 L 289.79 57.82" stroke-width="2.00" stroke="black" stroke-linecap="round" stroke-linejoin="round" fill="none"  />
