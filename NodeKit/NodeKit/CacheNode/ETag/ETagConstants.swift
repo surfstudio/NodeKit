@@ -12,7 +12,7 @@ import Foundation
 /// These constants are described in accordance with RFC and AppleDeveloper.
 public enum ETagConstants {
 
-    /// In the **response** headers, the eTag token should be placed under **this** key.
+    /// There should be the eTag token under **this** key in the **response** headers.
     ///
     /// - SeeAlso:
     ///     - [AppleDeveloper](https://developer.apple.com/documentation/foundation/httpurlresponse/1417930-allheaderfields)
@@ -21,7 +21,7 @@ public enum ETagConstants {
         return "Etag"
     }
 
-    /// In the **request** headers, the eTag token should be placed under **this** key.
+    /// /// There should be the eTag token under **this** key in the **response** headers.
     ///
     /// - SeeAlso: [RFC-7232](https://tools.ietf.org/html/rfc7232#section-3.2)
     ///

@@ -22,7 +22,7 @@ open class URLNotModifiedTriggerNode: AsyncNode {
 
     // MARK: - Init and deinit
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.

@@ -15,7 +15,7 @@ open class ResponseDataPreprocessorNode: AsyncNode {
     /// The next node for processing.
     public var next: any ResponseProcessingLayerNode
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(next: some ResponseProcessingLayerNode) {

@@ -21,7 +21,7 @@ open class ResponseProcessorNode<Type>: AsyncNode {
     /// The next node for processing.
     public let next: any AsyncNode<URLDataResponse, Type>
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(next: some AsyncNode<URLDataResponse, Type>) {

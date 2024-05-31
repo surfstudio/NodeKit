@@ -11,6 +11,7 @@ Every node is required to implement the `process(_ data: Input, logContext: Logg
 When creating custom nodes, it is recommended to pass `logContext` further along the chain; otherwise, a new `LoggingContext` will be created, and subsequent logs will be ignored when outputting to the console.
 
 It's essential to note that the process method operates asynchronously, and the thread in which it executes is not predetermined. 
+For more details read Swift Concurrency documentation.
 If it's required for the method to execute only in the main thread, the @MainActor attribute must be added to the method.
 
 ```Swift

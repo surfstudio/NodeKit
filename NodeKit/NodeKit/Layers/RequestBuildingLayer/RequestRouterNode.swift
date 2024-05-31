@@ -11,7 +11,7 @@ import Foundation
 /// This node adds a route to the request.
 open class RequestRouterNode<Raw, Route, Output>: AsyncNode {
 
-    /// Type for the next node.
+    /// Type of the next node.
     public typealias NextNode = AsyncNode<RoutableRequestModel<Route, Raw>, Output>
 
     /// The next node for processing.
@@ -20,7 +20,7 @@ open class RequestRouterNode<Raw, Route, Output>: AsyncNode {
     /// Route for the request.
     public var route: Route
 
-    /// Initializes the node
+    /// Initializer
     ///
     /// - Parameters:
     ///   - next: The next node for processing.

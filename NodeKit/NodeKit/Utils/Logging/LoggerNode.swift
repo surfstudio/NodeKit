@@ -9,7 +9,7 @@ open class LoggerNode<Input, Output>: AsyncNode {
     ///List of keys by which the log will be filtered.
     open var filters: [String]
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.

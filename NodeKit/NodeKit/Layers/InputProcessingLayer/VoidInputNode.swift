@@ -14,7 +14,7 @@ open class VoidInputNode<Output>: AsyncNode {
     /// The next node for processing.
     public var next: any AsyncNode<Json, Output>
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(next: any AsyncNode<Json, Output>) {

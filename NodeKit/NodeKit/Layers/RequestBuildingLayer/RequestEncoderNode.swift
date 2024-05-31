@@ -11,7 +11,7 @@ import Foundation
 /// This node adds encoding to the request being created.
 open class RequestEncoderNode<Raw, Route, Encoding, Output>: AsyncNode {
 
-    /// Type for the next node.
+    /// Type of the next node.
     public typealias NextNode = AsyncNode<EncodableRequestModel<Route, Raw, Encoding>, Output>
 
     /// The next node for processing.
@@ -20,7 +20,7 @@ open class RequestEncoderNode<Raw, Route, Encoding, Output>: AsyncNode {
     /// Encoding for the request.
     public var encoding: Encoding
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.

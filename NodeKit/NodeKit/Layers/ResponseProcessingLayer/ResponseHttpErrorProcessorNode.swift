@@ -33,7 +33,7 @@ open class ResponseHttpErrorProcessorNode<Type>: AsyncNode {
     /// The next node for processing.
     public var next: any AsyncNode<URLDataResponse, Type>
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(next: some AsyncNode<URLDataResponse, Type>) {

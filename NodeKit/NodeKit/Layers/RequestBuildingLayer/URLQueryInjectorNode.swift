@@ -2,7 +2,7 @@ import Foundation
 
 /// Errors for ``URLQueryInjectorNode``
 public enum URLQueryInjectorNodeError: Error {
-    /// Occurs if URLComponents couldn't be created from the URL.
+    /// Occurs if URLComponents could not be created from the URL.
     case cantCreateURLComponentsFromURLString
     /// Occurs if building URLComponents succeeded but obtaining the URL from it failed.
     case cantCreateURLFromURLComponents
@@ -60,7 +60,7 @@ open class URLQueryInjectorNode<Raw, Output>: AsyncNode {
         }
     }
 
-    /// Allows you to obtain a list of URL query components by key and value.
+    /// Allows to obtain a list of URL query components by key and value.
     /// - Parameter object: The value of the URL query parameter.
     /// - Parameter key: The key of the URL query parameter.
     open func makeQueryComponents(from object: Any, by key: String) -> [URLQueryItem] {

@@ -14,7 +14,7 @@ open class DTOMapperNode<Input, Output>: AsyncNode where Input: RawEncodable, Ou
     /// The next node for processing.
     public var next: any AsyncNode<Input.Raw, Output.Raw>
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(next: any AsyncNode<Input.Raw, Output.Raw>) {

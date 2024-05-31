@@ -36,7 +36,7 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
     
     private let multipartFormDataFactory: MultipartFormDataFactory
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(

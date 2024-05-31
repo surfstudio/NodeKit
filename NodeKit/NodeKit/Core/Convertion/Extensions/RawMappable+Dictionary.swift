@@ -9,7 +9,7 @@ extension Dictionary: RawMappable where Dictionary.Key == String, Dictionary.Val
         return self
     }
 
-    /// Returns the ``Json`` received as input.
+    /// Just returns the input.
     /// - Throws: Does not throw errors.
     public static func from(raw: Json) throws -> Json {
         return raw

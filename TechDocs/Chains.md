@@ -25,7 +25,7 @@ This chain **DOES NOT** contain caching.
 
 `build<I,O>` - a classic request. Expects data both as input and output (described above)
 
-`build<Void, Void>` - a chain that does not expect data as input or output
+`build<Void, Void>` - a chain that does not expect data either as input or output
 
 `build<I, Void>` - a chain that expects data as input but does not return data (server responds with an empty body)
 

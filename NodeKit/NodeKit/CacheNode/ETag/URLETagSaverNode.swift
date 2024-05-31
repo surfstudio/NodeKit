@@ -24,10 +24,10 @@ open class URLETagSaverNode: AsyncNode {
     public var next: (any ResponsePostprocessorLayerNode)?
 
     /// The key to retrieve the eTag token from the headers.
-    /// By default, it has the value `ETagConstants.eTagResponseHeaderKey`.
+    /// The default value is `ETagConstants.eTagResponseHeaderKey`.
     public var eTagHeaderKey: String
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.
@@ -61,16 +61,16 @@ open class URLETagSaverNode: AsyncNode {
 public extension URL {
 
     /// Takes the original URL
-    /// Gets the dictionary of query parameters
+    /// Gets dictionary of query parameters
     /// If there are no parameters - returns `self.absoluteString`
-    /// If parameters exist - sorts them, joins into one string
+    /// If parameters exist - sorts them and joins them into one string
     /// Removes query parameters from the original URL
     /// Concatenates the string representation of the URL without parameters with the parameter string
     ///
     /// **IMPORTANT**
     ///
-    /// The resulting string may be an invalid URL - since the task of this method is to obtain a unique identifier from the URL
-    /// Moreover, the order of query parameters is not important.
+    /// The resulting string may be an invalid URL - since the purpose of this method is to extract a unique identifier from the URL
+    /// Moreover, the order of query parameters does not matter.
     func withOrderedQuery() -> String? {
         guard var comp = URLComponents(string: self.absoluteString) else {
             return nil

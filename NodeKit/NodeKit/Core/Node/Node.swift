@@ -19,7 +19,7 @@ public extension Node {
         return "\(type(of: self))"
     }
 
-    /// Name of the object in format:
+    /// Name of the object in following format:
     /// <<<===\(self.objectName)===>>>" + `String.lineTabDeilimeter`
     var logViewObjectName: String {
         return "<<<===\(self.objectName)===>>>" + .lineTabDeilimeter

@@ -14,14 +14,14 @@ open class RawEncoderNode<Input, Output>: AsyncNode where Input: RawEncodable {
     /// The next node for processing.
     open var next: any AsyncNode<Input.Raw, Output>
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(next: some AsyncNode<Input.Raw, Output>) {
         self.next = next
     }
 
-    /// Tries to convert the model to Raw, and then simply passes the conversion result to the next node.
+    /// Tries to convert the model to Raw and then simply passes the conversion result to the next node.
     /// If an error occurs during conversion, it aborts the chain execution.
     ///
     /// - Parameter data: The incoming model.

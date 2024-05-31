@@ -10,7 +10,7 @@ open class URLRequestTrasformatorNode<Type>: AsyncNode {
     /// HTTP method for the request.
     public var method: Method
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.

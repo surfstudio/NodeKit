@@ -17,7 +17,7 @@ open class IfConnectionFailedFromCacheNode: AsyncNode {
     /// Node that reads data from the URL cache.
     public var cacheReaderNode: any AsyncNode<URLNetworkRequest, Json>
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.

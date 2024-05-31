@@ -26,7 +26,7 @@ open class AborterNode<Input, Output>: AsyncNode {
     /// Entity canceling transformation.
     public var aborter: Aborter
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node in the chain.

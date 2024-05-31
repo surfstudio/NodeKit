@@ -17,7 +17,7 @@ public enum AccessSafeNodeError: Error {
 
 /// ## Description
 /// Node implementing logic for maintaining access to a remote resource.
-/// For example, you can consider a scheme for OAuth 2.0.
+/// Let us consider a scheme for OAuth 2.0.
 ///
 /// ## Example
 /// After authorization, the user receives:
@@ -53,7 +53,7 @@ open class AccessSafeNode<Output>: AsyncNode {
     /// Out of the box, this is implemented by the ``TokenRefresherNode`` node.
     public var updateTokenChain: any AsyncNode<Void, Void>
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node in the chain.

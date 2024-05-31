@@ -9,7 +9,7 @@ open class RequestCreatorNode<Output>: AsyncNode {
     /// Metadata providers
     public var providers: [MetadataProvider]
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(next: some AsyncNode<URLRequest, Output>, providers: [MetadataProvider] = []) {

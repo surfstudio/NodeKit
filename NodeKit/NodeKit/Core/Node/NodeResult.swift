@@ -11,7 +11,7 @@ public typealias NodeResult<Output> = Result<Output, Error>
 
 public extension NodeResult {
     
-    /// Asynchronous positive result transformation method
+    /// Method for asynchronous transformation of positive result
     ///
     /// - Parameter transform: Asynchronous function to transform the positive result
     /// - Returns: The result of applying the transformation.
@@ -26,7 +26,7 @@ public extension NodeResult {
         }
     }
 
-    /// Asynchronous error transformation method
+    /// Method for asynchronous transformation of negative result
     ///
     /// - Parameter transform: Asynchronous function to transform the error
     /// - Returns: The result of applying the transformation.
@@ -41,7 +41,7 @@ public extension NodeResult {
         }
     }
 
-    /// Positive result transformation method that can throw an Exception
+    /// Method for transformation of positive result that can throw an Exception
     ///
     /// - Parameter transform: Transformation function that can throw an Exception
     /// - Returns: The result of applying the transformation or an Exception.
@@ -73,7 +73,7 @@ public extension NodeResult {
         }
     }
     
-    /// Method that calls an asynchronous function, checking if the task is still alive.
+    /// Method that calls an asynchronous function and checks if the task was canceled.
     /// If the task was canceled, it returns a `CancellationError`.
     ///
     /// - Parameters:

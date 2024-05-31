@@ -15,14 +15,14 @@ open class URLETagReaderNode: AsyncNode {
     public var next: any TransportLayerNode
 
     /// The key to retrieve the eTag token from the headers.
-    /// By default, it has the value `eTagRequestHeaderKey`.
+    /// The default value is `eTagRequestHeaderKey`.
     public var etagHeaderKey: String
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.
-    ///   - eTagHeaderKey: The key to add the eTag token to the request.
+    ///   - eTagHeaderKey: The key to retrieve the eTag token from the headers.
     public init(next: some TransportLayerNode,
                 etagHeaderKey: String = ETagConstants.eTagRequestHeaderKey) {
         self.next = next

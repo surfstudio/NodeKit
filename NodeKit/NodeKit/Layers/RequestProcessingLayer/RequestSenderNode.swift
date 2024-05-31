@@ -18,7 +18,7 @@ public struct NodeDataResponse {
 /// - Important: This node is statefull.
 open class RequestSenderNode<Type>: AsyncNode, Aborter {
 
-    /// Type for the node that will handle the server response.
+    /// Type of the node that will handle the server response.
     public typealias RawResponseProcessor = AsyncNode<NodeDataResponse, Type>
 
     /// Node for processing the response.
@@ -28,7 +28,7 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
     private(set) var manager: URLSession
     private let dataTaskActor: URLSessionDataTaskActorProtocol
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter rawResponseProcessor: The node for processing the response.
     /// - Parameter manager: URLSession manager, by default set to the session from ServerRequestsManager.

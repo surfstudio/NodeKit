@@ -15,7 +15,7 @@ class LoggerStreamNode<Input, Output>: AsyncStreamNode {
     ///List of keys by which the log will be filtered.
     var filters: [String]
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.

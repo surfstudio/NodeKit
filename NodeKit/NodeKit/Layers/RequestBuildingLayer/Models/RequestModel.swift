@@ -10,7 +10,7 @@ import Foundation
 
 /// Model for network request.
 /// It serves as an intermediate representation for passing data within the chain.
-/// It is later converted into ``RoutableRequestModel``.
+/// It is subsequently converted into ``RoutableRequestModel``.
 public struct RequestModel<Raw> {
     /// Метаданные
     public var metadata: [String: String]

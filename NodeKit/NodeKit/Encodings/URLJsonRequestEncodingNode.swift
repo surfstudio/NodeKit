@@ -13,7 +13,7 @@ open class URLJsonRequestEncodingNode<Type>: AsyncNode {
     /// The next node for processing.
     public var next: any AsyncNode<TransportURLRequest, Type>
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.

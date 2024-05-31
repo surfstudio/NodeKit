@@ -18,15 +18,15 @@ enum BaseFirstCachePolicyNodeError: Error {
 }
 
 /// This node implements the caching policy
-/// "Read from cache first, then request from server"
+/// "First, read from the cache, then request from the server"
 /// - Important: In general, the listener may be notified twice. The first time when the response is read from the cache, and the second time when it is received from the server.
 class FirstCachePolicyNode: AsyncStreamNode {
     // MARK: - Nested
 
-    /// Type for the node reading from URL cache
+    /// Type of the node reading from URL cache
     typealias CacheReaderNode = AsyncNode<URLNetworkRequest, Json>
 
-    /// Type for the next node
+    /// Type of the next node
     typealias NextProcessorNode = AsyncNode<RawURLRequest, Json>
 
     // MARK: - Properties
@@ -39,11 +39,11 @@ class FirstCachePolicyNode: AsyncStreamNode {
 
     // MARK: - Init and Deinit
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - cacheReaderNode: Node for reading from cache.
-    ///   - next: The next node for processing.
+    ///   - next: Next node for processing.
     init(cacheReaderNode: any CacheReaderNode, next: any NextProcessorNode) {
         self.cacheReaderNode = cacheReaderNode
         self.next = next

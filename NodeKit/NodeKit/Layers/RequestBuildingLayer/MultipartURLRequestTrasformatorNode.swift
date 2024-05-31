@@ -10,7 +10,7 @@ open class MultipartURLRequestTrasformatorNode<Type>: AsyncNode {
     /// HTTP method for the request.
     open var method: Method
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.

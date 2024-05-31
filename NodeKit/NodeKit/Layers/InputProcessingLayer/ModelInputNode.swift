@@ -15,7 +15,7 @@ public class ModelInputNode<Input, Output>: AsyncNode where Input: DTOEncodable,
     /// The next node for processing.
     public var next: any AsyncNode<Input.DTO, Output.DTO>
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(next: any AsyncNode<Input.DTO, Output.DTO>) {
@@ -23,7 +23,7 @@ public class ModelInputNode<Input, Output>: AsyncNode where Input: DTOEncodable,
     }
 
     /// Passes control to the next node,
-    /// and upon receiving a response, attempts to map the lower DTO layer to the upper one.
+    /// and upon receiving a response, attempts to map the lower DTO layer to the higher one.
     ///
     /// - Parameter data: Data for the request.
     open func process(

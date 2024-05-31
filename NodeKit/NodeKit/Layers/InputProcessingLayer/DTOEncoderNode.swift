@@ -21,7 +21,7 @@ open class DTOEncoderNode<Input, Output>: AsyncNode where Input: DTOEncodable {
         self.rawEncodable = rawEncodable
     }
 
-    /// Tries to convert the model to a DTO, and then passes the conversion result to the next node.
+    /// Tries to convert the model to a DTO and then passes the conversion result to the next node.
     /// If an error occurs during conversion, it interrupts the execution of the chain.
     ///
     /// - Parameter data: Incoming model.

@@ -29,7 +29,7 @@ open class TechnicaErrorMapperNode: AsyncNode {
     open var next: any AsyncNode<URLRequest, Json>
 
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(next: any AsyncNode<URLRequest, Json>) {

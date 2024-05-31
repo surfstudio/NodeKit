@@ -23,7 +23,7 @@ open class ResponseDataParserNode: AsyncNode {
     /// The next node for processing.
     public var next: (any ResponsePostprocessorLayerNode)?
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(next: (any ResponsePostprocessorLayerNode)? = nil) {

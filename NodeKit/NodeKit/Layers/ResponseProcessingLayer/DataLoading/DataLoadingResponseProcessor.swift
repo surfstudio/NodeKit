@@ -17,14 +17,14 @@ open class DataLoadingResponseProcessor: AsyncNode {
     /// Node for post-processing loaded data.
     open var next: (any AsyncNode<URLDataResponse, Void>)?
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameter next: The node for post-processing loaded data. Default is nil.
     public init(next: (any AsyncNode<URLDataResponse, Void>)? = nil) {
         self.next = next
     }
 
-    /// If the post-processing node exists, it calls it; if not, it returns the data.
+    /// If the post-processing node exists, it calls it; otherwise, it returns the data.
     open func process(
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol

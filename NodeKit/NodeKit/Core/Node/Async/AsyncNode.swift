@@ -42,7 +42,7 @@ public extension AsyncNode {
     /// Method for obtaining a Publisher to subscribe to the result.
     /// Base implementation of ``CombineCompatibleNode``.
     /// Calls the `process` method with a new task upon each subscription.
-    /// Calls `cancel` on the task when c`ancel` is invoked in `AnyCancellable` object.
+    /// Calls `cancel` on the task when `cancel` is invoked in `AnyCancellable` object.
     ///
     /// - Parameters:
     ///    - data: Input data for the node.

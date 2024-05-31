@@ -18,7 +18,7 @@ open class HeaderInjectorNode: AsyncNode {
     /// Headers to be added.
     public var headers: [String: String]
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node for processing.

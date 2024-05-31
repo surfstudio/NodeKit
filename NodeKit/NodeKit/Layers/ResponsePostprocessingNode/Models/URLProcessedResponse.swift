@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Used to transfer data within the request post-processing layer.
+/// Used to transfer data within the layer of the post-processing request
 public struct URLProcessedResponse {
 
     private let _dataResponse: URLDataResponse

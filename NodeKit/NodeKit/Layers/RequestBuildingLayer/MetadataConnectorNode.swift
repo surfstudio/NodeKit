@@ -1,6 +1,6 @@
 import Foundation
 
-/// The task of this node is to add metadata to the created request.
+/// The purpose of this node is to add metadata to the created request.
 /// Initializes the chain for building an HTTP request.
 open class MetadataConnectorNode<Raw, Output>: AsyncNode {
 
@@ -10,7 +10,7 @@ open class MetadataConnectorNode<Raw, Output>: AsyncNode {
     /// Metadata for request.
     public var metadata: [String: String]
 
-    /// Initializes the node.
+    /// Initializer.
     ///
     /// - Parameters:
     ///   - next: The next node in the chain.

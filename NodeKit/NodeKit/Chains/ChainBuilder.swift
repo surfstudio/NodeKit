@@ -50,7 +50,7 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
     public let serviceChainProvider: ServiceChainProvider
     public let logFilter: [String]
     
-    /// Model for configuring URL query in the request.
+    /// Model for configuring URL query of the request.
     public var config: URLQueryConfigModel
     
     /// Array of header providers for the request.

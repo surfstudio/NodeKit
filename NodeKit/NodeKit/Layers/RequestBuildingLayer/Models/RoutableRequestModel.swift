@@ -11,7 +11,7 @@ import Foundation
 /// Model for network request.
 /// It serves as an intermediate representation.
 /// It is the next stage after ``RequestModel``.
-/// It is later converted into ``EncodableRequestModel``.
+/// It is subsequently converted into ``EncodableRequestModel``.
 public struct RoutableRequestModel<Route, Raw> {
     /// Метаданные
     public var metadata: [String: String]

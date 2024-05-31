@@ -9,7 +9,7 @@
 import Foundation
 
 /// Server response model.
-/// Used for passing information within the response handling chain.
+/// Used for passing information within the chain of response handling.
 public struct URLDataResponse: Equatable {
     /// The request sent to the server.
     public let request: URLRequest
