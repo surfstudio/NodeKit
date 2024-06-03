@@ -11,6 +11,14 @@ Flexible and customizable network library
   <img src="TechDocs/Header.svg">
 </p>
 
+## About
+
+The NodeKit library enables rapid and easy creation of requests of varying complexity. The system operates on the principle of asynchronous data transformation, wherein nodes are interconnected to form a chain that transforms input data into a server response.
+
+![All text](TechDocs/NodeKitHeader.svg)
+
+Such an approach allows us to flexibly adapt to a wide range of requirements.
+
 ## Build request using Swift Concurrency
 
 ```Swift
@@ -53,14 +61,6 @@ func credentialsPublisher(for authModel: AuthModel) -> AnyPublisher<NodeResult<C
 }
 
 ```
-
-## About
-
-The NodeKit library enables rapid and easy creation of requests of varying complexity. The system operates on the principle of asynchronous data transformation, wherein nodes are interconnected to form a chain that transforms input data into a server response.
-
-![All text](TechDocs/NodeKitHeader.svg)
-
-Such an approach allows us to flexibly adapt to a wide range of requirements.
 
 ## Installation
 
