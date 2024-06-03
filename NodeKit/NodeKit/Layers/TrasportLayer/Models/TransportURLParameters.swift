@@ -8,21 +8,21 @@
 
 import Foundation
 
-/// Модель для передачи параметров на транспортном слое цепочки.
+/// Model for passing parameters at the transport layer of the chain.
 public struct TransportURLParameters {
-    /// HTTP метод.
+    /// HTTP method.
     public let method: Method
-    /// URL эндпоинта.
+    /// URL endpoint.
     public let url: URL
-    /// Хедеры запроса.
+    /// Request headers.
     public let headers: [String: String]
 
-    /// Инициаллизирует объект.
+    /// Initializes the object.
     ///
     /// - Parameters:
-    ///   - method: HTTP метод.
-    ///   - url: URL эндпоинта.
-    ///   - headers: Хедеры запроса.
+    ///   - method: HTTP method.
+    ///   - url: URL endpoint.
+    ///   - headers: Request headers.
     public init(method: Method, url: URL, headers: [String: String] = [:]) {
         self.method = method
         self.url = url

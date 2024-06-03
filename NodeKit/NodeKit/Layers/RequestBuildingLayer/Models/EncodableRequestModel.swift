@@ -8,20 +8,16 @@
 
 import Foundation
 
-/// Модель для запроса в сеть.
-/// Является обобщенным представлениям любого запроса.
-/// Является следующим этапом после `RoutableRequestModel`
-///
-/// - SeeAlso:
-///     - `RoutableRequestModel`
-///     - `EncodableRequestModel`
+/// Model for network request.
+/// It serves as a generalized representation of any request.
+/// It is the next stage after ``RoutableRequestModel``
 public struct EncodableRequestModel<Route, Raw, Encoding> {
-    /// Метаданные
+    /// Metadata
     public var metadata: [String: String]
-    /// Данные для запроса в Raw
+    /// Data for the request in Raw
     public var raw: Raw
-    /// Маршрут до удаленного метода
+    /// Route to the remote method
     public var route: Route
-    /// Кодировка данных запроса
+    /// Request data encoding
     public var encoding: Encoding?
 }

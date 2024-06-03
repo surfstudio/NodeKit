@@ -34,7 +34,7 @@ open class URLServiceChainProvider: ServiceChainProvider {
     
     // MARK: - ServiceChainProvider
     
-    /// Цепочка обработки Json ответа от сервера.
+    /// Chain for processing ``Json`` response from the server.
     open func provideResponseJsonChain() -> any AsyncNode<NodeDataResponse, Json> {
         let responseDataParserNode = ResponseDataParserNode()
         let responseDataPreprocessorNode = ResponseDataPreprocessorNode(next: responseDataParserNode)
@@ -42,9 +42,9 @@ open class URLServiceChainProvider: ServiceChainProvider {
         return ResponseProcessorNode(next: responseHttpErrorProcessorNode)
     }
     
-    /// Цепочка создания и отправки запроса, ожидающая Json ответ.
+    /// Chain for creating and sending a request, expecting a ``Json`` response.
     ///
-    /// - Parameter providers: Массив провайдеров, предоставляющих метаданные, которые будут включены в запрос.
+    /// - Parameter providers: Providing metadata to be included in the request.
     open func provideRequestJsonChain(
         with providers: [MetadataProvider]
     ) -> any AsyncNode<TransportURLRequest, Json> {
@@ -57,16 +57,16 @@ open class URLServiceChainProvider: ServiceChainProvider {
         return RequestCreatorNode(next: aborterNode, providers: providers)
     }
     
-    /// Цепочка обработки Data ответа от сервера.
+    /// Chain for processing the server's Data response.
     open func provideResponseDataChain() -> any AsyncNode<NodeDataResponse, Data> {
         let loaderParser = DataLoadingResponseProcessor()
         let errorProcessor = ResponseHttpErrorProcessorNode(next: loaderParser)
         return ResponseProcessorNode(next: errorProcessor)
     }
     
-    /// Цепочка создания и отправки запроса, ожидающая Data ответ.
+    /// Chain for creating and sending a request, expecting a Data response.
     ///
-    /// - Parameter providers: Массив провайдеров, предоставляющих метаданные, которые будут включены в запрос.
+    /// - Parameter providers: Providing metadata to be included in the request.
     open func provideRequestDataChain(
         with providers: [MetadataProvider]
     ) -> any AsyncNode<TransportURLRequest, Data> {
@@ -78,7 +78,7 @@ open class URLServiceChainProvider: ServiceChainProvider {
         return RequestCreatorNode(next: aborterNode, providers: providers)
     }
     
-    /// Цепочка обработки Multipart ответа от сервера.
+    /// Chain for processing a Multipart response from the server.
     open func provideResponseMultipartChain() -> any AsyncNode<NodeDataResponse, Json> {
         let responseDataParserNode = ResponseDataParserNode()
         let responseDataPreprocessorNode = ResponseDataPreprocessorNode(next: responseDataParserNode)
@@ -86,7 +86,7 @@ open class URLServiceChainProvider: ServiceChainProvider {
         return ResponseProcessorNode(next: responseHttpErrorProcessorNode)
     }
     
-    /// Цепочка создания и отправки запроса, ожидающая Multipart ответ.
+    /// Chain for creating and sending a request, expecting a Multipart response.
     open func provideRequestMultipartChain() -> any AsyncNode<MultipartURLRequest, Json> {
         let responseChain = provideResponseMultipartChain()
         let requestSenderNode = RequestSenderNode(

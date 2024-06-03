@@ -8,16 +8,15 @@
 
 import Foundation
 
-/// Этот узел занимается записью данных в URL кэш.
-/// - Important: это "глупая" реализация,
-/// в которой не учитываются server-side политики и прочее.
-/// Подразумечается, что этот узел не входит в цепочку, а является листом одного из узлов.
+/// This node is responsible for writing data to the URL cache.
+/// - Important: This is a "dumb" implementation where server-side policies and other considerations are not taken into account.
+/// It is implied that this node does not participate in the chain but is a leaf of one of the nodes.
 open class URLCacheWriterNode: AsyncNode {
     
     public init() { }
 
-    /// Формирует `CachedURLResponse` с политикой `.allowed`, сохраняет его в кэш,
-    /// а затем возвращает сообщение об успешной операции.
+    /// Forms a `CachedURLResponse` with the policy `.allowed`, saves it to the cache,
+    /// and then returns a message about the successful operation.
     open func process(
         _ data: URLProcessedResponse,
         logContext: LoggingContextProtocol

@@ -1,25 +1,25 @@
 import Foundation
 
-/// Этот узел инициаллизирует URL запрос.
+/// This node initializes the URL request.
 open class RequestCreatorNode<Output>: AsyncNode {
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: any AsyncNode<URLRequest, Output>
 
-    /// Провайдеры мета-данных
+    /// Metadata providers
     public var providers: [MetadataProvider]
 
-    /// Инициаллизирует узел.
+    /// Initializer.
     ///
-    /// - Parameter next: Следующий узел для обработки.
+    /// - Parameter next: The next node for processing.
     public init(next: some AsyncNode<URLRequest, Output>, providers: [MetadataProvider] = []) {
         self.next = next
         self.providers = providers
     }
 
-    /// Конфигурирует низкоуровневый запрос.
+    /// Configures the low-level request.
     ///
-    /// - Parameter data: Данные для конфигурирования и последующей отправки запроса.
+    /// - Parameter data: Data for configuring and subsequently sending the request.
     open func process(
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol

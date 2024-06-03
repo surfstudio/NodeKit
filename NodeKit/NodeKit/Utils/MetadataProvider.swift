@@ -1,8 +1,8 @@
 import Foundation
 
-/// Интерфейс для любого поставщика мета-данных (хедеров)
-/// Может использоваться например для того, чтобы поставлять токен в запрос без создания кастомного узла
+/// Interface for any metadata (headers) provider.
+/// Can be used, for example, to supply a token in a request without creating a custom node.
 public protocol MetadataProvider {
-    /// Должен вернуть заголовок с токеном.
+    /// Returns a header with a token.
     func metadata() -> [String: String]
 }

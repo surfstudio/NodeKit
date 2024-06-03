@@ -8,14 +8,14 @@
 
 import Foundation
 
-/// Модель представления ответа сервера.
-/// Используется для передачи информации внутри цепочки обработки ответа.
+/// Server response model.
+/// Used for passing information within the chain of response handling.
 public struct URLDataResponse: Equatable {
-    /// Запрос, отправленный на сервер.
+    /// The request sent to the server.
     public let request: URLRequest
-    /// Ответ, полученный от сервера
+    /// The response received from the server.
     public let response: HTTPURLResponse
-    /// Данные, возвращенные сервером.
+    /// The data returned by the server.
     public let data: Data
 
     public init(request: URLRequest,

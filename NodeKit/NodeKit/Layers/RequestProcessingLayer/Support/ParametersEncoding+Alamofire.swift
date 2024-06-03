@@ -6,10 +6,10 @@
 //  Copyright © 2019 Кравченков Александр. All rights reserved.
 //
 
-/// Содержит конвертирование NodeKit.ParametersEncoding в Alamofire.ParameterEncoding
+/// Contains the conversion of NodeKit.ParametersEncoding to Alamofire.ParameterEncoding.
 extension NodeKit.ParametersEncoding {
 
-    /// Содержит конвертирование CoreNetKit.ParametersEncoding в Alamofire.ParameterEncoding
+    /// Contains the conversion of CoreNetKit.ParametersEncoding to Alamofire.ParameterEncoding.
     public var raw: ParameterEncoding {
         switch self {
         case .json:

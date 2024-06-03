@@ -8,9 +8,9 @@
 
 import Foundation
 
-/// Обертка над URLRequest.
+/// URLRequest wrapper.
 public struct URLNetworkRequest {
-    /// Данные запроса.
+    /// Request data.
     public let urlRequest: URLRequest
     
     public init(urlRequest: URLRequest) {
@@ -18,19 +18,19 @@ public struct URLNetworkRequest {
     }
 }
 
-/// Обертка над `Alamofire.DataRequest`
+/// `Alamofire.DataRequest` wrapper.
 public struct RawURLRequest {
 
-    /// Alamifire запрос.
+    /// Alamifire request.
     public let dataRequest: URLRequest?
     
     public init(dataRequest: URLRequest?) {
         self.dataRequest = dataRequest
     }
 
-    /// Конвертирвет себя в `URLNetworkRequest`
+    /// Converts itself into `URLNetworkRequest`.
     ///
-    /// - Returns: Новое представление запроса.
+    /// - Returns: The new request representation.
     public func toURLRequest() -> URLNetworkRequest? {
         guard let request = dataRequest else {
             return nil

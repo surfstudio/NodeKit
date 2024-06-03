@@ -8,25 +8,24 @@
 
 import Foundation
 
-/// Узел для инциаллизации обработки данных.
-/// Иcпользуется для работы с моделями, которые представлены двумя слоями DTO.
+/// Node for initializing data processing.
+/// Used for working with models represented by two layers of DTOs.
 public class ModelInputNode<Input, Output>: AsyncNode where Input: DTOEncodable, Output: DTODecodable {
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: any AsyncNode<Input.DTO, Output.DTO>
 
-    /// Инциаллизирует узел.
+    /// Initializer.
     ///
-    /// - Parameter next: Следующий узел для обработки.
+    /// - Parameter next: The next node for processing.
     public init(next: any AsyncNode<Input.DTO, Output.DTO>) {
         self.next = next
     }
 
-    /// Передает управление следующему узлу,
-    /// а по получении ответа пытается замапить нижний DTO-слой на верхний.
-    /// Если при маппинге произошла ошибка, то она будет проброшена выше.
+    /// Passes control to the next node,
+    /// and upon receiving a response, attempts to map the lower DTO layer to the higher one.
     ///
-    /// - Parameter data: Данные для запроса.
+    /// - Parameter data: Data for the request.
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol

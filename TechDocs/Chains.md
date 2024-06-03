@@ -1,64 +1,58 @@
-# Реализованный цепочки
+# Implemented chains
 
-## UrlChains
+## URLChains
 
-Содержит цепочки из-коробки для работы с URL запросами. 
+It contains out-of-the-box chains for working with URL requests.
 
-По умолчанию реализована цепочка из следующих узлов:
+By default, the following nodes are implemented in the chain:
 
-1. `LoggerNode` - выводит логи
-2. `ChainConfiguratorNode` - выполняет всю последующую работу в `background`, а ответ диспатчит на `main`
-3. `LoadIndicatableNode` - показывает индикатор загрузки в статус-баре
-4. `ModelInputNode` - маппит ответ из `RawMappable` в `DTOConvertible`
-5. `DTOMapperNode` - маппит запрос из `DTOConvertible` в `RawMappable`
-6. `MetadataConnectorNode` - добавляет `metadata` в `RequestModel`
-7. `RequestRouterNode` - добавляет маршрут к запросу
-8. `RequstEncoderNode` - добавляет кодировку к запросу
-9. `UrlRequestTrasformatorNode` - Этот узел формирует конкретный `URL` запрос. Преобразуя `metadata` в `headers`, `route` в `URL` и т.д.
-10. `RequestCreatorNode` - создает запрос в сеть с помощью `Alamofire`
-11. `TechnicaErrorMapperNode` - маппит технические ошибки (таймаут, отсутствие интернета и т.п.)
-12. `RequestSenderNode` - отправляет запрос в сеть. Не маппит его. Просто отправляет
-13. `ResponseProcessorNode` - занимается обработкой ответа от сервера. Проверяет, успешно выполнился запрос или нет. Если успешно, то можно ли замаппить ответ в JSON или нет
-14. `ResponseHttpErrorProcessorNode` - этот узел занимается проверкой, возникли ли какие-то HTTP-ошибки (проверяет код). Если да, то создает экземпляр `ResponseHttpErrorProcessorNodeError` и заканчивает выполнение цепочки
-15. `ResponseDataPreprocessorNode` - здесь мы проверяем ответ. Является ли он Json-объектом или Json-массивом
-16. `ResponseDataParserNode` - получаем `Json` из `Data`
+1. `LoggerNode` - outputs logs
+2. `ModelInputNode` - maps the response from `RawMappable` to `DTOConvertible`
+3. `DTOMapperNode` - maps the response from `DTOConvertible` to `RawMappable`
+4. `MetadataConnectorNode` - adds `metadata` to `RequestModel`
+5. `RequestRouterNode` - adds route to request
+6. `RequstEncoderNode` - adds coding to request
+7. `UrlRequestTrasformatorNode` - this node constructs a specific `URL` request, transforming `metadata` into `headers`, `route` into `URL`, etc.
+8. `RequestCreatorNode` - creates a network request using `URLSession`
+9. `TechnicaErrorMapperNode` - maps technical errors (timeout, lack of internet connection, etc.)
+10. `RequestSenderNode` - sends a request to the network
+11. `ResponseProcessorNode` - handles the server response, checking whether the request was successful or not. If successful, it checks whether the response can be mapped to JSON or not
+12. `ResponseHttpErrorProcessorNode` - this node handles checking whether any HTTP errors occurred (checks the code). If so, it creates an instance of `ResponseHttpErrorProcessorNodeError` and terminates the chain execution.
+13. `ResponseDataPreprocessorNode` - here we check the response.
+14. `ResponseDataParserNode` - obtains `JSON` from `Data`
 
-Эта цепочка **НЕ** содержит кэширования.
+This chain **DOES NOT** contain caching.
 
-`build<I,O>` - классический запрос. Ожидает данные как на вход так и на выход. (описано выше)
+`build<I,O>` - a classic request. Expects data both as input and output (described above)
 
-`build<Void, Void>` - цепочка не ожидающая данных на вход и на выход (да, и такое бывает)
+`build<Void, Void>` - a chain that does not expect data either as input or output
 
-`build<I, Void>` - цепочка, ожидающая данные на вход, но не возвращающая данные (сервер отвечает пустым телом)
+`build<I, Void>` - a chain that expects data as input but does not return data (server responds with an empty body)
 
-`build<Void, I>` - цепочка, не ожидающая данные на вход, но ожидающая на выход (классический GET-запрос)
+`build<Void, I>` - a chain that does not expect data as input but expects data as output (a classic GET request)
 
-`loadData<Void, Data>` - цепочка, которая просто скачивает нужный файл (например, качаем статически раздающийся файл)
+`loadData<Void, Data>` - a chain that simply downloads the required file (for example, downloading a statically served file)
 
-`loadData<I, Data>` - цепочка, скачивающая файл и передающая на сервер какие-то данные (и так бывает, да)
+`loadData<I, Data>` - a chain that downloads a file and sends some data to the server (which can happen)
 
-`build<I, O> where I.DTO.Raw = MultipartModel<[String : Data]>` - цепочка, которая позволяет отправлять multipart-запросы 
+`build<I, O> where I.DTO.Raw = MultipartModel<[String : Data]>` - a chain that allows sending multipart requests
 
-### Операции
+### Operations
 
-`set(query: [String: Any])` - изменяет URL-Query параметр у запроса. 
+`set(query: [String: Any])` - changes the URL query parameter of the request. 
 
-`set(boolEncodingStartegy: URLQueryBoolEncodingStartegy)` - устанавливает стратегию парсинга булевых переменных в URL-query параметры. Доступные из-коробки имплементации: `URLQueryBoolEncodingDefaultStartegy.asInt`, `URLQueryBoolEncodingDefaultStartegy.asBool`. По-умолчанию ставится `.asInt`
+`set(boolEncodingStartegy: URLQueryBoolEncodingStartegy)` - sets the strategy for parsing boolean variables into URL query parameters. Available out-of-the-box implementations: `URLQueryBoolEncodingDefaultStrategy.asInt`, `URLQueryBoolEncodingDefaultStrategy.asBool`. By default, `URLQueryBoolEncodingDefaultStrategy.asInt` is used.
 
-`set(boolEncodingStartegy: URLQueryBoolEncodingDefaultStartegy)` - то же самое, только вместо протокола принимает тип доступный из-коробки (для красоты конфигурирования)
+`set(arrayEncodingStrategy: URLQueryArrayKeyEncodingStartegy)` - sets the strategy for parsing array keys into URL query parameters. Available out-of-the-box implementations: `URLQueryArrayKeyEncodingBracketsStrategy.brackets`, `URLQueryArrayKeyEncodingBracketsStrategy.noBrackets`. By default, `URLQueryArrayKeyEncodingBracketsStrategy.brackets` is used.
 
-`set(arrayEncodingStrategy: URLQueryArrayKeyEncodingStartegy)` - устанавливает стратегию парсинга ключей массивов в URL-query параметры. Доступные из-коробки имплементации: `URLQueryArrayKeyEncodingBracketsStartegy.brackets`, `URLQueryArrayKeyEncodingBracketsStartegy.noBrackets`. По-умолчанию ставится `.brackets`
+`set(dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy)` - sets the strategy for parsing dictionary keys into URL query parameters. Only `URLQueryDictionaryKeyEncodingDefaultStrategy` is available out-of-the-box.
 
-`set(arrayEncodingStrategy: URLQueryArrayKeyEncodingBracketsStartegy)` - то же самое, только вместо протокола принимает тип доступный из-коробки (для красоты конфигурирования)
+`set(metadata: [String: String])` - sets the request headers that are added during the construction stage in the request (MetadataProviderNode). By default, the dictionary is empty.
 
-`set(dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy)` - устанавливает стратегию парсинга ключей словарей в URL-query параметры. Из-коробки доступна только `URLQueryDictionaryKeyEncodingDefaultStrategy`.
+`route(_ method: Method, _ route: Route)` - sets the HTTP method and URL for the request.
 
-`set(metadata: [String: String])` - устанавливает хедеры запроса, которые добавляются на этапе конструирования в запросе (узел `MetadataProviderNode`). По-умолчанию словарь пуст. 
+`encode(as encoding: ParametersEncoding)` - sets the encoding for the request. By default, `.json` is used.
 
-`route(_ method: Method, _ route: Route)` - устанавливает http-метод и url для запроса.
+`add(provider: MetadataProvider)` - adds a header provider to the request. These providers will be called immediately before sending the request.
 
-`encode(as encoding: ParametersEncoding)` - устанавлиает кодировку для запроса. По-умолчанию `.json`
-
-`add(provider: MetadataProvider)` - добавляет провайдер заголовков к запросу. Эти провайдеры будут вызваны непосредственно перед отправкой запроса.
-
-`log(exclude: [String])` - позволяет исключить какие-то определенные логи по их ID. В качестве ID у лога ставится имя узла. Подробнее [тут](Log/Log.md)
+`log(exclude: [String])` - allows excluding certain specific logs by their ID. The node name is used as the ID for the log. [More](Log/Log.md) details. 

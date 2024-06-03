@@ -1,36 +1,36 @@
 import Foundation
 
-/// Композиция протоколов `DTOEncodable` и `DTODecodable`
+/// The composition of protocols ``DTOEncodable`` and ``DTODecodable``.
 public typealias DTOConvertible = DTOEncodable & DTODecodable
 
-/// Описывает сущность из верхнего слоя DTO.
-/// Может конвертировать себя в слой DTO
+/// Describes an entity from the higher DTO layer.
+/// Can convert itself to the DTO layer.
 public protocol DTOEncodable {
-    /// Тип сущности DTO.
+    /// DTO entity type.
     associatedtype DTO: RawEncodable
 
-    /// Получает DTO-модель нижнего уровня из себя.
+    /// Retrieves the lower-level DTO model from itself.
     ///
-    /// - Returns: Результат конвертирования.
-    /// - Throws: Могут возникать любе исключения, определенные пользователем.
+    /// - Returns: The conversion result.
+    /// - Throws: Any user-defined exceptions may occur.
     func toDTO() throws -> DTO
 }
 
-/// Описывает сущность из верхнего слоя DTO.
-/// Может ковертироать слой DTO в себя.
+/// Describes an entity from the higher DTO layer.
+/// Can convert the DTO layer into itself.
 public protocol DTODecodable {
-    /// Тип сущности DTO.
+    /// DTO entity type.
     associatedtype DTO: RawDecodable
 
-    /// Кнвертирует модель из DTO нижнего уровня в DTO-модель верхнего уровня.
+    /// Converts a model from the lower-level DTO into a model of the higher-level DTO.
     ///
-    /// - Parameter from: Модель нижнего уровня DTO из которой необходимо получить модель верхнего уровня.
-    /// - Returns: Результат конвертирования.
-    /// - Throws: Могут возникать любе исключения, определенные пользователем.
+    /// - Parameter from: The lower-level DTO model from which to obtain the higher-level model.
+    /// - Returns: The conversion result.
+    /// - Throws: Any user-defined exceptions may occur.
     static func from(dto: DTO) throws -> Self
 }
 
-/// Синтаксический сахар, позволяющий в одну строчку мапить опциональные модели.
+/// Syntactic sugar that allows one-line mapping of optional models.
 public extension Optional where Wrapped: DTODecodable {
     static func from(dto: Wrapped.DTO?) throws -> Wrapped? {
         guard let guarded = dto else {

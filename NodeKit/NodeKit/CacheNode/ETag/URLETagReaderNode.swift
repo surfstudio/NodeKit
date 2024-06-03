@@ -8,29 +8,29 @@
 
 import Foundation
 
-/// Этот узел читает eTag-токен из хранилища и добавляет его к запросу.
+/// This node reads the eTag token from the storage and adds it to the request.
 open class URLETagReaderNode: AsyncNode {
 
-    // Следующий узел для обработки.
+    // The next node for processing.
     public var next: any TransportLayerNode
 
-    /// Ключ, по которому необходимо получить eTag-токен из хедеров.
-    /// По-молчанию имеет значение `eTagRequestHeaderKey`
+    /// The key to retrieve the eTag token from the headers.
+    /// The default value is `eTagRequestHeaderKey`.
     public var etagHeaderKey: String
 
-    /// Инициаллизирует узел.
+    /// Initializer.
     ///
     /// - Parameters:
-    ///   - next: Следующий узел для обработки.
-    ///   - eTagHeaderKey: Ключ, по которому необходимо добавить eTag-токен к запросу.
+    ///   - next: The next node for processing.
+    ///   - eTagHeaderKey: The key to retrieve the eTag token from the headers.
     public init(next: some TransportLayerNode,
                 etagHeaderKey: String = ETagConstants.eTagRequestHeaderKey) {
         self.next = next
         self.etagHeaderKey = etagHeaderKey
     }
 
-    /// Пытается прочесть eTag-токен из хранилища и добавить его к запросу.
-    /// В случае, если прочесть токен не удалось, то управление просто передается дальше.
+    /// Tries to read the eTag token from the storage and add it to the request.
+    /// If reading the token fails, control is simply passed on.
     open func process(
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol

@@ -50,27 +50,27 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
     public let serviceChainProvider: ServiceChainProvider
     public let logFilter: [String]
     
-    /// Модель для конфигурирования URL-query в запросе.
+    /// Model for configuring URL query of the request.
     public var config: URLQueryConfigModel
     
-    /// Массив провайдеров заголовков для запроса.
-    /// Эти провайдеры используются перед непосредственной отправкой запроса.
+    /// Array of header providers for the request.
+    /// These providers are used before the request is sent.
     public var headersProviders: [MetadataProvider]
 
-    /// HTTP метод, который будет использован цепочкой
-    /// По-умолчанию GET
+    /// HTTP method to be used by the chain.
+    /// By default, GET.
     public var method: Method
 
-    /// Кодировка данных для запроса.
+    /// Data encoding for the request.
     ///
-    /// По умолчанию`.json`
+    /// By default, `.json`.
     public var encoding: ParametersEncoding
 
-    /// В случае классического HTTP это Header'ы запроса.
-    /// По-умолчанию пустой.
+    /// In the case of classic HTTP, these are the request headers.
+    /// By default, empty.
     public var metadata: [String: String]
 
-    /// Маршрут до удаленного метода (в частном случае - URL endpoint'a)
+    /// Route to the remote method (specifically, the URL endpoint).
     public var route: Route?
 
     
@@ -92,8 +92,8 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
     
     // MARK: - Public Methods
     
-    /// Добавляет к цепочке RequestRouterNode на основе заданного Route.
-    /// Если Route не был задан до вызова метода, будет выброшена ошибка.
+    /// Adds a ``RequestRouterNode`` to the chain based on the specified Route.
+    /// If the Route has not been set before calling the method, an error will be thrown.
     open func requestRouterNode<Raw, Output>(
         root: some AsyncNode<RoutableRequestModel<URLRouteProvider, Raw>, Output>
     ) -> RequestRouterNode<Raw, URLRouteProvider, Output> {
@@ -104,10 +104,10 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
         return RequestRouterNode(next: root, route: route)
     }
     
-    /// Добавляет к цепочке root цепочку узлов, описывающих слой построения запроса.
-    /// Используется для запросов, ожидающих Json или Data в ответ.
+    /// Adds to the chain a root chain of nodes describing the request construction layer.
+    /// Used for requests expecting ``Json`` or Data in response.
     ///
-    /// - Parameter root: Цепочка, к которой будут добавлены узлы
+    /// - Parameter root: The chain to which nodes will be added
     open func metadataConnectorChain<O>(
         root: any AsyncNode<TransportURLRequest, O>
     ) -> some AsyncNode<Json, O> {
@@ -119,10 +119,10 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
         return MetadataConnectorNode(next: requestRouterNode, metadata: metadata)
     }
     
-    /// Добавляет к цепочке root цепочку узлов, описывающих слой построения запроса.
-    /// Используется для Multipart запросов.
+    /// Adds to the chain a root chain of nodes describing the request construction layer.
+    /// Used for Multipart requests.
     ///
-    /// - Parameter root: Цепочка, к которой будут добавлены узлы
+    /// - Parameter root: The chain to which nodes will be added
     open func metadataConnectorChain(
         root: any AsyncNode<MultipartURLRequest, Json>
     ) -> any AsyncNode<MultipartModel<[String : Data]>, Json> {

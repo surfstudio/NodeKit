@@ -1,22 +1,22 @@
 import Foundation
 
-/// Модель для внутреннего представления запроса.
+/// Model for internal representation of a request.
 public struct TransportURLRequest {
 
-    /// HTTP метод.
+    /// HTTP method.
     public let method: Method
-    /// URL эндпоинта.
+    /// URL endpoint.
     public let url: URL
-    /// Хедеры запроса.
+    /// Request headers.
     public let headers: [String: String]
-    /// Данные для запроса в чистой `Data`
+    /// Raw `Data`.
     public let raw: Data?
 
-    /// Инициаллизирует объект.
+    /// Initializes the object.
     ///
     /// - Parameters:
-    ///   - params: Параметры для формирования запроса.
-    ///   - raw: Данные для запроса в формате `Data`
+    ///   - params: Parameters for forming the request.
+    ///   - raw: Data for the request in `Data` format.
     public init(with params: TransportURLParameters, raw: Data?) {
         self.init(method: params.method,
                   url: params.url,

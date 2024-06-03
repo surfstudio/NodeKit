@@ -8,16 +8,16 @@
 
 import Combine
 
-/// Протокол описывающий Publisher для ``CombineCompatibleNode``
+/// Protocol describing a Publisher for ``CombineCompatibleNode``
 protocol NodeResultPublisher<Node>: Publisher {
     associatedtype Node: CombineCompatibleNode
     
-    /// Входные данные.
+    /// Input data.
     var input: Node.I { get }
     
-    /// Нода.
+    /// Node.
     var node: Node { get }
     
-    /// Контекст логов.
+    /// Logging context.
     var logContext: LoggingContextProtocol { get }
 }

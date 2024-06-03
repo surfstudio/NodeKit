@@ -14,7 +14,7 @@ public class NetworkMock {
     
     public var urlSession: URLSession {
         let configuration: URLSessionConfiguration = .ephemeral
-        configuration.protocolClasses = [URLProtocolMock.self, URLSessionDataTaskMock.self]
+        configuration.protocolClasses = [URLProtocolMock.self]
         configuration.timeoutIntervalForRequest = 100000
         return URLSession(configuration: configuration)
     }

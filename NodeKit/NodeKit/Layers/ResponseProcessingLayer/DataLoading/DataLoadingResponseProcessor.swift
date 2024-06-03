@@ -8,23 +8,23 @@
 
 import Foundation
 
-/// Этот узел просто возвращает набор байт из запроса.
-/// Должен использоваться для тех случаях, когда конвертирование в JSON не нужно или не возможно (например загрузка картинок)
-/// Содержит указание на следующий узел, который нужен для постобработки.
-/// Например может использоваться для сохранения.
+/// This node simply returns a byte array from the request.
+/// Should be used for cases where conversion to JSON is not needed or not possible (e.g., loading images).
+/// Contains a reference to the next node needed for post-processing.
+/// For example, it can be used for saving.
 open class DataLoadingResponseProcessor: AsyncNode {
 
-    /// Узел для постобработки загруженных данных.
+    /// Node for post-processing loaded data.
     open var next: (any AsyncNode<URLDataResponse, Void>)?
 
-    /// Инициаллизирует узел.
+    /// Initializer.
     ///
-    /// - Parameter next: Узел для постобработки загруженных данных. По-умолчанию nil.
+    /// - Parameter next: The node for post-processing loaded data. Default is nil.
     public init(next: (any AsyncNode<URLDataResponse, Void>)? = nil) {
         self.next = next
     }
 
-    /// В случае, если узел для постобработки существует, то вызывает его, если нет - возвращает данные.
+    /// If the post-processing node exists, it calls it; otherwise, it returns the data.
     open func process(
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol

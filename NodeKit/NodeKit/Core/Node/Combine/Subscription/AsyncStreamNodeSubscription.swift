@@ -6,21 +6,21 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
-/// Combine подписка для ``AsyncStreamNode``.
-/// Содержит базовую релазацию, наследуя BaseSubscription.
+/// Combine subscription for ``AsyncStreamNode``.
+/// Contains base implementation, inheriting from `BaseSubscription`.
 final class AsyncStreamNodeSubscription<Node: AsyncStreamNode, S: NodeSubscriber<Node>>:
     BaseSubscription<AsyncStreamNodeResultPublisher<Node>, S> {
     
     // MARK: - BaseSubscription
     
-    /// Метод создания таски для выполенения обработки данных.
+    /// Method for creating a task to perform data processing.
     ///
     /// - Parameters:
-    ///    - node: Нода, которая будет отвечать за обработку данных.
-    ///    - input: Входные данные ноды
-    ///    - logContext: Контекст логов.
-    ///    - subscriber: Подписчик, который будет получать результат ноды.
-    /// - Returns: SwiftConcurrency Task.
+    ///    - node: The node responsible for processing the data.
+    ///    - input: Input data for the node.
+    ///    - logContext: Log context.
+    ///    - subscriber: Subscriber that will receive the node's result.
+    /// - Returns: Swift Concurrency Task.
     override func synchronizedRunTask(
         node: Node,
         input: Node.Input,

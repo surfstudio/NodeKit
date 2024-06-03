@@ -1,27 +1,24 @@
 import Foundation
 
-/// Модель, хранящая конфигурацию для `URLQueryInjectorNode`
+/// Model storing configuration for ``URLQueryInjectorNode``.
 public struct URLQueryConfigModel {
-    /// Модель из которой создается URL-query.
+    /// Model from which the URL query is created.
     public var query: [String: Any]
 
-    /// Стратегия для кодирования булевых значений.
-    /// - SeeAlso: `URLQueryBoolEncodingDefaultStartegy`
+    /// Startegy for encoding boolean values.
     public var boolEncodingStartegy: URLQueryBoolEncodingStartegy
 
-    /// Стратегия для кодирования ключа массива.
-    /// - SeeAlso: `URLQueryArrayKeyEncodingBracketsStartegy`
+    /// Startegy for encoding array key.
     public var arrayEncodingStrategy: URLQueryArrayKeyEncodingStartegy
 
-    /// Стратегия для кодирования ключа словаря.
-    /// - SeeAlso: `URLQueryDictionaryKeyEncodingDefaultStrategy`
+    /// Strategy for encoding dictionary key.
     public var dictEncodindStrategy: URLQueryDictionaryKeyEncodingStrategy
 
-    /// Инициллизирует структуру.
-    /// - Parameter query: Модель из которой создается URL-query.
-    /// - Parameter boolEncodingStartegy: Стратегия для кодирования булевых значений.
-    /// - Parameter arrayEncodingStrategy: Стратегия для кодирования ключа массива.
-    /// - Parameter dictEncodindStrategy: Стратегия для кодирования ключа словаря.
+    /// Initializes the structure.
+    /// - Parameter query: Model from which the URL query is created.
+    /// - Parameter boolEncodingStartegy: Startegy for encoding boolean values.
+    /// - Parameter arrayEncodingStrategy: Startegy for encoding array key.
+    /// - Parameter dictEncodindStrategy: Strategy for encoding dictionary key.
     public init(query: [String: Any],
                 boolEncodingStartegy: URLQueryBoolEncodingStartegy,
                 arrayEncodingStrategy: URLQueryArrayKeyEncodingStartegy,
@@ -33,8 +30,8 @@ public struct URLQueryConfigModel {
         self.dictEncodindStrategy = dictEncodindStrategy
     }
 
-    /// Инцииаллизирует структуру с дефолтными параметрами стратегий.
-    /// - Parameter query: Модель из которой создается URL-query.
+    /// Initializes the structure with default strategy parameters.
+    /// - Parameter query: Model from which the URL query is created.
     ///
     /// - Info:
     ///     - `boolEncodingStartegy` = `URLQueryBoolEncodingDefaultStartegy.asInt`

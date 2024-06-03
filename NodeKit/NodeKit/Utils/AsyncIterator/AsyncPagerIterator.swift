@@ -3,7 +3,7 @@
 //  NodeKit
 //
 
-/// Предоставляет возможность делать пагинацию на оффсетах
+/// Provides the ability to paginate using offsets.
 public actor AsyncPagerIterator<Value>: AsyncIterator, StateStorable {
     
     // MARK: - Nested Types
@@ -29,7 +29,7 @@ public actor AsyncPagerIterator<Value>: AsyncIterator, StateStorable {
     
     // MARK: - AsyncIterator
     
-    /// Запрашивает данные у провайдера и при успешном результате обновляет состояние.
+    /// Requests data from the provider and updates the state upon successful result.
     @discardableResult
     public func next() async -> Result<Value, Error> {
         return await dataProvider.provide(for: currentState.index, with: currentState.pageSize)
@@ -40,12 +40,12 @@ public actor AsyncPagerIterator<Value>: AsyncIterator, StateStorable {
             }
     }
     
-    /// Возвращает есть ли еще данные для текущего состояния.
+    /// Returns whether there is more data for the current state.
     public func hasNext() -> Bool {
         return currentState.hasNext
     }
     
-    /// Сбрасывает текущее состояние.
+    /// Resets the current state.
     public func renew() {
         currentState.index = 0
         currentState.hasNext = true
@@ -53,17 +53,17 @@ public actor AsyncPagerIterator<Value>: AsyncIterator, StateStorable {
     
     // MARK: - StateStorable
     
-    /// Добавляет текущее состояние в список сохраненных.
+    /// Adds the current state to the list of saved states.
     public func saveState() {
         statesStore.append(currentState)
     }
     
-    /// Удаляет все сохарненные состояния.
+    /// Deletes all saved states.
     public func clearStates() {
         statesStore.removeAll()
     }
     
-    /// Меняет текущее состояние на последнее сохраненное, удаляя его из списка сохранненых.
+    /// Changes the current state to the last saved one, removing it from the list of saved states.
     public func restoreState() {
         currentState = statesStore.last != nil ? statesStore.removeLast() : currentState
     }

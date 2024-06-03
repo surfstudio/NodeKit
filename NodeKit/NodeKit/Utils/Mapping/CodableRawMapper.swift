@@ -8,15 +8,13 @@
 
 import Foundation
 
-/// Содержит ошибки, которые может возвращать маппер на `Codable`
-/// SeeAlso:
-/// - RawMappable
+/// Contains errors that the `Codable` mapper can return.
 public enum RawMappableCodableError: Error {
-    /// Обозначает, что модель не может быть преобразована в JSON с помощью `JSONEncoder`
+    /// Indicates that the model cannot be converted to JSON using `JSONEncoder`
     case cantMapObjectToRaw
 }
 
-/// Реализация по-умолчанию для моделей, реализующий протокол Encodable для JSON
+/// Default implementation for models that implement the Encodable protocol for JSON
 public extension RawEncodable where Self: Encodable, Raw == [String: Any] {
     func toRaw() throws -> Raw {
         let encoder = JSONEncoder()
@@ -29,7 +27,7 @@ public extension RawEncodable where Self: Encodable, Raw == [String: Any] {
     }
 }
 
-/// Реализация по-умолчанию для моделей, реализующий протокол Encodable для JSON
+/// Default implementation for models that implement the Encodable protocol for JSON
 public extension RawDecodable where Self: Decodable, Raw == [String: Any] {
     static func from(raw: Raw) throws -> Self {
         let decoder = JSONDecoder()

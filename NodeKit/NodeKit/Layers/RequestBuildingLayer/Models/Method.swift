@@ -8,17 +8,17 @@
 
 import Foundation
 
-/// Описывает HTTP методы
+/// Describes HTTP methods.
 ///
-/// - get: Запрашивает представление ресурса. Запросы с использованием этого метода могут только извлекать данные.
-/// - head: Запрашивает ресурс так же, как и метод GET, но без тела ответа.
-/// - post: Используется для отправки сущностей к определённому ресурсу. Часто вызывает изменение состояния или какие-то побочные эффекты на сервере.
-/// - put: Заменяет все текущие представления ресурса данными запроса.
-/// - delete: Удаляет указанный ресурс.
-/// - connect: Устанавливает "туннель" к серверу, определённому по ресурсу.
-/// - options: Используется для описания параметров соединения с ресурсом.
-/// - trace: Выполняет вызов возвращаемого тестового сообщения с ресурса.
-/// - patch: Используется для частичного изменения ресурса.
+/// - get: Requests a representation of the resource. Requests using this method can only retrieve data.
+/// - head: Requests a resource like the GET method, but without the response body.
+/// - post: Used to submit an entity to the specified resource. Often causes a change in state or some side effects on the server.
+/// - put: Replaces all current representations of the resource with the data in the request.
+/// - delete: Deletes the specified resource.
+/// - connect: Establishes a "tunnel" to the server specified by the resource.
+/// - options: Used to describe the communication options for the resource.
+/// - trace: Performs a call to return a test message from the resource.
+/// - patch: Used to apply partial modifications to a resource.
 public enum Method: String {
     case get = "GET"
     case head = "HEAD"

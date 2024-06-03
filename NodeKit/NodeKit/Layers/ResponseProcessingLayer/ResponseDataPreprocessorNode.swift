@@ -8,24 +8,24 @@
 
 import Foundation
 
-/// Этот узел занимается десериализаций данных ответа в `JSON`.
-/// В случае 204-го ответа далее передает пустой `Json`.
+/// This node handles deserialization of response data into `JSON`.
+/// In case of a 204 response, it passes an empty `Json`.
 open class ResponseDataPreprocessorNode: AsyncNode {
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: any ResponseProcessingLayerNode
 
-    /// Инициаллизирует узел.
+    /// Initializer.
     ///
-    /// - Parameter next: Следующий узел для обработки.
+    /// - Parameter next: The next node for processing.
     public init(next: some ResponseProcessingLayerNode) {
         self.next = next
     }
 
 
-    /// Сериализует "сырые" данные в `Json`
+    /// Serializes "raw" data into `Json`.
     ///
-    /// - Parameter data: Представление ответа.
+    /// - Parameter data: The representation of the response.
     open func process(
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol

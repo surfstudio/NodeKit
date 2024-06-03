@@ -8,13 +8,13 @@
 
 import Foundation
 
-/// HTTP ошибки.
+/// HTTP errors.
 ///
-/// - badRequest: 400-HTTP код ответа.
-/// - unauthorized: 401 HTTP-код ответа.
-/// - forbidden: 403 HTTP-код ответа.
-/// - notFound: 404 HTTP-код ответа.
-/// - internalServerError: 500 HTTP-код ответа.
+/// - badRequest: 400 - HTTP response code.
+/// - unauthorized: 401 - HTTP response code.
+/// - forbidden: 403 - HTTP response code.
+/// - notFound: 404 - HTTP response code.
+/// - internalServerError: 500 - HTTP response code.
 public enum ResponseHttpErrorProcessorNodeError: Error {
     case badRequest(Data)
     case unauthorized(Data)
@@ -23,27 +23,27 @@ public enum ResponseHttpErrorProcessorNodeError: Error {
     case internalServerError(Data)
 }
 
-/// Этот узел обрабатывает ответ сервера и в случае статус кодов,
-/// которые соответствуют ошибкам, перечисленным в `ResponseHttpErrorProcessorNodeError`
-/// В случае, если коды не совпали в необходимыми,то управление переходит следующему узлу.
+/// This node processes the server response and in case of status codes 
+/// that correspond to errors listed in ``ResponseHttpErrorProcessorNodeError``,
+/// if the codes do not match the required ones, control is passed to the next node.
 open class ResponseHttpErrorProcessorNode<Type>: AsyncNode {
 
     public typealias HttpError = ResponseHttpErrorProcessorNodeError
 
-    /// Следующий узел для обработки.
+    /// The next node for processing.
     public var next: any AsyncNode<URLDataResponse, Type>
 
-    /// Инициаллизирует объект.
+    /// Initializer.
     ///
-    /// - Parameter next: Следующий узел для обработки.
+    /// - Parameter next: The next node for processing.
     public init(next: some AsyncNode<URLDataResponse, Type>) {
         self.next = next
     }
 
-    /// Сопоставляет HTTP-коды с заданными и в случае их несовпадения передает управление дальше.
-    /// В противном случае возвращает `HttpError`
+    /// Matches HTTP codes with the specified ones and passes control further in case of mismatch. 
+    /// Otherwise, returns `HttpError`.
     ///
-    /// - Parameter data: Модель ответа сервера.
+    /// - Parameter data: The server response model.
     open func process(
         _ data: URLDataResponse,
         logContext: LoggingContextProtocol

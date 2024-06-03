@@ -8,23 +8,23 @@
 
 import Foundation
 
-/// Этот узел умеет конвертировать ВХОДНЫЕ данные в RAW, НО не пытается декодировать ответ.
+/// This node can convert input data to Raw, but does not attempt to decode the response.
 open class RawEncoderNode<Input, Output>: AsyncNode where Input: RawEncodable {
 
-    /// Узел, который умеет работать с RAW
+    /// The next node for processing.
     open var next: any AsyncNode<Input.Raw, Output>
 
-    /// Инициаллизирует объект
+    /// Initializer.
     ///
-    /// - Parameter rawEncodable: Узел, который умеет работать с RAW.
+    /// - Parameter next: The next node for processing.
     public init(next: some AsyncNode<Input.Raw, Output>) {
         self.next = next
     }
 
-    /// Пытается конвертировать модель в RAW, а затем просто передает результат конвертации следующему узлу.
-    /// Если при конвертировании произошла ошибка - прерывает выполнение цепочки.
+    /// Tries to convert the model to Raw and then simply passes the conversion result to the next node.
+    /// If an error occurs during conversion, it aborts the chain execution.
     ///
-    /// - Parameter data: Входящая модель.
+    /// - Parameter data: The incoming model.
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol

@@ -1,32 +1,28 @@
 import Foundation
 
-/// Задача этого узла добавить метаданные к создаваемому запросу
-/// Инициаллизирует цепочку сборки HTTP - запроса.
-/// - SeeAlso:
-///     - `RequestModel`
-///     - `Node`
-///     - `RequestRouterNode`
+/// The purpose of this node is to add metadata to the created request.
+/// Initializes the chain for building an HTTP request.
 open class MetadataConnectorNode<Raw, Output>: AsyncNode {
 
-    /// Следующий в цепочке узел.
+    /// The next node for processing.
     public var next: any AsyncNode<RequestModel<Raw>, Output>
 
-    /// Метаданные для запроса
+    /// Metadata for request.
     public var metadata: [String: String]
 
-    /// Инициаллизирует узел
+    /// Initializer.
     ///
     /// - Parameters:
-    ///   - next: Следующий в цепочке узел.
-    ///   - metadata: Метаданные для запроса.
+    ///   - next: The next node in the chain.
+    ///   - metadata: Metadata for the request.
     public init(next: some AsyncNode<RequestModel<Raw>, Output>, metadata: [String: String]) {
         self.next = next
         self.metadata = metadata
     }
 
-    /// формирует модель `RequestModel` и передает ее на дальнейшую обработку.
+    /// Forms the ``RequestModel`` and passes it for further processing.
     ///
-    /// - Parameter data: данные в Raw формате. (после маппинга из Entry)
+    /// - Parameter data: Data in raw format. (after mapping from Entry)
     open func process(
         _ data: Raw,
         logContext: LoggingContextProtocol

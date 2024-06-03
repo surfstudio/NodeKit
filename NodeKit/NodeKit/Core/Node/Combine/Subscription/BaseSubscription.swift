@@ -9,9 +9,9 @@
 import Foundation
 import Combine
 
-/// Абстрактная реализация подписки для ``CombineCompatibleNode``.
-/// При запросе данных создает новую таску и сохраняет ее.
-/// При отмене подписки вызывает cancel у таски.
+/// Abstract implementation of subscription for ``CombineCompatibleNode``.
+/// Upon requesting data, creates a new task and saves it.
+/// Upon cancellation of the subscription, calls cancel on the task.
 class BaseSubscription<Parent: NodeResultPublisher, S: NodeSubscriber<Parent.Node>>: Subscription {
     
     // MARK: - Private Properties
@@ -65,14 +65,14 @@ class BaseSubscription<Parent: NodeResultPublisher, S: NodeSubscriber<Parent.Nod
     
     // MARK: - Methods
     
-    /// Метод создания таски для выполенения обработки данных.
+    /// Method for creating a task to perform data processing.
     ///
     /// - Parameters:
-    ///    - node: Нода, которая будет отвечать за обработку данных.
-    ///    - input: Входные данные ноды
-    ///    - logContext: Контекст логов.
-    ///    - subscriber: Подписчик, который будет получать результат ноды.
-    /// - Returns: Созданая таска, выполняющая обработку данных.
+    ///    - node: The node responsible for processing the data.
+    ///    - input: Input data for the node.
+    ///    - logContext: Log context.
+    ///    - subscriber: Subscriber that will receive the node's result.
+    /// - Returns: Swift Concurrency Task.
     func synchronizedRunTask(
         node: Parent.Node,
         input: Parent.Node.I,

@@ -6,15 +6,15 @@
 //  Copyright © 2024 Surf. All rights reserved.
 //
 
-/// Результат метода обработки данных узла.
+/// Result of the node's data processing method.
 public typealias NodeResult<Output> = Result<Output, Error>
 
 public extension NodeResult {
     
-    /// Метод асинхронной трансформации положительного результата
+    /// Method for asynchronous transformation of positive result
     ///
-    /// - Parameter transform: Ассинхронная функция трансформации положительного результата
-    /// - Returns: Результат применения трансформации.
+    /// - Parameter transform: Asynchronous function to transform the positive result
+    /// - Returns: The result of applying the transformation.
     @inlinable func asyncFlatMap<NewSuccess>(
         _ transform: (Success) async -> NodeResult<NewSuccess>
     ) async -> NodeResult<NewSuccess> {
@@ -26,10 +26,10 @@ public extension NodeResult {
         }
     }
 
-    /// Метод асинхронной трансформации ошибки
+    /// Method for asynchronous transformation of negative result
     ///
-    /// - Parameter transform: Ассинхронная функция трансформации ошибки
-    /// - Returns: Результат применения трансформации.
+    /// - Parameter transform: Asynchronous function to transform the error
+    /// - Returns: The result of applying the transformation.
     @inlinable func asyncFlatMapError(
         _ transform: (Failure) async -> NodeResult<Success>
     ) async -> NodeResult<Success> {
@@ -41,10 +41,10 @@ public extension NodeResult {
         }
     }
 
-    /// Метод трансформации положительного результата, способный выкинуть Exception
+    /// Method for transformation of positive result that can throw an Exception
     ///
-    /// - Parameter transform: Функция трансформации ошибки, способная выкинуть Exception
-    /// - Returns: Результат применения трансформации или Exception.
+    /// - Parameter transform: Transformation function that can throw an Exception
+    /// - Returns: The result of applying the transformation or an Exception.
     @inlinable func map<NewSuccess>(
         _ transform: (Success) throws -> NewSuccess
     ) rethrows -> NodeResult<NewSuccess> {
@@ -56,12 +56,12 @@ public extension NodeResult {
         }
     }
 
-    /// Метод вызывает ассинхронную функцию и оборачивает пойманные Exceptions в failure(error)
+    /// Method that calls an asynchronous function and wraps caught Exceptions in a failure(error)
     ///
     /// - Parameters:
-    ///   - customError: Ошибка, которая будет передаваться в failure вместо Exeception
-    ///   - function: Ассинхронная функция, способная выкинуть Exception
-    /// - Returns: Результат с преобразованными Exceptions в failure.
+    ///   - customError: The error that will be passed to failure instead of the Exception
+    ///   - function: Asynchronous function that can throw an Exception
+    /// - Returns: The result with transformed Exceptions into failure.
     @inlinable static func withMappedExceptions<T>(
         _ customError: Error? = nil,
         _ function: () async throws -> NodeResult<T>
@@ -73,12 +73,12 @@ public extension NodeResult {
         }
     }
     
-    /// Метод вызывает ассинхронную функцию, проверяя жива ли таска.
-    /// Если таска была отменена, возвращает CancellationError.
+    /// Method that calls an asynchronous function and checks if the task was canceled.
+    /// If the task was canceled, it returns a `CancellationError`.
     ///
     /// - Parameters:
-    ///   - function: Ассинхронная функция.
-    /// - Returns: Результат.
+    ///   - function: Asynchronous function.
+    /// - Returns: The result of the passed method.
     @inlinable static func withCheckedCancellation<T>(
         _ function: () async -> NodeResult<T>
     ) async -> NodeResult<T> {
@@ -92,7 +92,7 @@ public extension NodeResult {
         }
     }
     
-    /// Возвращает занчение успешного результата или nil если Failure.
+    /// Returns the value of a successful result or nil if Failure.
     var value: Success? {
         switch self {
         case .success(let value):
@@ -102,7 +102,7 @@ public extension NodeResult {
         }
     }
     
-    /// Возвращает Error, если Failure или nil если Success.
+    /// Returns the Error if Failure, or nil if Success.
     var error: Error? {
         switch self {
         case .success:

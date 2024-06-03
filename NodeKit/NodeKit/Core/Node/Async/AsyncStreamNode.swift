@@ -9,46 +9,46 @@
 import Combine
 import Foundation
 
-/// Протокол ноды, описывающий подход преобразования входных данных в результат с помощью SwiftConcurrency.
-/// Поддерживает обработку результатов с помощью Combine, наследуя протокол ``CombineCompatibleNode``.
-/// Содержит параметры для логов, наследуя протокол ``Node``.
-/// Применим для узлов, которые могут вернуть несколько результатов
+/// Protocol for a node describing the approach of transforming input data into a result using Swift Concurrency.
+/// Supports result processing with Combine by inheriting the ``CombineCompatibleNode`` protocol.
+/// Contains parameters for logging, inheriting the ``Node`` protocol.
+/// Applicable for nodes that can return multiple results.
 protocol AsyncStreamNode<Input, Output>: Node, CombineCompatibleNode<Self.Input, Self.Output> {
     associatedtype Input
     associatedtype Output
 
-    /// Ассинхронный метод, который содержит логику для обработки данных
+    /// Asynchronous method containing logic for data processing.
     ///
-    /// - Parameter data: Входные данные
-    /// - Returns: Поток результатов обработки данных.
+    /// - Parameter data: Input data.
+    /// - Returns: Stream of data processing results.
     @discardableResult
     func process(_ data: Input, logContext: LoggingContextProtocol) -> AsyncStream<NodeResult<Output>>
     
-    /// Метод, возвращающий структуру-обертку текущей ноды.
-    /// Необходим для избежания проблем, возникающих при использовании any AsyncStreamNode
+    /// Method returning the wrapper structure of the current node.
+    /// Necessary to avoid problems arising from the use of  any AsyncStreamNode.
     ///
-    /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncStreamNode``.
+    /// - Returns: Wrapper structure of the current node `AnyAsyncStreamNode`.
     func eraseToAnyNode() -> AnyAsyncStreamNode<Input, Output>
 }
 
 extension AsyncStreamNode {
     
-    /// Метод process с созданием нового лог контекста.
+    /// Method `process` with the creation of a new log context.
     @discardableResult
     func process(_ data: Input) -> AsyncStream<NodeResult<Output>> {
         return process(data, logContext: LoggingContext())
     }
 
-    /// Метод получения Publisher для подписки на результат.
-    /// Базовая реализация ``CombineCompatibleNode``.
-    /// При каждой подписке вызывает метод process с новой таской.
-    /// При вызове cancel вызывает cancel у таски.
+    /// Method for obtaining a Publisher to subscribe to the result.
+    /// Base implementation of ``CombineCompatibleNode``.
+    /// Calls the `process` method with a new task upon each subscription.
+    /// Calls `cancel` on the task when `cancel` is invoked in `AnyCancellable` object.
     ///
     /// - Parameters:
-    ///    - data: Входные данные ноды.
-    ///    - scheduler: Scheduler для выдачи результата.
-    ///    - logContext: Контекст логов.
-    /// - Returns: Publisher для подписки на результат.
+    ///    - data: Input data for the node.
+    ///    - scheduler: Scheduler for emitting the result.
+    ///    - logContext: Log context.
+    /// - Returns: Publisher to subscribe to the result.
     @discardableResult
     func nodeResultPublisher(
         for data: Input,
@@ -60,19 +60,19 @@ extension AsyncStreamNode {
             .eraseToAnyPublisher()
     }
     
-    /// Метод, возвращающий структуру-обертку текущей ноды.
-    /// Необходим для избежания проблем, возникающих при использовании any AsyncStreamNode
+    /// Method returning the wrapper structure of the current node.
+    /// Necessary to avoid problems arising from the use of any AsyncStreamNode.
     ///
-    /// - Returns: Cтруктура-обертку текущей ноды ``AnyAsyncStreamNode``.
+    /// - Returns: Wrapper structure of the current node ``AnyAsyncStreamNode``.
     func eraseToAnyNode() -> AnyAsyncStreamNode<Input, Output> {
         return AnyAsyncStreamNode(node: self)
     }
 }
 
-/// Содержит синтаксический сахар для работы с узлами, у которых входящий тип = `Void`
+/// Contains syntactic sugar for working with nodes where the input type is `Void`.
 extension AsyncStreamNode where Input == Void {
     
-    /// Вызывает `process(_:)`
+    /// Calls `process(Void())`.
     @discardableResult
     func process() -> AsyncStream<NodeResult<Output>> {
         return process(Void())

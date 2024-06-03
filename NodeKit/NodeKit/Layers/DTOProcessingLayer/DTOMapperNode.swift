@@ -8,22 +8,22 @@
 
 import Foundation
 
-/// Этот узел отвечает за маппинг верхнего уровня DTO (`DTOConvertible`) в нижний уровень (`RawMappable`) и наборот.
+/// This node is responsible for mapping top-level DTO (``DTOConvertible``) to lower-level (``RawMappable``) and vice versa.
 open class DTOMapperNode<Input, Output>: AsyncNode where Input: RawEncodable, Output: RawDecodable {
 
-    /// Следующий узел для обрабтки.
+    /// The next node for processing.
     public var next: any AsyncNode<Input.Raw, Output.Raw>
 
-    /// Инциаллизирует узел.
+    /// Initializer.
     ///
-    /// - Parameter next: Следующий узел для обрабтки.
+    /// - Parameter next: The next node for processing.
     public init(next: any AsyncNode<Input.Raw, Output.Raw>) {
         self.next = next
     }
 
-    /// Маппит данные в RawMappable, передает управление следующей цепочке, а затем маппит ответ в DTOConvertible
+    /// Maps data to ``RawMappable``, passes control to the next node, and then maps the response to ``DTOConvertible``.
     ///
-    /// - Parameter data: Данные для обработки.
+    /// - Parameter data: The data for processing.
     open func process(
         _ data: Input,
         logContext: LoggingContextProtocol

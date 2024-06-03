@@ -9,18 +9,18 @@
 import Foundation
 import Combine
 
-/// Протокол ноды, описывающий подход преобразования входных данных в результат с помощью Combine.
+/// Protocol for a node describing the approach of transforming input data into a result using Combine.
 public protocol CombineCompatibleNode<I, O> {
     associatedtype I
     associatedtype O
     
-    /// Метод получения Publisher для подписки на результат.
+    /// Method for obtaining a Publisher to subscribe to the result.
     ///
     /// - Parameters:
-    ///    - data: Входные данные ноды.
-    ///    - scheduler: Scheduler для выдачи результата.
-    ///    - logContext: Контекст логов.
-    /// - Returns: Publisher для подписки на результат.
+    ///    - data: Input data for the node.
+    ///    - scheduler: Scheduler for emitting the result.
+    ///    - logContext: Log context.
+    /// - Returns: Publisher to subscribe to the result.
     func nodeResultPublisher(
         for data: I,
         on scheduler: some Scheduler,
@@ -30,12 +30,12 @@ public protocol CombineCompatibleNode<I, O> {
 
 public extension CombineCompatibleNode {
     
-    /// Метод получения Publisher, возвращающего результат на главной очереди.
+    /// Method for obtaining a Publisher emitting the result on the main queue.
     ///
     /// - Parameters:
-    ///    - data: Входные данные ноды.
-    ///    - logContext: Контекст логов.
-    /// - Returns: Publisher для подписки на результат.
+    ///    - data: Input data for the node.
+    ///    - logContext: Log context.
+    /// - Returns: Publisher to subscribe to the result.
     @discardableResult
     func nodeResultPublisher(
         for data: I,
@@ -44,13 +44,13 @@ public extension CombineCompatibleNode {
         return nodeResultPublisher(for: data, on: DispatchQueue.main, logContext: logContext)
     }
     
-    /// Метод получения Publisher с новым лог контекстом
-    /// и кастомного Scheduler для выдачи результата.
+    /// Method for obtaining a Publisher with a new log context
+    /// and a custom Scheduler for emitting the result.
     ///
     /// - Parameters:
-    ///    - data: Входные данные ноды.
-    ///    - scheduler: Scheduler для выдачи результата.
-    /// - Returns: Publisher для подписки на результат.
+    ///    - data: Input data for the node.
+    ///    - scheduler: Scheduler for emitting the result.
+    /// - Returns: Publisher to subscribe to the result.
     @discardableResult
     func nodeResultPublisher(
         for data: I,
@@ -59,11 +59,11 @@ public extension CombineCompatibleNode {
         return nodeResultPublisher(for: data, on: scheduler, logContext: LoggingContext())
     }
     
-    /// Метод получения Publisher с новым лог контекстом, возвращающего результат на главной очереди.
+    /// Method for obtaining a Publisher with a new log context, emitting the result on the main queue.
     ///
     /// - Parameters:
-    ///    - data: Входные данные ноды.
-    /// - Returns: Publisher для подписки на результат.
+    ///    - data: Input data for the node.
+    /// - Returns: Publisher to subscribe to the result.
     @discardableResult
     func nodeResultPublisher(
         for data: I
@@ -72,15 +72,15 @@ public extension CombineCompatibleNode {
     }
 }
 
-/// Содержит синтаксический сахар для работы с узлами, у которых входящий тип = `Void`
+/// Contains syntactic sugar for working with nodes where the input type is `Void`.
 public extension CombineCompatibleNode where I == Void {
     
-    /// Метод получения Publisher с кастомным Scheduler.
+    /// Method for obtaining a Publisher with a custom Scheduler.
     ///
     /// - Parameters:
-    ///    - scheduler: Scheduler для выдачи результата.
-    ///    - logContext: Контекст логов.
-    /// - Returns: Publisher для подписки на результат.
+    ///    - scheduler: Scheduler for emitting the result.
+    ///    - logContext: Log context.
+    /// - Returns: Publisher to subscribe to the result.
     func nodeResultPublisher(
         on scheduler: some Scheduler,
         logContext: LoggingContextProtocol
@@ -88,11 +88,11 @@ public extension CombineCompatibleNode where I == Void {
         return nodeResultPublisher(for: Void(), on: scheduler, logContext: logContext)
     }
     
-    /// Метод получения Publisher с кастомным Scheduler и созданием нового лог контекста.
+    /// Method for obtaining a Publisher with a custom Scheduler and creating a new log context.
     ///
     /// - Parameters:
-    ///    - scheduler: Scheduler для выдачи результата.
-    /// - Returns: Publisher для подписки на результат.
+    ///    - scheduler: Scheduler for emitting the result.
+    /// - Returns: Publisher to subscribe to the result.
     @discardableResult
     func nodeResultPublisher(
         on scheduler: some Scheduler
@@ -100,20 +100,20 @@ public extension CombineCompatibleNode where I == Void {
         return nodeResultPublisher(for: Void(), on: scheduler)
     }
     
-    /// Метод получения Publisher, возвращающего результат на главной очереди.
+    /// Method for obtaining a Publisher emitting the result on the main queue.
     ///
     /// - Parameters:
-    ///    - logContext: Контекст логов.
-    /// - Returns: Publisher для подписки на результат.
+    ///    - logContext: Log context.
+    /// - Returns: Publisher to subscribe to the result.
     func nodeResultPublisher(
         logContext: LoggingContextProtocol
     ) -> AnyPublisher<NodeResult<O>, Never> {
         return nodeResultPublisher(for: Void(), logContext: logContext)
     }
     
-    /// Метод получения Publisher с новым лог контекстом, возвращающего результат на главной очереди.
+    /// Method for obtaining a Publisher with a new log context, emitting the result on the main queue.
     ///
-    /// - Returns: Publisher для подписки на результат.
+    /// - Returns: Publisher to subscribe to the result.
     @discardableResult
     func nodeResultPublisher(
     ) -> AnyPublisher<NodeResult<O>, Never> {

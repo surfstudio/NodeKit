@@ -8,14 +8,12 @@
 
 import Foundation
 
-/// Менеджер запросов к серверу.
-/// Работает c `SessionManager` и является синглтоном.
 public class ServerRequestsManager {
 
-    /// Единственный инстанс объекта `ServerRequestsManager`
+    /// The single instance of the `ServerRequestsManager` object.
     public static let shared = ServerRequestsManager()
 
-    /// Менеджер сессий.
+    /// Session manager..
     public let manager: URLSession
 
     private init() {

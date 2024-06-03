@@ -9,27 +9,26 @@
 import Foundation
 
 
-/// Этот узел позволяет добавить любые хедеры в запрос.
-/// - SeeAlso: TransportLayerNode
+/// This node allows adding any headers to the request.
 open class HeaderInjectorNode: AsyncNode {
 
-    /// Следующий в цепочке узел.
+    /// The next node for processing.
     public var next: any TransportLayerNode
 
-    /// Хедеры, которые необходимо добавить.
+    /// Headers to be added.
     public var headers: [String: String]
 
-    /// Инициаллизирует узел.
+    /// Initializer.
     ///
     /// - Parameters:
-    ///   - next: Следующий в цепочке узел.
-    ///   - headers: Хедеры, которые необходимо добавить.
+    ///   - next: The next node for processing.
+    ///   - headers: Headers to be added.
     public init(next: some TransportLayerNode, headers: [String: String]) {
         self.next = next
         self.headers = headers
     }
 
-    /// Добавляет хедеры к запросу и отправляет его слудующему в цепочке узлу.
+    /// Adds headers to the request and sends it to the next node in the chain.
     open func process(
         _ data: TransportURLRequest,
         logContext: LoggingContextProtocol

@@ -1,13 +1,12 @@
-# Существующий узлы
+# Existing nodes
 
-Содержание:
-  - [ChainConfiguratorNode](#chainconfiguratornode)
+Content:
   - [ModelInputNode](#modelinputnode)
   - [VoidInputNode](#voidinputnode)
   - [DTOMapperNode](#dtomappernode)
-  - [Сборка запроса](#сборка-запроса)
+  - [RequestAssembly](#requestassembly)
   - [RequestCreatorNode](#requestcreatornode)
-  - [TechnicaErrorMapperNode](#technicaerrormappernode)
+  - [TechnicalErrorMapperNode](#technicalerrormappernode)
   - [RequestSenderNode](#requestsendernode)
   - [ResponseProcessorNode](#responseprocessornode)
   - [ResponseDataPreprocessorNode](#responsedatapreprocessornode)
@@ -18,89 +17,72 @@
     - [AccessSafeNode](#accesssafenode)
     - [TokenRefresherNode](#tokenrefreshernode)
   - [HeaderInjectorNode](#headerinjectornode)
-  - [LoadIndicatableNode](#loadindicatablenode)
-
-## ChainConfiguratorNode
-
-Является Generic-узлом (Input и Output не ограничены)
-
-Этот узел встраивается одним из первых (желательно самым первым) в цепочку узлов. Он вызывает следующий узел в `backround` очереди, а после того, как вся цепочка отработала - диспатчит ответ на `main`.
-
-Такое поведение определено по-умолчанию. При желании можно конфигурировать очереди.
 
 ## ModelInputNode
 
-У этого узла есть ограничение `where Input: DTOEncodable, Output: DTODecodable`
+This node has a constraint `where Input: DTOEncodable, Output: DTODecodable`. 
 
-Это означает, что на вход он может получить только такую модель, которая в дальнейшем может быть преобразована в DTO, а на ее выходе может быть только та модель, которая может быть получена из DTO.
+This means that it can only receive a model as input that can later be converted into a DTO, and it can only output a model that can be obtained from a DTO.
 
-Следующий узел должен обязательно иметь следующую сигнатуру: `Node<Input.DTO, Output.DTO>`
+The next node must have the following signature: `AsyncNode<Input.DTO, Output.DTO>`.
 
-Таким образом этот узел конвертирует входную модель в DTO
-Передает ее следующему узлу, а затем конвертирует ответ из DTO в нужную модель.
+Thus, this node converts the input model into a DTO, passes it to the next node, and then converts the response from the DTO back into the required model.
 
 ## VoidInputNode
 
-Этот узел похож на `ModelInputNode` за исключением того, что входной параметр этого узла `Void`. 
-Может быть использован просто для упрощения интерфейса.
+This node resembles the `ModelInputNode` except that this node's input parameter is `Void`. It can be used to simplify the interface.
 
 ## DTOMapperNode
 
-Этот узел схож с `ModelInputNode`, с той лишь разницей, что он ковертирует DTO в Raw (наприме в Json)
+This node is similar to the `ModelInputNode`, with the only difference being that it converts DTO to Raw (for example, to JSON).
 
-## Сборка запроса
+## RequestAssembly
 
-Эти узлы используются для первоначальной сборки запроса. 
-Так как библиотека не привязана к работе с обычным HTTP подходом, то нельзя явно указывать на добавление хедеров к запросу. К примеру у [gRPC](https://grpc.io) за это отвечает другой API. 
+These nodes are used for initial request assembly. Since the library is not tied to conventional HTTP approaches, it's not possible to explicitly specify adding headers to the request. For instance, with [gRPC](https://grpc.io), another API handles this task.
 
-Это множество состоит из следующих узлов:
+This set consists of the following nodes:
 
-**MetadataConnectorNode** - Задача этого узла - абстрагировать процесс добавления заголовков к запросу.
+**MetadataConnectorNode** - This node's task is to abstract the process of adding headers to the request.
 
-**RequestRouterNode** - Задача этого узла - абстрагировать процесс добавления маршрута к эндпоинту.
+**RequestRouterNode** - This node's task is to abstract the process of adding a route to the endpoint.
 
-**URLQueryInjectorNode** - Задача этого узла добавлять URL-Query компонент к URL запроса.
+**URLQueryInjectorNode** - This node's task is to add the URL query component to the request URL.
 
-**RequstEncoderNode** - Задача этого узла - абстрагировать процесс указания кодировки данных для запроса.
+**RequstEncoderNode** - This node's task is to abstract the process of specifying data encoding for the request.
 
-**UrlRequestTrasformatorNode** Этот узел занимается конструированием запроса для классического HTTP подхода. Он получает данные, сформированные с помощью предыдущих узлов и формирует модель данных для создания обычного HTTP запроса
+**UrlRequestTrasformatorNode** - This node is responsible for constructing a request for the classic HTTP approach. It receives data formed using the previous nodes and constructs a data model for creating a regular HTTP request.
 
 ## RequestCreatorNode 
 
-Этот узел просто создает HTTP запрос с помощью Alamofire и передает его дальше на обработку.
+This node creates an HTTP request using URLSession and passes it along for further processing.
 
-## TechnicaErrorMapperNode
+## TechnicalErrorMapperNode
 
-Этот узел ничего не делает с входными данными, но преобразует выходные. 
-В случае, если дальнейшая цепочка завершилась с ошибкой, то он проверяет, является ли ошибка системной (таймаут, отстуствие интернета и т.п) и если да, то преобразует ее в собственную ошибку и прокидывает дальше. Если ошибка не подошла под описанием системной, то она пробрасывается без изменения. 
+This node does nothing with the input data but transforms the output. In case the further chain ends with an error, it checks if the error is a system error (such as a timeout, lack of internet connection, etc.). If it is, it converts it into its own error and passes it along.
 
-Список обрабатываемых системных ошибок:
+List of handled system errors:
 
 1. noInternetConnection
 2. timeout
 3. cantConnectToHost
 
-*П.C. Ошибка считается системной, так как является ответом траспортного уровня системы на определенную неисправность.*
-
 ## RequestSenderNode
 
-Этот узел просто отправляет запрос и передает управление следующему узлу. Больше ничего не делает.
+This node just sends the request and passes control to the next node. It doesn't do anything else.
 
 ## ResponseProcessorNode
 
-Этот узел занимается первичной обработкой ответа.
-В случае, если вопрос завершился с ошибкой (например, нет интернета), то он обрывает цепочку и пробрасывает ошибку наверх (не касается ошибки о пустоте тела ответа, которая появилась в последнем релизе Alamofire)
-Если запрос отработал успешно, то передает его результат следующему узлу.
+This node handles the initial response processing. In case the request ends with an error (for example, no internet connection), it terminates the chain and returns the error. If the request is successful, it passes the result to the next node.
 
 ## ResponseDataPreprocessorNode
 
-Задача этого узла заключается в том, чтобы в случае, если код ответа 204 (no content) продолжить выполнение цепочки с пустым Json.
+The task of this node is to continue executing the chain with an empty JSON in case the response code is 204 (no content).
 
 ## ResponseHttpErrorProcessorNode
 
-Этот узел мапит HTTP ошибки. В случае, если код ответа содержит известные этому узлу коды, то он прекращает выполнение цепочки и возращает ошибку. 
+This node maps HTTP errors. If the response code contains codes known to this node, it terminates the chain and returns an error. 
 
-Известные коды ошибок и их маппинг:
+Error codes and their mapping:
 
 ```
 400 -> HttpError.badRequest
@@ -112,30 +94,24 @@
 
 ## ResponseDataParserNode
 
-Задачей этого узла является парсинг тела ответа в Json. Здесь предусмотрены различные случаи состояния Json объекта.
-В случае, если в ответе приходит не JsonObject, а JsonArray, то этот узел так же успешно парсит данные.
+This node parses the response body into JSON. Different states of the JSON object are considered here. In case the response contains a JsonArray instead of a JsonObject, this node successfully parses the data as well.
 
 ## AborterNode
 
-Этот узел позволяет отменить запрос. Он держит указатель на узел, который занимается отправкой запроса и при необходимости отменяет его. 
+This node allows canceling the request. It holds a reference to the node responsible for sending the request and cancels it when necessary. 
 
 ## AccessSafe
 
-Эту группа узлов необходима для обновления токена в том случае, если он "протух".
-Принцип работы сводится к тому, что в случае, если на запрос вернулся 401 или 403 код, то запрос сохраняется, все отальные запросы преостанавливаются, уходит запрос на обновление токена, затем, в случае успеха первый запрос повторяется, а остальные "размораживаются".
+This group of nodes is necessary for token refreshing in case it expires. The principle of operation is that if a request returns a 401 or 403 code, the request is saved, all other requests are paused, a token refresh request is sent. Then, upon success, the first request is retried, and the others are 'unfrozen'.
 
 ### AccessSafeNode
 
-Этот узел обрабатывает результат выполнения цепочки. Если в итоге произшла ошибка доступа, то он передает управление `TokenRefresherNode`
+This node handles the result of executing the chain. If an access error occurs, it passes control to the `TokenRefresherNode`.
 
 ### TokenRefresherNode
 
-Этот узел "замораживает" запросы до тех пор, пока не обновится токен. А затем, в зависимости от результата обновления либо возвращает ошибку либо "размораживает" запросы. 
+This node 'freezes' requests until the token is refreshed. Then, depending on the result of the token refresh, it either returns an error or 'unfreezes' the requests.
 
 ## HeaderInjectorNode
 
-Этот узел может быть использован для того, чтобы подставлять в запрос какие-то кастомные хедеры. Например локаль или что-то еще.
-
-## LoadIndicatableNode
-
-Этот узел используется для того, чтобы отображать Load indicator в статус баре с того момента как был отправлен запрос и до момента его обработки.
+This node can be used to inject custom headers into the request. For example, locale or any other custom headers.

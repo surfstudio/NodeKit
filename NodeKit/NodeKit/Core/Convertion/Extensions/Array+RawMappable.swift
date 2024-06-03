@@ -1,14 +1,14 @@
 import Foundation
 
-/// Ошибки для маппинга массивов в/из JSON
+/// Errors for mapping arrays to/from ``Json``
 ///
-/// - cantFindKeyInRaw: Возникает в случае если при парсинге JSON-массива не удалось найти ключ `MappingUtils.arrayJsonKey`
+/// - cantFindKeyInRaw: Occurs if the `MappingUtils.arrayJsonKey` key cannot be found during ``Json`` array parsing.
 public enum ErrorArrayJsonMappiong: Error {
     case cantFindKeyInRaw(Json)
 }
 
-/// В том случае, когда JSON представлен тлько массивом.
-/// Например JSON выглядит вот так:
+/// In the case where JSON is represented only as an array.
+/// For example, the JSON looks like this:
 /// ```
 /// [
 ///     { ... },
@@ -16,13 +16,13 @@ public enum ErrorArrayJsonMappiong: Error {
 ///       ...
 /// ]
 /// ```
-/// Необходимо оборачивать массив в словарь.
+/// The array needs to be wrapped in a dictionary.
 public enum MappingUtils {
-    /// Ключ по которому массив будет включен в словарь.
+    /// The key under which the array will be included in the dictionary.
     public static var arrayJsonKey = "_array"
 }
 
-/// Содержит реализацию маппинга массива в JSON
+/// Contains the implementation of mapping an array to ``Json``.
 extension Array: RawEncodable where Element: RawEncodable, Element.Raw == Json {
 
     public func toRaw() throws -> Json {
@@ -33,7 +33,7 @@ extension Array: RawEncodable where Element: RawEncodable, Element.Raw == Json {
 
 }
 
-/// Содержит реализацию маппинга JSON в массив
+/// Contains the implementation of mapping ``Json`` to an array.
 extension Array: RawDecodable where Element: RawDecodable, Element.Raw == Json {
 
     public static func from(raw: Json) throws -> Array<Element> {

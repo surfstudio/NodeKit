@@ -1,6 +1,6 @@
 import Foundation
 
-/// Это расширение позволяет представлять словарь как DTOConvertible в случае если словарь это Json
+/// This extension allows representing a dictionary as ``DTOConvertible``.
 extension Dictionary: DTOConvertible where Dictionary.Key == String, Dictionary.Value == Any {
 
     public typealias DTO = Json

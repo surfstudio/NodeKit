@@ -8,7 +8,7 @@
 
 import Combine
 
-/// Publisher для ``AsyncStreamNode``
+/// Publisher for ``AsyncStreamNode``
 struct AsyncStreamNodeResultPublisher<Node: AsyncStreamNode>: NodeResultPublisher {
     
     // MARK: Nested Types
@@ -32,7 +32,7 @@ struct AsyncStreamNodeResultPublisher<Node: AsyncStreamNode>: NodeResultPublishe
     
     // MARK: - Publisher
     
-    /// Метод создания подписки для подписчика.
+    /// Method for creating a subscription for a subscriber.
     func receive<S: NodeSubscriber<Node>>(subscriber: S) {
         let subscription = AsyncStreamNodeSubscription<Node, S>(parent: self, subscriber: subscriber)
         subscriber.receive(subscription: subscription)

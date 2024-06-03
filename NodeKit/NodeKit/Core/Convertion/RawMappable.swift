@@ -1,41 +1,40 @@
 import Foundation
 
-/// Словарь вида `[String: Any]`
+/// Dictionary of type `[String: Any]`.
 public typealias Json = [String: Any]
 
-/// Композиция `RawEncodable` и `RawDecodable`
+/// Composition of ``RawEncodable`` and ``RawDecodable``.
 public typealias RawMappable = RawEncodable & RawDecodable
 
-/// Описывает сущность из нижнего слоя DTO.
-/// Может конвертировать себя в RAW (например JSON).
+/// Describes an entity from the lower DTO layer.
+/// Can convert itself to RAW (for example, ``Json``).
 public protocol RawEncodable {
 
-    /// Тип данных, в которые мапятся модели. Напрмиер JSON
+    /// Data type to which models are mapped. For example, ``Json``.
     associatedtype Raw
 
-    /// Конвертирет модель в RAW
-    /// - Returns: RAW-представление модели
-    /// - Throws: Могут возникать любые исключения, определенные пользователем.
+    /// Converts the model to RAW.
+    /// - Returns: The RAW representation of the model.
+    /// - Throws: Any user-defined exceptions may occur.
     func toRaw() throws -> Raw
 }
 
-/// Описывает сущность из нижнего слоя DTO.
-/// Может мапить RAW на себя.
+/// Describes an entity from the lower DTO layer.
+/// Can map RAW to itself.
 public protocol RawDecodable {
 
-    /// Тип данных, в которые мапятся модели. Напрмиер JSON
-
+    /// Data type to which models are mapped. For example, ``Json``.
     associatedtype Raw
 
-    /// Преобразует данные в RAW формате в модель.
+    /// Converts data in RAW format to a model.
     ///
-    /// - Parameter from: Данные в RAW формате
-    /// - Returns: модель полученная из RAW
-    /// - Throws: Могут возникать любые исключения, определенные пользователем.
+    /// - Parameter from: Data in RAW format.
+    /// - Returns: The model obtained from RAW.
+    /// - Throws: Any user-defined exceptions may occur.
     static func from(raw: Raw) throws -> Self
 }
 
-/// Синтаксический сахар, позволяющий в одну строчку мапить опциональные модели.
+/// Syntactic sugar that allows mapping optional models in one line.
 public extension Optional where Wrapped: RawDecodable {
     static func from(raw: Wrapped.Raw?) throws -> Wrapped? {
         guard let guarded = raw else {

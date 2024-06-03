@@ -1,28 +1,28 @@
 import Foundation
 
-/// Этот узел переводит Generic запрос в конкретную реализацию.
-/// Данный узел работает с URL-запросами, по HTTP протоколу с JSON
+/// This node translates a generic request into a specific implementation.
+/// It works with URL requests over the HTTP protocol with JSON.
 open class MultipartURLRequestTrasformatorNode<Type>: AsyncNode {
 
-    /// Следйющий узел для обработки.
+    /// The next node for processing.
     open var next: any AsyncNode<MultipartURLRequest, Type>
 
-    /// HTTP метод для запроса.
+    /// HTTP method for the request.
     open var method: Method
 
-    /// Инициаллизирует узел.
+    /// Initializer.
     ///
     /// - Parameters:
-    ///   - next: Следйющий узел для обработки.
-    ///   - method: HTTP метод для запроса.
+    ///   - next: The next node for processing.
+    ///   - method: The HTTP method for the request.
     public init(next: any AsyncNode<MultipartURLRequest, Type>, method: Method) {
         self.next = next
         self.method = method
     }
 
-    /// Конструирует модель для для работы на транспортном уровне цепочки.
+    /// Constructs a model for operation at the transport level of the chain.
     ///
-    /// - Parameter data: Данные для дальнейшей обработки.
+    /// - Parameter data: Data for further processing.
     open func process(
         _ data: RoutableRequestModel<URLRouteProvider, MultipartModel<[String : Data]>>,
         logContext: LoggingContextProtocol

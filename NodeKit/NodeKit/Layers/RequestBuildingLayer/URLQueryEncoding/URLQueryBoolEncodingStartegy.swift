@@ -1,20 +1,20 @@
 import Foundation
 
-/// Протокол для любого кодировщика булевского значения в URL-query.
+/// Protocol for any boolean value encoder into URL query.
 public protocol URLQueryBoolEncodingStartegy {
 
-    /// Кодирует булевое значение в строку для URL-query.
+    /// Encodes the boolean value into a string for URL query.
     ///
     /// - Warning:
-    /// Использование по-умолчанию не требует специально кодировать значение в string-url.
-    /// Достаточно просто вернуть нужное строковое представление
+    /// Using the default implementation does not require specially encoding the value into a string-url.
+    /// It is sufficient to return the required string representation.
     ///
-    /// - Parameter value: Значение, которое нужно закодировать
+    /// - Parameter value: The value to encode.
     func encode(value: Bool) -> String
 }
 
-/// Дефолтная имплементация кодировщика булевских значений.
-/// Поддерживает две стратегии кодирование:
+/// Default implementation of the boolean value encoder.
+/// Supports two encoding strategies:
 /// - asInt:
 ///     - false -> 0
 ///     - true -> 1
@@ -25,9 +25,9 @@ public enum URLQueryBoolEncodingDefaultStartegy: URLQueryBoolEncodingStartegy {
     case asInt
     case asBool
 
-    /// Кодирует булевое значение в строку для URL-query в зависимости от выбранной стратегии. 
+    /// Encodes the boolean value into a string for URL query depending on the selected strategy.
     ///
-    /// - Parameter value: Значение, которое нужно закодировать
+    /// - Parameter value: The value to encode.
     public func encode(value: Bool) -> String {
         switch self {
         case .asInt:

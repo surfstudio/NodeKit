@@ -8,21 +8,21 @@
 
 import Foundation
 
-/// Содержит ошибки для маршрутизатора URL запросов.
+/// Contains errors for routing URL requests.
 ///
-/// - cantBuildURL: Возникает в случае, если не удалось создать URL.
+/// - cantBuildURL: Occurs when it is not possible to build a URL.
 public enum URLRouteError: Error {
     case cantBuildURL
 }
 
 public extension Optional where Wrapped == URL {
 
-    /// Операция конкатенации строки и URL.
+    /// String and URL concatenation operation.
     ///
     /// - Parameters:
-    ///   - lhs: Базовый URL, относительно которого нужно построить итоговый.
-    ///   - rhs: Относительный путь, который нужно добавить к базовому URL
-    /// - Returns: Итоговый URL маршрут.
+    ///   - lhs: The base URL to which the final URL should be relative.
+    ///   - rhs: The relative path to be added to the base URL.
+    /// - Returns: The final URL route.
     /// - Throws: `URLRouteError.cantBuildURL`
     static func + (lhs: URL?, rhs: String) throws -> URL {
         guard let url = lhs?.appendingPathComponent(rhs) else {
@@ -32,11 +32,11 @@ public extension Optional where Wrapped == URL {
     }
 }
 
-/// Расширение для удобства оборачивания `URLRouteProvider`
+/// An extension for conveniently wrapping `URLRouteProvider`.
 /// - Warning:
-/// Это используется исключительно для работы между узлами.
+/// This is used exclusively for communication between nodes.
 extension URL: URLRouteProvider {
-    /// Просто возвращает себя
+    /// Returns self
     public func url() throws -> URL {
         return self
     }

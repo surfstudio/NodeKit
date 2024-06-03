@@ -1,29 +1,30 @@
 import Foundation
 
-/// Модель данных для конфигурироания цепочки преобразований для запроса в сеть.
+/// Model for configuring the transformation chain for network requests.
 public struct URLChainConfigModel {
     
-    /// HTTP метод, который будет использован цепочкой
+    /// HTTP method to be used by the chain.
     public let method: Method
 
-    /// Маршрут до удаленного метода (в частном случае - URL endpoint'a)
+    /// Route to the remote method (specifically, the URL endpoint).
     public let route: URLRouteProvider
 
-    /// В случае классического HTTP это Header'ы запроса.
-    /// По-умолчанию пустой.
+    /// In the case of classic HTTP, these are the request headers.
+    /// By default, empty.
     public let metadata: [String: String]
 
-    /// Кодировка данных для запроса.
-    /// По умолчанию`.json`
+    /// Data encoding for the request.
+    ///
+    /// By default, `.json`.
     public let encoding: ParametersEncoding
 
-    /// Инициаллизирует объект.
+    /// Initializes the object.
     ///
     /// - Parameters:
-    ///   - method: HTTP метод, который будет использован цепочкой
-    ///   - route: Маршрут до удаленного метод
-    ///   - metadata: В случае классического HTTP это Header'ы запроса. По-умолчанию пустой.
-    ///   - encoding: Кодировка данных для запроса. По-умолчанию `.json`
+    ///   - method: HTTP method to be used by the chain
+    ///   - route: Route to the remote method
+    ///   - metadata: In the case of classic HTTP, these are the request headers. Default is empty.
+    ///   - encoding: Data encoding for the request. Default is `.json`.
     public init(method: Method,
          route: URLRouteProvider,
          metadata: [String: String] = [:],
