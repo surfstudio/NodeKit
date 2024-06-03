@@ -2,9 +2,7 @@
 
 [![GitHubActions Build Status](https://github.com/surfstudio/NodeKit/workflows/CI/badge.svg)](https://github.com/surfstudio/NodeKit/actions)
 [![codecov](https://codecov.io/gh/surfstudio/NodeKit/branch/master/graph/badge.svg)](https://codecov.io/gh/surfstudio/NodeKit)
-[![CocoaPods](https://img.shields.io/badge/pod-compatible-blue.svg)](https://github.com/surfstudio/NodeKit/blob/master/NodeKit.podspec)
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-blue.svg)](https://github.com/apple/swift-package-manager)
-[![Documentation](https://surfstudio.github.io/NodeKit/badge.svg)](https://surfstudio.github.io/NodeKit/)
 
 Flexible and customizable network library
 
@@ -82,13 +80,6 @@ dependencies: [
     .package(url: "https://github.com/surfstudio/NodeKit.git", .upToNextMajor(from: "5.0.0"))
 ]
 ```
-
-### CocoaPods
-
-Using Podfile:
- 
-- Write `pod NodeKit`
-- Run `pod install` command
 
 ## Features
 

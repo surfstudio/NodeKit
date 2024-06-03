@@ -19,10 +19,10 @@ But it is also allowed to use only one model layer or not to use models at all.
 
 Two protocols are responsible for defining the model from this layer:
 
-1) [RawEncodable](../docs/Protocols/RawEncodable.html)
-2) [RawDecodable](../docs/Protocols/RawDecodable.html)
+1) [RawEncodable](https://surfstudio.github.io/NodeKit/documentation/nodekit/rawencodable)
+2) [RawDecodable](https://surfstudio.github.io/NodeKit/documentation/nodekit/rawdecodable)
 
-There is also an alias [RawMappable](../docs/Typealiases.html#/s:7NodeKit11RawMappablea)
+There is also an alias [RawMappable](https://surfstudio.github.io/NodeKit/documentation/nodekit/rawmappable)
 
 For entities that conform to the `Codable` protocols, there is a default mapping implementation.
 
@@ -63,10 +63,10 @@ This code will be sufficient to map the server response to the `UserEntry` and `
 
 Two protocols are responsible for defining the model from this layer:
 
-1) [DTOEncodable](../docs/Protocols/DTOEncodable.html)
-2) [DTODecodable](../docs/Protocols/DTODecodable.html)
+1) [DTOEncodable](https://surfstudio.github.io/NodeKit/documentation/nodekit/dtoencodable)
+2) [DTODecodable](https://surfstudio.github.io/NodeKit/documentation/nodekit/dtodecodable)
 
-There is also an alias [DTOConvertible](../docs/Typealiases.html#/s:7NodeKit14DTOConvertiblea)
+There is also an alias [DTOConvertible](https://surfstudio.github.io/NodeKit/documentation/nodekit/dtoconvertible)
 
 Example:
 
