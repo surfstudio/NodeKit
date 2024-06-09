@@ -24,7 +24,12 @@ test:
 
 ## Created documentation by comments from code
 doc:
-	bundle exec jazzy --clean --build-tool-arguments -project,./NodeKit/NodeKit.xcodeproj,-scheme,NodeKit,-sdk,iphonesimulator --output "docs"
+	cd ./NodeKit && swift package --allow-writing-to-directory ../docs \
+    generate-documentation --target NodeKit \
+    --disable-indexing \
+    --transform-for-static-hosting \
+    --hosting-base-path NodeKit \
+    --output-path ../docs
 
 # COLORS
 GREEN  := $(shell tput -Txterm setaf 2)

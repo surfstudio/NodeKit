@@ -4,10 +4,10 @@ Out of the box, the library allows logging any operation performed by a node.
 
 ## How logging works
 
-The NodeKit library provides the ability to write logs using storage [LoggingContextProtocol](../../docs/Protocols/LoggingContextProtocol.html). The built-in implementation of `LoggingContextProtocol` is [LoggingContext](../../docs/Actors/LoggingContext.html).
+The NodeKit library provides the ability to write logs using storage [LoggingContextProtocol](https://surfstudio.github.io/NodeKit/documentation/nodekit/loggingcontextprotocol). The built-in implementation of `LoggingContextProtocol` is [LoggingContext](https://surfstudio.github.io/NodeKit/documentation/nodekit/loggingcontext).
 `LoggingContext` is created when the `process(_ data: Input)` method of the chain is called and is passed to all nodes through the `process(_ data: Input, logContext: LoggingContextProtocol)` method. Thus, each node has the ability to work with the same `LoggingContext`.
 
-The data type that `LoggingContextProtocol` stores is [Logable](../../docs/Protocols/Logable.html), implemented in the structure [Log](../../docs/Structs/Log.html). 
+The data type that `LoggingContextProtocol` stores is [Logable](https://surfstudio.github.io/NodeKit/documentation/nodekit/logable), implemented in the structure [Log](https://surfstudio.github.io/NodeKit/documentation/nodekit/log). 
 To add a new log, you need to create a `Log` object and pass it to `LoggingContextProtocol` using the `add` method.
 
 The log itself represents a linked list:
@@ -20,7 +20,7 @@ This allows us to output logs in the correct order:
 
 ## Logging Output
 
-The [LoggerNode](../../docs/Classes/LoggerNode.html) is responsible for logging output to the screen.
+The [LoggerNode](https://surfstudio.github.io/NodeKit/documentation/nodekit/loggernode) is responsible for logging output to the screen.
 It is placed at the very beginning of the chain and outputs the message only after the entire chain has finished its work.
 
 The node has a log filtering mode.

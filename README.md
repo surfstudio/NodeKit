@@ -2,9 +2,7 @@
 
 [![GitHubActions Build Status](https://github.com/surfstudio/NodeKit/workflows/CI/badge.svg)](https://github.com/surfstudio/NodeKit/actions)
 [![codecov](https://codecov.io/gh/surfstudio/NodeKit/branch/master/graph/badge.svg)](https://codecov.io/gh/surfstudio/NodeKit)
-[![CocoaPods](https://img.shields.io/badge/pod-compatible-blue.svg)](https://github.com/surfstudio/NodeKit/blob/master/NodeKit.podspec)
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-blue.svg)](https://github.com/apple/swift-package-manager)
-[![Documentation](https://surfstudio.github.io/NodeKit/badge.svg)](https://surfstudio.github.io/NodeKit/)
 
 Flexible and customizable network library
 
@@ -12,6 +10,14 @@ Flexible and customizable network library
 <p align="center">
   <img src="TechDocs/Header.svg">
 </p>
+
+## About
+
+The NodeKit library enables rapid and easy creation of requests of varying complexity. The system operates on the principle of asynchronous data transformation, wherein nodes are interconnected to form a chain that transforms input data into a server response.
+
+![All text](TechDocs/NodeKitHeader.svg)
+
+Such an approach allows us to flexibly adapt to a wide range of requirements.
 
 ## Build request using Swift Concurrency
 
@@ -56,14 +62,6 @@ func credentialsPublisher(for authModel: AuthModel) -> AnyPublisher<NodeResult<C
 
 ```
 
-## About
-
-The NodeKit library enables rapid and easy creation of requests of varying complexity. The system operates on the principle of asynchronous data transformation, wherein nodes are interconnected to form a chain that transforms input data into a server response.
-
-![All text](TechDocs/NodeKitHeader.svg)
-
-Such an approach allows us to flexibly adapt to a wide range of requirements.
-
 ## Installation
 
 ### Swift Package Manager
@@ -83,13 +81,6 @@ dependencies: [
 ]
 ```
 
-### CocoaPods
-
-Using Podfile:
- 
-- Write `pod NodeKit`
-- Run `pod install` command
-
 ## Features
 
 - Swift Concurrency
@@ -102,6 +93,7 @@ Using Podfile:
 - Comprehensive Unit and Integration Test Coverage
 - Mock target for Unit tests
 - [Documentation](TechDocs/Documentation.md)
+- [Code documentation](https://surfstudio.github.io/NodeKit/documentation/nodekit)
 
 ## Contributing
 

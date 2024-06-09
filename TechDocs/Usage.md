@@ -52,7 +52,7 @@ extension RegistrationRoute: UrlRouteProvider {
 
 #### Good to know
 
-For simplifying URL handling in CoreNetKit, there is an [extension](../docs/Extensions/Optional.html) for concatenating URL and String.
+For simplifying URL handling in NodeKit, there is an [extension](https://surfstudio.github.io/NodeKit/documentation/nodekit/swift/optional/+(_:_:)) for concatenating URL and String.
 
 ### Encoding <a name="encoding"></a>
 
@@ -61,7 +61,7 @@ NodeKit provides the following encoding types:
 2) `formUrl` - serializes request parameters into FormURLEncoding format and attaches them to the request body.
 3) `urlQuery` - converts parameters into a string, replacing certain characters with special sequences (forms a URL-encoded string).
 
-These parameters are located in [ParametersEncoding](../docs/Enums/ParametersEncoding.html)
+These parameters are located in [ParametersEncoding](https://surfstudio.github.io/NodeKit/documentation/nodekit/parametersencoding)
 
 ## Sending the request <a name="sendingtherequest"></a>
 
@@ -119,7 +119,7 @@ To execute the request, we use [chains](Chains.md).
 ### Response <a name="response"></a>
 
 For working with the service, it is suggested to use `NodeResult<T>.` Where `NodeResult<T> = Result<T, Error>`.
-You can view the available methods of NodeResult [here](../docs/Extensions/NodeResult.html).
+You can view the available methods of NodeResult [here](https://surfstudio.github.io/NodeKit/documentation/nodekit/swift/result).
 Let's consider how interaction with the service will look like from the presenter (or any other entity that communicates with the server).
 
 ```Swift

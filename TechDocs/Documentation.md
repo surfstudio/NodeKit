@@ -7,4 +7,3 @@
 - [Chains](/TechDocs/Chains.md)
 - [Logging](/TechDocs/Log/Log.md)
 - [NodeKitMock](/TechDocs/Testing/NodeKitMock.md)
-- [Code documentation](../docs/index.html)
