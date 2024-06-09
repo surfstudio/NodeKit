@@ -93,6 +93,7 @@ dependencies: [
 - Comprehensive Unit and Integration Test Coverage
 - Mock target for Unit tests
 - [Documentation](TechDocs/Documentation.md)
+- [Code documentation](https://surfstudio.github.io/NodeKit/documentation/nodekit)
 
 ## Contributing
 
