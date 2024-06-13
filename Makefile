@@ -8,20 +8,28 @@ init:
 
 ## Used to build target. Usually, it is not called manually, it is necessary for the CI to work.
 build:
-	xcodebuild clean build -scheme NodeKit -sdk iphonesimulator | bundle exec xcpretty -c
+	xcodebuild clean build -project ./NodeKit/NodeKit.xcodeproj -scheme NodeKit -sdk iphonesimulator | bundle exec xcpretty -c
 
 ## Used to build target with SPM dependencies. Usually, it is not called manually, it is necessary for the CI to work.
 spm_build:
-	swift package clean
-	swift build -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios15.5-simulator" -Xswiftc "-lswiftUIKit"
+	cd ./NodeKit && swift package clean
+	cd ./NodeKit && swift build --sdk "`xcrun -sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios17.4-simulator" -Xswiftc "-lswiftUIKit"
 
-## Run tests
+## Run tests and create coverage report
 test:
-	xcodebuild test -scheme NodeKit -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 8,OS=15.5' | bundle exec xcpretty -c
+	rm -rf DerivedData
+	mkdir -p CoverageReports
+	xcodebuild test -project ./NodeKit/NodeKit.xcodeproj -scheme NodeKit -derivedDataPath DerivedData -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -enableCodeCoverage YES -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.4' | bundle exec xcpretty -c
+	./xcresultparser/xcresultparser --output-format cobertura DerivedData/Logs/Test/*.xcresult > ./CoverageReports/coverage.xml
 
 ## Created documentation by comments from code
 doc:
-	bundle exec jazzy --clean --build-tool-arguments -scheme,NodeKit,-sdk,iphonesimulator --output "docs"
+	cd ./NodeKit && swift package --allow-writing-to-directory ../docs \
+    generate-documentation --target NodeKit \
+    --disable-indexing \
+    --transform-for-static-hosting \
+    --hosting-base-path NodeKit \
+    --output-path ../docs
 
 # COLORS
 GREEN  := $(shell tput -Txterm setaf 2)

@@ -1,46 +1,122 @@
-# Про использование моделей
+# Models
 
-В этом разделе подробно описано почему библиотека работает с 2мя слоями моделей. Для чего это нужно и какие из этого можно извлечь выгоды. 
+- [Model Layers](#modellayer)
+  - [Raw Model Layer (RawMappable)](#rawmodellayer)
+  - [Application Model Layer (DTOConvertible)](#aplicationmodellayer)
+- [Example 1. Replacement of value](#example1)
+- [Example 2. One-to-many](#example2)
 
-Начнем с того, что еще раз перечислим слои:
+## Model Layers <a name="modellayer"></a>
 
-1) **Application Layer Models** - или `DTOConvertible`. Это модели верхнего уровня. Их можно смело использовать внутри презентеров и разных вью. Эти модели получаются из `DTO`
-2) **Raw Layer Models** - или `DTO` или `RawMappable`. Это модели нижнего уровня. Именно с этими моделями работают почти все стандартные узлы. 
+The library implies working with two Model Layers:
 
-## Application Layer Models
+1) Application Model Layer - The layer of the application level, which is used throughout the application.
+2) Raw Model Layer (DTO) - The low-level layer to which (or from which) data is mapped for (or from) the server. 
 
-Эти модели должны использоваться выше сервисов. Просто маппинг в них происходит в библиотеке для автоматизации этого процесса. 
-Эти модели **НЕ** должны быть связаны с БД.
-Иными словами это просто обычная модель. 
+But it is also allowed to use only one model layer or not to use models at all.
 
-Процесс устроен таким образом, что при отправке запроса с этой моделью она практически сразу конвертируется в связанную с ней `DTO`-модель.
-После получения ответа от сервера модель этого типа конвертируется из связанной с ней `DTO`-модели только в самом конце работы цепочки узлов. 
+### Raw Model Layer (RawMappable) <a name="rawmodellayer"></a>
 
-**Это бизнес-модели.**
+Two protocols are responsible for defining the model from this layer:
 
-## Raw Layer Models
+1) [RawEncodable](https://surfstudio.github.io/NodeKit/documentation/nodekit/rawencodable)
+2) [RawDecodable](https://surfstudio.github.io/NodeKit/documentation/nodekit/rawdecodable)
 
-Эти модели данных не должны использоваться **нигде**, кроме узлов цепочки (и методов маппинга в `Application Layer Model`).
-Эти модели можно использовать как сущности для хранения в БД. 
+There is also an alias [RawMappable](https://surfstudio.github.io/NodeKit/documentation/nodekit/rawmappable)
 
-Модели такого типа в конечном итоге мапятся в RAW-данные и отправляются на сервер. Так же RAW-ответ сервера маппится на эти данные. 
+For entities that conform to the `Codable` protocols, there is a default mapping implementation.
 
-Эта модель еще не RAW. Она будет конвертироваться в RAW.
-
-**Это модели доступа к данным.**
-
-## Как использовать два слоя моделей
-
-На самом деле архитектура с двумя слоями моделей это давно устоявшийся подход, и в разработке бэкэнда этот подход используется по умолчанию. 
-
-Помимо очевидных положительных вещей (разделение логической ответственности на бизнес и не-бизнес) есть следующие положительные стороны:
-
-### Пример 1. Замена значения. 
-
-Допустим, у нас есть некоторый продукт. 
+Example:
 
 ```Swift
+enum Type: Int, Codable {
+    case owner
+    case member
+}
 
+struct PhotoEntry: Codable {
+    let id: String
+    let ref: String
+}
+
+extension PhotoEntry: RawDecodable {
+    public typealias Raw = Json
+}
+
+struct UserEntry: Codable {
+    let name: String
+    let age: Int
+    let type: Type
+    let photos: [PhotoEntry]
+}
+
+extension UserEntry: RawDecodable {
+    public typealias Raw = Json
+}
+```
+
+This code will be sufficient to map the server response to the `UserEntry` and `PhotoEntry` entities.
+
+**It is considered good practice to add the "Entry" postfix to DTO entities.**
+
+### Application Model Layer (DTOConvertible) <a name="aplicationmodellayer"></a>
+
+Two protocols are responsible for defining the model from this layer:
+
+1) [DTOEncodable](https://surfstudio.github.io/NodeKit/documentation/nodekit/dtoencodable)
+2) [DTODecodable](https://surfstudio.github.io/NodeKit/documentation/nodekit/dtodecodable)
+
+There is also an alias [DTOConvertible](https://surfstudio.github.io/NodeKit/documentation/nodekit/dtoconvertible)
+
+Example:
+
+```Swift
+struct Photo {
+    let id: String
+    let image: String
+}
+
+extension Photo: DTODecodable {
+
+    public typealias DTO = PhotoEntry
+
+    static func from(dto: PhotoEntry) throws -> Photo {
+        return .init(id: dto.id, image: dto.ref)
+    }
+}
+
+struct User {
+    let name: String
+    let age: Int
+    let type: Type
+    let photos: [Photo]
+}
+
+extension User: DTODecodable {
+    public typealias DTO = UserEntry
+
+    static func from(dto: UserEntry) throws -> Photo {
+        return try .init(name: dto.name, 
+                        age: dto.age, 
+                        type: dto.type, 
+                        photos: .from(dto: dto.photos))
+    }
+}
+```
+
+Thus, we obtain a pair of two models, where:
+1) `UserEntry: RawDecodable` - DTO-Layer
+2) `User: DTODecodable` - App-Layer
+
+#### Good to know
+
+Arrays with elements of type `DTOConvertible` and `RawMappable` also satisfy these protocols and have default implementations for their methods.
+
+### Example 1. Replacement of value <a name="example1"></a>
+
+Let say we have a certain product. 
+
+```Swift
 struct Product: DTODecodable {
     let id: String
     let name: String
@@ -52,47 +128,44 @@ struct Product: DTODecodable {
 }
 ```
 
-И требования такие:
-1) Всегда выводить `alias` в качестве названия продукта. 
-2) В случае если `alias == nil` или `alias.isEmpty`, то выводить `name` 
+And the requirements are as follows:
 
-Эти требования обуславливаются тем, что `alias` - задает пользователь, а `name` это имя продукта по-умолчанию. 
+1) Always output `alias` as the product name.
+2) In case `alias == nil` or `alias.isEmpty`, output `name`.
 
-Понятное дело, что писать во всех местах что-то вроде:
+These requirements are due to the fact that `alias` is set by the user, while `name` is the default product name.
+Of course, it's clear that writing something like this everywhere is a bad idea:
 
 ```Swift
-    if let alias = model.alias, !alias.isEmpty {
-        self.productNameLabel.text = alias
-    } else {
-        self.productNameLabel.text = model.name
-    }
+if let alias = model.alias, !alias.isEmpty {
+    self.productNameLabel.text = alias
+} else {
+    self.productNameLabel.text = model.name
+}
 ```
 
-Еще можно написать `extension` но это все равно выглядит немного костыльно. Считай лишнее поле добавили. 
-
-Если у нас есть `DTO` слой, то эту проблему можно решить при маппинге данных:
+If we have a DTO layer, we can solve this problem during data mapping:
 
 ```Swift
-    static func from(dto: ProductEntry) -> Product {
-        let alias = {
-            guard let alias = dto.alias, !alias.IsEmpty else {
-                return dto.name
-            }
-            return alias
-        }()
-        return .init(id: dto.id, name: dto.name, alias: alias)
-    }
+static func from(dto: ProductEntry) -> Product {
+    let alias = {
+        guard let alias = dto.alias, !alias.IsEmpty else {
+            return dto.name
+        }
+        return alias
+    }()
+    return .init(id: dto.id, name: dto.name, alias: alias)
+}
 ```
-В таком варианте мы решаем проблему несоответствия бизнес-моделей транспортным на уровне маппинга одних в другие и не тащим эти самые проблемы несоответствия вверх по иерархии. 
+In this scenario, we solve the problem of mismatching business models to transport models at the mapping level, without carrying these mismatches up the hierarchy. 
 
-### Пример 2. Один ко многим.
+### Example 2. One-to-many <a name="example2"></a>
 
-Иногда бывает удобно представить сущность, приходящую с сервера, как несколько разных сущностей. Например, сервер присылает одну большую модель, но на определенный запрос нам необходим только некоторый определенный набор полей. 
+Sometimes it's convenient to represent an entity coming from the server as several different entities. For example, the server sends one large model, but for a specific request, we only need a certain subset of fields.
 
-Как раз в таких случаях два слоя моделей отлично помогают решить проблему. 
+In such cases, having two layers of models helps solve the problem perfectly.
 
 ```Swift
-
 struct PaymentEntry: Codable, RawMappable {
 
     typealias Raw = Json
@@ -135,6 +208,4 @@ struct PaymentList: DTOEncodable {
         return .init(subitems: subitems)
     }
 }
-```
-
-Таким образом, мы разбили входящую сущность на 3 разных сущности, тем самым избавив себя от макаронного кода. 
+``` 

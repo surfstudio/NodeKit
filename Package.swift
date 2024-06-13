@@ -1,48 +1,56 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
     name: "NodeKit",
     platforms: [
-        .macOS(.v10_12),
-        .iOS(.v11),
+        .macOS(.v11),
+        .iOS(.v13),
     ],
     products: [
         .library(
             name: "NodeKit",
-            targets: ["NodeKit"]),
+            targets: ["NodeKit"]
+        ),
+        .library(
+            name: "NodeKitMock",
+            targets: ["NodeKitMock"]
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/Alamofire/Alamofire", .exact("5.0.0-beta.6")),
-        .package(url: "https://github.com/surfstudio/CoreEvents", .exact("2.0.2"))
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
         .target(
+            name: "NodeKitThirdParty",
+            path: "NodeKit/NodeKitThirdParty/Source"
+        ),
+        .target(
             name: "NodeKit",
             dependencies: [
-                "Alamofire",
-                "CoreEvents",
+                "NodeKitThirdParty"
             ],
-            path: "NodeKit",
+            path: "NodeKit/NodeKit",
             exclude: [
-                "Info.plist",
+                "Info.plist"
             ]
+        ),
+        .target(
+            name: "NodeKitMock",
+            dependencies: [
+                "NodeKit"
+            ],
+            path: "NodeKit/NodeKitMock"
         ),
         .testTarget(
             name: "NodeKitTests",
             dependencies: [
                 "NodeKit",
-                "Alamofire",
-                "CoreEvents"
+                "NodeKitMock"
             ],
-            path: "NodeKitTests",
+            path: "NodeKit/NodeKitTests",
             exclude: [
                 "Resources/LICENSE.txt",
-                // TODO: - Переписать тесты на блекбокс - убрать завязку на сервер
-                "FormUrlCodingTests.swift",
-                "MultipartRequestTests.swift",
-                "SimpleURLChainTests.swift",
-                "TestEmptyResponseMapping.swift"
             ]
         ),
     ]

@@ -1,47 +1,25 @@
 # Contribution Guide
 
-Здесь описано что вообще есть в этом репозитории. 
+This document describes what is contained in this repository.
 
-Как запускать тесты, как работает CI, какие есть автоматизации и как вообще вести разработку NodeKit.
-
-## Общий принцип
-
-NodeKit содержит два вида тестов Unit и Integration тесты. 
-
-**Unit-тесты** используются для того, чтобы протестировать узел, лес или граф **изолированно** от внешней среды.
-
-То есть Unit-тесты это когда мы тестируем компоненты библиотеки заменяя входы и выходы заглушками. То есть тесты не идут в файловую систему, не идут на сервер. Короче для прогона тестов не нужны никакие внешние компоненты. 
-Это важно, потому что такие тесты запускаются на CI без дополнительных действий.
-
-**Integration-тесты** - как раз наоборот. Их задача проверить как библиотека (целиком или ее компоненты) работает со внешним миром.
-
-Для этих целей специально для NodeKit написан небольшой web-сервер который лежит в папке TestServer.
+It includes information on how to run tests, how the Continuous Integration (CI) works, available automations, and the general development workflow for NodeKit.
 
 ## CI
 
-Сейчас NodeKit использует Travis-CI. 
+Currently, NodeKit uses Github Actions.
 
-Каждый созданный PR уходит собираться на Travis и во время сборки проходит несколько этапов:
-- Сборка проекта - проверяется, что библиотека вообще собирается
-- Деплой сервера - тестовый сервис деплоится на удаленный сервер и там запускается
-- Тестирование - выполняется прогон всех тестов библиотеки. Затем результат тестирования грузится в CodeCov
+Each created PR goes through several stages during the build process:
+- Project compilation - ensuring that the library is built using the `xcodebuild build` command.
+- Compilation using Swift Packet Manager (SPM) - verifying that the library is built using the `swift build` command.
+- Testing - running all library tests.
+- Uploading test results to CodeCov.
 
-Для всех внутренних действий используются скрипты из папки `ci`
+Internal actions are performed using scripts from the `Makefile`.
 
-- `prepare_srv_deploy.sh` - расшифровывает и добавляет на виртуальную машину ssh-секреты, для того, чтобы можно было провести деплой
-- `deploy_server.sh` - выполняет деплой тестовго сериса на удаленный сервер и запускает его там
-- `prepare_tests.sh` - делает подготовку для запуска тестов на удаленном сервере. В частности заменяет `Routes.base = http://localhost:8118/nkt` на `Routes.base = https://lastsprint.dev/nkt` в файле `Infrastrudture.swift`
-- `run_tests.sh` - запускает тесты
-- `codecov_report.sh` - запускается после завершения тестирования. Загружает результаты тестов в CodeCov
+## Integration Tests
 
-## TestServer
+In addition to Unit tests, NodeKit library has implemented a series of integration tests. 
 
-Находится в папке TestServer в корне репозитория. 
+Responses from the server are substituted by adding `URLProtocolMock` to `URLSessionConfiguration.protocolClasses`. This is already implemented in the `NetworkMock` class. To write integration tests, you only need to pass `NetworkMock().urlSession` to where it is required.
 
-Это небольшой сервис написанный на Go.
-
-Вместе с сервисом поставляется его бинарник `TestServer/TestServer` так что для того, чтобы прогнать тесты локально достаточно просто запустить его: `TestServer/TestServer`
-
-Если вы хотите его доработать, то здесь уже сложнее. Вам обязательно нужен установленный Go на вашем устройстве и желательно иметь какой-то умный редактор (наприемр я пользуюсь VSCode).
-
-Почитать о том как быстро поставить компилятор для Go и начать им пользоваться можно [тут](https://golang.org/doc/install)
+For more details, you can read [here](/TechDocs/Testing/NodeKitMock.md)
