@@ -13,7 +13,7 @@ Flexible and customizable network library
 
 ## About
 
-The NodeKit library enables rapid and easy creation of requests of varying complexity. The system operates on the principle of asynchronous data transformation, wherein nodes are interconnected to form a chain that transforms input data into a server response.
+The [NodeKit](https://www.nodekit.xyz/) library enables rapid and easy creation of requests of varying complexity. The system operates on the principle of asynchronous data transformation, wherein nodes are interconnected to form a chain that transforms input data into a server response.
 
 ![All text](TechDocs/NodeKitHeader.svg)
 
