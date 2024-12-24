@@ -35,7 +35,7 @@ open class HeaderInjectorNode: AsyncNode {
     ) async -> NodeResult<Json> {
         await .withCheckedCancellation {
             var resultHeaders = headers
-            var log = logViewObjectName
+            var log = ""
             log += "Add headers \(headers)" + .lineTabDeilimeter
             log += "To headers \(data.headers)" + .lineTabDeilimeter
             data.headers.forEach { resultHeaders[$0.key] = $0.value }
@@ -46,7 +46,7 @@ open class HeaderInjectorNode: AsyncNode {
                 raw: data.raw
             )
             log += "Result headers: \(resultHeaders)"
-            await logContext.add(Log(log, id: objectName))
+            await logContext.add(LogChain(log, id: objectName, logType: .info))
             return await next.process(newData, logContext: logContext)
         }
     }

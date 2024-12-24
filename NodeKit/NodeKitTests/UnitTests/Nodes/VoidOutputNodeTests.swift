@@ -149,7 +149,12 @@ final class VoidOutputNodeTests: XCTestCase {
         dtoEncodableMock.stubbedToDTOResult = .success([:])
         nextNodeMock.stubbedAsyncProccessResult = .success(json)
         
-        var expectedLog = Log(sut.logViewObjectName, id: sut.objectName, order: LogOrder.voidOutputNode)
+        var expectedLog = LogChain(
+            "",
+            id: sut.objectName,
+            logType: .info,
+            order: LogOrder.voidOutputNode
+        )
         expectedLog += "VoidOutputNode used but request have not empty response" + .lineTabDeilimeter
         expectedLog += "\(json)"
         

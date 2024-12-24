@@ -56,11 +56,10 @@ open class URLJsonRequestEncodingNode<Type>: AsyncNode {
         
     }
 
-    private func getLogMessage(_ data: RequestEncodingModel) -> Log {
-        let message = "<<<===\(self.objectName)===>>>\n" +
-            "input: \(type(of: data))" +
+    private func getLogMessage(_ data: RequestEncodingModel) -> LogChain {
+        let message = "input: \(type(of: data))" +
             "encoding: \(String(describing: data.encoding))" +
             "raw: \(String(describing: data.raw))"
-        return Log(message, id: self.objectName, order: LogOrder.requestEncodingNode)
+        return LogChain(message, id: self.objectName, logType: .info, order: LogOrder.requestEncodingNode)
     }
 }

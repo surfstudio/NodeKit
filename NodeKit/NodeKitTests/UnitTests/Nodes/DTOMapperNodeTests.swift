@@ -114,7 +114,11 @@ final class DTOMapperNodeTests: XCTestCase {
             "test8": "value10"
         ]
         
-        var log = Log(nextNodeMock.logViewObjectName, id: nextNodeMock.objectName, order: LogOrder.dtoMapperNode)
+        var log = LogChain(
+            "",
+            id: nextNodeMock.objectName,
+            logType: .failure, order: LogOrder.dtoMapperNode
+        )
         log += "\(BaseTechnicalError.noInternetConnection)"
         
         await logContextMock.add(log)

@@ -76,15 +76,14 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
         }
     }
 
-    private func getLogMessage(_ data: MultipartURLRequest) -> Log {
-        var message = "<<<===\(self.objectName)===>>>\n"
-        message += "input: \(type(of: data))\n\t"
+    private func getLogMessage(_ data: MultipartURLRequest) -> LogChain {
+        var message = "input: \(type(of: data))\n\t"
         message += "method: \(data.method.rawValue)\n\t"
         message += "url: \(data.url.absoluteString)\n\t"
         message += "headers: \(data.headers)\n\t"
         message += "parametersEncoding: multipart)"
 
-        return Log(message, id: self.objectName, order: LogOrder.requestCreatorNode)
+        return LogChain(message, id: self.objectName, logType: .info, order: LogOrder.requestCreatorNode)
     }
 
     open func append(multipartForm: MultipartFormDataProtocol, with request: MultipartURLRequest) {

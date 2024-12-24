@@ -50,15 +50,15 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Type> {
         await .withCheckedCancellation {
-            var log = Log(logViewObjectName, id: objectName, order: LogOrder.requestSenderNode)
-            
+            var log = LogChain("", id: objectName, logType: .info, order: LogOrder.requestSenderNode)
+
             async let nodeResponse = nodeResponse(request, logContext: logContext)
             
-            log += "Request sended!"
-            
+            log += "Request sended!" + .lineTabDeilimeter
+
             let response = await nodeResponse
             
-            log += "Get response!)"
+            log += "Got response! \(response.result)"
             
             let result = await rawResponseProcessor.process(response, logContext: logContext)
 
@@ -68,9 +68,10 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
     }
 
     open func cancel(logContext: LoggingContextProtocol) {
-        let log = Log(
-            logViewObjectName + "Request was cancelled!",
+        let log = LogChain(
+            "Request was cancelled!",
             id: objectName,
+            logType: .info,
             order: LogOrder.requestSenderNode
         )
         Task.detached { [weak self] in

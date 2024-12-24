@@ -50,23 +50,23 @@ open class IfConnectionFailedFromCacheNode: AsyncNode {
 
     // MARK: - Private Method
 
-    private func makeBaseTechinalLog(with error: Error) -> Log {
-        return Log(
-            logViewObjectName + 
+    private func makeBaseTechinalLog(with error: Error) -> LogChain {
+        return LogChain(
                 "Catching \(error)" + .lineTabDeilimeter +
                 "Start read cache" + .lineTabDeilimeter,
-            id: objectName
+            id: objectName, 
+            logType: .failure
         )
     }
 
-    private func makeLog(with error: Error, from request: URLNetworkRequest) -> Log {
-        return Log(
-            logViewObjectName +
+    private func makeLog(with error: Error, from request: URLNetworkRequest) -> LogChain {
+        return LogChain(
                 "Catching \(error)" + .lineTabDeilimeter +
                 "Error is \(type(of: error))" +
                 "and request = \(String(describing: request))" + .lineTabDeilimeter +
                 "-> throw error",
-            id: objectName
+            id: objectName,
+            logType: .failure
         )
     }
 

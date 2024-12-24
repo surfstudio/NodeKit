@@ -31,7 +31,7 @@ open class ResponseDataPreprocessorNode: AsyncNode {
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Json> {
         await .withCheckedCancellation {
-            var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseDataPreprocessorNode)
+            var log = LogChain("", id: objectName, logType: .info, order: LogOrder.responseDataPreprocessorNode)
 
             guard data.response.statusCode != 204 else {
                 log += "Status code is 204 -> response data is empty -> terminate process with empty json"
