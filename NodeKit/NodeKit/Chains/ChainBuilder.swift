@@ -219,7 +219,7 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
     
     open func build<I: DTOEncodable, O: DTODecodable>() -> AnyAsyncNode<I, O>
     where O.DTO.Raw == Json, I.DTO.Raw == MultipartModel<[String : Data]> {
-        let requestChain = serviceChainProvider.provideRequestMultipartChain()
+        let requestChain = serviceChainProvider.provideRequestMultipartChain(with: headersProviders)
         let metadataConnectorChain = metadataConnectorChain(root: requestChain)
         let rawEncoderNode = DTOMapperNode<I.DTO,O.DTO>(next: metadataConnectorChain)
         let dtoEncoderNode = ModelInputNode<I, O>(next: rawEncoderNode)

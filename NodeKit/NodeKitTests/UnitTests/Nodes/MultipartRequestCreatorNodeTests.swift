@@ -20,10 +20,6 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     private var multipartFormDataFactoryMock: MultipartFormDataFactoryMock!
     private var multipartFormDataMock: MultipartFormDataMock!
     
-    // MARK: - Sut
-    
-    private var sut: MultipartRequestCreatorNode<Int>!
-    
     // MARK: - Lifecycle
     
     override func setUp() {
@@ -33,10 +29,6 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
         multipartFormDataFactoryMock = MultipartFormDataFactoryMock()
         multipartFormDataMock = MultipartFormDataMock()
         multipartFormDataFactoryMock.stubbedProduceResult = multipartFormDataMock
-        sut = MultipartRequestCreatorNode(
-            next: nextNodeMock,
-            multipartFormDataFactory: multipartFormDataFactoryMock
-        )
     }
     
     override func tearDown() {
@@ -45,14 +37,18 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
         logContextMock = nil
         multipartFormDataFactoryMock = nil
         multipartFormDataMock = nil
-        sut = nil
     }
     
     // MARK: - Tests
     
     func testAsyncProcess_withMultipartFormPayloadData_thenMultipartFormDataAppendCalled() async throws {
         // given
-        
+
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
         let payloadKey = "TestPayloadKey"
         let payloadValue = "TestPayloadValue".data(using: .utf8)!
         let multipartModel = MultipartModel<[String: Data]>(
@@ -92,7 +88,12 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     
     func testAsyncProcess_withMultipartFormFileURL_thenMultipartFormDataAppendCalled() async throws {
         // given
-        
+
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
         let fileKey = "TestFileKey1"
         let fileURL = URL(string: "www.testfirstfile.com")!
         let multipartModel = MultipartModel<[String: Data]>(
@@ -129,7 +130,12 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     
     func testAsyncProcess_withMultipartFormFileData_thenMultipartFormDataAppendCalled() async throws {
         // given
-        
+
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
         let fileKey = "TestFileKey2"
         let fileData = "TestSecondFileData".data(using: .utf8)!
         let fileName = "TestSecondFile.name"
@@ -170,7 +176,12 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     
     func testAsyncProcess_withMultipartFormFileCustomURL_thenMultipartFormDataAppendCalled() async throws {
         // given
-        
+
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
         let fileKey = "TestFileKey3"
         let fileURL = URL(string: "www.testthirdfile.com")!
         let fileName = "TestThirdFile.name"
@@ -212,6 +223,11 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withEncodingError_thenNextDidNotCall() async throws {
         // given
 
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
         let model = MultipartURLRequest(
             method: .delete,
             url: URL(string: "www.testprocess.com")!,
@@ -235,6 +251,11 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withEncodingError_thenErrorReceived() async throws {
         // given
 
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
         let model = MultipartURLRequest(
             method: .delete,
             url: URL(string: "www.testprocess.com")!,
@@ -257,6 +278,11 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     
     func testAsyncProcess_withEncodingSuccess_thenNextCalled() async throws {
         // given
+
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
 
         let expectedURL = URL(string: "www.testprocess.com")!
         let stubbedContentType = "TestContentType"
@@ -296,6 +322,11 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withSuccess_thenSuccessReceived() async throws {
         // given
 
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
         let model = MultipartURLRequest(
             method: .get,
             url: URL(string: "www.testprocess.com")!,
@@ -321,6 +352,11 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     func testAsyncProcess_withError_thenErrorReceived() async throws {
         // given
 
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
         let model = MultipartURLRequest(
             method: .get,
             url: URL(string: "www.testprocess.com")!,
@@ -344,7 +380,12 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     
     func testAsyncProcess_withCancelTask_beforeStart_thenCancellationErrorReceived() async throws {
         // given
-        
+
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
         let model = MultipartURLRequest(
             method: .get,
             url: URL(string: "www.testprocess.com")!,
@@ -375,7 +416,12 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
     
     func testAsyncProcess_withCancelTask_afterStart_thenCancellationErrorReceived() async throws {
         // given
-        
+
+        let sut = MultipartRequestCreatorNode(
+            next: nextNodeMock,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
         let model = MultipartURLRequest(
             method: .get,
             url: URL(string: "www.testprocess.com")!,
@@ -407,5 +453,109 @@ final class MultipartRequestCreatorNodeTest: XCTestCase {
         
         let error = try XCTUnwrap(result.error)
         XCTAssertTrue(error is CancellationError)
+    }
+
+    func testAsyncProcess_withProviders_thenProvidersHeadersMergedWithPassedHeadersReceived() async throws {
+        // given
+
+        let expectedResult = 66
+        let firstProvider = MetadataProviderMock()
+        let secondProvider = MetadataProviderMock()
+        let providers = [
+            firstProvider,
+            secondProvider
+        ]
+
+        let sut = MultipartRequestCreatorNode<Int>(
+            next: nextNodeMock,
+            providers: providers,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
+        let model = MultipartURLRequest(
+            method: .get,
+            url: URL(string: "www.testprocess.com")!,
+            headers: ["TestKey":"TestValue"],
+            data: MultipartModel<[String: Data]>(payloadModel: [:])
+        )
+
+        multipartFormDataMock.stubbedContentTypeResult = "test"
+        multipartFormDataMock.stubbedEncodeResult = .success(Data())
+        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+
+        let expectedHeaders = [
+            "Content-Type": "test",
+            "TestKey": "TestValue",
+            "TestFirstProviderKey": "TestFirstProviderValue",
+            "TestSecondProviderKey": "TestSecondProviderValue"
+        ]
+
+        firstProvider.stubbedMetadataResult = ["TestFirstProviderKey": "TestFirstProviderValue"]
+        secondProvider.stubbedMetadataResult = ["TestSecondProviderKey": "TestSecondProviderValue"]
+        nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
+
+        // when
+
+        let result = await sut.process(model, logContext: logContextMock)
+
+        // then
+
+        let parameters = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
+        let value = try XCTUnwrap(result.value)
+
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(parameters.headers.dictionary, expectedHeaders)
+        XCTAssertEqual(value, expectedResult)
+    }
+
+    func testAsyncProcess_withProvidersAndSameKeys_thenProvidersHeadersMergedWithPassedHeadersReceived() async throws {
+        // given
+
+        let expectedResult = 66
+        let firstProvider = MetadataProviderMock()
+        let secondProvider = MetadataProviderMock()
+        let providers = [
+            firstProvider,
+            secondProvider
+        ]
+        let sut = MultipartRequestCreatorNode<Int>(
+            next: nextNodeMock,
+            providers: providers,
+            multipartFormDataFactory: multipartFormDataFactoryMock
+        )
+
+        let model = MultipartURLRequest(
+            method: .get,
+            url: URL(string: "www.testprocess.com")!,
+            headers: ["TestKey": "TestValue"],
+            data: MultipartModel<[String: Data]>(payloadModel: [:])
+        )
+
+        let expectedHeaders = [
+            "Content-Type": "test",
+            "TestKey": "TestSecondProviderValue",
+            "TestFirstProviderKey": "TestFirstProviderValue"
+        ]
+
+        multipartFormDataMock.stubbedContentTypeResult = "test"
+        multipartFormDataMock.stubbedEncodeResult = .success(Data())
+        nextNodeMock.stubbedAsyncProccessResult = .success(1)
+
+        firstProvider.stubbedMetadataResult = ["TestFirstProviderKey": "TestFirstProviderValue"]
+        secondProvider.stubbedMetadataResult = ["TestKey": "TestSecondProviderValue"]
+        nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
+
+        // when
+
+        let result = await sut.process(model, logContext: logContextMock)
+
+        // then
+
+        let parameters = try XCTUnwrap(nextNodeMock.invokedAsyncProcessParameters?.data)
+        let value = try XCTUnwrap(result.value)
+
+        XCTAssertEqual(nextNodeMock.invokedAsyncProcessCount, 1)
+        XCTAssertEqual(parameters.headers.dictionary, expectedHeaders)
+        XCTAssertEqual(value, expectedResult)
     }
 }

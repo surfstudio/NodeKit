@@ -48,11 +48,17 @@ open class ServiceChainProviderMock: ServiceChainProvider {
     
     public var invokedProvideRequestMultipartChain = false
     public var invokedProvideRequestMultipartChainCount = 0
+    public var invokedProvideRequestMultipartChainParameter: [MetadataProvider]?
+    public var invokedProvideRequestMultipartChainParameterList: [[MetadataProvider]] = []
     public var stubbedProvideRequestMultipartChainResult: (any AsyncNode<MultipartURLRequest, Json>)!
     
-    open func provideRequestMultipartChain() -> any AsyncNode<MultipartURLRequest, Json> {
+    open func provideRequestMultipartChain(
+        with providers: [MetadataProvider]
+    ) -> any AsyncNode<MultipartURLRequest, Json> {
         invokedProvideRequestMultipartChain = true
         invokedProvideRequestMultipartChainCount += 1
+        invokedProvideRequestMultipartChainParameter = providers
+        invokedProvideRequestMultipartChainParameterList.append(providers)
         return stubbedProvideRequestMultipartChainResult
     }
 }

@@ -17,7 +17,9 @@ public protocol ServiceChainProvider {
         with providers: [MetadataProvider]
     ) -> any AsyncNode<TransportURLRequest, Data>
     
-    func provideRequestMultipartChain() -> any AsyncNode<MultipartURLRequest, Json>
+    func provideRequestMultipartChain(
+        with providers: [MetadataProvider]
+    ) -> any AsyncNode<MultipartURLRequest, Json>
 }
 
 open class URLServiceChainProvider: ServiceChainProvider {
@@ -87,13 +89,15 @@ open class URLServiceChainProvider: ServiceChainProvider {
     }
     
     /// Chain for creating and sending a request, expecting a Multipart response.
-    open func provideRequestMultipartChain() -> any AsyncNode<MultipartURLRequest, Json> {
+    open func provideRequestMultipartChain(
+        with providers: [MetadataProvider]
+    ) -> any AsyncNode<MultipartURLRequest, Json> {
         let responseChain = provideResponseMultipartChain()
         let requestSenderNode = RequestSenderNode(
             rawResponseProcessor: responseChain,
             manager: session
         )
         let aborterNode = AborterNode(next: requestSenderNode, aborter: requestSenderNode)
-        return MultipartRequestCreatorNode(next: aborterNode)
+        return MultipartRequestCreatorNode(next: aborterNode, providers: providers)
     }
 }
