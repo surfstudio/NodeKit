@@ -8,4 +8,5 @@
 public enum LogType {
     case failure
     case info
+    case warning
 }
