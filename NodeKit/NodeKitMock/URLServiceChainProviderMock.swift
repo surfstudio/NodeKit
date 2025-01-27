@@ -34,13 +34,15 @@ class URLServiceChainProviderMock: URLServiceChainProvider {
         return RequestCreatorNode(next: aborterNode, providers: providers)
     }
     
-    override func provideRequestMultipartChain() -> any AsyncNode<MultipartURLRequest, Json> {
+    override func provideRequestMultipartChain(
+        with providers: [MetadataProvider]
+    ) -> any AsyncNode<MultipartURLRequest, Json> {
         let responseChain = provideResponseMultipartChain()
         let requestSenderNode = RequestSenderNode(
             rawResponseProcessor: responseChain,
             manager: NetworkMock().urlSession
         )
         let aborterNode = AborterNode(next: requestSenderNode, aborter: requestSenderNode)
-        return MultipartRequestCreatorNode(next: aborterNode)
+        return MultipartRequestCreatorNode(next: aborterNode, providers: providers)
     }
 }

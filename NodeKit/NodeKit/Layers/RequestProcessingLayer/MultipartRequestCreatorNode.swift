@@ -35,15 +35,18 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
     // MARK: - Private Properties
     
     private let multipartFormDataFactory: MultipartFormDataFactory
+    private let providers: [MetadataProvider]
 
     /// Initializer.
     ///
     /// - Parameter next: The next node for processing.
     public init(
         next: any AsyncNode<URLRequest, Output>,
+        providers: [MetadataProvider] = [],
         multipartFormDataFactory: MultipartFormDataFactory = AlamofireMultipartFormDataFactory()
     ) {
         self.next = next
+        self.providers = providers
         self.multipartFormDataFactory = multipartFormDataFactory
     }
 
@@ -61,13 +64,17 @@ open class MultipartRequestCreatorNode<Output>: AsyncNode {
             return .success(try formData.encode())
         }
         .asyncFlatMap { encodedData in
+            var mergedHeaders = data.headers
+
+            providers.map { $0.metadata() }.forEach { dict in
+                mergedHeaders.merge(dict, uniquingKeysWith: { $1 })
+            }
+
             var request = URLRequest(url: data.url)
             request.httpMethod = data.method.rawValue
-            
-            data.headers.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
-            
             request.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
             request.httpBody = encodedData
+            mergedHeaders.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
             
             return await .withCheckedCancellation {
                 await logContext.add(getLogMessage(data))
