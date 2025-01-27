@@ -23,7 +23,7 @@ open class VoidIONode: AsyncNode {
         await .withCheckedCancellation {
             await next.process(Json(), logContext: logContext).asyncFlatMap { json in
                 if !json.isEmpty {
-                    var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidIONode)
+                    var log = LogChain("", id: objectName, logType: .info, order: LogOrder.voidIONode)
                     log += "VoidIOtNode used but request have not empty response"
                     log += .lineTabDeilimeter
                     log += "\(json)"

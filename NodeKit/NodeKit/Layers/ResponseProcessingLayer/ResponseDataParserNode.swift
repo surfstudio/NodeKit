@@ -40,18 +40,15 @@ open class ResponseDataParserNode: AsyncNode {
         await .withCheckedCancellation {
             await parse(with: data, logContext: logContext)
                 .asyncFlatMap { json, logMessage in
-                    let logMsg = logViewObjectName + logMessage + .lineTabDeilimeter
-                    var log = Log(logMsg, id: objectName, order: LogOrder.responseDataParserNode)
+                    let logMsg = logMessage + .lineTabDeilimeter
+                    var log = LogChain(logMsg, id: objectName, logType: .info, order: LogOrder.responseDataParserNode)
 
                     guard let next = next else {
-                        log += "Next node is nil -> terminate chain process"
                         await logContext.add(log)
                         return .success(json)
                     }
 
                     let networkResponse = URLProcessedResponse(dataResponse: data, json: json)
-
-                    log += "Have next node \(next.objectName) -> call `process`"
 
                     await logContext.add(log)
                     await next.process(networkResponse, logContext: logContext)
@@ -116,7 +113,7 @@ open class ResponseDataParserNode: AsyncNode {
             let result = try json(from: data)
             return .success(result)
         } catch {
-            var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseDataParserNode)
+            var log = LogChain("", id: objectName, logType: .failure, order: LogOrder.responseDataParserNode)
             switch error {
             case ResponseDataParserNodeError.cantCastDesirializedDataToJson(let logMsg), 
                 ResponseDataParserNodeError.cantDeserializeJson(let logMsg):

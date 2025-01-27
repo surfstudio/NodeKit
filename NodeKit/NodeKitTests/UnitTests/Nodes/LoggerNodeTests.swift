@@ -17,7 +17,9 @@ final class LoggerNodeTests: XCTestCase {
     
     private var nextNodeMock: AsyncNodeMock<Int, Int>!
     private var logContextMock: LoggingContextMock!
-    
+    private var loggingProxyMock: LoggingProxyMock!
+    private var urlProviderMock: URLRouteProviderMock!
+
     // MARK: - Sut
     
     private var sut: LoggerNode<Int, Int>!
@@ -28,7 +30,8 @@ final class LoggerNodeTests: XCTestCase {
         super.setUp()
         nextNodeMock = AsyncNodeMock()
         logContextMock = LoggingContextMock()
-        sut = LoggerNode(next: nextNodeMock)
+        loggingProxyMock = LoggingProxyMock()
+        urlProviderMock = URLRouteProviderMock()
     }
     
     override func tearDown() {
@@ -44,6 +47,7 @@ final class LoggerNodeTests: XCTestCase {
         // given
         
         let expectedInput = 00942
+        makeSutWithoutLoggingProxy(method: .get)
         nextNodeMock.stubbedAsyncProccessResult = .success(1)
         
         // when
@@ -62,6 +66,7 @@ final class LoggerNodeTests: XCTestCase {
         // given
         
         let expectedResult = 001238
+        makeSutWithoutLoggingProxy(method: .get)
         nextNodeMock.stubbedAsyncProccessResult = .success(expectedResult)
         
         // when
@@ -78,6 +83,7 @@ final class LoggerNodeTests: XCTestCase {
     func testAsyncProccess_whenNextNodeReturnsFailure_thenFailureReceived() async throws {
         // given
         
+        makeSutWithoutLoggingProxy(method: .get)
         nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.firstError)
         
         // when
@@ -89,5 +95,67 @@ final class LoggerNodeTests: XCTestCase {
         let error = try XCTUnwrap(result.error as? MockError)
         
         XCTAssertEqual(error, .firstError)
+    }
+
+    func testAsyncProcess_thenRequestParamsPassed() async throws {
+        // given
+
+        makeSutWithoutLoggingProxy(method: .get)
+        nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.firstError)
+
+        // when
+
+        let result = await sut.process(1, logContext: logContextMock)
+
+        // then
+
+        let invokedSet = await logContextMock.invokedSet
+        let invokedSetCount = await logContextMock.invokedSetCount
+        let invokedSetParams = await logContextMock.invokedSetParameter
+        let invokedSetURLProvider = try XCTUnwrap(invokedSetParams?.1 as? URLRouteProviderMock)
+
+        XCTAssertTrue(invokedSet)
+        XCTAssertEqual(invokedSetCount, 1)
+        XCTAssertEqual(invokedSetParams?.0, .get)
+        XCTAssert(invokedSetURLProvider === urlProviderMock)
+    }
+
+    func testAsyncProcess_thenCompleteCalled() async {
+        // given
+
+        makeSutWithoutLoggingProxy(method: .get)
+        nextNodeMock.stubbedAsyncProccessResult = .failure(MockError.firstError)
+
+        // when
+
+        let result = await sut.process(1, logContext: logContextMock)
+
+        // then
+
+        let invokedComplete = await logContextMock.invokedComplete
+        let invokedCompleteCount = await logContextMock.invokedCompleteCount
+
+        XCTAssertTrue(invokedComplete)
+        XCTAssertEqual(invokedCompleteCount, 1)
+    }
+
+    // MARK: - Private Methods
+
+    private func makeSutWithoutLoggingProxy(method: NodeKit.Method) {
+        sut = LoggerNode(
+            next: nextNodeMock,
+            method: method,
+            route: urlProviderMock,
+            loggingProxy: nil
+        )
+    }
+
+    private func makeSutWithLoggingProxy(method: NodeKit.Method) {
+        sut = LoggerNode(
+            next: nextNodeMock,
+            method: method,
+            route: urlProviderMock,
+            loggingProxy: loggingProxyMock
+        )
     }
 }

@@ -52,9 +52,10 @@ open class DTOMapperNode<Input, Output>: AsyncNode where Input: RawEncodable, Ou
     }
 
     private func log(error: Error, logContext: LoggingContextProtocol) async {
-        let log = Log(
-            logViewObjectName + "\(error)",
+        let log = LogChain(
+            "\(error)",
             id: objectName,
+            logType: .failure,
             order: LogOrder.dtoMapperNode
         )
         await logContext.add(log)

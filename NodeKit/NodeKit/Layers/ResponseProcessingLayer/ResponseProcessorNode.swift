@@ -36,13 +36,14 @@ open class ResponseProcessorNode<Type>: AsyncNode {
         logContext: LoggingContextProtocol
     ) async -> NodeResult<Type> {
         await .withCheckedCancellation {
-            var log = Log(logViewObjectName, id: objectName, order: LogOrder.responseProcessorNode)
+            var log = LogChain("", id: objectName, logType: .info, order: LogOrder.responseProcessorNode)
 
             switch data.result {
             case .failure(let error):
-                log += "Catch URLSeesions error: \(error)" + .lineTabDeilimeter
+                log += "Catch URLSession error: \(error)" + .lineTabDeilimeter
 
                 guard let urlResponse = data.urlResponse, let urlRequest = data.urlRequest else {
+                    log.update(logType: .failure)
                     await logContext.add(log)
                     return .failure(error)
                 }
@@ -69,6 +70,7 @@ open class ResponseProcessorNode<Type>: AsyncNode {
                     let urlResponse = data.urlResponse,
                     let urlRequest = data.urlRequest
                 else {
+                    log.update(logType: .failure)
                     log += "But cant extract parameters -> terminate with error"
                     await logContext.add(log)
                     return .failure(ResponseProcessorNodeError.rawResponseNotHaveMetaData)

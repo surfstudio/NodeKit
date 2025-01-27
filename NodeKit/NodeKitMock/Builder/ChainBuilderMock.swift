@@ -63,7 +63,20 @@ open class ChainBuilderMock<Route: URLRouteProvider>: ChainConfigBuilderMock, Ch
         invokedSetMetadataParameterList.append(metadata)
         return self
     }
-    
+
+    public var invokedSetLogProxy = false
+    public var invokedSetLogProxyCount = 0
+    public var invokedSetLogProxyParameter: LoggingProxy?
+    public var invokedSetLogProxyParameterList: [LoggingProxy] = []
+
+    public func set(loggingProxy: any LoggingProxy) -> Self {
+        invokedSetLogProxy = true
+        invokedSetLogProxyCount += 1
+        invokedSetLogProxyParameter = loggingProxy
+        invokedSetLogProxyParameterList.append(loggingProxy)
+        return self
+    }
+
     public var invokedBuildWithInputOutput = false
     public var invokedBuildWithInputOutputCount = 0
     public var stubbedBuildWithInputOutputResult: Any!

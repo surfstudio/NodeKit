@@ -27,7 +27,7 @@ open class VoidOutputNode<Input>: AsyncNode where Input: DTOEncodable, Input.DTO
             await .withCheckedCancellation {
                 await next.process(raw, logContext: logContext).asyncFlatMap { json in
                     if !json.isEmpty {
-                        var log = Log(logViewObjectName, id: objectName, order: LogOrder.voidOutputNode)
+                        var log = LogChain("", id: objectName, logType: .info, order: LogOrder.voidOutputNode)
                         log += "VoidOutputNode used but request have not empty response"
                         log += .lineTabDeilimeter
                         log += "\(json)"

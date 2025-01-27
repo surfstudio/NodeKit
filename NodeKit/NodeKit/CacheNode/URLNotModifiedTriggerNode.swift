@@ -58,19 +58,21 @@ open class URLNotModifiedTriggerNode: AsyncNode {
 
     // MARK: - Private Methods
 
-    private func makeErrorLog(code: Int) -> Log {
+    private func makeErrorLog(code: Int) -> LogChain {
         let msg = "Response status code = \(code) != 304 -> skip cache reading"
-        return Log(
-            logViewObjectName + msg,
-            id: objectName
+        return LogChain(
+            msg,
+            id: objectName, 
+            logType: .failure
         )
     }
 
-    private func makeSuccessLog() -> Log {
+    private func makeSuccessLog() -> LogChain {
         let msg = "Response status code == 304 -> read cache"
-        return Log(
-            logViewObjectName + msg,
-            id: objectName
+        return LogChain(
+            msg,
+            id: objectName,
+            logType: .failure
         )
     }
 }

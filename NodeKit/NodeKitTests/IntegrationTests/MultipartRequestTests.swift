@@ -109,7 +109,7 @@ final class MultipartRequestTests: XCTestCase {
     func testFileSendsCorrectly() async throws {
         // given
         
-        let url = Bundle(for: type(of: self)).url(forResource: "LICENSE", withExtension: "txt")!
+        let url = Bundle(for: type(of: self)).url(forResource: "Info", withExtension: "plist")!
         let model = MultipartModel(payloadModel: TestData(data: [:]) ,files: [
             "file": .url(url: url)
         ])

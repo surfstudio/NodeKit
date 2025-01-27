@@ -37,7 +37,7 @@ class LoggerStreamNode<Input, Output>: AsyncStreamNode {
                 await logContext.log?.flatMap()
                     .filter { !filters.contains($0.id) }
                     .sorted(by: { $0.order < $1.order })
-                    .forEach { print($0.description) }
+                    .forEach { print($0.printString) }
                 continuation.finish()
             }
             continuation.onTermination = { _ in

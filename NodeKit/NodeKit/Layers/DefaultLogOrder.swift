@@ -23,6 +23,7 @@ public enum LogOrder {
     public static let responseHttpErrorProcessorNode = 57.0
 
     public static let responseDataParserNode = 59.0
-    
+
     public static let dtoMapperNode = 100.0
+    public static let loggerNode = 200.0
 }

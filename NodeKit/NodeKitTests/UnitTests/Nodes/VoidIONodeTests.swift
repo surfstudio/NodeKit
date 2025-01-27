@@ -87,8 +87,13 @@ final class VoidIONodeTest: XCTestCase {
         // given
         
         let json: Json = ["TestKey": "TestValue"]
-        var expectedLog  = Log(sut.logViewObjectName, id: sut.objectName, order: LogOrder.voidIONode)
-        
+        var expectedLog  = LogChain(
+            "",
+            id: sut.objectName,
+            logType: .info,
+            order: LogOrder.voidIONode
+        )
+
         expectedLog += "VoidIOtNode used but request have not empty response" + .lineTabDeilimeter
         expectedLog += "\(json)"
         

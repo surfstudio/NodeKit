@@ -8,19 +8,37 @@
 
 import Foundation
 
-public protocol LoggingContextProtocol: Actor {
+public protocol LoggingContextProtocol: LogSession {
     /// Root log.
-    var log: Logable? { get }
+    var log: LogableChain? { get }
 
     /// Adds a log message to the context.
     /// - Parameter log: Log message.
-    func add(_ log: Logable?)
+    func add(_ log: LogableChain?)
+
+    /// Sets method and route to the log context.
+    /// - Parameters:
+    ///   - method: Request method.
+    ///   - route: URL route.
+    func set(method: Method?, route: URLRouteProvider?)
+
+    /// Notify subscriptions about completion.
+    func complete()
 }
 
 public actor LoggingContext: LoggingContextProtocol {
 
+    /// Request Method
+    public private(set) var method: Method?
+
+    /// Request Route
+    public private(set) var route: URLRouteProvider?
+
     /// Root log.
-    public private(set) var log: Logable?
+    public private(set) var log: LogableChain?
+
+    /// Log subscriptions.
+    private var logSubscriptions: [([Log]) -> Void] = []
 
     /// Adds a log message to the context.
     /// If the context did not have a root log, the passed log will become the root.
@@ -28,7 +46,7 @@ public actor LoggingContext: LoggingContextProtocol {
     /// If there was a root log and it had a next log, then the passed log will be inserted between them.
     ///
     /// - Parameter log: Log message.
-    public func add(_ log: Logable?) {
+    public func add(_ log: LogableChain?) {
         guard var currentLog = self.log else {
             self.log = log
             return
@@ -43,7 +61,30 @@ public actor LoggingContext: LoggingContextProtocol {
         }
 
         self.log = currentLog
-        return
+    }
+
+    /// Sets method and route to the log context.
+    /// - Parameters:
+    ///   - method: Request method.
+    ///   - route: URL route.
+    public func set(method: Method?, route: URLRouteProvider?) {
+        self.method = method
+        self.route = route
+    }
+
+    /// Add subscriptions for logs.
+    public func subscribe(_ subscription: @escaping ([Log]) -> Void) {
+        logSubscriptions.append(subscription)
+    }
+
+    /// Notify subscriptions about completion.
+    public func complete() {
+        guard let logs = log?.flatMap().sorted(by: { $0.order < $1.order }) else {
+            return
+        }
+        logSubscriptions.forEach { subscription in
+            subscription(logs)
+        }
     }
 
 }

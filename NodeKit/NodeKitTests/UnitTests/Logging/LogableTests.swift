@@ -17,10 +17,10 @@ final class LogableTests: XCTestCase {
     func testFlatMap_thenCorrectResultReceived() throws {
         // given
         
-        var firstLog = Log("First message", id: "1", delimeter: "/", order: 0)
-        var secondLog = Log("Second message", id: "1", delimeter: "/", order: 0)
-        let thirdLog = Log("Third message", id: "1", delimeter: "/", order: 0)
-        
+        var firstLog = LogChain("First message", id: "1", logType: .info, delimeter: "/", order: 0)
+        var secondLog = LogChain("Second message", id: "1", logType: .failure, delimeter: "/", order: 0)
+        let thirdLog = LogChain("Third message", id: "1", logType: .info, delimeter: "/", order: 0)
+
         secondLog.next = thirdLog
         firstLog.next = secondLog
         

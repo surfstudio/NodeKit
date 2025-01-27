@@ -22,7 +22,8 @@ public protocol ChainBuilder<Route> {
     func encode(as encoding: ParametersEncoding) -> Self
     func add(provider: MetadataProvider) -> Self
     func set(metadata: [String: String]) -> Self
-    
+    func set(loggingProxy: LoggingProxy) -> Self
+
     func build<I: DTOEncodable, O: DTODecodable>() -> AnyAsyncNode<I, O>
     where I.DTO.Raw == Json, O.DTO.Raw == Json
     
@@ -72,6 +73,9 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
 
     /// Route to the remote method (specifically, the URL endpoint).
     public var route: Route?
+
+    /// Logging proxy.
+    open var loggingProxy: LoggingProxy?
 
     
     // MARK: - Initialization
@@ -179,15 +183,25 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
         self.metadata = metadata
         return self
     }
-    
+
+    open func set(loggingProxy: LoggingProxy) -> Self {
+        self.loggingProxy = loggingProxy
+        return self
+    }
+
     open func build<I: DTOEncodable, O: DTODecodable>() -> AnyAsyncNode<I, O>
     where I.DTO.Raw == Json, O.DTO.Raw == Json {
         let requestChain = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
         let metadataConnectorChain = metadataConnectorChain(root: requestChain)
         let dtoConverterNode = DTOMapperNode<I.DTO, O.DTO>(next: metadataConnectorChain)
         let modelInputNode = ModelInputNode<I, O>(next: dtoConverterNode)
-        return LoggerNode(next: modelInputNode, filters: logFilter)
-            .eraseToAnyNode()
+        return LoggerNode(
+            next: modelInputNode,
+            method: method,
+            route: route,
+            loggingProxy: loggingProxy,
+            filters: logFilter
+        ).eraseToAnyNode()
     }
     
     open func build<O: DTODecodable>() -> AnyAsyncNode<Void, O>
@@ -197,24 +211,39 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
         let dtoConverterNode = DTOMapperNode<Json, O.DTO>(next: metadataConnectorChain)
         let modelInputNode = ModelInputNode<Json, O>(next: dtoConverterNode)
         let voidNode = VoidInputNode(next: modelInputNode)
-        return LoggerNode(next: voidNode, filters: logFilter)
-            .eraseToAnyNode()
+        return LoggerNode(
+            next: voidNode,
+            method: method,
+            route: route,
+            loggingProxy: loggingProxy,
+            filters: logFilter
+        ).eraseToAnyNode()
     }
     
    open func build<I: DTOEncodable>() -> AnyAsyncNode<I, Void> where I.DTO.Raw == Json {
         let requestChain = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
         let metadataConnectorChain = metadataConnectorChain(root: requestChain)
         let voidOutputNode = VoidOutputNode<I>(next: metadataConnectorChain)
-        return LoggerNode(next: voidOutputNode, filters: logFilter)
-           .eraseToAnyNode()
+       return LoggerNode(
+           next: voidOutputNode,
+           method: method,
+           route: route,
+           loggingProxy: loggingProxy,
+           filters: logFilter
+       ).eraseToAnyNode()
     }
     
     open func build() -> AnyAsyncNode<Void, Void> {
         let requestChain = serviceChainProvider.provideRequestJsonChain(with: headersProviders)
         let metadataConnectorChain = metadataConnectorChain(root: requestChain)
         let voidOutputNode = VoidIONode(next: metadataConnectorChain)
-        return LoggerNode(next: voidOutputNode, filters: logFilter)
-            .eraseToAnyNode()
+        return LoggerNode(
+            next: voidOutputNode,
+            method: method,
+            route: route,
+            loggingProxy: loggingProxy,
+            filters: logFilter
+        ).eraseToAnyNode()
     }
     
     open func build<I: DTOEncodable, O: DTODecodable>() -> AnyAsyncNode<I, O>
@@ -223,16 +252,26 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
         let metadataConnectorChain = metadataConnectorChain(root: requestChain)
         let rawEncoderNode = DTOMapperNode<I.DTO,O.DTO>(next: metadataConnectorChain)
         let dtoEncoderNode = ModelInputNode<I, O>(next: rawEncoderNode)
-        return LoggerNode(next: dtoEncoderNode, filters: logFilter)
-            .eraseToAnyNode()
+        return LoggerNode(
+            next: dtoEncoderNode,
+            method: method,
+            route: route,
+            loggingProxy: loggingProxy,
+            filters: logFilter
+        ).eraseToAnyNode()
     }
     
     open func buildDataLoading() -> AnyAsyncNode<Void, Data> {
         let requestChain = serviceChainProvider.provideRequestDataChain(with: headersProviders)
         let metadataConnectorChain = metadataConnectorChain(root: requestChain)
         let voidInputNode = VoidInputNode(next: metadataConnectorChain)
-        return LoggerNode(next: voidInputNode, filters: logFilter)
-            .eraseToAnyNode()
+        return LoggerNode(
+            next: voidInputNode,
+            method: method,
+            route: route,
+            loggingProxy: loggingProxy,
+            filters: logFilter
+        ).eraseToAnyNode()
     }
     
     open func buildDataLoading<I: DTOEncodable>() -> AnyAsyncNode<I, Data> where I.DTO.Raw == Json {
@@ -240,7 +279,12 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
         let metadataConnectorChain = metadataConnectorChain(root: requestChain)
         let rawEncoderNode = RawEncoderNode<I.DTO, Data>(next: metadataConnectorChain)
         let dtoEncoderNode = DTOEncoderNode<I, Data>(rawEncodable: rawEncoderNode)
-        return LoggerNode(next: dtoEncoderNode, filters: logFilter)
-            .eraseToAnyNode()
+        return LoggerNode(
+            next: dtoEncoderNode,
+            method: method,
+            route: route,
+            loggingProxy: loggingProxy,
+            filters: logFilter
+        ).eraseToAnyNode()
     }
 }

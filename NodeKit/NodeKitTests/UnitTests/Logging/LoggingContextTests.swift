@@ -43,14 +43,14 @@ final class LoggingContextTests: XCTestCase {
     func testLog_whenOneItemAppending_thenResultIsAppendedItem() async throws {
         // given
 
-        let testLog = Log("Test message", id: "Test id")
+        let testLog = LogChain("Test message", id: "Test id", logType: .failure)
 
         // when
 
         await sut.add(testLog)
 
         let log = await sut.log
-        let result = try XCTUnwrap(log as? Log)
+        let result = try XCTUnwrap(log as? LogChain)
 
         // then
 
@@ -60,8 +60,8 @@ final class LoggingContextTests: XCTestCase {
     func testLog_whenTwoItemsAppending_thenResultIsFirstItemAndNextIsSecondItem() async throws {
         // given
 
-        let firstLog = Log("Test first message", id: "Test first id")
-        let secondLog = Log("Test second message", id: "Test second id")
+        let firstLog = LogChain("Test first message", id: "Test first id", logType: .failure)
+        let secondLog = LogChain("Test second message", id: "Test second id", logType: .info)
 
         var expectedLog = firstLog
         expectedLog.next = secondLog
@@ -72,8 +72,8 @@ final class LoggingContextTests: XCTestCase {
         await sut.add(secondLog)
 
         let log = await sut.log
-        let result = try XCTUnwrap(log as? Log)
-        let resultNext = try XCTUnwrap(result.next as? Log)
+        let result = try XCTUnwrap(log as? LogChain)
+        let resultNext = try XCTUnwrap(result.next as? LogChain)
 
         // then
 
@@ -87,9 +87,9 @@ final class LoggingContextTests: XCTestCase {
     func testLog_whenThreeItemsAppending_thenResultIsFirstItemAndNextIsTree() async throws {
         // given
 
-        let firstLog = Log("Test first message", id: "Test first id")
-        let secondLog = Log("Test second message", id: "Test second id")
-        let thirdLog = Log("Test third message", id: "Test third id")
+        let firstLog = LogChain("Test first message", id: "Test first id", logType: .info)
+        let secondLog = LogChain("Test second message", id: "Test second id", logType: .failure)
+        let thirdLog = LogChain("Test third message", id: "Test third id", logType: .info)
 
         var expectedLog = firstLog
         var expectedThirdLog = thirdLog
@@ -104,9 +104,9 @@ final class LoggingContextTests: XCTestCase {
         await sut.add(thirdLog)
 
         let log = await sut.log
-        let result = try XCTUnwrap((log) as? Log)
-        let firstNextResult = try XCTUnwrap(result.next as? Log)
-        let secondNextResult = try XCTUnwrap(firstNextResult.next as? Log)
+        let result = try XCTUnwrap((log) as? LogChain)
+        let firstNextResult = try XCTUnwrap(result.next as? LogChain)
+        let secondNextResult = try XCTUnwrap(firstNextResult.next as? LogChain)
 
         // then
 
@@ -119,10 +119,10 @@ final class LoggingContextTests: XCTestCase {
     func testLog_whenFourItemsAppending_thenResultIsFirstItemAndNextIsTree() async throws {
         // given
 
-        let firstLog = Log("Test first message", id: "Test first id")
-        let secondLog = Log("Test second message", id: "Test second id")
-        let thirdLog = Log("Test third message", id: "Test third id")
-        let fourthLog = Log("Test fourth message", id: "Test fourth id")
+        let firstLog = LogChain("Test first message", id: "Test first id", logType: .failure)
+        let secondLog = LogChain("Test second message", id: "Test second id", logType: .failure)
+        let thirdLog = LogChain("Test third message", id: "Test third id", logType: .info)
+        let fourthLog = LogChain("Test fourth message", id: "Test fourth id", logType: .info)
 
         var expectedLog = firstLog
         var expectedFourthLog = fourthLog
@@ -140,10 +140,10 @@ final class LoggingContextTests: XCTestCase {
         await sut.add(fourthLog)
 
         let log = await sut.log
-        let result = try XCTUnwrap(log as? Log)
-        let firstNextResult = try XCTUnwrap(result.next as? Log)
-        let secondNextResult = try XCTUnwrap(firstNextResult.next as? Log)
-        let thirdNextResult = try XCTUnwrap(secondNextResult.next as? Log)
+        let result = try XCTUnwrap(log as? LogChain)
+        let firstNextResult = try XCTUnwrap(result.next as? LogChain)
+        let secondNextResult = try XCTUnwrap(firstNextResult.next as? LogChain)
+        let thirdNextResult = try XCTUnwrap(secondNextResult.next as? LogChain)
 
         // then
 
@@ -152,6 +152,58 @@ final class LoggingContextTests: XCTestCase {
         XCTAssertEqual(secondNextResult, expectedThirdLog)
         XCTAssertEqual(thirdNextResult, secondLog)
         XCTAssertNil(thirdNextResult.next)
+    }
+
+    func testLog_withLogSubscription() async throws {
+        // given
+
+        let firstLog = LogChain("Test first message", id: "Test first id", logType: .failure)
+        let secondLog = LogChain("Test second message", id: "Test second id", logType: .failure)
+        let thirdLog = LogChain("Test third message", id: "Test third id", logType: .info)
+        let fourthLog = LogChain("Test fourth message", id: "Test fourth id", logType: .info)
+
+        var logs: [[Log]] = []
+
+        await sut.subscribe {
+            logs.append($0)
+        }
+
+        // when
+
+        await sut.add(firstLog)
+        await sut.add(secondLog)
+        await sut.add(thirdLog)
+        await sut.add(fourthLog)
+        await sut.complete()
+
+        // then
+
+        let receivedLogs = try logs.flatMap {
+            try XCTUnwrap($0 as? [LogChain])
+        }
+        XCTAssertEqual(receivedLogs, [firstLog, fourthLog, thirdLog, secondLog])
+    }
+
+    func testLog_withLogSubscription_whenLogIsNil() async {
+        // given
+
+        var logs: [[Log]] = []
+
+        await sut.subscribe {
+            logs.append($0)
+        }
+
+        // when
+
+        await sut.add(nil)
+        await sut.add(nil)
+        await sut.add(nil)
+        await sut.add(nil)
+        await sut.complete()
+
+        // then
+
+        XCTAssert(logs.isEmpty)
     }
 
 }
