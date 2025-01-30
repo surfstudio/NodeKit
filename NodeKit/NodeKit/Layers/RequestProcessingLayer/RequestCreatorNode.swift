@@ -42,12 +42,20 @@ open class RequestCreatorNode<Output>: AsyncNode {
     }
 
     private func getLogMessage(_ data: TransportURLRequest) -> LogChain {
-        var message = "input: \(type(of: data))\n\t"
-        message += "method: \(data.method.rawValue)\n\t"
-        message += "url: \(data.url.absoluteString)\n\t"
-        message += "headers: \(data.headers)\n\t"
-        message += "raw: \(String(describing: data.raw))\n\t"
+        var message = "input: \(type(of: data))\n"
+        message += "method: \(data.method.rawValue)\n"
+        message += "url: \(data.url.absoluteString)\n"
+        message += "headers: \(data.headers)\n"
+        message += "raw: \(serilizeDataForLog(data: data.raw))\n"
 
         return LogChain(message, id: self.objectName, logType: .info, order: LogOrder.requestCreatorNode)
     }
+
+    private func serilizeDataForLog(data: Data?) -> String {
+        guard let data = data, let parsed = String(data: data, encoding: .utf8) else {
+            return String(describing: data)
+        }
+        return parsed
+    }
+
 }

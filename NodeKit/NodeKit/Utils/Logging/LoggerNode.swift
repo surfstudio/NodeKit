@@ -60,7 +60,7 @@ private extension LoggerNode {
 
     func prepare(logContext: LoggingContextProtocol) async {
         await logContext.set(method: method, route: route)
-        loggingProxy?.handle(session: logContext)
+        await loggingProxy?.handle(session: logContext)
     }
 
     func set(error: Error, in logContext: LoggingContextProtocol) async {

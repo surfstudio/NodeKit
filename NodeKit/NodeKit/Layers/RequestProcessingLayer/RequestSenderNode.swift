@@ -54,7 +54,7 @@ open class RequestSenderNode<Type>: AsyncNode, Aborter {
 
             async let nodeResponse = nodeResponse(request, logContext: logContext)
             
-            log += "Request sended!" + .lineTabDeilimeter
+            log += "Request is sent!" + .lineTabDeilimeter
 
             let response = await nodeResponse
             

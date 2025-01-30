@@ -23,7 +23,7 @@ public protocol LoggingContextProtocol: LogSession {
     func set(method: Method?, route: URLRouteProvider?)
 
     /// Notify subscriptions about completion.
-    func complete()
+    func complete() async
 }
 
 public actor LoggingContext: LoggingContextProtocol {
@@ -38,12 +38,7 @@ public actor LoggingContext: LoggingContextProtocol {
     public private(set) var log: LogableChain?
 
     /// Log subscriptions.
-    private var logSubscriptions: [([Log]) -> Void] = []
-    private var isCompleted = false
-
-    private var logs: [Log]? {
-        return log?.flatMap().sorted(by: { $0.order < $1.order })
-    }
+    private var logSubscriptions: [([Log]) async -> Void] = []
 
     /// Adds a log message to the context.
     /// If the context did not have a root log, the passed log will become the root.
@@ -78,40 +73,18 @@ public actor LoggingContext: LoggingContextProtocol {
     }
 
     /// Add subscriptions for logs.
-    public func subscribe(_ subscription: @escaping ([Log]) -> Void) {
-        guard isCompleted else {
-            logSubscriptions.append(subscription)
-            return
-        }
-        notify(subscription: subscription)
+    public func subscribe(_ subscription: @escaping ([Log]) async -> Void) {
+        logSubscriptions.append(subscription)
     }
 
     /// Notify subscriptions about completion.
-    public func complete() {
-        isCompleted = true
-        notifySubscriptions()
-    }
-
-}
-
-// MARK: - Private Methods
-
-private extension LoggingContext {
-
-    func notifySubscriptions() {
-        guard let logs = logs, !logs.isEmpty else {
+    public func complete() async {
+        guard let logs = log?.flatMap().sorted(by: { $0.order < $1.order }), !logs.isEmpty else {
             return
         }
-        logSubscriptions.forEach { subscription in
-            subscription(logs)
+        for subscription in logSubscriptions {
+            await subscription(logs)
         }
-    }
-
-    func notify(subscription: @escaping ([Log]) -> Void) {
-        guard let logs = logs, !logs.isEmpty else {
-            return
-        }
-        subscription(logs)
     }
 
 }

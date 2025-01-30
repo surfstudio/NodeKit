@@ -6,5 +6,5 @@
 //
 
 public protocol LoggingProxy {
-    func handle(session: LogSession)
+    func handle(session: LogSession) async
 }

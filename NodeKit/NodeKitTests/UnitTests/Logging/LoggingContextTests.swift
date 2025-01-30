@@ -184,36 +184,6 @@ final class LoggingContextTests: XCTestCase {
         XCTAssertEqual(receivedLogs, [firstLog, fourthLog, thirdLog, secondLog])
     }
 
-    func testLog_withLogSubscription_whenSubscibeAfterComplete() async throws {
-        // given
-
-        let firstLog = LogChain("Test first message", id: "Test first id", logType: .failure)
-        let secondLog = LogChain("Test second message", id: "Test second id", logType: .failure)
-        let thirdLog = LogChain("Test third message", id: "Test third id", logType: .info)
-        let fourthLog = LogChain("Test fourth message", id: "Test fourth id", logType: .info)
-
-        var logs: [[Log]] = []
-
-        // when
-
-        await sut.add(firstLog)
-        await sut.add(secondLog)
-        await sut.add(thirdLog)
-        await sut.add(fourthLog)
-        await sut.complete()
-
-        await sut.subscribe {
-            logs.append($0)
-        }
-
-        // then
-
-        let receivedLogs = try logs.flatMap {
-            try XCTUnwrap($0 as? [LogChain])
-        }
-        XCTAssertEqual(receivedLogs, [firstLog, fourthLog, thirdLog, secondLog])
-    }
-
     func testLog_withLogSubscription_whenLogIsNil() async {
         // given
 

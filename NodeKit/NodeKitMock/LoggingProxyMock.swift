@@ -14,7 +14,7 @@ public class LoggingProxyMock: LoggingProxy {
     public var invokedHandleParameter: LogSession?
     public var invokedHandleParameterList: [LogSession] = []
 
-    public func handle(session: LogSession) {
+    public func handle(session: LogSession) async {
         invokedHandle = true
         invokedHandleCount += 1
         invokedHandleParameter = session

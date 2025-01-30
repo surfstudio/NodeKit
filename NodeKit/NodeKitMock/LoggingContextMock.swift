@@ -42,10 +42,10 @@ public actor LoggingContextMock: LoggingContextProtocol {
 
     public var invokedSubscribe = false
     public var invokedSubscribeCount = 0
-    public var invokedSubscribeParameter: (([Log]) -> Void)?
-    public var invokedSubscribeParameterList: [([Log]) -> Void] = []
+    public var invokedSubscribeParameter: (([Log]) async -> Void)?
+    public var invokedSubscribeParameterList: [([Log]) async -> Void] = []
 
-    public func subscribe(_ subscription: @escaping ([Log]) -> Void) {
+    public func subscribe(_ subscription: @escaping ([Log]) async -> Void) {
         invokedSubscribe = true
         invokedSubscribeCount += 1
         invokedSubscribeParameter = subscription
@@ -55,7 +55,7 @@ public actor LoggingContextMock: LoggingContextProtocol {
     public var invokedComplete = false
     public var invokedCompleteCount = 0
 
-    public func complete() {
+    public func complete() async {
         invokedComplete = true
         invokedCompleteCount += 1
     }

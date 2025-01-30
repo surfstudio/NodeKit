@@ -12,5 +12,5 @@ public protocol LogSession: Actor {
     /// Request Route
     var route: URLRouteProvider? { get }
 
-    func subscribe(_ subscription: @escaping ([Log]) -> Void)
+    func subscribe(_ subscription: @escaping ([Log]) async -> Void)
 }
