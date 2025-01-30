@@ -39,6 +39,11 @@ public actor LoggingContext: LoggingContextProtocol {
 
     /// Log subscriptions.
     private var logSubscriptions: [([Log]) -> Void] = []
+    private var isCompleted = false
+
+    private var logs: [Log]? {
+        return log?.flatMap().sorted(by: { $0.order < $1.order })
+    }
 
     /// Adds a log message to the context.
     /// If the context did not have a root log, the passed log will become the root.
@@ -74,17 +79,39 @@ public actor LoggingContext: LoggingContextProtocol {
 
     /// Add subscriptions for logs.
     public func subscribe(_ subscription: @escaping ([Log]) -> Void) {
-        logSubscriptions.append(subscription)
+        guard isCompleted else {
+            logSubscriptions.append(subscription)
+            return
+        }
+        notify(subscription: subscription)
     }
 
     /// Notify subscriptions about completion.
     public func complete() {
-        guard let logs = log?.flatMap().sorted(by: { $0.order < $1.order }) else {
+        isCompleted = true
+        notifySubscriptions()
+    }
+
+}
+
+// MARK: - Private Methods
+
+private extension LoggingContext {
+
+    func notifySubscriptions() {
+        guard let logs = logs, !logs.isEmpty else {
             return
         }
         logSubscriptions.forEach { subscription in
             subscription(logs)
         }
+    }
+
+    func notify(subscription: @escaping ([Log]) -> Void) {
+        guard let logs = logs, !logs.isEmpty else {
+            return
+        }
+        subscription(logs)
     }
 
 }
