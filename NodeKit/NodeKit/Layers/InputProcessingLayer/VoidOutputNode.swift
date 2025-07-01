@@ -12,7 +12,7 @@ open class VoidOutputNode<Input>: AsyncNode where Input: DTOEncodable, Input.DTO
 
     let next: any AsyncNode<Json, Json>
 
-    init(next: some AsyncNode<Json, Json>) {
+    public init(next: some AsyncNode<Json, Json>) {
         self.next = next
     }
 
