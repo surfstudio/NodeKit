@@ -41,7 +41,7 @@ open class ResponseDataParserNode: AsyncNode {
             await parse(with: data, logContext: logContext)
                 .asyncFlatMap { json, logMessage in
                     let logMsg = logMessage + .lineTabDeilimeter
-                    var log = LogChain(logMsg, id: objectName, logType: .info, order: LogOrder.responseDataParserNode)
+                    let log = LogChain(logMsg, id: objectName, logType: .info, order: LogOrder.responseDataParserNode)
 
                     guard let next = next else {
                         await logContext.add(log)
