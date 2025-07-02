@@ -114,7 +114,7 @@ open class URLChainBuilder<Route: URLRouteProvider>: ChainConfigBuilder, ChainBu
     /// - Parameter root: The chain to which nodes will be added
     open func metadataConnectorChain<O>(
         root: any AsyncNode<TransportURLRequest, O>
-    ) -> some AsyncNode<Json, O> {
+    ) -> any AsyncNode<Json, O> {
         let urlRequestEncodingNode = URLJsonRequestEncodingNode(next: root)
         let urlRequestTrasformatorNode = URLRequestTrasformatorNode(next: urlRequestEncodingNode, method: method)
         let requestEncoderNode = RequestEncoderNode(next: urlRequestTrasformatorNode, encoding: encoding)

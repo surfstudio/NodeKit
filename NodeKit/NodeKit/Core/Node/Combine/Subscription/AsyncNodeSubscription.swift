@@ -8,6 +8,7 @@
 
 /// Combine subscription for ``AsyncNode``.
 /// Contains base implementation, inheriting from `BaseSubscription`.
+/// - Warning: There is small delay between `subscriber.receive(_ input` and `subscriber.receive(completion:` to make sure that input will be published in publisher before completion.
 final class AsyncNodeSubscription<Node: AsyncNode, S: NodeSubscriber<Node>>:
     BaseSubscription<AsyncNodeResultPublisher<Node>, S> {
     
@@ -30,6 +31,7 @@ final class AsyncNodeSubscription<Node: AsyncNode, S: NodeSubscriber<Node>>:
         return Task {
             let result = await node.process(input, logContext: logContext)
             _ = subscriber.receive(result)
+            try? await Task.sleep(nanoseconds: 1_000_000)
             subscriber.receive(completion: .finished)
         }
     }
